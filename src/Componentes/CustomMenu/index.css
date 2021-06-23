@@ -1,0 +1,27 @@
+.nav-container {
+   display: flex;
+   flex-direction: column;
+}
+
+.main-nav {
+    background-color: #001a71ff;
+}
+
+@media (min-width: 768px) {
+    .navbar-expand-md .navbar-nav .nav-link {
+        padding-right: 1.5rem !important;
+        padding-left: 1.5rem !important;
+    }
+}
+
+.nav-dropdown a {
+    color: black !important;
+    border-right: 1px solid rgba(0, 0, 0, .2);
+}
+
+#secondary-nav {
+   border-top: 1px solid rgba(0, 0, 0, .2);
+   border-bottom: 3px solid rgba(0, 0, 0, .2);
+   background-color: #f8f9fa !important;
+   margin-bottom: 3%;
+}

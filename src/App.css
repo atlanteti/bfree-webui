@@ -1,0 +1,23 @@
+.app-container{
+   display: flex;
+}
+
+.form-container {
+   display: flex;
+   flex: 1;
+   padding: 1rem;
+}
+
+@media only screen and (max-width: 766px) {
+   .form-container{
+      margin-left: 0px;
+      padding-top: 7rem;
+   }
+}
+ 
+ /* desktop */
+@media only screen and (min-width: 767px) {
+   .form-container{
+      margin-left: 260px;
+   }
+}
