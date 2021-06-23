@@ -4,12 +4,16 @@ import { BrowserRouter as Router, Route } from "react-router-dom"
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import Editar from "../src/Pages/Editar";
+import Cadastrar from './Pages/Cadastrar';
 
 ReactDOM.render(
    <React.StrictMode>
-         <Router>
-            <Route exact path="/" component={App} />
-         </Router>
+      <Router>
+         <Route exact path="/" component={App} />
+         <Route path="/editar/:usr_cod" component={Editar} />
+         <Route path="/cadastrar" component={Cadastrar} />
+      </Router>
    </React.StrictMode>,
    document.getElementById('root')
 );

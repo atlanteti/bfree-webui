@@ -20,9 +20,9 @@ const CustomMenu = () => {
             <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
                <Nav>
                   <Nav.Link href="/"> Página Inicial </Nav.Link>
-                  <Nav.Link href="#">Cadastrar </Nav.Link>
-                  <Nav.Link> Usuário: admin </Nav.Link>
-                  <Nav.Link href="#"> Login </Nav.Link>
+                  <Nav.Link href="/cadastrar">Cadastrar </Nav.Link>
+                  {/* <Nav.Link> Usuário: admin </Nav.Link>
+                  <Nav.Link href="#"> Login </Nav.Link> */}
                </Nav>
             </Navbar.Collapse>
          </Navbar>

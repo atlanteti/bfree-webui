@@ -10,6 +10,40 @@
    align-items: center
 }
 
+.btn-search {
+   margin-left: 5rem;
+}
+
+.btn-primary {
+   color: #000;
+   background-color: #ffb509;
+   border-color: #ffb509;
+}
+
+.btn-warning {
+   color: #000;
+   background-color: #ffb509;
+   border-color: #ffb509;
+}
+
+.page-item.active .page-link {
+   color: #000;
+   background-color: #ffb509;
+   border-color: #ffb509;
+}
+
+.page-link {
+   color: #000;
+}
+
+.page-link:hover {
+   box-shadow: 0 0 0 0.2rem rgb(0 0 0 / 10%);
+}
+
+.page-link:focus {
+   box-shadow: 0 0 0 0.2rem rgb(0 0 0 / 10%);
+}
+
 .input-group {
    width: 50%;
    margin: 1rem;

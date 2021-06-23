@@ -20,7 +20,7 @@ export default function Pag(data) {
 
    return (
       <div>
-         <Pagination>
+         {/* <Pagination>
             <Pagination.First />
             <Pagination.Prev />
             {
@@ -46,7 +46,7 @@ export default function Pag(data) {
             }
             <Pagination.Next />
             <Pagination.Last />
-         </Pagination>
+         </Pagination> */}
       </div>
    );
 }
