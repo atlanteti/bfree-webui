@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
 import { Form, Col, Row, Button } from 'react-bootstrap';
-import CustomMenu from "../../Componentes/CustomMenu";
 import { Redirect } from "react-router-dom";
 
 import axios from 'axios';
 import moment from 'moment';
+import DrawerMenu from '../../Componentes/DrawerMenu';
 
 export default function Editar(props) {
    const [userData, setUserData] = useState({});
@@ -59,8 +59,8 @@ export default function Editar(props) {
 
    return (
       <>
-         <CustomMenu />
-         <Col md={{ span: 6 }}>
+         <DrawerMenu />
+         <Col md={{ span: 6, offset: 2 }}>
             <Form onSubmit={handleSubmit}>
                <Row>
                   <Col>
@@ -110,9 +110,9 @@ export default function Editar(props) {
                   </Col>
                </Row>
                <Row className="d-flex flex-row-reverse">
-                  <Button variant="primary" type="submit">
+                  <button type="submit">
                      Alterar
-                  </Button>
+                  </button>
                   <Button
                      style={{ marginRight: "10px" }}
                      variant="danger"

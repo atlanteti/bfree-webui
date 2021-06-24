@@ -27,7 +27,7 @@ function DrawerMenu() {
                Tabelas Principais
             </span>
             <li className="drawer-item">
-               <a href="/" className="btn btn-initial drawer-link">
+               <a href="/companie" className="btn btn-initial drawer-link">
                   <IoBusinessOutline size={23} color="#ffb509" />
                   <span className="drawer-text">
                      Companhias

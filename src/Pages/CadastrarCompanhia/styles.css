@@ -1,0 +1,27 @@
+.companhia-container{
+   margin-top: 3rem;
+}
+
+.form-control {
+   width: 50%;
+}
+
+
+button {
+   background-color: #ffb509;
+   color: #000;
+   padding: 6px 8px;
+   
+   border-radius: 3px;
+   border: none;
+}
+
+button:hover {
+   background-color: #000;
+   color: #ffb509;
+   border: none;
+}
+
+.alert {
+   margin-left: 7rem;
+}

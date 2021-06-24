@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import axios from "axios";
 import { Form, Col, Row, Button, Alert } from 'react-bootstrap';
-import CustomMenu from '../../Componentes/CustomMenu';
+import DrawerMenu from '../../Componentes/DrawerMenu';
 
 export default function Cadastrar() {
    const [formData, updateFormData] = useState({
@@ -49,7 +49,8 @@ export default function Cadastrar() {
                {message}
             </Alert>
          }
-         <Col md={{ span: 6 }}>
+         <DrawerMenu />
+         <Col className="cadastrar-user" md={{ span: 7, offset: 2 }}>
             <Form onSubmit={handleSubmit}>
                <Row>
                   <Col>
@@ -84,13 +85,13 @@ export default function Cadastrar() {
                         </Form.Control>
                      </Form.Group>
                   </Col>
+                  <Col>
+                     <button style={{ marginTop: 30 }}>
+                        Cadastrar
+                     </button>
+                  </Col>
                </Row>
                <Row>
-                  <Col md={{ span: 1, offset: 10 }}>
-                     <Button variant="primary" type="submit">
-                        Cadastrar
-                     </Button>
-                  </Col>
                </Row>
             </Form>
          </Col>

@@ -63,7 +63,7 @@ export default function Usuarios() {
          <div className="home-container">
             <div className="input-group">
                <input
-                  className="form-control"
+                  className="form-control search-user"
                   type="text"
                   placeholder="Digite o nome"
                   onChange={buscarNome}
@@ -74,15 +74,15 @@ export default function Usuarios() {
                   <button
                      onClick={(e) => requestData(e, buscar)}
                      type="button"
-                     className="btn btn-primary"
+                     className=""
                   >
                      Buscar
                   </button>
                </div>
 
-               <button className="btn btn-dark btn-search">
+               <a href="/cadastrar/usuario" className="btn btn-dark btn-search">
                   Cadastrar
-               </button>
+               </a>
             </div>
             <table className="table">
                <thead>
