@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 
+import { Redirect } from "react-router-dom";
 import axios from "axios";
-import { Form, Col, Row, Button, Alert } from 'react-bootstrap';
+import { Form, Col, Row, Button, Alert, Modal } from 'react-bootstrap';
 import DrawerMenu from '../../Componentes/DrawerMenu';
 import "./styles.css";
 
@@ -10,6 +11,10 @@ export default function CadastrarCompanhia() {
    const [showAlert, setShowAlert] = useState(false);
    const [message, setMessage] = useState();
    const [statusMsg, setStatusMsg] = useState();
+   const [redirect, setRedirect] = useState(false);
+   const [showModal, setShowModal] = useState(false);
+
+   const handleClose = () => setShowModal(false);
 
    const handleChange = (e) => {
       updateFormData({ ...formData, [e.target.id]: Number(e.target.value.trim()) })
@@ -27,11 +32,18 @@ export default function CadastrarCompanhia() {
 
          if (data.meta.status == 100) {
             setShowAlert(true);
-            setMessage("Companhia Cadastrada!");
+            setMessage("Companhia cadastrada com sucesso!");
             setStatusMsg('success')
+
+            setTimeout(() => {
+               setShowAlert(false);
+               setTimeout(() => {
+                  setRedirect(true);
+               }, 2000);
+            }, 4000);
          } else {
             setShowAlert(true);
-            setMessage("Algo deu errado!");
+            setMessage("Algo deu errado.Tente novamente!");
             setStatusMsg('warning');
          }
 
@@ -40,6 +52,10 @@ export default function CadastrarCompanhia() {
          console.log(error)
       }
    };
+
+   if (redirect) {
+      return <Redirect to="/companie" />
+   }
 
    return (
       <div className="companhia-container">
@@ -63,14 +79,33 @@ export default function CadastrarCompanhia() {
                      </Form.Group>
                   </Col>
                </Row>
-               <Row>
-                  <Col md={{ span: 1 }}>
-                     <button>
-                        Cadastrar
-                     </button>
-                  </Col>
+               <Row style={{ marginTop: 10 }}>
+                  <Button
+                     variant="danger" style={{ marginLeft: 15 }}
+                     onClick={() => setShowModal(true)}
+                  >
+                     Cancelar
+                  </Button>
+
+                  <button style={{ marginLeft: 25 }}>
+                     Cadastrar
+                  </button>
                </Row>
             </Form>
+            <Modal show={showModal} onHide={handleClose}>
+               <Modal.Header closeButton>
+                  <Modal.Title>Erro!</Modal.Title>
+               </Modal.Header>
+               <Modal.Body>Você deseja cancelar o cadastramento de companhias?</Modal.Body>
+               <Modal.Footer>
+                  <Button variant="danger" onClick={handleClose}>
+                     Não
+                  </Button>
+                  <Button variant="warning" onClick={() => setRedirect(true)}>
+                     Sim
+                  </Button>
+               </Modal.Footer>
+            </Modal>
          </Col>
       </div>
    );

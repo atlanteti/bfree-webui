@@ -103,8 +103,8 @@ export default function Usuarios() {
                            <tr key={usuario.usr_cod}>
                               <td>{usuario.usr_cli_cod}</td>
                               <td>{usuario.usr_externalid}</td>
-                              <td>{moment(usuario.usr_dtcreation).format("DD/MM/YYYY")}</td>
-                              <td>{moment(usuario.usr_dtupdate).format("DD/MM/YYYY")}</td>
+                              <td>{moment(usuario.usr_dtcreation).format("DD/MM/YYYY h:mm a")}</td>
+                              <td>{moment(usuario.usr_dtupdate).format("DD/MM/YYYY h:mm a")}</td>
                               <td>{usuario.statusUsuario.sus_name}</td>
                               <td>
                                  <Link className="btn btn-warning" to={`/editar/${usuario.usr_cod}`}>Editar</Link>

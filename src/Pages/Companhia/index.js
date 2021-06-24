@@ -102,8 +102,8 @@ export default function Companhia() {
                         return (
                            <tr key={companhia.usr_cod}>
                               <td>{companhia.cpn_cli_cod}</td>
-                              <td>{moment(companhia.cpn_dtcreation).format("DD/MM/YYYY")}</td>
-                              <td>{moment(companhia.cpn_dtupdate).format("DD/MM/YYYY")}</td>
+                              <td>{moment(companhia.cpn_dtcreation).format("DD/MM/YYYY hh:mm a")}</td>
+                              <td>{moment(companhia.cpn_dtupdate).format("DD/MM/YYYY hh:mm a")}</td>
                               <td>
                                  <Link className="btn btn-warning">Editar</Link>
                                  <button className="btn btn-dark" onClick={() => deletarCompanhia(companhia.cpn_cod)}>
