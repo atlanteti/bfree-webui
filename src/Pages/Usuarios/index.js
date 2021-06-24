@@ -46,7 +46,6 @@ export default function Usuarios() {
                page: page,
             },
          });
-         console.log(data);
          setUsuarios(data.data);
          setPage(data.meta.pagination);
       } catch (error) {
@@ -105,7 +104,7 @@ export default function Usuarios() {
                               <td>{usuario.usr_externalid}</td>
                               <td>{moment(usuario.usr_dtcreation).format("DD/MM/YYYY h:mm a")}</td>
                               <td>{moment(usuario.usr_dtupdate).format("DD/MM/YYYY h:mm a")}</td>
-                              <td>{usuario.statusUsuario.sus_name}</td>
+                              <td>{usuario.statusUser.sus_name}</td>
                               <td>
                                  <Link className="btn btn-warning" to={`/editar/${usuario.usr_cod}`}>Editar</Link>
                                  <button className="btn btn-dark" onClick={() => deletarUsuario(usuario.usr_cod)}>

@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import axios from "axios";
+import { Redirect } from 'react-router-dom';
+
 import { Form, Col, Row, Button, Alert, Modal } from 'react-bootstrap';
 import DrawerMenu from '../../Componentes/DrawerMenu';
 import "./styles.css";
-import { Redirect } from 'react-router-dom';
 
 export default function Cadastrar() {
    const [formData, updateFormData] = useState({
@@ -15,6 +16,7 @@ export default function Cadastrar() {
    const [statusMsg, setStatusMsg] = useState();
    const [showModal, setShowModal] = useState(false);
    const [redirect, setRedirect] = useState(false);
+   const [statusSelect, setStatusSelect] = useState();
 
    const handleClose = () => setShowModal(false);
 
@@ -41,20 +43,37 @@ export default function Cadastrar() {
                setShowAlert(false);
                setTimeout(() => {
                   setRedirect(true);
-               }, 2000);
-            }, 4000);
+               }, 1000);
+            }, 3000);
 
          } else {
             setShowAlert(true);
             setMessage("Algo deu errado. Tente novamente!");
             setStatusMsg('warning');
          }
-
-         console.log(data)
       } catch (error) {
          console.log(error)
       }
    };
+
+   const requestData = async (e) => {
+      try {
+         if (e) {
+            e.preventDefault();
+         }
+         const { data } = await axios({
+            method: "get",
+            url: "http://209.97.146.187:18919/status-users/listar",
+         });
+         setStatusSelect(data.data);
+      } catch (error) {
+         alert(error);
+      }
+   };
+
+   useEffect(() => {
+      requestData();
+   })
 
    if (redirect) {
       return <Redirect to="/" />
@@ -99,8 +118,9 @@ export default function Cadastrar() {
                               as="select"
                               onChange={handleChange}
                            >
-                              <option value={1}>Ativo</option>
-                              <option value={2}>Inativo</option>
+                              {statusSelect?.map(status => {
+                                 return (<option key={status.sus_cod} value={status.sus_cod}>{status.sus_name}</option>)
+                              })}
                            </Form.Control>
                         </Form.Group>
                      </Col>
