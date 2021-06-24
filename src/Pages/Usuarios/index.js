@@ -46,7 +46,7 @@ export default function Usuarios() {
                page: page,
             },
          });
-         console.log(data)
+         console.log(data);
          setUsuarios(data.data);
          setPage(data.meta.pagination);
       } catch (error) {
