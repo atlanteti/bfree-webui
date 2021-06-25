@@ -1,7 +1,6 @@
 .borda {
    background-color: #000;
    position: absolute;
-   transition: width 300ms ease;
 }
 
 .borda-container{
@@ -30,6 +29,7 @@
    width: 100%;
    display: flex;
    flex-direction: row;
+   padding: 3% 0px;
 }
 
 .item-p{
@@ -92,15 +92,11 @@
  @media only screen and (min-width: 767px) {
    .borda {
      top: 0;
-     width: 6rem;
+     width: 17rem;
      height: 100vh;
    }
  
-   .borda:hover {
-     width: 17rem;
-   }
- 
-   .borda:hover .drawer-text {
+   .borda .drawer-text {
      display: inline;
    }
  }
