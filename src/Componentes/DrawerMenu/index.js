@@ -48,7 +48,7 @@ function DrawerMenu() {
                </a>
             </li>
             <li className="drawer-item">
-               <a href="#" className="btn btn-initial drawer-link">
+               <a href="/jornadas" className="btn btn-initial drawer-link">
                   <BsGraphUp size={23} color="#ffb509" />
                   <span className="drawer-text">
                      Jornada do usuário

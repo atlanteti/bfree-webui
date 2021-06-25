@@ -4,19 +4,19 @@ import axios from "axios";
 import { Redirect } from 'react-router-dom';
 
 import { Form, Col, Row, Button, Alert, Modal } from 'react-bootstrap';
-import DrawerMenu from '../../Componentes/DrawerMenu';
-import "./styles.css";
+import DrawerMenu from '../../../Componentes/DrawerMenu';
 
-export default function Cadastrar() {
+export default function CadastrarJornada() {
    const [formData, updateFormData] = useState({
-      usr_sus_cod: 1
+      jny_cod: 1
    });
    const [showAlert, setShowAlert] = useState(false);
    const [message, setMessage] = useState();
    const [statusMsg, setStatusMsg] = useState();
    const [showModal, setShowModal] = useState(false);
    const [redirect, setRedirect] = useState(false);
-   const [statusSelect, setStatusSelect] = useState();
+   const [journeys, setJourneys] = useState();
+   const [usuarios, setUsuarios] = useState();
 
    const handleClose = () => setShowModal(false);
 
@@ -25,18 +25,20 @@ export default function Cadastrar() {
    };
 
    const handleSubmit = async (e) => {
+      console.log(journeys);
+      console.log(usuarios);
       console.log(formData);
       try {
          e.preventDefault()
          const { data } = await axios({
             method: 'post',
-            url: 'http://209.97.146.187:18919/usuarios/cadastrar',
+            url: 'http://209.97.146.187:18919/user-jorneys/cadastrar',
             data: formData,
          })
 
          if (data.meta.status == 100) {
             setShowAlert(true);
-            setMessage("Usuario Cadastrado!");
+            setMessage("Jornada Cadastrada!");
             setStatusMsg('success')
 
             setTimeout(() => {
@@ -56,71 +58,105 @@ export default function Cadastrar() {
       }
    };
 
-   const requestStatus = async (e) => {
+   const requestJourneys = async (e) => {
       try {
          if (e) {
             e.preventDefault();
          }
          const { data } = await axios({
             method: "get",
-            url: "http://209.97.146.187:18919/status-users/listar",
+            url: "http://209.97.146.187:18919/jorneys/listar",
          });
-         setStatusSelect(data.data);
+         setJourneys(data.data);
+      } catch (error) {
+         alert(error);
+      }
+   };
+
+   const requestUsers = async (e) => {
+      try {
+         if (e) {
+            e.preventDefault();
+         }
+         const { data } = await axios({
+            method: "get",
+            url: "http://209.97.146.187:18919/usuarios/listar",
+         });
+         setUsuarios(data.data);
       } catch (error) {
          alert(error);
       }
    };
 
    useEffect(() => {
-      requestStatus();
+      requestUsers();
+      requestJourneys();
    }, [])
 
    if (redirect) {
-      return <Redirect to="/" />
+      return <Redirect to="/jornadas" />
    }
 
    return (
       <>
          {showAlert &&
-            <Alert variant={statusMsg} onClose={() => setShowAlert(false)} dismissible>
-               {message}
-            </Alert>
+            <Col md={{ span: 6, offset: 2 }}>
+
+               <Alert variant={statusMsg} onClose={() => setShowAlert(false)} dismissible>
+                  {message}
+               </Alert>
+            </Col>
          }
          <DrawerMenu />
          <div className="cadastrar-container">
-            <Col className="cadastrar-user" md={{ span: 6, offset: 3 }}>
+            <Col className="cadastrar-user" md={{ span: 4, offset: 3 }}>
                <Form onSubmit={handleSubmit}>
                   <Row bsPrefix="column">
                      <Col>
-                        <Form.Group controlId="usr_cli_cod">
-                           <Form.Label>ID Eduzz:</Form.Label>
-                           <Form.Control
-                              type="number"
-                              onChange={handleChange}
-                              required
-                           />
-                        </Form.Group>
-                     </Col>
-                     <Col>
-                        <Form.Group controlId="usr_externalid">
-                           <Form.Label>ID Externo:</Form.Label>
-                           <Form.Control
-                              type="number"
-                              onChange={handleChange}
-                              required
-                           />
-                        </Form.Group>
-                     </Col>
-                     <Col>
-                        <Form.Group controlId="usr_sus_cod">
-                           <Form.Label>Status</Form.Label>
+                        <Form.Group controlId="jnu_jny_cod">
+                           <Form.Label>ID da jornada: </Form.Label>
                            <Form.Control
                               as="select"
                               onChange={handleChange}
                            >
-                              {statusSelect?.map(status => {
-                                 return (<option key={status.sus_cod} value={status.sus_cod}>{status.sus_name}</option>)
+                              {journeys?.map(status => {
+                                 return (<option key={status.jny_cod} value={status.jny_cod}>{status.jny_name}</option>)
                               })}
+                           </Form.Control>
+                        </Form.Group>
+                     </Col>
+                     <Col>
+                        <Form.Group controlId="jnu_usr_cod">
+                           <Form.Label>ID do usuário:</Form.Label>
+                           <Form.Control
+                              as="select"
+                              onChange={handleChange}
+                           >
+                              {usuarios?.map(usuario => {
+                                 return (<option key={usuario.usr_cod} value={usuario.usr_cod}>{usuario.usr_cod}</option>)
+                              })}
+                           </Form.Control>
+                        </Form.Group>
+                     </Col>
+                     <Col>
+                        <Form.Group controlId="jnu_dtcreation">
+                           <Form.Label>ID do usuário:</Form.Label>
+                           <Form.Control
+                              type="date"
+                              disabled
+                              onChange={handleChange}
+                           >
+                           </Form.Control>
+                        </Form.Group>
+                     </Col>
+                     <Col>
+                        <Form.Group controlId="jnu_dtupdate">
+                           <Form.Label>ID do usuário:</Form.Label>
+                           <Form.Control
+                              type="date"
+                              disabled
+                              onChange={handleChange}
+                           >
                            </Form.Control>
                         </Form.Group>
                      </Col>

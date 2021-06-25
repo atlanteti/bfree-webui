@@ -3,6 +3,7 @@ import { Component } from "react";
 import { Route } from "react-router-dom";
 import Cadastrar from "../Cadastrar";
 import CadastrarCompanhia from "../CadastrarCompanhia";
+import CadastrarJornada from "../Jornada/Cadastrar";
 
 export default class Cadastros extends Component {
    render() {
@@ -10,6 +11,7 @@ export default class Cadastros extends Component {
          <Route exact path={this.props.match.path} component={Cadastros} />
          <Route path={`${this.props.match.path}/usuario`} component={Cadastrar} />
          <Route path={`${this.props.match.path}/companhia`} component={CadastrarCompanhia} />
+         <Route path={`${this.props.match.path}/jornada`} component={CadastrarJornada} />
       </div>
    }
 }

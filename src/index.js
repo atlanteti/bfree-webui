@@ -5,9 +5,10 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Editar from "../src/Pages/Editar";
-import Cadastrar from './Pages/Cadastrar';
 import Companhia from './Pages/Companhia';
 import Cadastros from './Pages/Cadastros';
+import ListarJornada from './Pages/Jornada/Listar';
+import EditarJornada from './Pages/Jornada/Editar';
 
 ReactDOM.render(
    <React.StrictMode>
@@ -17,6 +18,8 @@ ReactDOM.render(
             <Route path="/editar/:usr_cod" component={Editar} />
             <Route path="/companie" component={Companhia} />
             <Route path="/cadastrar" component={Cadastros} />
+            <Route path="/jornadas" component={ListarJornada} />
+            <Route path="/editar-jornada/:jnu_cod" component={EditarJornada} />
          </Switch>
       </Router>
    </React.StrictMode>,
