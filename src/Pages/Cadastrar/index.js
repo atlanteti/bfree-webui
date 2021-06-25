@@ -56,7 +56,7 @@ export default function Cadastrar() {
       }
    };
 
-   const requestData = async (e) => {
+   const requestStatus = async (e) => {
       try {
          if (e) {
             e.preventDefault();
@@ -72,7 +72,7 @@ export default function Cadastrar() {
    };
 
    useEffect(() => {
-      requestData();
+      requestStatus();
    })
 
    if (redirect) {

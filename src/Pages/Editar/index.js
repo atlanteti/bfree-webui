@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { Form, Col, Row, Button } from 'react-bootstrap';
+import { Form, Col, Row, Button, Alert } from 'react-bootstrap';
 import { Redirect } from "react-router-dom";
 
 import axios from 'axios';
@@ -10,7 +10,12 @@ import DrawerMenu from '../../Componentes/DrawerMenu';
 export default function Editar(props) {
    const [userData, setUserData] = useState({});
    const [redirect, setRedirect] = useState(false);
-   const [userStatus, setUserStatus] = useState();
+   const [message, setMessage] = useState();
+   const [statusMsg, setStatusMsg] = useState();
+   const [statusSelect, setStatusSelect] = useState();
+   const [showAlert, setShowAlert] = useState(false);
+   const [statusUser, setStatusUser] = useState();
+
    const clienteId = Number(props.match.params.usr_cod);
 
    const handleChange = (e) => {
@@ -18,13 +23,17 @@ export default function Editar(props) {
    };
 
    const handleSubmit = async (e) => {
-      console.log(Number(userData.usr_externalid));
+      console.log(statusUser);
       try {
          e.preventDefault()
          const { data } = await axios({
             method: 'put',
             url: `http://209.97.146.187:18919/usuarios/alterar/${clienteId}`,
-            data: { ...userData, usr_externalid: Number(userData.usr_externalid) },
+            data: {
+               ...userData,
+               usr_externalid: Number(userData.usr_externalid),
+               usr_sus_cod: Number(userData.usr_sus_cod)
+            },
          })
 
          if (data.meta.status == 100) {
@@ -43,14 +52,30 @@ export default function Editar(props) {
             url: `http://209.97.146.187:18919/usuarios/procurar/${clienteId}`,
          })
          setUserData(data.data)
-         setUserStatus(data.data.statusUsuario.sus_name);
+         setStatusUser(data.data.statusUser.sus_name);
       } catch (error) {
          console.log(error)
       }
    };
 
+   const requestStatus = async (e) => {
+      try {
+         if (e) {
+            e.preventDefault();
+         }
+         const { data } = await axios({
+            method: "get",
+            url: "http://209.97.146.187:18919/status-users/listar",
+         });
+         setStatusSelect(data.data);
+      } catch (error) {
+         alert(error);
+      }
+   };
+
    useEffect(() => {
       requestData();
+      requestStatus();
    }, [])
 
    if (redirect) {
@@ -59,70 +84,78 @@ export default function Editar(props) {
 
    return (
       <>
+         {showAlert &&
+            <Alert variant={statusMsg} onClose={() => setShowAlert(false)} dismissible>
+               {message}
+            </Alert>
+         }
          <DrawerMenu />
-         <Col md={{ span: 6, offset: 2 }}>
-            <Form onSubmit={handleSubmit}>
-               <Row>
-                  <Col>
-                     <Form.Group controlId="usr_dtcreation">
-                        <Form.Label>Data Cadastro</Form.Label>
-                        <Form.Control
-                           type="date"
-                           onChange={handleChange}
-                           value={moment(userData?.usr_dtcreation).format("YYYY-MM-DD")}
-                        />
-                     </Form.Group>
-                  </Col>
-                  <Col>
-                     <Form.Group controlId="usr_dtupdate">
-                        <Form.Label>Dados alterado</Form.Label>
-                        <Form.Control
-                           type="date"
-                           onChange={handleChange}
-                           value={moment(userData?.usr_dtupdate).format("YYYY-MM-DD")}
-                        />
-                     </Form.Group>
-                  </Col>
-                  <Col>
-                     <Form.Group controlId="usr_externalid">
-                        <Form.Label>ID Externo:</Form.Label>
-                        <Form.Control
-                           type="number"
-                           onChange={handleChange}
-                           defaultValue={userData?.usr_externalid}
-                        />
-                     </Form.Group>
-                  </Col>
-               </Row>
-               <Row>
-                  <Col md={6}>
-                     <Form.Group controlId="statusUsuario">
-                        <Form.Label>Status</Form.Label>
-                        <Form.Control
-                           as="select"
-                           onChange={handleChange}
-                           defaultValue={userStatus}
-                        >
-                           <option>Ativo</option>
-                           <option>Inativo</option>
-                        </Form.Control>
-                     </Form.Group>
-                  </Col>
-               </Row>
-               <Row className="d-flex flex-row-reverse">
-                  <button type="submit">
-                     Alterar
-                  </button>
-                  <Button
-                     style={{ marginRight: "10px" }}
-                     variant="danger"
-                     onClick={() => setRedirect(true)}
-                  >
-                     Cancelar
-                  </Button>
-               </Row>
-            </Form>
-         </Col>
+         <div className="cadastrar-container">
+            <Col className="cadastrar-user" md={{ span: 6, offset: 3 }}>
+               <Form onSubmit={handleSubmit}>
+                  <Row bsPrefix="column">
+                     <Col>
+                        <Form.Group controlId="usr_dtcreation">
+                           <Form.Label>Data Cadastro</Form.Label>
+                           <Form.Control
+                              type="date"
+                              onChange={handleChange}
+                              value={moment(userData?.usr_dtcreation).format("YYYY-MM-DD")}
+                           />
+                        </Form.Group>
+                     </Col>
+                     <Col>
+                        <Form.Group controlId="usr_dtupdate">
+                           <Form.Label>Dados alterado</Form.Label>
+                           <Form.Control
+                              type="date"
+                              onChange={handleChange}
+                              value={moment(userData?.usr_dtupdate).format("YYYY-MM-DD")}
+                           />
+                        </Form.Group>
+                     </Col>
+                     <Col>
+                        <Form.Group controlId="usr_externalid">
+                           <Form.Label>ID Externo:</Form.Label>
+                           <Form.Control
+                              type="number"
+                              onChange={handleChange}
+                              defaultValue={userData?.usr_externalid}
+                           />
+                        </Form.Group>
+                     </Col>
+                     <Col>
+                        <Form.Group controlId="usr_sus_cod">
+                           <Form.Label>Status</Form.Label>
+                           <Form.Control
+                              as="select"
+                              onChange={handleChange}
+                           >
+                              {statusSelect?.map(status => {
+                                 if (statusUser == status.sus_name) {
+                                    return (<option selected key={status.sus_cod} value={status.sus_cod}>{status.sus_name}</option>)
+                                 }
+                                 return (<option key={status.sus_cod} value={status.sus_cod}>{status.sus_name}</option>)
+                              })}
+                           </Form.Control>
+                        </Form.Group>
+                     </Col>
+                  </Row>
+                  <Row style={{ marginTop: 30 }}>
+                     <Button
+                        variant="danger" style={{ marginLeft: 30 }}
+                        onClick={() => setRedirect(true)}
+                     >
+                        Cancelar
+                     </Button>
+
+                     <button type="submit" style={{ marginLeft: 30 }}>
+                        Editar
+                     </button>
+                  </Row>
+               </Form>
+            </Col>
+         </div>
       </>
    )
 }
