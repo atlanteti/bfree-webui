@@ -1,5 +1,6 @@
 import { Pagination } from "react-bootstrap"
 import axios from "axios";
+import './styles.css';
 
 export default function Pag(data) {
    let currentPage = data.page.current;
