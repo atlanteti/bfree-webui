@@ -25,9 +25,6 @@ export default function CadastrarJornada() {
    };
 
    const handleSubmit = async (e) => {
-      console.log(journeys);
-      console.log(usuarios);
-      console.log(formData);
       try {
          e.preventDefault()
          const { data } = await axios({
@@ -58,7 +55,7 @@ export default function CadastrarJornada() {
       }
    };
 
-   const requestJourneys = async (e) => {
+   const requestJornadas = async (e) => {
       try {
          if (e) {
             e.preventDefault();
@@ -90,7 +87,7 @@ export default function CadastrarJornada() {
 
    useEffect(() => {
       requestUsers();
-      requestJourneys();
+      requestJornadas();
    }, [])
 
    if (redirect) {
@@ -101,7 +98,6 @@ export default function CadastrarJornada() {
       <>
          {showAlert &&
             <Col md={{ span: 6, offset: 2 }}>
-
                <Alert variant={statusMsg} onClose={() => setShowAlert(false)} dismissible>
                   {message}
                </Alert>

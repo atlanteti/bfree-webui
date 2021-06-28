@@ -12,19 +12,23 @@ export default function EditarJornada(props) {
    const [redirect, setRedirect] = useState(false);
    const [message, setMessage] = useState();
    const [showAlert, setShowAlert] = useState(false);
+   const [jornadas, setJornadas] = useState();
+   const [usuarios, setUsuarios] = useState();
+   const [user, setUser] = useState();
 
-   const clienteId = Number(props.match.params.jnu_cod);
+   const jornadaId = Number(props.match.params.jnu_cod);
 
    const handleChange = (e) => {
       setUserData({ ...userData, [e.target.id]: e.target.value.trim() })
    };
 
    const handleSubmit = async (e) => {
+      console.log(userData);
       try {
          e.preventDefault()
          const { data } = await axios({
             method: 'put',
-            url: `http://209.97.146.187:18919/user-jorneys/alterar/${clienteId}`,
+            url: `http://209.97.146.187:18919/user-jorneys/alterar/${jornadaId}`,
             data: {
                ...userData,
                jnu_usr_cod: Number(userData.jnu_usr_cod),
@@ -32,10 +36,10 @@ export default function EditarJornada(props) {
             },
          })
 
-         console.log(data)
          if (data.meta.status == 100) {
-            // setRedirect(true);
+            setRedirect(true);
          } else {
+            setShowAlert(true);
             setMessage("Algo deu errado. Tente novamente!")
          }
 
@@ -44,21 +48,56 @@ export default function EditarJornada(props) {
       }
    };
 
-   const requestData = async () => {
+   const requestUser = async (e) => {
       try {
+         if (e) {
+            e.preventDefault();
+         }
          const { data } = await axios({
-            method: 'get',
-            url: `http://209.97.146.187:18919/user-jorneys/procurar/${clienteId}`,
-         })
-         setUserData(data.data)
-         console.log(data.data);
+            method: "get",
+            url: `http://209.97.146.187:18919/user-jorneys/procurar/${jornadaId}`,
+         });
+         setUser(data.data);
+         console.log(data.data)
       } catch (error) {
-         console.log(error)
+         alert(error);
+      }
+   };
+
+   const requestUsers = async (e) => {
+      try {
+         if (e) {
+            e.preventDefault();
+         }
+         const { data } = await axios({
+            method: "get",
+            url: `http://209.97.146.187:18919/usuarios/listar`,
+         });
+         setUsuarios(data.data);
+      } catch (error) {
+         alert(error);
+      }
+   };
+
+   const requestJornadas = async (e) => {
+      try {
+         if (e) {
+            e.preventDefault();
+         }
+         const { data } = await axios({
+            method: "get",
+            url: "http://209.97.146.187:18919/jorneys/listar",
+         });
+         setJornadas(data.data);
+      } catch (error) {
+         alert(error);
       }
    };
 
    useEffect(() => {
-      requestData();
+      requestUsers();
+      requestUser();
+      requestJornadas();
    }, [])
 
    if (redirect) {
@@ -68,53 +107,71 @@ export default function EditarJornada(props) {
    return (
       <>
          {showAlert &&
-            <Alert variant="warning" onClose={() => setShowAlert(false)} dismissible>
-               {message}
-            </Alert>
+            <Col md={{ span: 6, offset: 2 }}>
+               <Alert variant="warning" onClose={() => setShowAlert(false)} dismissible>
+                  {message}
+               </Alert>
+            </Col>
          }
          <DrawerMenu />
          <div className="cadastrar-container">
-            <Col className="cadastrar-user" md={{ span: 6, offset: 3 }}>
+            <Col className="cadastrar-user" md={{ span: 4, offset: 3 }}>
                <Form onSubmit={handleSubmit}>
                   <Row bsPrefix="column">
                      <Col>
-                        <Form.Group controlId="jnu_usr_cod">
-                           <Form.Label>ID do usuário na Jornada:</Form.Label>
+                        <Form.Group controlId="jnu_jny_cod">
+                           <Form.Label>ID da jornada: </Form.Label>
                            <Form.Control
-                              type="number"
+                              as="select"
                               onChange={handleChange}
-                              defaultValue={userData?.jnu_usr_cod}
-                           />
+                           >
+                              {jornadas?.map(status => {
+                                 if (user?.jorney.jny_cod == status.jny_cod) {
+                                    return (<option selected key={status.jny_cod} value={status.jny_cod}>{status.jny_name}</option>)
+                                 }
+                                 return (<option key={status.jny_cod} value={status.jny_cod}>{status.jny_name}</option>)
+                              })}
+                           </Form.Control>
                         </Form.Group>
                      </Col>
                      <Col>
-                        <Form.Group controlId="jnu_jny_cod">
-                           <Form.Label>ID do usuário na Jornada:</Form.Label>
+                        <Form.Group controlId="jnu_usr_cod">
+                           <Form.Label>ID da jornada do usuário:</Form.Label>
                            <Form.Control
-                              type="number"
+                              as="select"
                               onChange={handleChange}
-                              defaultValue={userData?.jnu_jny_cod}
-                           />
+                           >
+                              {usuarios?.map(usuario => {
+                                 if (user?.jnu_usr_cod == usuario.usr_cod) {
+                                    return (<option selected key={usuario.usr_cod} value={usuario.usr_cod}>{usuario.usr_cod}</option>)
+                                 }
+                                 return (<option key={usuario.usr_cod} value={usuario.usr_cod}>{usuario.usr_cod}</option>)
+                              })}
+                           </Form.Control>
                         </Form.Group>
                      </Col>
                      <Col>
                         <Form.Group controlId="jnu_dtcreation">
-                           <Form.Label>Data Cadastro</Form.Label>
+                           <Form.Label>Data de cadastramento:</Form.Label>
                            <Form.Control
                               type="date"
+                              disabled
+                              value={moment(user?.jnu_dtcreation).format("YYYY-MM-DD")}
                               onChange={handleChange}
-                              value={moment(userData?.jnu_dtcreation).format("YYYY-MM-DD")}
-                           />
+                           >
+                           </Form.Control>
                         </Form.Group>
                      </Col>
                      <Col>
                         <Form.Group controlId="jnu_dtupdate">
-                           <Form.Label>Dados alterado</Form.Label>
+                           <Form.Label>Data de atualização:</Form.Label>
                            <Form.Control
                               type="date"
+                              disabled
+                              value={moment(user?.jnu_dtupdate).format("YYYY-MM-DD")}
                               onChange={handleChange}
-                              value={moment(userData?.jnu_dtupdate).format("YYYY-MM-DD")}
-                           />
+                           >
+                           </Form.Control>
                         </Form.Group>
                      </Col>
                   </Row>
@@ -127,7 +184,7 @@ export default function EditarJornada(props) {
                      </Button>
 
                      <button type="submit" style={{ marginLeft: 30 }}>
-                        Editar
+                        Alterar
                      </button>
                   </Row>
                </Form>

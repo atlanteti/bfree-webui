@@ -89,7 +89,7 @@ export default function ListarJornada() {
             <table className="table">
                <thead>
                   <tr>
-                     <th scope="col">ID Usuário</th>
+                     <th scope="col">ID da Jornada Usuário</th>
                      <th scope="col">Data de Criação</th>
                      <th scope="col">Data de atualização</th>
                      <th scope="col">Ações</th>
