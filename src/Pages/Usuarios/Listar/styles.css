@@ -1,8 +1,6 @@
 .clientes-container{
    display: flex;
-   flex-direction: column;
-   margin-left: 16rem;
-   margin-right: 7rem;
+   flex-direction: row;
 }
 
 h1 {

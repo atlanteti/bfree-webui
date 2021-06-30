@@ -9,6 +9,7 @@ import { RiTeamLine, RiMedalLine } from "react-icons/ri";
 import { FaUserGraduate, FaTasks } from "react-icons/fa"
 import { BsGraphUp } from "react-icons/bs";
 import "react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css";
+import "./styles.css";
 
 export const CustomMenu = () => {
    const history = useHistory();
@@ -23,7 +24,7 @@ export const CustomMenu = () => {
             className={`fixed inset-0 z-20 block transition-opacity bg-black opacity-50 lg:hidden ${isSidebarOpen ? "block" : "hidden"
                }`}
          />
-         <div>
+         <div className="btn-position">
             <button
                className="btn-menu"
                onClick={() => setIsSidebarOpen(true)}

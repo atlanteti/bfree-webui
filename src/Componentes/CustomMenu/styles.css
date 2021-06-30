@@ -14,6 +14,13 @@
     }
 }
 
+@media all and (min-width: 767px){
+   .btn-position {
+      position: absolute;
+      top: 0;
+   }
+}
+
 .nav-dropdown a {
     color: black !important;
     border-right: 1px solid rgba(0, 0, 0, .2);
