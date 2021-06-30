@@ -4,7 +4,7 @@ import axios from "axios";
 import { Redirect } from 'react-router-dom';
 
 import { Form, Col, Row, Button, Alert, Modal } from 'react-bootstrap';
-import DrawerMenu from '../../../Componentes/DrawerMenu';
+import { CustomMenu } from '../../../Componentes/CustomMenu';
 
 export default function CadastrarJornada() {
    const [formData, updateFormData] = useState({
@@ -103,14 +103,14 @@ export default function CadastrarJornada() {
                </Alert>
             </Col>
          }
-         <DrawerMenu />
-         <div className="cadastrar-container">
+         <CustomMenu />
+         <Col>
             <Col className="cadastrar-user" md={{ span: 4, offset: 3 }}>
                <Form onSubmit={handleSubmit}>
                   <Row bsPrefix="column">
                      <Col>
                         <Form.Group controlId="jnu_jny_cod">
-                           <Form.Label>ID da jornada: </Form.Label>
+                           <Form.Label>Nome da jornada: </Form.Label>
                            <Form.Control
                               as="select"
                               onChange={handleChange}
@@ -136,7 +136,7 @@ export default function CadastrarJornada() {
                      </Col>
                      <Col>
                         <Form.Group controlId="jnu_dtcreation">
-                           <Form.Label>ID do usuário:</Form.Label>
+                           <Form.Label>Data de criação:</Form.Label>
                            <Form.Control
                               type="date"
                               disabled
@@ -147,7 +147,7 @@ export default function CadastrarJornada() {
                      </Col>
                      <Col>
                         <Form.Group controlId="jnu_dtupdate">
-                           <Form.Label>ID do usuário:</Form.Label>
+                           <Form.Label>Data de atualização:</Form.Label>
                            <Form.Control
                               type="date"
                               disabled
@@ -157,7 +157,7 @@ export default function CadastrarJornada() {
                         </Form.Group>
                      </Col>
                   </Row>
-                  <Row style={{ marginTop: 30 }}>
+                  <Row style={{ marginTop: 30, marginBottom: 20 }}>
                      <Button
                         variant="danger" style={{ marginLeft: 30 }}
                         onClick={() => setShowModal(true)}
@@ -165,9 +165,9 @@ export default function CadastrarJornada() {
                         Cancelar
                      </Button>
 
-                     <button style={{ marginLeft: 30 }}>
+                     <Button variant="warning" style={{ marginLeft: 30 }}>
                         Cadastrar
-                     </button>
+                     </Button>
                   </Row>
                </Form>
                <Modal show={showModal} onHide={handleClose}>
@@ -185,7 +185,7 @@ export default function CadastrarJornada() {
                   </Modal.Footer>
                </Modal>
             </Col>
-         </div>
+         </Col>
       </>
    );
 }

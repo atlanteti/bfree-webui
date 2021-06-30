@@ -5,7 +5,7 @@ import { Redirect } from "react-router-dom";
 
 import axios from 'axios';
 import moment from 'moment';
-import DrawerMenu from '../../../Componentes/DrawerMenu';
+import { CustomMenu } from '../../../Componentes/CustomMenu';
 
 export default function EditarJornada(props) {
    const [userData, setUserData] = useState({});
@@ -113,14 +113,14 @@ export default function EditarJornada(props) {
                </Alert>
             </Col>
          }
-         <DrawerMenu />
-         <div className="cadastrar-container">
+         <CustomMenu />
+         <Col>
             <Col className="cadastrar-user" md={{ span: 4, offset: 3 }}>
                <Form onSubmit={handleSubmit}>
                   <Row bsPrefix="column">
                      <Col>
                         <Form.Group controlId="jnu_jny_cod">
-                           <Form.Label>ID da jornada: </Form.Label>
+                           <Form.Label>Nome da jornada: </Form.Label>
                            <Form.Control
                               as="select"
                               onChange={handleChange}
@@ -136,7 +136,7 @@ export default function EditarJornada(props) {
                      </Col>
                      <Col>
                         <Form.Group controlId="jnu_usr_cod">
-                           <Form.Label>ID da jornada do usuário:</Form.Label>
+                           <Form.Label>ID do usuário:</Form.Label>
                            <Form.Control
                               as="select"
                               onChange={handleChange}
@@ -175,7 +175,7 @@ export default function EditarJornada(props) {
                         </Form.Group>
                      </Col>
                   </Row>
-                  <Row style={{ marginTop: 30 }}>
+                  <Row style={{ marginTop: 30, marginBottom: 10 }}>
                      <Button
                         variant="danger" style={{ marginLeft: 30 }}
                         onClick={() => setRedirect(true)}
@@ -183,13 +183,13 @@ export default function EditarJornada(props) {
                         Cancelar
                      </Button>
 
-                     <button type="submit" style={{ marginLeft: 30 }}>
+                     <Button variant="warning" type="submit" style={{ marginLeft: 30 }}>
                         Alterar
-                     </button>
+                     </Button>
                   </Row>
                </Form>
             </Col>
-         </div>
+         </Col>
       </>
    )
 }

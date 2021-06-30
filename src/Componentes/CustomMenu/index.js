@@ -1,90 +1,110 @@
-import React from 'react';
-import { Navbar, NavDropdown, Nav } from 'react-bootstrap'
-import navLogo from '../../Assets/Images/logo-atlante.png'
-import './index.css'
+/* eslint-disable react/display-name, jsx-a11y/click-events-have-key-events */
+import { Navigation } from "react-minimal-side-navigation";
+import { useHistory, useLocation } from "react-router-dom";
+import Icon from "awesome-react-icons";
+import React, { useState } from "react";
+import { AiOutlineUser } from "react-icons/ai"
+import { IoBusinessOutline, IoBookmarkOutline } from "react-icons/io5"
+import { RiTeamLine, RiMedalLine } from "react-icons/ri";
+import { FaUserGraduate, FaTasks } from "react-icons/fa"
+import { BsGraphUp } from "react-icons/bs";
+import "react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css";
 
-const CustomMenu = () => {
+export const CustomMenu = () => {
+   const history = useHistory();
+   const location = useLocation();
+   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
    return (
-      <div className="nav-container">
-         <Navbar bg="light" expand="lg">
-            {/* <Navbar.Brand href="/">
-               <img
-                  alt="Home Page"
-                  src={navLogo}
-                  width="194"
-                  height="45"
-                  className="d-inline-block align-top"
-               />
-            </Navbar.Brand> */}
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
-               <Nav>
-                  <Nav.Link href="/"> Página Inicial </Nav.Link>
-                  <Nav.Link href="/cadastrar">Cadastrar </Nav.Link>
-                  {/* <Nav.Link> Usuário: admin </Nav.Link>
-                  <Nav.Link href="#"> Login </Nav.Link> */}
-               </Nav>
-            </Navbar.Collapse>
-         </Navbar>
-         {/* <Nav id="secondary-nav">
-            <NavDropdown title="Tabelas" className="nav-dropdown">
-               <NavDropdown.Item >Action</NavDropdown.Item>
-               <NavDropdown.Divider />
-               <NavDropdown.Item >Separated link</NavDropdown.Item>
-            </NavDropdown>
-            <NavDropdown title="Cadastros" className="nav-dropdown">
-               <NavDropdown.Item>
-                     Clientes
-               </NavDropdown.Item>
-            </NavDropdown>
-            <NavDropdown title="Atividades" className="nav-dropdown">
-               <NavDropdown.Item >Action</NavDropdown.Item>
-               <NavDropdown.Divider />
-               <NavDropdown.Item >Separated link</NavDropdown.Item>
-            </NavDropdown>
-            <NavDropdown title="Inventário" className="nav-dropdown">
-               <NavDropdown.Item >Action</NavDropdown.Item>
-               <NavDropdown.Divider />
-               <NavDropdown.Item >Separated link</NavDropdown.Item>
-            </NavDropdown>
-            <NavDropdown title="Reparo" className="nav-dropdown">
-               <NavDropdown.Item >Action</NavDropdown.Item>
-               <NavDropdown.Divider />
-               <NavDropdown.Item >Separated link</NavDropdown.Item>
-            </NavDropdown>
-            <NavDropdown title="Consultas" className="nav-dropdown">
-               <NavDropdown.Item >Action</NavDropdown.Item>
-               <NavDropdown.Divider />
-               <NavDropdown.Item >Separated link</NavDropdown.Item>
-            </NavDropdown>
-            <NavDropdown title="Relatórios" className="nav-dropdown">
-               <NavDropdown.Item >Action</NavDropdown.Item>
-               <NavDropdown.Divider />
-               <NavDropdown.Item >Separated link</NavDropdown.Item>
-            </NavDropdown>
-            <NavDropdown title="Ferramentas" className="nav-dropdown">
-               <NavDropdown.Item >Action</NavDropdown.Item>
-               <NavDropdown.Divider />
-               <NavDropdown.Item >Separated link</NavDropdown.Item>
-            </NavDropdown>
-            <NavDropdown title="Configurações" className="nav-dropdown">
-               <NavDropdown.Item >Action</NavDropdown.Item>
-               <NavDropdown.Divider />
-               <NavDropdown.Item >Separated link</NavDropdown.Item>
-            </NavDropdown>
-            <NavDropdown title="Perfil" className="nav-dropdown">
-               <NavDropdown.Item >Action</NavDropdown.Item>
-               <NavDropdown.Divider />
-               <NavDropdown.Item >Separated link</NavDropdown.Item>
-            </NavDropdown>
-            <NavDropdown title="Ajuda" className="nav-dropdown">
-               <NavDropdown.Item >Action</NavDropdown.Item>
-               <NavDropdown.Divider />
-               <NavDropdown.Item >Separated link</NavDropdown.Item>
-            </NavDropdown>
-         </Nav> */}
-      </div>
-   );
-}
+      <React.Fragment>
+         {/* Sidebar Overlay */}
+         <div
+            onClick={() => setIsSidebarOpen(false)}
+            className={`fixed inset-0 z-20 block transition-opacity bg-black opacity-50 lg:hidden ${isSidebarOpen ? "block" : "hidden"
+               }`}
+         />
+         <div>
+            <button
+               className="btn-menu"
+               onClick={() => setIsSidebarOpen(true)}
+               type="button"
+            >
+               <Icon name="burger" className="w-8 h-8" />
+            </button>
+         </div>
 
-export default CustomMenu;
+         {/* Sidebar */}
+         <div
+            className={`fixed inset-y-0 left-0 z-30 w-64 overflow-y-auto transition duration-300 ease-out transform translate-x-0 bg-black border-r-2 lg:translate-x-0 lg:static lg:inset-0 ${isSidebarOpen ? "ease-out translate-x-0" : "ease-in -translate-x-full"
+               }`}
+         >
+            {/* https://github.com/abhijithvijayan/react-minimal-side-navigation */}
+            <Navigation
+               activeItemId={location.pathname}
+               onSelect={({ itemId }) => {
+                  history.push(itemId)
+               }}
+               items={[
+                  {
+                     title: "Usuarios",
+                     itemId: "/",
+                     // Optional
+                     elemBefore: () => <AiOutlineUser size={23} color="#ffb509" />,
+                  },
+                  {
+                     title: "Companhia",
+                     itemId: "/companhia",
+                     elemBefore: () => <IoBusinessOutline size={23} color="#ffb509" />,
+                  },
+                  {
+                     title: "Demandas",
+                     itemId: "#6",
+                     elemBefore: () => <FaTasks size={23} color="#ffb509" />
+                  },
+                  {
+                     title: "Jornadas",
+                     itemId: "/jornadas",
+                     elemBefore: () => <BsGraphUp size={23} color="#ffb509" />,
+                  },
+                  {
+                     title: "Badges",
+                     itemId: "#1",
+                     elemBefore: () => <RiMedalLine size={23} color="#ffb509" />
+                  },
+                  {
+                     title: "Conquistas",
+                     itemId: "#2",
+                     elemBefore: () => <IoBookmarkOutline size={23} color="#ffb509" />
+                  },
+                  {
+                     title: "Mentores",
+                     itemId: "#3",
+                     elemBefore: () => <FaUserGraduate size={23} color="#ffb509" />
+                  },
+                  {
+                     title: "Times",
+                     itemId: "#4",
+                     elemBefore: () => <RiTeamLine size={23} color="#ffb509" />
+                  },
+               ]}
+            />
+
+            {/* <div className="absolute bottom-0 w-full my-8">
+               <Navigation
+                  activeItemId={location.pathname}
+                  items={[
+                     {
+                        title: "Settings",
+                        itemId: "/settings",
+                        elemBefore: () => <Icon name="activity" />
+                     }
+                  ]}
+                  onSelect={({ itemId }) => {
+                     history.push(itemId);
+                  }}
+               />
+            </div> */}
+         </div>
+      </React.Fragment>
+   );
+};

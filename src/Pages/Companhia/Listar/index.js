@@ -6,8 +6,8 @@ import { Pagination, Button } from "react-bootstrap";
 import moment from "moment";
 import { CustomMenu } from "../../../Componentes/CustomMenu";
 
-export default function ListarJornada() {
-   const [jornada, setJornada] = useState(null);
+export default function Companhia() {
+   const [companhia, setCompanhia] = useState(null);
    const [buscar, setBuscar] = useState(null);
    const [page, setPage] = useState({});
 
@@ -22,11 +22,11 @@ export default function ListarJornada() {
       }
    };
 
-   async function deletarJornada(id) {
+   async function deletarCompanhia(id) {
       try {
          await axios({
             method: "delete",
-            url: `http://209.97.146.187:18919/user-jorneys/excluir/${id}`,
+            url: `http://209.97.146.187:18919/companies/excluir/${id}`,
          });
          window.location.reload();
       } catch (error) {
@@ -41,14 +41,14 @@ export default function ListarJornada() {
          }
          const { data } = await axios({
             method: "get",
-            url: "http://209.97.146.187:18919/user-jorneys/listar",
+            url: "http://209.97.146.187:18919/companies/listar",
             params: {
                nome: param,
                page: page,
             },
          });
          console.log(data)
-         setJornada(data.data);
+         setCompanhia(data.data);
          setPage(data.meta.pagination);
       } catch (error) {
          alert(error);
@@ -64,7 +64,7 @@ export default function ListarJornada() {
          <CustomMenu />
          <div className="clientes-container">
             <div className="home-container">
-               <h1>Jornadas</h1>
+               <h1>Companhia</h1>
                <div className="input-group">
                   <input
                      className="form-control search-user"
@@ -84,31 +84,31 @@ export default function ListarJornada() {
                      </Button>
                   </div>
 
-                  <a href="/cadastrar/jornada" className="btn btn-dark btn-search">
+                  <a href="/cadastrar/companhia" className="btn btn-dark btn-search">
                      Cadastrar
                   </a>
                </div>
                <table className="table">
                   <thead>
                      <tr>
-                        <th scope="col">ID da Jornada Usuário</th>
+                        <th scope="col">ID Eduzz</th>
                         <th scope="col">Data de Criação</th>
                         <th scope="col">Data de atualização</th>
                         <th scope="col">Ações</th>
                      </tr>
                   </thead>
                   <tbody>
-                     {jornada === null
+                     {companhia === null
                         ? ""
-                        : jornada.map((jorn) => {
+                        : companhia.map((companhia) => {
                            return (
-                              <tr key={jorn.jnu_cod}>
-                                 <td data-title="ID da Jornada Usuário">{jorn.jnu_cod}</td>
-                                 <td data-title="Data de Criação">{moment(jorn.jnu_dtcreation).format("DD/MM/YYYY hh:mm a")}</td>
-                                 <td data-title="Data de atualização">{moment(jorn.jnu_dtupdate).format("DD/MM/YYYY hh:mm a")}</td>
+                              <tr key={companhia.usr_cod}>
+                                 <td data-title="ID Eduzz">{companhia.cpn_cli_cod}</td>
+                                 <td data-title="Data de Criação">{moment(companhia.cpn_dtcreation).format("DD/MM/YYYY hh:mm a")}</td>
+                                 <td data-title="Data de Atualização">{moment(companhia.cpn_dtupdate).format("DD/MM/YYYY hh:mm a")}</td>
                                  <td data-title="Ações">
-                                    <Link to={`/editar-jornada/${jorn.jnu_cod}`} className="btn btn-warning">Editar</Link>
-                                    <button className="btn btn-dark" onClick={() => deletarJornada(jorn.jnu_cod)}>
+                                    <Link className="btn btn-warning">Editar</Link>
+                                    <button className="btn btn-dark" onClick={() => deletarCompanhia(companhia.cpn_cod)}>
                                        Excluir
                                     </button>
                                  </td>

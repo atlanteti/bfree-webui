@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "./styles.css";
-import { Pagination } from "react-bootstrap";
+import { Pagination, Row, Col, Button } from "react-bootstrap";
 import moment from "moment";
 
 export default function Usuarios() {
@@ -60,6 +60,7 @@ export default function Usuarios() {
    return (
       <div className="clientes-container">
          <div className="home-container">
+            <h1>Usuários</h1>
             <div className="input-group">
                <input
                   className="form-control search-user"
@@ -70,13 +71,13 @@ export default function Usuarios() {
                   defaultValue={buscar}
                />
                <div className="input-group-append">
-                  <button
+                  <Button
                      onClick={(e) => requestData(e, buscar)}
                      type="button"
-                     className=""
+                     variant="warning"
                   >
                      Buscar
-                  </button>
+                  </Button>
                </div>
 
                <a href="/cadastrar/usuario" className="btn btn-dark btn-search">
@@ -100,12 +101,12 @@ export default function Usuarios() {
                      : usuarios.map((usuario) => {
                         return (
                            <tr key={usuario.usr_cod}>
-                              <td>{usuario.usr_cli_cod}</td>
-                              <td>{usuario.usr_externalid}</td>
-                              <td>{moment(usuario.usr_dtcreation).format("DD/MM/YYYY h:mm a")}</td>
-                              <td>{moment(usuario.usr_dtupdate).format("DD/MM/YYYY h:mm a")}</td>
-                              <td>{usuario.statusUser.sus_name}</td>
-                              <td>
+                              <td data-title="ID Eduzz">{usuario.usr_cli_cod}</td>
+                              <td data-title="ID Externo">{usuario.usr_externalid}</td>
+                              <td data-title="ID Data de criação">{moment(usuario.usr_dtcreation).format("DD/MM/YYYY h:mm a")}</td>
+                              <td data-title="Data de Atualização">{moment(usuario.usr_dtupdate).format("DD/MM/YYYY h:mm a")}</td>
+                              <td data-title="Status">{usuario.statusUser.sus_name}</td>
+                              <td data-title="Ações">
                                  <Link className="btn btn-warning" to={`/editar/${usuario.usr_cod}`}>Editar</Link>
                                  <button className="btn btn-dark" onClick={() => deletarUsuario(usuario.usr_cod)}>
                                     Excluir
@@ -117,16 +118,22 @@ export default function Usuarios() {
                </tbody>
             </table>
 
-            <Pagination className="">
+            <Pagination className="pagination">
                <Pagination.First onClick={(e) => requestData(e, buscar, 1)} />
                <Pagination.Prev
                   disabled={page.current === 1 ? true : false}
-                  onClick={(e) => requestData(e, buscar, page.current - 1)}
+                  onClick={(e) => {
+                     requestData(e, buscar, page.current - 1)
+                     window.scroll(0, 0)
+                  }}
                />
                {page.current >= 3 ? <Pagination.Ellipsis disabled={true} /> : null}
                {page.current >= 2 ? (
                   <Pagination.Item
-                     onClick={(e) => requestData(e, buscar, page.current - 1)}
+                     onClick={(e) => {
+                        requestData(e, buscar, page.current - 1)
+                        window.scroll(0, 0)
+                     }}
                   >
                      {page.current - 1}
                   </Pagination.Item>
@@ -134,7 +141,10 @@ export default function Usuarios() {
                <Pagination.Item active>{page.current}</Pagination.Item>
                {page.total - page.current >= 1 ? (
                   <Pagination.Item
-                     onClick={(e) => requestData(e, buscar, page.current + 1)}
+                     onClick={(e) => {
+                        requestData(e, buscar, page.current + 1)
+                        window.scroll(0, 0)
+                     }}
                   >
                      {page.current + 1}
                   </Pagination.Item>
@@ -144,10 +154,16 @@ export default function Usuarios() {
                ) : null}
                <Pagination.Next
                   disabled={page.current === page.total ? true : false}
-                  onClick={(e) => requestData(e, buscar, page.current + 1)}
+                  onClick={(e) => {
+                     requestData(e, buscar, page.current + 1)
+                     window.scroll(0, 0)
+                  }}
                />
                <Pagination.Last
-                  onClick={(e) => requestData(e, buscar, page.total)}
+                  onClick={(e) => {
+                     requestData(e, buscar, page.total)
+                     window.scroll(0, 0)
+                  }}
                />
             </Pagination>
          </div>
