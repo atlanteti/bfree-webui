@@ -14,11 +14,8 @@ export default function Cadastrar() {
    const [showAlert, setShowAlert] = useState(false);
    const [message, setMessage] = useState();
    const [statusMsg, setStatusMsg] = useState();
-   const [showModal, setShowModal] = useState(false);
    const [redirect, setRedirect] = useState(false);
    const [statusSelect, setStatusSelect] = useState();
-
-   const handleClose = () => setShowModal(false);
 
    const handleChange = (e) => {
       updateFormData({ ...formData, [e.target.id]: Number(e.target.value.trim()) })
@@ -71,6 +68,15 @@ export default function Cadastrar() {
       }
    };
 
+   function preventNonNumericalInput(e) {
+      e = e || window.event;
+      var charCode = (typeof e.which == "undefined") ? e.keyCode : e.which;
+      var charStr = String.fromCharCode(charCode);
+
+      if (!charStr.match(/^[0-9]+$/))
+         e.preventDefault();
+   }
+
    useEffect(() => {
       requestStatus();
    }, [])
@@ -82,9 +88,11 @@ export default function Cadastrar() {
    return (
       <>
          {showAlert &&
-            <Alert variant={statusMsg} onClose={() => setShowAlert(false)} dismissible>
-               {message}
-            </Alert>
+            <Col md={{ span: 3, offset: 3 }}>
+               <Alert variant={statusMsg} onClose={() => setShowAlert(false)} dismissible>
+                  {message}
+               </Alert>
+            </Col>
          }
          <CustomMenu />
          <Col>
@@ -98,6 +106,8 @@ export default function Cadastrar() {
                               type="number"
                               onChange={handleChange}
                               required
+                              pattern="[1-9]"
+                              onKeyPress={(e) => preventNonNumericalInput(e)}
                            />
                         </Form.Group>
                      </Col>
@@ -105,7 +115,8 @@ export default function Cadastrar() {
                         <Form.Group controlId="usr_externalid">
                            <Form.Label>ID Externo:</Form.Label>
                            <Form.Control
-                              type="number"
+                              type="text"
+                              maxlength="10"
                               onChange={handleChange}
                               required
                            />
@@ -128,30 +139,16 @@ export default function Cadastrar() {
                   <Row style={{ marginTop: 30 }}>
                      <Button
                         variant="danger" style={{ marginLeft: 30 }}
-                        onClick={() => setShowModal(true)}
+                        onClick={() => setRedirect(true)}
                      >
                         Cancelar
                      </Button>
 
-                     <Button variant="warning" style={{ marginLeft: 30 }}>
+                     <Button type="submit" variant="warning" style={{ marginLeft: 30 }}>
                         Cadastrar
                      </Button>
                   </Row>
                </Form>
-               <Modal show={showModal} onHide={handleClose}>
-                  <Modal.Header closeButton>
-                     <Modal.Title>Erro!</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>Você deseja cancelar o cadastramento de usuário?</Modal.Body>
-                  <Modal.Footer>
-                     <Button variant="danger" onClick={handleClose}>
-                        Não
-                     </Button>
-                     <Button variant="warning" onClick={() => setRedirect(true)}>
-                        Sim
-                     </Button>
-                  </Modal.Footer>
-               </Modal>
             </Col>
          </Col>
       </>

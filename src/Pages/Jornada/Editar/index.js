@@ -15,6 +15,8 @@ export default function EditarJornada(props) {
    const [jornadas, setJornadas] = useState();
    const [usuarios, setUsuarios] = useState();
    const [user, setUser] = useState();
+   const [horaUpd, setHoraUpd] = useState();
+   const [horaCriacao, setHoraCriacao] = useState();
 
    const jornadaId = Number(props.match.params.jnu_cod);
 
@@ -23,7 +25,6 @@ export default function EditarJornada(props) {
    };
 
    const handleSubmit = async (e) => {
-      console.log(userData);
       try {
          e.preventDefault()
          const { data } = await axios({
@@ -58,6 +59,8 @@ export default function EditarJornada(props) {
             url: `http://209.97.146.187:18919/user-jorneys/procurar/${jornadaId}`,
          });
          setUser(data.data);
+         setHoraCriacao(moment(data.data.jnu_dtcreation).format("hh"))
+         setHoraUpd(moment(data.data.jnu_dtupdate).format("hh"))
          console.log(data.data)
       } catch (error) {
          alert(error);
@@ -153,26 +156,28 @@ export default function EditarJornada(props) {
                      <Col>
                         <Form.Group controlId="jnu_dtcreation">
                            <Form.Label>Data de cadastramento:</Form.Label>
-                           <Form.Control
-                              type="date"
-                              disabled
-                              value={moment(user?.jnu_dtcreation).format("YYYY-MM-DD")}
-                              onChange={handleChange}
-                           >
-                           </Form.Control>
                         </Form.Group>
+                     </Col>
+                     <Col style={{ marginBottom: 20 }}>
+                        {/* formatando data */}
+                        {moment(user?.jnu_dtcreation).format("a") === "pm" ? (
+                           moment(user?.jnu_dtcreation).format("DD-MM-YYYY") + " " + (parseInt(horaCriacao) + 12) + ":" + moment(user?.jnu_dtcreation).format("mm")
+                        )
+                           : moment(user?.jnu_dtcreation).format("DD-MM-YYYY hh:mm")
+                        }
                      </Col>
                      <Col>
                         <Form.Group controlId="jnu_dtupdate">
                            <Form.Label>Data de atualização:</Form.Label>
-                           <Form.Control
-                              type="date"
-                              disabled
-                              value={moment(user?.jnu_dtupdate).format("YYYY-MM-DD")}
-                              onChange={handleChange}
-                           >
-                           </Form.Control>
                         </Form.Group>
+                     </Col>
+                     <Col style={{ marginBottom: 20 }}>
+                        {/* formatando data */}
+                        {moment(user?.jnu_dtupdate).format("a") === "pm" ? (
+                           moment(user?.jnu_dtupdate).format("DD-MM-YYYY") + " " + (parseInt(horaUpd) + 12) + ":" + moment(user?.jnu_dtupdate).format("mm")
+                        )
+                           : moment(user?.jnu_dtupdate).format("DD-MM-YYYY hh:mm")
+                        }
                      </Col>
                   </Row>
                   <Row style={{ marginTop: 30, marginBottom: 10 }}>

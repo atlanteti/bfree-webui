@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "./styles.css";
-import { Pagination, Row, Col, Button } from "react-bootstrap";
+import { Pagination, Row, Col, Button, Alert } from "react-bootstrap";
 import moment from "moment";
 
 export default function Usuarios() {
    const [usuarios, setUsuarios] = useState(null);
    const [buscar, setBuscar] = useState(null);
    const [page, setPage] = useState({});
+   const [showAlert, setShowAlert] = useState(false);
 
    function buscarNome(event) {
       const value = event.target.value;
@@ -23,11 +24,15 @@ export default function Usuarios() {
 
    async function deletarUsuario(id) {
       try {
-         await axios({
+         const { data } = await axios({
             method: "delete",
             url: `http://209.97.146.187:18919/usuarios/excluir/${id}`,
          });
-         window.location.reload();
+         if (data.meta.status == 209) {
+            setShowAlert(true);
+         } else {
+            window.location.reload();
+         }
       } catch (error) {
          alert(error);
       }
@@ -46,6 +51,7 @@ export default function Usuarios() {
                page: page,
             },
          });
+         console.log(data)
          setUsuarios(data.data);
          setPage(data.meta.pagination);
       } catch (error) {
@@ -59,6 +65,13 @@ export default function Usuarios() {
 
    return (
       <div className="clientes-container">
+         {showAlert &&
+            <Col>
+               <Alert variant="warning" onClose={() => setShowAlert(false)} dismissible>
+                  Não é possivel excluir o registro, pois o mesmo possui ligação com outras tabelas!
+               </Alert>
+            </Col>
+         }
          <div className="home-container">
             <h1>Usuários</h1>
             <div className="input-group">
@@ -89,9 +102,9 @@ export default function Usuarios() {
                   <tr>
                      <th scope="col">ID Eduzz</th>
                      <th scope="col">ID Externo</th>
+                     <th scope="col">Status</th>
                      <th scope="col">Data de Criação</th>
                      <th scope="col">Data de atualização</th>
-                     <th scope="col">Status</th>
                      <th scope="col">Ações</th>
                   </tr>
                </thead>
@@ -103,9 +116,9 @@ export default function Usuarios() {
                            <tr key={usuario.usr_cod}>
                               <td data-title="ID Eduzz">{usuario.usr_cli_cod}</td>
                               <td data-title="ID Externo">{usuario.usr_externalid}</td>
+                              <td data-title="Status">{usuario.statusUser.sus_name}</td>
                               <td data-title="ID Data de criação">{moment(usuario.usr_dtcreation).format("DD/MM/YYYY h:mm a")}</td>
                               <td data-title="Data de Atualização">{moment(usuario.usr_dtupdate).format("DD/MM/YYYY h:mm a")}</td>
-                              <td data-title="Status">{usuario.statusUser.sus_name}</td>
                               <td data-title="Ações">
                                  <Link className="btn btn-warning" to={`/editar/${usuario.usr_cod}`}>Editar</Link>
                                  <button className="btn btn-dark" onClick={() => deletarUsuario(usuario.usr_cod)}>

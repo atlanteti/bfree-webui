@@ -13,12 +13,10 @@ export default function CadastrarJornada() {
    const [showAlert, setShowAlert] = useState(false);
    const [message, setMessage] = useState();
    const [statusMsg, setStatusMsg] = useState();
-   const [showModal, setShowModal] = useState(false);
    const [redirect, setRedirect] = useState(false);
    const [journeys, setJourneys] = useState();
    const [usuarios, setUsuarios] = useState();
 
-   const handleClose = () => setShowModal(false);
 
    const handleChange = (e) => {
       updateFormData({ ...formData, [e.target.id]: Number(e.target.value.trim()) })
@@ -160,7 +158,7 @@ export default function CadastrarJornada() {
                   <Row style={{ marginTop: 30, marginBottom: 20 }}>
                      <Button
                         variant="danger" style={{ marginLeft: 30 }}
-                        onClick={() => setShowModal(true)}
+                        onClick={() => setRedirect(true)}
                      >
                         Cancelar
                      </Button>
@@ -170,20 +168,6 @@ export default function CadastrarJornada() {
                      </Button>
                   </Row>
                </Form>
-               <Modal show={showModal} onHide={handleClose}>
-                  <Modal.Header closeButton>
-                     <Modal.Title>Erro!</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>Você deseja cancelar o cadastramento de usuário?</Modal.Body>
-                  <Modal.Footer>
-                     <Button variant="danger" onClick={handleClose}>
-                        Não
-                     </Button>
-                     <Button variant="warning" onClick={() => setRedirect(true)}>
-                        Sim
-                     </Button>
-                  </Modal.Footer>
-               </Modal>
             </Col>
          </Col>
       </>
