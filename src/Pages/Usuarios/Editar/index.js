@@ -14,6 +14,7 @@ export default function Editar(props) {
    const [statusUser, setStatusUser] = useState();
    const [horaUpd, setHoraUpd] = useState();
    const [horaCriacao, setHoraCriacao] = useState();
+   const [showAlert, setShowAlert] = useState(false);
 
    const clienteId = Number(props.match.params.usr_cod);
 
@@ -30,13 +31,15 @@ export default function Editar(props) {
             data: {
                ...userData,
                usr_cli_cod: Number(userData.usr_cli_cod),
-               usr_externalid: (userData.usr_externalid),
+               usr_externalid: userData.usr_externalid,
                usr_sus_cod: Number(userData.usr_sus_cod)
             },
          })
          console.log(data);
          if (data.meta.status == 100) {
             setRedirect(true);
+         } else {
+            setShowAlert(true);
          }
 
       } catch (error) {
@@ -75,6 +78,15 @@ export default function Editar(props) {
       }
    };
 
+   function preventNonNumericalInput(e) {
+      e = e || window.event;
+      var charCode = (typeof e.which == "undefined") ? e.keyCode : e.which;
+      var charStr = String.fromCharCode(charCode);
+
+      if (!charStr.match(/^[0-9]+$/))
+         e.preventDefault();
+   }
+
    useEffect(() => {
       requestData();
       requestStatus();
@@ -86,26 +98,37 @@ export default function Editar(props) {
 
    return (
       <>
+         {showAlert &&
+            <Col md={{ span: 3, offset: 3 }}>
+               <Alert variant="warning" onClose={() => setShowAlert(false)} dismissible>
+                  Algo deu errado!
+               </Alert>
+            </Col>
+         }
          <CustomMenu />
          <Col >
             <Col className="cadastrar-user" md={{ span: 4, offset: 3 }}>
                <Form onSubmit={handleSubmit}>
                   <Row bsPrefix="column">
                      <Col>
+
                         <Form.Group controlId="usr_cli_cod">
                            <Form.Label>ID Eduzz:</Form.Label>
                            <Form.Control
                               type="number"
                               onChange={handleChange}
                               defaultValue={userData?.usr_cli_cod}
+                              pattern="[1-9]"
+                              onKeyPress={(e) => preventNonNumericalInput(e)}
                            />
                         </Form.Group>
                      </Col>
                      <Col>
                         <Form.Group controlId="usr_externalid">
-                           <Form.Label>ID Externo:</Form.Label>
+                           <Form.Label >ID Externo:</Form.Label>
                            <Form.Control
                               type="text"
+                              maxlength="10"
                               onChange={handleChange}
                               defaultValue={userData?.usr_externalid}
                            />

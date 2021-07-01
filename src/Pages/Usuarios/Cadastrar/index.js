@@ -68,6 +68,15 @@ export default function Cadastrar() {
       }
    };
 
+   function preventNonNumericalInput(e) {
+      e = e || window.event;
+      var charCode = (typeof e.which == "undefined") ? e.keyCode : e.which;
+      var charStr = String.fromCharCode(charCode);
+
+      if (!charStr.match(/^[0-9]+$/))
+         e.preventDefault();
+   }
+
    useEffect(() => {
       requestStatus();
    }, [])
@@ -97,6 +106,8 @@ export default function Cadastrar() {
                               type="number"
                               onChange={handleChange}
                               required
+                              pattern="[1-9]"
+                              onKeyPress={(e) => preventNonNumericalInput(e)}
                            />
                         </Form.Group>
                      </Col>
@@ -105,6 +116,7 @@ export default function Cadastrar() {
                            <Form.Label>ID Externo:</Form.Label>
                            <Form.Control
                               type="text"
+                              maxlength="10"
                               onChange={handleChange}
                               required
                            />
