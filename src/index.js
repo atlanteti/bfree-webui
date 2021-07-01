@@ -9,6 +9,7 @@ import Companhia from './Pages/Companhia/Listar';
 import Cadastros from './Pages/Cadastros';
 import ListarJornada from './Pages/Jornada/Listar';
 import EditarJornada from './Pages/Jornada/Editar';
+import EditarCompanhia from './Pages/Companhia/Editar';
 
 ReactDOM.render(
    <React.StrictMode>
@@ -17,6 +18,7 @@ ReactDOM.render(
             <Route exact path="/" component={App} />
             <Route path="/editar/:usr_cod" component={Editar} />
             <Route path="/companhia" component={Companhia} />
+            <Route path="/editar-companhia/:cpn_cod" component={EditarCompanhia}/>
             <Route path="/cadastrar" component={Cadastros} />
             <Route path="/jornadas" component={ListarJornada} />
             <Route path="/editar-jornada/:jnu_cod" component={EditarJornada} />

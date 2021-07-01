@@ -107,7 +107,7 @@ export default function Companhia() {
                                  <td data-title="Data de Criação">{moment(companhia.cpn_dtcreation).format("DD/MM/YYYY hh:mm a")}</td>
                                  <td data-title="Data de Atualização">{moment(companhia.cpn_dtupdate).format("DD/MM/YYYY hh:mm a")}</td>
                                  <td data-title="Ações">
-                                    <Link className="btn btn-warning">Editar</Link>
+                                    <Link className="btn btn-warning" to={`/editar-companhia/${companhia.cpn_cod}`}>Editar</Link>
                                     <button className="btn btn-dark" onClick={() => deletarCompanhia(companhia.cpn_cod)}>
                                        Excluir
                                     </button>
