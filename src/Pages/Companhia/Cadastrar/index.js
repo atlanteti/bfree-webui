@@ -54,7 +54,7 @@ export default function CadastrarCompanhia() {
    };
 
    if (redirect) {
-      return <Redirect to="/companie" />
+      return <Redirect to="/companhia" />
    }
 
    return (
@@ -83,7 +83,7 @@ export default function CadastrarCompanhia() {
                   <Row style={{ marginTop: 10 }}>
                      <Button
                         variant="danger" style={{ marginLeft: 15 }}
-                        onClick={() => setShowModal(true)}
+                        onClick={() => setRedirect(true)}
                      >
                         Cancelar
                      </Button>
