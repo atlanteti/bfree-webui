@@ -92,6 +92,7 @@ export default function Companhia() {
                   <thead>
                      <tr>
                         <th scope="col">ID Eduzz</th>
+                        <th scope="col">Empresa</th>
                         <th scope="col">Data de Criação</th>
                         <th scope="col">Data de atualização</th>
                         <th scope="col">Ações</th>
@@ -104,6 +105,7 @@ export default function Companhia() {
                            return (
                               <tr key={companhia.usr_cod}>
                                  <td data-title="ID Eduzz">{companhia.cpn_cli_cod}</td>
+                                 <td data-title="Empresa">{companhia.cpn_name}</td>
                                  <td data-title="Data de Criação">{moment(companhia.cpn_dtcreation).format("DD/MM/YYYY hh:mm a")}</td>
                                  <td data-title="Data de Atualização">{moment(companhia.cpn_dtupdate).format("DD/MM/YYYY hh:mm a")}</td>
                                  <td data-title="Ações">
