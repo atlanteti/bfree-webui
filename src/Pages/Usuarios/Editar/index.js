@@ -30,7 +30,7 @@ export default function Editar(props) {
             data: {
                ...userData,
                usr_cli_cod: Number(userData.usr_cli_cod),
-               usr_externalid: Number(userData.usr_externalid),
+               usr_externalid: (userData.usr_externalid),
                usr_sus_cod: Number(userData.usr_sus_cod)
             },
          })
@@ -50,6 +50,7 @@ export default function Editar(props) {
             method: 'get',
             url: `http://209.97.146.187:18919/usuarios/procurar/${clienteId}`,
          })
+         console.log(data.data)
          setUserData(data.data)
          setStatusUser(data.data.statusUser.sus_name);
          setHoraCriacao(moment(data.data.usr_dtcreation).format("hh"))
@@ -104,7 +105,7 @@ export default function Editar(props) {
                         <Form.Group controlId="usr_externalid">
                            <Form.Label>ID Externo:</Form.Label>
                            <Form.Control
-                              type="number"
+                              type="text"
                               onChange={handleChange}
                               defaultValue={userData?.usr_externalid}
                            />
