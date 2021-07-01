@@ -10,11 +10,10 @@ import { CustomMenu } from '../../../Componentes/CustomMenu';
 export default function Editar(props) {
    const [userData, setUserData] = useState({});
    const [redirect, setRedirect] = useState(false);
-   const [message, setMessage] = useState();
-   const [statusMsg, setStatusMsg] = useState();
    const [statusSelect, setStatusSelect] = useState();
-   const [showAlert, setShowAlert] = useState(false);
    const [statusUser, setStatusUser] = useState();
+   const [horaUpd, setHoraUpd] = useState();
+   const [horaCriacao, setHoraCriacao] = useState();
 
    const clienteId = Number(props.match.params.usr_cod);
 
@@ -23,7 +22,6 @@ export default function Editar(props) {
    };
 
    const handleSubmit = async (e) => {
-      console.log(statusUser);
       try {
          e.preventDefault()
          const { data } = await axios({
@@ -31,11 +29,12 @@ export default function Editar(props) {
             url: `http://209.97.146.187:18919/usuarios/alterar/${clienteId}`,
             data: {
                ...userData,
+               usr_cli_cod: Number(userData.usr_cli_cod),
                usr_externalid: Number(userData.usr_externalid),
                usr_sus_cod: Number(userData.usr_sus_cod)
             },
          })
-
+         console.log(data);
          if (data.meta.status == 100) {
             setRedirect(true);
          }
@@ -53,6 +52,8 @@ export default function Editar(props) {
          })
          setUserData(data.data)
          setStatusUser(data.data.statusUser.sus_name);
+         setHoraCriacao(moment(data.data.usr_dtcreation).format("hh"))
+         setHoraUpd(moment(data.data.usr_dtupdate).format("hh"))
       } catch (error) {
          console.log(error)
       }
@@ -84,14 +85,9 @@ export default function Editar(props) {
 
    return (
       <>
-         {showAlert &&
-            <Alert variant={statusMsg} onClose={() => setShowAlert(false)} dismissible>
-               {message}
-            </Alert>
-         }
          <CustomMenu />
          <Col >
-            <Col className="cadastrar-user" md={{ span: 3, offset: 3 }}>
+            <Col className="cadastrar-user" md={{ span: 4, offset: 3 }}>
                <Form onSubmit={handleSubmit}>
                   <Row bsPrefix="column">
                      <Col>
@@ -133,22 +129,29 @@ export default function Editar(props) {
                      <Col>
                         <Form.Group controlId="usr_dtcreation">
                            <Form.Label>Data de criação: </Form.Label>
-                           <Form.Control
-                              type="date"
-                              onChange={handleChange}
-                              value={moment(userData?.usr_dtcreation).format("YYYY-MM-DD")}
-                           />
+
                         </Form.Group>
+                     </Col>
+                     <Col style={{ marginBottom: 20 }}>
+                        {/* formatando data */}
+                        {moment(userData?.usr_dtcreation).format("a") === "pm" ? (
+                           moment(userData?.usr_dtcreation).format("DD-MM-YYYY") + " " + (parseInt(horaCriacao) + 12) + ":" + moment(userData?.usr_dtcreation).format("mm")
+                        )
+                           : moment(userData?.usr_dtcreation).format("DD-MM-YYYY hh:mm")
+                        }
                      </Col>
                      <Col>
                         <Form.Group controlId="usr_dtupdate">
                            <Form.Label>Data de atualização: </Form.Label>
-                           <Form.Control
-                              type="date"
-                              onChange={handleChange}
-                              value={moment(userData?.usr_dtupdate).format("YYYY-MM-DD")}
-                           />
                         </Form.Group>
+                     </Col>
+                     <Col>
+                        {/* formatando data */}
+                        {moment(userData?.usr_dtupdate).format("a") === "pm" ? (
+                           moment(userData?.usr_dtupdate).format("DD-MM-YYYY") + " " + (parseInt(horaUpd) + 12) + ":" + moment(userData?.usr_dtupdate).format("mm")
+                        )
+                           : moment(userData?.usr_dtcreation).format("DD-MM-YYYY hh:mm")
+                        }
                      </Col>
                   </Row>
                   <Row style={{ marginTop: 30, marginBottom: 20 }}>
