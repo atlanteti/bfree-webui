@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import { Redirect } from "react-router-dom";
 import axios from "axios";
 import { Form, Col, Row, Button, Alert, Modal } from 'react-bootstrap';
-import DrawerMenu from '../../Componentes/DrawerMenu';
 import "./styles.css";
+import { CustomMenu } from '../../../Componentes/CustomMenu';
 
 export default function CadastrarCompanhia() {
    const [formData, updateFormData] = useState({});
@@ -58,55 +58,57 @@ export default function CadastrarCompanhia() {
    }
 
    return (
-      <div className="companhia-container">
+      <>
          {showAlert &&
             <Alert className="msg-alert" variant={statusMsg} onClose={() => setShowAlert(false)} dismissible>
                {message}
             </Alert>
          }
-         <DrawerMenu />
-         <Col md={{ span: 6, offset: 3 }}>
-            <Form onSubmit={handleSubmit}>
-               <Row>
-                  <Col>
-                     <Form.Group controlId="cpn_cli_cod">
-                        <Form.Label>ID Eduzz:</Form.Label>
-                        <Form.Control
-                           type="number"
-                           onChange={handleChange}
-                           required
-                        />
-                     </Form.Group>
-                  </Col>
-               </Row>
-               <Row style={{ marginTop: 10 }}>
-                  <Button
-                     variant="danger" style={{ marginLeft: 15 }}
-                     onClick={() => setShowModal(true)}
-                  >
-                     Cancelar
-                  </Button>
+         <CustomMenu />
+         <Col style={{ marginTop: 20 }}>
+            <Col md={{ span: 3, offset: 3 }}>
+               <Form onSubmit={handleSubmit}>
+                  <Row>
+                     <Col>
+                        <Form.Group controlId="cpn_cli_cod">
+                           <Form.Label>ID Eduzz:</Form.Label>
+                           <Form.Control
+                              type="number"
+                              onChange={handleChange}
+                              required
+                           />
+                        </Form.Group>
+                     </Col>
+                  </Row>
+                  <Row style={{ marginTop: 10 }}>
+                     <Button
+                        variant="danger" style={{ marginLeft: 15 }}
+                        onClick={() => setShowModal(true)}
+                     >
+                        Cancelar
+                     </Button>
 
-                  <button style={{ marginLeft: 25 }}>
-                     Cadastrar
-                  </button>
-               </Row>
-            </Form>
-            <Modal show={showModal} onHide={handleClose}>
-               <Modal.Header closeButton>
-                  <Modal.Title>Erro!</Modal.Title>
-               </Modal.Header>
-               <Modal.Body>Você deseja cancelar o cadastramento de companhias?</Modal.Body>
-               <Modal.Footer>
-                  <Button variant="danger" onClick={handleClose}>
-                     Não
-                  </Button>
-                  <Button variant="warning" onClick={() => setRedirect(true)}>
-                     Sim
-                  </Button>
-               </Modal.Footer>
-            </Modal>
+                     <Button variant="warning" style={{ marginLeft: 25 }}>
+                        Cadastrar
+                     </Button>
+                  </Row>
+               </Form>
+               <Modal show={showModal} onHide={handleClose}>
+                  <Modal.Header closeButton>
+                     <Modal.Title>Erro!</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>Você deseja cancelar o cadastramento de companhias?</Modal.Body>
+                  <Modal.Footer>
+                     <Button variant="danger" onClick={handleClose}>
+                        Não
+                     </Button>
+                     <Button variant="warning" onClick={() => setRedirect(true)}>
+                        Sim
+                     </Button>
+                  </Modal.Footer>
+               </Modal>
+            </Col>
          </Col>
-      </div>
+      </>
    );
 }

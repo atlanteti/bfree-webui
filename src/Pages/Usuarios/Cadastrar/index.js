@@ -4,7 +4,7 @@ import axios from "axios";
 import { Redirect } from 'react-router-dom';
 
 import { Form, Col, Row, Button, Alert, Modal } from 'react-bootstrap';
-import DrawerMenu from '../../Componentes/DrawerMenu';
+import { CustomMenu } from '../../../Componentes/CustomMenu';
 import "./styles.css";
 
 export default function Cadastrar() {
@@ -86,9 +86,9 @@ export default function Cadastrar() {
                {message}
             </Alert>
          }
-         <DrawerMenu />
-         <div className="cadastrar-container">
-            <Col className="cadastrar-user" md={{ span: 6, offset: 3 }}>
+         <CustomMenu />
+         <Col>
+            <Col className="cadastrar-user" md={{ span: 3, offset: 3 }}>
                <Form onSubmit={handleSubmit}>
                   <Row bsPrefix="column">
                      <Col>
@@ -113,7 +113,7 @@ export default function Cadastrar() {
                      </Col>
                      <Col>
                         <Form.Group controlId="usr_sus_cod">
-                           <Form.Label>Status</Form.Label>
+                           <Form.Label>Status:</Form.Label>
                            <Form.Control
                               as="select"
                               onChange={handleChange}
@@ -133,9 +133,9 @@ export default function Cadastrar() {
                         Cancelar
                      </Button>
 
-                     <button style={{ marginLeft: 30 }}>
+                     <Button variant="warning" style={{ marginLeft: 30 }}>
                         Cadastrar
-                     </button>
+                     </Button>
                   </Row>
                </Form>
                <Modal show={showModal} onHide={handleClose}>
@@ -153,7 +153,7 @@ export default function Cadastrar() {
                   </Modal.Footer>
                </Modal>
             </Col>
-         </div>
+         </Col>
       </>
    );
 }

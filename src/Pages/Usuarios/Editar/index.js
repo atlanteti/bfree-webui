@@ -5,7 +5,7 @@ import { Redirect } from "react-router-dom";
 
 import axios from 'axios';
 import moment from 'moment';
-import DrawerMenu from '../../Componentes/DrawerMenu';
+import { CustomMenu } from '../../../Componentes/CustomMenu';
 
 export default function Editar(props) {
    const [userData, setUserData] = useState({});
@@ -89,28 +89,18 @@ export default function Editar(props) {
                {message}
             </Alert>
          }
-         <DrawerMenu />
-         <div className="cadastrar-container">
-            <Col className="cadastrar-user" md={{ span: 6, offset: 3 }}>
+         <CustomMenu />
+         <Col >
+            <Col className="cadastrar-user" md={{ span: 3, offset: 3 }}>
                <Form onSubmit={handleSubmit}>
                   <Row bsPrefix="column">
                      <Col>
-                        <Form.Group controlId="usr_dtcreation">
-                           <Form.Label>Data Cadastro</Form.Label>
+                        <Form.Group controlId="usr_cli_cod">
+                           <Form.Label>ID Eduzz:</Form.Label>
                            <Form.Control
-                              type="date"
+                              type="number"
                               onChange={handleChange}
-                              value={moment(userData?.usr_dtcreation).format("YYYY-MM-DD")}
-                           />
-                        </Form.Group>
-                     </Col>
-                     <Col>
-                        <Form.Group controlId="usr_dtupdate">
-                           <Form.Label>Dados alterado</Form.Label>
-                           <Form.Control
-                              type="date"
-                              onChange={handleChange}
-                              value={moment(userData?.usr_dtupdate).format("YYYY-MM-DD")}
+                              defaultValue={userData?.usr_cli_cod}
                            />
                         </Form.Group>
                      </Col>
@@ -126,7 +116,7 @@ export default function Editar(props) {
                      </Col>
                      <Col>
                         <Form.Group controlId="usr_sus_cod">
-                           <Form.Label>Status</Form.Label>
+                           <Form.Label>Status: </Form.Label>
                            <Form.Control
                               as="select"
                               onChange={handleChange}
@@ -140,8 +130,28 @@ export default function Editar(props) {
                            </Form.Control>
                         </Form.Group>
                      </Col>
+                     <Col>
+                        <Form.Group controlId="usr_dtcreation">
+                           <Form.Label>Data de criação: </Form.Label>
+                           <Form.Control
+                              type="date"
+                              onChange={handleChange}
+                              value={moment(userData?.usr_dtcreation).format("YYYY-MM-DD")}
+                           />
+                        </Form.Group>
+                     </Col>
+                     <Col>
+                        <Form.Group controlId="usr_dtupdate">
+                           <Form.Label>Data de atualização: </Form.Label>
+                           <Form.Control
+                              type="date"
+                              onChange={handleChange}
+                              value={moment(userData?.usr_dtupdate).format("YYYY-MM-DD")}
+                           />
+                        </Form.Group>
+                     </Col>
                   </Row>
-                  <Row style={{ marginTop: 30 }}>
+                  <Row style={{ marginTop: 30, marginBottom: 20 }}>
                      <Button
                         variant="danger" style={{ marginLeft: 30 }}
                         onClick={() => setRedirect(true)}
@@ -149,13 +159,13 @@ export default function Editar(props) {
                         Cancelar
                      </Button>
 
-                     <button type="submit" style={{ marginLeft: 30 }}>
+                     <Button variant="warning" type="submit" style={{ marginLeft: 30 }}>
                         Editar
-                     </button>
+                     </Button>
                   </Row>
                </Form>
             </Col>
-         </div>
+         </Col>
       </>
    )
 }

@@ -1,8 +1,8 @@
 import { Component } from "react";
 
 import { Route } from "react-router-dom";
-import Cadastrar from "../Cadastrar";
-import CadastrarCompanhia from "../CadastrarCompanhia";
+import Cadastrar from "../Usuarios/Cadastrar";
+import CadastrarCompanhia from "../Companhia/Cadastrar";
 import CadastrarJornada from "../Jornada/Cadastrar";
 
 export default class Cadastros extends Component {

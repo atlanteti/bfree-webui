@@ -1,6 +1,10 @@
 .clientes-container{
    display: flex;
-   flex-direction: column;
+   flex-direction: row;
+}
+
+h1 {
+   font-size: 2rem;
    margin-top: 1rem;
 }
 
@@ -25,6 +29,14 @@
    color: #000;
    background-color: #ffb509;
    border-color: #ffb509;
+   border-end-end-radius: 3px !important;
+   border-start-end-radius: 3px !important;
+}
+
+.btn-warning:hover {
+   color: #ffb509 !important;
+   background-color: #000 !important;
+   border-color: #ffb509;
 }
 
 .page-item.active .page-link {
@@ -37,6 +49,10 @@
    color: #000;
 }
 
+.search-user{
+   margin-left: 5rem;
+}
+
 .page-link:hover {
    box-shadow: 0 0 0 0.2rem rgb(0 0 0 / 10%);
 }
@@ -46,19 +62,22 @@
 }
 
 .input-group {
-   width: 50%;
    margin: 1rem;
 }
 
+.cadastrar-user{
+   margin-top: 3rem;
+}
+
 .table {
-   max-width: 1300px;
+   max-width: 1200px;
    flex-direction: column;
    align-items: center;
    justify-content: center;
  
    margin: 0 auto;
    border-radius: 10px;
-   border: 2px solid #dee2e6;
+   /* border: 2px solid #dee2e6; */
 }
 
 .table thead th {
@@ -86,29 +105,73 @@ tr a:hover {
 }
 
 
-@media only screen and (max-width: 766px) {
+@media all and (max-width: 766px) {
    .home-container {
       margin-left: 0;
    }
 
    .input-group {
-      width: 80%;
       margin: 1rem;
    }
 
    .table {
       margin: 1rem;
+      border: none !important;
    }
+
+   .search-user {
+      margin-left: 0 !important;
+   }
+
+   .pagination {
+      margin-bottom: 15px;
+   }
+
+   table tbody tr td {
+      display: block;
+      text-align: right !important;
+   }
+
+   table tbody tr td::before {
+      content: attr(data-title);
+      position: absolute;
+      display: block;
+   }
+
+   table {
+      border: none;
+   }
+
+   table thead {
+      display: none;
+   }
+
+   table tbody tr {
+      margin-bottom: 10px;
+      display: block;
+      border: 1px solid #dad6eb;
+   }
+
+   .clientes-container{
+      margin-left: 1rem;
+      margin-right: 1rem;
+   }
+   
 }
  
  /* desktop */
 @media only screen and (min-width: 767px) {
    .input-group {
-      width: 50%;
+      width: 80%;
    }
    
    .table {
       margin: 2rem 1rem;
       margin-left: 7rem;
+   }
+
+   .clientes-container{
+      margin-left: 16rem;
+      margin-right: 7rem;
    }
 }
