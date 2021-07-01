@@ -18,7 +18,7 @@ export default function Cadastrar() {
    const [statusSelect, setStatusSelect] = useState();
 
    const handleChange = (e) => {
-      updateFormData({ ...formData, [e.target.id]: Number(e.target.value.trim()) })
+      updateFormData({ ...formData, [e.target.id]: e.target.value.trim() })
    };
 
    const handleSubmit = async (e) => {
@@ -28,8 +28,14 @@ export default function Cadastrar() {
          const { data } = await axios({
             method: 'post',
             url: 'http://209.97.146.187:18919/usuarios/cadastrar',
-            data: formData,
+            data: {
+               usr_cli_cod: Number(formData.usr_cli_cod),
+               usr_externalid: formData.usr_externalid,
+               usr_sus_cod: Number(formData.usr_sus_cod)
+            },
          })
+
+         console.log(data);
 
          if (data.meta.status == 100) {
             setShowAlert(true);
@@ -88,7 +94,7 @@ export default function Cadastrar() {
    return (
       <>
          {showAlert &&
-            <Col md={{ span: 3, offset: 3 }}>
+            <Col md={{ span: 4, offset: 3 }}>
                <Alert variant={statusMsg} onClose={() => setShowAlert(false)} dismissible>
                   {message}
                </Alert>
@@ -103,10 +109,11 @@ export default function Cadastrar() {
                         <Form.Group controlId="usr_cli_cod">
                            <Form.Label>ID Eduzz:</Form.Label>
                            <Form.Control
-                              type="number"
+                              type="text"
+                              maxlength="10"
+
                               onChange={handleChange}
                               required
-                              pattern="[1-9]"
                               onKeyPress={(e) => preventNonNumericalInput(e)}
                            />
                         </Form.Group>
