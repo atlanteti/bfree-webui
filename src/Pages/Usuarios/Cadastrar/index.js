@@ -147,7 +147,7 @@ export default function Cadastrar(props) {
          }
          <CustomMenu />
          <Col >
-            <Col className="cadastrar-user" md={{ span: 4, offset: 3 }}>
+            <Col style={{ marginTop: 48 }} md={{ span: 4, offset: 3 }}>
                <Form onSubmit={handleSubmit}>
                   <Row bsPrefix="column">
                      <Col>
@@ -197,7 +197,6 @@ export default function Cadastrar(props) {
                         <Col>
                            <Form.Group controlId="usr_dtcreation">
                               <Form.Label>Data de criação: </Form.Label>
-
                            </Form.Group>
                         </Col>
                         <Col style={{ marginBottom: 20 }}>
