@@ -10,6 +10,8 @@ export default function Companhia() {
    const [companhia, setCompanhia] = useState(null);
    const [buscar, setBuscar] = useState(null);
    const [page, setPage] = useState({});
+   const [horaUpd, setHoraUpd] = useState();
+   const [horaCriacao, setHoraCriacao] = useState();
 
    function buscarNome(event) {
       const value = event.target.value;
@@ -47,7 +49,8 @@ export default function Companhia() {
                page: page,
             },
          });
-         console.log(data)
+         setHoraCriacao(moment(data.data.cpn_dtcreation).format("hh"))
+         setHoraUpd(moment(data.data.cpn_dtupdate).format("hh"))
          setCompanhia(data.data);
          setPage(data.meta.pagination);
       } catch (error) {
@@ -106,8 +109,21 @@ export default function Companhia() {
                               <tr key={companhia.usr_cod}>
                                  <td data-title="ID Eduzz">{companhia.cpn_cli_cod}</td>
                                  <td data-title="Nome">{companhia.cpn_name}</td>
-                                 <td data-title="Data de Criação">{moment(companhia.cpn_dtcreation).format("DD/MM/YYYY hh:mm a")}</td>
-                                 {companhia.cpn_dtupdate == null ? <td></td> : <td data-title="Data de Atualização">{moment(companhia.cpn_dtupdate).format("DD/MM/YYYY hh:mm a")}</td>}
+                                 <td data-title="Data de Criação">
+                                    {moment(companhia?.cpn_dtcreation).format("a") === "pm" ? (
+                                       moment(companhia?.cpn_dtcreation).format("DD-MM-YYYY") + " " + (parseInt(horaCriacao) + 12) + ":" + moment(companhia?.cpn_dtcreation).format("mm")
+                                    )
+                                       : moment(companhia?.cpn_dtcreation).format("DD-MM-YYYY hh:mm")
+                                    }
+                                 </td>
+                                 {companhia.cpn_dtupdate == null ? <td></td> :
+                                    <td data-title="Data de Atualização">
+                                       {moment(companhia?.cpn_dtupdate).format("a") === "pm" ? (
+                                          moment(companhia?.cpn_dtupdate).format("DD-MM-YYYY") + " " + (parseInt(horaUpd) + 12) + ":" + moment(companhia?.cpn_dtupdate).format("mm")
+                                       )
+                                          : moment(companhia?.cpn_dtcreation).format("DD-MM-YYYY hh:mm")
+                                       }
+                                    </td>}
                                  <td data-title="Ações">
                                     <Link className="btn btn-warning" to={`/editar-companhia/${companhia.cpn_cod}/${"alterar"}`}>Editar</Link>
                                     <button className="btn btn-dark" onClick={() => deletarCompanhia(companhia.cpn_cod)}>

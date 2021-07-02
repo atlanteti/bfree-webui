@@ -10,7 +10,7 @@ import Cadastros from './Pages/Cadastros';
 import ListarJornada from './Pages/Jornada/Listar';
 import EditarJornada from './Pages/Jornada/Editar';
 import EditarCompanhia from './Pages/Companhia/Editar';
-import Cadastrar from './Pages/Usuarios/Cadastrar';
+import EditUsuarios from './Pages/Usuarios/Cadastrar';
 import CadastrarCompanhia from './Pages/Companhia/Cadastrar';
 
 ReactDOM.render(
@@ -18,7 +18,7 @@ ReactDOM.render(
       <Router>
          <Switch>
             <Route exact path="/" component={App} />
-            <Route path="/editar/:usr_cod/:route" component={Cadastrar} />
+            <Route path="/editar/:usr_cod/:route" component={EditUsuarios} />
             <Route path="/companhia" component={Companhia} />
             <Route path="/editar-companhia/:cpn_cod/:param" component={CadastrarCompanhia} />
             <Route path="/cadastrar" component={Cadastros} />
