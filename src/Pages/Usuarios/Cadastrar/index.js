@@ -43,6 +43,7 @@ export default function EditUsuarios(props) {
                   usr_sus_cod: Number(formData.usr_sus_cod)
                },
             })
+            console.log(data)
             if (data.meta.status == 100) {
                setShowAlert(true);
                setMessage("Usuario Cadastrado!");
@@ -57,7 +58,7 @@ export default function EditUsuarios(props) {
 
             } else {
                setShowAlert(true);
-               setMessage("Algo deu errado. Tente novamente!");
+               setMessage(data.meta.message);
                setStatusMsg('warning');
             }
          } else {
@@ -136,7 +137,7 @@ export default function EditUsuarios(props) {
    return (
       <>
          {showAlert &&
-            <Col md={{ span: 4, offset: 3 }}>
+            <Col md={{ span: 8, offset: 2 }}>
                <Alert variant={statusMsg} onClose={() => setShowAlert(false)} dismissible>
                   {message}
                </Alert>

@@ -77,6 +77,11 @@
 .table #acoes{
    text-align: center;
 }
+
+th {background: #fff}
+tr:nth-child(even) {background: #FFF}
+tr:nth-child(odd) {background: #EEE}
+
 @media all and (max-width: 766px) {
    .home-container {
       margin-left: 0;
@@ -124,7 +129,6 @@
       margin-left: 1rem;
       margin-right: 1rem;
    }
-   
 }
  
  /* desktop */
