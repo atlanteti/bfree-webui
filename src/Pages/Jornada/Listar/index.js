@@ -106,7 +106,7 @@ export default function ListarJornada() {
                                  <td data-title="ID da Jornada Usuário">{jorn.jnu_cod}</td>
                                  <td data-title="Data de Criação">{moment(jorn.jnu_dtcreation).format("DD/MM/YYYY hh:mm a")}</td>
                                  <td data-title="Data de atualização">{moment(jorn.jnu_dtupdate).format("DD/MM/YYYY hh:mm a")}</td>
-                                 <td data-title="Ações">
+                                 <td data-title="Ações" id="acoes">
                                     <Link to={`/editar-jornada/${jorn.jnu_cod}`} className="btn btn-warning">Editar</Link>
                                     <button className="btn btn-dark" onClick={() => deletarJornada(jorn.jnu_cod)}>
                                        Excluir
@@ -118,7 +118,7 @@ export default function ListarJornada() {
                   </tbody>
                </table>
 
-               <Pagination className="">
+               <Pagination>
                   <Pagination.First onClick={(e) => requestData(e, buscar, 1)} />
                   <Pagination.Prev
                      disabled={page.current === 1 ? true : false}

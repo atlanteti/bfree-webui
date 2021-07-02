@@ -45,10 +45,6 @@
    box-shadow: 0 0 0 0.2rem rgb(0 0 0 / 10%);
 }
 
-.input-group {
-   margin: 1rem;
-}
-
 .table {
    max-width: 1300px;
    flex-direction: column;
@@ -61,43 +57,26 @@
 }
 
 .table thead th {
-   text-align: center;
+   text-align: left;
+   border: 2px solid #dee2e6;
 }
 
 .btn-search {
    margin-left: 10px !important;
 }
 
-.btn-menu {
-   margin-top: 1rem !important;
-   background: rgba(0,0,0,0.05) !important;
-   padding: 6px 8px;
-   border-radius: 3px;
-   border: none;
-   margin-left: 1rem;
+.table td{
+   text-align: right;
+   vertical-align: baseline;
+   border: 2px solid #dee2e6;
 }
 
-.table td {
+.table #text{
+   text-align: left;
+}
+.table #acoes{
    text-align: center;
 }
-
-tr button {
-   background: none;
-   border: none;
-   color: blue;
-}
-
-tr a {
-   color: blue;
-   outline: none;
-   margin-right: 0.8rem;
-}
-
-tr a:hover {
-   text-decoration: none;
-}
-
-
 @media all and (max-width: 766px) {
    .home-container {
       margin-left: 0;
