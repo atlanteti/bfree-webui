@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "./styles.css";
-import { Pagination, Button } from "react-bootstrap";
+import { Pagination, Button, Modal } from "react-bootstrap";
 import moment from "moment";
 import { CustomMenu } from "../../../Componentes/CustomMenu";
 
@@ -12,6 +12,10 @@ export default function Companhia() {
    const [page, setPage] = useState({});
    const [horaUpd, setHoraUpd] = useState();
    const [horaCriacao, setHoraCriacao] = useState();
+   const [showModal, setShowModal] = useState(false);
+
+   const handleClose = () => setShowModal(false);
+
 
    function buscarNome(event) {
       const value = event.target.value;
@@ -126,10 +130,24 @@ export default function Companhia() {
                                     </td>}
                                  <td data-title="Ações">
                                     <Link className="btn btn-warning" to={`/editar-companhia/${companhia.cpn_cod}/${"alterar"}`}>Editar</Link>
-                                    <button className="btn btn-dark" onClick={() => deletarCompanhia(companhia.cpn_cod)}>
+                                    <button className="btn btn-dark" onClick={() => setShowModal(true)}>
                                        Excluir
                                     </button>
                                  </td>
+                                 <Modal show={showModal} onHide={handleClose}>
+                                    <Modal.Header closeButton>
+                                       <Modal.Title>Erro!</Modal.Title>
+                                    </Modal.Header>
+                                    <Modal.Body>Você deseja excluir a companhia?</Modal.Body>
+                                    <Modal.Footer>
+                                       <Button variant="danger" onClick={handleClose}>
+                                          Não
+                                       </Button>
+                                       <Button variant="warning" onClick={() => deletarCompanhia(companhia.cpn_cod)}>
+                                          Excluir
+                                       </Button>
+                                    </Modal.Footer>
+                                 </Modal>
                               </tr>
                            );
                         })}
