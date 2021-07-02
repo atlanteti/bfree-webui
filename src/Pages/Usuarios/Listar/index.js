@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "./styles.css";
-import { Pagination, Row, Col, Button, Alert } from "react-bootstrap";
+import { Pagination, Row, Col, Button, Alert, Modal } from "react-bootstrap";
 import moment from "moment";
 
 export default function Usuarios() {
@@ -10,8 +10,11 @@ export default function Usuarios() {
    const [buscar, setBuscar] = useState(null);
    const [page, setPage] = useState({});
    const [showAlert, setShowAlert] = useState(false);
+   const [showModal, setShowModal] = useState(false);
    const [horaUpd, setHoraUpd] = useState();
    const [horaCriacao, setHoraCriacao] = useState();
+
+   const handleClose = () => setShowModal(false);
 
    function buscarNome(event) {
       const value = event.target.value;
@@ -30,8 +33,10 @@ export default function Usuarios() {
             method: "delete",
             url: `http://209.97.146.187:18919/usuarios/excluir/${id}`,
          });
+         console.log(data);
          if (data.meta.status == 209) {
             setShowAlert(true);
+            setShowModal(false);
          } else {
             window.location.reload();
          }
@@ -53,7 +58,6 @@ export default function Usuarios() {
                page: page,
             },
          });
-         console.log(data)
          setUsuarios(data.data);
          setPage(data.meta.pagination);
          setHoraCriacao(moment(data.data.usr_dtcreation).format("hh"))
@@ -139,16 +143,29 @@ export default function Usuarios() {
                               )}
                               <td data-title="Ações">
                                  <Link className="btn btn-warning" to={`/editar/${usuario.usr_cod}/${"alterar"}`}>Editar</Link>
-                                 <button className="btn btn-dark" onClick={() => deletarUsuario(usuario.usr_cod)}>
+                                 <button className="btn btn-dark" onClick={() => setShowModal(true)}>
                                     Excluir
                                  </button>
                               </td>
+                              <Modal show={showModal} onHide={handleClose}>
+                                 <Modal.Header closeButton>
+                                    <Modal.Title>Erro!</Modal.Title>
+                                 </Modal.Header>
+                                 <Modal.Body>Você deseja excluir o usuário?</Modal.Body>
+                                 <Modal.Footer>
+                                    <Button variant="danger" onClick={handleClose}>
+                                       Não
+                                    </Button>
+                                    <Button variant="warning" onClick={() => deletarUsuario(usuario.usr_cod)}>
+                                       Excluir
+                                    </Button>
+                                 </Modal.Footer>
+                              </Modal>
                            </tr>
                         );
                      })}
                </tbody>
             </table>
-
             <Pagination className="pagination">
                <Pagination.First onClick={(e) => requestData(e, buscar, 1)} />
                <Pagination.Prev
@@ -198,6 +215,6 @@ export default function Usuarios() {
                />
             </Pagination>
          </div>
-      </div>
+      </div >
    );
 }
