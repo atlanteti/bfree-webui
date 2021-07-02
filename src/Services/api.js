@@ -1,12 +1,5 @@
 import axios from 'axios';
 
-export const methods = {
-   GET: 'get',
-   POST: 'post',
-   PUT: 'put',
-   DELETE: 'delete',
-};
-
 export const request = async ({
    method,
    headers,

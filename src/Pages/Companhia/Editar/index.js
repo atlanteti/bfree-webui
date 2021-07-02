@@ -14,41 +14,25 @@ export default function EditarCompanhia(props)
     const [redirect, setRedirect] = useState(false);
 
     const companyId = Number(props.match.params.cpn_cod);
-    const requestData = async () => {
-        try {
+    const requestCompanyData = async () => {
         const data = await seekCompanyData()
-        setCompanyData(data)
-        } catch (error) {
-        console.log(error) //TODO: error handling
-        }
+        setCompanyData(data.data)
     };
     const seekCompanyData = async () => {
-        try {
-            const {data, meta} = await request({
+            const data = await request({
                 method:"get",
                 endpoint:`companies/procurar/${companyId}`
             })
             return data
-        }
-        catch (error)
-        {
-            console.log(error) //TODO: Start error handling
-        }
     }
     const editCompanyRequest = async (e,CompanyDataForm) => {
-        try {
             e.preventDefault()
-            const {data, meta} = await request({
+            const data = await request({
                 method:"put",
                 endpoint:`companies/alterar/${companyId}`,
                 data:CompanyDataForm
             })
-            return meta
-        }
-        catch (error)
-        {
-            console.log(error) //TODO: Start error handling
-        }
+            return data
     }
     const handleSubmit = async (e) => {
         const companyDataForm =
@@ -57,8 +41,8 @@ export default function EditarCompanhia(props)
             cpn_cli_cod: Number(companyData.cpn_cli_cod),
             cpn_name: companyData.cpn_name
         }
-        const meta = await editCompanyRequest(e,companyDataForm)
-        if (meta.status == 100) { //TODO: Define status handling and export as component
+        const data = await editCompanyRequest(e,companyDataForm)
+        if (data.meta.status == 100) { //TODO: Define status handling and export as component
             setRedirect(true);
            }
      };
@@ -68,7 +52,7 @@ export default function EditarCompanhia(props)
     };
 
     useEffect(() => {
-        requestData();
+        requestCompanyData();
      }, [])
      if (redirect)
      {
