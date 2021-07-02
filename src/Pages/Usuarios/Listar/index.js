@@ -124,8 +124,8 @@ export default function Usuarios() {
                            <tr key={usuario.usr_cod}>
                               <td data-title="ID Eduzz">{usuario.usr_cli_cod}</td>
                               <td data-title="ID Externo">{usuario.usr_externalid}</td>
-                              <td data-title="Status">{usuario.statusUser?.sus_name}</td>
-                              <td data-title="ID Data de criação">
+                              <td data-title="Status" id="text">{usuario.statusUser?.sus_name}</td>
+                              <td data-title="ID Data de criação" id="data">
                                  {moment(usuario?.usr_dtcreation).format("a") === "pm" ? (
                                     moment(usuario?.usr_dtcreation).format("DD-MM-YYYY") + " " + (parseInt(horaCriacao) + 12) + ":" + moment(usuario?.usr_dtcreation).format("mm")
                                  )
@@ -133,7 +133,7 @@ export default function Usuarios() {
                                  }
                               </td>
                               {usuario.usr_dtupdate == null ? <td></td> : (
-                                 <td data-title="Data de Atualização">
+                                 <td data-title="Data de Atualização" id="data">
                                     {moment(usuario?.usr_dtupdate).format("a") === "pm" ? (
                                        moment(usuario?.usr_dtupdate).format("DD-MM-YYYY") + " " + (parseInt(horaUpd) + 12) + ":" + moment(usuario?.usr_dtupdate).format("mm")
                                     )
@@ -141,7 +141,7 @@ export default function Usuarios() {
                                     }
                                  </td>
                               )}
-                              <td data-title="Ações">
+                              <td data-title="Ações" id="acoes">
                                  <Link className="btn btn-warning" to={`/editar/${usuario.usr_cod}/${"alterar"}`}>Editar</Link>
                                  <button className="btn btn-dark" onClick={() => setShowModal(true)}>
                                     Excluir

@@ -112,8 +112,8 @@ export default function Companhia() {
                            return (
                               <tr key={companhia.usr_cod}>
                                  <td data-title="ID Eduzz">{companhia.cpn_cli_cod}</td>
-                                 <td data-title="Nome">{companhia.cpn_name}</td>
-                                 <td data-title="Data de Criação">
+                                 <td data-title="Nome" id="text">{companhia.cpn_name}</td>
+                                 <td data-title="Data de Criação" id="data">
                                     {moment(companhia?.cpn_dtcreation).format("a") === "pm" ? (
                                        moment(companhia?.cpn_dtcreation).format("DD-MM-YYYY") + " " + (parseInt(horaCriacao) + 12) + ":" + moment(companhia?.cpn_dtcreation).format("mm")
                                     )
@@ -121,14 +121,14 @@ export default function Companhia() {
                                     }
                                  </td>
                                  {companhia.cpn_dtupdate == null ? <td></td> :
-                                    <td data-title="Data de Atualização">
+                                    <td data-title="Data de Atualização" id="data">
                                        {moment(companhia?.cpn_dtupdate).format("a") === "pm" ? (
                                           moment(companhia?.cpn_dtupdate).format("DD-MM-YYYY") + " " + (parseInt(horaUpd) + 12) + ":" + moment(companhia?.cpn_dtupdate).format("mm")
                                        )
                                           : moment(companhia?.cpn_dtcreation).format("DD-MM-YYYY hh:mm")
                                        }
                                     </td>}
-                                 <td data-title="Ações">
+                                 <td data-title="Ações" id="acoes">
                                     <Link className="btn btn-warning" to={`/editar-companhia/${companhia.cpn_cod}/${"alterar"}`}>Editar</Link>
                                     <button className="btn btn-dark" onClick={() => setShowModal(true)}>
                                        Excluir
