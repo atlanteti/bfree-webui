@@ -10,7 +10,7 @@ export default class Cadastros extends Component {
       return <div>
          <Route exact path={this.props.match.path} component={Cadastros} />
          <Route path={`${this.props.match.path}/usuario/:route`} component={Cadastrar} />
-         <Route path={`${this.props.match.path}/companhia/`} component={CadastrarCompanhia} />
+         <Route path={`${this.props.match.path}/companhia/:param`} component={CadastrarCompanhia} />
          <Route path={`${this.props.match.path}/jornada`} component={CadastrarJornada} />
       </div>
    }

@@ -84,7 +84,7 @@ export default function Companhia() {
                      </Button>
                   </div>
 
-                  <a href={`/cadastrar/companhia`} className="btn btn-dark btn-search">
+                  <a href={`/cadastrar/companhia/${"inserir"}`} className="btn btn-dark btn-search">
                      Cadastrar
                   </a>
                </div>
@@ -107,9 +107,9 @@ export default function Companhia() {
                                  <td data-title="ID Eduzz">{companhia.cpn_cli_cod}</td>
                                  <td data-title="Nome">{companhia.cpn_name}</td>
                                  <td data-title="Data de Criação">{moment(companhia.cpn_dtcreation).format("DD/MM/YYYY hh:mm a")}</td>
-                                 <td data-title="Data de Atualização">{moment(companhia.cpn_dtupdate).format("DD/MM/YYYY hh:mm a")}</td>
+                                 {companhia.cpn_dtupdate == null ? <td></td> : <td data-title="Data de Atualização">{moment(companhia.cpn_dtupdate).format("DD/MM/YYYY hh:mm a")}</td>}
                                  <td data-title="Ações">
-                                    <Link className="btn btn-warning" to={`/editar-companhia/${companhia.cpn_cod}`}>Editar</Link>
+                                    <Link className="btn btn-warning" to={`/editar-companhia/${companhia.cpn_cod}/${"alterar"}`}>Editar</Link>
                                     <button className="btn btn-dark" onClick={() => deletarCompanhia(companhia.cpn_cod)}>
                                        Excluir
                                     </button>
