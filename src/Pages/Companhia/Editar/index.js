@@ -6,6 +6,7 @@ import { Redirect } from "react-router-dom";
 import axios from 'axios';
 import moment from 'moment';
 import { CustomMenu } from '../../../Componentes/CustomMenu';
+import { request } from '../../../Services/api';
 
 export default function EditarCompanhia(props)
 {
@@ -13,39 +14,37 @@ export default function EditarCompanhia(props)
     const [redirect, setRedirect] = useState(false);
 
     const companyId = Number(props.match.params.cpn_cod);
-    const requestData = async () => {
-        try {
-        const { data } = await axios({
-            method: 'get',
-            url: `http://209.97.146.187:18919/companies/procurar/${companyId}`,
-
-        })
-        console.log(data)
+    const requestCompanyData = async () => {
+        const data = await seekCompanyData()
         setCompanyData(data.data)
-        } catch (error) {
-        console.log(error)
-        }
     };
-
+    const seekCompanyData = async () => {
+            const data = await request({
+                method:"get",
+                endpoint:`companies/procurar/${companyId}`
+            })
+            return data
+    }
+    const editCompanyRequest = async (e,CompanyDataForm) => {
+            e.preventDefault()
+            const data = await request({
+                method:"put",
+                endpoint:`companies/alterar/${companyId}`,
+                data:CompanyDataForm
+            })
+            return data
+    }
     const handleSubmit = async (e) => {
-        try {
-           e.preventDefault()
-           const { data } = await axios({
-              method: 'put',
-              url: `http://209.97.146.187:18919/companies/alterar/${companyId}`,
-              data: {
-                 ...companyData,
-                 cpn_cli_cod: Number(companyData.cpn_cli_cod)
-              },
-           })
-  
-           if (data.meta.status == 100) {
-              setRedirect(true);
-           }
-  
-        } catch (error) {
-           console.log(error)
+        const companyDataForm =
+        {
+            ...companyData,
+            cpn_cli_cod: Number(companyData.cpn_cli_cod),
+            cpn_name: companyData.cpn_name
         }
+        const data = await editCompanyRequest(e,companyDataForm)
+        if (data.meta.status == 100) { //TODO: Define status handling and export as component
+            setRedirect(true);
+           }
      };
   
    const handleChange = (e) => {
@@ -53,7 +52,7 @@ export default function EditarCompanhia(props)
     };
 
     useEffect(() => {
-        requestData();
+        requestCompanyData();
      }, [])
      if (redirect)
      {

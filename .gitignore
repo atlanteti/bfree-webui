@@ -108,3 +108,6 @@ package-lock.json
 yarn.lock
 
 build/
+
+# Vscode studio configs
+.vscode/
