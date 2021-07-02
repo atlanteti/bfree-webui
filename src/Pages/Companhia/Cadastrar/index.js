@@ -6,15 +6,14 @@ import { Form, Col, Row, Button, Alert, Modal } from 'react-bootstrap';
 import "./styles.css";
 import { CustomMenu } from '../../../Componentes/CustomMenu';
 
-export default function CadastrarCompanhia() {
+export default function CadastrarCompanhia(props) {
    const [formData, updateFormData] = useState({});
    const [showAlert, setShowAlert] = useState(false);
    const [message, setMessage] = useState();
    const [statusMsg, setStatusMsg] = useState();
    const [redirect, setRedirect] = useState(false);
-   const [showModal, setShowModal] = useState(false);
 
-   const handleClose = () => setShowModal(false);
+   const paramRoute = props.match.params.route;
 
    const handleChange = (e) => {
       updateFormData({ ...formData, [e.target.id]: Number(e.target.value.trim()) })
@@ -70,8 +69,20 @@ export default function CadastrarCompanhia() {
                <Form onSubmit={handleSubmit}>
                   <Row>
                      <Col>
+                        <Form.Group controlId="cpn_name">
+                           <Form.Label>Nome: </Form.Label>
+                           <Form.Control
+                              type="text"
+                              onChange={handleChange}
+                              required
+                           />
+                        </Form.Group>
+                     </Col>
+                  </Row>
+                  <Row>
+                     <Col>
                         <Form.Group controlId="cpn_cli_cod">
-                           <Form.Label>ID Eduzz:</Form.Label>
+                           <Form.Label>ID Eduzz: </Form.Label>
                            <Form.Control
                               type="number"
                               onChange={handleChange}
@@ -88,25 +99,11 @@ export default function CadastrarCompanhia() {
                         Cancelar
                      </Button>
 
-                     <Button variant="warning" style={{ marginLeft: 25 }}>
+                     <Button type="submit" variant="warning" style={{ marginLeft: 25 }}>
                         Cadastrar
                      </Button>
                   </Row>
                </Form>
-               <Modal show={showModal} onHide={handleClose}>
-                  <Modal.Header closeButton>
-                     <Modal.Title>Erro!</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>Você deseja cancelar o cadastramento de companhias?</Modal.Body>
-                  <Modal.Footer>
-                     <Button variant="danger" onClick={handleClose}>
-                        Não
-                     </Button>
-                     <Button variant="warning" onClick={() => setRedirect(true)}>
-                        Sim
-                     </Button>
-                  </Modal.Footer>
-               </Modal>
             </Col>
          </Col>
       </>

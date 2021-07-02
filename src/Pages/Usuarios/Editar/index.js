@@ -164,19 +164,26 @@ export default function Editar(props) {
                            : moment(userData?.usr_dtcreation).format("DD-MM-YYYY hh:mm")
                         }
                      </Col>
-                     <Col>
-                        <Form.Group controlId="usr_dtupdate">
-                           <Form.Label>Data de atualização: </Form.Label>
-                        </Form.Group>
-                     </Col>
-                     <Col>
-                        {/* formatando data */}
-                        {moment(userData?.usr_dtupdate).format("a") === "pm" ? (
-                           moment(userData?.usr_dtupdate).format("DD-MM-YYYY") + " " + (parseInt(horaUpd) + 12) + ":" + moment(userData?.usr_dtupdate).format("mm")
-                        )
-                           : moment(userData?.usr_dtcreation).format("DD-MM-YYYY hh:mm")
-                        }
-                     </Col>
+                     {horaUpd == null ? "" : (
+                        <>
+
+                           {/* <Col>
+                              <Form.Group controlId="usr_dtupdate">
+                                 <Form.Label>Data de atualização: </Form.Label>
+                              </Form.Group>
+                           </Col> */}
+
+                           <Col>
+                              {/* formatando data */}
+                              {moment(userData?.usr_dtupdate).format("a") === "pm" ? (
+                                 moment(userData?.usr_dtupdate).format("DD-MM-YYYY") + " " + (parseInt(horaUpd) + 12) + ":" + moment(userData?.usr_dtupdate).format("mm")
+                              )
+                                 : moment(userData?.usr_dtcreation).format("DD-MM-YYYY hh:mm")
+                              }
+                           </Col>
+                        </>
+                     )}
+
                   </Row>
                   <Row style={{ marginTop: 30, marginBottom: 20 }}>
                      <Button

@@ -10,7 +10,7 @@ import "./styles.css";
 
 export default function Cadastrar(props) {
    const [formData, updateFormData] = useState({
-      usr_sus_cod: 1
+      usr_sus_cod: 1,
    });
    const [showAlert, setShowAlert] = useState(false);
    const [message, setMessage] = useState();
@@ -25,18 +25,22 @@ export default function Cadastrar(props) {
       updateFormData({ ...formData, [e.target.id]: e.target.value.trim() })
    };
 
-   const paramRoute = Number(props.match.params.route);
+   const paramRoute = props.match.params.route;
    const clienteId = Number(props.match.params.usr_cod);
+
+   // console.log(paramRoute);
+   // console.log(formData);
 
    const handleSubmit = async (e) => {
       console.log(formData);
       try {
          e.preventDefault()
-         if (paramRoute == 1) {
+         if (paramRoute === "inserir") {
             const { data } = await axios({
                method: 'post',
                url: 'http://209.97.146.187:18919/usuarios/cadastrar',
                data: {
+                  ...formData,
                   usr_cli_cod: Number(formData.usr_cli_cod),
                   usr_externalid: formData.usr_externalid,
                   usr_sus_cod: Number(formData.usr_sus_cod)
@@ -122,7 +126,9 @@ export default function Cadastrar(props) {
    }
 
    useEffect(() => {
-      requestData();
+      if (paramRoute === "alterar") {
+         requestData();
+      }
       requestStatus();
    }, [])
 
@@ -162,7 +168,7 @@ export default function Cadastrar(props) {
                            <Form.Label >ID Externo:</Form.Label>
                            <Form.Control
                               type="text"
-                              maxlength="10"
+                              maxLength="10"
                               onChange={handleChange}
                               defaultValue={formData?.usr_externalid}
                            />
@@ -174,6 +180,7 @@ export default function Cadastrar(props) {
                            <Form.Control
                               as="select"
                               onChange={handleChange}
+                              value={formData?.usr_sus_cod}
                            >
                               {statusSelect?.map(status => {
                                  if (statusUser == status.sus_name) {
@@ -185,7 +192,7 @@ export default function Cadastrar(props) {
                         </Form.Group>
                      </Col>
                   </Row>
-                  {paramRoute == 1 ? '' : (
+                  {paramRoute === "inserir" ? '' : (
                      <Row bsPrefix="column">
                         <Col>
                            <Form.Group controlId="usr_dtcreation">
@@ -201,19 +208,23 @@ export default function Cadastrar(props) {
                               : moment(formData?.usr_dtcreation).format("DD-MM-YYYY hh:mm")
                            }
                         </Col>
-                        <Col>
-                           <Form.Group controlId="usr_dtupdate">
-                              <Form.Label>Data de atualização: </Form.Label>
-                           </Form.Group>
-                        </Col>
-                        <Col>
-                           {/* formatando data */}
-                           {moment(formData?.usr_dtupdate).format("a") === "pm" ? (
-                              moment(formData?.usr_dtupdate).format("DD-MM-YYYY") + " " + (parseInt(horaUpd) + 12) + ":" + moment(formData?.usr_dtupdate).format("mm")
-                           )
-                              : moment(formData?.usr_dtcreation).format("DD-MM-YYYY hh:mm")
-                           }
-                        </Col>
+                        {formData.usr_dtupdate === null ? "" : (
+                           <>
+                              <Col>
+                                 <Form.Group controlId="usr_dtupdate">
+                                    <Form.Label>Data de atualização: </Form.Label>
+                                 </Form.Group>
+                              </Col>
+                              <Col>
+                                 {/* formatando data */}
+                                 {moment(formData?.usr_dtupdate).format("a") === "pm" ? (
+                                    moment(formData?.usr_dtupdate).format("DD-MM-YYYY") + " " + (parseInt(horaUpd) + 12) + ":" + moment(formData?.usr_dtupdate).format("mm")
+                                 )
+                                    : moment(formData?.usr_dtcreation).format("DD-MM-YYYY hh:mm")
+                                 }
+                              </Col>
+                           </>
+                        )}
                      </Row>
                   )}
                   <Row style={{ marginTop: 30, marginBottom: 20 }}>
@@ -225,7 +236,7 @@ export default function Cadastrar(props) {
                      </Button>
 
                      <Button variant="warning" type="submit" style={{ marginLeft: 30 }}>
-                        {paramRoute == 1 ? "Cadastrar" : "Editar"}
+                        {paramRoute === "inserir" ? "Cadastrar" : "Editar"}
                      </Button>
                   </Row>
                </Form>
