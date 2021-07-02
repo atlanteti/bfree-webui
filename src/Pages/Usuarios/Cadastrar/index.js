@@ -8,7 +8,7 @@ import { Form, Col, Row, Button, Alert, Modal } from 'react-bootstrap';
 import { CustomMenu } from '../../../Componentes/CustomMenu';
 import "./styles.css";
 
-export default function Cadastrar(props) {
+export default function EditUsuarios(props) {
    const [formData, updateFormData] = useState({
       usr_sus_cod: 1,
    });
@@ -27,9 +27,6 @@ export default function Cadastrar(props) {
 
    const paramRoute = props.match.params.route;
    const clienteId = Number(props.match.params.usr_cod);
-
-   // console.log(paramRoute);
-   // console.log(formData);
 
    const handleSubmit = async (e) => {
       console.log(formData);
@@ -159,6 +156,7 @@ export default function Cadastrar(props) {
                               onChange={handleChange}
                               defaultValue={formData?.usr_cli_cod}
                               pattern="[1-9]"
+                              required
                               onKeyPress={(e) => preventNonNumericalInput(e)}
                            />
                         </Form.Group>
@@ -168,6 +166,7 @@ export default function Cadastrar(props) {
                            <Form.Label >ID Externo:</Form.Label>
                            <Form.Control
                               type="text"
+                              required
                               maxLength="10"
                               onChange={handleChange}
                               defaultValue={formData?.usr_externalid}
@@ -179,6 +178,7 @@ export default function Cadastrar(props) {
                            <Form.Label>Status: </Form.Label>
                            <Form.Control
                               as="select"
+                              required
                               onChange={handleChange}
                               value={formData?.usr_sus_cod}
                            >

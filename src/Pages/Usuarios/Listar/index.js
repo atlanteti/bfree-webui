@@ -10,6 +10,8 @@ export default function Usuarios() {
    const [buscar, setBuscar] = useState(null);
    const [page, setPage] = useState({});
    const [showAlert, setShowAlert] = useState(false);
+   const [horaUpd, setHoraUpd] = useState();
+   const [horaCriacao, setHoraCriacao] = useState();
 
    function buscarNome(event) {
       const value = event.target.value;
@@ -54,6 +56,8 @@ export default function Usuarios() {
          console.log(data)
          setUsuarios(data.data);
          setPage(data.meta.pagination);
+         setHoraCriacao(moment(data.data.usr_dtcreation).format("hh"))
+         setHoraUpd(moment(data.data.usr_dtupdate).format("hh"))
       } catch (error) {
          alert(error);
       }
@@ -117,8 +121,22 @@ export default function Usuarios() {
                               <td data-title="ID Eduzz">{usuario.usr_cli_cod}</td>
                               <td data-title="ID Externo">{usuario.usr_externalid}</td>
                               <td data-title="Status">{usuario.statusUser?.sus_name}</td>
-                              <td data-title="ID Data de criação">{moment(usuario.usr_dtcreation).format("DD/MM/YYYY h:mm a")}</td>
-                              {usuario.usr_dtupdate == null ? <td></td> : <td data-title="Data de Atualização">{moment(usuario.usr_dtupdate).format("DD/MM/YYYY h:mm a")}</td>}
+                              <td data-title="ID Data de criação">
+                                 {moment(usuario?.usr_dtcreation).format("a") === "pm" ? (
+                                    moment(usuario?.usr_dtcreation).format("DD-MM-YYYY") + " " + (parseInt(horaCriacao) + 12) + ":" + moment(usuario?.usr_dtcreation).format("mm")
+                                 )
+                                    : moment(usuario?.usr_dtcreation).format("DD-MM-YYYY hh:mm")
+                                 }
+                              </td>
+                              {usuario.usr_dtupdate == null ? <td></td> : (
+                                 <td data-title="Data de Atualização">
+                                    {moment(usuario?.usr_dtupdate).format("a") === "pm" ? (
+                                       moment(usuario?.usr_dtupdate).format("DD-MM-YYYY") + " " + (parseInt(horaUpd) + 12) + ":" + moment(usuario?.usr_dtupdate).format("mm")
+                                    )
+                                       : moment(usuario?.usr_dtcreation).format("DD-MM-YYYY hh:mm")
+                                    }
+                                 </td>
+                              )}
                               <td data-title="Ações">
                                  <Link className="btn btn-warning" to={`/editar/${usuario.usr_cod}/${"alterar"}`}>Editar</Link>
                                  <button className="btn btn-dark" onClick={() => deletarUsuario(usuario.usr_cod)}>
