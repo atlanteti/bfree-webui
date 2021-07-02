@@ -93,7 +93,7 @@ export default function Usuarios() {
                   </Button>
                </div>
 
-               <a href="/cadastrar/usuario" className="btn btn-dark btn-search">
+               <a href={`/cadastrar/usuario/${"inserir"}`} className="btn btn-dark btn-search">
                   Cadastrar
                </a>
             </div>
@@ -116,11 +116,11 @@ export default function Usuarios() {
                            <tr key={usuario.usr_cod}>
                               <td data-title="ID Eduzz">{usuario.usr_cli_cod}</td>
                               <td data-title="ID Externo">{usuario.usr_externalid}</td>
-                              <td data-title="Status">{usuario.statusUser.sus_name}</td>
+                              <td data-title="Status">{usuario.statusUser?.sus_name}</td>
                               <td data-title="ID Data de criação">{moment(usuario.usr_dtcreation).format("DD/MM/YYYY h:mm a")}</td>
-                              <td data-title="Data de Atualização">{moment(usuario.usr_dtupdate).format("DD/MM/YYYY h:mm a")}</td>
+                              {usuario.usr_dtupdate == null ? <td></td> : <td data-title="Data de Atualização">{moment(usuario.usr_dtupdate).format("DD/MM/YYYY h:mm a")}</td>}
                               <td data-title="Ações">
-                                 <Link className="btn btn-warning" to={`/editar/${usuario.usr_cod}`}>Editar</Link>
+                                 <Link className="btn btn-warning" to={`/editar/${usuario.usr_cod}/${"alterar"}`}>Editar</Link>
                                  <button className="btn btn-dark" onClick={() => deletarUsuario(usuario.usr_cod)}>
                                     Excluir
                                  </button>

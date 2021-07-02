@@ -84,7 +84,7 @@ export default function Companhia() {
                      </Button>
                   </div>
 
-                  <a href="/cadastrar/companhia" className="btn btn-dark btn-search">
+                  <a href={`/cadastrar/companhia`} className="btn btn-dark btn-search">
                      Cadastrar
                   </a>
                </div>
