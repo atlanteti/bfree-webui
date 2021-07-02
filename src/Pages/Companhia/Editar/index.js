@@ -16,28 +16,32 @@ export default function EditarCompanhia(props)
     const companyId = Number(props.match.params.cpn_cod);
     const requestData = async () => {
         try {
-        const { data } = await axios({
-            method: 'get',
-            url: `http://209.97.146.187:18919/companies/procurar/${companyId}`,
-
-        })
-        console.log(data)
-        setCompanyData(data.data)
+        const data = await seekCompanyData()
+        setCompanyData(data)
         } catch (error) {
-        console.log(error)
+        console.log(error) //TODO: error handling
         }
     };
-    const editCompanyRequest = async (e) => {
+    const seekCompanyData = async () => {
+        try {
+            const {data, meta} = await request({
+                method:"get",
+                endpoint:`companies/procurar/${companyId}`
+            })
+            return data
+        }
+        catch (error)
+        {
+            console.log(error) //TODO: Start error handling
+        }
+    }
+    const editCompanyRequest = async (e,CompanyDataForm) => {
         try {
             e.preventDefault()
             const {data, meta} = await request({
                 method:"put",
                 endpoint:`companies/alterar/${companyId}`,
-                data:{
-                 ...companyData,
-                 cpn_cli_cod: Number(companyData.cpn_cli_cod),
-                 cpn_name: companyData.cpn_name
-                }
+                data:CompanyDataForm
             })
             return meta
         }
@@ -47,8 +51,14 @@ export default function EditarCompanhia(props)
         }
     }
     const handleSubmit = async (e) => {
-        const meta = await editCompanyRequest(e)
-        if (meta.status == 100) {
+        const companyDataForm =
+        {
+            ...companyData,
+            cpn_cli_cod: Number(companyData.cpn_cli_cod),
+            cpn_name: companyData.cpn_name
+        }
+        const meta = await editCompanyRequest(e,companyDataForm)
+        if (meta.status == 100) { //TODO: Define status handling and export as component
             setRedirect(true);
            }
      };
