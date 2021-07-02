@@ -35,7 +35,7 @@ export const request = async ({
    try {
       result = await axios(config);
    } catch (error) {
-      result = "ERROR";
+      result = "ERROR"; //TODO: error handling
    }
 
    return result.data;

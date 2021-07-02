@@ -6,6 +6,7 @@ import { Redirect } from "react-router-dom";
 import axios from 'axios';
 import moment from 'moment';
 import { CustomMenu } from '../../../Componentes/CustomMenu';
+import { request } from '../../../Services/api';
 
 export default function EditarCompanhia(props)
 {
@@ -26,26 +27,30 @@ export default function EditarCompanhia(props)
         console.log(error)
         }
     };
-
-    const handleSubmit = async (e) => {
+    const editCompanyRequest = async (e) => {
         try {
-           e.preventDefault()
-           const { data } = await axios({
-              method: 'put',
-              url: `http://209.97.146.187:18919/companies/alterar/${companyId}`,
-              data: {
+            e.preventDefault()
+            const {data, meta} = await request({
+                method:"put",
+                endpoint:`companies/alterar/${companyId}`,
+                data:{
                  ...companyData,
-                 cpn_cli_cod: Number(companyData.cpn_cli_cod)
-              },
-           })
-  
-           if (data.meta.status == 100) {
-              setRedirect(true);
-           }
-  
-        } catch (error) {
-           console.log(error)
+                 cpn_cli_cod: Number(companyData.cpn_cli_cod),
+                 cpn_name: companyData.cpn_name
+                }
+            })
+            return meta
         }
+        catch (error)
+        {
+            console.log(error) //TODO: Start error handling
+        }
+    }
+    const handleSubmit = async (e) => {
+        const meta = await editCompanyRequest(e)
+        if (meta.status == 100) {
+            setRedirect(true);
+           }
      };
   
    const handleChange = (e) => {
