@@ -91,7 +91,7 @@ export default function EditarCompanhia(props)
                         </Col>
                     </Row>
                     <Row xs={2} sm={4} md={4} lg={4}>
-                        <Col><Button variant="danger">Cancelar</Button></Col>
+                        <Col><Button variant="danger" onClick={() => setRedirect(true)}>Cancelar</Button></Col>
                         <Col><Button type="submit">Editar</Button></Col>
                     </Row>
                 </Form>
