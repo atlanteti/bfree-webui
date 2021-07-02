@@ -93,7 +93,7 @@ export default function Usuarios() {
                   </Button>
                </div>
 
-               <a href="/cadastrar/usuario" className="btn btn-dark btn-search">
+               <a href={`/cadastrar/usuario/${1}`} className="btn btn-dark btn-search">
                   Cadastrar
                </a>
             </div>
@@ -120,7 +120,7 @@ export default function Usuarios() {
                               <td data-title="ID Data de criação">{moment(usuario.usr_dtcreation).format("DD/MM/YYYY h:mm a")}</td>
                               <td data-title="Data de Atualização">{moment(usuario.usr_dtupdate).format("DD/MM/YYYY h:mm a")}</td>
                               <td data-title="Ações">
-                                 <Link className="btn btn-warning" to={`/editar/${usuario.usr_cod}`}>Editar</Link>
+                                 <Link className="btn btn-warning" to={`/editar/${usuario.usr_cod}/${2}`}>Editar</Link>
                                  <button className="btn btn-dark" onClick={() => deletarUsuario(usuario.usr_cod)}>
                                     Excluir
                                  </button>
