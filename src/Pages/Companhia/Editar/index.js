@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { Form, Col, Row, Button, Alert, Container } from 'react-bootstrap';
+import { Form, Col, Row, Button, Alert, Container, Card } from 'react-bootstrap';
 import { Redirect } from "react-router-dom";
 
 import axios from 'axios';
@@ -90,7 +90,17 @@ export default function EditarCompanhia(props)
                             </Form.Group>
                         </Col>
                     </Row>
-                    <Row xs={2} sm={4} md={4} lg={4}>
+                    <Row>
+                        <Col>
+                        <Card>
+                            <Card.Header>Data de Criação</Card.Header>
+                            <Card.Body>{moment(companyData.cpn_dtcreation).format("DD/MM/YYYY hh:mm a")}</Card.Body></Card>
+                        <Card>
+                            <Card.Header>Última Atualização</Card.Header>
+                            <Card.Body>{moment(companyData.cpn_dtupdate).format("DD/MM/YYYY hh:mm a")}</Card.Body></Card>
+                        </Col>
+                    </Row>
+                    <Row className="mt-2" xs={2} sm={4} md={4} lg={4}>
                         <Col><Button variant="danger">Cancelar</Button></Col>
                         <Col><Button type="submit">Editar</Button></Col>
                     </Row>
