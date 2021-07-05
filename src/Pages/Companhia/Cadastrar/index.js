@@ -6,6 +6,7 @@ import { Form, Col, Row, Button, Alert, Modal } from 'react-bootstrap';
 import "./styles.css";
 import { CustomMenu } from '../../../Componentes/CustomMenu';
 import moment from "moment";
+import { request } from '../../../Services/api';
 
 export default function CadastrarCompanhia(props) {
    const [companyData, setCompanyData] = useState({});
@@ -24,50 +25,64 @@ export default function CadastrarCompanhia(props) {
       setCompanyData({ ...companyData, [e.target.id]: e.target.value.trim() })
    };
 
+   function insertionResultHandler(data) {
+      if (data.meta.status == 100) {
+         setShowAlert(true);
+         setMessage("Companhia cadastrada com sucesso!");
+         setStatusMsg('success');
+
+         setTimeout(() => {
+            setShowAlert(false);
+            setTimeout(() => {
+               setRedirect(true);
+            }, 2000);
+         }, 4000);
+      } else {
+         setShowAlert(true);
+         setMessage("Algo deu errado.Tente novamente!");
+         setStatusMsg('warning');
+      }
+   }
+
+   async function insertCompanyData(formData) {
+      return await request({
+         method: "post",
+         endpoint: "companies/cadastrar",
+         data: formData
+      });
+   }
+
+   function editResultHandler(data) {
+      if (data.meta.status == 100) {
+         setRedirect(true);
+      }
+   }
+
+   async function editCompanyData(formData) {
+      return await request({
+         method: "put",
+         endpoint: `companies/alterar/${companyId}`,
+         data: formData,
+      });
+   }
+
    const handleSubmit = async (e) => {
-      console.log(companyData);
+      const formData = {
+         ...companyData,
+         cpn_cli_cod: Number(companyData.cpn_cli_cod)
+      }
       try {
          e.preventDefault()
-         if (paramRoute === "inserir") {
-            const { data } = await axios({
-               method: 'post',
-               url: 'http://209.97.146.187:18919/companies/cadastrar',
-               data: {
-                  ...companyData,
-                  cpn_cli_cod: Number(companyData.cpn_cli_cod)
-               },
-            })
-
-            if (data.meta.status == 100) {
-               setShowAlert(true);
-               setMessage("Companhia cadastrada com sucesso!");
-               setStatusMsg('success')
-
-               setTimeout(() => {
-                  setShowAlert(false);
-                  setTimeout(() => {
-                     setRedirect(true);
-                  }, 2000);
-               }, 4000);
-            } else {
-               setShowAlert(true);
-               setMessage("Algo deu errado.Tente novamente!");
-               setStatusMsg('warning');
-            }
-            console.log(data)
-         } else {
-            const { data } = await axios({
-               method: 'put',
-               url: `http://209.97.146.187:18919/companies/alterar/${companyId}`,
-               data: {
-                  ...companyData,
-                  cpn_cli_cod: Number(companyData.cpn_cli_cod)
-               },
-            })
-
-            if (data.meta.status == 100) {
-               setRedirect(true);
-            }
+         let data = null;
+         if (paramRoute === "inserir")
+         {
+            data = await insertCompanyData(formData);
+            insertionResultHandler(data);
+         }
+         else
+         {
+            data = await editCompanyData(formData);
+            editResultHandler(data);
          }
       } catch (error) {
          console.log(error)
@@ -76,23 +91,23 @@ export default function CadastrarCompanhia(props) {
 
    const requestData = async () => {
       try {
-         const { data } = await axios({
-            method: 'get',
-            url: `http://209.97.146.187:18919/companies/procurar/${companyId}`,
-
+         const data = await request({
+            method:"get",
+            endpoint: `companies/procurar/${companyId}`
          })
-         console.log(data)
-         setCompanyData(data.data)
-         setHoraCriacao(moment(data.data.cpn_dtcreation).format("hh"))
-         setHoraUpd(moment(data.data.cpn_dtupdate).format("hh"))
+         updateData(data);
       } catch (error) {
          console.log(error)
       }
+
+
    };
 
    useEffect(() => {
-      requestData();
-   }, [])
+      if (paramRoute !== "inserir"){
+         requestData();
+      }
+   }, [paramRoute, requestData])
    if (redirect) {
       return <Redirect to="/companhia" />
    }
@@ -193,4 +208,12 @@ export default function CadastrarCompanhia(props) {
          </Col>
       </>
    );
+
+   
+
+   function updateData(data) {
+      setCompanyData(data.data);
+      setHoraCriacao(moment(data.data.cpn_dtcreation).format("hh"));
+      setHoraUpd(moment(data.data.cpn_dtupdate).format("hh"));
+   }
 }
