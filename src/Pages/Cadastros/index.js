@@ -13,7 +13,7 @@ export default class Cadastros extends Component {
          <Route path={`${this.props.match.path}/usuario/:route`} component={EditUsuarios} />
          <Route path={`${this.props.match.path}/companhia/:param`} component={CadastrarCompanhia} />
          <Route path={`${this.props.match.path}/usuario-jornada`} component={CadastrarJornada} />
-         <Route path={`${this.props.match.path}/jornada`} component={EditTJornadas} />
+         <Route path={`${this.props.match.path}/jornada/:param`} component={EditTJornadas} />
       </div>
    }
 }

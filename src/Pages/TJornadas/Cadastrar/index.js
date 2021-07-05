@@ -2,148 +2,188 @@ import { Redirect } from "react-router-dom";
 import { Form, Col, Row, Button, Alert } from 'react-bootstrap';
 import { useState } from "react";
 import moment from "moment";
+import axios from "axios";
 import { CustomMenu } from "../../../Componentes/CustomMenu";
+import { useEffect } from "react";
 
-export default function EditTJornadas() {
+export default function EditTJornadas(props) {
    const [jornada, setJornada] = useState();
+   const [companys, setCompanys] = useState();
    const [horaUpd, setHoraUpd] = useState();
    const [horaCriacao, setHoraCriacao] = useState();
    const [redirect, setRedirect] = useState(false);
+   const [showAlert, setShowAlert] = useState(false);
+   const [message, setMessage] = useState();
+   const [statusMsg, setStatusMsg] = useState();
+
+   const paramRoute = props.match.params.param;
+   const jornadaId = props.match.params.jny_cod;
+
+   console.log(jornadaId);
 
    const handleChange = (e) => {
       setJornada({ ...jornada, [e.target.id]: e.target.value.trim() })
    };
 
    const handleSubmit = async (e) => {
-      // try {
-      //    e.preventDefault()
-      //    if (paramRoute === "inserir") {
-      //       const { data } = await axios({
-      //          method: 'post',
-      //          url: 'http://209.97.146.187:18919/companies/cadastrar',
-      //          data: {
-      //             ...companyData,
-      //             cpn_cli_cod: Number(companyData.cpn_cli_cod)
-      //          },
-      //       })
+      console.log(jornada)
+      try {
+         e.preventDefault()
+         if (paramRoute === "inserir") {
+            const { data } = await axios({
+               method: 'post',
+               url: 'http://209.97.146.187:18919/jorneys/cadastrar',
+               data: {
+                  ...jornada,
+                  jny_cpn_cod: Number(jornada.jny_cpn_cod)
+               }
+            })
 
-      //       if (data.meta.status == 100) {
-      //          setShowAlert(true);
-      //          setMessage("Companhia cadastrada com sucesso!");
-      //          setStatusMsg('success')
+            if (data.meta.status == 100) {
+               setShowAlert(true);
+               setMessage("Jornada cadastrada com sucesso!");
+               setStatusMsg('success')
 
-      //          setTimeout(() => {
-      //             setShowAlert(false);
-      //             setTimeout(() => {
-      //                setRedirect(true);
-      //             }, 2000);
-      //          }, 4000);
-      //       } else {
-      //          setShowAlert(true);
-      //          setMessage("Algo deu errado.Tente novamente!");
-      //          setStatusMsg('warning');
-      //       }
-      //       console.log(data)
-      //    } else {
-      //       const { data } = await axios({
-      //          method: 'put',
-      //          url: `http://209.97.146.187:18919/companies/alterar/${companyId}`,
-      //          data: {
-      //             ...companyData,
-      //             cpn_cli_cod: Number(companyData.cpn_cli_cod)
-      //          },
-      //       })
+               setTimeout(() => {
+                  setShowAlert(false);
+                  setTimeout(() => {
+                     setRedirect(true);
+                  }, 2000);
+               }, 4000);
+            } else {
+               setShowAlert(true);
+               setMessage("Algo deu errado.Tente novamente!");
+               setStatusMsg('warning');
+            }
+         } else {
+            const { data } = await axios({
+               method: 'put',
+               url: `http://209.97.146.187:18919/jorneys/alterar/${jornadaId}`,
+               data: {
+                  ...jornada,
+                  jny_cpn_cod: Number(jornada.jny_cpn_cod)
+               },
+            })
 
-      //       if (data.meta.status == 100) {
-      //          setRedirect(true);
-      //       }
-      //    }
-      // } catch (error) {
-      //    console.log(error)
-      // }
+            if (data.meta.status == 100) {
+               setRedirect(true);
+            }
+         }
+      } catch (error) {
+         console.log(error)
+      }
    };
 
-   function preventNonNumericalInput(e) {
-      e = e || window.event;
-      var charCode = (typeof e.which == "undefined") ? e.keyCode : e.which;
-      var charStr = String.fromCharCode(charCode);
-
-      if (!charStr.match(/^[0-9]+$/))
-         e.preventDefault();
+   const requestCompanys = async (e) => {
+      try {
+         const { data } = await axios({
+            method: "get",
+            url: "http://209.97.146.187:18919/companies/listar"
+         })
+         setCompanys(data.data);
+         console.log(data.data)
+      } catch (error) {
+         console.log(error);
+      }
    }
+
+   const requestData = async () => {
+      try {
+         const { data } = await axios({
+            method: 'get',
+            url: `http://209.97.146.187:18919/jorneys/procurar/${jornadaId}`,
+         })
+         console.log(data.data)
+         setJornada(data.data)
+         setHoraCriacao(moment(data.data.usr_dtcreation).format("hh"))
+         setHoraUpd(moment(data.data.usr_dtupdate).format("hh"))
+      } catch (error) {
+         console.log(error)
+      }
+   };
+
+   useEffect(() => {
+      requestData();
+      requestCompanys();
+   }, [])
 
    if (redirect) {
-      return <Redirect to="/jornada" />
+      return <Redirect to="/jornadas" />
    }
+
    return (
       <>
+         {showAlert &&
+            <Col md={{ span: 8, offset: 2 }}>
+               <Alert variant={statusMsg} onClose={() => setShowAlert(false)} dismissible>
+                  {message}
+               </Alert>
+            </Col>
+         }
          <CustomMenu />
          <Col >
             <Col style={{ marginTop: 48 }} md={{ span: 4, offset: 3 }}>
                <Form onSubmit={handleSubmit}>
                   <Row bsPrefix="column">
                      <Col>
-
                         <Form.Group controlId="jny_name">
-                           <Form.Label>ID Eduzz:</Form.Label>
+                           <Form.Label>Nome: </Form.Label>
                            <Form.Control
-                              type="number"
+                              type="text"
                               onChange={handleChange}
                               defaultValue={jornada?.jny_name}
-                              pattern="[1-9]"
                               required
                            />
                         </Form.Group>
                      </Col>
                      <Col>
                         <Form.Group controlId="jny_cpn_cod">
-                           <Form.Label >ID Externo:</Form.Label>
+                           <Form.Label >Companhia: </Form.Label>
                            <Form.Control
-                              type="number"
-                              required
-                              pattern="[1-9]"
-                              maxLength="10"
-                              onKeyPress={(e) => preventNonNumericalInput(e)}
+                              as="select"
                               onChange={handleChange}
                               defaultValue={jornada?.jny_cpn_cod}
-                           />
+                           >
+                              {companys?.map(company => {
+                                 return (<option key={company.cpn_cod} value={company.cpn_cod}>{company.cpn_name}</option>)
+                              })}
+                           </Form.Control>
                         </Form.Group>
                      </Col>
                   </Row>
-                  {/* {paramRoute === "inserir" ? '' : (
+                  {paramRoute === "inserir" ? '' : (
                      <Row bsPrefix="column">
                         <Col>
-                           <Form.Group controlId="usr_dtcreation">
+                           <Form.Group controlId="jny_dtcreation">
                               <Form.Label>Data de criação: </Form.Label>
                            </Form.Group>
                         </Col>
                         <Col style={{ marginBottom: 20 }}>
-                           
-                           {moment(jornada?.usr_dtcreation).format("a") === "pm" ? (
-                              moment(jornada?.usr_dtcreation).format("DD-MM-YYYY") + " " + (parseInt(horaCriacao) + 12) + ":" + moment(jornada?.usr_dtcreation).format("mm")
+
+                           {moment(jornada?.jny_dtcreation).format("a") === "pm" ? (
+                              moment(jornada?.jny_dtcreation).format("DD-MM-YYYY") + " " + (parseInt(horaCriacao) + 12) + ":" + moment(jornada?.jny_dtcreation).format("mm")
                            )
-                              : moment(jornada?.usr_dtcreation).format("DD-MM-YYYY hh:mm")
+                              : moment(jornada?.jny_dtcreation).format("DD-MM-YYYY hh:mm")
                            }
                         </Col>
-                        {jornada.usr_dtupdate === null ? "" : (
+                        {jornada?.jny_dtupdate === null ? "" : (
                            <>
                               <Col>
-                                 <Form.Group controlId="usr_dtupdate">
+                                 <Form.Group controlId="jny_dtupdate">
                                     <Form.Label>Data de atualização: </Form.Label>
                                  </Form.Group>
                               </Col>
                               <Col>
-                                
-                                 {moment(jornada?.usr_dtupdate).format("a") === "pm" ? (
-                                    moment(jornada?.usr_dtupdate).format("DD-MM-YYYY") + " " + (parseInt(horaUpd) + 12) + ":" + moment(jornada?.usr_dtupdate).format("mm")
+                                 {moment(jornada?.jny_dtupdate).format("a") === "pm" ? (
+                                    moment(jornada?.jny_dtupdate).format("DD-MM-YYYY") + " " + (parseInt(horaUpd) + 12) + ":" + moment(jornada?.jny_dtupdate).format("mm")
                                  )
-                                    : moment(jornada?.usr_dtcreation).format("DD-MM-YYYY hh:mm")
+                                    : moment(jornada?.jny_dtcreation).format("DD-MM-YYYY hh:mm")
                                  }
                               </Col>
                            </>
                         )}
                      </Row>
-                  )} */}
+                  )}
                   <Row style={{ marginTop: 30, marginBottom: 20 }}>
                      <Button
                         variant="danger" style={{ marginLeft: 30 }}
@@ -153,7 +193,7 @@ export default function EditTJornadas() {
                      </Button>
 
                      <Button variant="warning" type="submit" style={{ marginLeft: 30 }}>
-                        {/* {paramRoute === "inserir" ? "Cadastrar" : "Editar"} */} Cadastrar
+                        {paramRoute === "inserir" ? "Cadastrar" : "Editar"}
                      </Button>
                   </Row>
                </Form>

@@ -64,7 +64,7 @@ export const CustomMenu = () => {
                   },
                   {
                      title: "Jornadas",
-                     itemId: "/usuario-jornadas",
+                     itemId: "/jornadas",
                      elemBefore: () => <BsGraphUp size={23} color="#ffb509" />,
                   },
                   {

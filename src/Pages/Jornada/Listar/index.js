@@ -84,7 +84,7 @@ export default function ListarJornadaUsuarios() {
                      </Button>
                   </div>
 
-                  <a href="/cadastrar/jornada" className="btn btn-dark btn-search">
+                  <a href="/cadastrar/usuario-jornada" className="btn btn-dark btn-search">
                      Cadastrar
                   </a>
                </div>
