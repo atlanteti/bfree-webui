@@ -16,7 +16,6 @@ export default function Companhia() {
 
    const handleClose = () => setShowModal(false);
 
-
    function buscarNome(event) {
       const value = event.target.value;
       setBuscar(value);
@@ -96,6 +95,11 @@ export default function Companhia() {
                   </a>
                </div>
                <table className="table">
+                  <col style={{ width: 50 }} />
+                  <col style={{ width: 130 }} />
+                  <col style={{ width: 120 }} />
+                  <col style={{ width: 120 }} />
+                  <col style={{ width: 50 }} />
                   <thead>
                      <tr>
                         <th scope="col">ID Eduzz</th>

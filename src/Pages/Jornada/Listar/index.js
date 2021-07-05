@@ -6,7 +6,7 @@ import { Pagination, Button } from "react-bootstrap";
 import moment from "moment";
 import { CustomMenu } from "../../../Componentes/CustomMenu";
 
-export default function ListarJornada() {
+export default function ListarJornadaUsuarios() {
    const [jornada, setJornada] = useState(null);
    const [buscar, setBuscar] = useState(null);
    const [page, setPage] = useState({});
@@ -64,7 +64,7 @@ export default function ListarJornada() {
          <CustomMenu />
          <div className="clientes-container">
             <div className="home-container">
-               <h1>Jornadas</h1>
+               <h1>Jornada de usuário</h1>
                <div className="input-group">
                   <input
                      className="form-control search-user"
@@ -89,6 +89,10 @@ export default function ListarJornada() {
                   </a>
                </div>
                <table className="table">
+                  <col style={{ width: 150 }} />
+                  <col style={{ width: 50 }} />
+                  <col style={{ width: 50 }} />
+                  <col style={{ width: 50 }} />
                   <thead>
                      <tr>
                         <th scope="col">ID da Jornada Usuário</th>
@@ -107,7 +111,7 @@ export default function ListarJornada() {
                                  <td data-title="Data de Criação">{moment(jorn.jnu_dtcreation).format("DD/MM/YYYY hh:mm a")}</td>
                                  <td data-title="Data de atualização">{moment(jorn.jnu_dtupdate).format("DD/MM/YYYY hh:mm a")}</td>
                                  <td data-title="Ações" id="acoes">
-                                    <Link to={`/editar-jornada/${jorn.jnu_cod}`} className="btn btn-warning">Editar</Link>
+                                    <Link to={`/editar-jornada-usuario/${jorn.jnu_cod}`} className="btn btn-warning">Editar</Link>
                                     <button className="btn btn-dark" onClick={() => deletarJornada(jorn.jnu_cod)}>
                                        Excluir
                                     </button>

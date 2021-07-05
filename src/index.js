@@ -9,9 +9,9 @@ import Companhia from './Pages/Companhia/Listar';
 import Cadastros from './Pages/Cadastros';
 import ListarJornada from './Pages/Jornada/Listar';
 import EditarJornada from './Pages/Jornada/Editar';
-import EditarCompanhia from './Pages/Companhia/Editar';
 import EditUsuarios from './Pages/Usuarios/Cadastrar';
 import CadastrarCompanhia from './Pages/Companhia/Cadastrar';
+import ListarJornadaUsuarios from './Pages/Jornada/Listar';
 
 ReactDOM.render(
    <React.StrictMode>
@@ -22,8 +22,8 @@ ReactDOM.render(
             <Route path="/companhia" component={Companhia} />
             <Route path="/editar-companhia/:cpn_cod/:param" component={CadastrarCompanhia} />
             <Route path="/cadastrar" component={Cadastros} />
-            <Route path="/jornadas" component={ListarJornada} />
-            <Route path="/editar-jornada/:jnu_cod" component={EditarJornada} />
+            <Route path="/usuario-jornadas" component={ListarJornadaUsuarios} />
+            <Route path="/editar-jornada-usuario/:jnu_cod" component={EditarJornada} />
          </Switch>
       </Router>
    </React.StrictMode>,
