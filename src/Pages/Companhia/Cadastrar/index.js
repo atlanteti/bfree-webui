@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import { Redirect } from "react-router-dom";
 import axios from "axios";
-import { Form, Col, Row, Button, Alert, Modal } from 'react-bootstrap';
+import { Form, Col, Row, Button, Alert, Toast } from 'react-bootstrap';
 import "./styles.css";
 import { CustomMenu } from '../../../Componentes/CustomMenu';
 import moment from "moment";
@@ -10,6 +10,7 @@ import { request } from '../../../Services/api';
 
 export default function CadastrarCompanhia(props) {
    const [companyData, setCompanyData] = useState({});
+   const [responseData, setResponseData] = useState({});
    const [showAlert, setShowAlert] = useState(false);
    const [message, setMessage] = useState();
    const [statusMsg, setStatusMsg] = useState();
@@ -26,20 +27,15 @@ export default function CadastrarCompanhia(props) {
    };
 
    function insertionResultHandler(data) {
+      setShowAlert(true);
       if (data.meta.status == 100) {
-         setShowAlert(true);
          setMessage("Companhia cadastrada com sucesso!");
          setStatusMsg('success');
-
-         setTimeout(() => {
-            setShowAlert(false);
-            setTimeout(() => {
-               setRedirect(true);
-            }, 2000);
-         }, 4000);
+         window.setTimeout(() => {
+            setShowAlert(false)
+         }, 2500);
       } else {
-         setShowAlert(true);
-         setMessage("Algo deu errado.Tente novamente!");
+         setMessage("Algo deu errado. Tente novamente!");
          setStatusMsg('warning');
       }
    }
@@ -77,13 +73,15 @@ export default function CadastrarCompanhia(props) {
          if (paramRoute === "inserir")
          {
             data = await insertCompanyData(formData);
-            insertionResultHandler(data);
+            setResponseData(data);
+            // insertionResultHandler(data);
          }
          else
          {
             data = await editCompanyData(formData);
-            editResultHandler(data);
+            // editResultHandler(data);
          }
+         setResponseData(data);
       } catch (error) {
          console.log(error)
       }
@@ -112,17 +110,50 @@ export default function CadastrarCompanhia(props) {
    if (redirect) {
       return <Redirect to="/companhia" />
    }
+   class RegisterAlert extends React.Component{
+      constructor(props){
+         super(props)
+         this.state = {
+            showAlert:false}
+         }
+      onShowAlert(){
+         this.setState({showAlert:true})
+         if (this.props.data.meta.status == 100) {
+            this.setState({
+               message:"Companhia cadastrada com sucesso!",
+               statusMsg:'success'});
+            window.setTimeout(() => {
+               this.setState({showAlert:false})
+            }, 2500);
 
+         } else {
+            this.setState({
+               message:"Algo deu errado. Tente novamente",
+               statusMsg:"warning"
+            })
+         }
+      }
+      render() {
+         return <Alert 
+                     variant={this.state.statusMsg} 
+                     onClose={()=>{this.setState({showAlert:false})}}
+                     dismissible
+                     show={this.state.showAlert}>
+                  <p>{this.state.message}</p>
+               </Alert>
+      }
+   }
    return (
       <>
-         {showAlert &&
-            <Alert className="msg-alert" variant={statusMsg} onClose={() => setShowAlert(false)} dismissible>
-               {message}
-            </Alert>
-         }
          <CustomMenu />
          <Col style={{ marginTop: 48 }}>
             <Col md={{ span: 4, offset: 3 }}>
+            {/* {showAlert &&
+               <Alert show={false} variant={statusMsg} onClose={() => setShowAlert(false)} dismissible>
+                  <p>{message}</p>
+               </Alert>
+            } */}
+            <RegisterAlert data={responseData}/>
                <Form onSubmit={handleSubmit}>
                   <Row>
                      <Col>
