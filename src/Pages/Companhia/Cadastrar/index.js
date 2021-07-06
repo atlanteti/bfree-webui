@@ -88,26 +88,27 @@ export default function CadastrarCompanhia(props) {
          console.log(error)
       }
    };
-
-   const requestData = async () => {
-      try {
-         const data = await request({
-            method:"get",
-            endpoint: `companies/procurar/${companyId}`
-         })
-         updateData(data);
-      } catch (error) {
-         console.log(error)
-      }
-
-
-   };
+   
+   
 
    useEffect(() => {
+      const requestData =  async () => {
+         try {
+            const data = await request({
+               method:"get",
+               endpoint: `companies/procurar/${companyId}`
+            })
+            updateData(data);
+         } catch (error) {
+            console.log(error)
+         }
+   
+   
+      };
       if (paramRoute !== "inserir"){
          requestData();
       }
-   }, [paramRoute, requestData])
+   }, [companyId, paramRoute])
    if (redirect) {
       return <Redirect to="/companhia" />
    }
