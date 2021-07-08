@@ -7,18 +7,6 @@ export class CustomAlert extends React.Component {
       this.state = { showAlert: false };
       this.props.showAlertCallback(this.onShowAlert.bind(this));
    }
-   onSuccess() {
-      this.setState({
-         message: "Companhia cadastrada com sucesso!",
-         statusMsg: 'success'
-      });
-   }
-   onFailure() {
-      this.setState({
-         message: "Algo deu errado. Tente novamente",
-         statusMsg: "warning"
-      });
-   }
    setContent(message, statusMsg) {
       this.setState({
          message: message,
