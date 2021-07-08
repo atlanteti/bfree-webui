@@ -47,7 +47,10 @@ export default class CadastrarCompanhia extends Component
          return <> 
             <CustomMenu />
             <Col style={{ marginTop: 48 }}>
-               <Col md={{ offset: 3 ,span:9}}>
+               <Col  
+                     sm={{offset: 2, span:6}}//Temporary until styled components
+                     md={{offset: 3, span:5}}
+                     lg={{offset: 3, span:5}}>
                <CustomAlert data={this.state.responseData} showAlertCallback={this.getAlertCallback.bind(this)}/>
                <CompanyForm
                   paramRoute={this.paramRoute}
