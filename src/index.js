@@ -4,29 +4,37 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import Editar from "../src/Pages/Usuarios/Editar";
-import Companhia from './Pages/Companhia/Listar';
+
 import Cadastros from './Pages/Cadastros';
-import ListarJornadas from './Pages/TJornadas/Listar';
-import EditarJornada from './Pages/Jornada/Editar';
 import EditUsuarios from './Pages/Usuarios/Cadastrar';
-import CadastrarCompanhia from './Pages/Companhia/Cadastrar';
-import ListarJornadaUsuarios from './Pages/Jornada/Listar';
-import EditTJornadas from './Pages/TJornadas/Cadastrar';
+
+import ListarCompanhia from './Pages/Companhia/Listar';
+import EditCompanhia from './Pages/Companhia/Cadastrar';
+
+import EditarJornada from './Pages/JornadaUsuarios/Editar';
+import ListarJornadaUsuarios from './Pages/JornadaUsuarios/Listar';
+
+import ListarJornadas from './Pages/TipoJornadas/Listar';
+import EditTJornadas from './Pages/TipoJornadas/Cadastrar';
+
+import EditBadges from './Pages/Badges/Cadastrar';
+import ListarBadges from './Pages/Badges/Listar';
 
 ReactDOM.render(
    <React.StrictMode>
       <Router>
          <Switch>
             <Route exact path="/" component={App} />
-            <Route path="/companhia" component={Companhia} />
-            <Route path="/jornadas" component={ListarJornadas} />
             <Route path="/cadastrar" component={Cadastros} />
+            <Route path="/companhia" component={ListarCompanhia} />
+            <Route path="/jornadas" component={ListarJornadas} />
+            <Route path="/badges" component={ListarBadges} />
             <Route path="/usuario-jornadas" component={ListarJornadaUsuarios} />
             <Route path="/editar/:usr_cod/:route" component={EditUsuarios} />
-            <Route path="/editar-companhia/:cpn_cod/:param" component={CadastrarCompanhia} />
+            <Route path="/editar-companhia/:cpn_cod/:param" component={EditCompanhia} />
             <Route path="/editar-jornada-usuario/:jnu_cod" component={EditarJornada} />
             <Route path="/editar-jornada/:jny_cod/:param" component={EditTJornadas} />
+            <Route path="/editar-badge/:bdg_cod/:param" component={EditBadges} />
          </Switch>
       </Router>
    </React.StrictMode>,

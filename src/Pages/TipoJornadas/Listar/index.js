@@ -52,7 +52,7 @@ export default function ListarJornadas() {
                page: page,
             },
          });
-         console.log(data)
+         console.log(data.data)
          setJornada(data.data);
          setPage(data.meta.pagination);
          setHoraCriacao(moment(data.data.jny_dtcreation).format("hh"))
@@ -96,7 +96,7 @@ export default function ListarJornadas() {
                   </a>
                </div>
                <table className="table">
-                  <col style={{ width: 100 }} />
+                  <col style={{ width: 50 }} />
                   <col style={{ width: 100 }} />
                   <col style={{ width: 120 }} />
                   <col style={{ width: 120 }} />
@@ -125,7 +125,7 @@ export default function ListarJornadas() {
                                        : moment(jorn?.jny_dtcreation).format("DD-MM-YYYY hh:mm")
                                     }
                                  </td>
-                                 {jorn.jny_dtupdate == null ? <td></td> : (
+                                 {jorn.jny_dtupdate == null ? <td data-title="Data de Atualização"><p style={{ color: "transparent" }}>.</p></td> : (
                                     <td data-title="Data de Atualização" id="data">
                                        {moment(jorn?.jny_dtupdate).format("a") === "pm" ? (
                                           moment(jorn?.jny_dtupdate).format("DD-MM-YYYY") + " " + (parseInt(horaUpd) + 12) + ":" + moment(jorn?.jny_dtupdate).format("mm")
@@ -134,7 +134,7 @@ export default function ListarJornadas() {
                                        }
                                     </td>
                                  )}
-                                 <td data-title="Ações" id="acoes">
+                                 <td data-title="Ações" className="acoes">
                                     <Link to={`/editar-jornada/${jorn.jny_cod}/${"alterar"}`} className="btn btn-warning">Editar</Link>
                                     <button className="btn btn-dark" onClick={() => setShowModal(true)}>
                                        Excluir

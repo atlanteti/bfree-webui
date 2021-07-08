@@ -1,16 +1,17 @@
 import { Redirect } from "react-router-dom";
 import { Form, Col, Row, Button, Alert } from 'react-bootstrap';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import moment from "moment";
 import axios from "axios";
 import { CustomMenu } from "../../../Componentes/CustomMenu";
-import { useEffect } from "react";
 
 export default function EditTJornadas(props) {
    const [jornada, setJornada] = useState();
    const [companys, setCompanys] = useState();
+
    const [horaUpd, setHoraUpd] = useState();
    const [horaCriacao, setHoraCriacao] = useState();
+
    const [redirect, setRedirect] = useState(false);
    const [showAlert, setShowAlert] = useState(false);
    const [message, setMessage] = useState();
@@ -141,6 +142,7 @@ export default function EditTJornadas(props) {
                            <Form.Label >Companhia: </Form.Label>
                            <Form.Control
                               as="select"
+                              required="required"
                               onChange={handleChange}
                               defaultValue={jornada?.jny_cpn_cod}
                            >
