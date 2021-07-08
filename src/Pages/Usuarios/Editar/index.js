@@ -53,7 +53,6 @@ export default function Editar(props) {
             method: 'get',
             url: `http://209.97.146.187:18919/usuarios/procurar/${clienteId}`,
          })
-         console.log(data.data)
          setUserData(data.data)
          setStatusUser(data.data.statusUser.sus_name);
          setHoraCriacao(moment(data.data.usr_dtcreation).format("hh"))
@@ -167,11 +166,11 @@ export default function Editar(props) {
                      {horaUpd == null ? "" : (
                         <>
 
-                           {/* <Col>
+                           <Col>
                               <Form.Group controlId="usr_dtupdate">
                                  <Form.Label>Data de atualização: </Form.Label>
                               </Form.Group>
-                           </Col> */}
+                           </Col>
 
                            <Col>
                               {/* formatando data */}

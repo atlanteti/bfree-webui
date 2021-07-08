@@ -20,6 +20,9 @@ import EditTJornadas from './Pages/TipoJornadas/Cadastrar';
 import EditBadges from './Pages/Badges/Cadastrar';
 import ListarBadges from './Pages/Badges/Listar';
 
+import ListarTipoDemanda from './Pages/TipoDemanda/Listar';
+import EditTipoDemanda from './Pages/TipoDemanda/Edit';
+
 ReactDOM.render(
    <React.StrictMode>
       <Router>
@@ -29,12 +32,14 @@ ReactDOM.render(
             <Route path="/companhia" component={ListarCompanhia} />
             <Route path="/jornadas" component={ListarJornadas} />
             <Route path="/badges" component={ListarBadges} />
+            <Route path="/tipodemanda" component={ListarTipoDemanda} />
             <Route path="/usuario-jornadas" component={ListarJornadaUsuarios} />
             <Route path="/editar/:usr_cod/:route" component={EditUsuarios} />
             <Route path="/editar-companhia/:cpn_cod/:param" component={EditCompanhia} />
             <Route path="/editar-jornada-usuario/:jnu_cod" component={EditarJornada} />
             <Route path="/editar-jornada/:jny_cod/:param" component={EditTJornadas} />
             <Route path="/editar-badge/:bdg_cod/:param" component={EditBadges} />
+            <Route path="/editar-tipodemanda/:tdm_cod/:param" component={EditTipoDemanda} />
          </Switch>
       </Router>
    </React.StrictMode>,
