@@ -106,6 +106,12 @@ export default function Usuarios() {
                </a>
             </div>
             <table className="table">
+               <col style={{ width: 50 }} />
+               <col style={{ width: 80 }} />
+               <col style={{ width: 50 }} />
+               <col style={{ width: 150 }} />
+               <col style={{ width: 150 }} />
+               <col style={{ width: 125 }} />
                <thead>
                   <tr>
                      <th scope="col">ID Eduzz</th>
@@ -124,16 +130,16 @@ export default function Usuarios() {
                            <tr key={usuario.usr_cod}>
                               <td data-title="ID Eduzz">{usuario.usr_cli_cod}</td>
                               <td data-title="ID Externo">{usuario.usr_externalid}</td>
-                              <td data-title="Status" id="text">{usuario.statusUser?.sus_name}</td>
-                              <td data-title="ID Data de criação" id="data">
+                              <td data-title="Status" className="text">{usuario.statusUser?.sus_name}</td>
+                              <td data-title="ID Data de criação" className="data">
                                  {moment(usuario?.usr_dtcreation).format("a") === "pm" ? (
                                     moment(usuario?.usr_dtcreation).format("DD-MM-YYYY") + " " + (parseInt(horaCriacao) + 12) + ":" + moment(usuario?.usr_dtcreation).format("mm")
                                  )
                                     : moment(usuario?.usr_dtcreation).format("DD-MM-YYYY hh:mm")
                                  }
                               </td>
-                              {usuario.usr_dtupdate == null ? <td></td> : (
-                                 <td data-title="Data de Atualização" id="data">
+                              {usuario.usr_dtupdate == null ? <td data-title="Data de Atualização"><p style={{ color: "transparent" }}>.</p></td> : (
+                                 <td data-title="Data de Atualização" className="data">
                                     {moment(usuario?.usr_dtupdate).format("a") === "pm" ? (
                                        moment(usuario?.usr_dtupdate).format("DD-MM-YYYY") + " " + (parseInt(horaUpd) + 12) + ":" + moment(usuario?.usr_dtupdate).format("mm")
                                     )
@@ -141,7 +147,7 @@ export default function Usuarios() {
                                     }
                                  </td>
                               )}
-                              <td data-title="Ações" id="acoes">
+                              <td data-title="Ações" className="acoes">
                                  <Link className="btn btn-warning" to={`/editar/${usuario.usr_cod}/${"alterar"}`}>Editar</Link>
                                  <button className="btn btn-dark" onClick={() => setShowModal(true)}>
                                     Excluir

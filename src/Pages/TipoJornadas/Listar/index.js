@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import axios from "axios";
-import "./styles.css";
-import { Pagination, Button, Modal } from "react-bootstrap";
-import moment from "moment";
 import { CustomMenu } from "../../../Componentes/CustomMenu";
+import moment from "moment";
+import { Link } from "react-router-dom"
+import axios from "axios";
+import { Button, Pagination, Modal } from 'react-bootstrap';
 
-export default function ListarCompanhia() {
-   const [companhia, setCompanhia] = useState(null);
-   const [buscar, setBuscar] = useState(null);
+export default function ListarJornadas() {
+   const [buscar, setBuscar] = useState("");
    const [page, setPage] = useState({});
+   const [jornada, setJornada] = useState(null);
    const [horaUpd, setHoraUpd] = useState();
    const [horaCriacao, setHoraCriacao] = useState();
    const [showModal, setShowModal] = useState(false);
@@ -17,21 +16,21 @@ export default function ListarCompanhia() {
    const handleClose = () => setShowModal(false);
 
    function buscarNome(event) {
-      const value = event.target.value;
-      setBuscar(value);
+      const value = event.target.value
+      setBuscar(value)
    }
 
    const buscarEnter = (event) => {
       if (event.keyCode === 13) {
-         requestData(event, buscar);
+         requestData(event, buscar)
       }
-   };
+   }
 
-   async function deletarCompanhia(id) {
+   async function deletarJornada(id) {
       try {
          await axios({
             method: "delete",
-            url: `http://209.97.146.187:18919/companies/excluir/${id}`,
+            url: `http://209.97.146.187:18919/jorneys/excluir/${id}`,
          });
          window.location.reload();
       } catch (error) {
@@ -39,23 +38,25 @@ export default function ListarCompanhia() {
       }
    }
 
-   const requestData = async (e, param = "", page = 1) => {
+   const requestData = async (e, param = '', page = 1) => {
+      console.log(buscar)
       try {
          if (e) {
             e.preventDefault();
          }
          const { data } = await axios({
             method: "get",
-            url: "http://209.97.146.187:18919/companies/listar",
+            url: "http://209.97.146.187:18919/jorneys/listar",
             params: {
-               nome: param,
+               name: param,
                page: page,
             },
          });
-         setHoraCriacao(moment(data.data.cpn_dtcreation).format("hh"))
-         setHoraUpd(moment(data.data.cpn_dtupdate).format("hh"))
-         setCompanhia(data.data);
+         console.log(data.data)
+         setJornada(data.data);
          setPage(data.meta.pagination);
+         setHoraCriacao(moment(data.data.jny_dtcreation).format("hh"))
+         setHoraUpd(moment(data.data.jny_dtupdate).format("hh"))
       } catch (error) {
          alert(error);
       }
@@ -66,11 +67,11 @@ export default function ListarCompanhia() {
    }, []);
 
    return (
-      <div>
+      <>
          <CustomMenu />
          <div className="clientes-container">
             <div className="home-container">
-               <h1>Companhia</h1>
+               <h1>Jornadas</h1>
                <div className="input-group">
                   <input
                      className="form-control search-user"
@@ -82,7 +83,7 @@ export default function ListarCompanhia() {
                   />
                   <div className="input-group-append">
                      <Button
-                        onClick={(e) => requestData(e, buscar)}
+                        onClick={(e) => requestData(e, buscar, page = 1)}
                         type="button"
                         variant="warning"
                      >
@@ -90,50 +91,51 @@ export default function ListarCompanhia() {
                      </Button>
                   </div>
 
-                  <a href={`/cadastrar/companhia/${"inserir"}`} className="btn btn-dark btn-search">
+                  <a href={`/cadastrar/jornada/${"inserir"}`} className="btn btn-dark btn-search">
                      Cadastrar
                   </a>
                </div>
                <table className="table">
                   <col style={{ width: 50 }} />
-                  <col style={{ width: 50 }} />
-                  <col style={{ width: 115 }} />
-                  <col style={{ width: 50 }} />
+                  <col style={{ width: 100 }} />
+                  <col style={{ width: 120 }} />
+                  <col style={{ width: 120 }} />
                   <col style={{ width: 50 }} />
                   <thead>
                      <tr>
-                        <th scope="col">ID Eduzz</th>
                         <th scope="col">Nome</th>
+                        <th scope="col">Companhia</th>
                         <th scope="col">Data de Criação</th>
                         <th scope="col">Data de atualização</th>
                         <th scope="col">Ações</th>
                      </tr>
                   </thead>
                   <tbody>
-                     {companhia === null
+                     {jornada === null
                         ? ""
-                        : companhia.map((companhia) => {
+                        : jornada.map((jorn) => {
                            return (
-                              <tr key={companhia.usr_cod}>
-                                 <td data-title="ID Eduzz">{companhia.cpn_cli_cod}</td>
-                                 <td data-title="Nome" className="text">{companhia.cpn_name}</td>
-                                 <td data-title="Data de Criação" className="data">
-                                    {moment(companhia?.cpn_dtcreation).format("a") === "pm" ? (
-                                       moment(companhia?.cpn_dtcreation).format("DD-MM-YYYY") + " " + (parseInt(horaCriacao) + 12) + ":" + moment(companhia?.cpn_dtcreation).format("mm")
+                              <tr key={jorn.jny_cod}>
+                                 <td data-title="Nome" id="text">{jorn.jny_name}</td>
+                                 <td data-title="Companhia" id="text">{jorn.company.cpn_name}</td>
+                                 <td data-title="Data de criação" id="data">
+                                    {moment(jorn?.jny_dtcreation).format("a") === "pm" ? (
+                                       moment(jorn?.jny_dtcreation).format("DD-MM-YYYY") + " " + (parseInt(horaCriacao) + 12) + ":" + moment(jorn?.jny_dtcreation).format("mm")
                                     )
-                                       : moment(companhia?.cpn_dtcreation).format("DD-MM-YYYY hh:mm")
+                                       : moment(jorn?.jny_dtcreation).format("DD-MM-YYYY hh:mm")
                                     }
                                  </td>
-                                 {companhia.cpn_dtupdate == null ? <td data-title="Data de Atualização"><p style={{ color: "transparent" }}>.</p></td> :
-                                    <td data-title="Data de Atualização" className="data">
-                                       {moment(companhia?.cpn_dtupdate).format("a") === "pm" ? (
-                                          moment(companhia?.cpn_dtupdate).format("DD-MM-YYYY") + " " + (parseInt(horaUpd) + 12) + ":" + moment(companhia?.cpn_dtupdate).format("mm")
+                                 {jorn.jny_dtupdate == null ? <td data-title="Data de Atualização"><p style={{ color: "transparent" }}>.</p></td> : (
+                                    <td data-title="Data de Atualização" id="data">
+                                       {moment(jorn?.jny_dtupdate).format("a") === "pm" ? (
+                                          moment(jorn?.jny_dtupdate).format("DD-MM-YYYY") + " " + (parseInt(horaUpd) + 12) + ":" + moment(jorn?.jny_dtupdate).format("mm")
                                        )
-                                          : moment(companhia?.cpn_dtcreation).format("DD-MM-YYYY hh:mm")
+                                          : moment(jorn?.jny_dtcreation).format("DD-MM-YYYY hh:mm")
                                        }
-                                    </td>}
+                                    </td>
+                                 )}
                                  <td data-title="Ações" className="acoes">
-                                    <Link className="btn btn-warning" to={`/editar-companhia/${companhia.cpn_cod}/${"alterar"}`}>Editar</Link>
+                                    <Link to={`/editar-jornada/${jorn.jny_cod}/${"alterar"}`} className="btn btn-warning">Editar</Link>
                                     <button className="btn btn-dark" onClick={() => setShowModal(true)}>
                                        Excluir
                                     </button>
@@ -142,12 +144,12 @@ export default function ListarCompanhia() {
                                     <Modal.Header closeButton>
                                        <Modal.Title>Erro!</Modal.Title>
                                     </Modal.Header>
-                                    <Modal.Body>Você deseja excluir a companhia?</Modal.Body>
+                                    <Modal.Body>Você deseja excluir a jornada?</Modal.Body>
                                     <Modal.Footer>
                                        <Button variant="danger" onClick={handleClose}>
                                           Não
                                        </Button>
-                                       <Button variant="warning" onClick={() => deletarCompanhia(companhia.cpn_cod)}>
+                                       <Button variant="warning" onClick={() => deletarJornada(jorn.jny_cod)}>
                                           Excluir
                                        </Button>
                                     </Modal.Footer>
@@ -158,7 +160,7 @@ export default function ListarCompanhia() {
                   </tbody>
                </table>
 
-               <Pagination className="">
+               <Pagination>
                   <Pagination.First onClick={(e) => requestData(e, buscar, 1)} />
                   <Pagination.Prev
                      disabled={page.current === 1 ? true : false}
@@ -193,6 +195,6 @@ export default function ListarCompanhia() {
                </Pagination>
             </div>
          </div>
-      </div>
+      </>
    );
 }

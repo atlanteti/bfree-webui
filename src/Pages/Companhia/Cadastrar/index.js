@@ -1,6 +1,7 @@
 import React, { useState, useEffect, Component } from 'react';
 
 import { Redirect } from "react-router-dom";
+import { Form, Col, Row, Button, Alert } from 'react-bootstrap';
 import { Col} from 'react-bootstrap';
 import "./styles.css";
 import { CustomMenu } from '../../../Componentes/CustomMenu';

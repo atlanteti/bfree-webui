@@ -4,7 +4,7 @@ import { useHistory, useLocation } from "react-router-dom";
 import Icon from "awesome-react-icons";
 import React, { useState } from "react";
 import { AiOutlineUser } from "react-icons/ai"
-import { IoBusinessOutline, IoBookmarkOutline } from "react-icons/io5"
+import { IoBusinessOutline, IoBookmarkOutline, IoAlbumsOutline } from "react-icons/io5"
 import { RiTeamLine, RiMedalLine } from "react-icons/ri";
 import { FaUserGraduate, FaTasks } from "react-icons/fa"
 import { BsGraphUp } from "react-icons/bs";
@@ -47,20 +47,9 @@ export const CustomMenu = () => {
                }}
                items={[
                   {
-                     title: "Usuarios",
-                     itemId: "/",
-                     // Optional
-                     elemBefore: () => <AiOutlineUser size={23} color="#ffb509" />,
-                  },
-                  {
-                     title: "Companhia",
+                     title: "Empresas",
                      itemId: "/companhia",
                      elemBefore: () => <IoBusinessOutline size={23} color="#ffb509" />,
-                  },
-                  {
-                     title: "Demandas",
-                     itemId: "#6",
-                     elemBefore: () => <FaTasks size={23} color="#ffb509" />
                   },
                   {
                      title: "Jornadas",
@@ -68,9 +57,29 @@ export const CustomMenu = () => {
                      elemBefore: () => <BsGraphUp size={23} color="#ffb509" />,
                   },
                   {
+                     title: "Tipo de Demanda",
+                     itemId: "###",
+                     elemBefore: () => <IoAlbumsOutline size={23} color="#ffb509" />
+                  },
+                  {
+                     title: "Usuarios",
+                     itemId: "/",
+                     elemBefore: () => <AiOutlineUser size={23} color="#ffb509" />,
+                  },
+                  {
                      title: "Badges",
-                     itemId: "#1",
+                     itemId: "/badges",
                      elemBefore: () => <RiMedalLine size={23} color="#ffb509" />
+                  },
+                  {
+                     title: "Time",
+                     itemId: "#4",
+                     elemBefore: () => <RiTeamLine size={23} color="#ffb509" />
+                  },
+                  {
+                     title: "Demandas",
+                     itemId: "#6",
+                     elemBefore: () => <FaTasks size={23} color="#ffb509" />
                   },
                   {
                      title: "Conquistas",
@@ -81,11 +90,6 @@ export const CustomMenu = () => {
                      title: "Mentores",
                      itemId: "#3",
                      elemBefore: () => <FaUserGraduate size={23} color="#ffb509" />
-                  },
-                  {
-                     title: "Times",
-                     itemId: "#4",
-                     elemBefore: () => <RiTeamLine size={23} color="#ffb509" />
                   },
                ]}
             />
