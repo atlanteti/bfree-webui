@@ -1,6 +1,5 @@
 import { Component } from 'react';
 import { request } from '../../Services/api';
-import PropTypes from 'prop-types';
 
 export class EditCreateForm extends Component {
    constructor(props) {
