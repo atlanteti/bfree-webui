@@ -88,39 +88,41 @@ export default function ListarJornadaUsuarios() {
                      Cadastrar
                   </a>
                </div>
-               <table className="table">
-                  <col style={{ width: 150 }} />
-                  <col style={{ width: 50 }} />
-                  <col style={{ width: 50 }} />
-                  <col style={{ width: 50 }} />
-                  <thead>
-                     <tr>
-                        <th scope="col">ID da Jornada Usuário</th>
-                        <th scope="col">Data de Criação</th>
-                        <th scope="col">Data de atualização</th>
-                        <th scope="col">Ações</th>
-                     </tr>
-                  </thead>
-                  <tbody>
-                     {jornada === null
-                        ? ""
-                        : jornada.map((jorn) => {
-                           return (
-                              <tr key={jorn.jnu_cod}>
-                                 <td data-title="ID da Jornada Usuário">{jorn.jnu_cod}</td>
-                                 <td data-title="Data de Criação">{moment(jorn.jnu_dtcreation).format("DD/MM/YYYY hh:mm a")}</td>
-                                 <td data-title="Data de atualização">{moment(jorn.jnu_dtupdate).format("DD/MM/YYYY hh:mm a")}</td>
-                                 <td data-title="Ações" id="acoes">
-                                    <Link to={`/editar-jornada-usuario/${jorn.jnu_cod}`} className="btn btn-warning">Editar</Link>
-                                    <button className="btn btn-dark" onClick={() => deletarJornada(jorn.jnu_cod)}>
-                                       Excluir
-                                    </button>
-                                 </td>
-                              </tr>
-                           );
-                        })}
-                  </tbody>
-               </table>
+               <div>
+                  <table className="table">
+                     <col style={{ width: 150 }} />
+                     <col style={{ width: 50 }} />
+                     <col style={{ width: 50 }} />
+                     <col style={{ width: 50 }} />
+                     <thead>
+                        <tr>
+                           <th scope="col">ID da Jornada Usuário</th>
+                           <th scope="col">Data de Criação</th>
+                           <th scope="col">Data de atualização</th>
+                           <th scope="col">Ações</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        {jornada === null
+                           ? ""
+                           : jornada.map((jorn) => {
+                              return (
+                                 <tr key={jorn.jnu_cod}>
+                                    <td data-title="ID da Jornada Usuário">{jorn.jnu_cod}</td>
+                                    <td data-title="Data de Criação">{moment(jorn.jnu_dtcreation).format("DD/MM/YYYY hh:mm a")}</td>
+                                    <td data-title="Data de atualização">{moment(jorn.jnu_dtupdate).format("DD/MM/YYYY hh:mm a")}</td>
+                                    <td data-title="Ações" className="acoes">
+                                       <Link to={`/editar-jornada-usuario/${jorn.jnu_cod}`} className="btn btn-warning">Editar</Link>
+                                       <button className="btn btn-dark" onClick={() => deletarJornada(jorn.jnu_cod)}>
+                                          Excluir
+                                       </button>
+                                    </td>
+                                 </tr>
+                              );
+                           })}
+                     </tbody>
+                  </table>
+               </div>
 
                <Pagination>
                   <Pagination.First onClick={(e) => requestData(e, buscar, 1)} />

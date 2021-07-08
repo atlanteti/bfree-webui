@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 
 import { Redirect } from "react-router-dom";
 import axios from "axios";
-import { Form, Col, Row, Button, Alert, Modal } from 'react-bootstrap';
+import { Form, Col, Row, Button, Alert } from 'react-bootstrap';
 import "./styles.css";
 import { CustomMenu } from '../../../Componentes/CustomMenu';
 import moment from "moment";
 import { request } from '../../../Services/api';
 
-export default function CadastrarCompanhia(props) {
+export default function EditCompanhia(props) {
    const [companyData, setCompanyData] = useState({});
    const [showAlert, setShowAlert] = useState(false);
    const [message, setMessage] = useState();
