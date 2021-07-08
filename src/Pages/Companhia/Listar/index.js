@@ -70,7 +70,7 @@ export default function ListarCompanhia() {
          <CustomMenu />
          <div className="clientes-container">
             <div className="home-container">
-               <h1>Companhia</h1>
+               <h1>Empresa</h1>
                <div className="input-group">
                   <input
                      className="form-control search-user"
