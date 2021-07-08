@@ -6,6 +6,7 @@ import EditCompanhia from "../Companhia/Cadastrar";
 import CadastrarJornada from "../JornadaUsuarios/Cadastrar";
 import EditTJornadas from "../TipoJornadas/Cadastrar";
 import EditBadges from "../Badges/Cadastrar";
+import EditTipoDemanda from "../TipoDemanda/Edit";
 
 export default class Cadastros extends Component {
    render() {
@@ -16,6 +17,7 @@ export default class Cadastros extends Component {
          <Route path={`${this.props.match.path}/usuario-jornada`} component={CadastrarJornada} />
          <Route path={`${this.props.match.path}/jornada/:param`} component={EditTJornadas} />
          <Route path={`${this.props.match.path}/badges/:param`} component={EditBadges} />
+         <Route path={`${this.props.match.path}/tipodemanda/:param`} component={EditTipoDemanda} />
       </div>
    }
 }

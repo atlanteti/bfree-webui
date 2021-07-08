@@ -160,16 +160,25 @@ export default function ListarJornadas() {
                   </tbody>
                </table>
 
-               <Pagination>
-                  <Pagination.First onClick={(e) => requestData(e, buscar, 1)} />
+               <Pagination className="pagination">
+                  <Pagination.First onClick={(e) => {
+                     requestData(e, buscar, 1)
+                     window.scroll(0, 0)
+                  }} />
                   <Pagination.Prev
                      disabled={page.current === 1 ? true : false}
-                     onClick={(e) => requestData(e, buscar, page.current - 1)}
+                     onClick={(e) => {
+                        requestData(e, buscar, page.current - 1)
+                        window.scroll(0, 0)
+                     }}
                   />
                   {page.current >= 3 ? <Pagination.Ellipsis disabled={true} /> : null}
                   {page.current >= 2 ? (
                      <Pagination.Item
-                        onClick={(e) => requestData(e, buscar, page.current - 1)}
+                        onClick={(e) => {
+                           requestData(e, buscar, page.current - 1)
+                           window.scroll(0, 0)
+                        }}
                      >
                         {page.current - 1}
                      </Pagination.Item>
@@ -177,7 +186,10 @@ export default function ListarJornadas() {
                   <Pagination.Item active>{page.current}</Pagination.Item>
                   {page.total - page.current >= 1 ? (
                      <Pagination.Item
-                        onClick={(e) => requestData(e, buscar, page.current + 1)}
+                        onClick={(e) => {
+                           requestData(e, buscar, page.current + 1)
+                           window.scroll(0, 0)
+                        }}
                      >
                         {page.current + 1}
                      </Pagination.Item>
@@ -187,10 +199,16 @@ export default function ListarJornadas() {
                   ) : null}
                   <Pagination.Next
                      disabled={page.current === page.total ? true : false}
-                     onClick={(e) => requestData(e, buscar, page.current + 1)}
+                     onClick={(e) => {
+                        requestData(e, buscar, page.current + 1)
+                        window.scroll(0, 0)
+                     }}
                   />
                   <Pagination.Last
-                     onClick={(e) => requestData(e, buscar, page.total)}
+                     onClick={(e) => {
+                        requestData(e, buscar, page.total)
+                        window.scroll(0, 0)
+                     }}
                   />
                </Pagination>
             </div>

@@ -74,13 +74,11 @@ export default function EditCompanhia(props) {
       try {
          e.preventDefault()
          let data = null;
-         if (paramRoute === "inserir")
-         {
+         if (paramRoute === "inserir") {
             data = await insertCompanyData(formData);
             insertionResultHandler(data);
          }
-         else
-         {
+         else {
             data = await editCompanyData(formData);
             editResultHandler(data);
          }
@@ -88,24 +86,21 @@ export default function EditCompanhia(props) {
          console.log(error)
       }
    };
-   
-   
 
    useEffect(() => {
-      const requestData =  async () => {
+      const requestData = async () => {
          try {
             const data = await request({
-               method:"get",
+               method: "get",
                endpoint: `companies/procurar/${companyId}`
             })
             updateData(data);
          } catch (error) {
             console.log(error)
          }
-   
-   
+
       };
-      if (paramRoute !== "inserir"){
+      if (paramRoute !== "inserir") {
          requestData();
       }
    }, [companyId, paramRoute])
@@ -210,7 +205,7 @@ export default function EditCompanhia(props) {
       </>
    );
 
-   
+
 
    function updateData(data) {
       setCompanyData(data.data);

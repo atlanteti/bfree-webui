@@ -13,6 +13,7 @@ export default function Usuarios() {
    const [showModal, setShowModal] = useState(false);
    const [horaUpd, setHoraUpd] = useState();
    const [horaCriacao, setHoraCriacao] = useState();
+   const [idUser, setIdUser] = useState();
 
    const handleClose = () => setShowModal(false);
 
@@ -28,6 +29,7 @@ export default function Usuarios() {
    };
 
    async function deletarUsuario(id) {
+      console.log(id)
       try {
          const { data } = await axios({
             method: "delete",
@@ -149,7 +151,10 @@ export default function Usuarios() {
                               )}
                               <td data-title="Ações" className="acoes">
                                  <Link className="btn btn-warning" to={`/editar/${usuario.usr_cod}/${"alterar"}`}>Editar</Link>
-                                 <button className="btn btn-dark" onClick={() => setShowModal(true)}>
+                                 <button className="btn btn-dark" onClick={() => {
+                                    setShowModal(true)
+                                    setIdUser(usuario.usr_cod)
+                                 }}>
                                     Excluir
                                  </button>
                               </td>
@@ -162,7 +167,7 @@ export default function Usuarios() {
                                     <Button variant="danger" onClick={handleClose}>
                                        Não
                                     </Button>
-                                    <Button variant="warning" onClick={() => deletarUsuario(usuario.usr_cod)}>
+                                    <Button variant="warning" onClick={() => deletarUsuario(idUser)}>
                                        Excluir
                                     </Button>
                                  </Modal.Footer>
@@ -173,7 +178,10 @@ export default function Usuarios() {
                </tbody>
             </table>
             <Pagination className="pagination">
-               <Pagination.First onClick={(e) => requestData(e, buscar, 1)} />
+               <Pagination.First onClick={(e) => {
+                  requestData(e, buscar, 1)
+                  window.scroll(0, 0)
+               }} />
                <Pagination.Prev
                   disabled={page.current === 1 ? true : false}
                   onClick={(e) => {
