@@ -12,6 +12,8 @@ export default function ListarTipoDemanda() {
    const [page, setPage] = useState({});
    const [typeDemand, setTypeDemand] = useState(null);
    const [idDemand, setIdDemand] = useState(null);
+   const [horaUpd, setHoraUpd] = useState();
+   const [horaCriacao, setHoraCriacao] = useState();
 
    const [showModal, setShowModal] = useState(false);
 
@@ -30,9 +32,10 @@ export default function ListarTipoDemanda() {
                page: page,
             },
          });
-         console.log(data)
          setTypeDemand(data.data);
          setPage(data.meta.pagination);
+         setHoraCriacao(moment(data.data.tdm_dtcreation).format("hh"))
+         setHoraUpd(moment(data.data.tdm_dtupdate).format("hh"))
       } catch (error) {
          alert(error);
       }
@@ -84,13 +87,17 @@ export default function ListarTipoDemanda() {
                   </a>
                </div>
                <table className="table">
-                  <col style={{ width: 200 }} />
-                  <col style={{ width: 150 }} />
-                  <col style={{ width: 50 }} />
+                  <col style={{ width: 100 }} />
+                  <col style={{ width: 100 }} />
+                  <col style={{ width: 120 }} />
+                  <col style={{ width: 120 }} />
+                  <col style={{ width: 100 }} />
                   <thead>
                      <tr>
+                        <th scope="col">Nome</th>
                         <th scope="col">Empresa</th>
-                        <th scope="col">Demanda</th>
+                        <th scope="col">Data de criação</th>
+                        <th scope="col">Data de atualização</th>
                         <th scope="col">Ações</th>
                      </tr>
                   </thead>
@@ -100,15 +107,34 @@ export default function ListarTipoDemanda() {
                         : typeDemand?.map((tDemand) => {
                            return (
                               <tr key={tDemand?.tdm_cod}>
-                                 <td data-title="Demanda" className="text">
-                                    {tDemand?.company?.cpn_name == null ? <p style={{ color: "transparent" }}>.</p> : tDemand?.company?.cpn_name}
-                                 </td>
                                  <td data-title="Nome" className="text">
                                     {tDemand?.tdm_name == null ? <p style={{ color: "transparent" }}>.</p> : tDemand?.tdm_name}
                                  </td>
+                                 <td data-title="Empresa" className="text">
+                                    {tDemand?.company?.cpn_name == null ? <p style={{ color: "transparent" }}>.</p> : tDemand?.company?.cpn_name}
+                                 </td>
+                                 <td data-title="Data de criação" className="data">
+                                    {moment(tDemand?.tdm_dtcreation).format("a") === "pm" ? (
+                                       moment(tDemand?.tdm_dtcreation).format("DD-MM-YYYY") + " " + (parseInt(horaCriacao) + 12) + ":" + moment(tDemand?.tdm_dtcreation).format("mm")
+                                    )
+                                       : moment(tDemand?.tdm_dtcreation).format("DD-MM-YYYY hh:mm")
+                                    }
+                                 </td>
+                                 {tDemand?.tdm_dtupdate == null ? <td data-title="Data de Atualização"><p style={{ color: "transparent" }}>.</p></td> : (
+                                    <td data-title="Data de Atualização" className="data">
+                                       {moment(tDemand?.tdm_dtupdate).format("a") === "pm" ? (
+                                          moment(tDemand?.tdm_dtupdate).format("DD-MM-YYYY") + " " + (parseInt(horaUpd) + 12) + ":" + moment(tDemand?.tdm_dtupdate).format("mm")
+                                       )
+                                          : moment(tDemand?.tdm_dtcreation).format("DD-MM-YYYY hh:mm")
+                                       }
+                                    </td>
+                                 )}
                                  <td data-title="Ações" className="acoes">
                                     <Link className="btn btn-warning" to={`/editar-tipodemanda/${tDemand.tdm_cod}/${"alterar"}`}>Editar</Link>
-                                    <button className="btn btn-dark" onClick={() => { setShowModal(true) }}>
+                                    <button className="btn btn-dark" onClick={() => {
+                                       setShowModal(true)
+                                       setIdDemand(tDemand.tdm_cod)
+                                    }}>
                                        Excluir
                                     </button>
                                  </td>
@@ -121,7 +147,7 @@ export default function ListarTipoDemanda() {
                                        <Button variant="danger" onClick={handleClose}>
                                           Não
                                        </Button>
-                                       <Button variant="warning" onClick={() => deleteDemand(tDemand.tdm_cod)}>
+                                       <Button variant="warning" onClick={() => deleteDemand(idDemand)}>
                                           Excluir
                                        </Button>
                                     </Modal.Footer>
