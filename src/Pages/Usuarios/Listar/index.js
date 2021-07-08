@@ -106,6 +106,12 @@ export default function Usuarios() {
                </a>
             </div>
             <table className="table">
+               <col style={{ width: 50 }} />
+               <col style={{ width: 80 }} />
+               <col style={{ width: 50 }} />
+               <col style={{ width: 150 }} />
+               <col style={{ width: 150 }} />
+               <col style={{ width: 125 }} />
                <thead>
                   <tr>
                      <th scope="col">ID Eduzz</th>
