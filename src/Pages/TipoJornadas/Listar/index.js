@@ -3,7 +3,20 @@ import { CustomMenu } from "../../../Componentes/CustomMenu";
 import moment from "moment";
 import { Link } from "react-router-dom"
 import axios from "axios";
-import { Button, Pagination, Modal } from 'react-bootstrap';
+import { Button, Pagination, Modal, Container } from 'react-bootstrap';
+import {
+   Title,
+   MainContainer,
+   BtnCadastrar,
+   Input,
+   LittleBtn,
+   Table,
+   TableHeader,
+   TableRow,
+   ColumnTitle,
+   TableData,
+   TableCell
+} from "./styles.js"
 
 export default function ListarJornadas() {
    const [buscar, setBuscar] = useState("");

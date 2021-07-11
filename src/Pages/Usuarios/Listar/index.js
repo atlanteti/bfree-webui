@@ -2,8 +2,22 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "./styles.css";
-import { Pagination, Row, Col, Button, Alert, Modal } from "react-bootstrap";
+import { Pagination, Row, Col, Button, Alert, Modal, Container } from "react-bootstrap";
+import {
+   Title,
+   MainContainer,
+   BtnCadastrar,
+   Input,
+   LittleBtn,
+   Table,
+   TableHeader,
+   TableRow,
+   ColumnTitle,
+   TableData,
+   TableCell
+} from "./styles.js"
 import moment from "moment";
+
 
 export default function Usuarios() {
    const [usuarios, setUsuarios] = useState(null);
@@ -74,161 +88,173 @@ export default function Usuarios() {
    }, []);
 
    return (
-      <div className="clientes-container">
-         {showAlert &&
-            <Col>
-               <Alert variant="warning" onClose={() => setShowAlert(false)} dismissible>
-                  Não é possivel excluir o registro, pois o mesmo possui ligação com outras tabelas!
-               </Alert>
-            </Col>
-         }
-         <div className="home-container">
-            <h1>Usuários</h1>
-            <div className="input-group">
-               <input
-                  className="form-control search-user"
-                  type="text"
-                  placeholder="Digite o nome"
-                  onChange={buscarNome}
-                  onKeyDown={(e) => buscarEnter(e)}
-                  defaultValue={buscar}
-               />
-               <div className="input-group-append">
-                  <Button
+      <MainContainer>
+         <Col
+            sm={{ offset: 1, span: 9 }}//Temporary until styled components
+            md={{ offset: 1, span: 9 }}
+            lg={{ offset: 2, span: 10 }}
+         >
+            {showAlert &&
+               <Col>
+                  <Alert variant="warning" onClose={() => setShowAlert(false)} dismissible>
+                     Não é possivel excluir o registro, pois o mesmo possui ligação com outras tabelas!
+                  </Alert>
+               </Col>
+            }
+            <Container>
+               <Title>Usuários</Title>
+               <Row className="input-group">
+                  <Input
+                     className="form-control"
+                     type="text"
+                     placeholder="Digite o nome"
+                     onChange={buscarNome}
+                     onKeyDown={(e) => buscarEnter(e)}
+                     defaultValue={buscar}
+                  />
+                  <LittleBtn
+                     className="input-group-append"
                      onClick={(e) => requestData(e, buscar)}
                      type="button"
-                     variant="warning"
+                     yellowColor
                   >
                      Buscar
-                  </Button>
-               </div>
-
-               <a href={`/cadastrar/usuario/${"inserir"}`} className="btn btn-dark btn-search">
-                  Cadastrar
-               </a>
-            </div>
-            <table className="table">
-               <col style={{ width: 50 }} />
-               <col style={{ width: 80 }} />
-               <col style={{ width: 50 }} />
-               <col style={{ width: 150 }} />
-               <col style={{ width: 150 }} />
-               <col style={{ width: 125 }} />
-               <thead>
-                  <tr>
-                     <th scope="col">ID Eduzz</th>
-                     <th scope="col">ID Externo</th>
-                     <th scope="col">Status</th>
-                     <th scope="col">Data de Criação</th>
-                     <th scope="col">Data de atualização</th>
-                     <th scope="col">Ações</th>
-                  </tr>
-               </thead>
-               <tbody>
-                  {usuarios === null
-                     ? ""
-                     : usuarios.map((usuario) => {
-                        return (
-                           <tr key={usuario.usr_cod}>
-                              <td data-title="ID Eduzz">{usuario.usr_cli_cod}</td>
-                              <td data-title="ID Externo">{usuario.usr_externalid}</td>
-                              <td data-title="Status" className="text">{usuario.statusUser?.sus_name}</td>
-                              <td data-title="ID Data de criação" className="data">
-                                 {moment(usuario?.usr_dtcreation).format("a") === "pm" ? (
-                                    moment(usuario?.usr_dtcreation).format("DD-MM-YYYY") + " " + (parseInt(horaCriacao) + 12) + ":" + moment(usuario?.usr_dtcreation).format("mm")
-                                 )
-                                    : moment(usuario?.usr_dtcreation).format("DD-MM-YYYY hh:mm")
-                                 }
-                              </td>
-                              {usuario.usr_dtupdate == null ? <td data-title="Data de Atualização"><p style={{ color: "transparent" }}>.</p></td> : (
-                                 <td data-title="Data de Atualização" className="data">
-                                    {moment(usuario?.usr_dtupdate).format("a") === "pm" ? (
-                                       moment(usuario?.usr_dtupdate).format("DD-MM-YYYY") + " " + (parseInt(horaUpd) + 12) + ":" + moment(usuario?.usr_dtupdate).format("mm")
+                  </LittleBtn>
+                  <BtnCadastrar href={`/cadastrar/usuario/${"inserir"}`} className="btn btn-dark ml-3">
+                     Cadastrar
+                  </BtnCadastrar>
+               </Row>
+               <Table>
+                  <TableHeader>
+                     <TableRow>
+                        <ColumnTitle scope="col">ID Eduzz</ColumnTitle>
+                        <ColumnTitle scope="col">ID Externo</ColumnTitle>
+                        <ColumnTitle scope="col">Status</ColumnTitle>
+                        <ColumnTitle columnWidth scope="col">Data de Criação</ColumnTitle>
+                        <ColumnTitle columnWidth scope="col">Data de atualização</ColumnTitle>
+                        <ColumnTitle scope="col">Ações</ColumnTitle>
+                     </TableRow>
+                  </TableHeader>
+                  <TableData>
+                     {usuarios === null
+                        ? ""
+                        : usuarios.map((usuario) => {
+                           return (
+                              <TableRow key={usuario.usr_cod}>
+                                 <TableCell data-title="ID Eduzz">{usuario.usr_cli_cod}</TableCell>
+                                 <TableCell data-title="ID Externo">{usuario.usr_externalid}</TableCell>
+                                 <TableCell data-title="Status" className="text">{usuario.statusUser?.sus_name}</TableCell>
+                                 <TableCell data-title="ID Data de criação" className="data">
+                                    {moment(usuario?.usr_dtcreation).format("a") === "pm" ? (
+                                       moment(usuario?.usr_dtcreation).format("DD-MM-YYYY")
+                                       + " " + (parseInt(horaCriacao) + 12)
+                                       + ":" + moment(usuario?.usr_dtcreation).format("mm")
                                     )
                                        : moment(usuario?.usr_dtcreation).format("DD-MM-YYYY hh:mm")
                                     }
-                                 </td>
-                              )}
-                              <td data-title="Ações" className="acoes">
-                                 <Link className="btn btn-warning" to={`/editar/${usuario.usr_cod}/${"alterar"}`}>Editar</Link>
-                                 <button className="btn btn-dark" onClick={() => {
-                                    setShowModal(true)
-                                    setIdUser(usuario.usr_cod)
-                                 }}>
-                                    Excluir
-                                 </button>
-                              </td>
-                              <Modal show={showModal} onHide={handleClose}>
-                                 <Modal.Header closeButton>
-                                    <Modal.Title>Erro!</Modal.Title>
-                                 </Modal.Header>
-                                 <Modal.Body>Você deseja excluir o usuário?</Modal.Body>
-                                 <Modal.Footer>
-                                    <Button variant="danger" onClick={handleClose}>
-                                       Não
-                                    </Button>
-                                    <Button variant="warning" onClick={() => deletarUsuario(idUser)}>
+                                 </TableCell>
+                                 {usuario.usr_dtupdate == null ? (
+                                    <TableCell data-title="Data de Atualização">
+                                       <p style={{ color: "transparent" }}>.</p>
+                                    </TableCell>)
+                                    :
+                                    (
+                                       <TableCell columnWidth data-title="Data de Atualização" className="data">
+                                          {moment(usuario?.usr_dtupdate).format("a") === "pm" ? (
+                                             moment(usuario?.usr_dtupdate).format("DD-MM-YYYY")
+                                             + " " + (parseInt(horaUpd) + 12)
+                                             + ":" + moment(usuario?.usr_dtupdate).format("mm")
+                                          )
+                                             : moment(usuario?.usr_dtcreation).format("DD-MM-YYYY hh:mm")
+                                          }
+                                       </TableCell>
+                                    )}
+                                 <TableCell data-title="Ações" className="acoes">
+                                    <Link
+                                       className="btn btn-warning"
+                                       to={`/editar/${usuario.usr_cod}/${"alterar"}`}
+                                    >
+                                       Editar
+                                    </Link>
+                                    <Button className="btn btn-dark" onClick={() => {
+                                       setShowModal(true)
+                                       setIdUser(usuario.usr_cod)
+                                    }}>
                                        Excluir
                                     </Button>
-                                 </Modal.Footer>
-                              </Modal>
-                           </tr>
-                        );
-                     })}
-               </tbody>
-            </table>
-            <Pagination className="pagination">
-               <Pagination.First onClick={(e) => {
-                  requestData(e, buscar, 1)
-                  window.scroll(0, 0)
-               }} />
-               <Pagination.Prev
-                  disabled={page.current === 1 ? true : false}
-                  onClick={(e) => {
-                     requestData(e, buscar, page.current - 1)
+                                 </TableCell>
+                                 <Modal show={showModal} onHide={handleClose}>
+                                    <Modal.Header closeButton>
+                                       <Modal.Title>Erro!</Modal.Title>
+                                    </Modal.Header>
+                                    <Modal.Body>Você deseja excluir o usuário?</Modal.Body>
+                                    <Modal.Footer>
+                                       <Button variant="danger" onClick={handleClose}>
+                                          Não
+                                       </Button>
+                                       <Button variant="warning" onClick={() => deletarUsuario(idUser)}>
+                                          Excluir
+                                       </Button>
+                                    </Modal.Footer>
+                                 </Modal>
+                              </TableRow>
+                           );
+                        })}
+                  </TableData>
+               </Table>
+               <Pagination className="pagination">
+                  <Pagination.First onClick={(e) => {
+                     requestData(e, buscar, 1)
                      window.scroll(0, 0)
-                  }}
-               />
-               {page.current >= 3 ? <Pagination.Ellipsis disabled={true} /> : null}
-               {page.current >= 2 ? (
-                  <Pagination.Item
+                  }} />
+                  <Pagination.Prev
+                     disabled={page.current === 1 ? true : false}
                      onClick={(e) => {
                         requestData(e, buscar, page.current - 1)
                         window.scroll(0, 0)
                      }}
-                  >
-                     {page.current - 1}
-                  </Pagination.Item>
-               ) : null}
-               <Pagination.Item active>{page.current}</Pagination.Item>
-               {page.total - page.current >= 1 ? (
-                  <Pagination.Item
+                  />
+                  {page.current >= 3 ? <Pagination.Ellipsis disabled={true} /> : null}
+                  {page.current >= 2 ? (
+                     <Pagination.Item
+                        onClick={(e) => {
+                           requestData(e, buscar, page.current - 1)
+                           window.scroll(0, 0)
+                        }}
+                     >
+                        {page.current - 1}
+                     </Pagination.Item>
+                  ) : null}
+                  <Pagination.Item active>{page.current}</Pagination.Item>
+                  {page.total - page.current >= 1 ? (
+                     <Pagination.Item
+                        onClick={(e) => {
+                           requestData(e, buscar, page.current + 1)
+                           window.scroll(0, 0)
+                        }}
+                     >
+                        {page.current + 1}
+                     </Pagination.Item>
+                  ) : null}
+                  {page.total - page.current >= 2 ? (
+                     <Pagination.Ellipsis disabled={true} />
+                  ) : null}
+                  <Pagination.Next
+                     disabled={page.current === page.total ? true : false}
                      onClick={(e) => {
                         requestData(e, buscar, page.current + 1)
                         window.scroll(0, 0)
                      }}
-                  >
-                     {page.current + 1}
-                  </Pagination.Item>
-               ) : null}
-               {page.total - page.current >= 2 ? (
-                  <Pagination.Ellipsis disabled={true} />
-               ) : null}
-               <Pagination.Next
-                  disabled={page.current === page.total ? true : false}
-                  onClick={(e) => {
-                     requestData(e, buscar, page.current + 1)
-                     window.scroll(0, 0)
-                  }}
-               />
-               <Pagination.Last
-                  onClick={(e) => {
-                     requestData(e, buscar, page.total)
-                     window.scroll(0, 0)
-                  }}
-               />
-            </Pagination>
-         </div>
-      </div >
+                  />
+                  <Pagination.Last
+                     onClick={(e) => {
+                        requestData(e, buscar, page.total)
+                        window.scroll(0, 0)
+                     }}
+                  />
+               </Pagination>
+            </Container>
+         </Col >
+      </MainContainer>
    );
 }
