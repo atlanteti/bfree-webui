@@ -65,6 +65,9 @@ export const Table = styled.table`
    .text{
       text-align: left;
    }
+   .icon {
+       vertical-align: inherit;
+    }
 
    /* ajuste de responsividade para tablete e telas pequena*/
    @media(min-width: 768px) and (max-width: 800px){ 
@@ -130,10 +133,6 @@ export const ColumnTitle = styled.th`
    background: #fff;
 `
 
-export const ColumnTitleLittle = styled.th`
-   width: "30px";
-`
-
 export const TableData = styled.tbody`
 `
 
@@ -143,4 +142,17 @@ export const TableCell = styled.td`
    border: 1px solid #dee2e6;
 
    padding: 0.1rem 0.8rem;
+`
+
+export const Icon = styled.div`
+    @media (min-width: 766px) {
+        display: flex;
+        place-content: baseline center;
+        justify-content: center;
+    }
+
+    @media (max-width: 767px) {
+        display: flex;
+        place-content: flex-end;
+    }
 `

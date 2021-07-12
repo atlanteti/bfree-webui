@@ -106,10 +106,6 @@ export const Table = styled.table`
          margin-bottom: 10px;
          display: block;
       }
-
-      .pagination {
-         margin-bottom: 15px;
-      }
    }
 `
 

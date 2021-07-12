@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import "./styles.css";
 import { Pagination, Row, Col, Button, Alert, Modal, Container } from "react-bootstrap";
 import {
    Title,
@@ -13,11 +12,11 @@ import {
    TableHeader,
    TableRow,
    ColumnTitle,
+   ColumnTitleLittle,
    TableData,
    TableCell
 } from "./styles.js"
 import moment from "moment";
-
 
 export default function Usuarios() {
    const [usuarios, setUsuarios] = useState(null);
@@ -202,7 +201,7 @@ export default function Usuarios() {
                         })}
                   </TableData>
                </Table>
-               <Pagination className="pagination">
+               <Pagination style={{marginBottom: 20}}>
                   <Pagination.First onClick={(e) => {
                      requestData(e, buscar, 1)
                      window.scroll(0, 0)

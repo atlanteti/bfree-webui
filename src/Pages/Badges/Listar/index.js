@@ -1,9 +1,22 @@
 import { useEffect, useState } from "react";
 import { CustomMenu } from "../../../Componentes/CustomMenu";
 import { Link } from "react-router-dom"
-import { Button, Pagination, Modal, Table } from 'react-bootstrap';
+import { Button, Pagination, Modal, Col, Row, Container } from 'react-bootstrap';
 import { IoCheckboxOutline } from "react-icons/io5";
-import "./styles.css";
+import {
+   Title,
+   MainContainer,
+   BtnCadastrar,
+   Input,
+   LittleBtn,
+   Table,
+   TableHeader,
+   TableRow,
+   ColumnTitle,
+   TableData,
+   TableCell,
+   Icon
+} from "./styles.js"
 import moment from "moment";
 import axios from "axios";
 
@@ -60,90 +73,96 @@ export default function ListarBadges() {
    }, []);
 
    return (
-      <>
+      <MainContainer>
          <CustomMenu />
-         <div className="clientes-container">
-            <div className="home-container">
-               <h1>Badges</h1>
-               <div className="input-group">
-                  <input
-                     className="form-control search-user"
+         <Col
+            sm={{ offset: 1, span: 9 }}//Temporary until styled components
+            md={{ offset: 1, span: 9 }}
+            lg={{ offset: 2, span: 10 }}
+         >
+            <Container>
+               <Title>Badges</Title>
+               <Row className="input-group">
+                  <Input
+                     className="form-control"
                      type="text"
                      placeholder="Digite o nome"
                      // onChange={buscarNome}
                      // onKeyDown={(e) => buscarEnter(e)}
                      defaultValue={buscar}
                   />
-                  <div className="input-group-append">
-                     <Button
-                        onClick={(e) => requestData(e, buscar, page = 1)}
-                        type="button"
-                        variant="warning"
-                     >
-                        Buscar
-                     </Button>
-                  </div>
-
-                  <a href={`/cadastrar/badges/${"inserir"}`} className="btn btn-dark btn-search">
+                  <LittleBtn
+                     className="input-group-append"
+                     onClick={(e) => requestData(e, buscar, page = 1)}
+                     type="button"
+                     yellowColor
+                  >
+                     Buscar
+                  </LittleBtn>
+                  <BtnCadastrar href={`/cadastrar/badges/${"inserir"}`} className="btn btn-dark ml-3">
                      Cadastrar
-                  </a>
-               </div>
-               <table className="table">
-                  <thead>
-                     <tr>
-                        <th scope="col">Nome</th>
-                        <th scope="col">Jornada</th>
-                        <th scope="col">Companhia</th>
-                        <th scope="col">Mentor</th>
-                        <th scope="col">Data de Criação</th>
-                        <th scope="col">Data de atualização</th>
-                        <th scope="col">Ações</th>
-                     </tr>
-                  </thead>
-                  <tbody>
+                  </BtnCadastrar>
+               </Row>
+               <Table>
+                  <TableHeader>
+                     <TableRow>
+                        <ColumnTitle scope="col">Nome</ColumnTitle>
+                        <ColumnTitle scope="col">Jornada</ColumnTitle>
+                        <ColumnTitle scope="col">Companhia</ColumnTitle>
+                        <ColumnTitle scope="col">Mentor</ColumnTitle>
+                        <ColumnTitle columnWidth scope="col">Data de Criação</ColumnTitle>
+                        <ColumnTitle columnWidth scope="col">Data de atualização</ColumnTitle>
+                        <ColumnTitle scope="col">Ações</ColumnTitle>
+                     </TableRow>
+                  </TableHeader>
+                  <TableData>
                      {badges === null
                         ? ""
                         : badges.map((badge) => {
                            return (
-                              <tr key={badge.bdg_cod}>
-                                 <td data-title="Nome" className="text">{badge.bdg_name}</td>
-                                 <td data-title="Jornada" className="text">
+                              <TableRow key={badge.bdg_cod}>
+                                 <TableCell data-title="Nome" className="text">{badge.bdg_name}</TableCell>
+                                 <TableCell data-title="Jornada" className="text">
                                     {/* para que fique ajustado para mobile */}
                                     {badge.jorney?.jny_name == null ? <p style={{ color: "transparent" }}>.</p> : badge?.jorney.jny_name}
-                                 </td>
-                                 <td data-title="Companhia" className="text">
+                                 </TableCell>
+                                 <TableCell data-title="Companhia" className="text">
                                     {badge.company?.cpn_name == null ? <p style={{ color: "transparent" }}>.</p> : badge?.company?.cpn_name}
-                                 </td>
-                                 <td data-title="Mentor" className="icon">
-                                    <div className="mentor-icon">
+                                 </TableCell>
+                                 <TableCell data-title="Mentor" className="icon">
+                                    <Icon className="mentor-icon">
                                        {badge?.bdg_mentor == true ? <IoCheckboxOutline align="center" size={25} /> : <p style={{ color: "transparent" }}>.</p>}
-                                    </div>
-                                 </td>
-                                 <td data-title="Data de criação" className="data">
+                                    </Icon>
+                                 </TableCell>
+                                 <TableCell data-title="Data de criação" className="data">
                                     {moment(badge?.bdg_dtcreation).format("a") === "pm" ? (
-                                       moment(badge?.bdg_dtcreation).format("DD-MM-YYYY") + " " + (parseInt(horaCriacao) + 12) + ":" + moment(badge?.bdg_dtcreation).format("mm")
+                                       moment(badge?.bdg_dtcreation).format("DD-MM-YYYY") 
+                                       + " " + (parseInt(horaCriacao) + 12)
+                                       + ":" + moment(badge?.bdg_dtcreation).format("mm")
                                     )
                                        : moment(badge?.bdg_dtcreation).format("DD-MM-YYYY hh:mm")
                                     }
-                                 </td>
+                                 </TableCell>
                                  {badge.bdg_dtupdate == null ? <td data-title="Data de Atualização"><p style={{ color: "transparent" }}>.</p></td> : (
-                                    <td data-title="Data de Atualização" className="data">
+                                    <TableCell data-title="Data de Atualização" className="data">
                                        {moment(badge?.bdg_dtupdate).format("a") === "pm" ? (
-                                          moment(badge?.bdg_dtupdate).format("DD-MM-YYYY") + " " + (parseInt(horaUpd) + 12) + ":" + moment(badge?.bdg_dtupdate).format("mm")
+                                          moment(badge?.bdg_dtupdate).format("DD-MM-YYYY") 
+                                          + " " + (parseInt(horaUpd) + 12) 
+                                          + ":" + moment(badge?.bdg_dtupdate).format("mm")
                                        )
                                           : moment(badge?.bdg_dtcreation).format("DD-MM-YYYY hh:mm")
                                        }
-                                    </td>
+                                    </TableCell>
                                  )}
-                                 <td data-title="Ações" className="acoes">
+                                 <TableCell data-title="Ações" className="acoes">
                                     <Link to={`/editar-badge/${badge.bdg_cod}/${"alterar"}`} className="btn btn-warning">Editar</Link>
-                                    <button className="btn btn-dark" onClick={(e) => {
+                                    <Button className="btn btn-dark" onClick={(e) => {
                                        setShowModal(true)
                                        setIdBadge(badge.bdg_cod)
                                     }}>
                                        Excluir
-                                    </button>
-                                 </td>
+                                    </Button>
+                                 </TableCell>
                                  <Modal show={showModal} onHide={handleClose}>
                                     <Modal.Header closeButton>
                                        <Modal.Title>Aviso!</Modal.Title>
@@ -158,13 +177,13 @@ export default function ListarBadges() {
                                        </Button>
                                     </Modal.Footer>
                                  </Modal>
-                              </tr>
+                              </TableRow>
                            );
                         })}
-                  </tbody>
-               </table>
+                  </TableData>
+               </Table>
 
-               <Pagination className="pagination">
+               <Pagination style={{marginBottom: 20}}>
                   <Pagination.First onClick={(e) => {
                      requestData(e, buscar, 1)
                      window.scroll(0, 0)
@@ -215,8 +234,8 @@ export default function ListarBadges() {
                      }}
                   />
                </Pagination>
-            </div>
-         </div>
-      </>
+            </Container>
+         </Col>
+      </MainContainer>
    );
 }

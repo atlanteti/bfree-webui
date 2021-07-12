@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { CustomMenu } from "../../../Componentes/CustomMenu";
 import { Link } from "react-router-dom"
 import { Button, Pagination, Modal, Col, Row, Container } from 'react-bootstrap';
-import { IoCheckboxOutline } from "react-icons/io5";
 import {
    Title,
    MainContainer,
@@ -131,7 +130,7 @@ export default function ListarTipoDemanda() {
                                        : moment(tDemand?.tdm_dtcreation).format("DD-MM-YYYY hh:mm")
                                     }
                                  </TableCell>
-                                 {tDemand?.tdm_dtupdate == null ? <td data-title="Data de Atualização"><p style={{ color: "transparent" }}>.</p></td> : (
+                                 {tDemand?.tdm_dtupdate == null ? <TableCell data-title="Data de Atualização"><p style={{ color: "transparent" }}>.</p></TableCell> : (
                                     <TableCell data-title="Data de Atualização" className="data">
                                        {moment(tDemand?.tdm_dtupdate).format("a") === "pm" ? (
                                           moment(tDemand?.tdm_dtupdate).format("DD-MM-YYYY")
@@ -177,7 +176,7 @@ export default function ListarTipoDemanda() {
                   </TableData>
                </Table>
 
-               <Pagination className="pagination">
+               <Pagination style={{marginBottom: 20}}>
                   <Pagination.First onClick={(e) => {
                      requestData(e, buscar, 1)
                      window.scroll(0, 0)
