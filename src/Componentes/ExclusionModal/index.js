@@ -1,11 +1,11 @@
 import { Button, Modal } from "react-bootstrap";
 
 export default function ExclusionModal(props) {
-   const confirmDeletion = () =>
+   const confirmDeletion = async () =>
    {
-      props.deletionCallback(props.identifierCode);
       props.closeModal();
-      props.updateListing()
+      const data = await props.deletionCallback(props.identifierCode);
+      props.showAlert(data.meta);
    }
    return <Modal show={props.showModal} onHide={props.closeModal}>
       <Modal.Header closeButton>
