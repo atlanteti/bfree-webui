@@ -156,3 +156,10 @@ export const Icon = styled.div`
         place-content: flex-end;
     }
 `
+
+export const SortIcon = styled.div`
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+   align-items: center;
+`

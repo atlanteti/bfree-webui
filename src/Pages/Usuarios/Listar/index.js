@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { CustomMenu } from "../../../Componentes/CustomMenu";
+import { IoArrowDownSharp, IoArrowUpSharp } from "react-icons/io5";
 import { Pagination, Row, Col, Button, Alert, Modal, Container } from "react-bootstrap";
 import {
    Title,
@@ -12,11 +14,10 @@ import {
    TableHeader,
    TableRow,
    ColumnTitle,
-   ColumnTitleLittle,
    TableData,
-   TableCell
+   TableCell,
+   SortIcon,
 } from "./styles.js"
-import moment from "moment";
 
 export default function Usuarios() {
    const [usuarios, setUsuarios] = useState(null);
@@ -24,9 +25,9 @@ export default function Usuarios() {
    const [page, setPage] = useState({});
    const [showAlert, setShowAlert] = useState(false);
    const [showModal, setShowModal] = useState(false);
-   const [horaUpd, setHoraUpd] = useState();
-   const [horaCriacao, setHoraCriacao] = useState();
    const [idUser, setIdUser] = useState();
+   const [count, setCount] = useState(null);
+   const [statusArrow, setStatusArrow] = useState({"0": null, "1": null, "2": null});
 
    const handleClose = () => setShowModal(false);
 
@@ -73,14 +74,19 @@ export default function Usuarios() {
                page: page,
             },
          });
+         console.log(data.data)
          setUsuarios(data.data);
          setPage(data.meta.pagination);
-         setHoraCriacao(moment(data.data.usr_dtcreation).format("hh"))
-         setHoraUpd(moment(data.data.usr_dtupdate).format("hh"))
       } catch (error) {
          alert(error);
       }
    };
+
+   function ordenar(property) {
+      return function (a,b) {
+          return (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+      }
+  }
 
    useEffect(() => {
       requestData();
@@ -88,6 +94,7 @@ export default function Usuarios() {
 
    return (
       <MainContainer>
+         <CustomMenu />
          <Col
             sm={{ offset: 1, span: 9 }}//Temporary until styled components
             md={{ offset: 1, span: 9 }}
@@ -126,48 +133,68 @@ export default function Usuarios() {
                <Table>
                   <TableHeader>
                      <TableRow>
-                        <ColumnTitle scope="col">ID Eduzz</ColumnTitle>
-                        <ColumnTitle scope="col">ID Externo</ColumnTitle>
-                        <ColumnTitle scope="col">Status</ColumnTitle>
-                        <ColumnTitle columnWidth scope="col">Data de Criação</ColumnTitle>
-                        <ColumnTitle columnWidth scope="col">Data de atualização</ColumnTitle>
-                        <ColumnTitle scope="col">Ações</ColumnTitle>
+                        <ColumnTitle sort scope="col" onClick={() => {
+                           setStatusArrow({"0": 1, "1": null, "2": null})
+                           if(count == null){
+                              setCount(count + 1);
+                              usuarios.sort(ordenar("usr_cli_cod"));
+                           } else {
+                              setCount(null);
+                              usuarios.sort(ordenar("usr_cli_cod")).reverse();
+                           }
+                        }}>
+                           <SortIcon>
+                              ID Eduzz {statusArrow[0] == null ? "" : 
+                              (
+                                 count == null ? <IoArrowUpSharp /> : <IoArrowDownSharp />
+                              )}
+                           </SortIcon>
+                        </ColumnTitle>
+                        <ColumnTitle scope="col" onClick={() => {
+                           setStatusArrow({"0": null, "1": 1, "2": null})
+                           if(count == null){
+                              setCount(count + 1);
+                              usuarios.sort(ordenar("usr_externalid"));
+                           } else {
+                              setCount(null);
+                              usuarios.sort(ordenar("usr_externalid")).reverse();
+                           }
+                        }}>
+                           <SortIcon>
+                              ID Externo {statusArrow[1] == null ? "" : 
+                              (
+                                 count == null ? <IoArrowUpSharp /> : <IoArrowDownSharp />
+                              )}
+                           </SortIcon>
+                        </ColumnTitle>
+                        <ColumnTitle scope="col" onClick={() => {
+                           setStatusArrow({"0": null, "1": null, "2": 1})
+                           if(count == null){
+                              setCount(count + 1);
+                              usuarios.sort(ordenar("usr_sus_cod"));
+                           } else {
+                              setCount(null);
+                              usuarios.sort(ordenar("usr_sus_cod")).reverse();
+                           }
+                        }}>
+                           <SortIcon>
+                              Status {statusArrow[2] == null ? "" : 
+                              (
+                                 count == null ? <IoArrowUpSharp /> : <IoArrowDownSharp />
+                              )}
+                           </SortIcon>
+                        </ColumnTitle>
+                        <ColumnTitle columnWidth scope="col">Ações</ColumnTitle>
                      </TableRow>
                   </TableHeader>
                   <TableData>
-                     {usuarios === null
-                        ? ""
-                        : usuarios.map((usuario) => {
+                     {(usuarios !== null) && 
+                        usuarios.map((usuario) => {
                            return (
                               <TableRow key={usuario.usr_cod}>
                                  <TableCell data-title="ID Eduzz">{usuario.usr_cli_cod}</TableCell>
                                  <TableCell data-title="ID Externo">{usuario.usr_externalid}</TableCell>
                                  <TableCell data-title="Status" className="text">{usuario.statusUser?.sus_name}</TableCell>
-                                 <TableCell data-title="ID Data de criação" className="data">
-                                    {moment(usuario?.usr_dtcreation).format("a") === "pm" ? (
-                                       moment(usuario?.usr_dtcreation).format("DD-MM-YYYY")
-                                       + " " + (parseInt(horaCriacao) + 12)
-                                       + ":" + moment(usuario?.usr_dtcreation).format("mm")
-                                    )
-                                       : moment(usuario?.usr_dtcreation).format("DD-MM-YYYY hh:mm")
-                                    }
-                                 </TableCell>
-                                 {usuario.usr_dtupdate == null ? (
-                                    <TableCell data-title="Data de Atualização">
-                                       <p style={{ color: "transparent" }}>.</p>
-                                    </TableCell>)
-                                    :
-                                    (
-                                       <TableCell columnWidth data-title="Data de Atualização" className="data">
-                                          {moment(usuario?.usr_dtupdate).format("a") === "pm" ? (
-                                             moment(usuario?.usr_dtupdate).format("DD-MM-YYYY")
-                                             + " " + (parseInt(horaUpd) + 12)
-                                             + ":" + moment(usuario?.usr_dtupdate).format("mm")
-                                          )
-                                             : moment(usuario?.usr_dtcreation).format("DD-MM-YYYY hh:mm")
-                                          }
-                                       </TableCell>
-                                    )}
                                  <TableCell data-title="Ações" className="acoes">
                                     <Link
                                        className="btn btn-warning"

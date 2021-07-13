@@ -63,7 +63,7 @@ export const CustomMenu = () => {
                   },
                   {
                      title: "Usuarios",
-                     itemId: "/",
+                     itemId: "/usuarios",
                      elemBefore: () => <AiOutlineUser size={23} color="#ffb509" />,
                   },
                   {

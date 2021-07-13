@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { CustomMenu } from "../../../Componentes/CustomMenu";
 import { Link } from "react-router-dom"
+import { IoArrowDownSharp, IoArrowUpSharp } from "react-icons/io5";
 import { Button, Pagination, Modal, Col, Row, Container } from 'react-bootstrap';
 import { IoCheckboxOutline } from "react-icons/io5";
 import {
@@ -15,9 +16,9 @@ import {
    ColumnTitle,
    TableData,
    TableCell,
-   Icon
+   Icon,
+   SortIcon
 } from "./styles.js"
-import moment from "moment";
 import axios from "axios";
 
 export default function ListarBadges() {
@@ -25,10 +26,9 @@ export default function ListarBadges() {
    const [page, setPage] = useState({});
    const [badges, setBadges] = useState(null);
    const [idBadge, setIdBadge] = useState(null);
+   const [count, setCount] = useState(null);
 
    const [showModal, setShowModal] = useState(false);
-   const [horaUpd, setHoraUpd] = useState();
-   const [horaCriacao, setHoraCriacao] = useState();
 
    const handleClose = () => setShowModal(false);
 
@@ -45,10 +45,9 @@ export default function ListarBadges() {
                page: page,
             },
          });
+         console.log(data.data)
          setBadges(data.data);
          setPage(data.meta.pagination);
-         setHoraCriacao(moment(data.data.bdg_dtcreation).format("hh"))
-         setHoraUpd(moment(data.data.bdg_dtupdate).format("hh"))
       } catch (error) {
          alert(error);
       }
@@ -67,6 +66,19 @@ export default function ListarBadges() {
          alert(error);
       }
    }
+
+   function ordenar(property) {
+      if(property === "company.cpn_name"){
+         return function (a,b) {
+            let x = a.toUpperCase(), y = b.toUpperCase()
+            return (a.toUpperCase()["company"]["cpn_name"] < y["company"]["cpn_name"]) ? -1 : (x["company"]["cpn_name"] > y["company"]["cpn_name"]) ? 1 : 0;
+        }
+      } else {
+         return function (a,b) {
+            return (a.toUpperCase([property]) < b.toUpperCase([property])) ? -1 : (a.toUpperCase([property]) > b.toUpperCase([property])) ? 1 : 0;
+        }
+      }
+  }
 
    useEffect(() => {
       requestData();
@@ -106,13 +118,15 @@ export default function ListarBadges() {
                <Table>
                   <TableHeader>
                      <TableRow>
-                        <ColumnTitle scope="col">Nome</ColumnTitle>
+                        <ColumnTitle>
+                           <SortIcon>
+                              Nome 
+                           </SortIcon>
+                           </ColumnTitle>
                         <ColumnTitle scope="col">Jornada</ColumnTitle>
-                        <ColumnTitle scope="col">Companhia</ColumnTitle>
+                        <ColumnTitle scope="col">Empresa</ColumnTitle>
                         <ColumnTitle scope="col">Mentor</ColumnTitle>
-                        <ColumnTitle columnWidth scope="col">Data de Criação</ColumnTitle>
-                        <ColumnTitle columnWidth scope="col">Data de atualização</ColumnTitle>
-                        <ColumnTitle scope="col">Ações</ColumnTitle>
+                        <ColumnTitle columnWidth scope="col">Ações</ColumnTitle>
                      </TableRow>
                   </TableHeader>
                   <TableData>
@@ -134,26 +148,6 @@ export default function ListarBadges() {
                                        {badge?.bdg_mentor == true ? <IoCheckboxOutline align="center" size={25} /> : <p style={{ color: "transparent" }}>.</p>}
                                     </Icon>
                                  </TableCell>
-                                 <TableCell data-title="Data de criação" className="data">
-                                    {moment(badge?.bdg_dtcreation).format("a") === "pm" ? (
-                                       moment(badge?.bdg_dtcreation).format("DD-MM-YYYY") 
-                                       + " " + (parseInt(horaCriacao) + 12)
-                                       + ":" + moment(badge?.bdg_dtcreation).format("mm")
-                                    )
-                                       : moment(badge?.bdg_dtcreation).format("DD-MM-YYYY hh:mm")
-                                    }
-                                 </TableCell>
-                                 {badge.bdg_dtupdate == null ? <td data-title="Data de Atualização"><p style={{ color: "transparent" }}>.</p></td> : (
-                                    <TableCell data-title="Data de Atualização" className="data">
-                                       {moment(badge?.bdg_dtupdate).format("a") === "pm" ? (
-                                          moment(badge?.bdg_dtupdate).format("DD-MM-YYYY") 
-                                          + " " + (parseInt(horaUpd) + 12) 
-                                          + ":" + moment(badge?.bdg_dtupdate).format("mm")
-                                       )
-                                          : moment(badge?.bdg_dtcreation).format("DD-MM-YYYY hh:mm")
-                                       }
-                                    </TableCell>
-                                 )}
                                  <TableCell data-title="Ações" className="acoes">
                                     <Link to={`/editar-badge/${badge.bdg_cod}/${"alterar"}`} className="btn btn-warning">Editar</Link>
                                     <Button className="btn btn-dark" onClick={(e) => {

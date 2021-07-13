@@ -3,6 +3,7 @@ import { CustomMenu } from "../../../Componentes/CustomMenu";
 import moment from "moment";
 import { Link } from "react-router-dom"
 import axios from "axios";
+import { IoArrowDownSharp, IoArrowUpSharp } from "react-icons/io5";
 import { Button, Pagination, Modal, Container, Row, Col } from 'react-bootstrap';
 import {
    Title,
@@ -15,16 +16,17 @@ import {
    TableRow,
    ColumnTitle,
    TableData,
-   TableCell
+   TableCell,
+   SortIcon
 } from "./styles.js"
 
 export default function ListarJornadas() {
    const [buscar, setBuscar] = useState("");
    const [page, setPage] = useState({});
    const [jornada, setJornada] = useState(null);
-   const [horaUpd, setHoraUpd] = useState();
-   const [horaCriacao, setHoraCriacao] = useState();
    const [showModal, setShowModal] = useState(false);
+   const [count, setCount] = useState(null);
+   const [statusArrow, setStatusArrow] = useState({"0": null, "1": null});
 
    const handleClose = () => setShowModal(false);
 
@@ -65,15 +67,25 @@ export default function ListarJornadas() {
                page: page,
             },
          });
-         console.log(data.data)
          setJornada(data.data);
          setPage(data.meta.pagination);
-         setHoraCriacao(moment(data.data.jny_dtcreation).format("hh"))
-         setHoraUpd(moment(data.data.jny_dtupdate).format("hh"))
       } catch (error) {
          alert(error);
       }
    };
+
+   function ordenar(property) {
+      console.log(property)
+      if(property === "company.cpn_name"){
+         return function (a,b) {
+            return (a["company"]["cpn_name"] < b["company"]["cpn_name"]) ? -1 : (a["company"]["cpn_name"] > b["company"]["cpn_name"]) ? 1 : 0;
+        }
+      } else {
+         return function (a,b) {
+            return (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+        }
+      }
+  }
 
    useEffect(() => {
       requestData();
@@ -113,10 +125,40 @@ export default function ListarJornadas() {
                <Table>
                   <TableHeader>
                      <TableRow>
-                        <ColumnTitle scope="col">Nome</ColumnTitle>
-                        <ColumnTitle scope="col">Companhia</ColumnTitle>
-                        <ColumnTitle columnWidth scope="col">Data de Criação</ColumnTitle>
-                        <ColumnTitle columnWidth scope="col">Data de atualização</ColumnTitle>
+                        <ColumnTitle scope="col" onClick={() => {
+                           setStatusArrow({"0": 1, "1": null})
+                           if(count == null){
+                              setCount(count + 1);
+                              jornada.sort(ordenar("jny_name"));
+                           } else {
+                              setCount(null);
+                              jornada.sort(ordenar("jny_name")).reverse();
+                           }
+                        }}>
+                           <SortIcon>
+                              Nome {statusArrow[0] == null ? "" : 
+                              (
+                                 count == null ? <IoArrowUpSharp /> : <IoArrowDownSharp />
+                              )}
+                           </SortIcon>
+                        </ColumnTitle>
+                        <ColumnTitle scope="col" onClick={() => {
+                           setStatusArrow({"0": null, "1": 1})
+                           if(count == null){
+                              setCount(count + 1);
+                              jornada.sort(ordenar("company.cpn_name"));
+                           } else {
+                              setCount(null);
+                              jornada.sort(ordenar("company.cpn_name")).reverse();
+                           }
+                        }}>
+                           <SortIcon>
+                              Empresa {statusArrow[1] == null ? "" : 
+                              (
+                                 count == null ? <IoArrowUpSharp /> : <IoArrowDownSharp />
+                              )}
+                           </SortIcon>
+                        </ColumnTitle>
                         <ColumnTitle scope="col">Ações</ColumnTitle>
                      </TableRow>
                   </TableHeader>
@@ -128,26 +170,6 @@ export default function ListarJornadas() {
                               <TableRow key={jorn.jny_cod}>
                                  <TableCell data-title="Nome" id="text">{jorn.jny_name}</TableCell>
                                  <TableCell data-title="Companhia" id="text">{jorn.company.cpn_name}</TableCell>
-                                 <TableCell data-title="Data de criação" id="data">
-                                    {moment(jorn?.jny_dtcreation).format("a") === "pm" ? (
-                                       moment(jorn?.jny_dtcreation).format("DD-MM-YYYY") 
-                                       + " " + (parseInt(horaCriacao) + 12) 
-                                       + ":" + moment(jorn?.jny_dtcreation).format("mm")
-                                    )
-                                       : moment(jorn?.jny_dtcreation).format("DD-MM-YYYY hh:mm")
-                                    }
-                                 </TableCell>
-                                 {jorn.jny_dtupdate == null ? <TableCell data-title="Data de Atualização"><p style={{ color: "transparent" }}>.</p></TableCell> : (
-                                    <TableCell data-title="Data de Atualização" id="data">
-                                       {moment(jorn?.jny_dtupdate).format("a") === "pm" ? (
-                                          moment(jorn?.jny_dtupdate).format("DD-MM-YYYY") 
-                                          + " " + (parseInt(horaUpd) + 12) 
-                                          + ":" + moment(jorn?.jny_dtupdate).format("mm")
-                                       )
-                                          : moment(jorn?.jny_dtcreation).format("DD-MM-YYYY hh:mm")
-                                       }
-                                    </TableCell>
-                                 )}
                                  <TableCell data-title="Ações" className="acoes">
                                     <Link to={`/editar-jornada/${jorn.jny_cod}/${"alterar"}`} className="btn btn-warning">Editar</Link>
                                     <Button className="btn btn-dark" onClick={() => setShowModal(true)}>

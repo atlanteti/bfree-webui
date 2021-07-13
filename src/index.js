@@ -22,12 +22,14 @@ import ListarBadges from './Pages/Badges/Listar';
 
 import ListarTipoDemanda from './Pages/TipoDemanda/Listar';
 import EditTipoDemanda from './Pages/TipoDemanda/Edit';
+import Usuarios from './Pages/Usuarios/Listar';
 
 ReactDOM.render(
    <React.StrictMode>
       <Router>
          <Switch>
             <Route exact path="/" component={App} />
+            <Route path="/usuarios" component={Usuarios} />
             <Route path="/cadastrar" component={Cadastros} />
             <Route path="/companhia" component={ListarCompanhia} />
             <Route path="/jornadas" component={ListarJornadas} />

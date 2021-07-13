@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { CustomMenu } from "../../../Componentes/CustomMenu";
 import { Link } from "react-router-dom"
+import { IoArrowDownSharp, IoArrowUpSharp } from "react-icons/io5";
 import { Button, Pagination, Modal, Col, Row, Container } from 'react-bootstrap';
 import {
    Title,
@@ -13,9 +14,9 @@ import {
    TableRow,
    ColumnTitle,
    TableData,
-   TableCell
+   TableCell,
+   SortIcon
 } from "./styles.js"
-import moment from "moment";
 import axios from "axios";
 
 export default function ListarTipoDemanda() {
@@ -23,8 +24,8 @@ export default function ListarTipoDemanda() {
    const [page, setPage] = useState({});
    const [typeDemand, setTypeDemand] = useState(null);
    const [idDemand, setIdDemand] = useState(null);
-   const [horaUpd, setHoraUpd] = useState();
-   const [horaCriacao, setHoraCriacao] = useState();
+   const [count, setCount] = useState(null);
+   const [statusArrow, setStatusArrow] = useState({"0": null, "1": null});
 
    const [showModal, setShowModal] = useState(false);
 
@@ -43,10 +44,9 @@ export default function ListarTipoDemanda() {
                page: page,
             },
          });
+         console.log(data.data)
          setTypeDemand(data.data);
          setPage(data.meta.pagination);
-         setHoraCriacao(moment(data.data.tdm_dtcreation).format("hh"))
-         setHoraUpd(moment(data.data.tdm_dtupdate).format("hh"))
       } catch (error) {
          alert(error);
       }
@@ -63,6 +63,19 @@ export default function ListarTipoDemanda() {
          alert(error);
       }
    }
+
+   function ordenar(property) {
+      console.log(property)
+      if(property === "company.cpn_name"){
+         return function (a,b) {
+            return (a["company"]["cpn_name"] < b["company"]["cpn_name"]) ? -1 : (a["company"]["cpn_name"] > b["company"]["cpn_name"]) ? 1 : 0;
+        }
+      } else {
+         return function (a,b) {
+            return (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+        }
+      }
+  }
 
    useEffect(() => {
       requestData();
@@ -102,10 +115,40 @@ export default function ListarTipoDemanda() {
                <Table>
                   <TableHeader>
                      <TableRow>
-                        <ColumnTitle scope="col">Nome</ColumnTitle>
-                        <ColumnTitle scope="col">Empresa</ColumnTitle>
-                        <ColumnTitle columnWidth scope="col">Data de criação</ColumnTitle>
-                        <ColumnTitle columnWidth scope="col">Data de atualização</ColumnTitle>
+                        <ColumnTitle scope="col" onClick={() => {
+                           setStatusArrow({"0": 1, "1": null})
+                           if(count == null){
+                              setCount(count + 1);
+                              typeDemand.sort(ordenar("tdm_name"));
+                           } else {
+                              setCount(null);
+                              typeDemand.sort(ordenar("tdm_name")).reverse();
+                           }
+                        }}>
+                           <SortIcon>
+                              Nome {statusArrow[0] == null ? "" : 
+                              (
+                                 count == null ? <IoArrowUpSharp /> : <IoArrowDownSharp />
+                              )}
+                           </SortIcon>
+                        </ColumnTitle>
+                        <ColumnTitle scope="col" onClick={() => {
+                           setStatusArrow({"0": null, "1": 1})
+                           if(count == null){
+                              setCount(count + 1);
+                              typeDemand.sort(ordenar("company.cpn_name"));
+                           } else {
+                              setCount(null);
+                              typeDemand.sort(ordenar("company.cpn_name")).reverse();
+                           }
+                        }}>
+                           <SortIcon>
+                              Empresa {statusArrow[1] == null ? "" : 
+                              (
+                                 count == null ? <IoArrowUpSharp /> : <IoArrowDownSharp />
+                              )}
+                           </SortIcon>
+                        </ColumnTitle>
                         <ColumnTitle scope="col">Ações</ColumnTitle>
                      </TableRow>
                   </TableHeader>
@@ -121,26 +164,6 @@ export default function ListarTipoDemanda() {
                                  <TableCell data-title="Empresa" className="text">
                                     {tDemand?.company?.cpn_name == null ? <p style={{ color: "transparent" }}>.</p> : tDemand?.company?.cpn_name}
                                  </TableCell>
-                                 <TableCell data-title="Data de criação" className="data">
-                                    {moment(tDemand?.tdm_dtcreation).format("a") === "pm" ? (
-                                       moment(tDemand?.tdm_dtcreation).format("DD-MM-YYYY")
-                                       + " " + (parseInt(horaCriacao) + 12)
-                                       + ":" + moment(tDemand?.tdm_dtcreation).format("mm")
-                                    )
-                                       : moment(tDemand?.tdm_dtcreation).format("DD-MM-YYYY hh:mm")
-                                    }
-                                 </TableCell>
-                                 {tDemand?.tdm_dtupdate == null ? <TableCell data-title="Data de Atualização"><p style={{ color: "transparent" }}>.</p></TableCell> : (
-                                    <TableCell data-title="Data de Atualização" className="data">
-                                       {moment(tDemand?.tdm_dtupdate).format("a") === "pm" ? (
-                                          moment(tDemand?.tdm_dtupdate).format("DD-MM-YYYY")
-                                          + " " + (parseInt(horaUpd) + 12)
-                                          + ":" + moment(tDemand?.tdm_dtupdate).format("mm")
-                                       )
-                                          : moment(tDemand?.tdm_dtcreation).format("DD-MM-YYYY hh:mm")
-                                       }
-                                    </TableCell>
-                                 )}
                                  <TableCell data-title="Ações" className="acoes">
                                     <Link
                                        className="btn btn-warning"

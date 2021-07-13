@@ -131,7 +131,7 @@ export default function EditUsuarios(props) {
    }, [])
 
    if (redirect) {
-      return <Redirect to="/" />
+      return <Redirect to="/usuarios" />
    }
 
    return (

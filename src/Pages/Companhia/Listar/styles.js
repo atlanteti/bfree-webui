@@ -140,3 +140,10 @@ export const TableCell = styled.td`
 
    padding: 0.1rem 0.8rem;
 `
+
+export const SortIcon = styled.div`
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+   align-items: center;
+`
