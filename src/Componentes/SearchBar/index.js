@@ -1,7 +1,7 @@
 import { Button, Row, InputGroup, FormControl} from "react-bootstrap";
 
 export default function SearchBar(props) {
-   return <Row className={"mt-10 mb-2"} noGutters>
+   return <Row className={"mb-2"} noGutters>
       <InputGroup>
          <FormControl
             type="text"
