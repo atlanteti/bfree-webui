@@ -1,18 +1,31 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import "./styles.css";
-import { Pagination, Button, Modal } from "react-bootstrap";
-import moment from "moment";
+import { IoArrowDownSharp, IoArrowUpSharp } from "react-icons/io5";
+import { Pagination, Button, Modal, Col, Row, Container } from "react-bootstrap";
+import {
+   Title,
+   MainContainer,
+   BtnCadastrar,
+   Input,
+   LittleBtn,
+   Table,
+   TableHeader,
+   TableRow,
+   ColumnTitle,
+   TableData,
+   TableCell, 
+   SortIcon
+} from "./styles.js"
 import { CustomMenu } from "../../../Componentes/CustomMenu";
 
 export default function ListarCompanhia() {
    const [companhia, setCompanhia] = useState(null);
    const [buscar, setBuscar] = useState(null);
    const [page, setPage] = useState({});
-   const [horaUpd, setHoraUpd] = useState();
-   const [horaCriacao, setHoraCriacao] = useState();
    const [showModal, setShowModal] = useState(false);
+   const [count, setCount] = useState(null);
+   const [statusArrow, setStatusArrow] = useState({"0": null, "1": null});
 
    const handleClose = () => setShowModal(false);
 
@@ -39,7 +52,7 @@ export default function ListarCompanhia() {
       }
    }
 
-   const requestData = async (e, param = "", page = 1) => {
+   const requestData = async (e, param = "", page = 1, columnName, sortData) => {
       try {
          if (e) {
             e.preventDefault();
@@ -48,12 +61,14 @@ export default function ListarCompanhia() {
             method: "get",
             url: "http://209.97.146.187:18919/companies/listar",
             params: {
+               idEduzz: null,
                nome: param,
+               sort: columnName,
+               isDesc: sortData,
                page: page,
             },
          });
-         setHoraCriacao(moment(data.data.cpn_dtcreation).format("hh"))
-         setHoraUpd(moment(data.data.cpn_dtupdate).format("hh"))
+         console.log(data.data)
          setCompanhia(data.data);
          setPage(data.meta.pagination);
       } catch (error) {
@@ -61,83 +76,100 @@ export default function ListarCompanhia() {
       }
    };
 
+   function ordenar(property) {
+      return function (a,b) {
+         return (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+      }
+  }
    useEffect(() => {
       requestData();
    }, []);
 
    return (
-      <div>
+      <MainContainer>
          <CustomMenu />
-         <div className="clientes-container">
-            <div className="home-container">
-               <h1>Empresa</h1>
-               <div className="input-group">
-                  <input
-                     className="form-control search-user"
+         <Col
+            sm={{ offset: 1, span: 9 }}//Temporary until styled components
+            md={{ offset: 1, span: 9 }}
+            lg={{ offset: 2, span: 10 }}
+         >
+            <Container>
+               <Title>Empresa</Title>
+               <Row className="input-group">
+                  <Input
+                     className="form-control"
                      type="text"
                      placeholder="Digite o nome"
                      onChange={buscarNome}
                      onKeyDown={(e) => buscarEnter(e)}
                      defaultValue={buscar}
                   />
-                  <div className="input-group-append">
-                     <Button
-                        onClick={(e) => requestData(e, buscar)}
-                        type="button"
-                        variant="warning"
-                     >
-                        Buscar
-                     </Button>
-                  </div>
-
-                  <a href={`/cadastrar/companhia/${"inserir"}`} className="btn btn-dark btn-search">
+                  <LittleBtn
+                     className="input-group-append"
+                     onClick={(e) => requestData(e, buscar)}
+                     type="button"
+                     yellowColor
+                  >
+                     Buscar
+                  </LittleBtn>
+                  <BtnCadastrar href={`/cadastrar/companhia/${"inserir"}`} className="btn btn-dark ml-3">
                      Cadastrar
-                  </a>
-               </div>
-               <table className="table">
-                  <col style={{ width: 50 }} />
-                  <col style={{ width: 50 }} />
-                  <col style={{ width: 115 }} />
-                  <col style={{ width: 50 }} />
-                  <col style={{ width: 50 }} />
-                  <thead>
-                     <tr>
-                        <th scope="col">ID Eduzz</th>
-                        <th scope="col">Nome</th>
-                        <th scope="col">Data de Criação</th>
-                        <th scope="col">Data de atualização</th>
-                        <th scope="col">Ações</th>
-                     </tr>
-                  </thead>
-                  <tbody>
+                  </BtnCadastrar>
+               </Row>
+               <Table>
+                  <TableHeader>
+                     <TableRow>
+                        <ColumnTitle scope="col" onClick={(e) => {
+                           setStatusArrow({"0": 1, "1": null})
+                           if(count == null){
+                              setCount(count + 1);
+                              requestData(e, buscar, page.current, "Cpn_cli_cod", false);
+                           } else {
+                              setCount(null);
+                              requestData(e, buscar, page.current, "Cpn_cli_cod", true);
+                           }
+                        }}>
+                           <SortIcon>
+                              ID Eduzz {statusArrow[0] == null ? "" : 
+                              (
+                                 count == null ? <IoArrowUpSharp /> : <IoArrowDownSharp />
+                              )}
+                           </SortIcon>
+                        </ColumnTitle>
+                        <ColumnTitle scope="col" onClick={() => {
+                           setStatusArrow({"0": null, "1": 1})
+                           if(count == null){
+                              setCount(count + 1);
+                              companhia.sort(ordenar("cpn_name"));
+                           } else {
+                              setCount(null);
+                              companhia.sort(ordenar("cpn_name")).reverse();
+                           }
+                        }}>
+                           <SortIcon>
+                              Nome {statusArrow[1] == null ? "" : 
+                              (
+                                 count == null ? <IoArrowUpSharp /> : <IoArrowDownSharp />
+                              )}
+                           </SortIcon>
+                        </ColumnTitle>
+                        <ColumnTitle scope="col">Ações</ColumnTitle>
+                     </TableRow>
+                  </TableHeader>
+                  <TableData>
                      {companhia === null
                         ? ""
                         : companhia.map((companhia) => {
                            return (
-                              <tr key={companhia.usr_cod}>
-                                 <td data-title="ID Eduzz">{companhia.cpn_cli_cod}</td>
-                                 <td data-title="Nome" className="text">{companhia.cpn_name}</td>
-                                 <td data-title="Data de Criação" className="data">
-                                    {moment(companhia?.cpn_dtcreation).format("a") === "pm" ? (
-                                       moment(companhia?.cpn_dtcreation).format("DD-MM-YYYY") + " " + (parseInt(horaCriacao) + 12) + ":" + moment(companhia?.cpn_dtcreation).format("mm")
-                                    )
-                                       : moment(companhia?.cpn_dtcreation).format("DD-MM-YYYY hh:mm")
-                                    }
-                                 </td>
-                                 {companhia.cpn_dtupdate == null ? <td data-title="Data de Atualização"><p style={{ color: "transparent" }}>.</p></td> :
-                                    <td data-title="Data de Atualização" className="data">
-                                       {moment(companhia?.cpn_dtupdate).format("a") === "pm" ? (
-                                          moment(companhia?.cpn_dtupdate).format("DD-MM-YYYY") + " " + (parseInt(horaUpd) + 12) + ":" + moment(companhia?.cpn_dtupdate).format("mm")
-                                       )
-                                          : moment(companhia?.cpn_dtcreation).format("DD-MM-YYYY hh:mm")
-                                       }
-                                    </td>}
-                                 <td data-title="Ações" className="acoes">
+                              <TableRow key={companhia.usr_cod}>
+                                 <TableCell data-title="ID Eduzz">{companhia.cpn_cli_cod}</TableCell>
+                                 <TableCell data-title="Nome" className="text">{companhia.cpn_name}</TableCell>
+                                 <TableCell data-title="Ações" className="acoes">
                                     <Link className="btn btn-warning" to={`/editar-companhia/${companhia.cpn_cod}/${"alterar"}`}>Editar</Link>
-                                    <button className="btn btn-dark" onClick={() => setShowModal(true)}>
+                                    <Button className="btn btn-dark" onClick={() => setShowModal(true)}>
                                        Excluir
-                                    </button>
-                                 </td>
+                                    </Button>
+                                 </TableCell>
                                  <Modal show={showModal} onHide={handleClose}>
                                     <Modal.Header closeButton>
                                        <Modal.Title>Erro!</Modal.Title>
@@ -152,13 +184,13 @@ export default function ListarCompanhia() {
                                        </Button>
                                     </Modal.Footer>
                                  </Modal>
-                              </tr>
+                              </TableRow>
                            );
                         })}
-                  </tbody>
-               </table>
+                  </TableData>
+               </Table>
 
-               <Pagination className="pagination">
+               <Pagination style={{marginBottom: 20}}>
                   <Pagination.First onClick={(e) => {
                      requestData(e, buscar, 1)
                      window.scroll(0, 0)
@@ -209,8 +241,8 @@ export default function ListarCompanhia() {
                      }}
                   />
                </Pagination>
-            </div>
-         </div>
-      </div>
+            </Container>
+         </Col>
+      </MainContainer>
    );
 }

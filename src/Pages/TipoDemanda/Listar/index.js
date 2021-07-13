@@ -1,10 +1,22 @@
 import { useEffect, useState } from "react";
 import { CustomMenu } from "../../../Componentes/CustomMenu";
 import { Link } from "react-router-dom"
-import { Button, Pagination, Modal, Table } from 'react-bootstrap';
-import { IoCheckboxOutline } from "react-icons/io5";
-import "./styles.css";
-import moment from "moment";
+import { IoArrowDownSharp, IoArrowUpSharp } from "react-icons/io5";
+import { Button, Pagination, Modal, Col, Row, Container } from 'react-bootstrap';
+import {
+   Title,
+   MainContainer,
+   BtnCadastrar,
+   Input,
+   LittleBtn,
+   Table,
+   TableHeader,
+   TableRow,
+   ColumnTitle,
+   TableData,
+   TableCell,
+   SortIcon
+} from "./styles.js"
 import axios from "axios";
 
 export default function ListarTipoDemanda() {
@@ -12,8 +24,8 @@ export default function ListarTipoDemanda() {
    const [page, setPage] = useState({});
    const [typeDemand, setTypeDemand] = useState(null);
    const [idDemand, setIdDemand] = useState(null);
-   const [horaUpd, setHoraUpd] = useState();
-   const [horaCriacao, setHoraCriacao] = useState();
+   const [count, setCount] = useState(null);
+   const [statusArrow, setStatusArrow] = useState({"0": null, "1": null});
 
    const [showModal, setShowModal] = useState(false);
 
@@ -32,10 +44,9 @@ export default function ListarTipoDemanda() {
                page: page,
             },
          });
+         console.log(data.data)
          setTypeDemand(data.data);
          setPage(data.meta.pagination);
-         setHoraCriacao(moment(data.data.tdm_dtcreation).format("hh"))
-         setHoraUpd(moment(data.data.tdm_dtupdate).format("hh"))
       } catch (error) {
          alert(error);
       }
@@ -53,91 +64,121 @@ export default function ListarTipoDemanda() {
       }
    }
 
+   function ordenar(property) {
+      console.log(property)
+      if(property === "company.cpn_name"){
+         return function (a,b) {
+            return (a["company"]["cpn_name"] < b["company"]["cpn_name"]) ? -1 : (a["company"]["cpn_name"] > b["company"]["cpn_name"]) ? 1 : 0;
+        }
+      } else {
+         return function (a,b) {
+            return (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+        }
+      }
+  }
+
    useEffect(() => {
       requestData();
    }, []);
 
    return (
-      <>
+      <MainContainer>
          <CustomMenu />
-         <div className="clientes-container">
-            <div className="home-container">
-               <h1>Tipo Demanda</h1>
-               <div className="input-group">
-                  <input
-                     className="form-control search-user"
+         <Col
+            sm={{ offset: 1, span: 9 }}//Temporary until styled components
+            md={{ offset: 1, span: 9 }}
+            lg={{ offset: 2, span: 10 }}
+         >
+            <Container>
+               <Title>Tipo Demanda</Title>
+               <Row className="input-group">
+                  <Input
+                     className="form-control"
                      type="text"
                      placeholder="Digite o nome"
                      // onChange={buscarNome}
                      // onKeyDown={(e) => buscarEnter(e)}
                      defaultValue={buscar}
                   />
-                  <div className="input-group-append">
-                     <Button
-                        onClick={(e) => requestData(e, buscar, page = 1)}
-                        type="button"
-                        variant="warning"
-                     >
-                        Buscar
-                     </Button>
-                  </div>
-
-                  <a href={`/cadastrar/tipodemanda/${"inserir"}`} className="btn btn-dark btn-search">
+                  <LittleBtn
+                     className="input-group-append"
+                     onClick={(e) => requestData(e, buscar)}
+                     type="button"
+                     yellowColor
+                  >
+                     Buscar
+                  </LittleBtn>
+                  <BtnCadastrar href={`/cadastrar/tipodemanda/${"inserir"}`} className="btn btn-dark ml-3">
                      Cadastrar
-                  </a>
-               </div>
-               <table className="table">
-                  <col style={{ width: 100 }} />
-                  <col style={{ width: 100 }} />
-                  <col style={{ width: 120 }} />
-                  <col style={{ width: 120 }} />
-                  <col style={{ width: 100 }} />
-                  <thead>
-                     <tr>
-                        <th scope="col">Nome</th>
-                        <th scope="col">Empresa</th>
-                        <th scope="col">Data de criação</th>
-                        <th scope="col">Data de atualização</th>
-                        <th scope="col">Ações</th>
-                     </tr>
-                  </thead>
-                  <tbody>
+                  </BtnCadastrar>
+               </Row>
+               <Table>
+                  <TableHeader>
+                     <TableRow>
+                        <ColumnTitle scope="col" onClick={() => {
+                           setStatusArrow({"0": 1, "1": null})
+                           if(count == null){
+                              setCount(count + 1);
+                              typeDemand.sort(ordenar("tdm_name"));
+                           } else {
+                              setCount(null);
+                              typeDemand.sort(ordenar("tdm_name")).reverse();
+                           }
+                        }}>
+                           <SortIcon>
+                              Nome {statusArrow[0] == null ? "" : 
+                              (
+                                 count == null ? <IoArrowUpSharp /> : <IoArrowDownSharp />
+                              )}
+                           </SortIcon>
+                        </ColumnTitle>
+                        <ColumnTitle scope="col" onClick={() => {
+                           setStatusArrow({"0": null, "1": 1})
+                           if(count == null){
+                              setCount(count + 1);
+                              typeDemand.sort(ordenar("company.cpn_name"));
+                           } else {
+                              setCount(null);
+                              typeDemand.sort(ordenar("company.cpn_name")).reverse();
+                           }
+                        }}>
+                           <SortIcon>
+                              Empresa {statusArrow[1] == null ? "" : 
+                              (
+                                 count == null ? <IoArrowUpSharp /> : <IoArrowDownSharp />
+                              )}
+                           </SortIcon>
+                        </ColumnTitle>
+                        <ColumnTitle scope="col">Ações</ColumnTitle>
+                     </TableRow>
+                  </TableHeader>
+                  <TableData>
                      {typeDemand === null
                         ? ""
                         : typeDemand?.map((tDemand) => {
                            return (
-                              <tr key={tDemand?.tdm_cod}>
-                                 <td data-title="Nome" className="text">
+                              <TableRow key={tDemand?.tdm_cod}>
+                                 <TableCell data-title="Nome" className="text">
                                     {tDemand?.tdm_name == null ? <p style={{ color: "transparent" }}>.</p> : tDemand?.tdm_name}
-                                 </td>
-                                 <td data-title="Empresa" className="text">
+                                 </TableCell>
+                                 <TableCell data-title="Empresa" className="text">
                                     {tDemand?.company?.cpn_name == null ? <p style={{ color: "transparent" }}>.</p> : tDemand?.company?.cpn_name}
-                                 </td>
-                                 <td data-title="Data de criação" className="data">
-                                    {moment(tDemand?.tdm_dtcreation).format("a") === "pm" ? (
-                                       moment(tDemand?.tdm_dtcreation).format("DD-MM-YYYY") + " " + (parseInt(horaCriacao) + 12) + ":" + moment(tDemand?.tdm_dtcreation).format("mm")
-                                    )
-                                       : moment(tDemand?.tdm_dtcreation).format("DD-MM-YYYY hh:mm")
-                                    }
-                                 </td>
-                                 {tDemand?.tdm_dtupdate == null ? <td data-title="Data de Atualização"><p style={{ color: "transparent" }}>.</p></td> : (
-                                    <td data-title="Data de Atualização" className="data">
-                                       {moment(tDemand?.tdm_dtupdate).format("a") === "pm" ? (
-                                          moment(tDemand?.tdm_dtupdate).format("DD-MM-YYYY") + " " + (parseInt(horaUpd) + 12) + ":" + moment(tDemand?.tdm_dtupdate).format("mm")
-                                       )
-                                          : moment(tDemand?.tdm_dtcreation).format("DD-MM-YYYY hh:mm")
-                                       }
-                                    </td>
-                                 )}
-                                 <td data-title="Ações" className="acoes">
-                                    <Link className="btn btn-warning" to={`/editar-tipodemanda/${tDemand.tdm_cod}/${"alterar"}`}>Editar</Link>
-                                    <button className="btn btn-dark" onClick={() => {
-                                       setShowModal(true)
-                                       setIdDemand(tDemand.tdm_cod)
-                                    }}>
+                                 </TableCell>
+                                 <TableCell data-title="Ações" className="acoes">
+                                    <Link
+                                       className="btn btn-warning"
+                                       to={`/editar-tipodemanda/${tDemand.tdm_cod}/${"alterar"}`}
+                                    >
+                                       Editar
+                                    </Link>
+                                    <Button className="btn btn-dark"
+                                       onClick={() => {
+                                          setShowModal(true)
+                                          setIdDemand(tDemand.tdm_cod)
+                                       }}>
                                        Excluir
-                                    </button>
-                                 </td>
+                                    </Button>
+                                 </TableCell>
                                  <Modal show={showModal} onHide={handleClose}>
                                     <Modal.Header closeButton>
                                        <Modal.Title>Aviso!</Modal.Title>
@@ -152,13 +193,13 @@ export default function ListarTipoDemanda() {
                                        </Button>
                                     </Modal.Footer>
                                  </Modal>
-                              </tr>
+                              </TableRow>
                            );
                         })}
-                  </tbody>
-               </table>
+                  </TableData>
+               </Table>
 
-               <Pagination className="pagination">
+               <Pagination style={{marginBottom: 20}}>
                   <Pagination.First onClick={(e) => {
                      requestData(e, buscar, 1)
                      window.scroll(0, 0)
@@ -209,8 +250,8 @@ export default function ListarTipoDemanda() {
                      }}
                   />
                </Pagination>
-            </div>
-         </div>
-      </>
+            </Container>
+         </Col>
+      </MainContainer >
    );
 }
