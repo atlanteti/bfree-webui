@@ -38,6 +38,7 @@ export default class ListarPagina extends Component {
    showAlert(data) {
       this.state.responseAlertShow(data);
       this.updateListing();
+      window.scroll(0, 0);
    }
 
    async deleteCompany(id) {
