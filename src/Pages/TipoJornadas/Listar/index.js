@@ -54,7 +54,7 @@ export default function ListarJornadas() {
    }
 
    const requestData = async (e, param = '', page = 1, columnName, sortOrder) => {
-      console.log(buscar)
+      
       try {
          if (e) {
             e.preventDefault();
@@ -70,7 +70,7 @@ export default function ListarJornadas() {
                page: page,
             },
          });
-         console.log(data.data)
+         
          setJornada(data.data);
          setPage(data.meta.pagination);
       } catch (error) {
@@ -79,7 +79,7 @@ export default function ListarJornadas() {
    };
 
    function ordenar(property) {
-      console.log(property)
+      
       if(property === "company.cpn_name"){
          return function (a,b) {
             return (a["company"]["cpn_name"] < b["company"]["cpn_name"]) ? -1 : (a["company"]["cpn_name"] > b["company"]["cpn_name"]) ? 1 : 0;

@@ -13,7 +13,7 @@ export default function Pag(data) {
             url: 'http://167.172.243.156:4803/clientes/listar',
             params: { page: value }
          })
-         console.log(data.data)
+         
       } catch (error) {
          alert(error)
       }

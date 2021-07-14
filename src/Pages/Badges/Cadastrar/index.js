@@ -63,7 +63,7 @@ export default function EditBadges(props) {
    }
 
    const handleSubmit = async (e) => {
-      console.log(badges)
+      
       try {
          e.preventDefault()
          if (paramRoute === "inserir") {
@@ -76,7 +76,7 @@ export default function EditBadges(props) {
                   bdg_cpn_cod: badges.bdg_cpn_cod == null ? (badges.bdg_cpn_cod) : Number(badges.bdg_cpn_cod)
                }
             })
-            console.log(data)
+            
             if (data.meta.status == 100) {
                setShowAlert(true);
                setMessage("Badge criada com sucesso!");
@@ -109,7 +109,7 @@ export default function EditBadges(props) {
             }
          }
       } catch (error) {
-         console.log(error)
+         
       }
    };
 
@@ -121,7 +121,7 @@ export default function EditBadges(props) {
          })
          setCompanys(data.data);
       } catch (error) {
-         console.log(error);
+         
       }
    }
 
@@ -133,7 +133,7 @@ export default function EditBadges(props) {
          })
          setJornada(data.data);
       } catch (error) {
-         console.log(error);
+         
       }
    }
 
@@ -144,13 +144,13 @@ export default function EditBadges(props) {
                method: 'get',
                url: `http://209.97.146.187:18919/badges/procurar/${badgeId}`,
             })
-            console.log(data.data)
+            
             setBadges(data.data)
             setHoraCriacao(moment(data.data.bdg_dtcreation).format("hh"))
             setHoraUpd(moment(data.data.bdg_dtupdate).format("hh"))
          }
       } catch (error) {
-         console.log(error)
+         
       }
    };
 

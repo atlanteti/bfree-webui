@@ -20,14 +20,14 @@ export default function EditTJornadas(props) {
    const paramRoute = props.match.params.param;
    const jornadaId = props.match.params.jny_cod;
 
-   console.log(jornadaId);
+   
 
    const handleChange = (e) => {
       setJornada({ ...jornada, [e.target.id]: e.target.value.trim() })
    };
 
    const handleSubmit = async (e) => {
-      console.log(jornada)
+      
       try {
          e.preventDefault()
          if (paramRoute === "inserir") {
@@ -71,7 +71,7 @@ export default function EditTJornadas(props) {
             }
          }
       } catch (error) {
-         console.log(error)
+         
       }
    };
 
@@ -82,9 +82,9 @@ export default function EditTJornadas(props) {
             url: "http://209.97.146.187:18919/companies/listar"
          })
          setCompanys(data.data);
-         console.log(data.data)
+         
       } catch (error) {
-         console.log(error);
+         
       }
    }
 
@@ -94,12 +94,12 @@ export default function EditTJornadas(props) {
             method: 'get',
             url: `http://209.97.146.187:18919/jorneys/procurar/${jornadaId}`,
          })
-         console.log(data.data)
+         
          setJornada(data.data)
          setHoraCriacao(moment(data.data.usr_dtcreation).format("hh"))
          setHoraUpd(moment(data.data.usr_dtupdate).format("hh"))
       } catch (error) {
-         console.log(error)
+         
       }
    };
 

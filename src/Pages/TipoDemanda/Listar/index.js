@@ -44,7 +44,7 @@ export default function ListarTipoDemanda() {
                page: page,
             },
          });
-         console.log(data.data)
+         
          setTypeDemand(data.data);
          setPage(data.meta.pagination);
       } catch (error) {
@@ -65,7 +65,7 @@ export default function ListarTipoDemanda() {
    }
 
    function ordenar(property) {
-      console.log(property)
+      
       if(property === "company.cpn_name"){
          return function (a,b) {
             return (a["company"]["cpn_name"] < b["company"]["cpn_name"]) ? -1 : (a["company"]["cpn_name"] > b["company"]["cpn_name"]) ? 1 : 0;

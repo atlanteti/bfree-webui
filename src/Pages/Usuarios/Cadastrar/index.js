@@ -29,7 +29,7 @@ export default function EditUsuarios(props) {
    const clienteId = Number(props.match.params.usr_cod);
 
    const handleSubmit = async (e) => {
-      console.log(formData);
+      
       try {
          e.preventDefault()
          if (paramRoute === "inserir") {
@@ -43,7 +43,7 @@ export default function EditUsuarios(props) {
                   usr_sus_cod: Number(formData.usr_sus_cod)
                },
             })
-            console.log(data)
+            
             if (data.meta.status == 100) {
                setShowAlert(true);
                setMessage("Usuario Cadastrado!");
@@ -79,7 +79,7 @@ export default function EditUsuarios(props) {
             }
          }
       } catch (error) {
-         console.log(error)
+         
       }
    };
 
@@ -104,13 +104,13 @@ export default function EditUsuarios(props) {
             method: 'get',
             url: `http://209.97.146.187:18919/usuarios/procurar/${clienteId}`,
          })
-         console.log(data.data)
+         
          updateFormData(data.data)
          setStatusUser(data.data.statusUser.sus_name);
          setHoraCriacao(moment(data.data.usr_dtcreation).format("hh"))
          setHoraUpd(moment(data.data.usr_dtupdate).format("hh"))
       } catch (error) {
-         console.log(error)
+         
       }
    };
 

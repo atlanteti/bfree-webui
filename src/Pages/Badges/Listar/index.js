@@ -45,7 +45,7 @@ export default function ListarBadges() {
                page: page,
             },
          });
-         console.log(data.data)
+         
          setBadges(data.data);
          setPage(data.meta.pagination);
       } catch (error) {
@@ -54,13 +54,13 @@ export default function ListarBadges() {
    };
 
    async function deletarBadge(id) {
-      console.log(id)
+      
       try {
          const response = await axios({
             method: "delete",
             url: `http://209.97.146.187:18919/badges/excluir/${id}`,
          });
-         console.log(response)
+         
          window.location.reload();
       } catch (error) {
          alert(error);
