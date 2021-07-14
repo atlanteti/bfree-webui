@@ -59,7 +59,7 @@ export default class ListarCompanhia extends ListarPagina
    }
    PageHeaderCustom()
    {
-      return <h1>A empresa</h1>
+      return <h1>Empresas</h1>
    }
    createDataRow(companhia) {
       return <tr key={companhia.usr_cod}>
