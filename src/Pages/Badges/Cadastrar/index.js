@@ -230,7 +230,7 @@ export default function EditBadges(props) {
                      </Col>
                      <Col>
                         <Form.Group controlId="bdg_cpn_cod">
-                           <Form.Label>Companhia: </Form.Label>
+                           <Form.Label>Empresa: </Form.Label>
                            <Form.Control
                               as="select"
                               onChange={handleChange}

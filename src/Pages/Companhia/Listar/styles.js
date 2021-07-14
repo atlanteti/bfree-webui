@@ -32,6 +32,12 @@ export const MainContainer = styled.div`
    }
 `
 
+export const BtnGroup = styled.div`
+   position: absolute;
+   right: 50px;
+   top: 280px;
+`
+
 export const BtnCadastrar = styled.a`
 `
 

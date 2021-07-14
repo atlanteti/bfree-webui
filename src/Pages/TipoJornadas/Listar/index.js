@@ -146,14 +146,14 @@ export default function ListarJornadas() {
                               )}
                            </SortIcon>
                         </ColumnTitle>
-                        <ColumnTitle scope="col" onClick={() => {
+                        <ColumnTitle scope="col" onClick={(e) => {
                            setStatusArrow({"0": null, "1": 1})
                            if(count == null){
                               setCount(count + 1);
-                              jornada.sort(ordenar("company.cpn_name"));
+                              requestData(e, buscar, page.current, "Cpn_name", false);
                            } else {
                               setCount(null);
-                              jornada.sort(ordenar("company.cpn_name")).reverse();
+                              requestData(e, buscar, page.current, "Cpn_name", true);
                            }
                         }}>
                            <SortIcon>
@@ -173,7 +173,7 @@ export default function ListarJornadas() {
                            return (
                               <TableRow key={jorn.jny_cod}>
                                  <TableCell data-title="Nome" id="text">{jorn.jny_name}</TableCell>
-                                 <TableCell data-title="Companhia" id="text">{jorn.company.cpn_name}</TableCell>
+                                 <TableCell data-title="Empresa" id="text">{jorn.company.cpn_name}</TableCell>
                                  <TableCell data-title="Ações" className="acoes">
                                     <Link to={`/editar-jornada/${jorn.jny_cod}/${"alterar"}`} className="btn btn-warning">Editar</Link>
                                     <Button className="btn btn-dark" onClick={() => setShowModal(true)}>

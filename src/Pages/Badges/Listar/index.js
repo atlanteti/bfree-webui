@@ -27,12 +27,13 @@ export default function ListarBadges() {
    const [badges, setBadges] = useState(null);
    const [idBadge, setIdBadge] = useState(null);
    const [count, setCount] = useState(null);
+   const [statusArrow, setStatusArrow] = useState({"0": null, "1": null, "2": null, "3": null});
 
    const [showModal, setShowModal] = useState(false);
 
    const handleClose = () => setShowModal(false);
 
-   const requestData = async (e, param = '', page = 1) => {
+   const requestData = async (e, param = '', page = 1, columnName, sortOrder) => {
       try {
          if (e) {
             e.preventDefault();
@@ -41,11 +42,13 @@ export default function ListarBadges() {
             method: "get",
             url: "http://209.97.146.187:18919/badges/listar",
             params: {
-               // name: param,
+               idEduzz: null,
+               nome: param,
+               sort: columnName,
+               isDesc: sortOrder,
                page: page,
             },
          });
-         console.log(data.data)
          setBadges(data.data);
          setPage(data.meta.pagination);
       } catch (error) {
@@ -66,19 +69,6 @@ export default function ListarBadges() {
          alert(error);
       }
    }
-
-   function ordenar(property) {
-      if(property === "company.cpn_name"){
-         return function (a,b) {
-            let x = a.toUpperCase(), y = b.toUpperCase()
-            return (a.toUpperCase()["company"]["cpn_name"] < y["company"]["cpn_name"]) ? -1 : (x["company"]["cpn_name"] > y["company"]["cpn_name"]) ? 1 : 0;
-        }
-      } else {
-         return function (a,b) {
-            return (a.toUpperCase([property]) < b.toUpperCase([property])) ? -1 : (a.toUpperCase([property]) > b.toUpperCase([property])) ? 1 : 0;
-        }
-      }
-  }
 
    useEffect(() => {
       requestData();
@@ -118,14 +108,74 @@ export default function ListarBadges() {
                <Table>
                   <TableHeader>
                      <TableRow>
-                        <ColumnTitle>
+                        <ColumnTitle scope="col" onClick={(e) => {
+                           setStatusArrow({"0": 1, "1": null, "2": null, "3":null})
+                           if(count == null){
+                              setCount(count + 1);
+                              requestData(e, buscar, page.current, "Bdg_name", false);
+                           } else {
+                              setCount(null);
+                              requestData(e, buscar, page.current, "Bdg_name", true);
+                           }
+                        }}>
                            <SortIcon>
-                              Nome 
+                              Nome {statusArrow[0] == null ? "" : 
+                              (
+                                 count == null ? <IoArrowUpSharp /> : <IoArrowDownSharp />
+                              )}
                            </SortIcon>
                            </ColumnTitle>
-                        <ColumnTitle scope="col">Jornada</ColumnTitle>
-                        <ColumnTitle scope="col">Empresa</ColumnTitle>
-                        <ColumnTitle scope="col">Mentor</ColumnTitle>
+                        <ColumnTitle scope="col" onClick={(e) => {
+                           setStatusArrow({"0": null, "1": 1, "2": null, "3":null})
+                           if(count == null){
+                              setCount(count + 1);
+                              requestData(e, buscar, page.current, "Jny_name", false);
+                           } else {
+                              setCount(null);
+                              requestData(e, buscar, page.current, "Jny_name", true);
+                           }
+                        }}> 
+                           <SortIcon>
+                              Jornada {statusArrow[1] == null ? "" : 
+                              (
+                                 count == null ? <IoArrowUpSharp /> : <IoArrowDownSharp />
+                              )}
+                           </SortIcon>
+                        </ColumnTitle>
+                        <ColumnTitle scope="col" onClick={(e) => {
+                           setStatusArrow({"0": null, "1": null, "2": 1, "3":null})
+                           if(count == null){
+                              setCount(count + 1);
+                              requestData(e, buscar, page.current, "Cpn_name", false);
+                           } else {
+                              setCount(null);
+                              requestData(e, buscar, page.current, "Cpn_name", true);
+                           }
+                        }}>
+                           <SortIcon>
+                              Empresa {statusArrow[2] == null ? "" : 
+                              (
+                                 count == null ? <IoArrowUpSharp /> : <IoArrowDownSharp />
+                              )}
+                           </SortIcon>
+                        </ColumnTitle>
+                        <ColumnTitle scope="col" onClick={(e) => {
+                           setStatusArrow({"0": null, "1": null, "2": null, "3":1})
+                           if(count == null){
+                              setCount(count + 1);
+                              requestData(e, buscar, page.current, "Bdg_mentor", false);
+                           } else {
+                              setCount(null);
+                              requestData(e, buscar, page.current, "Bdg_mentor", true);
+                           }
+                        }}>
+                           <SortIcon>
+                              Mentor {statusArrow[3] == null ? "" : 
+                              (
+                                 count == null ? <IoArrowUpSharp /> : <IoArrowDownSharp />
+                              )}
+                           </SortIcon>
+                        </ColumnTitle>
                         <ColumnTitle columnWidth scope="col">Ações</ColumnTitle>
                      </TableRow>
                   </TableHeader>

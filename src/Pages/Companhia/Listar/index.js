@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { IoArrowDownSharp, IoArrowUpSharp } from "react-icons/io5";
-import { Pagination, Button, Modal, Col, Row, Container } from "react-bootstrap";
+import { Pagination, Button, Modal, Col, Row, Container, Form } from "react-bootstrap";
 import {
    Title,
    MainContainer,
@@ -15,7 +15,8 @@ import {
    ColumnTitle,
    TableData,
    TableCell, 
-   SortIcon
+   SortIcon,
+   BtnGroup
 } from "./styles.js"
 import { CustomMenu } from "../../../Componentes/CustomMenu";
 
@@ -52,7 +53,8 @@ export default function ListarCompanhia() {
       }
    }
 
-   const requestData = async (e, param = "", page = 1, columnName, sortOrder) => {
+   const requestData = async (e, id = null, param = "", page = 1, columnName, sortOrder) => {
+      console.log(buscar)
       try {
          if (e) {
             e.preventDefault();
@@ -61,21 +63,20 @@ export default function ListarCompanhia() {
             method: "get",
             url: "http://209.97.146.187:18919/companies/listar",
             params: {
-               idEduzz: null,
-               nome: param,
+               idEduzz: id,
+               name: param,
                sort: columnName,
                isDesc: sortOrder,
                page: page,
             },
          });
-         console.log(data.data)
          setCompanhia(data.data);
          setPage(data.meta.pagination);
       } catch (error) {
          alert(error);
       }
    };
-   
+
    useEffect(() => {
       requestData();
    }, []);
@@ -90,27 +91,49 @@ export default function ListarCompanhia() {
          >
             <Container>
                <Title>Empresa</Title>
-               <Row className="input-group">
-                  <Input
-                     className="form-control"
-                     type="text"
-                     placeholder="Digite o nome"
-                     onChange={buscarNome}
-                     onKeyDown={(e) => buscarEnter(e)}
-                     defaultValue={buscar}
-                  />
-                  <LittleBtn
-                     className="input-group-append"
-                     onClick={(e) => requestData(e, buscar)}
-                     type="button"
-                     yellowColor
+                  <Col 
+                     sm={{ span: 6 }} 
+                     style={{ 
+                        alignSelf: "baseline", 
+                        border: "1px solid rgba(0,0,0,0.20)",
+                        padding: 15,
+                        borderRadius: 5
+                     }}
                   >
-                     Buscar
-                  </LittleBtn>
-                  <BtnCadastrar href={`/cadastrar/companhia/${"inserir"}`} className="btn btn-dark ml-3">
-                     Cadastrar
-                  </BtnCadastrar>
-               </Row>
+                     <Form>
+                        <Form.Group controlId="cpn_name">
+                           <Form.Label>Empresa: </Form.Label>
+                           <Form.Control
+                              type="text"
+                              onChange={buscarNome}
+                              onKeyDown={(e) => buscarEnter(e)}
+                              defaultValue={buscar}
+                              required
+                           />
+                        </Form.Group>
+                        <Form.Group controlId="bdg_name">
+                           <Form.Label>ID Eduzz: </Form.Label>
+                           <Form.Control
+                              type="text"
+                              onChange={buscarNome}
+                              // defaultValue={buscar}
+                              required
+                           />
+                        </Form.Group>
+                     </Form>
+                        <Button 
+                           type="submit" 
+                           variant="warning"
+                           onClick={(e) => requestData(e, null, buscar, page.current, null, null)}
+                        >
+                           Buscar
+                        </Button>
+                  </Col>
+                  <BtnGroup>
+                     <BtnCadastrar href={`/cadastrar/companhia/${"inserir"}`} className="btn btn-dark ml-3">
+                        Cadastrar
+                     </BtnCadastrar>
+                  </BtnGroup>
                <Table>
                   <TableHeader>
                      <TableRow>

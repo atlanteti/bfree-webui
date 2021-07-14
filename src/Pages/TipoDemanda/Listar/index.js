@@ -31,7 +31,7 @@ export default function ListarTipoDemanda() {
 
    const handleClose = () => setShowModal(false);
 
-   const requestData = async (e, param = '', page = 1) => {
+   const requestData = async (e, param = '', page = 1, columnName, sortOrder) => {
       try {
          if (e) {
             e.preventDefault();
@@ -40,11 +40,13 @@ export default function ListarTipoDemanda() {
             method: "get",
             url: "http://209.97.146.187:18919/types-demand/listar",
             params: {
-               // name: param,
+               idEduzz: null,
+               nome: param,
+               sort: columnName,
+               isDesc: sortOrder,
                page: page,
             },
          });
-         console.log(data.data)
          setTypeDemand(data.data);
          setPage(data.meta.pagination);
       } catch (error) {
@@ -63,19 +65,6 @@ export default function ListarTipoDemanda() {
          alert(error);
       }
    }
-
-   function ordenar(property) {
-      console.log(property)
-      if(property === "company.cpn_name"){
-         return function (a,b) {
-            return (a["company"]["cpn_name"] < b["company"]["cpn_name"]) ? -1 : (a["company"]["cpn_name"] > b["company"]["cpn_name"]) ? 1 : 0;
-        }
-      } else {
-         return function (a,b) {
-            return (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
-        }
-      }
-  }
 
    useEffect(() => {
       requestData();
@@ -115,14 +104,14 @@ export default function ListarTipoDemanda() {
                <Table>
                   <TableHeader>
                      <TableRow>
-                        <ColumnTitle scope="col" onClick={() => {
+                        <ColumnTitle scope="col" onClick={(e) => {
                            setStatusArrow({"0": 1, "1": null})
                            if(count == null){
                               setCount(count + 1);
-                              typeDemand.sort(ordenar("tdm_name"));
+                              requestData(e, buscar, page.current, "Tdm_name", false);
                            } else {
                               setCount(null);
-                              typeDemand.sort(ordenar("tdm_name")).reverse();
+                              requestData(e, buscar, page.current, "Tdm_name", true);
                            }
                         }}>
                            <SortIcon>
@@ -132,14 +121,14 @@ export default function ListarTipoDemanda() {
                               )}
                            </SortIcon>
                         </ColumnTitle>
-                        <ColumnTitle scope="col" onClick={() => {
+                        <ColumnTitle scope="col" onClick={(e) => {
                            setStatusArrow({"0": null, "1": 1})
                            if(count == null){
                               setCount(count + 1);
-                              typeDemand.sort(ordenar("company.cpn_name"));
+                              requestData(e, buscar, page.current, "Cpn_name", false);
                            } else {
                               setCount(null);
-                              typeDemand.sort(ordenar("company.cpn_name")).reverse();
+                              requestData(e, buscar, page.current, "Cpn_name", true);
                            }
                         }}>
                            <SortIcon>
