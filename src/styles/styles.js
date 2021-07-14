@@ -132,10 +132,6 @@ export const ColumnTitle = styled.th`
    border: 1px solid #dee2e6;
    background: #fff;
 `
-// Números - alinhados à direita
-// Datas - alinhados à direita
-// Texto - alinhados à esquerda
-
 
 export const NumberHeaderCell = styled(ColumnTitle)`
 text-align: right;
