@@ -13,10 +13,10 @@ export default function ExclusionModal(props) {
       </Modal.Header>
       <Modal.Body>Você deseja excluir {props.pageIdentifier}?</Modal.Body>
       <Modal.Footer>
-         <Button variant="danger" onClick={props.closeModal}>
+         <Button variant="warning" onClick={props.closeModal}>
             Não
          </Button>
-         <Button variant="warning" onClick={confirmDeletion}>
+         <Button variant="danger" onClick={confirmDeletion}>
             Excluir
          </Button>
       </Modal.Footer>
