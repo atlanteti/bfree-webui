@@ -3,6 +3,7 @@ import { Container, Row, Col, Table } from "react-bootstrap";
 import { CustomMenu } from "../CustomMenu";
 import CustomPagination from "../CustomPagination";
 import { CustomAlert } from "../CustomAlert";
+import { MainContainer } from "../../styles/styles";
 
 
 export default class ListarPagina extends Component {
@@ -83,14 +84,19 @@ export default class ListarPagina extends Component {
    {
       throw new Error("Componente abstrato deve ser implementado");
    }
+   redirectCallback()
+   {
+      return true //Do nothing
+   }
    render() {
-      return <Container fluid>
+      return <MainContainer fluid>
          <Row>
             <Col xs={1} sm={1} md={1} lg={3}><CustomMenu /></Col>
             <Col>
                <CustomAlert
                   data={this.state.responseMetaData}
-                  showAlertCallback={this.getAlertCallback.bind(this)} />
+                  showAlertCallback={this.getAlertCallback.bind(this)} 
+                  redirectCallback={this.redirectCallback.bind(this)}/>
                <Row className="justify-center">
                   <this.PageHeaderCustom/>
                </Row>
@@ -118,7 +124,7 @@ export default class ListarPagina extends Component {
                </Row>
             </Col>
          </Row>
-      </Container>;
+      </MainContainer>;
    }
 
 }

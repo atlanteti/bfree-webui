@@ -4,7 +4,6 @@ import { displayDate } from "../../../Componentes/DateField";
 import { request } from '../../../Services/api';
 import ExclusionModal from "../../../Componentes/ExclusionModal";
 import ListarPagina  from "../../../Componentes/ListData";
-
 export default class ListarCompanhia extends ListarPagina
 {
    async deleteCompany(id)
