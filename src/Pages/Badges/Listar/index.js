@@ -144,7 +144,7 @@ export default function ListarBadges() {
                                     {badge.company?.cpn_name == null ? <p style={{ color: "transparent" }}>.</p> : badge?.company?.cpn_name}
                                  </TableCell>
                                  <TableCell data-title="Mentor" className="icon">
-                                    <Icon className="mentor-icon">
+                                    <Icon>
                                        {badge?.bdg_mentor == true ? <IoCheckboxOutline align="center" size={25} /> : <p style={{ color: "transparent" }}>.</p>}
                                     </Icon>
                                  </TableCell>

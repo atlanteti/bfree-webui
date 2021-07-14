@@ -61,6 +61,12 @@ export const Table = styled.table`
    /* colunas na tabela que sempre irão ficar nessa posição*/
    .acoes {
       text-align: center;
+
+      @media all and (min-width: 767px) {
+         display: flex;
+         align-items: center;
+         justify-content: center;
+      }
    }
    .text{
       text-align: left;
@@ -146,4 +152,21 @@ export const SortIcon = styled.div`
    flex-direction: row;
    justify-content: space-between;
    align-items: center;
+`
+
+export const Icon = styled.div`
+    @media (min-width: 766px) {
+        display: flex;
+        place-content: baseline center;
+        justify-content: center;
+    }
+
+    @media (max-width: 767px) {
+        display: flex;
+        place-content: flex-end;
+    }
+`
+
+export const BtnMenu = styled.button`
+   margin-left: 0.5rem;
 `

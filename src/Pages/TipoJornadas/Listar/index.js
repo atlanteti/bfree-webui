@@ -53,7 +53,7 @@ export default function ListarJornadas() {
       }
    }
 
-   const requestData = async (e, param = '', page = 1) => {
+   const requestData = async (e, param = '', page = 1, columnName, sortOrder) => {
       console.log(buscar)
       try {
          if (e) {
@@ -63,10 +63,14 @@ export default function ListarJornadas() {
             method: "get",
             url: "http://209.97.146.187:18919/jorneys/listar",
             params: {
-               name: param,
+               idEduzz: null,
+               nome: param,
+               sort: columnName,
+               isDesc: sortOrder,
                page: page,
             },
          });
+         console.log(data.data)
          setJornada(data.data);
          setPage(data.meta.pagination);
       } catch (error) {
@@ -125,14 +129,14 @@ export default function ListarJornadas() {
                <Table>
                   <TableHeader>
                      <TableRow>
-                        <ColumnTitle scope="col" onClick={() => {
+                        <ColumnTitle scope="col" onClick={(e) => {
                            setStatusArrow({"0": 1, "1": null})
                            if(count == null){
                               setCount(count + 1);
-                              jornada.sort(ordenar("jny_name"));
+                              requestData(e, buscar, page.current, "Jny_name", false);
                            } else {
                               setCount(null);
-                              jornada.sort(ordenar("jny_name")).reverse();
+                              requestData(e, buscar, page.current, "Jny_name", true);
                            }
                         }}>
                            <SortIcon>

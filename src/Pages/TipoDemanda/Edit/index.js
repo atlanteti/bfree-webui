@@ -139,6 +139,19 @@ export default function EditTipoDemanda(props) {
                <Form onSubmit={handleSubmit}>
                   <Row>
                      <Col>
+                        <Form.Group controlId="tdm_name">
+                           <Form.Label>Nome: </Form.Label>
+                           <Form.Control
+                              type="text"
+                              onChange={handleChange}
+                              defaultValue={typeDemand?.tdm_name}
+                              required="required"
+                           />
+                        </Form.Group>
+                     </Col>
+                  </Row>
+                  <Row>
+                     <Col>
                         <Form.Group controlId="tdm_cpn_cod">
                            <Form.Label>Empresa: </Form.Label>
                            <Form.Control
@@ -170,19 +183,6 @@ export default function EditTipoDemanda(props) {
                                  })}
                               </>
                            </Form.Control>
-                        </Form.Group>
-                     </Col>
-                  </Row>
-                  <Row>
-                     <Col>
-                        <Form.Group controlId="tdm_name">
-                           <Form.Label>Nome: </Form.Label>
-                           <Form.Control
-                              type="text"
-                              onChange={handleChange}
-                              defaultValue={typeDemand?.tdm_name}
-                              required="required"
-                           />
                         </Form.Group>
                      </Col>
                   </Row>
