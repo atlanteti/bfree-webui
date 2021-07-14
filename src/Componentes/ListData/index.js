@@ -1,9 +1,9 @@
 import { Component } from "react";
-import { Container, Row, Col, Table } from "react-bootstrap";
+import { Container, Row, Col} from "react-bootstrap";
 import { CustomMenu } from "../CustomMenu";
 import CustomPagination from "../CustomPagination";
 import { CustomAlert } from "../CustomAlert";
-import { MainContainer } from "../../styles/styles";
+import { MainContainer, Title, Table, TableHeader, TableData } from "../../styles/styles";
 
 
 export default class ListarPagina extends Component {
@@ -89,39 +89,43 @@ export default class ListarPagina extends Component {
       return true //Do nothing
    }
    render() {
-      return <MainContainer fluid>
+      return <MainContainer>
          <Row>
             <Col xs={1} sm={1} md={1} lg={3}><CustomMenu /></Col>
             <Col>
-               <CustomAlert
-                  data={this.state.responseMetaData}
-                  showAlertCallback={this.getAlertCallback.bind(this)} 
-                  redirectCallback={this.redirectCallback.bind(this)}/>
-               <Row className="justify-center">
-                  <this.PageHeaderCustom/>
-               </Row>
-               <this.SearchBarCustom />
-               <Row>
-                  <Table>
-                     <thead>
-                        <this.TableHeaderCustom />
-                     </thead>
-                     <tbody>
-                        {this.state.responseData === null
-                           ? ""
-                           : this.state.responseData.map((companhia) => {
-                              return (
-                                 this.createDataRow(companhia)
-                              );
-                           })}
-                     </tbody>
-                  </Table>
-               </Row>
-               <Row className="mt-3 justify-content-md-center">
-                     <CustomPagination
-                        fetchAndSetData={this.fetchAndSetData}
-                        page={this.state.page} />
-               </Row>
+               <Container fluid>
+                  <CustomAlert
+                     data={this.state.responseMetaData}
+                     showAlertCallback={this.getAlertCallback.bind(this)}
+                     redirectCallback={this.redirectCallback.bind(this)}/>
+                  <Row>
+                     <Title>
+                        <this.PageHeaderCustom/>
+                     </Title>
+                  </Row>
+                  <this.SearchBarCustom />
+                  <Row>
+                     <Table>
+                        <TableHeader>
+                           <this.TableHeaderCustom />
+                        </TableHeader>
+                        <TableData>
+                           {this.state.responseData === null
+                              ? ""
+                              : this.state.responseData.map((companhia) => {
+                                 return (
+                                    this.createDataRow(companhia)
+                                 );
+                              })}
+                        </TableData>
+                     </Table>
+                  </Row>
+                  <Row>
+                        <CustomPagination
+                           fetchAndSetData={this.fetchAndSetData}
+                           page={this.state.page} />
+                  </Row>
+               </Container>
             </Col>
          </Row>
       </MainContainer>;

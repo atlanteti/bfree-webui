@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 export const Title = styled.h1`
    font-size: 2rem;
    margin-top: 1rem;
@@ -10,8 +11,13 @@ export const MainContainer = styled.div`
       flex-direction: column;
       align-items: center
    }
+   
+   /* os três proximos estilos são de componentes bootstrap*/
+   .row{
+      justify-content: center;
+      margin-top: 1rem
+   }
 
-   /* os dois proximos estilos são de componentes bootstrap*/
    .page-item.active .page-link {
       color: #000;
       background-color: #ffb509;
@@ -20,14 +26,6 @@ export const MainContainer = styled.div`
 
    .page-link {
       color: #000;
-   }
-
-   @media screen and (min-width: 990px){
-      margin: 0 2rem 0 5rem;
-   }
-
-   @media screen and (max-width: 989px){
-      margin-left: 0rem
    }
 `
 
@@ -134,17 +132,41 @@ export const ColumnTitle = styled.th`
    border: 1px solid #dee2e6;
    background: #fff;
 `
+// Números - alinhados à direita
+// Datas - alinhados à direita
+// Texto - alinhados à esquerda
 
-export const TableData = styled.tbody`
-`
+
+export const NumberHeaderCell = styled(ColumnTitle)`
+text-align: right;
+`;
+
+export const TextHeaderCell = styled(ColumnTitle)`
+text-align: left;
+`;
+
+export const ActionHeaderCell = styled(ColumnTitle)`
+text-align: center`
+
+export const TableData = styled.tbody``
 
 export const TableCell = styled.td`
-   text-align: right;
+   text-align: ${props => props.align};
    vertical-align: baseline;
    border: 1px solid #dee2e6;
 
    padding: 0.1rem 0.8rem;
 `
+export const NumberCell = styled(TableCell)`
+   text-align: right;
+   `
+
+export const TextCell = styled(TableCell)`
+   text-align: right;
+   `
+export const ActionCell = styled(TableCell)`
+   text-align: center;
+   `
 
 export const SortIcon = styled.div`
    display: flex;

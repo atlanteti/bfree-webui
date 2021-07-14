@@ -1,11 +1,13 @@
 import { Button, Row, Col } from "react-bootstrap";
 import SearchBar from "../../../Componentes/SearchBar";
-import { displayDate } from "../../../Componentes/DateField";
 import { request } from '../../../Services/api';
 import ExclusionModal from "../../../Componentes/ExclusionModal";
 import ListarPagina  from "../../../Componentes/ListData";
+import {ActionCell, ActionHeaderCell, NumberCell, 
+   NumberHeaderCell, TableRow, TextCell, TextHeaderCell } from "../../../styles/styles";
 export default class ListarCompanhia extends ListarPagina
 {
+
    async deleteCompany(id)
    {
       const data = await request({
@@ -39,6 +41,7 @@ export default class ListarCompanhia extends ListarPagina
       })
       return data
    }
+
    SearchBarCustom() {
       return <SearchBar
       InputPlaceholder="Insira o nome da empresa"
@@ -46,27 +49,27 @@ export default class ListarCompanhia extends ListarPagina
       RegisterEndpoint="/cadastrar/companhia/inserir" />;
       }
 
+      PageHeaderCustom()
+      {
+         return "Empresas"
+      }
+
    TableHeaderCustom() {
-      return <tr>
-      <th scope="col">ID Eduzz</th>
-      <th scope="col">Nome</th>
-      <th scope="col">Ações</th>
-   </tr>;
+      return <TableRow>
+         <NumberHeaderCell scope="col" variant="Number">ID Eduzz</NumberHeaderCell>
+         <TextHeaderCell scope="col" variant="Text">Nome</TextHeaderCell>
+         <ActionHeaderCell scope="col" variant="Action">Ações</ActionHeaderCell>
+      </TableRow>;
    }
-   PageHeaderCustom()
-   {
-      return <h1>Empresas</h1>
-   }
+
    createDataRow(companhia) {
-      return <tr key={companhia.usr_cod}>
-         <td data-title="ID Eduzz">{companhia.cpn_cli_cod}</td>
-         <td data-title="Nome" className="text">{companhia.cpn_name}</td>
-         <td data-title="Ações">
-            <Row noGutters>
-               <Col className={"mb-1 mr-1"}><Button block variant="warning" href={`/editar-companhia/${companhia.cpn_cod}/alterar`}>Editar</Button></Col>
-               <Col className={"mr-1"}><Button block variant="dark" onClick={this.openModal}>Excluir</Button></Col>
-            </Row>
-         </td>
+      return <TableRow key={companhia.usr_cod}>
+         <NumberCell data-title="ID Eduzz" align="left">{companhia.cpn_cli_cod}</NumberCell>
+         <TextCell data-title="Nome" className="text" align="left">{companhia.cpn_name}</TextCell>
+         <ActionCell data-title="Ações" align="center">
+               <Button variant="warning" href={`/editar-companhia/${companhia.cpn_cod}/alterar`}>Editar</Button>
+               <Button variant="dark" onClick={this.openModal}>Excluir</Button>
+         </ActionCell>
          <ExclusionModal
             showModal={this.state.showModal}
             closeModal={this.closeModal}
@@ -75,7 +78,7 @@ export default class ListarCompanhia extends ListarPagina
             identifierCode={companhia.cpn_cod}
             updateListing={this.updateListing.bind(this)}
             showAlert={this.showAlert.bind(this)} />
-      </tr>;
+      </TableRow>;
    }
    
    
