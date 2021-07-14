@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Toggle from"../../../Assets/Images/menu-2.png"
 export const Title = styled.h1`
    font-size: 2rem;
    margin-top: 1rem;

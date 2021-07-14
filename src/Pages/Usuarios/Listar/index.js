@@ -21,7 +21,7 @@ import {
    SortIcon,
    BtnMenu,
    Icon
-} from "./styles.js"
+} from "../../../styles/styles.js"
 
 export default function Usuarios() {
    const [usuarios, setUsuarios] = useState(null);
@@ -57,13 +57,13 @@ export default function Usuarios() {
    };
 
    async function deletarUsuario(id) {
-      console.log(id)
+      
       try {
          const { data } = await axios({
             method: "delete",
             url: `http://209.97.146.187:18919/usuarios/excluir/${id}`,
          });
-         console.log(data);
+         
          if (data.meta.status == 209) {
             setShowAlert(true);
             setShowModal(false);
@@ -211,7 +211,7 @@ export default function Usuarios() {
                                  <TableCell data-title="Ações" className="acoes">
                                     <Link
                                        className="btn btn-warning"
-                                       to={`/editar/${usuario.usr_cod}/${"alterar"}`}
+                                       to={`/editar/${usuario.usr_cod}/"alterar"`}
                                     >
                                        Editar
                                     </Link>
