@@ -15,13 +15,14 @@ export default class ListarPagina extends Component {
          showModal: false,
          responseData: null,
          responseAlertShow: null,
+         headerSortCol: {}
       };
       this.openModal = this.openModal.bind(this);
       this.closeModal = this.closeModal.bind(this);
       this.fetchAndSetData = this.fetchAndSetData.bind(this);
    }
 
-   async fetchAndSetData({ page }) {
+   async fetchAndSetData({ page=1, sort }) {
       const data = await this.fetchData(page);
       this.setState({
          responseMetaData: data.meta,
@@ -30,7 +31,7 @@ export default class ListarPagina extends Component {
       });
    }
 
-   getAlertCallback(func) {
+   getAlertCallback(func) { //Investigar se isso precisa ser um estado
       this.setState({
          responseAlertShow: func
       });

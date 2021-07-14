@@ -3,8 +3,11 @@ import SearchBar from "../../../Componentes/SearchBar";
 import { request } from '../../../Services/api';
 import ExclusionModal from "../../../Componentes/ExclusionModal";
 import ListarPagina  from "../../../Componentes/ListData";
-import {ActionCell, ActionHeaderCell, NumberCell, 
-   NumberHeaderCell, TableRow, TextCell, TextHeaderCell } from "../../../styles/styles";
+import {ActionCell, ActionHeaderCell, NumberCell, NumberHeaderCell, 
+         SortIcon, TableRow, TextCell, TextHeaderCell } from "../../../styles/styles";
+import { IoArrowDownSharp, IoArrowUpSharp } from "react-icons/io5";
+import { Component } from "react";
+
 export default class ListarCompanhia extends ListarPagina
 {
 
@@ -49,14 +52,16 @@ export default class ListarCompanhia extends ListarPagina
       RegisterEndpoint="/cadastrar/companhia/inserir" />;
       }
 
-      PageHeaderCustom()
-      {
-         return "Empresas"
-      }
+   PageHeaderCustom()
+   {
+      return "Empresas"
+   }
 
    TableHeaderCustom() {
       return <TableRow>
-         <NumberHeaderCell scope="col" variant="Number">ID Eduzz</NumberHeaderCell>
+         <NumberHeaderCell scope="col" variant="Number">
+               <SortColumn label="ID Externo" attribute="cpn_cli_cod" sortCallback={this}/>
+         </NumberHeaderCell>
          <TextHeaderCell scope="col" variant="Text">Nome</TextHeaderCell>
          <ActionHeaderCell scope="col" variant="Action">Ações</ActionHeaderCell>
       </TableRow>;
@@ -84,3 +89,41 @@ export default class ListarCompanhia extends ListarPagina
    
 };
 
+
+class SortColumn extends Component
+{
+   constructor(props)
+   {
+      super(props)
+      this.state = {
+         ascending: false,
+         arrowVisible: false
+      }
+   }
+
+   reorder()
+   {
+      if (!this.state.arrowVisible)
+      {
+         this.setState({
+            arrowVisible: true
+         })
+      }
+      else
+      {
+         this.setState({
+            ascending: !this.state.ascending
+         })
+      }
+      this.props.sortCallback(this.props.attribute)
+   }
+   render()
+   {
+      return <SortIcon onClick={this.reorder.bind(this)}>
+               {this.props.label} 
+               {this.state.arrowVisible ?
+                  (this.state.ascending ? <IoArrowUpSharp /> : <IoArrowDownSharp />) : ""
+               }
+             </SortIcon>
+   }
+}
