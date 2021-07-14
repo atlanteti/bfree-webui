@@ -13,10 +13,10 @@ function App() {
    setTimeout(() => {
       setLoad(false)
    }, 1000);
-   useEffect(() => {
-      window.Eduzz.Accounts.login("a4b7ad1d-ebf7-43f8-af05-5cda0575c621", { env: "staging" }).subscribe(token => console.log(token))
-      window.history.pushState(null, null, window.location.pathname);
-   }, [])
+   // useEffect(() => {
+   //    window.Eduzz.Accounts.login("a4b7ad1d-ebf7-43f8-af05-5cda0575c621", { env: "staging" }).subscribe(token => 
+   //    window.history.pushState(null, null, window.location.pathname);
+   // }, []) //Disabled for dev
    return (
       <div>
          {load ? 
