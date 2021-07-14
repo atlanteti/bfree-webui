@@ -3,15 +3,30 @@ import { CustomMenu } from "../../../Componentes/CustomMenu";
 import moment from "moment";
 import { Link } from "react-router-dom"
 import axios from "axios";
-import { Button, Pagination, Modal } from 'react-bootstrap';
+import { IoArrowDownSharp, IoArrowUpSharp } from "react-icons/io5";
+import { Button, Pagination, Modal, Container, Row, Col } from 'react-bootstrap';
+import {
+   Title,
+   MainContainer,
+   BtnCadastrar,
+   Input,
+   LittleBtn,
+   Table,
+   TableHeader,
+   TableRow,
+   ColumnTitle,
+   TableData,
+   TableCell,
+   SortIcon
+} from "./styles.js"
 
 export default function ListarJornadas() {
    const [buscar, setBuscar] = useState("");
    const [page, setPage] = useState({});
    const [jornada, setJornada] = useState(null);
-   const [horaUpd, setHoraUpd] = useState();
-   const [horaCriacao, setHoraCriacao] = useState();
    const [showModal, setShowModal] = useState(false);
+   const [count, setCount] = useState(null);
+   const [statusArrow, setStatusArrow] = useState({"0": null, "1": null});
 
    const handleClose = () => setShowModal(false);
 
@@ -38,7 +53,7 @@ export default function ListarJornadas() {
       }
    }
 
-   const requestData = async (e, param = '', page = 1) => {
+   const requestData = async (e, param = '', page = 1, columnName, sortOrder) => {
       console.log(buscar)
       try {
          if (e) {
@@ -48,98 +63,123 @@ export default function ListarJornadas() {
             method: "get",
             url: "http://209.97.146.187:18919/jorneys/listar",
             params: {
-               name: param,
+               idEduzz: null,
+               nome: param,
+               sort: columnName,
+               isDesc: sortOrder,
                page: page,
             },
          });
          console.log(data.data)
          setJornada(data.data);
          setPage(data.meta.pagination);
-         setHoraCriacao(moment(data.data.jny_dtcreation).format("hh"))
-         setHoraUpd(moment(data.data.jny_dtupdate).format("hh"))
       } catch (error) {
          alert(error);
       }
    };
+
+   function ordenar(property) {
+      console.log(property)
+      if(property === "company.cpn_name"){
+         return function (a,b) {
+            return (a["company"]["cpn_name"] < b["company"]["cpn_name"]) ? -1 : (a["company"]["cpn_name"] > b["company"]["cpn_name"]) ? 1 : 0;
+        }
+      } else {
+         return function (a,b) {
+            return (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+        }
+      }
+  }
 
    useEffect(() => {
       requestData();
    }, []);
 
    return (
-      <>
+      <MainContainer>
          <CustomMenu />
-         <div className="clientes-container">
-            <div className="home-container">
-               <h1>Jornadas</h1>
-               <div className="input-group">
-                  <input
-                     className="form-control search-user"
+         <Col
+            sm={{ offset: 1, span: 9 }}//Temporary until styled components
+            md={{ offset: 1, span: 9 }}
+            lg={{ offset: 2, span: 10 }}
+         >
+            <Container>
+               <Title>Jornadas</Title>
+               <Row className="input-group">
+                  <Input
+                     className="form-control"
                      type="text"
                      placeholder="Digite o nome"
                      onChange={buscarNome}
                      onKeyDown={(e) => buscarEnter(e)}
                      defaultValue={buscar}
                   />
-                  <div className="input-group-append">
-                     <Button
-                        onClick={(e) => requestData(e, buscar, page = 1)}
-                        type="button"
-                        variant="warning"
-                     >
-                        Buscar
-                     </Button>
-                  </div>
-
-                  <a href={`/cadastrar/jornada/${"inserir"}`} className="btn btn-dark btn-search">
+                  <LittleBtn
+                     className="input-group-append"
+                     onClick={(e) => requestData(e, buscar, page = 1)}
+                     type="button"
+                     yellowColor
+                  >
+                     Buscar
+                  </LittleBtn>
+                  <BtnCadastrar href={`/cadastrar/jornada/${"inserir"}`} className="btn btn-dark ml-3">
                      Cadastrar
-                  </a>
-               </div>
-               <table className="table">
-                  <col style={{ width: 50 }} />
-                  <col style={{ width: 100 }} />
-                  <col style={{ width: 120 }} />
-                  <col style={{ width: 120 }} />
-                  <col style={{ width: 50 }} />
-                  <thead>
-                     <tr>
-                        <th scope="col">Nome</th>
-                        <th scope="col">Companhia</th>
-                        <th scope="col">Data de Criação</th>
-                        <th scope="col">Data de atualização</th>
-                        <th scope="col">Ações</th>
-                     </tr>
-                  </thead>
-                  <tbody>
+                  </BtnCadastrar>
+               </Row>
+               <Table>
+                  <TableHeader>
+                     <TableRow>
+                        <ColumnTitle scope="col" onClick={(e) => {
+                           setStatusArrow({"0": 1, "1": null})
+                           if(count == null){
+                              setCount(count + 1);
+                              requestData(e, buscar, page.current, "Jny_name", false);
+                           } else {
+                              setCount(null);
+                              requestData(e, buscar, page.current, "Jny_name", true);
+                           }
+                        }}>
+                           <SortIcon>
+                              Nome {statusArrow[0] == null ? "" : 
+                              (
+                                 count == null ? <IoArrowUpSharp /> : <IoArrowDownSharp />
+                              )}
+                           </SortIcon>
+                        </ColumnTitle>
+                        <ColumnTitle scope="col" onClick={() => {
+                           setStatusArrow({"0": null, "1": 1})
+                           if(count == null){
+                              setCount(count + 1);
+                              jornada.sort(ordenar("company.cpn_name"));
+                           } else {
+                              setCount(null);
+                              jornada.sort(ordenar("company.cpn_name")).reverse();
+                           }
+                        }}>
+                           <SortIcon>
+                              Empresa {statusArrow[1] == null ? "" : 
+                              (
+                                 count == null ? <IoArrowUpSharp /> : <IoArrowDownSharp />
+                              )}
+                           </SortIcon>
+                        </ColumnTitle>
+                        <ColumnTitle scope="col">Ações</ColumnTitle>
+                     </TableRow>
+                  </TableHeader>
+                  <TableData>
                      {jornada === null
                         ? ""
                         : jornada.map((jorn) => {
                            return (
-                              <tr key={jorn.jny_cod}>
-                                 <td data-title="Nome" id="text">{jorn.jny_name}</td>
-                                 <td data-title="Companhia" id="text">{jorn.company.cpn_name}</td>
-                                 <td data-title="Data de criação" id="data">
-                                    {moment(jorn?.jny_dtcreation).format("a") === "pm" ? (
-                                       moment(jorn?.jny_dtcreation).format("DD-MM-YYYY") + " " + (parseInt(horaCriacao) + 12) + ":" + moment(jorn?.jny_dtcreation).format("mm")
-                                    )
-                                       : moment(jorn?.jny_dtcreation).format("DD-MM-YYYY hh:mm")
-                                    }
-                                 </td>
-                                 {jorn.jny_dtupdate == null ? <td data-title="Data de Atualização"><p style={{ color: "transparent" }}>.</p></td> : (
-                                    <td data-title="Data de Atualização" id="data">
-                                       {moment(jorn?.jny_dtupdate).format("a") === "pm" ? (
-                                          moment(jorn?.jny_dtupdate).format("DD-MM-YYYY") + " " + (parseInt(horaUpd) + 12) + ":" + moment(jorn?.jny_dtupdate).format("mm")
-                                       )
-                                          : moment(jorn?.jny_dtcreation).format("DD-MM-YYYY hh:mm")
-                                       }
-                                    </td>
-                                 )}
-                                 <td data-title="Ações" className="acoes">
+                              <TableRow key={jorn.jny_cod}>
+                                 <TableCell data-title="Nome" id="text">{jorn.jny_name}</TableCell>
+                                 <TableCell data-title="Companhia" id="text">{jorn.company.cpn_name}</TableCell>
+                                 <TableCell data-title="Ações" className="acoes">
                                     <Link to={`/editar-jornada/${jorn.jny_cod}/${"alterar"}`} className="btn btn-warning">Editar</Link>
-                                    <button className="btn btn-dark" onClick={() => setShowModal(true)}>
+                                    <Button className="btn btn-dark" onClick={() => setShowModal(true)}>
                                        Excluir
-                                    </button>
-                                 </td>
+                                    </Button>
+                                 </TableCell>
                                  <Modal show={showModal} onHide={handleClose}>
                                     <Modal.Header closeButton>
                                        <Modal.Title>Erro!</Modal.Title>
@@ -154,13 +194,13 @@ export default function ListarJornadas() {
                                        </Button>
                                     </Modal.Footer>
                                  </Modal>
-                              </tr>
+                              </TableRow>
                            );
                         })}
-                  </tbody>
-               </table>
+                  </TableData>
+               </Table>
 
-               <Pagination className="pagination">
+               <Pagination style={{marginBottom: 20}}>
                   <Pagination.First onClick={(e) => {
                      requestData(e, buscar, 1)
                      window.scroll(0, 0)
@@ -211,8 +251,8 @@ export default function ListarJornadas() {
                      }}
                   />
                </Pagination>
-            </div>
-         </div>
-      </>
+            </Container>
+         </Col>
+      </MainContainer>
    );
 }

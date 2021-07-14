@@ -1,11 +1,3 @@
-.nav-container {
-   display: flex;
-   flex-direction: column;
-}
-
-.main-nav {
-    background-color: #001a71ff;
-}
 
 @media (min-width: 768px) {
     .navbar-expand-md .navbar-nav .nav-link {

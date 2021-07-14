@@ -1,8 +1,7 @@
 import React, { useState, useEffect, Component } from 'react';
 
 import { Redirect } from "react-router-dom";
-import {Col } from 'react-bootstrap';
-import "./styles.css";
+import { Col } from 'react-bootstrap';
 import { CustomMenu } from '../../../Componentes/CustomMenu';
 import { CustomAlert } from '../../../Componentes/CustomAlert';
 import { CompanyForm } from './CompanyForm';
@@ -48,13 +47,17 @@ export default class CadastrarCompanhia extends Component
                      sm={{offset: 2, span:6}}//Temporary until styled components
                      md={{offset: 3, span:5}}
                      lg={{offset: 3, span:5}}>
-               <CustomAlert data={this.state.responseData} showAlertCallback={this.getAlertCallback.bind(this)}/>
+               <CustomAlert 
+                  data={this.state.responseData} 
+                  showAlertCallback={this.getAlertCallback.bind(this)}
+                  redirectCallback={this.redirect.bind(this)}
+               />
                <CompanyForm
                   paramRoute={this.paramRoute}
                   primaryId={this.companyId}
                   redirectCallback={this.redirect.bind(this)}
                   showAlert={this.showAlert.bind(this)}
-                  />
+               />
                </Col>
             </Col>
             </>

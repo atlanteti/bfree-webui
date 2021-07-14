@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Redirect } from "react-router-dom";
 import { Form, Col, Row, Button, Alert } from 'react-bootstrap';
 // import "./styles.css";
+import moment from "moment";
 import { CustomMenu } from '../../../Componentes/CustomMenu';
 import { request } from '../../../Services/api';
 
@@ -13,6 +14,8 @@ export default function EditTipoDemanda(props) {
    const [message, setMessage] = useState();
    const [statusMsg, setStatusMsg] = useState();
    const [redirect, setRedirect] = useState(false);
+   const [horaCriacao, setHoraCriacao] = useState(null);
+   const [horaUpd, setHoraUpd] = useState(null);
 
    const paramRoute = props.match.params.param;
 
@@ -136,11 +139,25 @@ export default function EditTipoDemanda(props) {
                <Form onSubmit={handleSubmit}>
                   <Row>
                      <Col>
+                        <Form.Group controlId="tdm_name">
+                           <Form.Label>Nome: </Form.Label>
+                           <Form.Control
+                              type="text"
+                              onChange={handleChange}
+                              defaultValue={typeDemand?.tdm_name}
+                              required="required"
+                           />
+                        </Form.Group>
+                     </Col>
+                  </Row>
+                  <Row>
+                     <Col>
                         <Form.Group controlId="tdm_cpn_cod">
                            <Form.Label>Empresa: </Form.Label>
                            <Form.Control
                               as="select"
                               onChange={handleChange}
+                              required="required"
                               defaultValue={typeDemand?.tdm_cpn_cod}
                            >
                               {typeDemand?.tdm_cpn_cod == "" && (typeDemand.tdm_cpn_cod = null)}
@@ -169,19 +186,38 @@ export default function EditTipoDemanda(props) {
                         </Form.Group>
                      </Col>
                   </Row>
-                  <Row>
-                     <Col>
-                        <Form.Group controlId="tdm_name">
-                           <Form.Label>Nome: </Form.Label>
-                           <Form.Control
-                              type="text"
-                              onChange={handleChange}
-                              defaultValue={typeDemand?.tdm_name}
-                              required
-                           />
-                        </Form.Group>
-                     </Col>
-                  </Row>
+                  {paramRoute === "alterar" && (
+                     <Row bsPrefix="column">
+                        <Col>
+                           <Form.Group controlId="tdm_dtcreation">
+                              <Form.Label>Data de criação: </Form.Label>
+                           </Form.Group>
+                        </Col>
+                        <Col style={{ marginBottom: 20 }}>
+                           {moment(typeDemand?.tdm_dtcreation).format("a") === "pm" ? (
+                              moment(typeDemand?.tdm_dtcreation).format("DD-MM-YYYY") + " " + (parseInt(horaCriacao) + 12) + ":" + moment(typeDemand?.tdm_dtcreation).format("mm")
+                           )
+                              : moment(typeDemand?.tdm_dtcreation).format("DD-MM-YYYY hh:mm")
+                           }
+                        </Col>
+                        {typeDemand?.tdm_dtupdate !== null && (
+                           <>
+                              <Col>
+                                 <Form.Group controlId="tdm_dtupdate">
+                                    <Form.Label>Data de atualização: </Form.Label>
+                                 </Form.Group>
+                              </Col>
+                              <Col>
+                                 {moment(typeDemand?.tdm_dtupdate).format("a") === "pm" ? (
+                                    moment(typeDemand?.tdm_dtupdate).format("DD-MM-YYYY") + " " + (parseInt(horaUpd) + 12) + ":" + moment(typeDemand?.tdm_dtupdate).format("mm")
+                                 )
+                                    : moment(typeDemand?.tdm_dtupdate).format("DD-MM-YYYY hh:mm")
+                                 }
+                              </Col>
+                           </>
+                        )}
+                     </Row>
+                  )}
                   <Row style={{ marginTop: 20 }}>
                      <Button
                         variant="danger" style={{ marginLeft: 15 }}
@@ -202,6 +238,8 @@ export default function EditTipoDemanda(props) {
 
    function updateData(data) {
       setTypeDemand(data.data);
+      setHoraCriacao(moment(data.data.cpn_dtcreation).format("hh"));
+      setHoraUpd(moment(data.data.cpn_dtupdate).format("hh"));
    }
 
    function updateCompany(data) {
