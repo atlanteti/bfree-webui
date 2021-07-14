@@ -1,4 +1,3 @@
-import "./styles.css";
 import { Button, Row, Col } from "react-bootstrap";
 import SearchBar from "../../../Componentes/SearchBar";
 import { displayDate } from "../../../Componentes/DateField";
@@ -52,8 +51,6 @@ export default class ListarCompanhia extends ListarPagina
       return <tr>
       <th scope="col">ID Eduzz</th>
       <th scope="col">Nome</th>
-      <th scope="col">Data de Criação</th>
-      <th scope="col">Data de atualização</th>
       <th scope="col">Ações</th>
    </tr>;
    }
@@ -65,17 +62,10 @@ export default class ListarCompanhia extends ListarPagina
       return <tr key={companhia.usr_cod}>
          <td data-title="ID Eduzz">{companhia.cpn_cli_cod}</td>
          <td data-title="Nome" className="text">{companhia.cpn_name}</td>
-         <td data-title="Data de Criação" className="data">
-            {displayDate(companhia?.cpn_dtcreation)}
-         </td>
-         {companhia.cpn_dtupdate == null ? <td data-title="Data de Atualização"><p style={{ color: "transparent" }}>.</p></td> :
-            <td data-title="Data de Atualização" className="data">
-               {displayDate(companhia?.cpn_dtupdate)}
-            </td>}
          <td data-title="Ações">
             <Row noGutters>
-               <Col className={"mb-1 mr-1"}><Button block variant="primary" href={`/editar-companhia/${companhia.cpn_cod}/alterar`}>Editar</Button></Col>
-               <Col className={"mr-1"}><Button block variant="danger" onClick={this.openModal}>Excluir</Button></Col>
+               <Col className={"mb-1 mr-1"}><Button block variant="warning" href={`/editar-companhia/${companhia.cpn_cod}/alterar`}>Editar</Button></Col>
+               <Col className={"mr-1"}><Button block variant="dark" onClick={this.openModal}>Excluir</Button></Col>
             </Row>
          </td>
          <ExclusionModal

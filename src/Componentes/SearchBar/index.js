@@ -10,12 +10,12 @@ export default function SearchBar(props) {
             <Button
                // onClick={(e) => requestData(e, buscar)}
                type="button"
-               variant="primary"
+               variant="warning"
             >
                Buscar
             </Button>
          </InputGroup.Append>
-      <InputGroup.Append><Button className="ml-1" href={props.RegisterEndpoint}/*href="/cadastrar/companhia/inserir"*/>{props.ButtonLabel}</Button></InputGroup.Append>
+      <InputGroup.Append><Button className="ml-1" variant="dark" href={props.RegisterEndpoint}/*href="/cadastrar/companhia/inserir"*/>{props.ButtonLabel}</Button></InputGroup.Append>
       </InputGroup>
    </Row>;
 }
