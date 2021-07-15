@@ -7,6 +7,8 @@ import reportWebVitals from './reportWebVitals';
 
 import Cadastros from './Pages/Cadastros';
 import EditUsuarios from './Pages/Usuarios/Cadastrar';
+import Usuarios from './Pages/Usuarios/Listar';
+import UsuarioCompanhia from './Pages/Usuarios/UsuarioCompanhia';
 
 import ListarCompanhia from './Pages/Companhia/Listar';
 import EditCompanhia from './Pages/Companhia/Cadastrar';
@@ -22,7 +24,6 @@ import ListarBadges from './Pages/Badges/Listar';
 
 import ListarTipoDemanda from './Pages/TipoDemanda/Listar';
 import EditTipoDemanda from './Pages/TipoDemanda/Edit';
-import Usuarios from './Pages/Usuarios/Listar';
 
 ReactDOM.render(
    <React.StrictMode>
@@ -30,6 +31,7 @@ ReactDOM.render(
          <Switch>
             <Route exact path="/" component={App} />
             <Route path="/usuarios" component={Usuarios} />
+            <Route path="/usuario-companhia/:userId" component={UsuarioCompanhia} />
             <Route path="/cadastrar" component={Cadastros} />
             <Route path="/companhia" component={ListarCompanhia} />
             <Route path="/jornadas" component={ListarJornadas} />

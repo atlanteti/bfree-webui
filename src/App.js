@@ -1,6 +1,5 @@
 
 import { useEffect, useState } from 'react';
-import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./styles/main.bundle.css";
 
@@ -19,14 +18,14 @@ function App() {
    }, [])
    return (
       <div>
-         {load ? 
-         <CircularProgress /> : 
-         (
-            <>
-               <CustomMenu />
-               <Usuarios />
-            </>
-         )}
+         {load ?
+            <CircularProgress /> :
+            (
+               <>
+                  <CustomMenu />
+                  <Usuarios />
+               </>
+            )}
       </div>
    )
 }

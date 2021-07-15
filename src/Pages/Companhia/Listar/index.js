@@ -91,6 +91,17 @@ export default function ListarCompanhia() {
       }
    };
 
+   async function ordenar(e, orderOne, orderTwo, columnName) {
+      setStatusArrow({ "0": orderOne, "1": orderTwo })
+      if (count == null) {
+         setCount(count + 1);
+         requestData(e, buscarEmpresaId, buscarEmpresa, page.current, columnName, false);
+      } else {
+         setCount(null);
+         requestData(e, buscarEmpresaId, buscarEmpresa, page.current, columnName, true);
+      }
+   }
+
    useEffect(() => {
       requestData();
    }, []);
@@ -151,14 +162,7 @@ export default function ListarCompanhia() {
                   <TableHeader>
                      <TableRow>
                         <ColumnTitle scope="col" onClick={(e) => {
-                           setStatusArrow({ "0": 1, "1": null })
-                           if (count == null) {
-                              setCount(count + 1);
-                              requestData(e, buscarEmpresaId, buscarEmpresa, page.current, "Cpn_cli_cod", false);
-                           } else {
-                              setCount(null);
-                              requestData(e, buscarEmpresaId, buscarEmpresa, page.current, "Cpn_cli_cod", true);
-                           }
+                           ordenar(e, 1, null, "Cpn_cli_cod")
                         }}>
                            <SortIcon>
                               ID Eduzz {statusArrow[0] == null ? "" :
@@ -168,14 +172,7 @@ export default function ListarCompanhia() {
                            </SortIcon>
                         </ColumnTitle>
                         <ColumnTitle scope="col" onClick={(e) => {
-                           setStatusArrow({ "0": null, "1": 1 })
-                           if (count == null) {
-                              setCount(count + 1);
-                              requestData(e, buscarEmpresaId, buscarEmpresa, page.current, "Cpn_name", false);
-                           } else {
-                              setCount(null);
-                              requestData(e, buscarEmpresaId, buscarEmpresa, page.current, "Cpn_name", true);
-                           }
+                           ordenar(e, null, 1, "Cpn_name")
                         }}>
                            <SortIcon>
                               Nome {statusArrow[1] == null ? "" :
