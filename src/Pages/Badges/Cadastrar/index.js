@@ -29,7 +29,7 @@ export default function EditBadges(props) {
 
    const handleChange = async (e) => {
       if (e.target.id === "bdg_jny_cod") {
-         jornada.filter(filterJornada => filterJornada.jny_cod == e.target.value.trim()).map(jorn => {
+         jornada.filter(filterJornada => filterJornada.jny_cod === e.target.value.trim()).map(jorn => {
             setStatus(true);
             return setJornadaSelecionada(jorn);
          })

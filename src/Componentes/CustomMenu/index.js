@@ -62,7 +62,7 @@ export const CustomMenu = () => {
                      elemBefore: () => <IoAlbumsOutline size={23} color="#ffb509" />
                   },
                   {
-                     title: "Usuarios",
+                     title: "Usuários",
                      itemId: "/usuarios",
                      elemBefore: () => <AiOutlineUser size={23} color="#ffb509" />,
                   },

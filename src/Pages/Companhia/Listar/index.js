@@ -52,7 +52,7 @@ export default function ListarCompanhia() {
       }
    }
 
-   const requestData = async (e, param = "", page = 1, columnName, sortData) => {
+   const requestData = async (e, param = "", page = 1, columnName, sortOrder) => {
       try {
          if (e) {
             e.preventDefault();
@@ -64,7 +64,7 @@ export default function ListarCompanhia() {
                idEduzz: null,
                nome: param,
                sort: columnName,
-               isDesc: sortData,
+               isDesc: sortOrder,
                page: page,
             },
          });
@@ -75,12 +75,7 @@ export default function ListarCompanhia() {
          alert(error);
       }
    };
-
-   function ordenar(property) {
-      return function (a,b) {
-         return (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
-      }
-  }
+   
    useEffect(() => {
       requestData();
    }, []);
@@ -89,7 +84,7 @@ export default function ListarCompanhia() {
       <MainContainer>
          <CustomMenu />
          <Col
-            sm={{ offset: 1, span: 9 }}//Temporary until styled components
+            sm={{ offset: 1, span: 9 }}
             md={{ offset: 1, span: 9 }}
             lg={{ offset: 2, span: 10 }}
          >
@@ -136,14 +131,14 @@ export default function ListarCompanhia() {
                               )}
                            </SortIcon>
                         </ColumnTitle>
-                        <ColumnTitle scope="col" onClick={() => {
+                        <ColumnTitle scope="col" onClick={(e) => {
                            setStatusArrow({"0": null, "1": 1})
                            if(count == null){
                               setCount(count + 1);
-                              companhia.sort(ordenar("cpn_name"));
+                              requestData(e, buscar, page.current, "Cpn_name", false);
                            } else {
                               setCount(null);
-                              companhia.sort(ordenar("cpn_name")).reverse();
+                              requestData(e, buscar, page.current, "Cpn_name", true);
                            }
                         }}>
                            <SortIcon>

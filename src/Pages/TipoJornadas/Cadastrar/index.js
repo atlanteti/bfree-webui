@@ -139,13 +139,14 @@ export default function EditTJornadas(props) {
                      </Col>
                      <Col>
                         <Form.Group controlId="jny_cpn_cod">
-                           <Form.Label >Companhia: </Form.Label>
+                           <Form.Label >Empresa: </Form.Label>
                            <Form.Control
                               as="select"
                               required="required"
                               onChange={handleChange}
                               defaultValue={jornada?.jny_cpn_cod}
                            >
+                              <option value={null}></option>
                               {companys?.map(company => {
                                  return (<option key={company.cpn_cod} value={company.cpn_cod}>{company.cpn_name}</option>)
                               })}

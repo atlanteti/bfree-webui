@@ -4,6 +4,8 @@ import axios from "axios";
 import { CustomMenu } from "../../../Componentes/CustomMenu";
 import { IoArrowDownSharp, IoArrowUpSharp } from "react-icons/io5";
 import { Pagination, Row, Col, Button, Alert, Modal, Container } from "react-bootstrap";
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 import {
    Title,
    MainContainer,
@@ -17,6 +19,8 @@ import {
    TableData,
    TableCell,
    SortIcon,
+   BtnMenu,
+   Icon
 } from "./styles.js"
 
 export default function Usuarios() {
@@ -28,8 +32,18 @@ export default function Usuarios() {
    const [idUser, setIdUser] = useState();
    const [count, setCount] = useState(null);
    const [statusArrow, setStatusArrow] = useState({"0": null, "1": null, "2": null});
+   const [anchorEl, setAnchorEl] = useState(null);
 
    const handleClose = () => setShowModal(false);
+
+
+   const handleClick = (event) => {
+     setAnchorEl(event.currentTarget);
+   };
+ 
+   const menuClose = () => {
+     setAnchorEl(null);
+   };
 
    function buscarNome(event) {
       const value = event.target.value;
@@ -74,7 +88,6 @@ export default function Usuarios() {
                page: page,
             },
          });
-         console.log(data.data)
          setUsuarios(data.data);
          setPage(data.meta.pagination);
       } catch (error) {
@@ -208,7 +221,11 @@ export default function Usuarios() {
                                     }}>
                                        Excluir
                                     </Button>
+                                    <Button variant="secondary" className="ml-1" onClick={handleClick}>
+                                          ...
+                                    </Button>
                                  </TableCell>
+
                                  <Modal show={showModal} onHide={handleClose}>
                                     <Modal.Header closeButton>
                                        <Modal.Title>Erro!</Modal.Title>
@@ -223,6 +240,27 @@ export default function Usuarios() {
                                        </Button>
                                     </Modal.Footer>
                                  </Modal>
+
+                                 <Menu
+                                    id="simple-menu"
+                                    anchorEl={anchorEl}
+                                    keepMounted
+                                    open={Boolean(anchorEl)}
+                                    onClose={menuClose}
+                                 >
+                                    <MenuItem onClick={handleClose}>
+                                       <a href="#">Empresas</a>
+                                    </MenuItem>
+                                    <MenuItem onClick={handleClose}>
+                                       Jornadas
+                                    </MenuItem>
+                                    <MenuItem onClick={handleClose}>
+                                       Tipos de Demanda
+                                    </MenuItem>
+                                    <MenuItem onClick={handleClose}>
+                                       Badges
+                                    </MenuItem>
+                                 </Menu>
                               </TableRow>
                            );
                         })}
