@@ -9,7 +9,7 @@ import SortColumn  from "../../../Componentes/SortColumn";
 export default class ListarCompanhia extends ListarPagina
 {
 
-   async deleteCompany(id)
+   async deleteRecord(id)
    {
       const data = await request({
          method: "delete",
@@ -80,7 +80,7 @@ export default class ListarCompanhia extends ListarPagina
       </TableRow>;
    }
 
-   createDataRow(companhia) {
+   createRecord(companhia) {
       return <TableRow key={companhia.usr_cod}>
          <NumberCell data-title="ID Eduzz" align="left">{companhia.cpn_cli_cod}</NumberCell>
          <TextCell data-title="Nome" className="text" align="left">{companhia.cpn_name}</TextCell>
@@ -92,14 +92,12 @@ export default class ListarCompanhia extends ListarPagina
             showModal={this.state.showModal}
             closeModal={this.closeModal}
             pageIdentifier="a empresa" //Talvez isso possa ser generalizado para o contexto da página
-            deletionCallback={this.deleteCompany}
+            deletionCallback={this.deleteRecord}
             identifierCode={companhia.cpn_cod}
             updateListing={this.updateListing.bind(this)}
             showAlert={this.showAlert.bind(this)} />
       </TableRow>;
    }
-   
-   
 };
 
 
