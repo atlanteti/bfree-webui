@@ -5,9 +5,8 @@ import ExclusionModal from "../../../Componentes/ExclusionModal";
 import ListarPagina  from "../../../Componentes/ListData";
 import {ActionCell, ActionHeaderCell, NumberCell, NumberHeaderCell, 
          SortIcon, TableRow, TextCell, TextHeaderCell } from "../../../styles/styles";
-import { IoArrowDownSharp, IoArrowUpSharp } from "react-icons/io5";
 import { Component } from "react";
-
+import {MdKeyboardArrowDown, MdKeyboardArrowUp} from "react-icons/md";
 export default class ListarCompanhia extends ListarPagina
 {
 
@@ -20,18 +19,23 @@ export default class ListarCompanhia extends ListarPagina
       return data
    }
 
-   async fetchData(page)
+   async fetchData(page, sort, isDesc)
    {
       const data = await request({
          method:"get",
          endpoint:"companies/listar",
          params:{
-            page: Number(page)
+            page: Number(page),
+            sort: sort,
+            isDesc: isDesc
          }
       })
       return data
    }
-
+   async reorderData({sort, isDesc=false})
+   {
+      await this.fetchAndSetData({page: this.state.page.current, sort: sort, isDesc: isDesc})
+   }
    async SearchData(nome)
    {
       const data = await request({
@@ -57,10 +61,10 @@ export default class ListarCompanhia extends ListarPagina
       return "Empresas"
    }
 
-   TableHeaderCustom() {
-      return <TableRow>
+   TableHeaderCustom(props) {
+      return <TableRow {...props}>
          <NumberHeaderCell scope="col" variant="Number">
-               <SortColumn label="ID Externo" attribute="cpn_cli_cod" sortCallback={this}/>
+               <SortColumn label="ID Externo" attribute="cpn_cli_cod" sortCallback={props.sortCallback}/>
          </NumberHeaderCell>
          <TextHeaderCell scope="col" variant="Text">Nome</TextHeaderCell>
          <ActionHeaderCell scope="col" variant="Action">Ações</ActionHeaderCell>
@@ -96,33 +100,30 @@ class SortColumn extends Component
    {
       super(props)
       this.state = {
-         ascending: false,
+         descending: false,
          arrowVisible: false
       }
    }
 
-   reorder()
+   async reorder()
    {
+      await this.props.sortCallback({sort: this.props.attribute, isDesc: this.state.descending} )
       if (!this.state.arrowVisible)
       {
          this.setState({
             arrowVisible: true
          })
       }
-      else
-      {
-         this.setState({
-            ascending: !this.state.ascending
-         })
-      }
-      this.props.sortCallback(this.props.attribute)
+      this.setState({
+         descending: !this.state.descending
+      })
    }
    render()
    {
       return <SortIcon onClick={this.reorder.bind(this)}>
                {this.props.label} 
                {this.state.arrowVisible ?
-                  (this.state.ascending ? <IoArrowUpSharp /> : <IoArrowDownSharp />) : ""
+                  (this.state.descending ? <MdKeyboardArrowDown /> : <MdKeyboardArrowUp />) : ""
                }
              </SortIcon>
    }

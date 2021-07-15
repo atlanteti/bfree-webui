@@ -22,8 +22,8 @@ export default class ListarPagina extends Component {
       this.fetchAndSetData = this.fetchAndSetData.bind(this);
    }
 
-   async fetchAndSetData({ page=1, sort }) {
-      const data = await this.fetchData(page);
+   async fetchAndSetData({ page=1, sort, isDesc=false}) {
+      const data = await this.fetchData(page, sort, isDesc);
       this.setState({
          responseMetaData: data.meta,
          responseData: data.data,
@@ -52,6 +52,11 @@ export default class ListarPagina extends Component {
    }
 
    async SearchData(nome) {
+      throw new Error("Método abstrato deve ser implementado");
+   }
+
+   async reorderData(sort)
+   {
       throw new Error("Método abstrato deve ser implementado");
    }
 
@@ -108,7 +113,7 @@ export default class ListarPagina extends Component {
                   <Row>
                      <Table>
                         <TableHeader>
-                           <this.TableHeaderCustom />
+                           <this.TableHeaderCustom sortCallback={this.reorderData.bind(this)}/>
                         </TableHeader>
                         <TableData>
                            {this.state.responseData === null
