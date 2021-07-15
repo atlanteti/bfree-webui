@@ -64,9 +64,19 @@ export default class ListarCompanhia extends ListarPagina
    TableHeaderCustom(props) {
       return <TableRow {...props}>
          <NumberHeaderCell scope="col" variant="Number">
-               <SortColumn label="ID Externo" attribute="cpn_cli_cod" sortCallback={props.sortCallback}/>
+               <SortColumn 
+                  label="ID Externo" 
+                  attribute="cpn_cli_cod" 
+                  sortCallback={props.sortCallback}
+                  receiver={props.subscribe}
+                  wipeAll={props.wipeAll}/>
          </NumberHeaderCell>
-         <TextHeaderCell scope="col" variant="Text">Nome</TextHeaderCell>
+         <TextHeaderCell scope="col" variant="Text"><SortColumn 
+                  label="Nome" 
+                  attribute="cpn_name" 
+                  sortCallback={props.sortCallback}
+                  receiver={props.subscribe}
+                  wipeAll={props.wipeAll}/></TextHeaderCell>
          <ActionHeaderCell scope="col" variant="Action">Ações</ActionHeaderCell>
       </TableRow>;
    }
@@ -103,10 +113,23 @@ class SortColumn extends Component
          descending: false,
          arrowVisible: false
       }
+      this.props.receiver(this.wipe.bind(this))
+   }
+
+   wipe(code)
+   {
+      if(code !== this.code)
+      {
+         this.setState({
+            arrowVisible: false,
+            descending: false
+         })}
    }
 
    async reorder()
    {
+      this.code = Math.random()
+      this.props.wipeAll(this.code)
       await this.props.sortCallback({sort: this.props.attribute, isDesc: this.state.descending} )
       if (!this.state.arrowVisible)
       {

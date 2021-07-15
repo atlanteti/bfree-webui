@@ -20,6 +20,7 @@ export default class ListarPagina extends Component {
       this.openModal = this.openModal.bind(this);
       this.closeModal = this.closeModal.bind(this);
       this.fetchAndSetData = this.fetchAndSetData.bind(this);
+      this.columnSortArray = [];
    }
 
    async fetchAndSetData({ page=1, sort, isDesc=false}) {
@@ -41,6 +42,16 @@ export default class ListarPagina extends Component {
       this.state.responseAlertShow(data);
       this.updateListing();
       window.scroll(0, 0);
+   }
+
+   subscribe(func)
+   {
+      this.columnSortArray.push(func)
+   }
+
+   wipe(code)
+   {
+      this.columnSortArray.map((wipeArrowFunc) => {return wipeArrowFunc(code)})
    }
 
    async deleteCompany(id) {
@@ -113,7 +124,10 @@ export default class ListarPagina extends Component {
                   <Row>
                      <Table>
                         <TableHeader>
-                           <this.TableHeaderCustom sortCallback={this.reorderData.bind(this)}/>
+                           <this.TableHeaderCustom 
+                              sortCallback={this.reorderData.bind(this)}
+                              subscribe={this.subscribe.bind(this)}
+                              wipeAll={this.wipe.bind(this)}/>
                         </TableHeader>
                         <TableData>
                            {this.state.responseData === null
