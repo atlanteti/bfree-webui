@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { CustomMenu } from "../../../Componentes/CustomMenu";
 import { Link } from "react-router-dom"
 import { IoArrowDownSharp, IoArrowUpSharp } from "react-icons/io5";
-import { Button, Pagination, Modal, Col, Row, Container } from 'react-bootstrap';
+import { Button, Pagination, Modal, Col, Row, Container, Form } from 'react-bootstrap';
 import {
    Title,
    MainContainer,
@@ -21,17 +21,35 @@ import axios from "axios";
 
 export default function ListarTipoDemanda() {
    const [buscar, setBuscar] = useState("");
+   const [buscarEmpresa, setBuscarEmpresa] = useState(null);
    const [page, setPage] = useState({});
+   const [companys, setCompanys] = useState();
    const [typeDemand, setTypeDemand] = useState(null);
    const [idDemand, setIdDemand] = useState(null);
    const [count, setCount] = useState(null);
-   const [statusArrow, setStatusArrow] = useState({"0": null, "1": null});
+   const [statusArrow, setStatusArrow] = useState({ "0": null, "1": null });
 
    const [showModal, setShowModal] = useState(false);
 
    const handleClose = () => setShowModal(false);
 
-   const requestData = async (e, param = '', page = 1) => {
+   function pesquisarNome(event) {
+      const value = event.target.value;
+      setBuscar(value)
+   }
+
+   function pesquisarEmpresa(event) {
+      const value = event.target.value;
+      setBuscarEmpresa(value)
+   }
+
+   const buscarEnter = (event) => {
+      if (event.keyCode === 13) {
+         requestData(event, buscarEmpresa, buscar, page.current, null, null)
+      }
+   }
+
+   const requestData = async (e, id = null, param = '', page = 1, columnName, sortOrder) => {
       try {
          if (e) {
             e.preventDefault();
@@ -40,7 +58,10 @@ export default function ListarTipoDemanda() {
             method: "get",
             url: "http://209.97.146.187:18919/types-demand/listar",
             params: {
-               // name: param,
+               idCompany: id,
+               name: param,
+               sort: columnName,
+               isDesc: sortOrder,
                page: page,
             },
          });
@@ -64,20 +85,20 @@ export default function ListarTipoDemanda() {
       }
    }
 
-   function ordenar(property) {
-      
-      if(property === "company.cpn_name"){
-         return function (a,b) {
-            return (a["company"]["cpn_name"] < b["company"]["cpn_name"]) ? -1 : (a["company"]["cpn_name"] > b["company"]["cpn_name"]) ? 1 : 0;
-        }
-      } else {
-         return function (a,b) {
-            return (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
-        }
+   const requestCompanys = async () => {
+      try {
+         const { data } = await axios({
+            method: "get",
+            url: "http://209.97.146.187:18919/companies/listar-todos",
+         });
+         setCompanys(data.data);
+      } catch (error) {
+         alert(error);
       }
-  }
+   }
 
    useEffect(() => {
+      requestCompanys();
       requestData();
    }, []);
 
@@ -85,68 +106,100 @@ export default function ListarTipoDemanda() {
       <MainContainer>
          <CustomMenu />
          <Col
-            sm={{ offset: 1, span: 9 }}//Temporary until styled components
+            sm={{ offset: 1, span: 9 }}
             md={{ offset: 1, span: 9 }}
             lg={{ offset: 2, span: 10 }}
          >
             <Container>
                <Title>Tipo Demanda</Title>
-               <Row className="input-group">
-                  <Input
-                     className="form-control"
-                     type="text"
-                     placeholder="Digite o nome"
-                     // onChange={buscarNome}
-                     // onKeyDown={(e) => buscarEnter(e)}
-                     defaultValue={buscar}
-                  />
-                  <LittleBtn
-                     className="input-group-append"
-                     onClick={(e) => requestData(e, buscar)}
-                     type="button"
-                     yellowColor
+               <Col
+                  sm={{ span: 6 }}
+                  style={{
+                     alignSelf: "baseline",
+                     border: "1px solid rgba(0,0,0,0.20)",
+                     padding: 15,
+                     borderRadius: 5
+                  }}
+               >
+                  <Form>
+                     <Form.Group>
+                        <Form.Label>Nome: </Form.Label>
+                        <Form.Control
+                           type="text"
+                           onChange={pesquisarNome}
+                           defaultValue={buscar}
+                           onKeyDown={(e) => buscarEnter(e)}
+                        />
+                     </Form.Group>
+                     <Form.Group>
+                        <Form.Label>Empresa: </Form.Label>
+                        <Form.Control
+                           as="select"
+                           onChange={pesquisarEmpresa}
+                           onKeyDown={(e) => buscarEnter(e)}
+                           defaultValue={buscarEmpresa}
+                        >
+                           <option selected value={null}></option>
+                           <>
+                              {companys?.map(company => {
+                                 return (
+                                    <option
+                                       key={company.cpn_cod}
+                                       value={company.cpn_cod}
+                                    >
+                                       {company.cpn_name}
+                                    </option>)
+                              })}
+                           </>
+                        </Form.Control>
+                     </Form.Group>
+                  </Form>
+                  <Button
+                     type="submit"
+                     variant="warning"
+                     onClick={(e) => requestData(e, buscarEmpresa, buscar, page.current, null, null)}
                   >
                      Buscar
-                  </LittleBtn>
+                  </Button>
                   <BtnCadastrar href={`/cadastrar/tipodemanda/${"inserir"}`} className="btn btn-dark ml-3">
                      Cadastrar
                   </BtnCadastrar>
-               </Row>
+               </Col>
                <Table>
                   <TableHeader>
                      <TableRow>
-                        <ColumnTitle scope="col" onClick={() => {
-                           setStatusArrow({"0": 1, "1": null})
-                           if(count == null){
+                        <ColumnTitle scope="col" onClick={(e) => {
+                           setStatusArrow({ "0": 1, "1": null })
+                           if (count == null) {
                               setCount(count + 1);
-                              typeDemand.sort(ordenar("tdm_name"));
+                              requestData(e, buscarEmpresa, buscar, page.current, "Tdm_name", false);
                            } else {
                               setCount(null);
-                              typeDemand.sort(ordenar("tdm_name")).reverse();
+                              requestData(e, buscarEmpresa, buscar, page.current, "Tdm_name", true);
                            }
                         }}>
                            <SortIcon>
-                              Nome {statusArrow[0] == null ? "" : 
-                              (
-                                 count == null ? <IoArrowUpSharp /> : <IoArrowDownSharp />
-                              )}
+                              Nome {statusArrow[0] == null ? "" :
+                                 (
+                                    count == null ? <IoArrowUpSharp /> : <IoArrowDownSharp />
+                                 )}
                            </SortIcon>
                         </ColumnTitle>
-                        <ColumnTitle scope="col" onClick={() => {
-                           setStatusArrow({"0": null, "1": 1})
-                           if(count == null){
+                        <ColumnTitle scope="col" onClick={(e) => {
+                           setStatusArrow({ "0": null, "1": 1 })
+                           if (count == null) {
                               setCount(count + 1);
-                              typeDemand.sort(ordenar("company.cpn_name"));
+                              requestData(e, buscarEmpresa, buscar, page.current, "Cpn_name", false);
                            } else {
                               setCount(null);
-                              typeDemand.sort(ordenar("company.cpn_name")).reverse();
+                              requestData(e, buscarEmpresa, buscar, page.current, "Cpn_name", true);
                            }
                         }}>
                            <SortIcon>
-                              Empresa {statusArrow[1] == null ? "" : 
-                              (
-                                 count == null ? <IoArrowUpSharp /> : <IoArrowDownSharp />
-                              )}
+                              Empresa {statusArrow[1] == null ? "" :
+                                 (
+                                    count == null ? <IoArrowUpSharp /> : <IoArrowDownSharp />
+                                 )}
                            </SortIcon>
                         </ColumnTitle>
                         <ColumnTitle scope="col">Ações</ColumnTitle>
@@ -199,15 +252,15 @@ export default function ListarTipoDemanda() {
                   </TableData>
                </Table>
 
-               <Pagination style={{marginBottom: 20}}>
+               <Pagination style={{ marginBottom: 20 }}>
                   <Pagination.First onClick={(e) => {
-                     requestData(e, buscar, 1)
+                     requestData(e, buscarEmpresa, buscar, 1, null, null)
                      window.scroll(0, 0)
                   }} />
                   <Pagination.Prev
                      disabled={page.current === 1 ? true : false}
                      onClick={(e) => {
-                        requestData(e, buscar, page.current - 1)
+                        requestData(e, buscarEmpresa, buscar, page.current - 1, null, null)
                         window.scroll(0, 0)
                      }}
                   />
@@ -215,7 +268,7 @@ export default function ListarTipoDemanda() {
                   {page.current >= 2 ? (
                      <Pagination.Item
                         onClick={(e) => {
-                           requestData(e, buscar, page.current - 1)
+                           requestData(e, buscarEmpresa, buscar, page.current - 1, null, null)
                            window.scroll(0, 0)
                         }}
                      >
@@ -226,7 +279,7 @@ export default function ListarTipoDemanda() {
                   {page.total - page.current >= 1 ? (
                      <Pagination.Item
                         onClick={(e) => {
-                           requestData(e, buscar, page.current + 1)
+                           requestData(e, buscarEmpresa, buscar, page.current + 1, null, null)
                            window.scroll(0, 0)
                         }}
                      >
@@ -239,13 +292,13 @@ export default function ListarTipoDemanda() {
                   <Pagination.Next
                      disabled={page.current === page.total ? true : false}
                      onClick={(e) => {
-                        requestData(e, buscar, page.current + 1)
+                        requestData(e, buscarEmpresa, buscar, page.current + 1, null, null)
                         window.scroll(0, 0)
                      }}
                   />
                   <Pagination.Last
                      onClick={(e) => {
-                        requestData(e, buscar, page.total)
+                        requestData(e, buscarEmpresa, buscar, page.total, null, null)
                         window.scroll(0, 0)
                      }}
                   />

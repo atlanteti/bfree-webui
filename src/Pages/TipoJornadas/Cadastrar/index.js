@@ -1,6 +1,7 @@
 import { Redirect } from "react-router-dom";
 import { Form, Col, Row, Button, Alert } from 'react-bootstrap';
 import { useState, useEffect } from "react";
+import { Title } from "./styles.js"
 import moment from "moment";
 import axios from "axios";
 import { CustomMenu } from "../../../Componentes/CustomMenu";
@@ -121,6 +122,7 @@ export default function EditTJornadas(props) {
                </Alert>
             </Col>
          }
+         <Title>{paramRoute === "inserir" ? "Cadastrar" : "Editar"} Jornada</Title>
          <CustomMenu />
          <Col >
             <Col style={{ marginTop: 48 }} md={{ span: 4, offset: 3 }}>
