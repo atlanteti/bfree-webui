@@ -17,7 +17,9 @@ import {
    TableData,
    TableCell,
    SortIcon,
-} from "./styles.js"
+   BtnMenu,
+   Icon
+} from "../../../styles/styles.js"
 
 export default function Usuarios() {
    const [usuarios, setUsuarios] = useState(null);
@@ -256,7 +258,7 @@ export default function Usuarios() {
                                  <TableCell data-title="Ações" className="acoes">
                                     <Link
                                        className="btn btn-warning"
-                                       to={`/editar/${usuario.usr_cod}/${"alterar"}`}
+                                       to={`/editar/${usuario.usr_cod}/"alterar"`}
                                     >
                                        Editar
                                     </Link>

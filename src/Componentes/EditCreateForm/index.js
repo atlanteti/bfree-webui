@@ -63,7 +63,7 @@ export class EditCreateForm extends Component {
          else {
             data = await this.editPrimaryData(formData);
          }
-         this.props.showAlert(data);
+         this.props.showAlert(data.meta);
       } catch (error) {
          console.log(error);
       }

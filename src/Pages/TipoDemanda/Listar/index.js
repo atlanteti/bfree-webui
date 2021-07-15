@@ -65,6 +65,7 @@ export default function ListarTipoDemanda() {
                page: page,
             },
          });
+         
          setTypeDemand(data.data);
          setPage(data.meta.pagination);
       } catch (error) {

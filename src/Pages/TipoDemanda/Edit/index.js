@@ -59,7 +59,7 @@ export default function EditTipoDemanda(props) {
    }
 
    async function editTypeDemand(formData) {
-      console.log(formData)
+      
       return await request({
          method: "put",
          endpoint: `types-demand/alterar/${demandId}`,
@@ -85,7 +85,7 @@ export default function EditTipoDemanda(props) {
             editResultHandler(data);
          }
       } catch (error) {
-         console.log(error)
+         
       }
    };
 
@@ -98,7 +98,7 @@ export default function EditTipoDemanda(props) {
             })
             updateData(data);
          } catch (error) {
-            console.log(error)
+            
          }
       };
       const requestCompany = async () => {
@@ -109,7 +109,7 @@ export default function EditTipoDemanda(props) {
             })
             updateCompany(data);
          } catch (error) {
-            console.log(error);
+            
          }
       }
 

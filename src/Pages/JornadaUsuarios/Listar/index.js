@@ -47,7 +47,7 @@ export default function ListarJornadaUsuarios() {
                page: page,
             },
          });
-         console.log(data)
+         
          setJornada(data.data);
          setPage(data.meta.pagination);
       } catch (error) {

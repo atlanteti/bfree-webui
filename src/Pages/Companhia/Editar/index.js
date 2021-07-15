@@ -35,7 +35,6 @@ export default function EditarCompanhia(props)
             return data
     }
     const handleSubmit = async (e) => {
-        console.log("a")
         const companyDataForm =
         {
             ...companyData,

@@ -51,8 +51,8 @@ export class CompanyFormBuilder extends EditCreateForm {
             </>
          )}
          <ButtonRow
-            cancelButton={<Button variant="danger" onClick={this.redirectCallback}>Cancelar</Button>}
-            confirmButton={<Button variant="warning" type="submit">{this.props.paramRoute === "inserir" ? "Cadastrar" : "Editar"}</Button>} />
+            cancelButton={<Button variant="warning" onClick={this.redirectCallback}>Cancelar</Button>}
+            confirmButton={<Button variant="dark" type="submit">{this.props.paramRoute === "inserir" ? "Cadastrar" : "Editar"}</Button>} />
       </Form>;
    }
 }

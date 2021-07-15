@@ -7,9 +7,10 @@ import { CustomMenu } from '../../../Componentes/CustomMenu';
 import { CustomAlert } from '../../../Componentes/CustomAlert';
 import { CompanyForm } from './CompanyForm';
 
-
-export default class CadastrarCompanhia extends Component {
-   constructor(props) {
+export default class CadastrarCompanhia extends Component
+{
+   constructor(props)
+   {
       super(props)
       this.state = {
          companyData: {},
@@ -27,10 +28,7 @@ export default class CadastrarCompanhia extends Component {
    }
 
    showAlert(data) {
-      this.setState({
-         responseData: data
-      })
-      this.state.responseAlertShow()
+      this.state.responseAlertShow(data)
    }
    redirect() {
       this.setState({ redirect: true })

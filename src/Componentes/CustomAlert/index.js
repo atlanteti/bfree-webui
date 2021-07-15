@@ -13,9 +13,9 @@ export class CustomAlert extends React.Component {
          statusMsg: statusMsg
       });
    };
-   onShowAlert() {
-      const message = this.props.data.meta.message;
-      const type = this.props.data.meta.responseType;
+   onShowAlert(data) {
+      const message = data.message;
+      const type = data.responseType;
       let statusMsg = "";
       if (type.toLowerCase().includes("error")) {
          statusMsg = "danger";
