@@ -1,13 +1,11 @@
-import { Button, Row, Col } from "react-bootstrap";
+import { Button} from "react-bootstrap";
 import SearchBar from "../../../Componentes/SearchBar";
 import { request } from '../../../Services/api';
 import ExclusionModal from "../../../Componentes/ExclusionModal";
 import ListarPagina  from "../../../Componentes/ListData";
 import {ActionCell, ActionHeaderCell, NumberCell, NumberHeaderCell, 
-         SortIcon, TableRow, TextCell, TextHeaderCell } from "../../../styles/styles";
-import { Component } from "react";
-import {MdKeyboardArrowDown, MdKeyboardArrowUp} from "react-icons/md";
-import {CgArrowsScrollV} from "react-icons/cg"
+         TableRow, TextCell, TextHeaderCell } from "../../../styles/styles";
+import SortColumn  from "../../../Componentes/SortColumn";
 export default class ListarCompanhia extends ListarPagina
 {
 
@@ -105,50 +103,3 @@ export default class ListarCompanhia extends ListarPagina
 };
 
 
-class SortColumn extends Component
-{
-   constructor(props)
-   {
-      super(props)
-      this.state = {
-         descending: false,
-         arrowVisible: false
-      }
-      this.props.receiver(this.wipe.bind(this))
-   }
-
-   wipe(code)
-   {
-      if(code !== this.code)
-      {
-         this.setState({
-            arrowVisible: false,
-            descending: false
-         })}
-   }
-
-   async reorder()
-   {
-      this.code = Math.random()
-      this.props.wipeAll(this.code)
-      await this.props.sortCallback({sort: this.props.attribute, isDesc: this.state.descending} )
-      if (!this.state.arrowVisible)
-      {
-         this.setState({
-            arrowVisible: true
-         })
-      }
-      this.setState({
-         descending: !this.state.descending
-      })
-   }
-   render()
-   {
-      return <SortIcon onClick={this.reorder.bind(this)}>
-               {this.props.label} 
-               {this.state.arrowVisible ?
-                  (this.state.descending ? <MdKeyboardArrowDown /> : <MdKeyboardArrowUp />) : <CgArrowsScrollV/>
-               }
-             </SortIcon>
-   }
-}

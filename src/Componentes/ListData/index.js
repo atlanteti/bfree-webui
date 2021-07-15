@@ -15,8 +15,8 @@ export default class ListarPagina extends Component {
          showModal: false,
          responseData: null,
          responseAlertShow: null,
-         headerSortCol: {}
       };
+
       this.openModal = this.openModal.bind(this);
       this.closeModal = this.closeModal.bind(this);
       this.fetchAndSetData = this.fetchAndSetData.bind(this);
@@ -54,7 +54,7 @@ export default class ListarPagina extends Component {
       this.columnSortArray.map((wipeArrowFunc) => {return wipeArrowFunc(code)})
    }
 
-   async deleteCompany(id) {
+   async deleteRecord(id) {
       throw new Error("Método abstrato deve ser implementado");
    }
 
@@ -71,7 +71,7 @@ export default class ListarPagina extends Component {
       throw new Error("Método abstrato deve ser implementado");
    }
 
-   createDataRow(companhia) {
+   createRecord(record) {
       throw new Error("Método abstrato deve ser implementado");
    }
 
@@ -134,7 +134,7 @@ export default class ListarPagina extends Component {
                               ? ""
                               : this.state.responseData.map((companhia) => {
                                  return (
-                                    this.createDataRow(companhia)
+                                    this.createRecord(companhia)
                                  );
                               })}
                         </TableData>
