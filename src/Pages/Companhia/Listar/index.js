@@ -7,6 +7,7 @@ import {ActionCell, ActionHeaderCell, NumberCell, NumberHeaderCell,
          SortIcon, TableRow, TextCell, TextHeaderCell } from "../../../styles/styles";
 import { Component } from "react";
 import {MdKeyboardArrowDown, MdKeyboardArrowUp} from "react-icons/md";
+import {CgArrowsScrollV} from "react-icons/cg"
 export default class ListarCompanhia extends ListarPagina
 {
 
@@ -146,7 +147,7 @@ class SortColumn extends Component
       return <SortIcon onClick={this.reorder.bind(this)}>
                {this.props.label} 
                {this.state.arrowVisible ?
-                  (this.state.descending ? <MdKeyboardArrowDown /> : <MdKeyboardArrowUp />) : ""
+                  (this.state.descending ? <MdKeyboardArrowDown /> : <MdKeyboardArrowUp />) : <CgArrowsScrollV/>
                }
              </SortIcon>
    }
