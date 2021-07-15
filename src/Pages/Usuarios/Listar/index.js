@@ -3,15 +3,13 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { CustomMenu } from "../../../Componentes/CustomMenu";
 import { IoArrowDownSharp, IoArrowUpSharp } from "react-icons/io5";
-import { Pagination, Row, Col, Button, Alert, Modal, Container } from "react-bootstrap";
+import { Pagination, Col, Button, Alert, Modal, Container, Form } from "react-bootstrap";
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import {
    Title,
    MainContainer,
    BtnCadastrar,
-   Input,
-   LittleBtn,
    Table,
    TableHeader,
    TableRow,
@@ -19,51 +17,55 @@ import {
    TableData,
    TableCell,
    SortIcon,
-   BtnMenu,
-   Icon
 } from "./styles.js"
 
 export default function Usuarios() {
    const [usuarios, setUsuarios] = useState(null);
    const [buscar, setBuscar] = useState(null);
+   const [buscarStatus, setBuscarStatus] = useState(null);
+   const [status, setStatus] = useState();
    const [page, setPage] = useState({});
    const [showAlert, setShowAlert] = useState(false);
    const [showModal, setShowModal] = useState(false);
    const [idUser, setIdUser] = useState();
    const [count, setCount] = useState(null);
-   const [statusArrow, setStatusArrow] = useState({"0": null, "1": null, "2": null});
+   const [statusArrow, setStatusArrow] = useState({ "0": null, "1": null, "2": null });
    const [anchorEl, setAnchorEl] = useState(null);
 
    const handleClose = () => setShowModal(false);
 
 
    const handleClick = (event) => {
-     setAnchorEl(event.currentTarget);
-   };
- 
-   const menuClose = () => {
-     setAnchorEl(null);
+      setAnchorEl(event.currentTarget);
    };
 
-   function buscarNome(event) {
+   const menuClose = () => {
+      setAnchorEl(null);
+   };
+
+   function pesquisarId(event) {
       const value = event.target.value;
       setBuscar(value);
    }
 
+   function pesquisarStatus(event) {
+      const value = event.target.value;
+      console.log(value)
+      setBuscarStatus(value);
+   }
+
    const buscarEnter = (event) => {
       if (event.keyCode === 13) {
-         requestData(event, buscar);
+         requestData(event, buscar, buscarStatus, page.current, null, null);
       }
    };
 
    async function deletarUsuario(id) {
-      console.log(id)
       try {
          const { data } = await axios({
             method: "delete",
             url: `http://209.97.146.187:18919/usuarios/excluir/${id}`,
          });
-         console.log(data);
          if (data.meta.status == 209) {
             setShowAlert(true);
             setShowModal(false);
@@ -75,7 +77,7 @@ export default function Usuarios() {
       }
    }
 
-   const requestData = async (e, param = "", page = 1) => {
+   const requestData = async (e, id = "", status = null, page = 1, columnName, sortOrder) => {
       try {
          if (e) {
             e.preventDefault();
@@ -84,7 +86,10 @@ export default function Usuarios() {
             method: "get",
             url: "http://209.97.146.187:18919/usuarios/listar",
             params: {
-               nome: param,
+               param: id,
+               statusId: status,
+               sort: columnName,
+               isDesc: sortOrder,
                page: page,
             },
          });
@@ -95,21 +100,28 @@ export default function Usuarios() {
       }
    };
 
-   function ordenar(property) {
-      return function (a,b) {
-          return (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+   const requestStatus = async (e) => {
+      try {
+         const { data } = await axios({
+            method: "get",
+            url: "http://209.97.146.187:18919/status-users/listar",
+         });
+         setStatus(data.data);
+      } catch (error) {
+         alert(error);
       }
-  }
+   };
 
    useEffect(() => {
       requestData();
+      requestStatus();
    }, []);
 
    return (
       <MainContainer>
          <CustomMenu />
          <Col
-            sm={{ offset: 1, span: 9 }}//Temporary until styled components
+            sm={{ offset: 1, span: 9 }}
             md={{ offset: 1, span: 9 }}
             lg={{ offset: 2, span: 10 }}
          >
@@ -122,86 +134,119 @@ export default function Usuarios() {
             }
             <Container>
                <Title>Usuários</Title>
-               <Row className="input-group">
-                  <Input
-                     className="form-control"
-                     type="text"
-                     placeholder="Digite o nome"
-                     onChange={buscarNome}
-                     onKeyDown={(e) => buscarEnter(e)}
-                     defaultValue={buscar}
-                  />
-                  <LittleBtn
-                     className="input-group-append"
-                     onClick={(e) => requestData(e, buscar)}
-                     type="button"
-                     yellowColor
+               <Col
+                  sm={{ span: 6 }}
+                  style={{
+                     alignSelf: "baseline",
+                     border: "1px solid rgba(0,0,0,0.20)",
+                     padding: 15,
+                     borderRadius: 5
+                  }}
+               >
+                  <Form>
+                     <Form.Group>
+                        <Form.Label>ID Eduzz: </Form.Label>
+                        <Form.Control
+                           type="text"
+                           onChange={pesquisarId}
+                           defaultValue={buscar}
+                           onKeyDown={(e) => buscarEnter(e)}
+                        />
+                     </Form.Group>
+                     <Form.Group>
+                        <Form.Label>Status: </Form.Label>
+                        <Form.Control
+                           as="select"
+                           onChange={pesquisarStatus}
+                           onKeyDown={(e) => buscarEnter(e)}
+                           defaultValue={buscarStatus}
+                        >
+                           <option selected value={null}></option>
+                           <>
+                              {status?.map(stat => {
+                                 return (
+                                    <option
+                                       key={stat.sus_cod}
+                                       value={stat.sus_cod}
+                                    >
+                                       {stat.sus_name}
+                                    </option>
+                                 )
+                              })}
+                           </>
+                        </Form.Control>
+                     </Form.Group>
+                  </Form>
+                  <Button
+                     type="submit"
+                     variant="warning"
+                     onClick={(e) => requestData(e, buscar, buscarStatus, page.current, null, null)}
                   >
                      Buscar
-                  </LittleBtn>
+                  </Button>
                   <BtnCadastrar href={`/cadastrar/usuario/${"inserir"}`} className="btn btn-dark ml-3">
                      Cadastrar
                   </BtnCadastrar>
-               </Row>
+               </Col>
                <Table>
                   <TableHeader>
                      <TableRow>
-                        <ColumnTitle sort scope="col" onClick={() => {
-                           setStatusArrow({"0": 1, "1": null, "2": null})
-                           if(count == null){
+                        <ColumnTitle sort scope="col" onClick={(e) => {
+                           setStatusArrow({ "0": 1, "1": null, "2": null })
+                           if (count == null) {
                               setCount(count + 1);
-                              usuarios.sort(ordenar("usr_cli_cod"));
+                              requestData(e, buscar, buscarStatus, page.current, "Usr_cli_cod", false);
                            } else {
                               setCount(null);
-                              usuarios.sort(ordenar("usr_cli_cod")).reverse();
+                              requestData(e, buscar, buscarStatus, page.current, "Usr_cli_cod", true);
                            }
                         }}>
                            <SortIcon>
-                              ID Eduzz {statusArrow[0] == null ? "" : 
-                              (
-                                 count == null ? <IoArrowUpSharp /> : <IoArrowDownSharp />
-                              )}
+                              ID Eduzz {statusArrow[0] == null ? "" :
+                                 (
+                                    count == null ? <IoArrowUpSharp /> : <IoArrowDownSharp />
+                                 )}
                            </SortIcon>
                         </ColumnTitle>
-                        <ColumnTitle scope="col" onClick={() => {
-                           setStatusArrow({"0": null, "1": 1, "2": null})
-                           if(count == null){
+                        <ColumnTitle scope="col" onClick={(e) => {
+                           setStatusArrow({ "0": null, "1": 1, "2": null })
+                           if (count == null) {
                               setCount(count + 1);
-                              usuarios.sort(ordenar("usr_externalid"));
+                              requestData(e, buscar, buscarStatus, page.current, "Usr_externalid", false);
                            } else {
                               setCount(null);
-                              usuarios.sort(ordenar("usr_externalid")).reverse();
+                              requestData(e, buscar, buscarStatus, page.current, "Usr_externalid", true);
                            }
                         }}>
                            <SortIcon>
-                              ID Externo {statusArrow[1] == null ? "" : 
-                              (
-                                 count == null ? <IoArrowUpSharp /> : <IoArrowDownSharp />
-                              )}
+                              ID Externo {statusArrow[1] == null ? "" :
+                                 (
+                                    count == null ? <IoArrowUpSharp /> : <IoArrowDownSharp />
+                                 )}
                            </SortIcon>
                         </ColumnTitle>
-                        <ColumnTitle scope="col" onClick={() => {
-                           setStatusArrow({"0": null, "1": null, "2": 1})
-                           if(count == null){
+                        <ColumnTitle scope="col" onClick={(e) => {
+                           setStatusArrow({ "0": null, "1": null, "2": 1 })
+                           if (count == null) {
                               setCount(count + 1);
-                              usuarios.sort(ordenar("usr_sus_cod"));
+                              requestData(e, buscar, buscarStatus, page.current, "Sus_name", false);
                            } else {
                               setCount(null);
-                              usuarios.sort(ordenar("usr_sus_cod")).reverse();
+                              requestData(e, buscar, buscarStatus, page.current, "Sus_name", true);
                            }
                         }}>
                            <SortIcon>
-                              Status {statusArrow[2] == null ? "" : 
-                              (
-                                 count == null ? <IoArrowUpSharp /> : <IoArrowDownSharp />
-                              )}
+                              Status {statusArrow[2] == null ? "" :
+                                 (
+                                    count == null ? <IoArrowUpSharp /> : <IoArrowDownSharp />
+                                 )}
                            </SortIcon>
                         </ColumnTitle>
                         <ColumnTitle columnWidth scope="col">Ações</ColumnTitle>
                      </TableRow>
                   </TableHeader>
                   <TableData>
-                     {(usuarios !== null) && 
+                     {(usuarios !== null) &&
                         usuarios.map((usuario) => {
                            return (
                               <TableRow key={usuario.usr_cod}>
@@ -222,7 +267,7 @@ export default function Usuarios() {
                                        Excluir
                                     </Button>
                                     <Button variant="secondary" className="ml-1" onClick={handleClick}>
-                                          ...
+                                       ...
                                     </Button>
                                  </TableCell>
 
@@ -266,15 +311,15 @@ export default function Usuarios() {
                         })}
                   </TableData>
                </Table>
-               <Pagination style={{marginBottom: 20}}>
+               <Pagination style={{ marginBottom: 20 }}>
                   <Pagination.First onClick={(e) => {
-                     requestData(e, buscar, 1)
+                     requestData(e, buscar, buscarStatus, 1, null, null)
                      window.scroll(0, 0)
                   }} />
                   <Pagination.Prev
                      disabled={page.current === 1 ? true : false}
                      onClick={(e) => {
-                        requestData(e, buscar, page.current - 1)
+                        requestData(e, buscar, buscarStatus, page.current - 1, null, null)
                         window.scroll(0, 0)
                      }}
                   />
@@ -282,7 +327,7 @@ export default function Usuarios() {
                   {page.current >= 2 ? (
                      <Pagination.Item
                         onClick={(e) => {
-                           requestData(e, buscar, page.current - 1)
+                           requestData(e, buscar, buscarStatus, page.current - 1, null, null)
                            window.scroll(0, 0)
                         }}
                      >
@@ -293,7 +338,7 @@ export default function Usuarios() {
                   {page.total - page.current >= 1 ? (
                      <Pagination.Item
                         onClick={(e) => {
-                           requestData(e, buscar, page.current + 1)
+                           requestData(e, buscar, buscarStatus, page.current + 1, null, null)
                            window.scroll(0, 0)
                         }}
                      >
@@ -306,13 +351,13 @@ export default function Usuarios() {
                   <Pagination.Next
                      disabled={page.current === page.total ? true : false}
                      onClick={(e) => {
-                        requestData(e, buscar, page.current + 1)
+                        requestData(e, buscar, buscarStatus, page.current + 1, null, null)
                         window.scroll(0, 0)
                      }}
                   />
                   <Pagination.Last
                      onClick={(e) => {
-                        requestData(e, buscar, page.total)
+                        requestData(e, buscar, buscarStatus, page.total, null, null)
                         window.scroll(0, 0)
                      }}
                   />

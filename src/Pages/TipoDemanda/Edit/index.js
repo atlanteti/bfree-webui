@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import { Redirect } from "react-router-dom";
 import { Form, Col, Row, Button, Alert } from 'react-bootstrap';
-// import "./styles.css";
+import { Title } from "./styles.js"
 import moment from "moment";
 import { CustomMenu } from '../../../Componentes/CustomMenu';
 import { request } from '../../../Services/api';
@@ -133,6 +133,7 @@ export default function EditTipoDemanda(props) {
                </Alert>
             </Col>
          }
+         <Title>{paramRoute === "inserir" ? "Cadastrar" : "Editar"} Tipo Demanda</Title>
          <CustomMenu />
          <Col style={{ marginTop: 48 }}>
             <Col md={{ span: 4, offset: 3 }}>

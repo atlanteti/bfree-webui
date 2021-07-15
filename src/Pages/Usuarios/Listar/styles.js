@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Toggle from"../../../Assets/Images/menu-2.png"
 export const Title = styled.h1`
    font-size: 2rem;
    margin-top: 1rem;
@@ -130,7 +129,7 @@ export const TableRow = styled.tr`
 export const ColumnTitle = styled.th`
    padding: 0.1rem 0.4rem;
    width: ${props => props.columnWidth ? "100px" : "50px"};
-   cursor: ${props => props.sort ? "pointer" : "default" };
+   cursor: ${props => props.sort ? "pointer" : "default"};
    text-align: left;
    border: 1px solid #dee2e6;
    background: #fff;

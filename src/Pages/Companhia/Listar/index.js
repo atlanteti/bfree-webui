@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { IoArrowDownSharp, IoArrowUpSharp } from "react-icons/io5";
-import { Pagination, Button, Modal, Col, Row, Container } from "react-bootstrap";
+import { Pagination, Button, Modal, Col, Row, Container, Form } from "react-bootstrap";
 import {
    Title,
    MainContainer,
@@ -14,31 +14,47 @@ import {
    TableRow,
    ColumnTitle,
    TableData,
-   TableCell, 
-   SortIcon
+   TableCell,
+   SortIcon,
+   BtnGroup
 } from "./styles.js"
 import { CustomMenu } from "../../../Componentes/CustomMenu";
 
 export default function ListarCompanhia() {
    const [companhia, setCompanhia] = useState(null);
-   const [buscar, setBuscar] = useState(null);
+   const [buscarEmpresa, setBuscarEmpresa] = useState(null);
+   const [buscarEmpresaId, setBuscarEmpresaId] = useState(null);
    const [page, setPage] = useState({});
    const [showModal, setShowModal] = useState(false);
    const [count, setCount] = useState(null);
-   const [statusArrow, setStatusArrow] = useState({"0": null, "1": null});
+   const [statusArrow, setStatusArrow] = useState({ "0": null, "1": null });
 
    const handleClose = () => setShowModal(false);
 
-   function buscarNome(event) {
+   function pesquisarEmpresa(event) {
       const value = event.target.value;
-      setBuscar(value);
+      setBuscarEmpresa(value);
+   }
+
+   function pesquisarId(event) {
+      const value = event.target.value;
+      setBuscarEmpresaId(value);
    }
 
    const buscarEnter = (event) => {
       if (event.keyCode === 13) {
-         requestData(event, buscar);
+         requestData(event, buscarEmpresaId, buscarEmpresa, page.current, null, null);
       }
    };
+
+   function preventNonNumericalInput(e) {
+      e = e || window.event;
+      var charCode = (typeof e.which == "undefined") ? e.keyCode : e.which;
+      var charStr = String.fromCharCode(charCode);
+
+      if (!charStr.match(/^[0-9]+$/))
+         e.preventDefault();
+   }
 
    async function deletarCompanhia(id) {
       try {
@@ -52,7 +68,7 @@ export default function ListarCompanhia() {
       }
    }
 
-   const requestData = async (e, param = "", page = 1, columnName, sortOrder) => {
+   const requestData = async (e, id = null, param = "", page = 1, columnName, sortOrder) => {
       try {
          if (e) {
             e.preventDefault();
@@ -61,21 +77,20 @@ export default function ListarCompanhia() {
             method: "get",
             url: "http://209.97.146.187:18919/companies/listar",
             params: {
-               idEduzz: null,
-               nome: param,
+               idEduzz: id,
+               name: param,
                sort: columnName,
                isDesc: sortOrder,
                page: page,
             },
          });
-         console.log(data.data)
          setCompanhia(data.data);
          setPage(data.meta.pagination);
       } catch (error) {
          alert(error);
       }
    };
-   
+
    useEffect(() => {
       requestData();
    }, []);
@@ -90,62 +105,83 @@ export default function ListarCompanhia() {
          >
             <Container>
                <Title>Empresa</Title>
-               <Row className="input-group">
-                  <Input
-                     className="form-control"
-                     type="text"
-                     placeholder="Digite o nome"
-                     onChange={buscarNome}
-                     onKeyDown={(e) => buscarEnter(e)}
-                     defaultValue={buscar}
-                  />
-                  <LittleBtn
-                     className="input-group-append"
-                     onClick={(e) => requestData(e, buscar)}
-                     type="button"
-                     yellowColor
+               <Col
+                  sm={{ span: 6 }}
+                  style={{
+                     alignSelf: "baseline",
+                     border: "1px solid rgba(0,0,0,0.20)",
+                     padding: 15,
+                     borderRadius: 5
+                  }}
+               >
+                  <Form>
+                     <Form.Group>
+                        <Form.Label>ID Eduzz: </Form.Label>
+                        <Form.Control
+                           type="number"
+                           onChange={pesquisarId}
+                           defaultValue={buscarEmpresaId}
+                           onKeyDown={(e) => buscarEnter(e)}
+                           onKeyPress={(e) => preventNonNumericalInput(e)}
+                           maxLength="10"
+                        />
+                     </Form.Group>
+                     <Form.Group>
+                        <Form.Label>Nome: </Form.Label>
+                        <Form.Control
+                           type="text"
+                           onChange={pesquisarEmpresa}
+                           onKeyDown={(e) => buscarEnter(e)}
+                           defaultValue={buscarEmpresa}
+                        />
+                     </Form.Group>
+                  </Form>
+                  <Button
+                     type="submit"
+                     variant="warning"
+                     onClick={(e) => requestData(e, buscarEmpresaId, buscarEmpresa, page.current, null, null)}
                   >
                      Buscar
-                  </LittleBtn>
+                  </Button>
                   <BtnCadastrar href={`/cadastrar/companhia/${"inserir"}`} className="btn btn-dark ml-3">
                      Cadastrar
                   </BtnCadastrar>
-               </Row>
+               </Col>
                <Table>
                   <TableHeader>
                      <TableRow>
                         <ColumnTitle scope="col" onClick={(e) => {
-                           setStatusArrow({"0": 1, "1": null})
-                           if(count == null){
+                           setStatusArrow({ "0": 1, "1": null })
+                           if (count == null) {
                               setCount(count + 1);
-                              requestData(e, buscar, page.current, "Cpn_cli_cod", false);
+                              requestData(e, buscarEmpresaId, buscarEmpresa, page.current, "Cpn_cli_cod", false);
                            } else {
                               setCount(null);
-                              requestData(e, buscar, page.current, "Cpn_cli_cod", true);
+                              requestData(e, buscarEmpresaId, buscarEmpresa, page.current, "Cpn_cli_cod", true);
                            }
                         }}>
                            <SortIcon>
-                              ID Eduzz {statusArrow[0] == null ? "" : 
-                              (
-                                 count == null ? <IoArrowUpSharp /> : <IoArrowDownSharp />
-                              )}
+                              ID Eduzz {statusArrow[0] == null ? "" :
+                                 (
+                                    count == null ? <IoArrowUpSharp /> : <IoArrowDownSharp />
+                                 )}
                            </SortIcon>
                         </ColumnTitle>
                         <ColumnTitle scope="col" onClick={(e) => {
-                           setStatusArrow({"0": null, "1": 1})
-                           if(count == null){
+                           setStatusArrow({ "0": null, "1": 1 })
+                           if (count == null) {
                               setCount(count + 1);
-                              requestData(e, buscar, page.current, "Cpn_name", false);
+                              requestData(e, buscarEmpresaId, buscarEmpresa, page.current, "Cpn_name", false);
                            } else {
                               setCount(null);
-                              requestData(e, buscar, page.current, "Cpn_name", true);
+                              requestData(e, buscarEmpresaId, buscarEmpresa, page.current, "Cpn_name", true);
                            }
                         }}>
                            <SortIcon>
-                              Nome {statusArrow[1] == null ? "" : 
-                              (
-                                 count == null ? <IoArrowUpSharp /> : <IoArrowDownSharp />
-                              )}
+                              Nome {statusArrow[1] == null ? "" :
+                                 (
+                                    count == null ? <IoArrowUpSharp /> : <IoArrowDownSharp />
+                                 )}
                            </SortIcon>
                         </ColumnTitle>
                         <ColumnTitle scope="col">Ações</ColumnTitle>
@@ -185,15 +221,15 @@ export default function ListarCompanhia() {
                   </TableData>
                </Table>
 
-               <Pagination style={{marginBottom: 20}}>
+               <Pagination style={{ marginBottom: 20 }}>
                   <Pagination.First onClick={(e) => {
-                     requestData(e, buscar, 1)
+                     requestData(e, buscarEmpresaId, buscarEmpresa, 1, null, null)
                      window.scroll(0, 0)
                   }} />
                   <Pagination.Prev
                      disabled={page.current === 1 ? true : false}
                      onClick={(e) => {
-                        requestData(e, buscar, page.current - 1)
+                        requestData(e, buscarEmpresaId, buscarEmpresa, page.current - 1, null, null)
                         window.scroll(0, 0)
                      }}
                   />
@@ -201,7 +237,7 @@ export default function ListarCompanhia() {
                   {page.current >= 2 ? (
                      <Pagination.Item
                         onClick={(e) => {
-                           requestData(e, buscar, page.current - 1)
+                           requestData(e, buscarEmpresaId, buscarEmpresa, page.current - 1, null, null)
                            window.scroll(0, 0)
                         }}
                      >
@@ -212,7 +248,7 @@ export default function ListarCompanhia() {
                   {page.total - page.current >= 1 ? (
                      <Pagination.Item
                         onClick={(e) => {
-                           requestData(e, buscar, page.current + 1)
+                           requestData(e, buscarEmpresaId, buscarEmpresa, page.current + 1, null, null)
                            window.scroll(0, 0)
                         }}
                      >
@@ -225,13 +261,13 @@ export default function ListarCompanhia() {
                   <Pagination.Next
                      disabled={page.current === page.total ? true : false}
                      onClick={(e) => {
-                        requestData(e, buscar, page.current + 1)
+                        requestData(e, buscarEmpresaId, buscarEmpresa, page.current + 1, null, null)
                         window.scroll(0, 0)
                      }}
                   />
                   <Pagination.Last
                      onClick={(e) => {
-                        requestData(e, buscar, page.total)
+                        requestData(e, buscarEmpresaId, buscarEmpresa, page.total, null, null)
                         window.scroll(0, 0)
                      }}
                   />
