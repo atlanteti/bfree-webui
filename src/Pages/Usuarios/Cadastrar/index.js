@@ -3,10 +3,9 @@ import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import { Redirect } from 'react-router-dom';
 import moment from "moment";
-
-import { Form, Col, Row, Button, Alert, Modal } from 'react-bootstrap';
+import { Title } from "./styles.js"
+import { Form, Col, Row, Button, Alert } from 'react-bootstrap';
 import { CustomMenu } from '../../../Componentes/CustomMenu';
-import "./styles.css";
 
 export default function EditUsuarios(props) {
    const [formData, updateFormData] = useState({
@@ -143,6 +142,7 @@ export default function EditUsuarios(props) {
                </Alert>
             </Col>
          }
+         <Title>{paramRoute === "inserir" ? "Cadastrar" : "Editar"} Usuário</Title>
          <CustomMenu />
          <Col >
             <Col style={{ marginTop: 48 }} md={{ span: 4, offset: 3 }}>

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { CustomMenu } from "../../../Componentes/CustomMenu";
 import { Form, Col, Row, Button, Alert } from 'react-bootstrap';
+import { Title } from "./styles.js"
 import moment from "moment";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
@@ -178,6 +179,7 @@ export default function EditBadges(props) {
                </Alert>
             </Col>
          }
+         <Title>{paramRoute === "inserir" ? "Cadastrar" : "Editar"} Badge</Title>
          <CustomMenu />
          <Col >
             <Col style={{ marginTop: 48 }} md={{ span: 4, offset: 3 }}>
