@@ -1,7 +1,7 @@
-import { Button, Row, InputGroup, FormControl} from "react-bootstrap";
-
-export default function SearchBar(props) {
-   return <Row className={"mb-2"} noGutters>
+import React from 'react'
+import { Button, Row, InputGroup, FormControl } from 'react-bootstrap'
+export default function SearchBar (props) {
+  return <Row className={'mb-2'} noGutters>
       <InputGroup>
          <FormControl
             type="text"
@@ -15,7 +15,7 @@ export default function SearchBar(props) {
                Buscar
             </Button>
          </InputGroup.Append>
-      <InputGroup.Append><Button className="ml-1" variant="dark" href={props.RegisterEndpoint}/*href="/cadastrar/companhia/inserir"*/>{props.ButtonLabel}</Button></InputGroup.Append>
+      <InputGroup.Append><Button className="ml-1" variant="dark" href={props.RegisterEndpoint}/* href="/cadastrar/companhia/inserir" */>{props.ButtonLabel}</Button></InputGroup.Append>
       </InputGroup>
-   </Row>;
+   </Row>
 }

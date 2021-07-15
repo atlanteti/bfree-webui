@@ -1,21 +1,20 @@
-import React from 'react';
-import { Form, Col, Row, Button } from 'react-bootstrap';
-import { FormField } from "../../../Componentes/FormField";
-import { DateField } from "../../../Componentes/DateField";
-import { ButtonRow } from "../../../Componentes/ButtonRow";
-import { EditCreateForm } from '../../../Componentes/EditCreateForm/index';
+import React from 'react'
+import { Form, Col, Row, Button } from 'react-bootstrap'
+import { FormField } from '../../../Componentes/FormField'
+import { DateField } from '../../../Componentes/DateField'
+import { ButtonRow } from '../../../Componentes/ButtonRow'
+import { EditCreateForm } from '../../../Componentes/EditCreateForm/index'
 
-export function CompanyForm(props)
-{
-   return <CompanyFormBuilder  insertDataEndpoint="companies/cadastrar"
+export function CompanyForm (props) {
+  return <CompanyFormBuilder insertDataEndpoint="companies/cadastrar"
                         requestDataEndpoint="companies/procurar/"
                         editDataEndpoint="companies/alterar/"
                         {...props}/>
 }
 
 export class CompanyFormBuilder extends EditCreateForm {
-   render() {
-      return <Form onSubmit={this.handleSubmit}>
+  render () {
+    return <Form onSubmit={this.handleSubmit}>
          <Row>
             <Col>
                <FormField
@@ -36,23 +35,27 @@ export class CompanyFormBuilder extends EditCreateForm {
                   onChange={this.handleChange} />
             </Col>
          </Row>
-         {this.props.paramRoute === "inserir" ? "" : (
+         {this.props.paramRoute === 'inserir'
+           ? ''
+           : (
             <>
                <DateField
                   controlId="cpn_dtcreation"
                   Label="Data de criação:"
                   date={this.state.primaryData?.cpn_dtcreation} />
-               {this.state.primaryData.cpn_dtupdate === null ? "" : (
+               {this.state.primaryData.cpn_dtupdate === null
+                 ? ''
+                 : (
                   <DateField
                      controlId="cpn_dtupdate"
                      Label="Data de atualização:"
                      date={this.state.primaryData?.cpn_dtupdate} />
-               )}
+                   )}
             </>
-         )}
+             )}
          <ButtonRow
-            cancelButton={<Button variant="warning" onClick={this.redirectCallback}>Cancelar</Button>}
-            confirmButton={<Button variant="dark" type="submit">{this.props.paramRoute === "inserir" ? "Cadastrar" : "Editar"}</Button>} />
-      </Form>;
-   }
+            cancelButton={<Button variant="warning" onClick={this.redirectCallback}>Voltar</Button>}
+            confirmButton={<Button variant="dark" type="submit">{this.props.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'}</Button>} />
+      </Form>
+  }
 }

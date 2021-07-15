@@ -1,49 +1,49 @@
-import React, { useState, useEffect, Component } from 'react';
+import React, { Component } from 'react'
 
-import { Title } from "./styles.js"
-import { Redirect } from "react-router-dom";
-import { Col } from 'react-bootstrap';
-import { CustomMenu } from '../../../Componentes/CustomMenu';
-import { CustomAlert } from '../../../Componentes/CustomAlert';
-import { CompanyForm } from './CompanyForm';
+import { Title } from './styles.js'
+import { Redirect } from 'react-router-dom'
+import { Col } from 'react-bootstrap'
+import { CustomMenu } from '../../../Componentes/CustomMenu'
+import { CustomAlert } from '../../../Componentes/CustomAlert'
+import { CompanyForm } from './CompanyForm'
 
-export default class CadastrarCompanhia extends Component
-{
-   constructor(props)
-   {
-      super(props)
-      this.state = {
-         companyData: {},
-         responseData: {},
-         responseAlertShow: null,
-         redirect: false,
-      }
-      this.paramRoute = props.match.params.param
-      this.companyId = Number(props.match.params.cpn_cod)
-   }
-   getAlertCallback(func) {
-      this.setState({
-         responseAlertShow: func
-      })
-   }
+export default class CadastrarCompanhia extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      companyData: {},
+      responseData: {},
+      responseAlertShow: null,
+      redirect: false
+    }
+    this.paramRoute = props.match.params.param
+    this.companyId = Number(props.match.params.cpn_cod)
+  }
 
-   showAlert(data) {
-      this.state.responseAlertShow(data)
-   }
-   redirect() {
-      this.setState({ redirect: true })
-   }
-   render() {
-      if (this.state.redirect) {
-         return <Redirect to="/companhia" />
-      }
-      else {
-         return <>
-            <Title>{this.paramRoute === "inserir" ? "Cadastrar" : "Editar"} Empresa </Title>
+  getAlertCallback (func) {
+    this.setState({
+      responseAlertShow: func
+    })
+  }
+
+  showAlert (data) {
+    this.state.responseAlertShow(data)
+  }
+
+  redirect () {
+    this.setState({ redirect: true })
+  }
+
+  render () {
+    if (this.state.redirect) {
+      return <Redirect to="/companhia" />
+    } else {
+      return <>
+            <Title>{this.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'} Empresa </Title>
             <CustomMenu />
             <Col style={{ marginTop: 48 }}>
                <Col
-                  sm={{ offset: 2, span: 6 }}//Temporary until styled components
+                  sm={{ offset: 2, span: 6 }}// Temporary until styled components
                   md={{ offset: 3, span: 5 }}
                   lg={{ offset: 3, span: 5 }}>
                   <CustomAlert
@@ -60,6 +60,6 @@ export default class CadastrarCompanhia extends Component
                </Col>
             </Col>
          </>
-      }
-   }
+    }
+  }
 }
