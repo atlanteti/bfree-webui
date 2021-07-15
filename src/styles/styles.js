@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const Title = styled.h1`
    font-size: 2rem;
@@ -36,7 +36,7 @@ export const Input = styled.input`
 `
 
 export const LittleBtn = styled.button`
-   background: ${props => props.yellowColor ? "#ffc107" : "#fff"};
+   background: ${props => props.yellowColor ? '#ffc107' : '#fff'};
    padding: 0.45rem 0.6rem;
    border-end-end-radius: 3px !important;
    border-start-end-radius: 3px !important;
@@ -126,8 +126,8 @@ export const TableRow = styled.tr`
 
 export const ColumnTitle = styled.th`
    padding: 0.1rem 0.4rem;
-   width: ${props => props.columnWidth ? "100px" : "50px"};
-   cursor: ${props => props.sort ? "pointer" : "default" };
+   width: ${props => props.columnWidth ? '100px' : '50px'};
+   cursor: ${props => props.sort ? 'pointer' : 'default'};
    text-align: left;
    border: 1px solid #dee2e6;
    background: #fff;
@@ -135,11 +135,11 @@ export const ColumnTitle = styled.th`
 
 export const NumberHeaderCell = styled(ColumnTitle)`
 text-align: right;
-`;
+`
 
 export const TextHeaderCell = styled(ColumnTitle)`
 text-align: left;
-`;
+`
 
 export const ActionHeaderCell = styled(ColumnTitle)`
 text-align: center`
