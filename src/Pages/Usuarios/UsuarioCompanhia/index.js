@@ -96,7 +96,7 @@ export default function UsuarioCompanhia(props) {
                <Form onSubmit={handleSubmit}>
                   <Row bsPrefix="column">
                      <Col>
-                        <Form.Group controlId="bdg_name">
+                        <Form.Group>
                            <Form.Label>ID Eduzz: </Form.Label>
                            <Form.Control
                               type="text"
@@ -111,7 +111,7 @@ export default function UsuarioCompanhia(props) {
                            value={options}
                            isMulti
                            onChange={onChange}
-                           name="teste"
+                           name="selectCompanys"
                            options={companysData}
                            className="basic-multi-select"
                            classNamePrefix="select"
