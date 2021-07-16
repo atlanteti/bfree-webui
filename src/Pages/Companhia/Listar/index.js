@@ -2,13 +2,11 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { IoArrowDownSharp, IoArrowUpSharp } from "react-icons/io5";
-import { Pagination, Button, Modal, Col, Row, Container, Form } from "react-bootstrap";
+import { Pagination, Button, Modal, Col, Container, Form } from "react-bootstrap";
 import {
    Title,
    MainContainer,
    BtnCadastrar,
-   Input,
-   LittleBtn,
    Table,
    TableHeader,
    TableRow,
@@ -16,7 +14,6 @@ import {
    TableData,
    TableCell,
    SortIcon,
-   BtnGroup
 } from "./styles.js"
 import { CustomMenu } from "../../../Componentes/CustomMenu";
 

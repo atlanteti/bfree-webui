@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { CustomMenu } from "../../../Componentes/CustomMenu";
 import { Link } from "react-router-dom"
 import { IoArrowDownSharp, IoArrowUpSharp } from "react-icons/io5";
-import { Button, Pagination, Modal, Col, Row, Container, Form } from 'react-bootstrap';
+import { Button, Pagination, Modal, Col, Container, Form } from 'react-bootstrap';
 import { IoCheckboxOutline } from "react-icons/io5";
 import {
    Title,
@@ -276,7 +276,7 @@ export default function ListarBadges() {
                                  </TableCell>
                                  <TableCell data-title="Mentor" className="icon">
                                     <Icon>
-                                       {badge?.bdg_mentor == true ? <IoCheckboxOutline align="center" size={25} /> : <p style={{ color: "transparent" }}>.</p>}
+                                       {badge?.bdg_mentor === true ? <IoCheckboxOutline align="center" size={25} /> : <p style={{ color: "transparent" }}>.</p>}
                                     </Icon>
                                  </TableCell>
                                  <TableCell data-title="Ações" className="acoes">

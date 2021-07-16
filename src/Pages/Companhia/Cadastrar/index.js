@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Component } from 'react';
+import React, { Component } from 'react';
 
 import { Title } from "./styles.js"
 import { Redirect } from "react-router-dom";
@@ -45,7 +45,7 @@ export default class CadastrarCompanhia extends Component {
             <CustomMenu />
             <Col style={{ marginTop: 48 }}>
                <Col
-                  sm={{ offset: 2, span: 6 }}//Temporary until styled components
+                  sm={{ offset: 2, span: 6 }}
                   md={{ offset: 3, span: 5 }}
                   lg={{ offset: 3, span: 5 }}>
                   <CustomAlert

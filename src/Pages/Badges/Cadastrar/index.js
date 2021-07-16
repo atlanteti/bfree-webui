@@ -76,7 +76,7 @@ export default function EditBadges(props) {
                   bdg_cpn_cod: badges.bdg_cpn_cod == null ? (badges.bdg_cpn_cod) : Number(badges.bdg_cpn_cod)
                }
             })
-            if (data.meta.status == 100) {
+            if (data.meta.status === 100) {
                setShowAlert(true);
                setMessage("Badge criada com sucesso!");
                setStatusMsg('success')
@@ -103,7 +103,7 @@ export default function EditBadges(props) {
                },
             })
 
-            if (data.meta.status == 100) {
+            if (data.meta.status === 100) {
                setRedirect(true);
             }
          }
@@ -203,11 +203,11 @@ export default function EditBadges(props) {
                               defaultValue={badges?.bdg_jny_cod}
                               disabled={statusJorn}
                            >
-                              {badges.bdg_jny_cod == "" && (badges.bdg_jny_cod = null)}
+                              {badges.bdg_jny_cod === "" && (badges.bdg_jny_cod = null)}
                               <option selected value={null}></option>
                               <>
                                  {jornada?.map(jorn => {
-                                    if (badges?.bdg_jny_cod == jorn.jny_cod) {
+                                    if (badges?.bdg_jny_cod === jorn.jny_cod) {
                                        return (
                                           <option
                                              selected key={jorn.jny_cod}
@@ -242,7 +242,7 @@ export default function EditBadges(props) {
                               {badges.bdg_jny_cod == null && <option selected value={null}></option>}
                               <>
                                  {companys?.map(company => {
-                                    if (badges?.bdg_cpn_cod == company.cpn_cod) {
+                                    if (badges?.bdg_cpn_cod === company.cpn_cod) {
                                        return (
                                           <option
                                              selected
