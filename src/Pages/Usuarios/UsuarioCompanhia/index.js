@@ -1,24 +1,52 @@
 import { useState, useEffect } from "react"
 import { CustomMenu } from "../../../Componentes/CustomMenu";
-import { Form, Col, Row, Button } from "react-bootstrap";
+import { Form, Col, Row, Button, Alert } from "react-bootstrap";
 import axios from "axios";
 import { Redirect } from "react-router-dom"
+import Select from 'react-select';
 
 export default function UsuarioCompanhia(props) {
    const userId = Number(props.match.params.userId);
 
+   const [showAlert, setShowAlert] = useState(false);
+   const [message, setMessage] = useState();
+   const [statusMsg, setStatusMsg] = useState();
+
+   const [companys, setCompanys] = useState([])
+   const [options, setOptions] = useState([])
    const [redirect, setRedirect] = useState(false);
 
+   const onChange = selectedOptions => setOptions(selectedOptions);
+
    const handleSubmit = async (e) => {
+      const cods = []
+      options.forEach(item => cods.push({ "cpn_cod": item.value }))
       try {
          e.preventDefault()
          const { data } = await axios({
             method: 'post',
-            url: "",
+            url: "http://209.97.146.187:18919/user-companies/cadastrar",
             data: {
+               user: { "usr_cod": userId },
+               companies: cods
             }
          })
+         if (data.meta.status == 100) {
+            setShowAlert(true);
+            setMessage("Dados alterado com sucesso!");
+            setStatusMsg('success')
 
+            setTimeout(() => {
+               setShowAlert(false);
+               setTimeout(() => {
+                  setRedirect(true);
+               }, 1000);
+            }, 1000);
+         } else {
+            setShowAlert(true);
+            setMessage("Algo deu errado. Tente novamente!");
+            setStatusMsg('warning');
+         }
       } catch (error) {
          console.log(error)
       }
@@ -28,25 +56,40 @@ export default function UsuarioCompanhia(props) {
       try {
          const { data } = await axios({
             method: 'get',
-            url: `http://209.97.146.187:18919/usuarios/procurar/${userId}`,
+            url: `http://209.97.146.187:18919/companies/listar-user-company`,
          })
-         console.log(data.data)
+
+         data.data.map(company => company.usersCompanies.filter(userCompany => userCompany.usc_usr_cod === userId).map(result => {
+            options.push({ value: company.cpn_cod, label: company.cpn_name })
+         }))
+
+         setCompanys(data.data)
       } catch (error) {
          console.log(error)
       }
    }
 
+   var companysData = companys.filter(company => company.cpn_name !== null).map(result => {
+      return ({ value: result.cpn_cod, label: result.cpn_name })
+   })
+
    useEffect(() => {
       requestData();
-   })
+   }, [])
 
    if (redirect) {
       return <Redirect to="/usuarios" />
    }
 
-
    return (
       <>
+         {showAlert &&
+            <Col md={{ span: 4, offset: 3 }} style={{ marginTop: 20 }}>
+               <Alert variant={statusMsg} onClose={() => setShowAlert(false)} dismissible>
+                  {message}
+               </Alert>
+            </Col>
+         }
          <CustomMenu />
          <Col >
             <Col style={{ marginTop: 48 }} md={{ span: 4, offset: 3 }}>
@@ -54,49 +97,25 @@ export default function UsuarioCompanhia(props) {
                   <Row bsPrefix="column">
                      <Col>
                         <Form.Group controlId="bdg_name">
-                           <Form.Label>Nome: </Form.Label>
+                           <Form.Label>ID Eduzz: </Form.Label>
                            <Form.Control
                               type="text"
-                              // onChange={handleChange}
-                              // defaultValue={badges?.bdg_name}
+                              value={userId}
+                              disabled
                               required
                            />
                         </Form.Group>
                      </Col>
                      <Col>
-                        <Form.Group controlId="bdg_cpn_cod">
-                           <Form.Label>Empresa: </Form.Label>
-                           <Form.Control
-                              as="select"
-                           // onChange={handleChange}
-                           // defaultValue={badges?.bdg_cpn_cod}
-                           >
-                              {/* (
-                              {badges.bdg_jny_cod == null && <option selected value={null}></option>}
-                              <>
-                                 {companys?.map(company => {
-                                    if (badges?.bdg_cpn_cod == company.cpn_cod) {
-                                       return (
-                                          <option
-                                             selected
-                                             key={company.cpn_cod}
-                                             value={company.cpn_cod}
-                                          >
-                                             {company.cpn_name}
-                                          </option>)
-                                    }
-                                    return (
-                                       <option
-                                          key={company.cpn_cod}
-                                          value={company.cpn_cod}
-                                       >
-                                          {company.cpn_name}
-                                       </option>)
-                                 })}
-                                 {badges.bdg_jny_cod == null && (badges.bdg_cpn_cod == null) ? badges.bdg_cpn_cod = null : badges.bdg_cpn_cod}
-                              </> */}
-                           </Form.Control>
-                        </Form.Group>
+                        <Select
+                           value={options}
+                           isMulti
+                           onChange={onChange}
+                           name="teste"
+                           options={companysData}
+                           className="basic-multi-select"
+                           classNamePrefix="select"
+                        />
                      </Col>
                   </Row>
                   <Row style={{ marginTop: 30, marginBottom: 20 }}>

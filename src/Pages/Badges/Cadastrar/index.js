@@ -64,7 +64,6 @@ export default function EditBadges(props) {
    }
 
    const handleSubmit = async (e) => {
-      console.log(badges)
       try {
          e.preventDefault()
          if (paramRoute === "inserir") {
@@ -77,7 +76,6 @@ export default function EditBadges(props) {
                   bdg_cpn_cod: badges.bdg_cpn_cod == null ? (badges.bdg_cpn_cod) : Number(badges.bdg_cpn_cod)
                }
             })
-            console.log(data)
             if (data.meta.status == 100) {
                setShowAlert(true);
                setMessage("Badge criada com sucesso!");
