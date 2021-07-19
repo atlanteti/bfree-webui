@@ -1,26 +1,6 @@
-
-@media (min-width: 768px) {
-    .navbar-expand-md .navbar-nav .nav-link {
-        padding-right: 1.5rem !important;
-        padding-left: 1.5rem !important;
-    }
-}
-
 @media all and (min-width: 767px){
    .btn-position {
       position: absolute;
       top: 0;
    }
-}
-
-.nav-dropdown a {
-    color: black !important;
-    border-right: 1px solid rgba(0, 0, 0, .2);
-}
-
-#secondary-nav {
-   border-top: 1px solid rgba(0, 0, 0, .2);
-   border-bottom: 3px solid rgba(0, 0, 0, .2);
-   background-color: #f8f9fa !important;
-   margin-bottom: 3%;
 }

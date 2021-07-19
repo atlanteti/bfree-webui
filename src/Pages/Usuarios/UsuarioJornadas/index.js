@@ -1,4 +1,4 @@
-import { useState, useEffect, Component } from "react"
+import { useState, useEffect } from "react"
 import { CustomMenu } from "../../../Componentes/CustomMenu";
 import { Form, Col, Row, Button, Alert } from "react-bootstrap";
 import axios from "axios";
@@ -12,6 +12,7 @@ export default function UsuarioJornadas(props) {
    const [message, setMessage] = useState();
    const [statusMsg, setStatusMsg] = useState();
 
+   const [userData, setUserData] = useState();
    const [journeys, setJourneys] = useState([])
    const [options, setOptions] = useState([])
    const [redirect, setRedirect] = useState(false);
@@ -57,12 +58,12 @@ export default function UsuarioJornadas(props) {
       try {
          const { data } = await axios({
             method: 'get',
-            url: `http://209.97.146.187:18919/jorneys/listar-user-jorney`,
+            url: `http://209.97.146.187:18919/jorneys/listar-user-jorney?userId=${userId}`,
          })
 
-         data.data.map(journey => journey.userJourneys.filter(userJourney => userJourney.jnu_usr_cod === userId).map(result => {
-            options.push({ value: journey.jny_cod, label: journey.jny_name })
-         }))
+         data.data.filter(journey => journey.pertence === "S").map(result => {
+            return options.push({ value: result.jny_cod, label: result.jny_name })
+         });
 
          setJourneys(data.data)
       } catch (error) {
@@ -70,12 +71,25 @@ export default function UsuarioJornadas(props) {
       }
    }
 
+   const requestUser = async () => {
+      try {
+         const { data } = await axios({
+            method: 'get',
+            url: `http://209.97.146.187:18919/usuarios/procurar/${userId}`,
+         })
+         setUserData(data.data)
+      } catch (error) {
+         console.log(error)
+      }
+   };
+
    var journeyData = journeys.map(result => {
       return ({ value: result.jny_cod, label: result.jny_name })
    })
 
    useEffect(() => {
       requestData();
+      requestUser();
    }, [])
 
    if (redirect) {
@@ -98,10 +112,10 @@ export default function UsuarioJornadas(props) {
                   <Row bsPrefix="column">
                      <Col>
                         <Form.Group>
-                           <Form.Label>ID do Usuário: </Form.Label>
+                           <Form.Label>ID Eduzz: </Form.Label>
                            <Form.Control
                               type="text"
-                              value={userId}
+                              value={userData?.usr_cli_cod}
                               disabled
                               required
                            />
@@ -113,7 +127,7 @@ export default function UsuarioJornadas(props) {
                            value={options}
                            isMulti
                            onChange={onChange}
-                           name="selectCompanys"
+                           name="selectBadges"
                            options={journeyData}
                            className="basic-multi-select"
                            classNamePrefix="select"
@@ -129,7 +143,7 @@ export default function UsuarioJornadas(props) {
                      </Button>
 
                      <Button variant="warning" type="submit" style={{ marginLeft: 30 }}>
-                        Cadastrar
+                        Editar
                      </Button>
                   </Row>
                </Form>
