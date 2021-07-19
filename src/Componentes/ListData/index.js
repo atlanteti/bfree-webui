@@ -113,7 +113,7 @@ export default class ListarPagina extends Component {
                      data={this.state.responseMetaData}
                      showAlertCallback={this.getAlertCallback.bind(this)}
                      redirectCallback={this.redirectCallback.bind(this)}/>
-                  <Row>
+                  <Row xs={1}>
                       <this.PageHeaderCustom/>
                   </Row>
                   <this.SearchBarCustom 
