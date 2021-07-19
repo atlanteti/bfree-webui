@@ -48,11 +48,12 @@ export class EditCreateForm extends Component {
          data: formData,
       });
    }
+   formatData() {
+      return this.state.primaryData
+   }
+   
    handleSubmit = async (e) => {
-      const formData = {
-         ...this.state.primaryData,
-         cpn_cli_cod: Number(this.state.primaryData.cpn_cli_cod)
-      };
+      const formData = this.formatData();
       e.preventDefault();
       let data = null;
       try {

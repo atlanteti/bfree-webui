@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import "./styles.css";
+// import "./styles.css";
 import { Pagination, Button } from "react-bootstrap";
 import moment from "moment";
 import { CustomMenu } from "../../../Componentes/CustomMenu";

@@ -1,38 +1,39 @@
 import React from 'react'
 import { Form, Col, Row, Button } from 'react-bootstrap'
-import { FormField } from '../../../Componentes/FormField'
+import { TextField, SelectField } from '../../../Componentes/FormFields'
 import { DateField } from '../../../Componentes/DateField'
 import { ButtonRow } from '../../../Componentes/ButtonRow'
 import { EditCreateForm } from '../../../Componentes/EditCreateForm/index'
+import ListCompanies from '../../../Componentes/ListCompanies'
 
-export function CompanyForm (props) {
-  return <CompanyFormBuilder insertDataEndpoint="companies/cadastrar"
-                        requestDataEndpoint="companies/procurar/"
-                        editDataEndpoint="companies/alterar/"
+
+export default function JourneyForm (props) {
+  return <JourneyFormBuilder insertDataEndpoint="jorneys/cadastrar"
+                        requestDataEndpoint="jorneys/procurar/"
+                        editDataEndpoint="jorneys/alterar/"
                         {...props}/>
 }
 
-export class CompanyFormBuilder extends EditCreateForm {
+export class JourneyFormBuilder extends EditCreateForm {
   render () {
     return <Form onSubmit={this.handleSubmit}>
          <Row>
             <Col>
-               <FormField
-                  controlId="cpn_cli_cod"
-                  Label="ID Eduzz:"
-                  type="number"
-                  defaultValue={this.state.primaryData?.cpn_cli_cod}
+               <TextField
+                  controlId="jny_name"
+                  Label="Nome:"
+                  type="text"
+                  defaultValue={this.state.primaryData?.jny_name}
                   onChange={this.handleChange} />
             </Col>
          </Row>
          <Row>
             <Col>
-               <FormField
-                  controlId="cpn_name"
-                  Label="Nome:"
-                  type="text"
-                  defaultValue={this.state.primaryData?.cpn_name}
-                  onChange={this.handleChange} />
+               <ListCompanies 
+                  defaultValue={this.props.primaryId}
+                  onChange={this.handleChange}
+                  controlId="jny_cpn_cod"
+                  defaultCompany={this.state.primaryData?.company}/>
             </Col>
          </Row>
          {this.props.paramRoute === 'inserir'
@@ -40,16 +41,16 @@ export class CompanyFormBuilder extends EditCreateForm {
            : (
             <>
                <DateField
-                  controlId="cpn_dtcreation"
+                  controlId="jny_dtcreation"
                   Label="Data de criação:"
-                  date={this.state.primaryData?.cpn_dtcreation} />
-               {this.state.primaryData.cpn_dtupdate === null
+                  date={this.state.primaryData?.jny_dtcreation} />
+               {this.state.primaryData?.jny_dtupdate === null
                  ? ''
                  : (
                   <DateField
-                     controlId="cpn_dtupdate"
+                     controlId="jny_dtupdate"
                      Label="Data de atualização:"
-                     date={this.state.primaryData?.cpn_dtupdate} />
+                     date={this.state.primaryData?.jny_dtupdate} />
                    )}
             </>
              )}

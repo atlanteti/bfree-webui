@@ -14,12 +14,14 @@ import UsuarioBadges from './Pages/Usuarios/UsuarioBadges';
 import UsuarioTipoDemanda from './Pages/Usuarios/UsuarioTipoDemanda';
 
 import ListarCompanhia from './Pages/Companhia/Listar'
-import EditCompanhia from './Pages/Companhia/Cadastrar'
+import CadastrarCompanhia from './Pages/Companhia/Cadastrar'
 
 import EditarJornada from './Pages/JornadaUsuarios/Editar'
 import ListarJornadaUsuarios from './Pages/JornadaUsuarios/Listar'
 
-import ListarJornadas from './Pages/TipoJornadas/Listar'
+import ListarJornada from './Pages/Jornadas/Listar'
+// import ListarJornadas from './Pages/TipoJornadas/Listar'
+import CadastrarJornada from './Pages/Jornadas/Cadastrar'
 import EditTJornadas from './Pages/TipoJornadas/Cadastrar'
 
 import EditBadges from './Pages/Badges/Cadastrar'
@@ -40,14 +42,14 @@ ReactDOM.render(
             <Route path="/usuario-tipodemanda/:userId" component={UsuarioTipoDemanda} />
             <Route path="/cadastrar" component={Cadastros} />
             <Route path="/companhia" component={ListarCompanhia} />
-            <Route path="/jornadas" component={ListarJornadas} />
+            <Route path="/jornadas" component={ListarJornada} />
             <Route path="/badges" component={ListarBadges} />
             <Route path="/tipodemanda" component={ListarTipoDemanda} />
             <Route path="/usuario-jornadas" component={ListarJornadaUsuarios} />
             <Route path="/editar/:usr_cod/:route" component={EditUsuarios} />
-            <Route path="/editar-companhia/:cpn_cod/:param" component={EditCompanhia} />
+            <Route path="/editar-companhia/:cpn_cod/:param" component={CadastrarCompanhia} />
             <Route path="/editar-jornada-usuario/:jnu_cod" component={EditarJornada} />
-            <Route path="/editar-jornada/:jny_cod/:param" component={EditTJornadas} />
+            <Route path="/editar-jornada/:jny_cod/:param" component={CadastrarJornada} />
             <Route path="/editar-badge/:bdg_cod/:param" component={EditBadges} />
             <Route path="/editar-tipodemanda/:tdm_cod/:param" component={EditTipoDemanda} />
          </Switch>

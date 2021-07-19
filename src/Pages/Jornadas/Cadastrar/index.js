@@ -5,17 +5,19 @@ import { Redirect } from 'react-router-dom'
 import { Col } from 'react-bootstrap'
 import { CustomMenu } from '../../../Componentes/CustomMenu'
 import { CustomAlert } from '../../../Componentes/CustomAlert'
-import CompanyForm from './Form'
+import JourneyForm from './Form'
 
-export default class CadastrarCompanhia extends Component {
+export default class CadastrarJornada extends Component {
   constructor (props) {
     super(props)
     this.state = {
+      journeyData: {},
+      responseData: {},
       responseAlertShow: null,
       redirect: false
     }
     this.paramRoute = props.match.params.param
-    this.companyId = Number(props.match.params.cpn_cod)
+    this.journeyId = Number(props.match.params.jny_cod)
   }
 
   getAlertCallback (func) {
@@ -34,10 +36,10 @@ export default class CadastrarCompanhia extends Component {
 
   render () {
     if (this.state.redirect) {
-      return <Redirect to="/companhia" />
+      return <Redirect to="/jornadas" />
     } else {
       return <>
-            <Title>{this.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'} Empresa </Title>
+            <Title>{this.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'} Jornadas </Title>
             <CustomMenu />
             <Col style={{ marginTop: 48 }}>
                <Col
@@ -45,12 +47,13 @@ export default class CadastrarCompanhia extends Component {
                   md={{ offset: 3, span: 5 }}
                   lg={{ offset: 3, span: 5 }}>
                   <CustomAlert
+                     data={this.state.responseData}
                      showAlertCallback={this.getAlertCallback.bind(this)}
                      redirectCallback={this.redirect.bind(this)}
                   />
-                  <CompanyForm
+                  <JourneyForm
                      paramRoute={this.paramRoute}
-                     primaryId={this.companyId}
+                     primaryId={this.journeyId}
                      redirectCallback={this.redirect.bind(this)}
                      showAlert={this.showAlert.bind(this)}
                   />

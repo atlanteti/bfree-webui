@@ -1,45 +1,48 @@
-import { Button } from 'react-bootstrap'
-import SearchBar from '../../../Componentes/SearchBar'
+import { Button, Col, Container, Row } from 'react-bootstrap'
+// import SearchBar from '../../../Componentes/SearchBar'
 import { request } from '../../../Services/api'
 import ExclusionModal from '../../../Componentes/ExclusionModal'
 import ListarPagina from '../../../Componentes/ListData'
 import {
-  ActionCell, ActionHeaderCell, NumberCell, NumberHeaderCell,
-  TableRow, TextCell, TextHeaderCell
+  ActionCell, ActionHeaderCell,
+  RightAlignText,
+  TableRow, TextCell, TextHeaderCell, Title
 } from '../../../styles/styles'
 import SortColumn from '../../../Componentes/SortColumn'
-import React from 'react'
+import { React } from 'react'
+import SearchBar from '../../../Componentes/SearchBar'
 
-export default class ListarCompanhia extends ListarPagina {
+export default class ListarJornada extends ListarPagina {
   async deleteRecord (id) {
     const data = await request({
       method: 'delete',
-      endpoint: 'companies/excluir/' + id
+      endpoint: 'jorneys/excluir/' + id
     })
     return data
   }
 
-  async fetchData (page, sort, isDesc) {
+  async fetchData (page, sort, isDesc, extraParams) {
     const data = await request({
       method: 'get',
-      endpoint: 'companies/listar',
+      endpoint: 'jorneys/listar',
       params: {
         page: Number(page),
         sort: sort,
-        isDesc: isDesc
+        isDesc: isDesc,
+        ...extraParams
       }
     })
     return data
   }
 
   async reorderData ({ sort, isDesc = false }) {
-    await this.fetchAndSetData({ page: this.state.page.current, sort: sort, isDesc: isDesc })
+    await this.fetchAndSetData({ page: 1, sort: sort, isDesc: isDesc })
   }
 
   async SearchData (nome) {
     const data = await request({
       method: 'get',
-      endpoint: 'companies/listar',
+      endpoint: 'jorneys/listar',
       params:
          {
            nome: nome
@@ -48,29 +51,40 @@ export default class ListarCompanhia extends ListarPagina {
     return data
   }
 
-  SearchBarCustom () {
+  SearchBarCustom (props) {
     return <SearchBar
-      InputPlaceholder="Insira o nome da empresa"
-      ButtonLabel="Cadastrar"
-      RegisterEndpoint="/cadastrar/companhia/inserir" />
+      Label="Nome:"
+      InputPlaceHolder="Insira o nome da Jornada"
+      filterData={props.filterData}
+      registerEndpoint="cadastrar/jorney"
+      />
   }
 
   PageHeaderCustom () {
-    return 'Empresas'
+    return <Container fluid>
+      <Row >
+        <Col>
+          <Title>Jornadas</Title>
+        </Col>
+        <RightAlignText>
+          <Col><Button variant="dark" href="/cadastrar/jorneys/inserir">Cadastrar</Button></Col>
+        </RightAlignText>
+      </Row>
+    </Container>
   }
 
   TableHeaderCustom (props) {
     return <TableRow {...props}>
-         <NumberHeaderCell scope="col">
+         <TextHeaderCell scope="col">
                <SortColumn
-                  label="ID Externo"
-                  attribute="cpn_cli_cod"
+                  label="Nome"
+                  attribute="jny_name"
                   sortCallback={props.sortCallback}
                   receiver={props.subscribe}
                   wipeAll={props.wipeAll}/>
-         </NumberHeaderCell>
+         </TextHeaderCell>
          <TextHeaderCell scope="col"><SortColumn
-                  label="Nome"
+                  label="Empresa"
                   attribute="cpn_name"
                   sortCallback={props.sortCallback}
                   receiver={props.subscribe}
@@ -79,20 +93,20 @@ export default class ListarCompanhia extends ListarPagina {
       </TableRow>
   }
 
-  createRecord (companhia) {
-    return <TableRow key={companhia.usr_cod}>
-         <NumberCell data-title="ID Eduzz">{companhia.cpn_cli_cod}</NumberCell>
-         <TextCell data-title="Nome">{companhia.cpn_name}</TextCell>
+  createRecord (jornada) {
+    return <TableRow key={jornada.jny_cod}>
+         <TextCell data-title="Nome">{jornada.jny_name}</TextCell>
+         <TextCell data-title="Empresa" className="text">{jornada.company.cpn_name}</TextCell>
          <ActionCell data-title="Ações">
-               <Button variant="warning" href={`/editar-companhia/${companhia.cpn_cod}/alterar`}>Editar</Button>
+               <Button variant="warning" href={`/editar-jornada/${jornada.jny_cod}/alterar`}>Editar</Button>
                <Button variant="dark" onClick={this.openModal}>Excluir</Button>
          </ActionCell>
          <ExclusionModal
             showModal={this.state.showModal}
             closeModal={this.closeModal}
-            pageIdentifier="a empresa" // Talvez isso possa ser generalizado para o contexto da página
+            pageIdentifier="a jornada" // Talvez isso possa ser generalizado para o contexto da página
             deletionCallback={this.deleteRecord}
-            identifierCode={companhia.cpn_cod}
+            identifierCode={jornada.jny_cod}
             updateListing={this.updateListing.bind(this)}
             showAlert={this.showAlert.bind(this)} />
       </TableRow>
