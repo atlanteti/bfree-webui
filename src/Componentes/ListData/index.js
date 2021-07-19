@@ -15,15 +15,15 @@ export default class ListarPagina extends Component {
       responseData: null,
       responseAlertShow: null
     }
-
+    
     this.openModal = this.openModal.bind(this)
     this.closeModal = this.closeModal.bind(this)
     this.fetchAndSetData = this.fetchAndSetData.bind(this)
     this.columnSortArray = []
   }
 
-  async fetchAndSetData ({ page = 1, sort, isDesc = false }) {
-    const data = await this.fetchData(page, sort, isDesc)
+  async fetchAndSetData ({ page = 1, sort, isDesc = false, extraParams}) {
+    const data = await this.fetchData(page, sort, isDesc, extraParams)
     this.setState({
       responseMetaData: data.meta,
       responseData: data.data,
@@ -114,11 +114,10 @@ export default class ListarPagina extends Component {
                      showAlertCallback={this.getAlertCallback.bind(this)}
                      redirectCallback={this.redirectCallback.bind(this)}/>
                   <Row>
-                     <Title>
-                        <this.PageHeaderCustom/>
-                     </Title>
+                      <this.PageHeaderCustom/>
                   </Row>
-                  <this.SearchBarCustom />
+                  <this.SearchBarCustom 
+                    filterData={this.fetchAndSetData}/>
                   <Row>
                      <Table>
                         <TableHeader>
