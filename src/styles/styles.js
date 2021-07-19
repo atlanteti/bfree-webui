@@ -3,7 +3,15 @@ import styled from 'styled-components'
 export const Title = styled.h1`
    font-size: 2rem;
 `
-
+export const RightAlignText = styled.div`
+   .col{
+      text-align: end
+   }`
+export const SearchBarBorder = styled.div`
+      border: 1px solid rgba(0,0,0,0.20);
+      padding: 15px;
+      border-radius: 5px;
+      `
 export const MainContainer = styled.div`
    .container{
       display: flex;
