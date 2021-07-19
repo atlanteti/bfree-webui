@@ -306,9 +306,11 @@ export default function Usuarios() {
                                           Jornadas
                                        </MenuItem>
                                     </Link>
-                                    <MenuItem onClick={handleClose}>
-                                       Tipos de Demanda
-                                    </MenuItem>
+                                    <Link to={`/usuario-tipodemanda/${idUser}`}>
+                                       <MenuItem onClick={handleClose}>
+                                          Tipos de Demanda
+                                       </MenuItem>
+                                    </Link>
                                     <Link to={`/usuario-badges/${idUser}`}>
                                        <MenuItem onClick={handleClose}>
                                           Badges
