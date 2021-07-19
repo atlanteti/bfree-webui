@@ -5,14 +5,12 @@ import { Redirect } from 'react-router-dom'
 import { Col } from 'react-bootstrap'
 import { CustomMenu } from '../../../Componentes/CustomMenu'
 import { CustomAlert } from '../../../Componentes/CustomAlert'
-import { CompanyForm } from './CompanyForm'
+import CompanyForm from './Form'
 
 export default class CadastrarCompanhia extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      companyData: {},
-      responseData: {},
       responseAlertShow: null,
       redirect: false
     }
@@ -47,7 +45,6 @@ export default class CadastrarCompanhia extends Component {
                   md={{ offset: 3, span: 5 }}
                   lg={{ offset: 3, span: 5 }}>
                   <CustomAlert
-                     data={this.state.responseData}
                      showAlertCallback={this.getAlertCallback.bind(this)}
                      redirectCallback={this.redirect.bind(this)}
                   />
