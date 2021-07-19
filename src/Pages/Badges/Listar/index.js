@@ -279,7 +279,7 @@ export default function ListarBadges () {
                                  </TableCell>
                                  <TableCell data-title="Mentor" className="icon">
                                     <Icon>
-                                       {badge?.bdg_mentor == true ? <IoCheckboxOutline align="center" size={25} /> : <p style={{ color: 'transparent' }}>.</p>}
+                                       {badge?.bdg_mentor === true ? <IoCheckboxOutline align="center" size={25} /> : <p style={{ color: "transparent" }}>.</p>}
                                     </Icon>
                                  </TableCell>
                                  <TableCell data-title="Ações" className="acoes">

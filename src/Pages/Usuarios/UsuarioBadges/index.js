@@ -5,23 +5,22 @@ import axios from "axios";
 import { Redirect } from "react-router-dom"
 import Select from 'react-select';
 
-export default function UsuarioCompanhia(props) {
+export default function UsuarioBadges(props) {
    const userId = Number(props.match.params.userId);
 
    const [showAlert, setShowAlert] = useState(false);
    const [message, setMessage] = useState();
    const [statusMsg, setStatusMsg] = useState();
 
-   const [userData, setUserData] = useState();
-   const [companys, setCompanys] = useState([])
-   const [options, setOptions] = useState([])
+   const [badges, setBadges] = useState([])
+   const [selected, setSelected] = useState([])
    const [redirect, setRedirect] = useState(false);
 
-   const onChange = selectedOptions => setOptions(selectedOptions);
+   const onChange = selectedOptions => setSelected(selectedOptions);
 
    const handleSubmit = async (e) => {
-      const cods = []
-      options.forEach(item => cods.push({ "cpn_cod": item.value }))
+      const valuesUser = []
+      selected.forEach(item => valuesUser.push({ "cpn_cod": item.value }))
       try {
          e.preventDefault()
          const { data } = await axios({
@@ -29,7 +28,7 @@ export default function UsuarioCompanhia(props) {
             url: "http://209.97.146.187:18919/user-companies/cadastrar",
             data: {
                user: { "usr_cod": userId },
-               companies: cods
+               badges: valuesUser
             }
          })
          if (data.meta.status === 100) {
@@ -59,37 +58,23 @@ export default function UsuarioCompanhia(props) {
             method: 'get',
             url: `http://209.97.146.187:18919/companies/listar-user-company`,
          })
-
-         console.log(data.data)
-         data.data.map(company => company.usersCompanies.filter(userCompany => userCompany.usc_usr_cod === userId).map(result => {
-            return options.push({ value: company.cpn_cod, label: company.cpn_name })
+         // revisar os valores
+         data.data.map(badges => badges.usersBadges.filter(userBadges => userBadges.usc_usr_cod === userId).map(() => {
+            return selected.push({ value: badges.bdg_cod, label: badges.bdg_name })
          }))
 
-         setCompanys(data.data)
+         setBadges(data.data)
       } catch (error) {
          console.log(error)
       }
    }
 
-   const requestUser = async () => {
-      try {
-         const { data } = await axios({
-            method: 'get',
-            url: `http://209.97.146.187:18919/usuarios/procurar/${userId}`,
-         })
-         setUserData(data.data)
-      } catch (error) {
-         console.log(error)
-      }
-   };
-
-   var companysData = companys.filter(company => company.cpn_name !== null).map(result => {
-      return ({ value: result.cpn_cod, label: result.cpn_name })
+   var badgesData = badges.filter(badge => badge.bdg_name !== null).map(result => {
+      return ({ value: result.bdg_cod, label: result.bdg_name })
    })
 
    useEffect(() => {
       requestData();
-      requestUser();
    }, [])
 
    if (redirect) {
@@ -112,23 +97,23 @@ export default function UsuarioCompanhia(props) {
                   <Row bsPrefix="column">
                      <Col>
                         <Form.Group>
-                           <Form.Label>ID Eduzz: </Form.Label>
+                           <Form.Label>ID do Usuário: </Form.Label>
                            <Form.Control
                               type="text"
-                              value={userData?.usr_cli_cod}
+                              value={userId}
                               disabled
                               required
                            />
                         </Form.Group>
                      </Col>
                      <Col>
-                        <Form.Label>Empresas: </Form.Label>
+                        <Form.Label>Badges: </Form.Label>
                         <Select
-                           value={options}
+                           value={selected}
                            isMulti
                            onChange={onChange}
-                           name="selectCompanys"
-                           options={companysData}
+                           name="selectBadges"
+                           options={badgesData}
                            className="basic-multi-select"
                            classNamePrefix="select"
                         />

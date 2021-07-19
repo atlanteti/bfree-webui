@@ -203,12 +203,12 @@ export default function EditBadges (props) {
                               defaultValue={badges?.bdg_jny_cod}
                               disabled={statusJorn}
                            >
-                              {badges.bdg_jny_cod === '' && (badges.bdg_jny_cod = null)}
+                              {badges.bdg_jny_cod === "" && (badges.bdg_jny_cod = null)}
                               <option selected value={null}></option>
                               <>
                                  {jornada?.map(jorn => {
-                                   if (badges?.bdg_jny_cod === jorn.jny_cod) {
-                                     return (
+                                    if (badges?.bdg_jny_cod === jorn.jny_cod) {
+                                       return (
                                           <option
                                              selected key={jorn.jny_cod}
                                              value={jorn.jny_cod}

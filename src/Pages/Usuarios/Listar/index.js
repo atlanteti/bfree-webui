@@ -304,7 +304,9 @@ export default function Usuarios() {
                                        </Link>
                                     </MenuItem>
                                     <MenuItem onClick={handleClose}>
-                                       Jornadas
+                                       <Link to={`/usuario-jornadas/${idUser}`}>
+                                          Jornadas
+                                       </Link>
                                     </MenuItem>
                                     <MenuItem onClick={handleClose}>
                                        Tipos de Demanda

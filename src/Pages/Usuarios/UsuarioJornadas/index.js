@@ -5,7 +5,7 @@ import axios from "axios";
 import { Redirect } from "react-router-dom"
 import Select from 'react-select';
 
-export default function UsuarioCompanhia(props) {
+export default function UsuarioJornadas(props) {
    const userId = Number(props.match.params.userId);
 
    const [showAlert, setShowAlert] = useState(false);
@@ -13,7 +13,7 @@ export default function UsuarioCompanhia(props) {
    const [statusMsg, setStatusMsg] = useState();
 
    const [userData, setUserData] = useState();
-   const [companys, setCompanys] = useState([])
+   const [journeys, setJourneys] = useState([])
    const [options, setOptions] = useState([])
    const [redirect, setRedirect] = useState(false);
 
@@ -21,18 +21,18 @@ export default function UsuarioCompanhia(props) {
 
    const handleSubmit = async (e) => {
       const cods = []
-      options.forEach(item => cods.push({ "cpn_cod": item.value }))
+      options.forEach(item => cods.push({ "jny_cod": item.value }))
       try {
          e.preventDefault()
          const { data } = await axios({
             method: 'post',
-            url: "http://209.97.146.187:18919/user-companies/cadastrar",
+            url: "http://209.97.146.187:18919/user-jorneys/cadastrar",
             data: {
                user: { "usr_cod": userId },
-               companies: cods
+               journeys: cods
             }
          })
-         if (data.meta.status === 100) {
+         if (data.meta.status == 100) {
             setShowAlert(true);
             setMessage("Dados alterado com sucesso!");
             setStatusMsg('success')
@@ -43,6 +43,7 @@ export default function UsuarioCompanhia(props) {
                   setRedirect(true);
                }, 1000);
             }, 1000);
+
          } else {
             setShowAlert(true);
             setMessage("Algo deu errado. Tente novamente!");
@@ -57,15 +58,14 @@ export default function UsuarioCompanhia(props) {
       try {
          const { data } = await axios({
             method: 'get',
-            url: `http://209.97.146.187:18919/companies/listar-user-company`,
+            url: `http://209.97.146.187:18919/jorneys/listar-user-jorney?userId=${userId}`,
          })
 
-         console.log(data.data)
-         data.data.map(company => company.usersCompanies.filter(userCompany => userCompany.usc_usr_cod === userId).map(result => {
-            return options.push({ value: company.cpn_cod, label: company.cpn_name })
-         }))
+         data.data.filter(journey => journey.pertence === "S").map(result => {
+            return options.push({ value: result.jny_cod, label: result.jny_name })
+         });
 
-         setCompanys(data.data)
+         setJourneys(data.data)
       } catch (error) {
          console.log(error)
       }
@@ -83,8 +83,8 @@ export default function UsuarioCompanhia(props) {
       }
    };
 
-   var companysData = companys.filter(company => company.cpn_name !== null).map(result => {
-      return ({ value: result.cpn_cod, label: result.cpn_name })
+   var journeyData = journeys.map(result => {
+      return ({ value: result.jny_cod, label: result.jny_name })
    })
 
    useEffect(() => {
@@ -122,13 +122,13 @@ export default function UsuarioCompanhia(props) {
                         </Form.Group>
                      </Col>
                      <Col>
-                        <Form.Label>Empresas: </Form.Label>
+                        <Form.Label>Jornadas: </Form.Label>
                         <Select
                            value={options}
                            isMulti
                            onChange={onChange}
-                           name="selectCompanys"
-                           options={companysData}
+                           name="selectBadges"
+                           options={journeyData}
                            className="basic-multi-select"
                            classNamePrefix="select"
                         />
