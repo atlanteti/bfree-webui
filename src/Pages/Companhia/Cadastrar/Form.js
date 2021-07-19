@@ -1,11 +1,11 @@
 import React from 'react'
 import { Form, Col, Row, Button } from 'react-bootstrap'
-import { FormField } from '../../../Componentes/FormField'
 import { DateField } from '../../../Componentes/DateField'
 import { ButtonRow } from '../../../Componentes/ButtonRow'
 import { EditCreateForm } from '../../../Componentes/EditCreateForm/index'
+import { TextField } from '../../../Componentes/FormFields'
 
-export function CompanyForm (props) {
+export default function CompanyForm (props) {
   return <CompanyFormBuilder insertDataEndpoint="companies/cadastrar"
                         requestDataEndpoint="companies/procurar/"
                         editDataEndpoint="companies/alterar/"
@@ -13,11 +13,17 @@ export function CompanyForm (props) {
 }
 
 export class CompanyFormBuilder extends EditCreateForm {
+   formatData() {
+      return {
+         ...this.state.primaryData,
+         cpn_cli_cod: Number(this.state.primaryData.cpn_cli_cod)
+      };
+   }
   render () {
     return <Form onSubmit={this.handleSubmit}>
          <Row>
             <Col>
-               <FormField
+               <TextField
                   controlId="cpn_cli_cod"
                   Label="ID Eduzz:"
                   type="number"
@@ -27,7 +33,7 @@ export class CompanyFormBuilder extends EditCreateForm {
          </Row>
          <Row>
             <Col>
-               <FormField
+               <TextField
                   controlId="cpn_name"
                   Label="Nome:"
                   type="text"
