@@ -296,22 +296,24 @@ export default function Usuarios() {
                                     open={Boolean(anchorEl)}
                                     onClose={menuClose}
                                  >
-                                    <MenuItem onClick={handleClose}>
-                                       <Link to={`/usuario-companhia/${idUser}`}>
+                                    <Link to={`/usuario-companhia/${idUser}`}>
+                                       <MenuItem onClick={handleClose}>
                                           Empresas
-                                       </Link>
-                                    </MenuItem>
-                                    <MenuItem onClick={handleClose}>
-                                       <Link to={`/usuario-jornadas/${idUser}`}>
+                                       </MenuItem>
+                                    </Link>
+                                    <Link to={`/usuario-jornadas/${idUser}`}>
+                                       <MenuItem onClick={handleClose}>
                                           Jornadas
-                                       </Link>
-                                    </MenuItem>
+                                       </MenuItem>
+                                    </Link>
                                     <MenuItem onClick={handleClose}>
                                        Tipos de Demanda
                                     </MenuItem>
-                                    <MenuItem onClick={handleClose}>
-                                       Badges
-                                    </MenuItem>
+                                    <Link to={`/usuario-badges/${idUser}`}>
+                                       <MenuItem onClick={handleClose}>
+                                          Badges
+                                       </MenuItem>
+                                    </Link>
                                  </Menu>
                               </TableRow>
                            );

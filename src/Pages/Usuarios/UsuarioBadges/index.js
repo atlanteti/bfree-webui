@@ -12,6 +12,7 @@ export default function UsuarioBadges(props) {
    const [message, setMessage] = useState();
    const [statusMsg, setStatusMsg] = useState();
 
+   const [userData, setUserData] = useState();
    const [badges, setBadges] = useState([])
    const [selected, setSelected] = useState([])
    const [redirect, setRedirect] = useState(false);
@@ -20,12 +21,16 @@ export default function UsuarioBadges(props) {
 
    const handleSubmit = async (e) => {
       const valuesUser = []
-      selected.forEach(item => valuesUser.push({ "cpn_cod": item.value }))
+      selected.forEach(item => valuesUser.push({
+         "bdg_cod": item.value,
+         "bdg_cpn_cod": item.company,
+         "bdg_jny_cod": item.journey
+      }))
       try {
          e.preventDefault()
          const { data } = await axios({
             method: 'post',
-            url: "http://209.97.146.187:18919/user-companies/cadastrar",
+            url: "http://209.97.146.187:18919/user-badges/cadastrar",
             data: {
                user: { "usr_cod": userId },
                badges: valuesUser
@@ -56,12 +61,19 @@ export default function UsuarioBadges(props) {
       try {
          const { data } = await axios({
             method: 'get',
-            url: `http://209.97.146.187:18919/companies/listar-user-company`,
+            url: `http://209.97.146.187:18919/badges/listar-user-badges?userId=${userId}`,
          })
-         // revisar os valores
-         data.data.map(badges => badges.usersBadges.filter(userBadges => userBadges.usc_usr_cod === userId).map(() => {
-            return selected.push({ value: badges.bdg_cod, label: badges.bdg_name })
-         }))
+
+         console.log(data.data)
+
+         data.data.filter(badge => badge.pertence === "S").map(result => {
+            return selected.push({
+               value: result.bdg_cod,
+               label: result.bdg_name,
+               company: result.bdg_cpn_cod,
+               journey: result.bdg_jny_cod
+            })
+         });
 
          setBadges(data.data)
       } catch (error) {
@@ -69,12 +81,30 @@ export default function UsuarioBadges(props) {
       }
    }
 
+   const requestUser = async () => {
+      try {
+         const { data } = await axios({
+            method: 'get',
+            url: `http://209.97.146.187:18919/usuarios/procurar/${userId}`,
+         })
+         setUserData(data.data)
+      } catch (error) {
+         console.log(error)
+      }
+   };
+
    var badgesData = badges.filter(badge => badge.bdg_name !== null).map(result => {
-      return ({ value: result.bdg_cod, label: result.bdg_name })
+      return ({
+         value: result.bdg_cod,
+         label: result.bdg_name,
+         company: result.bdg_cpn_cod,
+         journey: result.bdg_jny_cod
+      })
    })
 
    useEffect(() => {
       requestData();
+      requestUser();
    }, [])
 
    if (redirect) {
@@ -97,10 +127,10 @@ export default function UsuarioBadges(props) {
                   <Row bsPrefix="column">
                      <Col>
                         <Form.Group>
-                           <Form.Label>ID do Usuário: </Form.Label>
+                           <Form.Label>ID Eduzz: </Form.Label>
                            <Form.Control
                               type="text"
-                              value={userId}
+                              value={userData?.usr_cli_cod}
                               disabled
                               required
                            />
