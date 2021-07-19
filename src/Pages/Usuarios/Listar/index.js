@@ -268,7 +268,10 @@ export default function Usuarios() {
                                     }}>
                                        Excluir
                                     </Button>
-                                    <Button variant="secondary" className="ml-1" onClick={handleClick}>
+                                    <Button variant="secondary" className="ml-1" onClick={(event) => {
+                                       handleClick(event)
+                                       setIdUser(usuario.usr_cod)
+                                    }}>
                                        ...
                                     </Button>
                                  </TableCell>
@@ -296,7 +299,9 @@ export default function Usuarios() {
                                     onClose={menuClose}
                                  >
                                     <MenuItem onClick={handleClose}>
-                                       <a href="#">Empresas</a>
+                                       <Link to={`/usuario-companhia/${idUser}`}>
+                                          Empresas
+                                       </Link>
                                     </MenuItem>
                                     <MenuItem onClick={handleClose}>
                                        Jornadas

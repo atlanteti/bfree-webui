@@ -1,13 +1,15 @@
-import { AiOutlineUser } from 'react-icons/ai'
-import { IoBusinessOutline, IoBookmarkOutline } from 'react-icons/io5'
-import { RiTeamLine, RiMedalLine } from 'react-icons/ri'
-import { FaUserGraduate, FaTasks } from 'react-icons/fa'
-import { BsGraphUp } from 'react-icons/bs'
-import './styles.css'
-import React from 'react'
+import navLogo from '../../Assets/Images/miniLogo.png'
+import { AiOutlineUser } from "react-icons/ai"
+import { IoBusinessOutline, IoBookmarkOutline } from "react-icons/io5"
+import { RiTeamLine, RiMedalLine } from "react-icons/ri";
+import { FaUserGraduate, FaTasks } from "react-icons/fa"
+import { BsGraphUp } from "react-icons/bs";
 
-function DrawerMenu () {
-  return (
+import './styles.css';
+
+function DrawerMenu() {
+
+   return (
       <div className="borda">
          <ul className="list-unstyled borda-container">
             <li className="logo drawer-item">
@@ -87,7 +89,7 @@ function DrawerMenu () {
             </li>
          </ul>
       </div>
-  )
+   );
 }
 
-export default DrawerMenu
+export default DrawerMenu;
