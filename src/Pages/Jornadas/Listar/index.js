@@ -36,7 +36,7 @@ export default class ListarJornada extends ListarPagina {
   }
 
   async reorderData ({ sort, isDesc = false }) {
-    await this.fetchAndSetData({ page: this.state.page.current, sort: sort, isDesc: isDesc })
+    await this.fetchAndSetData({ page: 1, sort: sort, isDesc: isDesc })
   }
 
   async SearchData (nome) {
