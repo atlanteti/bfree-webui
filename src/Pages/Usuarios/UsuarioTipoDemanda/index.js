@@ -5,7 +5,7 @@ import axios from "axios";
 import { Redirect } from "react-router-dom"
 import Select from 'react-select';
 
-export default function UsuarioBadges(props) {
+export default function UsuarioTipoDemanda(props) {
    const userId = Number(props.match.params.userId);
 
    const [showAlert, setShowAlert] = useState(false);
@@ -13,30 +13,26 @@ export default function UsuarioBadges(props) {
    const [statusMsg, setStatusMsg] = useState();
 
    const [userData, setUserData] = useState();
-   const [badges, setBadges] = useState([])
-   const [selected, setSelected] = useState([])
+   const [typeDemand, setTypeDemand] = useState([])
+   const [options, setOptions] = useState([])
    const [redirect, setRedirect] = useState(false);
 
-   const onChange = selectedOptions => setSelected(selectedOptions);
+   const onChange = selectedOptions => setOptions(selectedOptions);
 
    const handleSubmit = async (e) => {
-      const valuesUser = []
-      selected.forEach(item => valuesUser.push({
-         "bdg_cod": item.value,
-         "bdg_cpn_cod": item.company,
-         "bdg_jny_cod": item.journey
-      }))
+      const cods = []
+      options.forEach(item => cods.push({ "tdm_cod": item.value }))
       try {
          e.preventDefault()
          const { data } = await axios({
             method: 'post',
-            url: "http://209.97.146.187:18919/user-badges/cadastrar",
+            url: "http://209.97.146.187:18919/user-type-demands/cadastrar",
             data: {
                user: { "usr_cod": userId },
-               badges: valuesUser
+               typeDemands: cods
             }
          })
-         if (data.meta.status === 100) {
+         if (data.meta.status == 100) {
             setShowAlert(true);
             setMessage("Dados alterado com sucesso!");
             setStatusMsg('success')
@@ -47,6 +43,7 @@ export default function UsuarioBadges(props) {
                   setRedirect(true);
                }, 1000);
             }, 1000);
+
          } else {
             setShowAlert(true);
             setMessage("Algo deu errado. Tente novamente!");
@@ -61,21 +58,14 @@ export default function UsuarioBadges(props) {
       try {
          const { data } = await axios({
             method: 'get',
-            url: `http://209.97.146.187:18919/badges/listar-user-badges?userId=${userId}`,
+            url: `http://209.97.146.187:18919/types-demand/listar-user-type-demand?userId=${userId}`,
          })
 
-         console.log(data.data)
-
-         data.data.filter(badge => badge.pertence === "S").map(result => {
-            return selected.push({
-               value: result.bdg_cod,
-               label: result.bdg_name,
-               company: result.bdg_cpn_cod,
-               journey: result.bdg_jny_cod
-            })
+         data.data.filter(demand => demand.pertence === "S").map(result => {
+            return options.push({ value: result.tdm_cod, label: result.tdm_name })
          });
 
-         setBadges(data.data)
+         setTypeDemand(data.data)
       } catch (error) {
          console.log(error)
       }
@@ -93,13 +83,8 @@ export default function UsuarioBadges(props) {
       }
    };
 
-   var badgesData = badges.filter(badge => badge.bdg_name !== null).map(result => {
-      return ({
-         value: result.bdg_cod,
-         label: result.bdg_name,
-         company: result.bdg_cpn_cod,
-         journey: result.bdg_jny_cod
-      })
+   var demandData = typeDemand.map(result => {
+      return ({ value: result.tdm_cod, label: result.tdm_name })
    })
 
    useEffect(() => {
@@ -137,13 +122,13 @@ export default function UsuarioBadges(props) {
                         </Form.Group>
                      </Col>
                      <Col>
-                        <Form.Label>Badges: </Form.Label>
+                        <Form.Label>Tipo de Demanda: </Form.Label>
                         <Select
-                           value={selected}
+                           value={options}
                            isMulti
                            onChange={onChange}
                            name="selectBadges"
-                           options={badgesData}
+                           options={demandData}
                            className="basic-multi-select"
                            classNamePrefix="select"
                         />
