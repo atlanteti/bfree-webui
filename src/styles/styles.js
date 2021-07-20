@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { Container, Row, Col } from 'react-bootstrap'
 
 export const Title = styled.h1`
    font-size: 2rem;
@@ -12,6 +13,15 @@ export const SearchBarBorder = styled.div`
       padding: 15px;
       border-radius: 5px;
       `
+export const CustomMenuCol = styled(Col)`
+   padding-right: 0;
+`
+export const HeaderContainer = styled(Container)`
+      margin-bottom: 1.5rem
+`
+export const RowTopMargin = styled(Row)`
+   margin-top: 1rem;
+`
 export const MainContainer = styled.div`
    .container{
       display: flex;
@@ -22,7 +32,6 @@ export const MainContainer = styled.div`
    /* os três proximos estilos são de componentes bootstrap*/
    .row{
       justify-content: center;
-      margin-top: 1rem
    }
 
    .page-item.active .page-link {
