@@ -15,8 +15,8 @@ export default function JourneyForm (props) {
 }
 
 export class JourneyFormBuilder extends EditCreateForm {
-   render() {
-      return <Form onSubmit={this.handleSubmit}>
+  render () {
+    return <Form onSubmit={this.handleSubmit}>
          <Row>
             <Col>
                <TextField
@@ -29,34 +29,34 @@ export class JourneyFormBuilder extends EditCreateForm {
          </Row>
          <Row>
             <Col>
-               <ListCompanies
+               <ListCompanies 
                   defaultValue={this.props.primaryId}
                   onChange={this.handleChange}
                   controlId="jny_cpn_cod"
-                  defaultCompany={this.state.primaryData?.company} />
+                  defaultCompany={this.state.primaryData?.company}/>
             </Col>
          </Row>
          {this.props.paramRoute === 'inserir'
-            ? ''
-            : (
-               <>
+           ? ''
+           : (
+            <>
+               <DateField
+                  controlId="jny_dtcreation"
+                  Label="Data de criação:"
+                  date={this.state.primaryData?.jny_dtcreation} />
+               {this.state.primaryData?.jny_dtupdate === null
+                 ? ''
+                 : (
                   <DateField
-                     controlId="jny_dtcreation"
-                     Label="Data de criação:"
-                     date={this.state.primaryData?.jny_dtcreation} />
-                  {this.state.primaryData?.jny_dtupdate === null
-                     ? ''
-                     : (
-                        <DateField
-                           controlId="jny_dtupdate"
-                           Label="Data de atualização:"
-                           date={this.state.primaryData?.jny_dtupdate} />
-                     )}
-               </>
-            )}
+                     controlId="jny_dtupdate"
+                     Label="Data de atualização:"
+                     date={this.state.primaryData?.jny_dtupdate} />
+                   )}
+            </>
+             )}
          <ButtonRow
             cancelButton={<Button variant="warning" onClick={this.redirectCallback}>Voltar</Button>}
             confirmButton={<Button variant="dark" type="submit">{this.props.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'}</Button>} />
       </Form>
-   }
+  }
 }
