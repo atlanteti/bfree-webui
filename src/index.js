@@ -30,27 +30,32 @@ import ListarBadges from './Pages/Badges/Listar'
 import ListarTipoDemanda from './Pages/TipoDemanda/Listar';
 import EditTipoDemanda from './Pages/TipoDemanda/Edit';
 
+import ListarTime from './Pages/Times/Listar'
+import CadastrarTime from './Pages/Times/Cadastrar'
+
 ReactDOM.render(
    <React.StrictMode>
       <Router>
          <Switch>
             <Route exact path="/" component={App} />
+            <Route path="/cadastrar" component={Cadastros} />
             <Route path="/usuarios" component={Usuarios} />
             <Route path="/usuario-companhia/:userId" component={UsuarioCompanhia} />
             <Route path="/usuario-jornadas/:userId" component={UsuarioJornadas} />
             <Route path="/usuario-badges/:userId" component={UsuarioBadges} />
             <Route path="/usuario-tipodemanda/:userId" component={UsuarioTipoDemanda} />
-            <Route path="/cadastrar" component={Cadastros} />
             <Route path="/companhia" component={ListarCompanhia} />
             <Route path="/jornadas" component={ListarJornada} />
             <Route path="/badges" component={ListarBadges} />
             <Route path="/tipodemanda" component={ListarTipoDemanda} />
+            <Route path="/times" component={ListarTime} />
             <Route path="/usuario-jornadas" component={ListarJornadaUsuarios} />
             <Route path="/editar/:usr_cod/:route" component={EditUsuarios} />
             <Route path="/editar-companhia/:cpn_cod/:param" component={CadastrarCompanhia} />
             <Route path="/editar-jornada-usuario/:jnu_cod" component={EditarJornada} />
             <Route path="/editar-jornada/:jny_cod/:param" component={CadastrarJornada} />
             <Route path="/editar-badge/:bdg_cod/:param" component={EditBadges} />
+            <Route path="/editar-time/:tea_cod/:param" component={CadastrarTime} />
             <Route path="/editar-tipodemanda/:tdm_cod/:param" component={EditTipoDemanda} />
          </Switch>
       </Router>
