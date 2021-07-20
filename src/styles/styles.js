@@ -22,16 +22,19 @@ export const HeaderContainer = styled(Container)`
 export const RowTopMargin = styled(Row)`
    margin-top: 1rem;
 `
+
+export const MainRow = styled(Row)`
+   margin-right: 0px;
+`
+
+export const PaginationRow = styled(Row)`
+   justify-content: center;`
+
 export const MainContainer = styled.div`
    .container{
       display: flex;
       flex-direction: column;
       align-items: center
-   }
-   
-   /* os três proximos estilos são de componentes bootstrap*/
-   .row{
-      justify-content: center;
    }
 
    .page-item.active .page-link {

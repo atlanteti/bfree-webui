@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { Redirect } from 'react-router-dom'
 
 export const request = async ({
   method,
@@ -27,6 +28,7 @@ export const request = async ({
   try {
     result = await axios(config)
   } catch (error) {
+    return <Redirect to="404"/>
     result = 'ERROR' // TODO: error handling
   }
 
