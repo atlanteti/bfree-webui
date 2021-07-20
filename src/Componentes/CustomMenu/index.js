@@ -14,11 +14,11 @@ import { Col } from 'react-bootstrap'
 import { CustomMenuCol } from '../../styles/styles'
 
 export const CustomMenu = () => {
-   const history = useHistory()
-   const location = useLocation()
-   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+  const history = useHistory()
+  const location = useLocation()
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
 
-   return (
+  return (
       <React.Fragment>
          {/* Sidebar Overlay */}
          <div
@@ -45,54 +45,54 @@ export const CustomMenu = () => {
             <Navigation
                activeItemId={location.pathname}
                onSelect={({ itemId }) => {
-                  history.push(itemId)
+                 history.push(itemId)
                }}
                items={[
-                  {
-                     title: 'Empresas',
-                     itemId: '/companhia',
-                     elemBefore: () => <IoBusinessOutline size={23} color="#ffb509" />
-                  },
-                  {
-                     title: 'Jornadas',
-                     itemId: '/jornadas',
-                     elemBefore: () => <BsGraphUp size={23} color="#ffb509" />
-                  },
-                  {
-                     title: 'Tipo de Demanda',
-                     itemId: '/tipodemanda',
-                     elemBefore: () => <IoAlbumsOutline size={23} color="#ffb509" />
-                  },
-                  {
-                     title: 'Badges',
-                     itemId: '/badges',
-                     elemBefore: () => <RiMedalLine size={23} color="#ffb509" />
-                  },
-                  {
-                     title: 'Times',
-                     itemId: '/times',
-                     elemBefore: () => <RiTeamLine size={23} color="#ffb509" />
-                  },
-                  {
-                     title: 'Usuários',
-                     itemId: '/usuarios',
-                     elemBefore: () => <AiOutlineUser size={23} color="#ffb509" />
-                  },
-                  {
-                     title: 'Demandas',
-                     itemId: '#6',
-                     elemBefore: () => <FaTasks size={23} color="#ffb509" />
-                  },
-                  {
-                     title: 'Conquistas',
-                     itemId: '#2',
-                     elemBefore: () => <IoBookmarkOutline size={23} color="#ffb509" />
-                  },
-                  {
-                     title: 'Mentores',
-                     itemId: '#3',
-                     elemBefore: () => <FaUserGraduate size={23} color="#ffb509" />
-                  }
+                 {
+                   title: 'Empresas',
+                   itemId: '/companhia',
+                   elemBefore: () => <IoBusinessOutline size={23} color="#ffb509" />
+                 },
+                 {
+                   title: 'Jornadas',
+                   itemId: '/jornadas',
+                   elemBefore: () => <BsGraphUp size={23} color="#ffb509" />
+                 },
+                 {
+                   title: 'Tipo de Demanda',
+                   itemId: '/tipodemanda',
+                   elemBefore: () => <IoAlbumsOutline size={23} color="#ffb509" />
+                 },
+                 {
+                   title: 'Badges',
+                   itemId: '/badges',
+                   elemBefore: () => <RiMedalLine size={23} color="#ffb509" />
+                 },
+                 {
+                   title: 'Usuários',
+                   itemId: '/usuarios',
+                   elemBefore: () => <AiOutlineUser size={23} color="#ffb509" />
+                 },
+                 {
+                   title: 'Time',
+                   itemId: '#4',
+                   elemBefore: () => <RiTeamLine size={23} color="#ffb509" />
+                 },
+                 {
+                   title: 'Demandas',
+                   itemId: '#6',
+                   elemBefore: () => <FaTasks size={23} color="#ffb509" />
+                 },
+                 {
+                   title: 'Conquistas',
+                   itemId: '#2',
+                   elemBefore: () => <IoBookmarkOutline size={23} color="#ffb509" />
+                 },
+                 {
+                   title: 'Mentores',
+                   itemId: '#3',
+                   elemBefore: () => <FaUserGraduate size={23} color="#ffb509" />
+                 }
                ]}
             />
 
@@ -113,5 +113,5 @@ export const CustomMenu = () => {
             </div> */}
          </CustomMenuCol>
       </React.Fragment>
-   )
+  )
 }
