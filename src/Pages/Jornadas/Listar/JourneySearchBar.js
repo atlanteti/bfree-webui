@@ -16,7 +16,7 @@ export class JourneySearchBar extends SearchBar {
                 controlId="name"
                 onChange={this.onChange}
                 type="text"
-                placeholder={this.props.InputPlaceHolder} />
+                placeholder="Insira o nome da jornada" />
             </Col>
             <Col>
               <ListCompanies

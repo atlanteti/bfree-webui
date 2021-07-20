@@ -3,7 +3,7 @@ import { Container, Row, Col } from 'react-bootstrap'
 import { CustomMenu } from '../CustomMenu'
 import CustomPagination from '../CustomPagination'
 import { CustomAlert } from '../CustomAlert'
-import { MainContainer, Title, Table, TableHeader, TableData } from '../../styles/styles'
+import { MainContainer, Title, Table, TableHeader, TableData, CustomMenuCol, MainRow, PaginationRow } from '../../styles/styles'
 
 export default class ListarPagina extends Component {
   constructor (props) {
@@ -105,46 +105,48 @@ export default class ListarPagina extends Component {
 
   render () {
     return <MainContainer>
-         <Row>
-            <Col xs={1} sm={1} md={1} lg={3}><CustomMenu /></Col>
+         <MainRow>
+            <CustomMenuCol xs={2} sm={2} md={2} lg={3}><CustomMenu /></CustomMenuCol>
             <Col>
-               <Container fluid>
-                  <CustomAlert
-                     data={this.state.responseMetaData}
-                     showAlertCallback={this.getAlertCallback.bind(this)}
-                     redirectCallback={this.redirectCallback.bind(this)}/>
-                  <Row xs={1}>
-                      <this.PageHeaderCustom/>
-                  </Row>
-                  <this.SearchBarCustom 
-                    filterData={this.fetchAndSetData}/>
-                  <Row>
-                     <Table>
-                        <TableHeader>
-                           <this.TableHeaderCustom
-                              sortCallback={this.reorderData.bind(this)}
-                              subscribe={this.subscribe.bind(this)}
-                              wipeAll={this.wipe.bind(this)}/>
-                        </TableHeader>
-                        <TableData>
-                           {this.state.responseData === null
-                             ? ''
-                             : this.state.responseData.map((companhia) => {
-                               return (
-                                 this.createRecord(companhia)
-                               )
-                             })}
-                        </TableData>
-                     </Table>
-                  </Row>
-                  <Row>
-                        <CustomPagination
-                           fetchAndSetData={this.fetchAndSetData}
-                           page={this.state.page} />
-                  </Row>
-               </Container>
-            </Col>
-         </Row>
+               <Col xs={{span: 10, offset: 1}}>
+                 <Container fluid>
+                    <CustomAlert
+                       data={this.state.responseMetaData}
+                       showAlertCallback={this.getAlertCallback.bind(this)}
+                       redirectCallback={this.redirectCallback.bind(this)}/>
+                    <Row xs={1}>
+                        <this.PageHeaderCustom/>
+                    </Row>
+                    <this.SearchBarCustom
+                      filterData={this.fetchAndSetData}/>
+                    <Row>
+                       <Table>
+                          <TableHeader>
+                             <this.TableHeaderCustom
+                                sortCallback={this.reorderData.bind(this)}
+                                subscribe={this.subscribe.bind(this)}
+                                wipeAll={this.wipe.bind(this)}/>
+                          </TableHeader>
+                          <TableData>
+                             {this.state.responseData === null
+                               ? ''
+                               : this.state.responseData.map((companhia) => {
+                                 return (
+                                   this.createRecord(companhia)
+                                 )
+                               })}
+                          </TableData>
+                       </Table>
+                    </Row>
+                    <PaginationRow>
+                          <CustomPagination
+                             fetchAndSetData={this.fetchAndSetData}
+                             page={this.state.page} />
+                    </PaginationRow>
+                 </Container>
+               </Col>
+               </Col>
+         </MainRow>
       </MainContainer>
   }
 }

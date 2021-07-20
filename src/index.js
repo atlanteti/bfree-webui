@@ -29,6 +29,7 @@ import ListarBadges from './Pages/Badges/Listar'
 
 import ListarTipoDemanda from './Pages/TipoDemanda/Listar';
 import EditTipoDemanda from './Pages/TipoDemanda/Edit';
+import Error404 from './Pages/Error'
 
 ReactDOM.render(
    <React.StrictMode>
@@ -52,6 +53,7 @@ ReactDOM.render(
             <Route path="/editar-jornada/:jny_cod/:param" component={CadastrarJornada} />
             <Route path="/editar-badge/:bdg_cod/:param" component={EditBadges} />
             <Route path="/editar-tipodemanda/:tdm_cod/:param" component={EditTipoDemanda} />
+            <Route component={Error404} />
          </Switch>
       </Router>
    </React.StrictMode>,

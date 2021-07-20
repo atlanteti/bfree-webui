@@ -60,8 +60,6 @@ export default class ListarJornada extends ListarPagina {
     //   registerEndpoint="cadastrar/jorney"
     //   />
     return <JourneySearchBar
-      Label="Nome:"
-      InputPlaceHolder="Insira o nome da Jornada"
       filterData={props.filterData}
       />
   }

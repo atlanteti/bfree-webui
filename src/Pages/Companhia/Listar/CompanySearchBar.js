@@ -16,6 +16,7 @@ export class CompanySearchBar extends SearchBar {
                 Label="Id Externo: "
                 controlId="cpn_cli_cod"
                 onChange={this.onChange}
+                placeholder="Insira o Id Externo da empresa"
                 key="cpn_cli_cod" />
             </Col>
             <Col>
@@ -23,6 +24,7 @@ export class CompanySearchBar extends SearchBar {
                 Label="Nome"
                 controlId="name"
                 onChange={this.onChange}
+                placeholder="Insira o nome da empresa"
                 key="cpn_name" />
             </Col>
           </Row>
