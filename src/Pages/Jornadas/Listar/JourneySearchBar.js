@@ -11,14 +11,14 @@ export class JourneySearchBar extends SearchBar {
       <Row xs={1} className={'mb-2'} noGutters>
         <Form onSubmit={this.handleSubmit}>
           <Row>
-            <Col>
+            <Col xs={12} sm={6}>
               <TextField Label="Nome: "
                 controlId="name"
                 onChange={this.onChange}
                 type="text"
                 placeholder="Insira o nome da jornada" />
             </Col>
-            <Col>
+            <Col xs={12} sm={6}>
               <ListCompanies
                 onChange={this.onChange}
                 controlId={"companyId"} />

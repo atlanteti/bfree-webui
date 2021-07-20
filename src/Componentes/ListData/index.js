@@ -106,9 +106,11 @@ export default class ListarPagina extends Component {
   render () {
     return <MainContainer>
          <MainRow>
-            <CustomMenuCol xs={2} sm={2} md={2} lg={3}><CustomMenu /></CustomMenuCol>
+           {/* Layout usado nesse componente deve ser repetido em custommenucol equivalente dentro do arquivo do componente */}
+            <CustomMenuCol lg={2}><CustomMenu /></CustomMenuCol>
             <Col>
-               <Col xs={{span: 10, offset: 1}}>
+               <Col
+                    md={{span: 10, offset: 1}}>
                  <Container fluid>
                     <CustomAlert
                        data={this.state.responseMetaData}
@@ -119,7 +121,7 @@ export default class ListarPagina extends Component {
                     </Row>
                     <this.SearchBarCustom
                       filterData={this.fetchAndSetData}/>
-                    <Row>
+                    <Row noGutters>
                        <Table>
                           <TableHeader>
                              <this.TableHeaderCustom
