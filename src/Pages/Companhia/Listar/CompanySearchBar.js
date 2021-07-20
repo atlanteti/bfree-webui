@@ -11,7 +11,7 @@ export class CompanySearchBar extends SearchBar {
         <Form onSubmit={this.handleSubmit}>
           <Row>
             {this.props.children}
-            <Col>
+            <Col xs={12} sm={6}>
               <TextField
                 Label="Id Externo: "
                 controlId="cpn_cli_cod"
@@ -19,7 +19,7 @@ export class CompanySearchBar extends SearchBar {
                 placeholder="Insira o Id Externo da empresa"
                 key="cpn_cli_cod" />
             </Col>
-            <Col>
+            <Col xs={12} sm={6}>
               <TextField
                 Label="Nome"
                 controlId="name"
