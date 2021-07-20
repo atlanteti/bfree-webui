@@ -1,14 +1,16 @@
-import { Button } from 'react-bootstrap'
-import SearchBar from '../../../Componentes/SearchBar'
+import { Button, Col } from 'react-bootstrap'
 import { request } from '../../../Services/api'
 import ExclusionModal from '../../../Componentes/ExclusionModal'
 import ListarPagina from '../../../Componentes/ListData'
 import {
-  ActionCell, ActionHeaderCell, NumberCell, NumberHeaderCell,
-  TableRow, TextCell, TextHeaderCell
+  ActionCell, ActionHeaderCell, HeaderContainer, NumberCell, NumberHeaderCell,
+  RightAlignText,
+  RowTopMargin,
+  TableRow, TextCell, TextHeaderCell, Title
 } from '../../../styles/styles'
 import SortColumn from '../../../Componentes/SortColumn'
 import React from 'react'
+import { CompanySearchBar } from './CompanySearchBar'
 
 export default class ListarCompanhia extends ListarPagina {
   async deleteRecord (id) {
@@ -19,21 +21,22 @@ export default class ListarCompanhia extends ListarPagina {
     return data
   }
 
-  async fetchData (page, sort, isDesc) {
+  async fetchData (page, sort, isDesc, extraParams) {
     const data = await request({
       method: 'get',
       endpoint: 'companies/listar',
       params: {
         page: Number(page),
         sort: sort,
-        isDesc: isDesc
+        isDesc: isDesc,
+        ...extraParams
       }
     })
     return data
   }
 
   async reorderData ({ sort, isDesc = false }) {
-    await this.fetchAndSetData({ page: this.state.page.current, sort: sort, isDesc: isDesc })
+    await this.fetchAndSetData({ page: 1, sort: sort, isDesc: isDesc })
   }
 
   async SearchData (nome) {
@@ -48,15 +51,24 @@ export default class ListarCompanhia extends ListarPagina {
     return data
   }
 
-  SearchBarCustom () {
-    return <SearchBar
+  SearchBarCustom (props) {
+    return <CompanySearchBar
       InputPlaceholder="Insira o nome da empresa"
       ButtonLabel="Cadastrar"
-      RegisterEndpoint="/cadastrar/companhia/inserir" />
+      filterData={props.filterData}/>
   }
 
   PageHeaderCustom () {
-    return 'Empresas'
+    return <HeaderContainer fluid>
+    <RowTopMargin >
+      <Col>
+        <Title>Companhia</Title>
+      </Col>
+      <RightAlignText>
+        <Col><Button variant="dark" href="/cadastrar/companhia/inserir">Cadastrar</Button></Col>
+      </RightAlignText>
+    </RowTopMargin>
+  </HeaderContainer>
   }
 
   TableHeaderCustom (props) {
