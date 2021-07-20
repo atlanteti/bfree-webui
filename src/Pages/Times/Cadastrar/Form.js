@@ -1,29 +1,29 @@
 import React from 'react'
 import { Form, Col, Row, Button } from 'react-bootstrap'
-import { TextField, SelectField } from '../../../Componentes/FormFields'
 import { DateField } from '../../../Componentes/DateField'
 import { ButtonRow } from '../../../Componentes/ButtonRow'
 import { EditCreateForm } from '../../../Componentes/EditCreateForm/index'
+import { TextField } from '../../../Componentes/FormFields'
+import { CheckBox } from "../../../Componentes/CheckBox";
 import ListCompanies from '../../../Componentes/ListCompanies'
 
-
-export default function JourneyForm (props) {
-  return <JourneyFormBuilder insertDataEndpoint="journeys/cadastrar"
-                        requestDataEndpoint="journeys/procurar/"
-                        editDataEndpoint="journeys/alterar/"
-                        {...props}/>
+export default function TeamForm(props) {
+   return <TeamFormBuilder insertDataEndpoint="teams/cadastrar"
+      requestDataEndpoint="teams/procurar/"
+      editDataEndpoint="teams/alterar/"
+      {...props} />
 }
 
-export class JourneyFormBuilder extends EditCreateForm {
+export class TeamFormBuilder extends EditCreateForm {
    render() {
       return <Form onSubmit={this.handleSubmit}>
          <Row>
             <Col>
                <TextField
-                  controlId="jny_name"
+                  controlId="tea_name"
                   Label="Nome:"
                   type="text"
-                  defaultValue={this.state.primaryData?.jny_name}
+                  defaultValue={this.state.primaryData?.tea_name}
                   onChange={this.handleChange} />
             </Col>
          </Row>
@@ -32,8 +32,19 @@ export class JourneyFormBuilder extends EditCreateForm {
                <ListCompanies
                   defaultValue={this.props.primaryId}
                   onChange={this.handleChange}
-                  controlId="jny_cpn_cod"
+                  controlId="tea_cpn_cod"
                   defaultCompany={this.state.primaryData?.company} />
+            </Col>
+         </Row>
+         <Row>
+            <Col>
+               <CheckBox
+                  label="Ativo"
+                  name="tea_active"
+                  onChange={this.handleCheck}
+                  checked={this.state.primaryData?.tea_active}
+                  defaultValue={this.state.primaryData?.tea_active}
+               />
             </Col>
          </Row>
          {this.props.paramRoute === 'inserir'
@@ -41,16 +52,16 @@ export class JourneyFormBuilder extends EditCreateForm {
             : (
                <>
                   <DateField
-                     controlId="jny_dtcreation"
+                     controlId="tea_dtcreation"
                      Label="Data de criação:"
-                     date={this.state.primaryData?.jny_dtcreation} />
-                  {this.state.primaryData?.jny_dtupdate === null
+                     date={this.state.primaryData?.tea_dtcreation} />
+                  {this.state.primaryData?.tea_dtupdate === null
                      ? ''
                      : (
                         <DateField
-                           controlId="jny_dtupdate"
+                           controlId="tea_dtupdate"
                            Label="Data de atualização:"
-                           date={this.state.primaryData?.jny_dtupdate} />
+                           date={this.state.primaryData?.tea_dtupdate} />
                      )}
                </>
             )}
