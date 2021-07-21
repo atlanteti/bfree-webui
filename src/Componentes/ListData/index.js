@@ -16,17 +16,36 @@ export default class ListarPagina extends Component {
       buscar: '',
       showModal: false,
       responseData: null,
-      responseAlertShow: null
+      responseAlertShow: null,
+    }
+    this.requestForm = {
+      extraParams: {},
+      sort: null,
+      isDesc: null
     }
     
     this.openModal = this.openModal.bind(this)
     this.closeModal = this.closeModal.bind(this)
     this.fetchAndSetData = this.fetchAndSetData.bind(this)
+    this.searchData = this.searchData.bind(this)
     this.columnSortArray = []
   }
 
-  async fetchAndSetData ({ page = 1, sort, isDesc = false, extraParams}) {
-    const data = await this.fetchData(page, sort, isDesc, extraParams)
+  async searchData ({extraParams})
+  {
+    this.requestForm.extraParams = extraParams
+    return await this.fetchAndSetData({page: 1})
+  }
+
+  async reorderData ({sort, isDesc = false})
+  {
+    this.requestForm.sort = sort
+    this.requestForm.isDesc = isDesc
+    return await this.fetchAndSetData({page: 1})
+  }
+
+  async fetchAndSetData ({ page = '1' }) {
+    const data = await this.fetchData(page, this.requestForm.sort, this.requestForm.isDesc, this.requestForm.extraParams)
     this.setState({
       responseMetaData: data.meta,
       responseData: data.data,
@@ -59,14 +78,6 @@ export default class ListarPagina extends Component {
   }
 
   async fetchData (page) {
-    throw new Error('Método abstrato deve ser implementado')
-  }
-
-  async SearchData (nome) {
-    throw new Error('Método abstrato deve ser implementado')
-  }
-
-  async reorderData (sort) {
     throw new Error('Método abstrato deve ser implementado')
   }
 
@@ -133,7 +144,7 @@ export default class ListarPagina extends Component {
                         <this.PageHeaderCustom/>
                     </Row>
                     <this.SearchBarCustom
-                      filterData={this.fetchAndSetData}/>
+                      filterData={this.searchData}/>
                     <Row noGutters>
                        <Table>
                           <TableHeader>

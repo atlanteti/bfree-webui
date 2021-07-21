@@ -36,22 +36,6 @@ export default class ListarJornada extends ListarPagina {
     return data
   }
 
-  async reorderData ({ sort, isDesc = false }) {
-    await this.fetchAndSetData({ page: 1, sort: sort, isDesc: isDesc })
-  }
-
-  async SearchData (nome) {
-    const data = await request({
-      method: 'get',
-      endpoint: 'journeys/listar',
-      params:
-         {
-           nome: nome
-         }
-    })
-    return data
-  }
-
   SearchBarCustom (props) {
     return <JourneySearchBar
       filterData={props.filterData}

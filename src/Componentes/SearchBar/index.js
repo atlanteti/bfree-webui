@@ -22,7 +22,7 @@ export default class SearchBar extends Component {
   handleSubmit (event)
   {
     event.preventDefault()
-    this.props.filterData({page: 1, extraParams: this.state.formData})
+    this.props.filterData({extraParams: this.state.formData})
     return
   }
 }

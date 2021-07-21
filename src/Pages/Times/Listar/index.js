@@ -35,23 +35,7 @@ export default class ListarTime extends ListarPagina {
       })
       return data
    }
-
-   async reorderData({ sort, isDesc = false }) {
-      await this.fetchAndSetData({ page: 1, sort: sort, isDesc: isDesc })
-   }
-
-   async SearchData(nome) {
-      const data = await request({
-         method: 'get',
-         endpoint: 'teams/listar',
-         params:
-         {
-            nome: nome
-         }
-      })
-      return data
-   }
-
+   
    SearchBarCustom(props) {
       return <TeamSearchBar
          filterData={props.filterData}
