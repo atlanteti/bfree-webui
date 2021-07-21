@@ -15,12 +15,11 @@ export function TextField (props) {
    </Form.Group>
 }
 TextField.propTypes = {
-   controlId: PropTypes.number.isRequired,
+   controlId: PropTypes.string.isRequired,
    Label: PropTypes.string.isRequired,
    type: PropTypes.string,
    onChange: PropTypes.func.isRequired,
    required: PropTypes.bool,
-   placeholder: PropTypes.string.isRequired
 }
 
 export function SelectField (props) {
@@ -38,4 +37,30 @@ export function SelectField (props) {
       })}
    </Form.Control>
 </Form.Group>
+}
+
+export function BooleanField (props)
+{
+   return <Form.Group controlId={props.controlId}>
+      <Form.Label >{props.Label}</Form.Label>
+      <Form.Control
+      as="select"
+      required={props.required}
+      onChange={props.onChange}
+      value={props.value}>
+   {!props.register ?
+      <> <option value={null}></option>
+         <option value={false}>Inativo</option>
+      </> 
+   : <option value={false} selected>Inativo</option>}
+   <option value={true}>Ativo</option>
+   </Form.Control>
+   </Form.Group>
+}
+
+BooleanField.propTypes = {
+   controlId: PropTypes.string.isRequired,
+   Label: PropTypes.string.isRequired,
+   onChange: PropTypes.func.isRequired,
+   required: PropTypes.bool
 }

@@ -12,6 +12,7 @@ export class EditCreateForm extends Component {
       this.primaryId = Number(props.primaryId);
       this.redirectCallback = props.redirectCallback;
       this.handleChange = this.handleChange.bind(this);
+      this.handleCheck = this.handleCheck.bind(this);
    }
    componentDidMount() {
       const requestData = async () => {
@@ -19,7 +20,7 @@ export class EditCreateForm extends Component {
             const data = await request({
                method: "get",
                //props.requestDataEndpoint
-               endpoint:this.props.requestDataEndpoint+this.primaryId
+               endpoint: this.props.requestDataEndpoint + this.primaryId
             });
             this.setState({
                primaryData: data.data
@@ -44,14 +45,14 @@ export class EditCreateForm extends Component {
       return await request({
          method: "put",
 
-         endpoint: this.props.editDataEndpoint+this.primaryId,
+         endpoint: this.props.editDataEndpoint + this.primaryId,
          data: formData,
       });
    }
    formatData() {
       return this.state.primaryData
    }
-   
+
    handleSubmit = async (e) => {
       const formData = this.formatData();
       e.preventDefault();
@@ -76,5 +77,12 @@ export class EditCreateForm extends Component {
          }
       });
    };
+   handleCheck = () => {
+      this.setState({
+         primaryData: {
+            ...this.state.primaryData, ["tea_active"]: !this.state.primaryData.tea_active
+         }
+      })
+   }
 }
 

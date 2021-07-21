@@ -6,169 +6,170 @@ import moment from 'moment'
 import axios from 'axios'
 import { Redirect } from 'react-router-dom'
 
-export default function EditBadges (props) {
-  const [redirect, setRedirect] = useState(false)
-  const [showAlert, setShowAlert] = useState(false)
-  const [message, setMessage] = useState()
-  const [statusMsg, setStatusMsg] = useState()
+export default function EditBadges(props) {
+   const [redirect, setRedirect] = useState(false)
+   const [showAlert, setShowAlert] = useState(false)
+   const [message, setMessage] = useState()
+   const [statusMsg, setStatusMsg] = useState()
 
-  const [horaUpd, setHoraUpd] = useState()
-  const [horaCriacao, setHoraCriacao] = useState()
+   const [horaUpd, setHoraUpd] = useState()
+   const [horaCriacao, setHoraCriacao] = useState()
 
-  const [badges, setBadges] = useState({
-    bdg_mentor: false
-  })
-  const [companys, setCompanys] = useState()
-  const [jornada, setJornada] = useState()
+   const [badges, setBadges] = useState({
+      bdg_mentor: false
+   })
+   const [companys, setCompanys] = useState()
+   const [jornada, setJornada] = useState()
 
-  const [jornadaSelecionada, setJornadaSelecionada] = useState(null)
-  const [status, setStatus] = useState(null)
-  const [statusJorn, setStatusJorn] = useState(false)
+   const [jornadaSelecionada, setJornadaSelecionada] = useState(null)
+   const [status, setStatus] = useState(null)
+   const [statusJorn, setStatusJorn] = useState(false)
 
-  const paramRoute = props.match.params.param
-  const badgeId = props.match.params.bdg_cod
+   const paramRoute = props.match.params.param
+   const badgeId = props.match.params.bdg_cod
 
-  const handleChange = async (e) => {
-    if (e.target.id === 'bdg_jny_cod') {
-      jornada.filter(filterJornada => filterJornada.jny_cod === e.target.value.trim()).map(jorn => {
-        setStatus(true)
-        return setJornadaSelecionada(jorn)
-      })
-    }
+   const handleChange = async (e) => {
+      if (e.target.id === 'bdg_jny_cod') {
+         jornada.filter(filterJornada => filterJornada.jny_cod === e.target.value.trim()).map(jorn => {
+            setStatus(true)
+            return setJornadaSelecionada(jorn)
+         })
+      }
 
-    setBadges({ ...badges, [e.target.id]: e.target.value.trim() })
+      setBadges({ ...badges, [e.target.id]: e.target.value.trim() })
 
-    if (e.target.id === 'bdg_jny_cod') {
-      if (e.target.value === '') {
-        setStatus(false)
+      if (e.target.id === 'bdg_jny_cod') {
+         if (e.target.value === '') {
+            setStatus(false)
+         } else {
+            setStatus(true)
+         }
+      }
+
+      if (e.target.id === 'bdg_cpn_cod') {
+         if (e.target.value === '') {
+            setStatusJorn(false)
+         } else {
+            setStatusJorn(true)
+         }
+      }
+   }
+
+   const handleChangeMentor = (e) => {
+      console.log(e.target.value)
+      if (badges.bdg_mentor) {
+         setBadges({ ...badges, [e.target.name]: false })
       } else {
-        setStatus(true)
+         setBadges({ ...badges, [e.target.name]: true })
       }
-    }
+   }
 
-    if (e.target.id === 'bdg_cpn_cod') {
-      if (e.target.value === '') {
-        setStatusJorn(false)
-      } else {
-        setStatusJorn(true)
+   const handleSubmit = async (e) => {
+      try {
+         e.preventDefault()
+         if (paramRoute === 'inserir') {
+            const { data } = await axios({
+               method: 'post',
+               url: 'http://209.97.146.187:18919/badges/cadastrar',
+               data: {
+                  ...badges,
+                  bdg_jny_cod: badges.bdg_jny_cod == null ? (badges.bdg_jny_cod) : Number(badges.bdg_jny_cod),
+                  bdg_cpn_cod: badges.bdg_cpn_cod == null ? (badges.bdg_cpn_cod) : Number(badges.bdg_cpn_cod)
+               }
+            })
+
+            if (data.meta.status === 100) {
+               setShowAlert(true)
+               setMessage('Badge criada com sucesso!')
+               setStatusMsg('success')
+
+               setTimeout(() => {
+                  setShowAlert(false)
+                  setTimeout(() => {
+                     setRedirect(true)
+                  }, 500)
+               }, 1000)
+            } else {
+               setShowAlert(true)
+               setMessage('Algo deu errado. Tente novamente!')
+               setStatusMsg('warning')
+            }
+         } else {
+            const { data } = await axios({
+               method: 'put',
+               url: `http://209.97.146.187:18919/badges/alterar/${badgeId}`,
+               data: {
+                  ...badges,
+                  bdg_jny_cod: badges.bdg_jny_cod == null ? (badges.bdg_jny_cod) : Number(badges.bdg_jny_cod),
+                  bdg_cpn_cod: badges.bdg_cpn_cod == null ? (badges.bdg_cpn_cod) : Number(badges.bdg_cpn_cod)
+               }
+            })
+
+            if (data.meta.status === 100) {
+               setRedirect(true)
+            }
+         }
+      } catch (error) {
+
       }
-    }
-  }
+   }
 
-  const handleChangeMentor = async (e) => {
-    if (badges.bdg_mentor) {
-      setBadges({ ...badges, [e.target.name]: false })
-    } else {
-      setBadges({ ...badges, [e.target.name]: true })
-    }
-  }
+   const requestCompanys = async () => {
+      try {
+         const { data } = await axios({
+            method: 'get',
+            url: 'http://209.97.146.187:18919/companies/listar-todos'
+         })
+         setCompanys(data.data)
+      } catch (error) {
 
-  const handleSubmit = async (e) => {
-    try {
-      e.preventDefault()
-      if (paramRoute === 'inserir') {
-        const { data } = await axios({
-          method: 'post',
-          url: 'http://209.97.146.187:18919/badges/cadastrar',
-          data: {
-            ...badges,
-            bdg_jny_cod: badges.bdg_jny_cod == null ? (badges.bdg_jny_cod) : Number(badges.bdg_jny_cod),
-            bdg_cpn_cod: badges.bdg_cpn_cod == null ? (badges.bdg_cpn_cod) : Number(badges.bdg_cpn_cod)
-          }
-        })
-
-        if (data.meta.status === 100) {
-          setShowAlert(true)
-          setMessage('Badge criada com sucesso!')
-          setStatusMsg('success')
-
-          setTimeout(() => {
-            setShowAlert(false)
-            setTimeout(() => {
-              setRedirect(true)
-            }, 500)
-          }, 1000)
-        } else {
-          setShowAlert(true)
-          setMessage('Algo deu errado. Tente novamente!')
-          setStatusMsg('warning')
-        }
-      } else {
-        const { data } = await axios({
-          method: 'put',
-          url: `http://209.97.146.187:18919/badges/alterar/${badgeId}`,
-          data: {
-            ...badges,
-            bdg_jny_cod: badges.bdg_jny_cod == null ? (badges.bdg_jny_cod) : Number(badges.bdg_jny_cod),
-            bdg_cpn_cod: badges.bdg_cpn_cod == null ? (badges.bdg_cpn_cod) : Number(badges.bdg_cpn_cod)
-          }
-        })
-
-        if (data.meta.status === 100) {
-          setRedirect(true)
-        }
       }
-    } catch (error) {
+   }
 
-    }
-  }
+   const requestJorneys = async () => {
+      try {
+         const { data } = await axios({
+            method: 'get',
+            url: 'http://209.97.146.187:18919/jorneys/listar-todos'
+         })
+         setJornada(data.data)
+      } catch (error) {
 
-  const requestCompanys = async () => {
-    try {
-      const { data } = await axios({
-        method: 'get',
-        url: 'http://209.97.146.187:18919/companies/listar-todos'
-      })
-      setCompanys(data.data)
-    } catch (error) {
-
-    }
-  }
-
-  const requestJorneys = async () => {
-    try {
-      const { data } = await axios({
-        method: 'get',
-        url: 'http://209.97.146.187:18919/jorneys/listar-todos'
-      })
-      setJornada(data.data)
-    } catch (error) {
-
-    }
-  }
-
-  const requestData = async () => {
-    try {
-      if (paramRoute === 'alterar') {
-        const { data } = await axios({
-          method: 'get',
-          url: `http://209.97.146.187:18919/badges/procurar/${badgeId}`
-        })
-
-        setBadges(data.data)
-        setHoraCriacao(moment(data.data.bdg_dtcreation).format('hh'))
-        setHoraUpd(moment(data.data.bdg_dtupdate).format('hh'))
       }
-    } catch (error) {
+   }
 
-    }
-  }
+   const requestData = async () => {
+      try {
+         if (paramRoute === 'alterar') {
+            const { data } = await axios({
+               method: 'get',
+               url: `http://209.97.146.187:18919/badges/procurar/${badgeId}`
+            })
 
-  if (jornadaSelecionada != null) {
-    badges.bdg_cpn_cod = jornadaSelecionada.company.cpn_cod
-  }
+            setBadges(data.data)
+            setHoraCriacao(moment(data.data.bdg_dtcreation).format('hh'))
+            setHoraUpd(moment(data.data.bdg_dtupdate).format('hh'))
+         }
+      } catch (error) {
 
-  useEffect(() => {
-    requestData()
-    requestCompanys()
-    requestJorneys()
-  }, [])
+      }
+   }
 
-  if (redirect) {
-    return <Redirect to="/badges" />
-  }
+   if (jornadaSelecionada != null) {
+      badges.bdg_cpn_cod = jornadaSelecionada.company.cpn_cod
+   }
 
-  return (
+   useEffect(() => {
+      requestData()
+      requestCompanys()
+      requestJorneys()
+   }, [])
+
+   if (redirect) {
+      return <Redirect to="/badges" />
+   }
+
+   return (
       <>
          {showAlert &&
             <Col md={{ span: 5, offset: 2 }}>
@@ -215,8 +216,8 @@ export default function EditBadges (props) {
                                           >
                                              {jorn.jny_name}
                                           </option>)
-                                   }
-                                   return (
+                                    }
+                                    return (
                                        <option
                                           key={jorn.jny_cod}
                                           value={jorn.jny_cod}
@@ -242,8 +243,8 @@ export default function EditBadges (props) {
                               {badges.bdg_jny_cod == null && <option selected value={null}></option>}
                               <>
                                  {companys?.map(company => {
-                                   if (badges?.bdg_cpn_cod === company.cpn_cod) {
-                                     return (
+                                    if (badges?.bdg_cpn_cod === company.cpn_cod) {
+                                       return (
                                           <option
                                              selected
                                              key={company.cpn_cod}
@@ -251,8 +252,8 @@ export default function EditBadges (props) {
                                           >
                                              {company.cpn_name}
                                           </option>)
-                                   }
-                                   return (
+                                    }
+                                    return (
                                        <option
                                           key={company.cpn_cod}
                                           value={company.cpn_cod}
@@ -288,10 +289,10 @@ export default function EditBadges (props) {
                         </Col>
                         <Col style={{ marginBottom: 20 }}>
                            {moment(badges?.bdg_dtcreation).format('a') === 'pm'
-                             ? (
+                              ? (
                                  moment(badges?.bdg_dtcreation).format('DD-MM-YYYY') + ' ' + (parseInt(horaCriacao) + 12) + ':' + moment(badges?.bdg_dtcreation).format('mm')
-                               )
-                             : moment(badges?.bdg_dtcreation).format('DD-MM-YYYY hh:mm')
+                              )
+                              : moment(badges?.bdg_dtcreation).format('DD-MM-YYYY hh:mm')
                            }
                         </Col>
                         {badges?.bdg_dtupdate !== null && (
@@ -303,10 +304,10 @@ export default function EditBadges (props) {
                               </Col>
                               <Col>
                                  {moment(badges?.bdg_dtupdate).format('a') === 'pm'
-                                   ? (
+                                    ? (
                                        moment(badges?.bdg_dtupdate).format('DD-MM-YYYY') + ' ' + (parseInt(horaUpd) + 12) + ':' + moment(badges?.bdg_dtupdate).format('mm')
-                                     )
-                                   : moment(badges?.bdg_dtupdate).format('DD-MM-YYYY hh:mm')
+                                    )
+                                    : moment(badges?.bdg_dtupdate).format('DD-MM-YYYY hh:mm')
                                  }
                               </Col>
                            </>
@@ -329,5 +330,5 @@ export default function EditBadges (props) {
             </Col>
          </Col>
       </>
-  )
+   )
 }
