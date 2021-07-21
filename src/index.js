@@ -12,6 +12,7 @@ import UsuarioCompanhia from './Pages/Usuarios/UsuarioCompanhia';
 import UsuarioJornadas from './Pages/Usuarios/UsuarioJornadas';
 import UsuarioBadges from './Pages/Usuarios/UsuarioBadges';
 import UsuarioTipoDemanda from './Pages/Usuarios/UsuarioTipoDemanda';
+import UsuarioTimes from './Pages/Usuarios/UsuarioTimes'
 
 import ListarCompanhia from './Pages/Companhia/Listar'
 import CadastrarCompanhia from './Pages/Companhia/Cadastrar'
@@ -45,6 +46,7 @@ ReactDOM.render(
             <Route path="/usuario-jornadas/:userId" component={UsuarioJornadas} />
             <Route path="/usuario-badges/:userId" component={UsuarioBadges} />
             <Route path="/usuario-tipodemanda/:userId" component={UsuarioTipoDemanda} />
+            <Route path="/usuario-times/:userId" component={UsuarioTimes} />
             <Route path="/companhia" component={ListarCompanhia} />
             <Route path="/jornadas" component={ListarJornada} />
             <Route path="/badges" component={ListarBadges} />

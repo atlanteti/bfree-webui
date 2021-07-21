@@ -10,7 +10,6 @@ import {
 } from '../../../styles/styles'
 import SortColumn from '../../../Componentes/SortColumn'
 import { React } from 'react'
-import SearchBar from '../../../Componentes/SearchBar'
 import { TeamSearchBar } from "./TeamSearchBar"
 
 export default class ListarTime extends ListarPagina {
