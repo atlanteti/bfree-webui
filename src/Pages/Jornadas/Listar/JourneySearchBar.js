@@ -21,7 +21,7 @@ export class JourneySearchBar extends SearchBar {
             <Col xs={12} sm={6}>
               <ListCompanies
                 onChange={this.onChange}
-                controlId={"companyId"} />
+                controlId="companyId" />
             </Col>
           </Row>
           <Button variant="warning" type="submit">

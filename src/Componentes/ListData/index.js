@@ -1,9 +1,11 @@
 import { Component, React } from 'react'
-import { Container, Row, Col } from 'react-bootstrap'
+import { Container, Row, Col, Button } from 'react-bootstrap'
 import { CustomMenu } from '../CustomMenu'
 import CustomPagination from '../CustomPagination'
 import { CustomAlert } from '../CustomAlert'
-import { MainContainer, Title, Table, TableHeader, TableData, CustomMenuCol, MainRow, PaginationRow } from '../../styles/styles'
+import { MainContainer, Title, Table, TableHeader, TableData, CustomMenuCol, 
+  MainRow, PaginationRow, HeaderContainer, RowTopMargin, RightAlignText } from '../../styles/styles'
+import PropTypes from "prop-types"
 
 export default class ListarPagina extends Component {
   constructor (props) {
@@ -95,10 +97,10 @@ export default class ListarPagina extends Component {
     throw new Error('Componente abstrato deve ser implementado')
   }
 
-  PageHeaderCustom () {
+  PageHeaderCustom ()
+  {
     throw new Error('Componente abstrato deve ser implementado')
   }
-
   redirectCallback () {
     return true // Do nothing
   }
@@ -151,5 +153,23 @@ export default class ListarPagina extends Component {
          </MainRow>
       </MainContainer>
   }
+};
+
+export function PageHeaderCustomComponent (props) {
+  return <HeaderContainer fluid>
+    <RowTopMargin >
+      <Col>
+        <Title>{props.Title}</Title>
+      </Col>
+      <RightAlignText>
+        <Col><Button variant="dark" href={props.href}>Cadastrar</Button></Col>
+      </RightAlignText>
+    </RowTopMargin>
+  </HeaderContainer>
 }
-;
+
+PageHeaderCustomComponent.propTypes =
+{
+  Title: PropTypes.string.isRequired,
+  href: PropTypes.string.isRequired
+}

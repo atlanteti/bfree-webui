@@ -2,7 +2,7 @@ import { Button, Col, Container, Row } from 'react-bootstrap'
 // import SearchBar from '../../../Componentes/SearchBar'
 import { request } from '../../../Services/api'
 import ExclusionModal from '../../../Componentes/ExclusionModal'
-import ListarPagina from '../../../Componentes/ListData'
+import ListarPagina, { PageHeaderCustomComponent } from '../../../Componentes/ListData'
 import {
   ActionCell, ActionHeaderCell,
   RightAlignText,
@@ -65,16 +65,10 @@ export default class ListarJornada extends ListarPagina {
   }
 
   PageHeaderCustom () {
-    return <HeaderContainer fluid>
-      <RowTopMargin >
-        <Col>
-          <Title>Jornadas</Title>
-        </Col>
-        <RightAlignText>
-          <Col><Button variant="dark" href="/cadastrar/jornadas/inserir">Cadastrar</Button></Col>
-        </RightAlignText>
-      </RowTopMargin>
-    </HeaderContainer>
+    return <PageHeaderCustomComponent
+      Title="Jornadas"
+      href="/cadastrar/jornadas/inserir"
+      />
   }
 
   TableHeaderCustom (props) {

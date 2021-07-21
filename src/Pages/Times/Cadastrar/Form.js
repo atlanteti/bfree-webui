@@ -3,7 +3,7 @@ import { Form, Col, Row, Button } from 'react-bootstrap'
 import { DateField } from '../../../Componentes/DateField'
 import { ButtonRow } from '../../../Componentes/ButtonRow'
 import { EditCreateForm } from '../../../Componentes/EditCreateForm/index'
-import { TextField } from '../../../Componentes/FormFields'
+import { BooleanField, TextField } from '../../../Componentes/FormFields'
 import { CheckBox } from "../../../Componentes/CheckBox";
 import ListCompanies from '../../../Componentes/ListCompanies'
 
@@ -38,13 +38,12 @@ export class TeamFormBuilder extends EditCreateForm {
          </Row>
          <Row>
             <Col>
-               <CheckBox
-                  label="Ativo"
-                  name="tea_active"
-                  onChange={this.handleCheck}
-                  checked={this.state.primaryData?.tea_active}
-                  defaultValue={this.state.primaryData?.tea_active}
-               />
+               <BooleanField Label="Status:"
+                  controlId="tea_active"
+                  key="tea_active"
+                  onChange={this.handleChange}
+                  defaultValue={false}
+                  register={true}/>
             </Col>
          </Row>
          {this.props.paramRoute === 'inserir'

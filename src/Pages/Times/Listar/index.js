@@ -2,7 +2,7 @@ import { Button, Col, Container, Row } from 'react-bootstrap'
 // import SearchBar from '../../../Componentes/SearchBar'
 import { request } from '../../../Services/api'
 import ExclusionModal from '../../../Componentes/ExclusionModal'
-import ListarPagina from '../../../Componentes/ListData'
+import ListarPagina, { PageHeaderCustomComponent } from '../../../Componentes/ListData'
 import {
    ActionCell, ActionHeaderCell,
    RightAlignText,
@@ -11,6 +11,7 @@ import {
 import SortColumn from '../../../Componentes/SortColumn'
 import { React } from 'react'
 import SearchBar from '../../../Componentes/SearchBar'
+import { TeamSearchBar } from "./TeamSearchBar"
 
 export default class ListarTime extends ListarPagina {
    async deleteRecord(id) {
@@ -52,25 +53,15 @@ export default class ListarTime extends ListarPagina {
    }
 
    SearchBarCustom(props) {
-      return <SearchBar
-         Label="Nome:"
-         InputPlaceHolder="Insira o nome do Time"
+      return <TeamSearchBar
          filterData={props.filterData}
-         registerEndpoint="cadastrar/time"
       />
    }
 
    PageHeaderCustom() {
-      return <Container fluid>
-         <Row >
-            <Col>
-               <Title>Times</Title>
-            </Col>
-            <RightAlignText>
-               <Col><Button variant="dark" href="/cadastrar/time/inserir">Cadastrar</Button></Col>
-            </RightAlignText>
-         </Row>
-      </Container>
+      return <PageHeaderCustomComponent
+         Title="Times"
+         href="cadastrar/times/inserir/"/>
    }
 
    TableHeaderCustom(props) {
@@ -111,7 +102,7 @@ export default class ListarTime extends ListarPagina {
          <TextCell data-title="Nome">{time.tea_name}</TextCell>
          <TextCell data-title="Empresa" className="text">{time.company.cpn_name}</TextCell>
          <TextCell data-title="Status" className="text">
-            {time.tea_active ? "ATIVO" : <p style={{ color: "transparent" }}>.</p>}
+            {time.tea_active ? "ATIVO" : "INATIVO"}
          </TextCell>
          <ActionCell data-title="Ações">
             <Button variant="warning" href={`/editar-time/${time.tea_cod}/alterar`}>Editar</Button>
