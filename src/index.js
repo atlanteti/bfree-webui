@@ -29,6 +29,7 @@ import ListarBadges from './Pages/Badges/Listar'
 
 import ListarTipoDemanda from './Pages/TipoDemanda/Listar';
 import EditTipoDemanda from './Pages/TipoDemanda/Edit';
+import Error404 from './Pages/Error'
 
 import ListarTime from './Pages/Times/Listar'
 import CadastrarTime from './Pages/Times/Cadastrar'
@@ -57,6 +58,7 @@ ReactDOM.render(
             <Route path="/editar-badge/:bdg_cod/:param" component={EditBadges} />
             <Route path="/editar-time/:tea_cod/:param" component={CadastrarTime} />
             <Route path="/editar-tipodemanda/:tdm_cod/:param" component={EditTipoDemanda} />
+            <Route component={Error404} />
          </Switch>
       </Router>
    </React.StrictMode>,

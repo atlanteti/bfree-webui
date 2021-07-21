@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { Container, Row, Col } from 'react-bootstrap'
 
 export const Title = styled.h1`
    font-size: 2rem;
@@ -12,17 +13,30 @@ export const SearchBarBorder = styled.div`
       padding: 15px;
       border-radius: 5px;
       `
+export const CustomMenuCol = styled(Col)`
+   padding: 0;
+   margin-right: 12px; //Devido à construção do menu lateral, referências relativas ao alinhamento do grid 
+                       //Do bootstrap precisam ser consertados na mão.
+`
+export const HeaderContainer = styled(Container)`
+      margin-bottom: 1.5rem
+`
+export const RowTopMargin = styled(Row)`
+   margin-top: 1rem;
+`
+
+export const MainRow = styled(Row)`
+   margin-right: 0px;
+`
+
+export const PaginationRow = styled(Row)`
+   justify-content: center;`
+
 export const MainContainer = styled.div`
    .container{
       display: flex;
       flex-direction: column;
       align-items: center
-   }
-   
-   /* os três proximos estilos são de componentes bootstrap*/
-   .row{
-      justify-content: center;
-      margin-top: 1rem
    }
 
    .page-item.active .page-link {
@@ -76,21 +90,8 @@ export const Table = styled.table`
       text-align: left;
    }
 
-   /* ajuste de responsividade para tablete e telas pequena*/
-   @media(min-width: 768px) and (max-width: 800px){ 
-      tbody tr td::before {
-         content: attr(data-title);
-         position: absolute;
-         display: block;
-      }
-
-      thead {
-         display: none;
-      }
-   }
    /* responsividade da tabela */
    @media all and (max-width: 767px) {
-      margin: 0.5rem;
       border: none;
 
       td {

@@ -7,11 +7,11 @@ import { EditCreateForm } from '../../../Componentes/EditCreateForm/index'
 import ListCompanies from '../../../Componentes/ListCompanies'
 
 
-export default function JourneyForm(props) {
-   return <JourneyFormBuilder insertDataEndpoint="jorneys/cadastrar"
-      requestDataEndpoint="jorneys/procurar/"
-      editDataEndpoint="jorneys/alterar/"
-      {...props} />
+export default function JourneyForm (props) {
+  return <JourneyFormBuilder insertDataEndpoint="journeys/cadastrar"
+                        requestDataEndpoint="journeys/procurar/"
+                        editDataEndpoint="journeys/alterar/"
+                        {...props}/>
 }
 
 export class JourneyFormBuilder extends EditCreateForm {

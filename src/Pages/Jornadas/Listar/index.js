@@ -6,17 +6,18 @@ import ListarPagina from '../../../Componentes/ListData'
 import {
   ActionCell, ActionHeaderCell,
   RightAlignText,
-  TableRow, TextCell, TextHeaderCell, Title
+  TableRow, TextCell, TextHeaderCell, Title,
+  HeaderContainer, RowTopMargin
 } from '../../../styles/styles'
 import SortColumn from '../../../Componentes/SortColumn'
 import { React } from 'react'
-import SearchBar from '../../../Componentes/SearchBar'
+import { JourneySearchBar } from './JourneySearchBar'
 
 export default class ListarJornada extends ListarPagina {
   async deleteRecord (id) {
     const data = await request({
       method: 'delete',
-      endpoint: 'jorneys/excluir/' + id
+      endpoint: 'journeys/excluir/' + id
     })
     return data
   }
@@ -24,7 +25,7 @@ export default class ListarJornada extends ListarPagina {
   async fetchData (page, sort, isDesc, extraParams) {
     const data = await request({
       method: 'get',
-      endpoint: 'jorneys/listar',
+      endpoint: 'journeys/listar',
       params: {
         page: Number(page),
         sort: sort,
@@ -42,7 +43,7 @@ export default class ListarJornada extends ListarPagina {
   async SearchData (nome) {
     const data = await request({
       method: 'get',
-      endpoint: 'jorneys/listar',
+      endpoint: 'journeys/listar',
       params:
          {
            nome: nome
@@ -52,25 +53,28 @@ export default class ListarJornada extends ListarPagina {
   }
 
   SearchBarCustom (props) {
-    return <SearchBar
-      Label="Nome:"
-      InputPlaceHolder="Insira o nome da Jornada"
+    // return <SearchBar
+    //   Label="Nome:"
+    //   InputPlaceHolder="Insira o nome da Jornada"
+    //   filterData={props.filterData}
+    //   registerEndpoint="cadastrar/jorney"
+    //   />
+    return <JourneySearchBar
       filterData={props.filterData}
-      registerEndpoint="cadastrar/jorney"
       />
   }
 
   PageHeaderCustom () {
-    return <Container fluid>
-      <Row >
+    return <HeaderContainer fluid>
+      <RowTopMargin >
         <Col>
           <Title>Jornadas</Title>
         </Col>
         <RightAlignText>
-          <Col><Button variant="dark" href="/cadastrar/jorneys/inserir">Cadastrar</Button></Col>
+          <Col><Button variant="dark" href="/cadastrar/jornadas/inserir">Cadastrar</Button></Col>
         </RightAlignText>
-      </Row>
-    </Container>
+      </RowTopMargin>
+    </HeaderContainer>
   }
 
   TableHeaderCustom (props) {
@@ -83,7 +87,8 @@ export default class ListarJornada extends ListarPagina {
                   receiver={props.subscribe}
                   wipeAll={props.wipeAll}/>
          </TextHeaderCell>
-         <TextHeaderCell scope="col"><SortColumn
+         <TextHeaderCell scope="col">
+                <SortColumn
                   label="Empresa"
                   attribute="cpn_name"
                   sortCallback={props.sortCallback}
