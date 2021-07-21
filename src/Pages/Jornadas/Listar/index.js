@@ -53,12 +53,6 @@ export default class ListarJornada extends ListarPagina {
   }
 
   SearchBarCustom (props) {
-    // return <SearchBar
-    //   Label="Nome:"
-    //   InputPlaceHolder="Insira o nome da Jornada"
-    //   filterData={props.filterData}
-    //   registerEndpoint="cadastrar/jorney"
-    //   />
     return <JourneySearchBar
       filterData={props.filterData}
       />
@@ -98,16 +92,13 @@ export default class ListarJornada extends ListarPagina {
          <TextCell data-title="Empresa" className="text">{jornada.company.cpn_name}</TextCell>
          <ActionCell data-title="Ações">
                <Button variant="warning" href={`/editar-jornada/${jornada.jny_cod}/alterar`}>Editar</Button>
-               <Button variant="dark" onClick={this.openModal}>Excluir</Button>
+               <Button variant="dark" 
+                onClick={() => {
+                  this.setState({deletionId: jornada.jny_cod,
+                                 modalIdentifier: "a jornada"})
+                  this.openModal()
+                  }}>Excluir</Button>
          </ActionCell>
-         <ExclusionModal
-            showModal={this.state.showModal}
-            closeModal={this.closeModal}
-            pageIdentifier="a jornada" // Talvez isso possa ser generalizado para o contexto da página
-            deletionCallback={this.deleteRecord}
-            identifierCode={jornada.jny_cod}
-            updateListing={this.updateListing.bind(this)}
-            showAlert={this.showAlert.bind(this)} />
-      </TableRow>
+          </TableRow>
   }
 };

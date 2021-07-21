@@ -6,6 +6,7 @@ import { CustomAlert } from '../CustomAlert'
 import { MainContainer, Title, Table, TableHeader, TableData, CustomMenuCol, 
   MainRow, PaginationRow, HeaderContainer, RowTopMargin, RightAlignText } from '../../styles/styles'
 import PropTypes from "prop-types"
+import ExclusionModal from '../ExclusionModal'
 
 export default class ListarPagina extends Component {
   constructor (props) {
@@ -101,6 +102,16 @@ export default class ListarPagina extends Component {
   {
     throw new Error('Componente abstrato deve ser implementado')
   }
+  createModal () {
+    return <ExclusionModal
+    showModal={this.state.showModal}
+    closeModal={this.closeModal}
+    pageIdentifier={this.state.modalIdentifier} // Talvez isso possa ser generalizado para o contexto da página
+    deletionCallback={this.deleteRecord}
+    identifierCode={this.state.deletionId}
+    updateListing={this.updateListing.bind(this)}
+    showAlert={this.showAlert.bind(this)} />
+  }
   redirectCallback () {
     return true // Do nothing
   }
@@ -140,6 +151,7 @@ export default class ListarPagina extends Component {
                                  )
                                })}
                           </TableData>
+                          {this.createModal()}
                        </Table>
                     </Row>
                     <PaginationRow>
