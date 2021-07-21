@@ -97,16 +97,12 @@ export default class ListarCompanhia extends ListarPagina {
          <TextCell data-title="Nome">{companhia.cpn_name}</TextCell>
          <ActionCell data-title="Ações">
                <Button variant="warning" href={`/editar-companhia/${companhia.cpn_cod}/alterar`}>Editar</Button>
-               <Button variant="dark" onClick={this.openModal}>Excluir</Button>
+               <Button variant="dark"onClick={() => {
+                  this.setState({deletionId: companhia.cpn_cod,
+                                 modalIdentifier: "a jornada"})
+                  this.openModal()
+                  }}>Excluir</Button>
          </ActionCell>
-         <ExclusionModal
-            showModal={this.state.showModal}
-            closeModal={this.closeModal}
-            pageIdentifier="a empresa" // Talvez isso possa ser generalizado para o contexto da página
-            deletionCallback={this.deleteRecord}
-            identifierCode={companhia.cpn_cod}
-            updateListing={this.updateListing.bind(this)}
-            showAlert={this.showAlert.bind(this)} />
       </TableRow>
   }
 };

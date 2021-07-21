@@ -106,16 +106,12 @@ export default class ListarTime extends ListarPagina {
          </TextCell>
          <ActionCell data-title="Ações">
             <Button variant="warning" href={`/editar-time/${time.tea_cod}/alterar`}>Editar</Button>
-            <Button variant="dark" onClick={this.openModal}>Excluir</Button>
+            <Button variant="dark" onClick={() => {
+                  this.setState({deletionId: time.tea_cod,
+                                 modalIdentifier: "a jornada"})
+                  this.openModal()
+                  }}>Excluir</Button>
          </ActionCell>
-         <ExclusionModal
-            showModal={this.state.showModal}
-            closeModal={this.closeModal}
-            pageIdentifier="o time" // Talvez isso possa ser generalizado para o contexto da página
-            deletionCallback={this.deleteRecord}
-            identifierCode={time.tea_cod}
-            updateListing={this.updateListing.bind(this)}
-            showAlert={this.showAlert.bind(this)} />
       </TableRow>
    }
 };
