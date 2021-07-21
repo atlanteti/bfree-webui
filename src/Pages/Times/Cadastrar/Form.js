@@ -42,8 +42,8 @@ export class TeamFormBuilder extends EditCreateForm {
                   controlId="tea_active"
                   key="tea_active"
                   onChange={this.handleChange}
-                  defaultValue={false}
-                  register={true}/>
+                  register={true}
+                  value={this.state.primaryData?.tea_active}/>
             </Col>
          </Row>
          {this.props.paramRoute === 'inserir'

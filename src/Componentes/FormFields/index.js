@@ -46,12 +46,13 @@ export function BooleanField (props)
       <Form.Control
       as="select"
       required={props.required}
-      onChange={props.onChange}>
+      onChange={props.onChange}
+      value={props.value}>
    {!props.register ?
-   <><option value={null}></option>
-   <option value={false}>Inativo</option></> 
+      <> <option value={null}></option>
+         <option value={false}>Inativo</option>
+      </> 
    : <option value={false} selected>Inativo</option>}
-   {/* <option value={false}>Inativo</option> */}
    <option value={true}>Ativo</option>
    </Form.Control>
    </Form.Group>
