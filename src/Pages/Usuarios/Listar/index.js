@@ -318,6 +318,11 @@ export default function Usuarios() {
                                           Badges
                                        </MenuItem>
                                     </Link>
+                                    <Link to={`/usuario-times/${idUser}`}>
+                                       <MenuItem onClick={handleClose}>
+                                          Times
+                                       </MenuItem>
+                                    </Link>
                                  </Menu>
                               </TableRow>
                            );
