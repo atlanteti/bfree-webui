@@ -108,7 +108,7 @@ export default class ListarTime extends ListarPagina {
             <Button variant="warning" href={`/editar-time/${time.tea_cod}/alterar`}>Editar</Button>
             <Button variant="dark" onClick={() => {
                   this.setState({deletionId: time.tea_cod,
-                                 modalIdentifier: "a jornada"})
+                                 modalIdentifier: "o time"})
                   this.openModal()
                   }}>Excluir</Button>
          </ActionCell>

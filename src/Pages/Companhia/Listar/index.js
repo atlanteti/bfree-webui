@@ -1,7 +1,7 @@
 import { Button, Col } from 'react-bootstrap'
 import { request } from '../../../Services/api'
 import ExclusionModal from '../../../Componentes/ExclusionModal'
-import ListarPagina from '../../../Componentes/ListData'
+import ListarPagina, { PageHeaderCustomComponent } from '../../../Componentes/ListData'
 import {
   ActionCell, ActionHeaderCell, HeaderContainer, NumberCell, NumberHeaderCell,
   RightAlignText,
@@ -59,16 +59,9 @@ export default class ListarCompanhia extends ListarPagina {
   }
 
   PageHeaderCustom () {
-    return <HeaderContainer fluid>
-    <RowTopMargin >
-      <Col>
-        <Title>Companhia</Title>
-      </Col>
-      <RightAlignText>
-        <Col><Button variant="dark" href="/cadastrar/companhia/inserir">Cadastrar</Button></Col>
-      </RightAlignText>
-    </RowTopMargin>
-  </HeaderContainer>
+    return <PageHeaderCustomComponent 
+      Title="Empresas"
+      href="/cadastrar/companhia/inserir"/>
   }
 
   TableHeaderCustom (props) {
@@ -99,7 +92,7 @@ export default class ListarCompanhia extends ListarPagina {
                <Button variant="warning" href={`/editar-companhia/${companhia.cpn_cod}/alterar`}>Editar</Button>
                <Button variant="dark"onClick={() => {
                   this.setState({deletionId: companhia.cpn_cod,
-                                 modalIdentifier: "a jornada"})
+                                 modalIdentifier: "a empresa"})
                   this.openModal()
                   }}>Excluir</Button>
          </ActionCell>
