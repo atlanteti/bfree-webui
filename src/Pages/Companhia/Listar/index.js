@@ -35,22 +35,6 @@ export default class ListarCompanhia extends ListarPagina {
     return data
   }
 
-  async reorderData ({ sort, isDesc = false }) {
-    await this.fetchAndSetData({ page: 1, sort: sort, isDesc: isDesc })
-  }
-
-  async SearchData (nome) {
-    const data = await request({
-      method: 'get',
-      endpoint: 'companies/listar',
-      params:
-         {
-           nome: nome
-         }
-    })
-    return data
-  }
-
   SearchBarCustom (props) {
     return <CompanySearchBar
       InputPlaceholder="Insira o nome da empresa"
