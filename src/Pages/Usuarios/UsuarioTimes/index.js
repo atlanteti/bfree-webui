@@ -26,7 +26,7 @@ export default function UsuarioTimes(props) {
          e.preventDefault()
          const { data } = await axios({
             method: 'post',
-            url: "http://209.97.146.187:18920/team-members/cadastrar",
+            url: "http://209.97.146.187:18919/team-members/cadastrar",
             data: {
                user: { "usr_cod": userId },
                teams: cods
@@ -58,7 +58,7 @@ export default function UsuarioTimes(props) {
       try {
          const { data } = await axios({
             method: 'get',
-            url: `http://209.97.146.187:18920/teams/listar-team-members?userId=${userId}`,
+            url: `http://209.97.146.187:18919/teams/listar-team-members?userId=${userId}`,
          })
          data.data.filter(team => team.pertence === "S").map(result => {
             return selected.push({ value: result.tea_cod, label: result.tea_name })
