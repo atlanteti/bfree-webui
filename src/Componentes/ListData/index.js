@@ -133,8 +133,7 @@ export default class ListarPagina extends Component {
            {/* Layout usado nesse componente deve ser repetido em custommenucol equivalente dentro do arquivo do componente */}
             <CustomMenuCol lg={2}><CustomMenu /></CustomMenuCol>
             <Col>
-               <Col
-                    md={{span: 10, offset: 1}}>
+               <Col>
                  <Container fluid>
                     <CustomAlert
                        data={this.state.responseMetaData}
