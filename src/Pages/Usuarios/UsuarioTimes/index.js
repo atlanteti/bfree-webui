@@ -63,7 +63,6 @@ export default function UsuarioTimes(props) {
          data.data.filter(team => team.pertence === "S").map(result => {
             return selected.push({ value: result.tea_cod, label: result.tea_name })
          });
-
          setTeams(data.data)
       } catch (error) {
          console.log(error)

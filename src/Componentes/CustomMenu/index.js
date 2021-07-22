@@ -59,7 +59,7 @@ export const CustomMenu = () => {
                      elemBefore: () => <BsGraphUp size={23} color="#ffb509" />
                   },
                   {
-                     title: 'Tipo de Demanda',
+                     title: 'Tipos de Demanda',
                      itemId: '/tipodemanda',
                      elemBefore: () => <IoAlbumsOutline size={23} color="#ffb509" />
                   },

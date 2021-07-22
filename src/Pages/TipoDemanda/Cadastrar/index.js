@@ -8,37 +8,37 @@ import { CustomAlert } from '../../../Componentes/CustomAlert'
 import TypeDemandForm from './Form'
 
 export default class CadastrarTipoDemanda extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      responseData: {},
-      responseAlertShow: null,
-      redirect: false
-    }
-    this.paramRoute = props.match.params.param
-    this.tDemandId = Number(props.match.params.tdm_cod)
-  }
+   constructor(props) {
+      super(props)
+      this.state = {
+         responseData: {},
+         responseAlertShow: null,
+         redirect: false
+      }
+      this.paramRoute = props.match.params.param
+      this.tDemandId = Number(props.match.params.tdm_cod)
+   }
 
-  getAlertCallback (func) {
-    this.setState({
-      responseAlertShow: func
-    })
-  }
+   getAlertCallback(func) {
+      this.setState({
+         responseAlertShow: func
+      })
+   }
 
-  showAlert (data) {
-    this.state.responseAlertShow(data)
-  }
+   showAlert(data) {
+      this.state.responseAlertShow(data)
+   }
 
-  redirect () {
-    this.setState({ redirect: true })
-  }
+   redirect() {
+      this.setState({ redirect: true })
+   }
 
-  render () {
-    if (this.state.redirect) {
-      return <Redirect to="/tipodemanda" />
-    } else {
-      return <>
-            <Title>{this.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'} Tipo Demanda </Title>
+   render() {
+      if (this.state.redirect) {
+         return <Redirect to="/tipodemanda" />
+      } else {
+         return <>
+            <Title>{this.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'} Tipos de Demanda </Title>
             <CustomMenu />
             <Col style={{ marginTop: 48 }}>
                <Col
@@ -59,6 +59,6 @@ export default class CadastrarTipoDemanda extends Component {
                </Col>
             </Col>
          </>
-    }
-  }
+      }
+   }
 }
