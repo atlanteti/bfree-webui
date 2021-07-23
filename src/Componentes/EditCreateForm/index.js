@@ -1,12 +1,20 @@
 import { Component } from 'react';
 import { request } from '../../Services/api';
+import { useHistory, Redirect } from 'react-router-dom'
+import { Cookies } from 'react-cookie';
+
+const cookies = new Cookies();
+
+// const history = useHistory()
 
 export class EditCreateForm extends Component {
    constructor(props) {
       super(props);
       this.state = {
          primaryData: {},
-         responseAlertShow: null
+         responseAlertShow: null,
+         redirect: false,
+         token: cookies.get('auth')
       };
       this.paramRoute = props.paramRoute;
       this.primaryId = Number(props.primaryId);
@@ -14,17 +22,30 @@ export class EditCreateForm extends Component {
       this.handleChange = this.handleChange.bind(this);
       this.handleCheck = this.handleCheck.bind(this);
    }
+
+   redirect() {
+      this.setState({ redirect: true })
+   }
+
    componentDidMount() {
       const requestData = async () => {
          try {
             const data = await request({
                method: "get",
                //props.requestDataEndpoint
-               endpoint: this.props.requestDataEndpoint + this.primaryId
+               endpoint: this.props.requestDataEndpoint + this.primaryId,
+               // headers: {
+               //    Authorization: "Bearer " + this.state.token
+               // }
             });
-            this.setState({
-               primaryData: data.data
-            });
+            console.log(data)
+            // if (data.meta.status === 211) {
+            //    alert("A")
+            //    this.setState({ redirect: true })
+            // }
+            // this.setState({
+            //    primaryData: data.data,
+            // });
          } catch (error) {
             console.log(error);
          }
@@ -37,7 +58,10 @@ export class EditCreateForm extends Component {
       return await request({
          method: "post",
          endpoint: this.props.insertDataEndpoint,
-         data: formData
+         data: formData,
+         headers: {
+            Authorization: "Bearer " + this.state.token
+         }
       });
    }
 
@@ -83,6 +107,11 @@ export class EditCreateForm extends Component {
             ...this.state.primaryData, ["tea_active"]: !this.state.primaryData.tea_active
          }
       })
+   }
+   render() {
+      if (this.state.redirect) {
+         return alert("A")
+      }
    }
 }
 

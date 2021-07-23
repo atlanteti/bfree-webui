@@ -10,13 +10,14 @@ import { FaUserGraduate, FaTasks } from 'react-icons/fa'
 import { BsGraphUp } from 'react-icons/bs'
 import 'react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css'
 import './styles.css'
-import { Col } from 'react-bootstrap'
 import { CustomMenuCol } from '../../styles/styles'
+import { useCookies } from "react-cookie";
 
 export const CustomMenu = () => {
    const history = useHistory()
    const location = useLocation()
    const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+   const [removeCookie] = useCookies(["auth"]);
 
    return (
       <React.Fragment>
@@ -96,21 +97,22 @@ export const CustomMenu = () => {
                ]}
             />
 
-            {/* <div className="absolute bottom-0 w-full my-8">
+            <div className="absolute bottom-0 w-full my-8">
                <Navigation
                   activeItemId={location.pathname}
                   items={[
                      {
-                        title: "Settings",
-                        itemId: "/settings",
+                        title: "Sair",
                         elemBefore: () => <Icon name="activity" />
                      }
                   ]}
-                  onSelect={({ itemId }) => {
-                     history.push(itemId);
+                  onSelect={() => {
+                     window.Eduzz.Accounts.logout({ env: "staging" })
+                     history.push("/")
+                     removeCookie("auth")
                   }}
                />
-            </div> */}
+            </div>
          </CustomMenuCol>
       </React.Fragment>
    )
