@@ -50,15 +50,17 @@ export function BooleanField (props)
       value={props.value}>
    {!props.register ?
       <> <option value={null}></option>
-         <option value={false}>Inativo</option>
+         <option value={false}>{props.onFalse}</option>
       </> 
-   : <option value={false} selected>Inativo</option>}
-   <option value={true}>Ativo</option>
+   : <option value={false}>{props.onFalse}</option>}
+   <option value={true}>{props.onTrue}</option>
    </Form.Control>
    </Form.Group>
 }
 
 BooleanField.propTypes = {
+   onFalse: PropTypes.string.isRequired,
+   onTrue: PropTypes.string.isRequired,
    controlId: PropTypes.string.isRequired,
    Label: PropTypes.string.isRequired,
    onChange: PropTypes.func.isRequired,

@@ -8,6 +8,7 @@ import CadastrarJornada from '../Jornadas/Cadastrar'
 import EditBadges from '../Badges/Cadastrar'
 import CadastrarTime from '../Times/Cadastrar'
 import CadastrarTipoDemanda from '../TipoDemanda/Cadastrar'
+import CadastrarBadge from '../Badges/Cadastrar'
 export default class Cadastros extends Component {
    render() {
       return <div>
@@ -16,7 +17,7 @@ export default class Cadastros extends Component {
          <Route path={`${this.props.match.path}/companhia/:param`} component={EditCompanhia} />
          <Route path={`${this.props.match.path}/usuario-jornada`} component={UsuarioJornada} />
          <Route path={`${this.props.match.path}/jornadas/:param`} component={CadastrarJornada} />
-         <Route path={`${this.props.match.path}/badges/:param`} component={EditBadges} />
+         <Route path={`${this.props.match.path}/badges/:param`} component={CadastrarBadge} />
          <Route path={`${this.props.match.path}/tipodemanda/:param`} component={CadastrarTipoDemanda} />
          <Route path={`${this.props.match.path}/times/:param`} component={CadastrarTime} />
       </div>

@@ -21,12 +21,7 @@ import EditarJornada from './Pages/JornadaUsuarios/Editar'
 import ListarJornadaUsuarios from './Pages/JornadaUsuarios/Listar'
 
 import ListarJornada from './Pages/Jornadas/Listar'
-// import ListarJornadas from './Pages/TipoJornadas/Listar'
 import CadastrarJornada from './Pages/Jornadas/Cadastrar'
-import EditTJornadas from './Pages/TipoJornadas/Cadastrar'
-
-import EditBadges from './Pages/Badges/Cadastrar'
-import ListarBadges from './Pages/Badges/Listar'
 
 import ListarTipoDemanda from './Pages/TipoDemanda/Listar'
 import CadastrarTipoDemanda from './Pages/TipoDemanda/Cadastrar'
@@ -35,6 +30,9 @@ import Error404 from './Pages/Error'
 
 import ListarTime from './Pages/Times/Listar'
 import CadastrarTime from './Pages/Times/Cadastrar'
+
+import ListarBadge from './Pages/Badges/Listar'
+import CadastrarBadge from './Pages/Badges/Cadastrar'
 
 
 ReactDOM.render(
@@ -51,7 +49,7 @@ ReactDOM.render(
             <Route path="/usuario-times/:userId" component={UsuarioTimes} />
             <Route path="/companhia" component={ListarCompanhia} />
             <Route path="/jornadas" component={ListarJornada} />
-            <Route path="/badges" component={ListarBadges} />
+            <Route path="/badges" component={ListarBadge} />
             <Route path="/tipodemanda" component={ListarTipoDemanda} />
             <Route path="/times" component={ListarTime} />
             <Route path="/usuario-jornadas" component={ListarJornadaUsuarios} />
@@ -59,7 +57,7 @@ ReactDOM.render(
             <Route path="/editar-companhia/:cpn_cod/:param" component={CadastrarCompanhia} />
             <Route path="/editar-jornada-usuario/:jnu_cod" component={EditarJornada} />
             <Route path="/editar-jornada/:jny_cod/:param" component={CadastrarJornada} />
-            <Route path="/editar-badge/:bdg_cod/:param" component={EditBadges} />
+            <Route path="/editar-badges/:bdg_cod/:param" component={CadastrarBadge} />
             <Route path="/editar-time/:tea_cod/:param" component={CadastrarTime} />
             <Route path="/editar-tipodemanda/:tdm_cod/:param" component={CadastrarTipoDemanda} />
             <Route component={Error404} />
