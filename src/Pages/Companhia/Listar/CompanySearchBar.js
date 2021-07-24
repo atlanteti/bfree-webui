@@ -1,6 +1,6 @@
 import { Row, Form, Button, Col } from 'react-bootstrap';
 import { React } from 'react';
-import { SearchBarBorder } from '../../../styles/styles';
+import { SearchBarBorder } from '../../../styles/CommonStyles';
 import { TextField } from '../../../Componentes/FormFields';
 import SearchBar from '../../../Componentes/SearchBar/index';
 
