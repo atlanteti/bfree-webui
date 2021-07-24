@@ -10,8 +10,7 @@ import { FaUserGraduate, FaTasks } from 'react-icons/fa'
 import { BsGraphUp } from 'react-icons/bs'
 import 'react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css'
 import './styles.css'
-import { Col } from 'react-bootstrap'
-import { CustomMenuCol } from '../../styles/styles'
+import { CustomMenuCol } from '../../styles/CommonStyles'
 
 export const CustomMenu = () => {
    const history = useHistory()

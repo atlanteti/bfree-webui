@@ -2,17 +2,21 @@ import styled from 'styled-components'
 import { Container, Row, Col } from 'react-bootstrap'
 
 export const Title = styled.h1`
+   text-align: center;
    font-size: 2rem;
 `
+
 export const RightAlignText = styled.div`
    .col{
       text-align: end
    }`
+
 export const SearchBarBorder = styled.div`
       border: 1px solid rgba(0,0,0,0.20);
       padding: 15px;
       border-radius: 5px;
       `
+      
 export const CustomMenuCol = styled(Col)`
    padding: 0;
    margin-right: 12px; //Devido à construção do menu lateral, referências relativas ao alinhamento do grid 
@@ -30,7 +34,8 @@ export const MainRow = styled(Row)`
 `
 
 export const PaginationRow = styled(Row)`
-   justify-content: center;`
+   justify-content: center;
+   margin-bottom: 20px;`
 
 export const MainContainer = styled.div`
    .container{
@@ -89,6 +94,9 @@ export const Table = styled.table`
    .text{
       text-align: left;
    }
+   .icon {
+       vertical-align: inherit;
+    }
 
    /* responsividade da tabela */
    @media all and (max-width: 767px) {

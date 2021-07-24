@@ -19,7 +19,7 @@ import {
    SortIcon,
    BtnMenu,
    Icon
-} from "../../../styles/styles.js"
+} from "../../../styles/CommonStyles.js"
 
 export default function Usuarios() {
    const [usuarios, setUsuarios] = useState(null);
