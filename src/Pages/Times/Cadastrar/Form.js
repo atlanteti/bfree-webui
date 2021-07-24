@@ -29,16 +29,20 @@ export class TeamFormBuilder extends EditCreateForm {
          </Row>
          <Row>
             <Col>
-               <ListCompanies
+            {this.state.primaryData.company ? 
+            <ListCompanies
                   defaultValue={this.props.primaryId}
                   onChange={this.handleChange}
                   controlId="tea_cpn_cod"
-                  defaultCompany={this.state.primaryData?.company} />
+                  defaultCompany={this.state.primaryData.company.cpn_cod} />
+                     : null}
             </Col>
          </Row>
          <Row>
             <Col>
                <BooleanField Label="Status:"
+                  onTrue="Ativo"
+                  onFalse="Inativo"
                   controlId="tea_active"
                   key="tea_active"
                   onChange={this.handleChange}
