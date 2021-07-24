@@ -26,6 +26,8 @@ export class TeamSearchBar extends SearchBar {
             </Col>
             <Col xs={12} sm={4}>
               <BooleanField Label="Status: "
+                onTrue="Ativo"
+                onFalse="Inativo"
                 controlId="tea_active"
                 key="tea_active"
                 onChange={this.onChange} />
