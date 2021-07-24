@@ -1,13 +1,12 @@
 import { Form } from 'react-bootstrap';
 import { React, Component } from 'react';
 import { request } from '../../Services/api';
-
+import PropTypes from 'prop-types'
 export default class ListCompanies extends Component {
   constructor(props) {
     super(props);
     this.state = {
       companies: [],
-      selectedValue: this.props.defaultCompany
     };
     if (this.props.getSetCallback)
     {
@@ -31,7 +30,6 @@ export default class ListCompanies extends Component {
 
   onChange(e) 
   {
-    this.setState({selectedValue: e.target.value})
     this.props.onChange(e)
   }
 
@@ -52,7 +50,7 @@ export default class ListCompanies extends Component {
         disabled={this.props.disabled}
         as="select"
         onChange={this.onChange.bind(this)}
-        value={this.state.selectedValue}>
+        value={this.props.defaultCompany}>
         <>
           <option value={null} />
           {this.state.companies?.map(company => {
@@ -68,4 +66,13 @@ export default class ListCompanies extends Component {
       </Form.Control>
     </Form.Group>;
   }
+}
+
+ListCompanies.propTypes = {
+  getSetCallback: PropTypes.func,
+  defaultCompany: PropTypes.number,
+  controlId: PropTypes.number.isRequired,
+  onChange: PropTypes.func.isRequired,
+  required: PropTypes.bool,
+  disabled: PropTypes.bool
 }

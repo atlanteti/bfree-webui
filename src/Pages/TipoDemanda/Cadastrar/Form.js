@@ -33,7 +33,8 @@ export class TypeDemandFormBuilder extends EditCreateForm {
                   defaultValue={this.props.primaryId}
                   onChange={this.handleChange}
                   controlId="tdm_cpn_cod"
-                  defaultCompany={this.state.primaryData?.company} />
+                  defaultCompany={this.state.primaryData.tdm_cpn_cod ? this.state.primaryData.tdm_cpn_cod : ""}
+                  />
             </Col>
          </Row>
          {this.props.paramRoute === 'inserir'

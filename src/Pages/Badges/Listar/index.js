@@ -5,23 +5,13 @@ import ExclusionModal from '../../../Componentes/ExclusionModal'
 import ListarPagina, { PageHeaderCustomComponent } from '../../../Componentes/ListData'
 import {
    ActionCell, ActionHeaderCell,
-  MainContainer,
-  BtnCadastrar,
-  Table,
-  TableHeader,
-  TableRow,
-  ColumnTitle,
-  TableData,
-  TableCell,
    Icon,
-   RightAlignText,
-   TableRow, TextCell, TextHeaderCell, Title
+   TableRow, TextCell, TextHeaderCell
 } from '../../../styles/CommonStyles'
 import SortColumn from '../../../Componentes/SortColumn'
 import { React } from 'react'
 import { BadgeSearchBar } from "./BadgeSearchBar"
 import { IoCheckboxOutline } from 'react-icons/io5'
-import axios from 'axios'
 
 export default class ListarBadge extends ListarPagina {
    async deleteRecord(id) {

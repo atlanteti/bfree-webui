@@ -34,7 +34,7 @@ export class TeamFormBuilder extends EditCreateForm {
                   defaultValue={this.props.primaryId}
                   onChange={this.handleChange}
                   controlId="tea_cpn_cod"
-                  defaultCompany={this.state.primaryData.company.cpn_cod} />
+                  defaultCompany={this.state.primaryData.tea_cpn_cod} />
                      : null}
             </Col>
          </Row>
