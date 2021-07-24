@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 
-import { Title } from './styles.js'
 import { Redirect } from 'react-router-dom'
 import { Col } from 'react-bootstrap'
 import { CustomMenu } from '../../../Componentes/CustomMenu'
 import { CustomAlert } from '../../../Componentes/CustomAlert'
 import TeamForm from './Form'
+import { Title } from '../../../styles/CommonStyles'
 
 export default class CadastrarTime extends Component {
    constructor(props) {

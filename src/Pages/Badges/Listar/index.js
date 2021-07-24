@@ -5,7 +5,7 @@ import { IoArrowDownSharp, IoArrowUpSharp, IoCheckboxOutline } from 'react-icons
 import { Button, Pagination, Modal, Col, Container, Form } from 'react-bootstrap'
 
 import {
-  Title,
+   ActionCell, ActionHeaderCell,
   MainContainer,
   BtnCadastrar,
   Table,
@@ -14,10 +14,10 @@ import {
   ColumnTitle,
   TableData,
   TableCell,
-  Icon,
-  SortIcon
-} from './styles.js'
-import axios from 'axios'
+   Icon,
+   RightAlignText,
+   TableRow, TextCell, TextHeaderCell, Title
+} from '../../../styles/CommonStyles'
 
 export default function ListarBadges () {
   const [buscar, setBuscar] = useState('')

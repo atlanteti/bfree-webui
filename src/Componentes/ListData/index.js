@@ -4,7 +4,7 @@ import { CustomMenu } from '../CustomMenu'
 import CustomPagination from '../CustomPagination'
 import { CustomAlert } from '../CustomAlert'
 import { MainContainer, Title, Table, TableHeader, TableData, CustomMenuCol, 
-  MainRow, PaginationRow, HeaderContainer, RowTopMargin, RightAlignText } from '../../styles/styles'
+  MainRow, PaginationRow, HeaderContainer, RowTopMargin, RightAlignText } from '../../styles/CommonStyles'
 import PropTypes from "prop-types"
 import ExclusionModal from '../ExclusionModal'
 

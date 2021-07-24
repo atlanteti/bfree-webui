@@ -4,7 +4,7 @@ import ListarPagina, { PageHeaderCustomComponent } from '../../../Componentes/Li
 import {
    ActionCell, ActionHeaderCell,
    TableRow, TextCell, TextHeaderCell
-} from '../../../styles/styles'
+} from '../../../styles/CommonStyles'
 import SortColumn from '../../../Componentes/SortColumn'
 import { React } from 'react'
 import { TDemandSearchBar } from './TDemandSearchBar'

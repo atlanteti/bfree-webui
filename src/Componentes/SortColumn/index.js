@@ -1,4 +1,4 @@
-import { SortIcon } from '../../styles/styles'
+import { SortIcon } from '../../styles/CommonStyles'
 import { Component, React } from 'react'
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md'
 import { CgArrowsScrollV } from 'react-icons/cg'

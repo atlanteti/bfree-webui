@@ -5,6 +5,7 @@ import { Title } from './styles.js'
 import moment from 'moment'
 import axios from 'axios'
 import { Redirect } from 'react-router-dom'
+import { Title } from '../../../styles/CommonStyles'
 
 export default function EditBadges(props) {
    const [redirect, setRedirect] = useState(false)

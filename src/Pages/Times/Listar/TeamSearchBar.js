@@ -1,7 +1,7 @@
 import { Row, Form, Button, Col } from 'react-bootstrap';
 import { React } from 'react';
 import ListCompanies from '../../../Componentes/ListCompanies';
-import { SearchBarBorder } from '../../../styles/styles';
+import { SearchBarBorder } from '../../../styles/CommonStyles';
 import { BooleanField, TextField } from '../../../Componentes/FormFields';
 import SearchBar from '../../../Componentes/SearchBar/index';
 

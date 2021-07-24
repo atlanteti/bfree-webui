@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
-
-import { Title } from './styles.js'
 import { Redirect } from 'react-router-dom'
 import { Col } from 'react-bootstrap'
 import { CustomMenu } from '../../../Componentes/CustomMenu'
 import { CustomAlert } from '../../../Componentes/CustomAlert'
 import JourneyForm from './Form'
-
+import { Title } from '../../../styles/CommonStyles'
 export default class CadastrarJornada extends Component {
   constructor (props) {
     super(props)
