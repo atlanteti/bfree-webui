@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { Redirect } from 'react-router-dom'
+import { creds } from '../creds'
 
 export const request = async ({
   method,
@@ -8,7 +9,7 @@ export const request = async ({
   data,
   params
 }) => {
-  const baseUrl = '209.97.146.187:18919'
+  const baseUrl = '209.97.146.187:18920'
 
   const config = {
     method: method || 'get',
@@ -19,6 +20,7 @@ export const request = async ({
     headers: {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*',
+      'Authorization' : creds,
       ...headers
     }
   }
@@ -29,7 +31,6 @@ export const request = async ({
     result = await axios(config)
   } catch (error) {
     return <Redirect to="404"/>
-    result = 'ERROR' // TODO: error handling
   }
 
   return result.data
