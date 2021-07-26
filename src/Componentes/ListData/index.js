@@ -3,11 +3,13 @@ import { Container, Row, Col, Button } from 'react-bootstrap'
 import { CustomMenu } from '../CustomMenu'
 import CustomPagination from '../CustomPagination'
 import { CustomAlert } from '../CustomAlert'
-import { MainContainer, Title, Table, TableHeader, TableData, CustomMenuCol, 
-  MainRow, PaginationRow, HeaderContainer, RowTopMargin, RightAlignText } from '../../styles/CommonStyles'
+import {
+   MainContainer, Title, Table, TableHeader, TableData, CustomMenuCol,
+   MainRow, PaginationRow, HeaderContainer, RowTopMargin, RightAlignText
+} from '../../styles/CommonStyles'
 import PropTypes from "prop-types"
 import ExclusionModal from '../ExclusionModal'
-import { Cookies } from 'react-cookie';
+import { Redirect } from "react-router-dom"
 
 export default class ListarPagina extends Component {
    constructor(props) {
@@ -18,6 +20,7 @@ export default class ListarPagina extends Component {
          showModal: false,
          responseData: null,
          responseAlertShow: null,
+         redirect: false
       }
       this.requestForm = {
          extraParams: {},
@@ -126,6 +129,10 @@ export default class ListarPagina extends Component {
    }
 
    render() {
+      if (this.redirect) {
+         window.Eduzz.Accounts.logout({ env: "staging" })
+         return <Redirect to="/" />
+      }
       return <MainContainer>
          <MainRow>
             {/* Layout usado nesse componente deve ser repetido em custommenucol equivalente dentro do arquivo do componente */}

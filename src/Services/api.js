@@ -29,11 +29,11 @@ export const request = async ({
 
    let result
 
-  try {
-    result = await axios(config)
-  } catch (error) {
-    return <Redirect to="404"/>
-  }
+   try {
+      result = await axios(config)
+   } catch (error) {
+      return <Redirect to="404" />
+   }
 
    return result.data
 }

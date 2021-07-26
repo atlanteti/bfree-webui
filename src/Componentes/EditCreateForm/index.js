@@ -1,6 +1,5 @@
 import { Component } from 'react';
 import { request } from '../../Services/api';
-import { Redirect } from 'react-router-dom'
 import { Cookies } from 'react-cookie';
 
 const cookies = new Cookies();
