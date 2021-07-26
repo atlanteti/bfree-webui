@@ -78,6 +78,13 @@ export default class ListarUsuario extends ListarPagina {
                   sortCallback={props.sortCallback}
                   receiver={props.subscribe}
                   wipeAll={props.wipeAll}/></TextHeaderCell>
+         <TextHeaderCell scope="col">
+                <SortColumn
+                  label="Nome"
+                  attribute="usr_name"
+                  sortCallback={props.sortCallback}
+                  receiver={props.subscribe}
+                  wipeAll={props.wipeAll}/></TextHeaderCell>
           <TextHeaderCell scope="col">
                 <SortColumn
                   label="Status"
@@ -116,6 +123,7 @@ export default class ListarUsuario extends ListarPagina {
     return <TableRow key={usuario.usr_cod}>
          <NumberCell data-title="ID Eduzz">{usuario.usr_cli_cod}</NumberCell>
          <TextCell data-title="ID Externo" className="text">{usuario.usr_externalid}</TextCell>
+         <TextCell data-title="Nome">{usuario.usr_name}</TextCell>
          <TextCell data-title="Status">{usuario.statusUser.sus_name}</TextCell>
          <ActionCell data-title="Ações">
                <Row noGutters className="justify-content-end">

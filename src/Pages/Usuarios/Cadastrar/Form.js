@@ -40,6 +40,16 @@ export class UserFormBuilder extends EditCreateForm {
          </Row>
          <Row>
             <Col>
+               <TextField
+                  controlId="usr_name"
+                  Label="Nome:"
+                  type="text"
+                  defaultValue={this.state.primaryData?.usr_name}
+                  onChange={this.handleChange} />
+            </Col>
+         </Row>
+         <Row>
+            <Col>
                <ListUserStatusControlled 
                 controlId="usr_sus_cod"
                 onChange={this.handleChange}
