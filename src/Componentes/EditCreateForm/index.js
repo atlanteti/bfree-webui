@@ -12,7 +12,6 @@ export class EditCreateForm extends Component {
       this.primaryId = Number(props.primaryId);
       this.redirectCallback = props.redirectCallback;
       this.handleChange = this.handleChange.bind(this);
-      this.handleCheck = this.handleCheck.bind(this);
    }
    componentDidMount() {
       const requestData = async () => {
@@ -71,18 +70,11 @@ export class EditCreateForm extends Component {
       }
    };
    handleChange = (e) => {
-      this.setState({
+      this.setState((state, props) => ({
          primaryData: {
-            ...this.state.primaryData, [e.target.id]: e.target.value.trim()
+            ...state.primaryData, [e.target.id]: e.target.value.trim()
          }
-      });
+      }))
    };
-   handleCheck = () => {
-      this.setState({
-         primaryData: {
-            ...this.state.primaryData, ["tea_active"]: !this.state.primaryData.tea_active
-         }
-      })
-   }
 }
 

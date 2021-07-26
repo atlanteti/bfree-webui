@@ -6,7 +6,7 @@ import { BooleanField, TextField } from '../../../Componentes/FormFields';
 import SearchBar from '../../../Componentes/SearchBar/index';
 
 
-export class TeamSearchBar extends SearchBar {
+export class BadgeSearchBar extends SearchBar {
   render() {
     return <SearchBarBorder>
       <Row xs={1} className={'mb-2'} noGutters>
@@ -25,11 +25,11 @@ export class TeamSearchBar extends SearchBar {
                 controlId="companyId" />
             </Col>
             <Col xs={12} sm={4}>
-              <BooleanField Label="Status: "
-                onTrue="Ativo"
-                onFalse="Inativo"
-                controlId="tea_active"
-                key="tea_active"
+              <BooleanField Label="Mentor: "
+                onTrue="Sim"
+                onFalse="Não"
+                controlId="bdg_mentor"
+                key="bdg_mentor"
                 onChange={this.onChange} />
             </Col>
           </Row>

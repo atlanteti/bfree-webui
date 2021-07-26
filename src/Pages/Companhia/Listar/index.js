@@ -1,13 +1,10 @@
-import { Button, Col } from 'react-bootstrap'
+import { Button } from 'react-bootstrap'
 import { request } from '../../../Services/api'
-import ExclusionModal from '../../../Componentes/ExclusionModal'
 import ListarPagina, { PageHeaderCustomComponent } from '../../../Componentes/ListData'
 import {
-  ActionCell, ActionHeaderCell, HeaderContainer, NumberCell, NumberHeaderCell,
-  RightAlignText,
-  RowTopMargin,
-  TableRow, TextCell, TextHeaderCell, Title
-} from '../../../styles/styles'
+  ActionCell, ActionHeaderCell, NumberCell, NumberHeaderCell,
+  TableRow, TextCell, TextHeaderCell
+} from '../../../styles/CommonStyles'
 import SortColumn from '../../../Componentes/SortColumn'
 import React from 'react'
 import { CompanySearchBar } from './CompanySearchBar'

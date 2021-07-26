@@ -33,7 +33,7 @@ export class JourneyFormBuilder extends EditCreateForm {
                   defaultValue={this.props.primaryId}
                   onChange={this.handleChange}
                   controlId="jny_cpn_cod"
-                  defaultCompany={this.state.primaryData?.company} />
+                  defaultCompany={this.state.primaryData.jny_cpn_cod} />
             </Col>
          </Row>
          {this.props.paramRoute === 'inserir'

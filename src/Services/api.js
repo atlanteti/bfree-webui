@@ -8,7 +8,7 @@ export const request = async ({
   data,
   params
 }) => {
-  const baseUrl = '209.97.146.187:18919'
+  const baseUrl = '209.97.146.187:18920'
 
   const config = {
     method: method || 'get',
@@ -29,7 +29,6 @@ export const request = async ({
     result = await axios(config)
   } catch (error) {
     return <Redirect to="404"/>
-    result = 'ERROR' // TODO: error handling
   }
 
   return result.data
