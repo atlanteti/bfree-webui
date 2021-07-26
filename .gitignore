@@ -112,3 +112,5 @@ build/
 # Vscode studio configs
 .vscode/
 src/creds.js
+
+public/

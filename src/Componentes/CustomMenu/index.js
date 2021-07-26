@@ -108,9 +108,9 @@ export const CustomMenu = () => {
                      }
                   ]}
                   onSelect={() => {
+                     cookie.remove('auth')
                      window.Eduzz.Accounts.logout({ env: "staging" })
                      history.push("/")
-                     cookie.remove('auth')
                   }}
                />
             </div>
