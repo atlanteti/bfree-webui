@@ -1,6 +1,5 @@
 import axios from 'axios'
 import { Redirect } from 'react-router-dom'
-import { creds } from '../creds'
 
 export const request = async ({
   method,
@@ -20,7 +19,6 @@ export const request = async ({
     headers: {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*',
-      'Authorization' : creds,
       ...headers
     }
   }
