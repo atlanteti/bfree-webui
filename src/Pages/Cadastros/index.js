@@ -12,7 +12,7 @@ export default class Cadastros extends Component {
    render() {
       return <div>
          <Route exact path={this.props.match.path} component={Cadastros} />
-         <Route path={`${this.props.match.path}/usuario/:param`} component={CadastrarUsuario} />
+         <Route path={`${this.props.match.path}/usuarios/:param`} component={CadastrarUsuario} />
          <Route path={`${this.props.match.path}/companhia/:param`} component={EditCompanhia} />
          <Route path={`${this.props.match.path}/usuario-jornada`} component={UsuarioJornada} />
          <Route path={`${this.props.match.path}/jornadas/:param`} component={CadastrarJornada} />
