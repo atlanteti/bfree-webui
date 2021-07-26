@@ -2,8 +2,8 @@ import { Button } from 'react-bootstrap'
 import { request } from '../../../Services/api'
 import ListarPagina, { PageHeaderCustomComponent } from '../../../Componentes/ListData'
 import {
-  ActionCell, ActionHeaderCell, NumberCell, NumberHeaderCell,
-  TableRow, TextCell, TextHeaderCell
+   ActionCell, ActionHeaderCell, NumberCell, NumberHeaderCell,
+   TableRow, TextCell, TextHeaderCell
 } from '../../../styles/CommonStyles'
 import SortColumn from '../../../Componentes/SortColumn'
 import React from 'react'
@@ -49,7 +49,7 @@ export default class ListarCompanhia extends ListarPagina {
       return <TableRow {...props}>
          <NumberHeaderCell scope="col">
             <SortColumn
-               label="ID Externo"
+               label="ID Eduzz"
                attribute="cpn_cli_cod"
                sortCallback={props.sortCallback}
                receiver={props.subscribe}
