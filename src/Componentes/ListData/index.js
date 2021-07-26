@@ -34,7 +34,6 @@ export default class ListarPagina extends Component {
       this.searchData = this.searchData.bind(this)
       this.columnSortArray = []
    }
-
    async searchData({ extraParams }) {
       this.requestForm.extraParams = extraParams
       return await this.fetchAndSetData({ page: 1 })
@@ -127,7 +126,13 @@ export default class ListarPagina extends Component {
    redirectCallback() {
       return true // Do nothing
    }
-
+   closeMenu()
+   {
+      this.setState({
+         anchorEl: null,
+         idUser: null
+      })
+   }
    render() {
       if (this.redirect) {
          window.Eduzz.Accounts.logout({ env: "staging" })
@@ -155,7 +160,10 @@ export default class ListarPagina extends Component {
                               <this.TableHeaderCustom
                                  sortCallback={this.reorderData.bind(this)}
                                  subscribe={this.subscribe.bind(this)}
-                                 wipeAll={this.wipe.bind(this)} />
+                                 wipeAll={this.wipe.bind(this)}
+                                 anchorEl={this.state.anchorEl}
+                                 idUser={this.state.idUser}
+                                 closeMenu={this.closeMenu.bind(this)} />
                            </TableHeader>
                            <TableData>
                               {this.state.responseData === null
