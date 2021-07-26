@@ -29,12 +29,12 @@ export class EditCreateForm extends Component {
                method: "get",
                //props.requestDataEndpoint
                endpoint: this.props.requestDataEndpoint + this.primaryId,
-               // headers: {
-               //    Authorization: "Bearer " + this.state.token
-               // }
+               headers: {
+                  Authorization: "Bearer " + this.state.token
+               }
             });
             if (data.meta.status === 211) {
-               // cookies.remove('auth')
+               cookies.remove('auth', { path: "/" })
                this.setState({ redirect: true })
             } else {
                this.setState({
