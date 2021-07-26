@@ -8,7 +8,7 @@ import {
   RightAlignText,
   TableRow, TextCell, TextHeaderCell, Title,
   HeaderContainer, RowTopMargin
-} from '../../../styles/styles'
+} from '../../../styles/CommonStyles'
 import SortColumn from '../../../Componentes/SortColumn'
 import { React } from 'react'
 import { JourneySearchBar } from './JourneySearchBar'
