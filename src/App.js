@@ -11,7 +11,7 @@ import { Redirect } from "react-router-dom"
 function App() {
    const [load, setLoad] = useState(true)
    const [redirect, setRedirect] = useState(false);
-   const { getToken, Token, auth } = useContext(ContextLogin)
+   const { getToken, auth } = useContext(ContextLogin)
 
    setTimeout(() => {
       setLoad(false)

@@ -7,9 +7,6 @@ const ContextLogin = createContext({});
 
 export const AuthProvider = ({ children }) => {
    const cookie = new Cookies();
-
-   const [Token, setToken] = useState(null);
-   const [cookies, setCookie] = useCookies(['auth']);
    const [auth, setAuth] = useState(null);
 
    useEffect(() => {
@@ -31,15 +28,15 @@ export const AuthProvider = ({ children }) => {
             endpoint: `auth/login?token=${token}`,
          })
          if (data.meta.status === 100) {
-            setToken(data.data.token)
-            setCookie('auth', data.data.token, { path: "/" })
+            setAuth(data.data.token)
+            cookie.set('auth', data.data.token, { path: "/" })
          }
       } catch (error) {
       }
    }
 
    return (
-      <ContextLogin.Provider value={{ signed: !!auth, Token, getToken }}>
+      <ContextLogin.Provider value={{ signed: !!auth, getToken }}>
          {children}
       </ContextLogin.Provider>
    )

@@ -11,13 +11,14 @@ import { BsGraphUp } from 'react-icons/bs'
 import 'react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css'
 import './styles.css'
 import { CustomMenuCol } from '../../styles/styles'
-import { useCookies } from "react-cookie";
+import { Cookies } from "react-cookie";
 
 export const CustomMenu = () => {
+   const cookie = new Cookies();
+
    const history = useHistory()
    const location = useLocation()
    const [isSidebarOpen, setIsSidebarOpen] = useState(false)
-   const [removeCookie] = useCookies(["auth"]);
 
    return (
       <React.Fragment>
@@ -109,7 +110,7 @@ export const CustomMenu = () => {
                   onSelect={() => {
                      window.Eduzz.Accounts.logout({ env: "staging" })
                      history.push("/")
-                     removeCookie("auth")
+                     cookie.remove('auth')
                   }}
                />
             </div>
