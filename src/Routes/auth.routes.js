@@ -26,7 +26,7 @@ import ListarBadges from '../Pages/Badges/Listar'
 import ListarTipoDemanda from '../Pages/TipoDemanda/Listar'
 import CadastrarTipoDemanda from '../Pages/TipoDemanda/Cadastrar'
 
-import Error404 from '../Pages/Error'
+// import Error404 from '../Pages/Error'
 
 import ListarTime from '../Pages/Times/Listar'
 import CadastrarTime from '../Pages/Times/Cadastrar'
@@ -57,7 +57,6 @@ export default function AuthRoutes() {
          <Route path="/editar-badges/:bdg_cod/:param" component={EditBadges} />
          <Route path="/editar-time/:tea_cod/:param" component={CadastrarTime} />
          <Route path="/editar-tipodemanda/:tdm_cod/:param" component={CadastrarTipoDemanda} />
-         {/* <Route component={Error404} /> */}
       </Router>
    );
 }
