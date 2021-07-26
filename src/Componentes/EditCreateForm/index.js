@@ -1,29 +1,44 @@
 import { Component } from 'react';
 import { request } from '../../Services/api';
+import { Redirect } from 'react-router-dom'
+import { Cookies } from 'react-cookie';
+
+const cookies = new Cookies();
 
 export class EditCreateForm extends Component {
    constructor(props) {
       super(props);
       this.state = {
          primaryData: {},
-         responseAlertShow: null
+         responseAlertShow: null,
+         redirect: false,
+         token: cookies.get('auth')
       };
       this.paramRoute = props.paramRoute;
       this.primaryId = Number(props.primaryId);
       this.redirectCallback = props.redirectCallback;
       this.handleChange = this.handleChange.bind(this);
    }
+
    componentDidMount() {
       const requestData = async () => {
          try {
             const data = await request({
                method: "get",
                //props.requestDataEndpoint
-               endpoint: this.props.requestDataEndpoint + this.primaryId
+               endpoint: this.props.requestDataEndpoint + this.primaryId,
+               headers: {
+                  Authorization: "Bearer " + this.state.token
+               }
             });
-            this.setState({
-               primaryData: data.data
-            });
+            if (data.meta.status === 211) {
+               cookies.remove('auth', { path: "/" })
+               this.setState({ redirect: true })
+            } else {
+               this.setState({
+                  primaryData: data.data,
+               });
+            }
          } catch (error) {
             console.log(error);
          }
@@ -36,7 +51,10 @@ export class EditCreateForm extends Component {
       return await request({
          method: "post",
          endpoint: this.props.insertDataEndpoint,
-         data: formData
+         data: formData,
+         headers: {
+            Authorization: "Bearer " + this.state.token
+         }
       });
    }
 
@@ -46,6 +64,9 @@ export class EditCreateForm extends Component {
 
          endpoint: this.props.editDataEndpoint + this.primaryId,
          data: formData,
+         headers: {
+            Authorization: "Bearer " + this.state.token
+         }
       });
    }
    formatData() {

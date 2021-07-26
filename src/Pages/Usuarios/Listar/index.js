@@ -36,7 +36,6 @@ export default function Usuarios() {
 
    const handleClose = () => setShowModal(false);
 
-
    const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
    };
@@ -66,7 +65,7 @@ export default function Usuarios() {
       try {
          const { data } = await axios({
             method: "delete",
-            url: `http://209.97.146.187:18919/usuarios/excluir/${id}`,
+            url: `http://209.97.146.187:18920/usuarios/excluir/${id}`,
          });
          if (data.meta.status == 209) {
             setShowAlert(true);
@@ -86,7 +85,7 @@ export default function Usuarios() {
          }
          const { data } = await axios({
             method: "get",
-            url: "http://209.97.146.187:18919/usuarios/listar",
+            url: "http://209.97.146.187:18920/usuarios/listar",
             params: {
                param: id,
                statusId: status,
@@ -106,7 +105,7 @@ export default function Usuarios() {
       try {
          const { data } = await axios({
             method: "get",
-            url: "http://209.97.146.187:18919/status-users/listar",
+            url: "http://209.97.146.187:18920/status-users/listar",
          });
          setStatus(data.data);
       } catch (error) {
@@ -258,7 +257,7 @@ export default function Usuarios() {
                                  <TableCell data-title="Ações" className="acoes">
                                     <Link
                                        className="btn btn-warning"
-                                       to={`/editar/${usuario.usr_cod}/"alterar"`}
+                                       to={`/editar/${usuario.usr_cod}/alterar`}
                                     >
                                        Editar
                                     </Link>

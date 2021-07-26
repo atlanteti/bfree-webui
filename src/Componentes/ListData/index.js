@@ -7,191 +7,192 @@ import { MainContainer, Title, Table, TableHeader, TableData, CustomMenuCol,
   MainRow, PaginationRow, HeaderContainer, RowTopMargin, RightAlignText } from '../../styles/CommonStyles'
 import PropTypes from "prop-types"
 import ExclusionModal from '../ExclusionModal'
+import { Cookies } from 'react-cookie';
+
+const cookies = new Cookies();
 
 export default class ListarPagina extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      page: 1,
-      buscar: '',
-      showModal: false,
-      responseData: null,
-      responseAlertShow: null,
-    }
-    this.requestForm = {
-      extraParams: {},
-      sort: null,
-      isDesc: null
-    }
-    
-    this.openModal = this.openModal.bind(this)
-    this.closeModal = this.closeModal.bind(this)
-    this.fetchAndSetData = this.fetchAndSetData.bind(this)
-    this.searchData = this.searchData.bind(this)
-    this.columnSortArray = []
-  }
+   constructor(props) {
+      super(props)
+      this.state = {
+         page: 1,
+         buscar: '',
+         showModal: false,
+         responseData: null,
+         responseAlertShow: null,
+      }
+      this.requestForm = {
+         extraParams: {},
+         sort: null,
+         isDesc: null,
+         token: cookies.get('auth')
+      }
 
-  async searchData ({extraParams})
-  {
-    this.requestForm.extraParams = extraParams
-    return await this.fetchAndSetData({page: 1})
-  }
+      this.openModal = this.openModal.bind(this)
+      this.closeModal = this.closeModal.bind(this)
+      this.fetchAndSetData = this.fetchAndSetData.bind(this)
+      this.searchData = this.searchData.bind(this)
+      this.columnSortArray = []
+   }
 
-  async reorderData ({sort, isDesc = false})
-  {
-    this.requestForm.sort = sort
-    this.requestForm.isDesc = isDesc
-    return await this.fetchAndSetData({page: 1})
-  }
+   async searchData({ extraParams }) {
+      this.requestForm.extraParams = extraParams
+      return await this.fetchAndSetData({ page: 1 })
+   }
 
-  async fetchAndSetData ({ page = '1' }) {
-    const data = await this.fetchData(page, this.requestForm.sort, this.requestForm.isDesc, this.requestForm.extraParams)
-    this.setState({
-      responseMetaData: data.meta,
-      responseData: data.data,
-      page: data.meta.pagination
-    })
-  }
+   async reorderData({ sort, isDesc = false }) {
+      this.requestForm.sort = sort
+      this.requestForm.isDesc = isDesc
+      return await this.fetchAndSetData({ page: 1 })
+   }
 
-  getAlertCallback (func) { // Investigar se isso precisa ser um estado
-    this.setState({
-      responseAlertShow: func
-    })
-  }
+   async fetchAndSetData({ page = '1' }) {
+      const data = await this.fetchData(page, this.requestForm.sort, this.requestForm.isDesc, this.requestForm.token, this.requestForm.extraParams)
+      this.setState({
+         responseMetaData: data.meta,
+         responseData: data.data,
+         page: data.meta.pagination
+      })
+   }
 
-  showAlert (data) {
-    this.state.responseAlertShow(data)
-    this.updateListing()
-    window.scroll(0, 0)
-  }
+   getAlertCallback(func) { // Investigar se isso precisa ser um estado
+      this.setState({
+         responseAlertShow: func
+      })
+   }
 
-  subscribe (func) {
-    this.columnSortArray.push(func)
-  }
+   showAlert(data) {
+      this.state.responseAlertShow(data)
+      this.updateListing()
+      window.scroll(0, 0)
+   }
 
-  wipe (code) {
-    this.columnSortArray.map((wipeArrowFunc) => { return wipeArrowFunc(code) })
-  }
+   subscribe(func) {
+      this.columnSortArray.push(func)
+   }
 
-  async deleteRecord (id) {
-    throw new Error('Método abstrato deve ser implementado')
-  }
+   wipe(code) {
+      this.columnSortArray.map((wipeArrowFunc) => { return wipeArrowFunc(code) })
+   }
 
-  async fetchData (page) {
-    throw new Error('Método abstrato deve ser implementado')
-  }
+   async deleteRecord(id) {
+      throw new Error('Método abstrato deve ser implementado')
+   }
 
-  createRecord (record) {
-    throw new Error('Método abstrato deve ser implementado')
-  }
+   async fetchData(page) {
+      throw new Error('Método abstrato deve ser implementado')
+   }
 
-  openModal () {
-    this.setState({ showModal: true })
-  }
+   createRecord(record) {
+      throw new Error('Método abstrato deve ser implementado')
+   }
 
-  closeModal () {
-    this.setState({ showModal: false })
-  }
+   openModal() {
+      this.setState({ showModal: true })
+   }
 
-  updateListing () {
-    this.fetchAndSetData({ page: this.state.page })
-  }
+   closeModal() {
+      this.setState({ showModal: false })
+   }
 
-  componentDidMount (oldProps) {
-    this.updateListing()
-  }
+   updateListing() {
+      this.fetchAndSetData({ page: this.state.page })
+   }
 
-  SearchBarCustom () {
-    throw new Error('Componente abstrato deve ser implementado')
-  }
+   componentDidMount(oldProps) {
+      this.updateListing()
+   }
 
-  TableHeaderCustom () {
-    throw new Error('Componente abstrato deve ser implementado')
-  }
+   SearchBarCustom() {
+      throw new Error('Componente abstrato deve ser implementado')
+   }
 
-  PageHeaderCustom ()
-  {
-    throw new Error('Componente abstrato deve ser implementado')
-  }
-  createModal () {
-    return <ExclusionModal
-    showModal={this.state.showModal}
-    closeModal={this.closeModal}
-    pageIdentifier={this.state.modalIdentifier} // Talvez isso possa ser generalizado para o contexto da página
-    deletionCallback={this.deleteRecord}
-    identifierCode={this.state.deletionId}
-    updateListing={this.updateListing.bind(this)}
-    showAlert={this.showAlert.bind(this)} />
-  }
-  redirectCallback () {
-    return true // Do nothing
-  }
+   TableHeaderCustom() {
+      throw new Error('Componente abstrato deve ser implementado')
+   }
 
-  render () {
-    return <MainContainer>
+   PageHeaderCustom() {
+      throw new Error('Componente abstrato deve ser implementado')
+   }
+   createModal() {
+      return <ExclusionModal
+         showModal={this.state.showModal}
+         closeModal={this.closeModal}
+         pageIdentifier={this.state.modalIdentifier} // Talvez isso possa ser generalizado para o contexto da página
+         deletionCallback={this.deleteRecord}
+         identifierCode={this.state.deletionId}
+         updateListing={this.updateListing.bind(this)}
+         showAlert={this.showAlert.bind(this)} />
+   }
+   redirectCallback() {
+      return true // Do nothing
+   }
+
+   render() {
+      return <MainContainer>
          <MainRow>
-           {/* Layout usado nesse componente deve ser repetido em custommenucol equivalente dentro do arquivo do componente */}
+            {/* Layout usado nesse componente deve ser repetido em custommenucol equivalente dentro do arquivo do componente */}
             <CustomMenuCol lg={2}><CustomMenu /></CustomMenuCol>
             <Col>
                <Col>
-                 <Container fluid>
-                    <CustomAlert
-                       data={this.state.responseMetaData}
-                       showAlertCallback={this.getAlertCallback.bind(this)}
-                       redirectCallback={this.redirectCallback.bind(this)}/>
-                    <Row xs={1}>
-                        <this.PageHeaderCustom/>
-                    </Row>
-                    <this.SearchBarCustom
-                      filterData={this.searchData}/>
-                    <Row noGutters>
-                       <Table>
-                          <TableHeader>
-                             <this.TableHeaderCustom
-                                sortCallback={this.reorderData.bind(this)}
-                                subscribe={this.subscribe.bind(this)}
-                                wipeAll={this.wipe.bind(this)}/>
-                          </TableHeader>
-                          <TableData>
-                             {this.state.responseData === null
-                               ? ''
-                               : this.state.responseData.map((companhia) => {
-                                 return (
-                                   this.createRecord(companhia)
-                                 )
-                               })}
-                          </TableData>
-                          {this.createModal()}
-                       </Table>
-                    </Row>
-                    <PaginationRow>
-                          <CustomPagination
-                             fetchAndSetData={this.fetchAndSetData}
-                             page={this.state.page} />
-                    </PaginationRow>
-                 </Container>
+                  <Container fluid>
+                     <CustomAlert
+                        data={this.state.responseMetaData}
+                        showAlertCallback={this.getAlertCallback.bind(this)}
+                        redirectCallback={this.redirectCallback.bind(this)} />
+                     <Row xs={1}>
+                        <this.PageHeaderCustom />
+                     </Row>
+                     <this.SearchBarCustom
+                        filterData={this.searchData} />
+                     <Row noGutters>
+                        <Table>
+                           <TableHeader>
+                              <this.TableHeaderCustom
+                                 sortCallback={this.reorderData.bind(this)}
+                                 subscribe={this.subscribe.bind(this)}
+                                 wipeAll={this.wipe.bind(this)} />
+                           </TableHeader>
+                           <TableData>
+                              {this.state.responseData === null
+                                 ? ''
+                                 : this.state.responseData.map((companhia) => {
+                                    return (
+                                       this.createRecord(companhia)
+                                    )
+                                 })}
+                           </TableData>
+                           {this.createModal()}
+                        </Table>
+                     </Row>
+                     <PaginationRow>
+                        <CustomPagination
+                           fetchAndSetData={this.fetchAndSetData}
+                           page={this.state.page} />
+                     </PaginationRow>
+                  </Container>
                </Col>
-               </Col>
+            </Col>
          </MainRow>
       </MainContainer>
-  }
+   }
 };
 
-export function PageHeaderCustomComponent (props) {
-  return <HeaderContainer fluid>
-    <RowTopMargin >
-      <Col>
-        <Title>{props.Title}</Title>
-      </Col>
-      <RightAlignText>
-        <Col><Button variant="dark" href={props.href}>Cadastrar</Button></Col>
-      </RightAlignText>
-    </RowTopMargin>
-  </HeaderContainer>
+export function PageHeaderCustomComponent(props) {
+   return <HeaderContainer fluid>
+      <RowTopMargin >
+         <Col>
+            <Title>{props.Title}</Title>
+         </Col>
+         <RightAlignText>
+            <Col><Button variant="dark" href={props.href}>Cadastrar</Button></Col>
+         </RightAlignText>
+      </RowTopMargin>
+   </HeaderContainer>
 }
 
 PageHeaderCustomComponent.propTypes =
 {
-  Title: PropTypes.string.isRequired,
-  href: PropTypes.string.isRequired
+   Title: PropTypes.string.isRequired,
+   href: PropTypes.string.isRequired
 }
