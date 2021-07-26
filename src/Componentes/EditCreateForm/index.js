@@ -27,9 +27,6 @@ export class EditCreateForm extends Component {
                method: "get",
                //props.requestDataEndpoint
                endpoint: this.props.requestDataEndpoint + this.primaryId,
-               headers: {
-                  Authorization: "Bearer " + this.state.token
-               }
             });
             if (data.meta.status === 211) {
                cookies.remove('auth', { path: "/" })
@@ -52,9 +49,6 @@ export class EditCreateForm extends Component {
          method: "post",
          endpoint: this.props.insertDataEndpoint,
          data: formData,
-         headers: {
-            Authorization: "Bearer " + this.state.token
-         }
       });
    }
 
@@ -64,9 +58,6 @@ export class EditCreateForm extends Component {
 
          endpoint: this.props.editDataEndpoint + this.primaryId,
          data: formData,
-         headers: {
-            Authorization: "Bearer " + this.state.token
-         }
       });
    }
    formatData() {

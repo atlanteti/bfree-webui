@@ -9,8 +9,6 @@ import PropTypes from "prop-types"
 import ExclusionModal from '../ExclusionModal'
 import { Cookies } from 'react-cookie';
 
-const cookies = new Cookies();
-
 export default class ListarPagina extends Component {
    constructor(props) {
       super(props)
@@ -25,7 +23,6 @@ export default class ListarPagina extends Component {
          extraParams: {},
          sort: null,
          isDesc: null,
-         token: cookies.get('auth')
       }
 
       this.openModal = this.openModal.bind(this)
@@ -47,7 +44,7 @@ export default class ListarPagina extends Component {
    }
 
    async fetchAndSetData({ page = '1' }) {
-      const data = await this.fetchData(page, this.requestForm.sort, this.requestForm.isDesc, this.requestForm.token, this.requestForm.extraParams)
+      const data = await this.fetchData(page, this.requestForm.sort, this.requestForm.isDesc, this.requestForm.extraParams)
       this.setState({
          responseMetaData: data.meta,
          responseData: data.data,

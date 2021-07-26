@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { Cookies } from 'react-cookie'
 import { Redirect } from 'react-router-dom'
 
 export const request = async ({
@@ -8,8 +9,10 @@ export const request = async ({
    data,
    params
 }) => {
-  const baseUrl = '209.97.146.187:18919'
 
+   const baseUrl = '209.97.146.187:18919'
+   const cookieGetter = new Cookies()
+   const token = cookieGetter.get("auth")
    const config = {
       method: method || 'get',
       baseURL: `http://${baseUrl}/${endpoint}`,
@@ -19,6 +22,7 @@ export const request = async ({
       headers: {
          'Content-Type': 'application/json',
          'Access-Control-Allow-Origin': '*',
+         'Authorization': "Bearer " + token,
          ...headers
       }
    }
