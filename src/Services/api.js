@@ -13,7 +13,7 @@ export const request = async ({
    params
 }) => {
 
-   const baseUrl = prodServer
+   const baseUrl = devServer
    const cookieGetter = new Cookies()
    const token = cookieGetter.get("auth")
    const config = {
