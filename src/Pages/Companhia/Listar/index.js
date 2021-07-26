@@ -18,7 +18,7 @@ export default class ListarCompanhia extends ListarPagina {
       return data
    }
 
-   async fetchData(page, sort, isDesc, token, extraParams) {
+   async fetchData(page, sort, isDesc, extraParams) {
       const data = await request({
          method: 'get',
          endpoint: 'companies/listar',
@@ -28,9 +28,6 @@ export default class ListarCompanhia extends ListarPagina {
             isDesc: isDesc,
             ...extraParams
          },
-         headers: {
-            Authorization: 'Bearer ' + token
-         }
       })
       return data
    }

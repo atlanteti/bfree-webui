@@ -54,7 +54,7 @@ export default function AuthRoutes() {
          <Route path="/editar-companhia/:cpn_cod/:param" component={CadastrarCompanhia} />
          <Route path="/editar-jornada-usuario/:jnu_cod" component={EditarJornada} />
          <Route path="/editar-jornada/:jny_cod/:param" component={CadastrarJornada} />
-         <Route path="/editar-badge/:bdg_cod/:param" component={EditBadges} />
+         <Route path="/editar-badges/:bdg_cod/:param" component={EditBadges} />
          <Route path="/editar-time/:tea_cod/:param" component={CadastrarTime} />
          <Route path="/editar-tipodemanda/:tdm_cod/:param" component={CadastrarTipoDemanda} />
          {/* <Route component={Error404} /> */}
