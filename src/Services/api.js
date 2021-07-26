@@ -2,6 +2,9 @@ import axios from 'axios'
 import { Cookies } from 'react-cookie'
 import { Redirect } from 'react-router-dom'
 
+const prodServer = '209.97.146.187:18919'
+const devServer = '209.97.146.187:18920'
+
 export const request = async ({
    method,
    headers,
@@ -10,7 +13,7 @@ export const request = async ({
    params
 }) => {
 
-   const baseUrl = '209.97.146.187:18919'
+   const baseUrl = prodServer
    const cookieGetter = new Cookies()
    const token = cookieGetter.get("auth")
    const config = {
