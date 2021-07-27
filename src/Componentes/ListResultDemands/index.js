@@ -3,11 +3,11 @@ import { React, Component } from 'react';
 import { request } from '../../Services/api';
 import PropTypes from 'prop-types'
 
-export default class ListTypeDemand extends Component {
+export default class ListResultDemands extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      typeDemands: [],
+      resultDemands: [],
     };
     if (this.props.getSetCallback)
     {
@@ -15,18 +15,18 @@ export default class ListTypeDemand extends Component {
     }
   }
 
-  async getTypeDemands() {
+  async getResultDemands() {
     const data = await request({
       method: 'get',
-      endpoint: 'types-demand/listar-todos'
+      endpoint: 'results-demand/listar-todos'
     });
     this.setState({
-        typeDemands: data.data
+      resultDemands: data.data
     });
   }
 
   componentDidMount() {
-    this.getTypeDemands();
+    this.getResultDemands();
   }
 
   onChange(e) 
@@ -34,33 +34,33 @@ export default class ListTypeDemand extends Component {
     this.props.onChange(e)
   }
 
-  select(typeDemandCode)
+  select(typeResultCode)
   {
-    this.setState({selectedValue: typeDemandCode})
+    this.setState({selectedValue: typeResultCode})
     this.props.onChange({
       target:{
         id: this.props.controlId,
-        value: String(typeDemandCode),
+        value: String(typeResultCode),
         selected: true}})
   }
 
   render() {
     return <Form.Group controlId={this.props.controlId} /*"companyId"*/>
-      <Form.Label>Tipos de Demanda: </Form.Label>
+      <Form.Label>Resultado da Demanda: </Form.Label>
       <Form.Control //Form.Select não funciona por razões misteriosas
         disabled={this.props.disabled}
         as="select"
         onChange={this.onChange.bind(this)}
-        value={this.props.defaultTypeDemand}>
+        value={this.props.defaultResultDemand}>
         <>
           <option value={null} />
-          {this.state.typeDemands?.map(typeDemand => {
+          {this.state.resultDemands?.map(resultDemand => {
             return (
               <option
-                key={typeDemand.tdm_cod}
-                value={typeDemand.tdm_cod}
+                key={resultDemand.rdm_cod}
+                value={resultDemand.rdm_cod}
               >
-                {typeDemand.tdm_name}
+                {resultDemand.rdm_name}
               </option>);
           })}
         </>
@@ -69,9 +69,9 @@ export default class ListTypeDemand extends Component {
   }
 }
 
-ListTypeDemand.propTypes = {
+ListResultDemands.propTypes = {
   getSetCallback: PropTypes.func,
-  defaultTypeDemand: PropTypes.number,
+  defaultResultDemand: PropTypes.number,
   controlId: PropTypes.number.isRequired,
   onChange: PropTypes.func.isRequired,
   required: PropTypes.bool,

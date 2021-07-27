@@ -17,7 +17,7 @@ export default class CadastrarDemanda extends Component {
          redirect: false,
       }
       this.paramRoute = props.match.params.param
-      this.badgeId = Number(props.match.params.bdg_cod)
+      this.demandId = Number(props.match.params.dem_cod)
    }
 
    getAlertCallback(func) {
@@ -36,7 +36,7 @@ export default class CadastrarDemanda extends Component {
 
    render() {
       if (this.state.redirect) {
-         return <Redirect to="/badges" />
+         return <Redirect to="/demandas" />
       } else {
          return <>
             <Title>{this.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'} Demandas </Title>
@@ -53,7 +53,7 @@ export default class CadastrarDemanda extends Component {
                   />
                   <DemandForm
                      paramRoute={this.paramRoute}
-                     primaryId={this.badgeId}
+                     primaryId={this.demandId}
                      redirectCallback={this.redirect.bind(this)}
                      showAlert={this.showAlert.bind(this)}
                   />

@@ -3,11 +3,11 @@ import { React, Component } from 'react';
 import { request } from '../../Services/api';
 import PropTypes from 'prop-types'
 
-export default class ListTypeDemand extends Component {
+export default class ListUsers extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      typeDemands: [],
+      users: [],
     };
     if (this.props.getSetCallback)
     {
@@ -15,18 +15,18 @@ export default class ListTypeDemand extends Component {
     }
   }
 
-  async getTypeDemands() {
+  async getUsers() {
     const data = await request({
       method: 'get',
-      endpoint: 'types-demand/listar-todos'
+      endpoint: 'usuarios/listar'
     });
     this.setState({
-        typeDemands: data.data
+      users: data.data
     });
   }
 
   componentDidMount() {
-    this.getTypeDemands();
+    this.getUsers();
   }
 
   onChange(e) 
@@ -34,33 +34,33 @@ export default class ListTypeDemand extends Component {
     this.props.onChange(e)
   }
 
-  select(typeDemandCode)
+  select(typeUserCode)
   {
-    this.setState({selectedValue: typeDemandCode})
+    this.setState({selectedValue: typeUserCode})
     this.props.onChange({
       target:{
         id: this.props.controlId,
-        value: String(typeDemandCode),
+        value: String(typeUserCode),
         selected: true}})
   }
 
   render() {
     return <Form.Group controlId={this.props.controlId} /*"companyId"*/>
-      <Form.Label>Tipos de Demanda: </Form.Label>
+      <Form.Label>Usuário: </Form.Label>
       <Form.Control //Form.Select não funciona por razões misteriosas
         disabled={this.props.disabled}
         as="select"
         onChange={this.onChange.bind(this)}
-        value={this.props.defaultTypeDemand}>
+        value={this.props.defaultUser}>
         <>
           <option value={null} />
-          {this.state.typeDemands?.map(typeDemand => {
+          {this.state.users?.map(user => {
             return (
               <option
-                key={typeDemand.tdm_cod}
-                value={typeDemand.tdm_cod}
+                key={user.usr_cod}
+                value={user.usr_cod}
               >
-                {typeDemand.tdm_name}
+                {user.usr_cod}
               </option>);
           })}
         </>
@@ -69,9 +69,9 @@ export default class ListTypeDemand extends Component {
   }
 }
 
-ListTypeDemand.propTypes = {
+ListUsers.propTypes = {
   getSetCallback: PropTypes.func,
-  defaultTypeDemand: PropTypes.number,
+  defaultUser: PropTypes.number,
   controlId: PropTypes.number.isRequired,
   onChange: PropTypes.func.isRequired,
   required: PropTypes.bool,

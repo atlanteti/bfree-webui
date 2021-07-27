@@ -3,40 +3,20 @@ import { Form, Col, Row, Button } from 'react-bootstrap'
 import { DateField } from '../../../Componentes/DateField'
 import { ButtonRow } from '../../../Componentes/ButtonRow'
 import { EditCreateForm } from '../../../Componentes/EditCreateForm/index'
-import { BooleanField, TextField } from '../../../Componentes/FormFields'
-import  ListCompaniesControlled  from "../../../Componentes/ListCompaniesControlled"
-import  ListJourneysControlled  from "../../../Componentes/ListJourneysControlled"
+import { TextField } from '../../../Componentes/FormFields'
 import ListTypeDemand from '../../../Componentes/ListTypeDemand'
+import ListStatusDemands from '../../../Componentes/ListStatusDemands'
+import ListResultDemands from '../../../Componentes/ListResultDemands'
+import ListUsers from '../../../Componentes/ListUsers'
 
 export default function DemandForm(props) {
-   return <DemandFormBuilder insertDataEndpoint="badges/cadastrar"
-      requestDataEndpoint="badges/procurar/"
-      editDataEndpoint="badges/alterar/"
+   return <DemandFormBuilder insertDataEndpoint="demands/cadastrar"
+      requestDataEndpoint="demands/procurar/"
+      editDataEndpoint="demands/alterar/"
       {...props} />
 }
 
 export class DemandFormBuilder extends EditCreateForm {
-   constructor(props)
-   {
-      super(props)
-      if(this.paramRoute==="inserir")
-      {
-         this.state.primaryData = {
-            bdg_cpn_cod: null,
-            bdg_jny_cod: null,
-            bdg_mentor: false
-         }
-      }
-   }
-   journeyCodeSetter(journeyCode) {
-      this.setState((state, props) => ({
-         primaryData: {
-            ...state.primaryData,
-            bdg_jny_cod: journeyCode
-         }
-      }))
-   }
-
    render() {
       return <Form onSubmit={this.handleSubmit}>
          <Row>
@@ -70,11 +50,38 @@ export class DemandFormBuilder extends EditCreateForm {
          <Row>
             <Col>
                <TextField
-                  controlId="dem_title"
+                  controlId="dem_desc"
                   Label="Descrição:"
                   as="textarea"
-                  defaultValue={this.state.primaryData?.dem_title}
+                  defaultValue={this.state.primaryData?.dem_desc}
                   onChange={this.handleChange} />
+            </Col>
+         </Row>
+         <Row>
+            <Col>
+            <ListUsers
+                  defaultValue={this.props.primaryId}
+                  onChange={this.handleChange}
+                  controlId="dem_usr_cod"
+                  defaultUser={this.state.primaryData.dem_usr_cod} />
+            </Col>
+         </Row>
+         <Row>
+            <Col>
+            <ListStatusDemands
+                  defaultValue={this.props.primaryId}
+                  onChange={this.handleChange}
+                  controlId="dem_sdm_cod"
+                  defaultStatusDemand={this.state.primaryData.dem_sdm_cod} />
+            </Col>
+         </Row>
+         <Row>
+            <Col>
+            <ListResultDemands
+                  defaultValue={this.props.primaryId}
+                  onChange={this.handleChange}
+                  controlId="dem_rdm_cod"
+                  defaultResultDemand={this.state.primaryData.dem_rdm_cod} />
             </Col>
          </Row>
          <Row>
@@ -83,7 +90,7 @@ export class DemandFormBuilder extends EditCreateForm {
                   defaultValue={this.props.primaryId}
                   onChange={this.handleChange}
                   controlId="dem_tdm_cod"
-                  defaultCompany={this.state.primaryData.dem_tdm_cod} />
+                  defaultTypeDemand={this.state.primaryData.dem_tdm_cod} />
             </Col>
          </Row>
          {this.props.paramRoute === 'inserir'
@@ -93,14 +100,14 @@ export class DemandFormBuilder extends EditCreateForm {
                   <DateField
                      controlId="bdg_dtcreation"
                      Label="Data de criação:"
-                     date={this.state.primaryData?.bdg_dtcreation} />
-                  {this.state.primaryData?.bdg_dtupdate === null
+                     date={this.state.primaryData?.dem_dtcreation} />
+                  {this.state.primaryData?.dem_dtupdate === null
                      ? ''
                      : (
                         <DateField
                            controlId="bdg_dtupdate"
                            Label="Data de atualização:"
-                           date={this.state.primaryData?.bdg_dtupdate} />
+                           date={this.state.primaryData?.dem_dtupdate} />
                      )}
                </>
             )}

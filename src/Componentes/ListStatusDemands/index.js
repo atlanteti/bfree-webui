@@ -3,11 +3,11 @@ import { React, Component } from 'react';
 import { request } from '../../Services/api';
 import PropTypes from 'prop-types'
 
-export default class ListTypeDemand extends Component {
+export default class ListStatusDemands extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      typeDemands: [],
+      statusDemands: [],
     };
     if (this.props.getSetCallback)
     {
@@ -15,18 +15,18 @@ export default class ListTypeDemand extends Component {
     }
   }
 
-  async getTypeDemands() {
+  async getStatusDemands() {
     const data = await request({
       method: 'get',
-      endpoint: 'types-demand/listar-todos'
+      endpoint: 'status-demands/listar-todos'
     });
     this.setState({
-        typeDemands: data.data
+      statusDemands: data.data
     });
   }
 
   componentDidMount() {
-    this.getTypeDemands();
+    this.getStatusDemands();
   }
 
   onChange(e) 
@@ -34,33 +34,33 @@ export default class ListTypeDemand extends Component {
     this.props.onChange(e)
   }
 
-  select(typeDemandCode)
+  select(typeStatusCode)
   {
-    this.setState({selectedValue: typeDemandCode})
+    this.setState({selectedValue: typeStatusCode})
     this.props.onChange({
       target:{
         id: this.props.controlId,
-        value: String(typeDemandCode),
+        value: String(typeStatusCode),
         selected: true}})
   }
 
   render() {
     return <Form.Group controlId={this.props.controlId} /*"companyId"*/>
-      <Form.Label>Tipos de Demanda: </Form.Label>
+      <Form.Label>Status da Demanda: </Form.Label>
       <Form.Control //Form.Select não funciona por razões misteriosas
         disabled={this.props.disabled}
         as="select"
         onChange={this.onChange.bind(this)}
-        value={this.props.defaultTypeDemand}>
+        value={this.props.defaultStatusDemand}>
         <>
           <option value={null} />
-          {this.state.typeDemands?.map(typeDemand => {
+          {this.state.statusDemands?.map(statusDemand => {
             return (
               <option
-                key={typeDemand.tdm_cod}
-                value={typeDemand.tdm_cod}
+                key={statusDemand.sdm_cod}
+                value={statusDemand.sdm_cod}
               >
-                {typeDemand.tdm_name}
+                {statusDemand.sdm_name}
               </option>);
           })}
         </>
@@ -69,9 +69,9 @@ export default class ListTypeDemand extends Component {
   }
 }
 
-ListTypeDemand.propTypes = {
+ListStatusDemands.propTypes = {
   getSetCallback: PropTypes.func,
-  defaultTypeDemand: PropTypes.number,
+  defaultStatusDemand: PropTypes.number,
   controlId: PropTypes.number.isRequired,
   onChange: PropTypes.func.isRequired,
   required: PropTypes.bool,
