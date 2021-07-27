@@ -2,8 +2,10 @@ import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import Cadastros from '../Pages/Cadastros';
-import EditUsuarios from '../Pages/Usuarios/Cadastrar';
-import Usuarios from '../Pages/Usuarios/Listar';
+
+import ListarUsuarios from "../Pages/Usuarios/Listar";
+import CadastrarUsuario from "../Pages/Usuarios/Cadastrar";
+
 import UsuarioCompanhia from '../Pages/Usuarios/UsuarioCompanhia';
 import UsuarioJornadas from '../Pages/Usuarios/UsuarioJornadas';
 import UsuarioBadges from '../Pages/Usuarios/UsuarioBadges';
@@ -33,10 +35,11 @@ import CadastrarTime from '../Pages/Times/Cadastrar'
 
 import App from "../App";
 
+
 export default function AuthRoutes() {
    return (
       <Router>
-         <Route path="/usuarios" component={Usuarios} />
+         <Route path="/usuarios" component={ListarUsuarios} />
          <Route exact path="/" component={App} />
          <Route path="/cadastrar" component={Cadastros} />
          <Route path="/usuario-companhia/:userId" component={UsuarioCompanhia} />
@@ -49,8 +52,7 @@ export default function AuthRoutes() {
          <Route path="/badges" component={ListarBadges} />
          <Route path="/tipodemanda" component={ListarTipoDemanda} />
          <Route path="/times" component={ListarTime} />
-         <Route path="/usuario-jornadas" component={ListarJornadaUsuarios} />
-         <Route path="/editar/:usr_cod/:route" component={EditUsuarios} />
+         <Route path="/editar-usuario/:usr_cod/:route" component={CadastrarUsuario} />
          <Route path="/editar-companhia/:cpn_cod/:param" component={CadastrarCompanhia} />
          <Route path="/editar-jornada-usuario/:jnu_cod" component={EditarJornada} />
          <Route path="/editar-jornada/:jny_cod/:param" component={CadastrarJornada} />

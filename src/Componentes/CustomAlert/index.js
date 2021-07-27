@@ -29,10 +29,12 @@ export class CustomAlert extends React.Component {
 
     this.setContent(message, statusMsg)
     this.setState({ showAlert: true })
-    window.setTimeout(() => {
-      this.setState({ showAlert: false })
-      this.props.redirectCallback()
-    }, 2500)
+    if(statusMsg==="success")
+    {
+      window.setTimeout(() => {
+          this.props.redirectCallback()
+        }, 2500)
+    }
   }
 
   render () {
