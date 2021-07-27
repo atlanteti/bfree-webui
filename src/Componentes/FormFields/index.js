@@ -8,6 +8,7 @@ export function TextField (props) {
       <Form.Label>{props.Label}</Form.Label>
       <Form.Control
          type={props.type}
+         as={props.as}
          defaultValue={props.defaultValue}
          onChange={props.onChange}
          placeholder={props.placeholder}
@@ -18,6 +19,7 @@ TextField.propTypes = {
    controlId: PropTypes.string.isRequired,
    Label: PropTypes.string.isRequired,
    type: PropTypes.string,
+   as: PropTypes.string,
    onChange: PropTypes.func.isRequired,
    required: PropTypes.bool,
 }

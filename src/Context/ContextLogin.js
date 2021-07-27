@@ -1,6 +1,6 @@
 import { createContext, useState } from "react"
 import { request } from "../Services/api";
-import { useCookies, Cookies } from 'react-cookie';
+import { Cookies } from 'react-cookie';
 import { useEffect } from "react";
 
 const ContextLogin = createContext({});

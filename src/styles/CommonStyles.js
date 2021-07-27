@@ -174,7 +174,7 @@ export const NumberCell = styled(TableCell)`
    `
 
 export const TextCell = styled(TableCell)`
-   text-align: right;
+   text-align: left;
    `
 export const ActionCell = styled(TableCell)`
    text-align: center;

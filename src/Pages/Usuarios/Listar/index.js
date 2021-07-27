@@ -65,7 +65,7 @@ export default function Usuarios() {
       try {
          const { data } = await axios({
             method: "delete",
-            url: `http://209.97.146.187:18920/usuarios/excluir/${id}`,
+            url: `http://209.97.146.187:18919/usuarios/excluir/${id}`,
          });
          if (data.meta.status == 209) {
             setShowAlert(true);
@@ -85,7 +85,7 @@ export default function Usuarios() {
          }
          const { data } = await axios({
             method: "get",
-            url: "http://209.97.146.187:18920/usuarios/listar",
+            url: "http://209.97.146.187:18919/usuarios/listar",
             params: {
                param: id,
                statusId: status,
@@ -105,7 +105,7 @@ export default function Usuarios() {
       try {
          const { data } = await axios({
             method: "get",
-            url: "http://209.97.146.187:18920/status-users/listar",
+            url: "http://209.97.146.187:18919/status-users/listar",
          });
          setStatus(data.data);
       } catch (error) {
