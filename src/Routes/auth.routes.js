@@ -34,6 +34,7 @@ import ListarTime from '../Pages/Times/Listar'
 import CadastrarTime from '../Pages/Times/Cadastrar'
 
 import App from "../App";
+import UsuarioCompanies from "../Pages/Usuarios/UsuarioCompanhia";
 
 
 export default function AuthRoutes() {
@@ -42,11 +43,11 @@ export default function AuthRoutes() {
          <Route path="/usuarios" component={ListarUsuarios} />
          <Route exact path="/" component={App} />
          <Route path="/cadastrar" component={Cadastros} />
-         <Route path="/usuario-companhia/:userId" component={UsuarioCompanhia} />
-         <Route path="/usuario-jornadas/:userId" component={UsuarioJornadas} />
-         <Route path="/usuario-badges/:userId" component={UsuarioBadges} />
-         <Route path="/usuario-tipodemanda/:userId" component={UsuarioTipoDemanda} />
-         <Route path="/usuario-times/:userId" component={UsuarioTimes} />
+         <Route path="/usuario-companhia/:userId/:userName" component={UsuarioCompanies} />
+         <Route path="/usuario-jornadas/:userId/:userName" component={UsuarioJornadas} />
+         <Route path="/usuario-badges/:userId/:userName" component={UsuarioBadges} />
+         <Route path="/usuario-tipodemanda/:userId/:userName" component={UsuarioTipoDemanda} />
+         <Route path="/usuario-times/:userId/:userName" component={UsuarioTimes} />
          <Route path="/companhia" component={ListarCompanhia} />
          <Route path="/jornadas" component={ListarJornada} />
          <Route path="/badges" component={ListarBadges} />

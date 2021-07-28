@@ -163,7 +163,8 @@ export default class ListarPagina extends Component {
                                  wipeAll={this.wipe.bind(this)}
                                  anchorEl={this.state.anchorEl}
                                  idUser={this.state.idUser}
-                                 closeMenu={this.closeMenu.bind(this)} />
+                                 closeMenu={this.closeMenu.bind(this)} 
+                                 userName={this.state.userName}/>
                            </TableHeader>
                            <TableData>
                               {this.state.responseData === null

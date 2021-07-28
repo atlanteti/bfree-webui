@@ -1,6 +1,6 @@
 import React from 'react'
 import { Alert } from 'react-bootstrap'
-
+import PropTypes from 'prop-types'
 export class CustomAlert extends React.Component {
   constructor (props) {
     super(props)
@@ -47,4 +47,10 @@ export class CustomAlert extends React.Component {
          <p>{this.state.message}</p>
       </Alert>
   }
+}
+
+CustomAlert.propTypes=
+{
+  showAlertCallback: PropTypes.func.isRequired,
+  redirectCallback: PropTypes.func.isRequired
 }

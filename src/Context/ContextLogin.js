@@ -36,7 +36,7 @@ export const AuthProvider = ({ children }) => {
    }
 
    return (
-      <ContextLogin.Provider value={{ signed: !!auth, getToken }}>
+      <ContextLogin.Provider value={{ signed: Boolean(auth), getToken }}>
          {children}
       </ContextLogin.Provider>
    )
