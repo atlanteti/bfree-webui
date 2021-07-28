@@ -60,7 +60,7 @@ export default class ListUsers extends Component {
                 key={user.usr_cod}
                 value={user.usr_cod}
               >
-                {user.usr_cod}
+                {user.usr_name}
               </option>);
           })}
         </>
