@@ -23,7 +23,8 @@ export default class ListarUsuario extends ListarPagina {
     this.state = {
       ...this.state,
       anchorEl: null,
-      idUser: null
+      idUser: null,
+      userName: ""
     }
   }
   async deleteRecord (id) {
@@ -100,19 +101,19 @@ export default class ListarUsuario extends ListarPagina {
            open = {Boolean(props.anchorEl)}
            onClose = {props.closeMenu}
            >
-             <Link to={`/usuario-companhia/${props.idUser}`}>
+             <Link to={`/usuario-companhia/${props.idUser}/${props.userName}`}>
                <MenuItem>Empresas</MenuItem>
              </Link>
-             <Link to={`/usuario-jornadas/${props.idUser}`}>
+             <Link to={`/usuario-jornadas/${props.idUser}/${props.userName}`}>
                <MenuItem>Jornadas</MenuItem>
              </Link>
-             <Link to={`/usuario-tipodemanda/${props.idUser}`}>
+             <Link to={`/usuario-tipodemanda/${props.idUser}/${props.userName}`}>
                <MenuItem>Tipos de Demanda</MenuItem>
              </Link>
-             <Link to={`/usuario-badges/${props.idUser}`}>
+             <Link to={`/usuario-badges/${props.idUser}/${props.userName}`}>
                <MenuItem>Badges</MenuItem>
              </Link>
-             <Link to={`/usuario-times/${props.idUser}`}>
+             <Link to={`/usuario-times/${props.idUser}/${props.userName}`}>
                <MenuItem>Times</MenuItem>
              </Link>
           </Menu>
@@ -136,7 +137,8 @@ export default class ListarUsuario extends ListarPagina {
                     }}>Excluir</Button>
                  <Button onClick={(event)=>{this.setState({
                     anchorEl: event.currentTarget,
-                    idUser: usuario.usr_cod})}}variant="secondary">...</Button>
+                    idUser: usuario.usr_cod,
+                    userName: usuario.usr_name})}}variant="secondary">...</Button>
                </Row>
          </ActionCell>
           </TableRow>
