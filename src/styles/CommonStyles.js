@@ -16,7 +16,7 @@ export const SearchBarBorder = styled.div`
       padding: 15px;
       border-radius: 5px;
       `
-      
+
 export const CustomMenuCol = styled(Col)`
    padding: 0;
    margin-right: 12px; //Devido à construção do menu lateral, referências relativas ao alinhamento do grid 
