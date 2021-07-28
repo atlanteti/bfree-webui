@@ -56,7 +56,6 @@ export default function AuthRoutes() {
          <Route path="/tipodemanda" component={ListarTipoDemanda} />
          <Route path="/times" component={ListarTime} />
          <Route path="/demandas" component={ListarDemandas} />
-         <Route path="/usuario-jornadas" component={ListarJornadaUsuarios} />
          <Route path="/editar-usuario/:usr_cod/:route" component={CadastrarUsuario} />
          <Route path="/editar-companhia/:cpn_cod/:param" component={CadastrarCompanhia} />
          <Route path="/editar-jornada-usuario/:jnu_cod" component={EditarJornada} />
