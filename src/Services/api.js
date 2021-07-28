@@ -15,7 +15,7 @@ export const request = async ({
 
    const baseUrl = prodServer
    const cookieGetter = new Cookies()
-   const token = cookieGetter.get("auth")
+   const token = await cookieGetter.get("auth")
    const config = {
       method: method || 'get',
       baseURL: `http://${baseUrl}/${endpoint}`,
