@@ -42,6 +42,7 @@ export class DemandFormBuilder extends EditCreateForm {
                <TextField
                   controlId="dem_title"
                   Label="Titulo:"
+                  required
                   type="text"
                   defaultValue={this.state.primaryData?.dem_title}
                   onChange={this.handleChange} />
@@ -52,6 +53,7 @@ export class DemandFormBuilder extends EditCreateForm {
                <TextField
                   controlId="dem_desc"
                   Label="Descrição:"
+                  required
                   as="textarea"
                   defaultValue={this.state.primaryData?.dem_desc}
                   onChange={this.handleChange} />
@@ -59,36 +61,40 @@ export class DemandFormBuilder extends EditCreateForm {
          </Row>
          <Row>
             <Col>
-            <ListUsers
+               <ListUsers
                   defaultValue={this.props.primaryId}
                   onChange={this.handleChange}
+                  required
                   controlId="dem_usr_cod"
                   defaultUser={this.state.primaryData.dem_usr_cod} />
             </Col>
          </Row>
          <Row>
             <Col>
-            <ListStatusDemands
+               <ListStatusDemands
                   defaultValue={this.props.primaryId}
                   onChange={this.handleChange}
+                  required
                   controlId="dem_sdm_cod"
                   defaultStatusDemand={this.state.primaryData.dem_sdm_cod} />
             </Col>
          </Row>
          <Row>
             <Col>
-            <ListResultDemands
+               <ListResultDemands
                   defaultValue={this.props.primaryId}
                   onChange={this.handleChange}
+                  required
                   controlId="dem_rdm_cod"
                   defaultResultDemand={this.state.primaryData.dem_rdm_cod} />
             </Col>
          </Row>
          <Row>
             <Col>
-            <ListTypeDemand
+               <ListTypeDemand
                   defaultValue={this.props.primaryId}
                   onChange={this.handleChange}
+                  required
                   controlId="dem_tdm_cod"
                   defaultTypeDemand={this.state.primaryData.dem_tdm_cod} />
             </Col>
@@ -98,14 +104,14 @@ export class DemandFormBuilder extends EditCreateForm {
             : (
                <>
                   <DateField
-                     controlId="bdg_dtcreation"
+                     controlId="dem_dtcreation"
                      Label="Data de criação:"
                      date={this.state.primaryData?.dem_dtcreation} />
                   {this.state.primaryData?.dem_dtupdate === null
                      ? ''
                      : (
                         <DateField
-                           controlId="bdg_dtupdate"
+                           controlId="dem_dtupdate"
                            Label="Data de atualização:"
                            date={this.state.primaryData?.dem_dtupdate} />
                      )}
