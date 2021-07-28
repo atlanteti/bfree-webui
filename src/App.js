@@ -19,11 +19,12 @@ function App() {
       setLoad(false)
    }, 1000)
 
-   if (auth !== null) {
-      cookies.remove('auth', { path: "/" })
-   }
 
    useEffect(() => {
+      if (auth !== null) {
+         cookies.remove('auth', { path: "/" })
+      }
+
       window.Eduzz.Accounts.login("a4b7ad1d-ebf7-43f8-af05-5cda0575c621", { env: "staging" }).subscribe(token => {
          getToken(token)
          setRedirect(true)
@@ -32,7 +33,7 @@ function App() {
    }, [auth])
 
    if (redirect) {
-      return <Redirect to="/usuarios" />
+      return <Redirect to="/demandas" />
    }
 
    return (

@@ -35,6 +35,8 @@ import CadastrarTime from '../Pages/Times/Cadastrar'
 
 import App from "../App";
 import UsuarioCompanies from "../Pages/Usuarios/UsuarioCompanhia";
+import CadastrarDemanda from "../Pages/Demandas/Cadastrar";
+import ListarDemandas from "../Pages/Demandas/Listar";
 
 
 export default function AuthRoutes() {
@@ -53,6 +55,9 @@ export default function AuthRoutes() {
          <Route path="/badges" component={ListarBadges} />
          <Route path="/tipodemanda" component={ListarTipoDemanda} />
          <Route path="/times" component={ListarTime} />
+         <Route path="/demandas" component={ListarDemandas} />
+         <Route path="/usuario-jornadas" component={ListarJornadaUsuarios} />
+         <Route path="/editar/:usr_cod/:route" component={EditUsuarios} />
          <Route path="/editar-usuario/:usr_cod/:route" component={CadastrarUsuario} />
          <Route path="/editar-companhia/:cpn_cod/:param" component={CadastrarCompanhia} />
          <Route path="/editar-jornada-usuario/:jnu_cod" component={EditarJornada} />
@@ -60,6 +65,7 @@ export default function AuthRoutes() {
          <Route path="/editar-badges/:bdg_cod/:param" component={EditBadges} />
          <Route path="/editar-time/:tea_cod/:param" component={CadastrarTime} />
          <Route path="/editar-tipodemanda/:tdm_cod/:param" component={CadastrarTipoDemanda} />
+         <Route path="/editar-demanda/:dem_cod/:param" component={CadastrarDemanda} />
       </Router>
    );
 }

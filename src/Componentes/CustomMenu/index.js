@@ -82,7 +82,7 @@ export const CustomMenu = () => {
                   },
                   {
                      title: 'Demandas',
-                     itemId: '#6',
+                     itemId: '/demandas',
                      elemBefore: () => <FaTasks size={23} color="#ffb509" />
                   },
                   {
