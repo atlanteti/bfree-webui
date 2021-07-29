@@ -28,10 +28,11 @@ export const AuthProvider = ({ children }) => {
             endpoint: `auth/login?token=${token}`,
          })
          if (data.meta.status === 100) {
-            setAuth(data.data.token)
             cookie.set('auth', data.data.token, { path: "/" })
+            setAuth(data.data.token)
          }
       } catch (error) {
+         console.log(error)
       }
    }
 
