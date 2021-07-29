@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import Helmet from 'react-helmet'
+
 import { Redirect } from 'react-router-dom'
 import { Col } from 'react-bootstrap'
 import { CustomMenu } from '../../../Componentes/CustomMenu'
@@ -6,37 +8,38 @@ import { CustomAlert } from '../../../Componentes/CustomAlert'
 import JourneyForm from './Form'
 import { Title } from '../../../styles/CommonStyles'
 export default class CadastrarJornada extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      journeyData: {},
-      responseData: {},
-      responseAlertShow: null,
-      redirect: false
-    }
-    this.paramRoute = props.match.params.param
-    this.journeyId = Number(props.match.params.jny_cod)
-  }
+   constructor(props) {
+      super(props)
+      this.state = {
+         journeyData: {},
+         responseData: {},
+         responseAlertShow: null,
+         redirect: false
+      }
+      this.paramRoute = props.match.params.param
+      this.journeyId = Number(props.match.params.jny_cod)
+   }
 
-  getAlertCallback (func) {
-    this.setState({
-      responseAlertShow: func
-    })
-  }
+   getAlertCallback(func) {
+      this.setState({
+         responseAlertShow: func
+      })
+   }
 
-  showAlert (data) {
-    this.state.responseAlertShow(data)
-  }
+   showAlert(data) {
+      this.state.responseAlertShow(data)
+   }
 
-  redirect () {
-    this.setState({ redirect: true })
-  }
+   redirect() {
+      this.setState({ redirect: true })
+   }
 
-  render () {
-    if (this.state.redirect) {
-      return <Redirect to="/jornadas" />
-    } else {
-      return <>
+   render() {
+      if (this.state.redirect) {
+         return <Redirect to="/jornadas" />
+      } else {
+         return <>
+            <Helmet title={`${this.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'} Jornadas`} />
             <Title>{this.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'} Jornadas </Title>
             <CustomMenu />
             <Col style={{ marginTop: 48 }}>
@@ -58,6 +61,6 @@ export default class CadastrarJornada extends Component {
                </Col>
             </Col>
          </>
-    }
-  }
+      }
+   }
 }
