@@ -1,3 +1,4 @@
+import Helmet from 'react-helmet'
 import { Component, React } from 'react'
 import { Container, Row, Col, Button } from 'react-bootstrap'
 import { CustomMenu } from '../CustomMenu'
@@ -126,8 +127,7 @@ export default class ListarPagina extends Component {
    redirectCallback() {
       return true // Do nothing
    }
-   closeMenu()
-   {
+   closeMenu() {
       this.setState({
          anchorEl: null,
          idUser: null
@@ -163,8 +163,8 @@ export default class ListarPagina extends Component {
                                  wipeAll={this.wipe.bind(this)}
                                  anchorEl={this.state.anchorEl}
                                  idUser={this.state.idUser}
-                                 closeMenu={this.closeMenu.bind(this)} 
-                                 userName={this.state.userName}/>
+                                 closeMenu={this.closeMenu.bind(this)}
+                                 userName={this.state.userName} />
                            </TableHeader>
                            <TableData>
                               {this.state.responseData === null
@@ -195,6 +195,7 @@ export function PageHeaderCustomComponent(props) {
    return <HeaderContainer fluid>
       <RowTopMargin >
          <Col>
+            <Helmet title={`${props.Title}`} />
             <Title>{props.Title}</Title>
          </Col>
          <RightAlignText>

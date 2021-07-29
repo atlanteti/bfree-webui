@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Helmet from 'react-helmet'
 
 import { Title } from './styles.js'
 import { Redirect } from 'react-router-dom'
@@ -38,6 +39,7 @@ export default class CadastrarTipoDemanda extends Component {
          return <Redirect to="/tipodemanda" />
       } else {
          return <>
+            <Helmet title={`${this.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'} Tipos de Demanda`} />
             <Title>{this.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'} Tipos de Demanda </Title>
             <CustomMenu />
             <Col style={{ marginTop: 48 }}>
