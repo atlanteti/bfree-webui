@@ -42,28 +42,43 @@ import ListarDemandas from "../Pages/Demandas/Listar";
 export default function AuthRoutes() {
    return (
       <Router>
+         {/* rotas de usuarios */}
          <Route path="/usuarios" component={ListarUsuarios} />
-         <Route exact path="/" component={App} />
-         <Route path="/cadastrar" component={Cadastros} />
          <Route path="/usuario-companhia/:userId/:userName" component={UsuarioCompanies} />
          <Route path="/usuario-jornadas/:userId/:userName" component={UsuarioJornadas} />
          <Route path="/usuario-badges/:userId/:userName" component={UsuarioBadges} />
          <Route path="/usuario-tipodemanda/:userId/:userName" component={UsuarioTipoDemanda} />
          <Route path="/usuario-times/:userId/:userName" component={UsuarioTimes} />
-         <Route path="/companhia" component={ListarCompanhia} />
-         <Route path="/jornadas" component={ListarJornada} />
-         <Route path="/badges" component={ListarBadges} />
-         <Route path="/tipodemanda" component={ListarTipoDemanda} />
-         <Route path="/times" component={ListarTime} />
-         <Route path="/demandas" component={ListarDemandas} />
          <Route path="/editar-usuario/:usr_cod/:route" component={CadastrarUsuario} />
+
+         {/* rotas de empresas */}
+         <Route path="/companhia" component={ListarCompanhia} />
          <Route path="/editar-companhia/:cpn_cod/:param" component={CadastrarCompanhia} />
-         <Route path="/editar-jornada-usuario/:jnu_cod" component={EditarJornada} />
+
+         {/* rotas de jornadas */}
+         <Route path="/jornadas" component={ListarJornada} />
          <Route path="/editar-jornada/:jny_cod/:param" component={CadastrarJornada} />
+
+         {/* rotas de badges */}
+         <Route path="/badges" component={ListarBadges} />
          <Route path="/editar-badges/:bdg_cod/:param" component={EditBadges} />
-         <Route path="/editar-time/:tea_cod/:param" component={CadastrarTime} />
+
+         {/* rotas tipos de demanda */}
+         <Route path="/tipodemanda" component={ListarTipoDemanda} />
          <Route path="/editar-tipodemanda/:tdm_cod/:param" component={CadastrarTipoDemanda} />
+
+         {/* rotas de demandas */}
+         <Route path="/demandas" component={ListarDemandas} />
          <Route path="/editar-demanda/:dem_cod/:param" component={CadastrarDemanda} />
+
+         {/* rotas de times */}
+         <Route path="/times" component={ListarTime} />
+         <Route path="/editar-time/:tea_cod/:param" component={CadastrarTime} />
+
+         <Route path="/editar-jornada-usuario/:jnu_cod" component={EditarJornada} />
+         <Route exact path="/" component={App} />
+         <Route path="/cadastrar" component={Cadastros} />
+
       </Router>
    );
 }
