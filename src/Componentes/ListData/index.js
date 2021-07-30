@@ -11,6 +11,7 @@ import {
 import PropTypes from "prop-types"
 import ExclusionModal from '../ExclusionModal'
 import { Redirect } from "react-router-dom"
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 export default class ListarPagina extends Component {
    constructor(props) {
@@ -156,25 +157,34 @@ export default class ListarPagina extends Component {
                         filterData={this.searchData} />
                      <Row noGutters>
                         <Table>
-                           <TableHeader>
-                              <this.TableHeaderCustom
-                                 sortCallback={this.reorderData.bind(this)}
-                                 subscribe={this.subscribe.bind(this)}
-                                 wipeAll={this.wipe.bind(this)}
-                                 anchorEl={this.state.anchorEl}
-                                 idUser={this.state.idUser}
-                                 closeMenu={this.closeMenu.bind(this)}
-                                 userName={this.state.userName} />
-                           </TableHeader>
-                           <TableData>
-                              {this.state.responseData === null
-                                 ? ''
-                                 : this.state.responseData.map((companhia) => {
-                                    return (
-                                       this.createRecord(companhia)
-                                    )
-                                 })}
-                           </TableData>
+                           {this.state.responseData === null
+                              ?
+                              <Row>
+                                 <Col md={{ offset: 5 }}><CircularProgress /></Col>
+                              </Row>
+                              :
+                              (
+                                 <>
+                                    <TableHeader>
+                                       <this.TableHeaderCustom
+                                          sortCallback={this.reorderData.bind(this)}
+                                          subscribe={this.subscribe.bind(this)}
+                                          wipeAll={this.wipe.bind(this)}
+                                          anchorEl={this.state.anchorEl}
+                                          idUser={this.state.idUser}
+                                          closeMenu={this.closeMenu.bind(this)}
+                                          userName={this.state.userName} />
+                                    </TableHeader>
+                                    <TableData>
+                                       {this.state.responseData.map((companhia) => {
+                                          return (
+                                             this.createRecord(companhia)
+                                          )
+                                       })}
+                                    </TableData>
+                                 </>
+                              )
+                           }
                            {this.createModal()}
                         </Table>
                      </Row>
