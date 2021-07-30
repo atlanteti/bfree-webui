@@ -34,7 +34,7 @@ export const request = async ({
       result = await axios(config)
       if(result.data.meta.token!==token)
       {
-         cookieGetter.set("auth",result.data.meta.token)
+         cookieGetter.set("auth",result.data.meta.token, { path: "/" })
       }
       else if(result.data.meta.status==="203")
       {
