@@ -97,7 +97,7 @@ export class BadgeFormBuilder extends EditCreateForm {
             <Col>
                <ListJourneysControlled
                   value={this.state.primaryData.bdg_jny_cod ? this.state.primaryData.bdg_jny_cod  : ""}
-                  disabled={this.state.disableJourney || Boolean(this.state.primaryData.bdg_cpn_cod)}
+                  disabled={this.state.disableJourney || (Boolean(this.state.primaryData.bdg_cpn_cod) && !Boolean(this.state.primaryData.bdg_jny_cod))}
                   onChange={this.handleChangeJourneyControlled.bind(this)}
                   controlId="bdg_jny_cod"
                   />

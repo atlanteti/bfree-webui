@@ -36,13 +36,15 @@ export const request = async ({
       {
          cookieGetter.set("auth",result.data.meta.token, { path: "/" })
       }
-      else if(result.data.meta.status==="203")
+      return result.data
+   } catch (error) {
+      if(error.response.data.meta.status===203)
       {
          window.Eduzz.Accounts.logout({ env: "staging" , redirectTo: window.location.origin})
+         return
       }
-   } catch (error) {
-      return <Redirect to="404" />
+      throw new Error("Tratamento de página vazia não feito")
    }
 
-   return result.data
+   
 }
