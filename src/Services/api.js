@@ -36,6 +36,10 @@ export const request = async ({
       {
          cookieGetter.set("auth",result.data.meta.token)
       }
+      else if(result.data.meta.status==="203")
+      {
+         window.Eduzz.Accounts.logout({ env: "staging" , redirectTo: window.location.origin})
+      }
    } catch (error) {
       return <Redirect to="404" />
    }
