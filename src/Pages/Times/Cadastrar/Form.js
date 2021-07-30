@@ -4,7 +4,6 @@ import { DateField } from '../../../Componentes/DateField'
 import { ButtonRow } from '../../../Componentes/ButtonRow'
 import { EditCreateForm } from '../../../Componentes/EditCreateForm/index'
 import { BooleanField, TextField } from '../../../Componentes/FormFields'
-import { CheckBox } from "../../../Componentes/CheckBox";
 import ListCompanies from '../../../Componentes/ListCompanies'
 
 export default function TeamForm(props) {

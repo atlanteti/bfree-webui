@@ -6,7 +6,7 @@ import Cadastros from '../Pages/Cadastros';
 import ListarUsuarios from "../Pages/Usuarios/Listar";
 import CadastrarUsuario from "../Pages/Usuarios/Cadastrar";
 
-import UsuarioCompanhia from '../Pages/Usuarios/UsuarioCompanhia';
+import UsuarioCompanies from "../Pages/Usuarios/UsuarioCompanhia";
 import UsuarioJornadas from '../Pages/Usuarios/UsuarioJornadas';
 import UsuarioBadges from '../Pages/Usuarios/UsuarioBadges';
 import UsuarioTipoDemanda from '../Pages/Usuarios/UsuarioTipoDemanda';
@@ -15,11 +15,7 @@ import UsuarioTimes from '../Pages/Usuarios/UsuarioTimes'
 import ListarCompanhia from '../Pages/Companhia/Listar'
 import CadastrarCompanhia from '../Pages/Companhia/Cadastrar'
 
-import EditarJornada from '../Pages/JornadaUsuarios/Editar'
-import ListarJornadaUsuarios from '../Pages/JornadaUsuarios/Listar'
-
 import ListarJornada from '../Pages/Jornadas/Listar'
-// import ListarJornadas from './Pages/TipoJornadas/Listar'
 import CadastrarJornada from '../Pages/Jornadas/Cadastrar'
 
 import EditBadges from '../Pages/Badges/Cadastrar'
@@ -34,7 +30,6 @@ import ListarTime from '../Pages/Times/Listar'
 import CadastrarTime from '../Pages/Times/Cadastrar'
 
 import App from "../App";
-import UsuarioCompanies from "../Pages/Usuarios/UsuarioCompanhia";
 import CadastrarDemanda from "../Pages/Demandas/Cadastrar";
 import ListarDemandas from "../Pages/Demandas/Listar";
 
@@ -75,7 +70,6 @@ export default function AuthRoutes() {
          <Route path="/times" component={ListarTime} />
          <Route path="/editar-time/:tea_cod/:param" component={CadastrarTime} />
 
-         <Route path="/editar-jornada-usuario/:jnu_cod" component={EditarJornada} />
          <Route exact path="/" component={App} />
          <Route path="/cadastrar" component={Cadastros} />
 
