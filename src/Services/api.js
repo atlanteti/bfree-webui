@@ -32,6 +32,10 @@ export const request = async ({
 
    try {
       result = await axios(config)
+      if(result.data.meta.token!==token)
+      {
+         cookieGetter.set("auth",result.data.meta.token)
+      }
    } catch (error) {
       return <Redirect to="404" />
    }
