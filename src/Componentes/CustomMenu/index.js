@@ -85,16 +85,16 @@ export const CustomMenu = () => {
                      itemId: '/demandas',
                      elemBefore: () => <FaTasks size={23} color="#ffb509" />
                   },
-                  {
-                     title: 'Conquistas',
-                     itemId: '#2',
-                     elemBefore: () => <IoBookmarkOutline size={23} color="#ffb509" />
-                  },
-                  {
-                     title: 'Mentores',
-                     itemId: '#3',
-                     elemBefore: () => <FaUserGraduate size={23} color="#ffb509" />
-                  }
+                  // {
+                  //    title: 'Conquistas',
+                  //    itemId: '#2',
+                  //    elemBefore: () => <IoBookmarkOutline size={23} color="#ffb509" />
+                  // },
+                  // {
+                  //    title: 'Mentores',
+                  //    itemId: '#3',
+                  //    elemBefore: () => <FaUserGraduate size={23} color="#ffb509" />
+                  // }
                ]}
             />
 
@@ -109,7 +109,7 @@ export const CustomMenu = () => {
                   ]}
                   onSelect={() => {
                      cookie.remove('auth', { path: "/" })
-                     window.Eduzz.Accounts.logout({ env: "staging" , redirectTo: window.location.origin})
+                     window.Eduzz.Accounts.logout({ env: "staging", redirectTo: window.location.origin })
                   }}
                />
             </div>
