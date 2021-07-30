@@ -107,7 +107,7 @@ export class BadgeFormBuilder extends EditCreateForm {
             <Col>
                <ListCompaniesControlled
                   value={this.state.primaryData.bdg_cpn_cod ? this.state.primaryData.bdg_cpn_cod : ""}
-                  disabled={this.state.disableCompany}
+                  disabled={this.state.disableCompany || Boolean(this.state.primaryData.bdg_jny_cod)}
                   onChange={this.handleChangeCompanyControlled.bind(this)}
                   controlId="bdg_cpn_cod"/>
             </Col>
