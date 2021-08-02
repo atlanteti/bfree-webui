@@ -23,7 +23,8 @@ export class TeamFormBuilder extends EditCreateForm {
                   Label="Nome:"
                   type="text"
                   defaultValue={this.state.primaryData?.tea_name}
-                  onChange={this.handleChange} />
+                  onChange={this.handleChange} 
+                  required/>
             </Col>
          </Row>
          <Row>

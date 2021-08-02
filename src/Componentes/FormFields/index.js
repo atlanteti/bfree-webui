@@ -1,18 +1,20 @@
 import React from 'react'
 import { Form } from 'react-bootstrap'
 import PropTypes from 'prop-types'
+import { RequiredField } from '../../styles/CommonStyles'
 
 export function TextField (props) {
 
   return <Form.Group controlId={props.controlId}>
-      <Form.Label>{props.Label}</Form.Label>
+      <Form.Label>{props.Label} {props.required ? <RequiredField>*</RequiredField> : null}</Form.Label>
       <Form.Control
          type={props.type}
          as={props.as}
          defaultValue={props.defaultValue}
          onChange={props.onChange}
          placeholder={props.placeholder}
-         required={false} />
+         required={props.required}
+         {...props}/>
    </Form.Group>
 }
 TextField.propTypes = {

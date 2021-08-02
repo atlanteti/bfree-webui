@@ -22,7 +22,7 @@ export class CompanyFormBuilder extends EditCreateForm {
    }
    render() {
       if (this.state.redirect) {
-         window.Eduzz.Accounts.logout({ env: "staging" })
+         window.Eduzz.Accounts.logout({ env: "staging" })//Unreachable statement, if state.redirect is set, this component will not render
          return <Redirect to="/" />
       }
       return <Form onSubmit={this.handleSubmit}>
@@ -31,9 +31,12 @@ export class CompanyFormBuilder extends EditCreateForm {
                <TextField
                   controlId="cpn_cli_cod"
                   Label="ID Eduzz:"
-                  type="number"
+                  type="text"
+                  pattern="[0-9]"
+                  maxLength="10"
                   defaultValue={this.state.primaryData?.cpn_cli_cod}
-                  onChange={this.handleChange} />
+                  onChange={this.handleChange}
+                  required/>
             </Col>
          </Row>
          <Row>
@@ -43,7 +46,9 @@ export class CompanyFormBuilder extends EditCreateForm {
                   Label="Nome:"
                   type="text"
                   defaultValue={this.state.primaryData?.cpn_name}
-                  onChange={this.handleChange} />
+                  onChange={this.handleChange} 
+                  required
+                  maxLength="10"/>
             </Col>
          </Row>
          {this.props.paramRoute === 'inserir'

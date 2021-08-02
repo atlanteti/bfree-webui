@@ -2,6 +2,7 @@ import { Form } from 'react-bootstrap';
 import { React, Component } from 'react';
 import { request } from '../../Services/api';
 import PropTypes from 'prop-types'
+import { RequiredField } from '../../styles/CommonStyles';
 export default class ListCompanies extends Component {
   constructor(props) {
     super(props);
@@ -45,7 +46,7 @@ export default class ListCompanies extends Component {
 
   render() {
     return <Form.Group controlId={this.props.controlId} /*"companyId"*/>
-      <Form.Label>Empresa: </Form.Label>
+      <Form.Label>Empresa: {this.props.required ? <RequiredField>*</RequiredField> : null}</Form.Label>
       <Form.Control //Form.Select não funciona por razões misteriosas
         disabled={this.props.disabled}
         as="select"
