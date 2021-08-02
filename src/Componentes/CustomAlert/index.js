@@ -33,6 +33,7 @@ export class CustomAlert extends React.Component {
     {
       window.setTimeout(() => {
           this.props.redirectCallback()
+          this.setState({showAlert: false})
         }, 2500)
     }
   }
