@@ -1,6 +1,6 @@
 import React from 'react'
 import { Form, Col, Row, Button } from 'react-bootstrap'
-import { TextField, SelectField } from '../../../Componentes/FormFields'
+import { TextField, SelectField, NumberField } from '../../../Componentes/FormFields'
 import { DateField } from '../../../Componentes/DateField'
 import { ButtonRow } from '../../../Componentes/ButtonRow'
 import { EditCreateForm } from '../../../Componentes/EditCreateForm/index'
@@ -20,10 +20,11 @@ export class UserFormBuilder extends EditCreateForm {
       return <Form onSubmit={this.handleSubmit}>
          <Row>
             <Col>
-               <TextField
+               <NumberField
                   controlId="usr_cli_cod"
                   Label="ID Eduzz:"
-                  type="number"
+                  type="text"
+                  required
                   defaultValue={this.state.primaryData?.usr_cli_cod}
                   onChange={this.handleChange} />
             </Col>
@@ -34,6 +35,7 @@ export class UserFormBuilder extends EditCreateForm {
                   controlId="usr_externalid"
                   Label="ID Externo:"
                   type="text"
+                  maxLength="10"
                   defaultValue={this.state.primaryData?.usr_externalid}
                   onChange={this.handleChange} />
             </Col>
@@ -43,6 +45,8 @@ export class UserFormBuilder extends EditCreateForm {
                <TextField
                   controlId="usr_name"
                   Label="Nome:"
+                  required
+                  maxLength="200"
                   type="text"
                   defaultValue={this.state.primaryData?.usr_name}
                   onChange={this.handleChange} />

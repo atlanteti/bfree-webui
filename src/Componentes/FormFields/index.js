@@ -26,6 +26,39 @@ TextField.propTypes = {
    required: PropTypes.bool,
 }
 
+export function NumberField(props){
+   function preventNonNumericalInput(e) {
+      e = e || window.event;
+      var charCode = (typeof e.which == "undefined") ? e.keyCode : e.which;
+      var charStr = String.fromCharCode(charCode);
+
+      if (!charStr.match(/^[0-9]+$/))
+         e.preventDefault();
+   }
+
+   return <Form.Group controlId={props.controlId}>
+      <Form.Label>{props.Label} {props.required ? <RequiredField>*</RequiredField> : null}</Form.Label>
+      <Form.Control
+         type={props.type}
+         as={props.as}
+         defaultValue={props.defaultValue}
+         onChange={props.onChange}
+         placeholder={props.placeholder}
+         required={props.required}
+         onKeyPress={(e) => preventNonNumericalInput(e)}
+         {...props}/>
+   </Form.Group>
+}
+NumberField.propTypes = {
+   controlId: PropTypes.string.isRequired,
+   Label: PropTypes.string.isRequired,
+   type: PropTypes.string,
+   as: PropTypes.string,
+   onChange: PropTypes.func.isRequired,
+   required: PropTypes.bool,
+}
+
+
 export function SelectField (props) {
   return <Form.Group controlId={props.controlId}>
    <Form.Label >{props.Label}</Form.Label>
@@ -46,7 +79,7 @@ export function SelectField (props) {
 export function BooleanField (props)
 {
    return <Form.Group controlId={props.controlId}>
-      <Form.Label >{props.Label}</Form.Label>
+      <Form.Label >{props.Label} {props.required ? <RequiredField>*</RequiredField> : null}</Form.Label>
       <Form.Control
       as="select"
       required={props.required}

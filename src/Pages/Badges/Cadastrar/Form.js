@@ -89,6 +89,8 @@ export class BadgeFormBuilder extends EditCreateForm {
                   controlId="bdg_name"
                   Label="Nome:"
                   type="text"
+                  maxLength="45"
+                  required
                   defaultValue={this.state.primaryData?.bdg_name}
                   onChange={this.handleChange} />
             </Col>
@@ -119,6 +121,7 @@ export class BadgeFormBuilder extends EditCreateForm {
                   onFalse="Não"
                   controlId="bdg_mentor"
                   key="bdg_mentor"
+                  required
                   onChange={this.handleChange}
                   register={true}
                   value={this.state.primaryData.bdg_mentor}/>

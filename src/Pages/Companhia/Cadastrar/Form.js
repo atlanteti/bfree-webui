@@ -3,7 +3,7 @@ import { Form, Col, Row, Button } from 'react-bootstrap'
 import { DateField } from '../../../Componentes/DateField'
 import { ButtonRow } from '../../../Componentes/ButtonRow'
 import { EditCreateForm } from '../../../Componentes/EditCreateForm/index'
-import { TextField } from '../../../Componentes/FormFields'
+import { NumberField, TextField } from '../../../Componentes/FormFields'
 import { Redirect } from 'react-router-dom'
 
 export default function CompanyForm(props) {
@@ -28,15 +28,14 @@ export class CompanyFormBuilder extends EditCreateForm {
       return <Form onSubmit={this.handleSubmit}>
          <Row>
             <Col>
-               <TextField
+               <NumberField
                   controlId="cpn_cli_cod"
                   Label="ID Eduzz:"
                   type="text"
-                  pattern="[0-9]"
                   maxLength="10"
                   defaultValue={this.state.primaryData?.cpn_cli_cod}
                   onChange={this.handleChange}
-                  required/>
+                  required />
             </Col>
          </Row>
          <Row>
@@ -48,7 +47,7 @@ export class CompanyFormBuilder extends EditCreateForm {
                   defaultValue={this.state.primaryData?.cpn_name}
                   onChange={this.handleChange} 
                   required
-                  maxLength="10"/>
+                  maxLength="45"/>
             </Col>
          </Row>
          {this.props.paramRoute === 'inserir'

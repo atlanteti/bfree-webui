@@ -27,6 +27,7 @@ export class TypeDemandFormBuilder extends EditCreateForm {
                   controlId="tdm_name"
                   Label="Nome:"
                   type="text"
+                  maxLength="45"
                   defaultValue={this.state.primaryData?.tdm_name}
                   onChange={this.handleChange} 
                   required/>
