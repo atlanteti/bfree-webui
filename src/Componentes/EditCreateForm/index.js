@@ -1,17 +1,12 @@
 import { Component } from 'react';
 import { request } from '../../Services/api';
-import { Cookies } from 'react-cookie';
-
-const cookies = new Cookies();
-
 export class EditCreateForm extends Component {
    constructor(props) {
       super(props);
       this.state = {
          primaryData: {},
          responseAlertShow: null,
-         redirect: false,
-         token: cookies.get('auth')
+         loading: true,
       };
       this.paramRoute = props.paramRoute;
       this.primaryId = Number(props.primaryId);
@@ -27,14 +22,10 @@ export class EditCreateForm extends Component {
                //props.requestDataEndpoint
                endpoint: this.props.requestDataEndpoint + this.primaryId,
             });
-            if (data.meta.status === 211) {
-               cookies.remove('auth', { path: "/" })
-               this.setState({ redirect: true })
-            } else {
-               this.setState({
-                  primaryData: data.data,
-               });
-            }
+            this.setState({
+               primaryData: data.data,
+               loading: false,
+            });
          } catch (error) {
             console.log(error);
          }

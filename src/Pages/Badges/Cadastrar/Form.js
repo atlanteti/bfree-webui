@@ -6,6 +6,7 @@ import { EditCreateForm } from '../../../Componentes/EditCreateForm/index'
 import { BooleanField, TextField } from '../../../Componentes/FormFields'
 import  ListCompaniesControlled  from "../../../Componentes/ListCompaniesControlled"
 import  ListJourneysControlled  from "../../../Componentes/ListJourneysControlled"
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 export default function BadgeForm(props) {
    return <BadgeFormBuilder insertDataEndpoint="badges/cadastrar"
@@ -82,69 +83,83 @@ export class BadgeFormBuilder extends EditCreateForm {
    }
 
    render() {
-      return <Form onSubmit={this.handleSubmit}>
-         <Row>
-            <Col>
-               <TextField
-                  controlId="bdg_name"
-                  Label="Nome:"
-                  type="text"
-                  defaultValue={this.state.primaryData?.bdg_name}
-                  onChange={this.handleChange} />
-            </Col>
-         </Row>
-         <Row>
-            <Col>
-               <ListJourneysControlled
-                  value={this.state.primaryData.bdg_jny_cod ? this.state.primaryData.bdg_jny_cod  : ""}
-                  disabled={this.state.disableJourney || (Boolean(this.state.primaryData.bdg_cpn_cod) && !Boolean(this.state.primaryData.bdg_jny_cod))}
-                  onChange={this.handleChangeJourneyControlled.bind(this)}
-                  controlId="bdg_jny_cod"
-                  />
-            </Col>
-         </Row>
-         <Row>
-            <Col>
-               <ListCompaniesControlled
-                  value={this.state.primaryData.bdg_cpn_cod ? this.state.primaryData.bdg_cpn_cod : ""}
-                  disabled={this.state.disableCompany || Boolean(this.state.primaryData.bdg_jny_cod)}
-                  onChange={this.handleChangeCompanyControlled.bind(this)}
-                  controlId="bdg_cpn_cod"/>
-            </Col>
-         </Row>
-         <Row>
-            <Col>
-               <BooleanField Label="Mentor:"
-                  onTrue="Sim"
-                  onFalse="Não"
-                  controlId="bdg_mentor"
-                  key="bdg_mentor"
-                  onChange={this.handleChange}
-                  register={true}
-                  value={this.state.primaryData.bdg_mentor}/>
-            </Col>
-         </Row>
-         {this.props.paramRoute === 'inserir'
-            ? ''
-            : (
-               <>
-                  <DateField
-                     controlId="bdg_dtcreation"
-                     Label="Data de criação:"
-                     date={this.state.primaryData?.bdg_dtcreation} />
-                  {this.state.primaryData?.bdg_dtupdate === null
-                     ? ''
-                     : (
-                        <DateField
-                           controlId="bdg_dtupdate"
-                           Label="Data de atualização:"
-                           date={this.state.primaryData?.bdg_dtupdate} />
-                     )}
-               </>
-            )}
-         <ButtonRow
-            cancelButton={<Button variant="warning" onClick={this.redirectCallback}>Voltar</Button>}
-            confirmButton={<Button variant="dark" type="submit">{this.props.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'}</Button>} />
-      </Form>
+      return (
+         <>
+            {this.state.loading && this.paramRoute !== 'inserir' 
+               ?
+                  <Row>
+                     <Col md={{ offset: 6 }}><CircularProgress /></Col>
+                  </Row> 
+               : 
+               (
+                  <Form onSubmit={this.handleSubmit}>
+                           <Row>
+                              <Col>
+                                 <TextField
+                                    controlId="bdg_name"
+                                    Label="Nome:"
+                                    type="text"
+                                    defaultValue={this.state.primaryData?.bdg_name}
+                                    onChange={this.handleChange} />
+                              </Col>
+                           </Row>
+                           <Row>
+                              <Col>
+                                 <ListJourneysControlled
+                                    value={this.state.primaryData.bdg_jny_cod ? this.state.primaryData.bdg_jny_cod  : ""}
+                                    disabled={this.state.disableJourney || (Boolean(this.state.primaryData.bdg_cpn_cod) && !Boolean(this.state.primaryData.bdg_jny_cod))}
+                                    onChange={this.handleChangeJourneyControlled.bind(this)}
+                                    controlId="bdg_jny_cod"
+                                    />
+                              </Col>
+                           </Row>
+                           <Row>
+                              <Col>
+                                 <ListCompaniesControlled
+                                    value={this.state.primaryData.bdg_cpn_cod ? this.state.primaryData.bdg_cpn_cod : ""}
+                                    disabled={this.state.disableCompany || Boolean(this.state.primaryData.bdg_jny_cod)}
+                                    onChange={this.handleChangeCompanyControlled.bind(this)}
+                                    controlId="bdg_cpn_cod"/>
+                              </Col>
+                           </Row>
+                           <Row>
+                              <Col>
+                                 <BooleanField Label="Mentor:"
+                                    onTrue="Sim"
+                                    onFalse="Não"
+                                    controlId="bdg_mentor"
+                                    key="bdg_mentor"
+                                    onChange={this.handleChange}
+                                    register={true}
+                                    value={this.state.primaryData.bdg_mentor}/>
+                              </Col>
+                           </Row>
+                           {this.props.paramRoute === 'inserir'
+                              ? ''
+                              : (
+                                 <>
+                                    <DateField
+                                       controlId="bdg_dtcreation"
+                                       Label="Data de criação:"
+                                       date={this.state.primaryData?.bdg_dtcreation} />
+                                    {this.state.primaryData?.bdg_dtupdate === null
+                                       ? ''
+                                       : (
+                                          <DateField
+                                             controlId="bdg_dtupdate"
+                                             Label="Data de atualização:"
+                                             date={this.state.primaryData?.bdg_dtupdate} />
+                                       )}
+                                 </>
+                              )}
+                           <ButtonRow
+                              cancelButton={<Button variant="warning" onClick={this.redirectCallback}>Voltar</Button>}
+                              confirmButton={<Button variant="dark" type="submit">{this.props.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'}</Button>} />
+                        </Form>
+               )
+            }
+         </>
+      ) 
+
    }
 }
