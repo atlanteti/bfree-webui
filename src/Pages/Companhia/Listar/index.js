@@ -8,9 +8,6 @@ import {
 import SortColumn from '../../../Componentes/SortColumn'
 import React from 'react'
 import { CompanySearchBar } from './CompanySearchBar'
-import { Cookies } from 'react-cookie';
-
-const cookies = new Cookies();
 
 export default class ListarCompanhia extends ListarPagina {
    async deleteRecord(id) {
@@ -32,10 +29,6 @@ export default class ListarCompanhia extends ListarPagina {
             ...extraParams
          },
       })
-      if (data.meta.status === 211) {
-         cookies.remove('auth', { path: "/" })
-         this.redirect = true
-      }
       return data
    }
 
