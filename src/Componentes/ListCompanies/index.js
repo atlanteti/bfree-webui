@@ -9,8 +9,7 @@ export default class ListCompanies extends Component {
     this.state = {
       companies: [],
     };
-    if (this.props.getSetCallback)
-    {
+    if (this.props.getSetCallback) {
       this.props.getSetCallback(this.select.bind(this))
     }
   }
@@ -29,19 +28,19 @@ export default class ListCompanies extends Component {
     this.getCompanies();
   }
 
-  onChange(e) 
-  {
+  onChange(e) {
     this.props.onChange(e)
   }
 
-  select(companyCode)
-  {
-    this.setState({selectedValue: companyCode})
+  select(companyCode) {
+    this.setState({ selectedValue: companyCode })
     this.props.onChange({
-      target:{
+      target: {
         id: this.props.controlId,
         value: String(companyCode),
-        selected: true}})
+        selected: true
+      }
+    })
   }
 
   render() {
@@ -50,6 +49,7 @@ export default class ListCompanies extends Component {
       <Form.Control //Form.Select não funciona por razões misteriosas
         disabled={this.props.disabled}
         as="select"
+        required={this.props.required}
         onChange={this.onChange.bind(this)}
         value={this.props.defaultCompany}>
         <>
