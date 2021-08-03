@@ -15,6 +15,10 @@ export default function TypeDemandForm (props) {
 }
 
 export class TypeDemandFormBuilder extends EditCreateForm {
+   formatData()
+   {
+      return this.state.primaryData
+   }
    render() {
       return (
          <>

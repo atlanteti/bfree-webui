@@ -5,6 +5,7 @@ import { ButtonRow } from '../../../Componentes/ButtonRow'
 import { EditCreateForm } from '../../../Componentes/EditCreateForm/index'
 import { TextField } from '../../../Componentes/FormFields'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import { Redirect } from 'react-router-dom'
 
 export default function CompanyForm(props) {
    return <CompanyFormBuilder insertDataEndpoint="companies/cadastrar"

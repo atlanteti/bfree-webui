@@ -5,7 +5,8 @@ export const Title = styled.h1`
    text-align: center;
    font-size: 2rem;
 `
-
+export const RequiredField = styled.text`
+   color: red`
 export const RightAlignText = styled.div`
    .col{
       text-align: end
