@@ -4,8 +4,9 @@ import { DateField } from '../../../Componentes/DateField'
 import { ButtonRow } from '../../../Componentes/ButtonRow'
 import { EditCreateForm } from '../../../Componentes/EditCreateForm/index'
 import { BooleanField, TextField } from '../../../Componentes/FormFields'
-import  ListCompaniesControlled  from "../../../Componentes/ListCompaniesControlled"
-import  ListJourneysControlled  from "../../../Componentes/ListJourneysControlled"
+import { CheckBox } from '../../../Componentes/CheckBox'
+import ListCompaniesControlled from "../../../Componentes/ListCompaniesControlled"
+import ListJourneysControlled from "../../../Componentes/ListJourneysControlled"
 import CircularProgress from '@material-ui/core/CircularProgress'
 
 export default function BadgeForm(props) {
@@ -16,11 +17,9 @@ export default function BadgeForm(props) {
 }
 
 export class BadgeFormBuilder extends EditCreateForm {
-   constructor(props)
-   {
+   constructor(props) {
       super(props)
-      if(this.paramRoute==="inserir")
-      {
+      if (this.paramRoute === "inserir") {
          this.state.primaryData = {
             bdg_cpn_cod: null,
             bdg_jny_cod: null,
@@ -28,21 +27,18 @@ export class BadgeFormBuilder extends EditCreateForm {
          }
       }
    }
-   handleChangeJourneyControlled(e)
-   {
-      if(e.jny_cpn_cod !== undefined)
-      {
+   handleChangeJourneyControlled(e) {
+      if (e.jny_cpn_cod !== undefined) {
          this.companyCodeSetter(e.jny_cpn_cod)
          this.setState({
             disableCompany: true
          })
       }
-      else
-      {
-         this.setState({disableCompany: false})
+      else {
+         this.setState({ disableCompany: false })
       }
       this.journeyCodeSetter(e.target.value)
-      this.handleChange({target: {id: "bdg_cpn_cod", value: String(e.jny_cpn_cod)}})
+      this.handleChange({ target: { id: "bdg_cpn_cod", value: String(e.jny_cpn_cod) } })
    }
 
    journeyCodeSetter(journeyCode) {
@@ -54,23 +50,20 @@ export class BadgeFormBuilder extends EditCreateForm {
       }))
    }
 
-   handleChangeCompanyControlled(e)
-   {
+   handleChangeCompanyControlled(e) {
       {
-         if(e.target.value!=="")
-         {
+         if (e.target.value !== "") {
             this.journeyCodeSetter("")
             this.setState({
                disableJourney: true
             })
          }
-         else
-         {
-            this.setState({disableJourney: false})
+         else {
+            this.setState({ disableJourney: false })
          }
       }
       this.companyCodeSetter(e.target.value)
-      this.handleChange({target: {id: "bdg_jny_cod", value: ""}})
+      this.handleChange({ target: { id: "bdg_jny_cod", value: "" } })
    }
 
    companyCodeSetter(companyCode) {
@@ -122,16 +115,15 @@ export class BadgeFormBuilder extends EditCreateForm {
                                     controlId="bdg_cpn_cod"/>
                               </Col>
                            </Row>
-                           <Row>
+                           <Row style={{ marginBottom: 15 }}>
                               <Col>
-                                 <BooleanField Label="Mentor:"
-                                    onTrue="Sim"
-                                    onFalse="Não"
-                                    controlId="bdg_mentor"
-                                    key="bdg_mentor"
-                                    onChange={this.handleChange}
-                                    register={true}
-                                    value={this.state.primaryData.bdg_mentor}/>
+                                <CheckBox
+                                    label="Mentor"
+                                    name="bdg_mentor"
+                                    onChange={this.handleCheck}
+                                    checked={this.state.primaryData?.bdg_mentor}
+                                    defaultValue={this.state.primaryData?.bdg_mentor}
+                                />
                               </Col>
                            </Row>
                            {this.props.paramRoute === 'inserir'
