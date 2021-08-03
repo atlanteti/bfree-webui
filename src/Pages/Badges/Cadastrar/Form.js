@@ -26,18 +26,24 @@ export class BadgeFormBuilder extends EditCreateForm {
          }
       }
    }
-   handleChangeJourneyControlled(e) {
-      if (e.jny_cpn_cod !== undefined) {
+   handleChangeJourneyControlled(e)
+   {
+      let cpn_value;
+      if(e.jny_cpn_cod !== undefined)
+      {
          this.companyCodeSetter(e.jny_cpn_cod)
          this.setState({
             disableCompany: true
          })
+         cpn_value = e.jny_cpn_cod 
       }
-      else {
-         this.setState({ disableCompany: false })
+      else
+      {
+         this.setState({disableCompany: false})
+         cpn_value = ""
       }
       this.journeyCodeSetter(e.target.value)
-      this.handleChange({ target: { id: "bdg_cpn_cod", value: String(e.jny_cpn_cod) } })
+      this.handleChange({target: {id: "bdg_cpn_cod", value: String(cpn_value)}})
    }
 
    journeyCodeSetter(journeyCode) {
