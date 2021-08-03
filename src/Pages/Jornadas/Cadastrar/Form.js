@@ -23,8 +23,10 @@ export class JourneyFormBuilder extends EditCreateForm {
                   controlId="jny_name"
                   Label="Nome:"
                   type="text"
+                  maxLength="45"
                   defaultValue={this.state.primaryData?.jny_name}
-                  onChange={this.handleChange} />
+                  onChange={this.handleChange} 
+                  required/>
             </Col>
          </Row>
          <Row>
@@ -33,7 +35,8 @@ export class JourneyFormBuilder extends EditCreateForm {
                   defaultValue={this.props.primaryId}
                   onChange={this.handleChange}
                   controlId="jny_cpn_cod"
-                  defaultCompany={this.state.primaryData.jny_cpn_cod} />
+                  defaultCompany={this.state.primaryData.jny_cpn_cod} 
+                  required/>
             </Col>
          </Row>
          {this.props.paramRoute === 'inserir'

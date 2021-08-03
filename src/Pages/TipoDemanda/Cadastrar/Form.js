@@ -15,6 +15,10 @@ export default function TypeDemandForm (props) {
 }
 
 export class TypeDemandFormBuilder extends EditCreateForm {
+   formatData()
+   {
+      return this.state.primaryData
+   }
    render() {
       return <Form onSubmit={this.handleSubmit}>
          <Row>
@@ -23,8 +27,10 @@ export class TypeDemandFormBuilder extends EditCreateForm {
                   controlId="tdm_name"
                   Label="Nome:"
                   type="text"
+                  maxLength="45"
                   defaultValue={this.state.primaryData?.tdm_name}
-                  onChange={this.handleChange} />
+                  onChange={this.handleChange} 
+                  required/>
             </Col>
          </Row>
          <Row>
@@ -34,7 +40,7 @@ export class TypeDemandFormBuilder extends EditCreateForm {
                   onChange={this.handleChange}
                   controlId="tdm_cpn_cod"
                   defaultCompany={this.state.primaryData.tdm_cpn_cod ? this.state.primaryData.tdm_cpn_cod : ""}
-                  />
+                  required/>
             </Col>
          </Row>
          {this.props.paramRoute === 'inserir'

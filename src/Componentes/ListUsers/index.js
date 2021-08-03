@@ -2,6 +2,7 @@ import { Form } from 'react-bootstrap';
 import { React, Component } from 'react';
 import { request } from '../../Services/api';
 import PropTypes from 'prop-types'
+import { RequiredField } from '../../styles/CommonStyles'
 
 export default class ListUsers extends Component {
   constructor(props) {
@@ -9,8 +10,7 @@ export default class ListUsers extends Component {
     this.state = {
       users: [],
     };
-    if (this.props.getSetCallback)
-    {
+    if (this.props.getSetCallback) {
       this.props.getSetCallback(this.select.bind(this))
     }
   }
@@ -18,7 +18,7 @@ export default class ListUsers extends Component {
   async getUsers() {
     const data = await request({
       method: 'get',
-      endpoint: 'usuarios/listar'
+      endpoint: 'usuarios/listar-todos'
     });
     this.setState({
       users: data.data
@@ -29,27 +29,28 @@ export default class ListUsers extends Component {
     this.getUsers();
   }
 
-  onChange(e) 
-  {
+  onChange(e) {
     this.props.onChange(e)
   }
 
-  select(typeUserCode)
-  {
-    this.setState({selectedValue: typeUserCode})
+  select(typeUserCode) {
+    this.setState({ selectedValue: typeUserCode })
     this.props.onChange({
-      target:{
+      target: {
         id: this.props.controlId,
         value: String(typeUserCode),
-        selected: true}})
+        selected: true
+      }
+    })
   }
 
   render() {
     return <Form.Group controlId={this.props.controlId} /*"companyId"*/>
-      <Form.Label>Usuário: </Form.Label>
+      <Form.Label>Usuário: {this.props.required ? <RequiredField>*</RequiredField> : null}</Form.Label>
       <Form.Control //Form.Select não funciona por razões misteriosas
         disabled={this.props.disabled}
         as="select"
+        required={this.props.required}
         onChange={this.onChange.bind(this)}
         value={this.props.defaultUser}>
         <>

@@ -3,7 +3,7 @@ import { Form, Col, Row, Button } from 'react-bootstrap'
 import { DateField } from '../../../Componentes/DateField'
 import { ButtonRow } from '../../../Componentes/ButtonRow'
 import { EditCreateForm } from '../../../Componentes/EditCreateForm/index'
-import { TextField } from '../../../Componentes/FormFields'
+import { NumberField, TextField } from '../../../Componentes/FormFields'
 import ListTypeDemand from '../../../Componentes/ListTypeDemand'
 import ListStatusDemands from '../../../Componentes/ListStatusDemands'
 import ListResultDemands from '../../../Componentes/ListResultDemands'
@@ -21,10 +21,11 @@ export class DemandFormBuilder extends EditCreateForm {
       return <Form onSubmit={this.handleSubmit}>
          <Row>
             <Col>
-               <TextField
+               <NumberField
                   controlId="dem_cli_cod"
                   Label="ID Eduzz:"
-                  type="number"
+                  type="text"
+                  maxLength="10"
                   defaultValue={this.state.primaryData?.dem_cli_cod}
                   onChange={this.handleChange} />
             </Col>
@@ -32,6 +33,7 @@ export class DemandFormBuilder extends EditCreateForm {
                <TextField
                   controlId="dem_externalid"
                   Label="ID Externo:"
+                  maxLength="10"
                   type="text"
                   defaultValue={this.state.primaryData?.dem_externalid}
                   onChange={this.handleChange} />
@@ -44,6 +46,7 @@ export class DemandFormBuilder extends EditCreateForm {
                   Label="Titulo:"
                   required
                   type="text"
+                  maxLength="45"
                   defaultValue={this.state.primaryData?.dem_title}
                   onChange={this.handleChange} />
             </Col>
@@ -55,6 +58,7 @@ export class DemandFormBuilder extends EditCreateForm {
                   Label="Descrição:"
                   required
                   as="textarea"
+                  maxLength="200"
                   defaultValue={this.state.primaryData?.dem_desc}
                   onChange={this.handleChange} />
             </Col>
@@ -66,7 +70,8 @@ export class DemandFormBuilder extends EditCreateForm {
                   onChange={this.handleChange}
                   required
                   controlId="dem_usr_cod"
-                  defaultUser={this.state.primaryData.dem_usr_cod} />
+                  defaultUser={this.state.primaryData.dem_usr_cod}
+                  required />
             </Col>
          </Row>
          <Row>
@@ -76,7 +81,8 @@ export class DemandFormBuilder extends EditCreateForm {
                   onChange={this.handleChange}
                   required
                   controlId="dem_sdm_cod"
-                  defaultStatusDemand={this.state.primaryData.dem_sdm_cod} />
+                  defaultStatusDemand={this.state.primaryData.dem_sdm_cod}
+                  required />
             </Col>
          </Row>
          <Row>
@@ -86,7 +92,8 @@ export class DemandFormBuilder extends EditCreateForm {
                   onChange={this.handleChange}
                   required
                   controlId="dem_rdm_cod"
-                  defaultResultDemand={this.state.primaryData.dem_rdm_cod} />
+                  defaultResultDemand={this.state.primaryData.dem_rdm_cod}
+                  required />
             </Col>
          </Row>
          <Row>
@@ -94,9 +101,10 @@ export class DemandFormBuilder extends EditCreateForm {
                <ListTypeDemand
                   defaultValue={this.props.primaryId}
                   onChange={this.handleChange}
-                  required
                   controlId="dem_tdm_cod"
-                  defaultTypeDemand={this.state.primaryData.dem_tdm_cod} />
+                  defaultTypeDemand={this.state.primaryData.dem_tdm_cod}
+                  required
+               />
             </Col>
          </Row>
          {this.props.paramRoute === 'inserir'

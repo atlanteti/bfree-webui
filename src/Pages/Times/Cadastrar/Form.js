@@ -22,8 +22,10 @@ export class TeamFormBuilder extends EditCreateForm {
                   controlId="tea_name"
                   Label="Nome:"
                   type="text"
+                  maxLength="45"
                   defaultValue={this.state.primaryData?.tea_name}
-                  onChange={this.handleChange} />
+                  onChange={this.handleChange} 
+                  required/>
             </Col>
          </Row>
          <Row>
@@ -41,6 +43,7 @@ export class TeamFormBuilder extends EditCreateForm {
                   onTrue="Ativo"
                   onFalse="Inativo"
                   controlId="tea_active"
+                  required
                   key="tea_active"
                   onChange={this.handleChange}
                   register={true}
