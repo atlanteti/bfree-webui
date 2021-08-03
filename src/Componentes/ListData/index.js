@@ -53,6 +53,14 @@ export default class ListarPagina extends Component {
          responseMetaData: data.meta,
          responseData: data.data,
          page: data.meta.pagination
+      },() => {
+         if(data.data.length===0)
+         {
+            this.state.responseAlertShow({
+               message: "Nenhum registro encontrado",
+               responseType: "Success"
+            })
+         }
       })
    }
 
@@ -135,10 +143,6 @@ export default class ListarPagina extends Component {
       })
    }
    render() {
-      if (this.redirect) {
-         window.Eduzz.Accounts.logout({ env: "staging" })
-         return <Redirect to="/" />
-      }
       return <MainContainer>
          <MainRow>
             {/* Layout usado nesse componente deve ser repetido em custommenucol equivalente dentro do arquivo do componente */}
@@ -147,7 +151,6 @@ export default class ListarPagina extends Component {
                <Col>
                   <Container fluid>
                      <CustomAlert
-                        data={this.state.responseMetaData}
                         showAlertCallback={this.getAlertCallback.bind(this)}
                         redirectCallback={this.redirectCallback.bind(this)} />
                      <Row xs={1}>
