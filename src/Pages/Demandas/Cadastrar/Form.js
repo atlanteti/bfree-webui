@@ -66,8 +66,8 @@ export class DemandFormBuilder extends EditCreateForm {
                   onChange={this.handleChange}
                   required
                   controlId="dem_usr_cod"
-                  defaultUser={this.state.primaryData.dem_usr_cod} 
-                  required/>
+                  defaultUser={this.state.primaryData.dem_usr_cod}
+                  required />
             </Col>
          </Row>
          <Row>
@@ -77,8 +77,8 @@ export class DemandFormBuilder extends EditCreateForm {
                   onChange={this.handleChange}
                   required
                   controlId="dem_sdm_cod"
-                  defaultStatusDemand={this.state.primaryData.dem_sdm_cod} 
-                  required/>
+                  defaultStatusDemand={this.state.primaryData.dem_sdm_cod}
+                  required />
             </Col>
          </Row>
          <Row>
@@ -88,8 +88,8 @@ export class DemandFormBuilder extends EditCreateForm {
                   onChange={this.handleChange}
                   required
                   controlId="dem_rdm_cod"
-                  defaultResultDemand={this.state.primaryData.dem_rdm_cod} 
-                  required/>
+                  defaultResultDemand={this.state.primaryData.dem_rdm_cod}
+                  required />
             </Col>
          </Row>
          <Row>
@@ -97,10 +97,10 @@ export class DemandFormBuilder extends EditCreateForm {
                <ListTypeDemand
                   defaultValue={this.props.primaryId}
                   onChange={this.handleChange}
-                  required
                   controlId="dem_tdm_cod"
-                  defaultTypeDemand={this.state.primaryData.dem_tdm_cod} 
-                  required/>
+                  defaultTypeDemand={this.state.primaryData.dem_tdm_cod}
+                  required
+               />
             </Col>
          </Row>
          {this.props.paramRoute === 'inserir'
