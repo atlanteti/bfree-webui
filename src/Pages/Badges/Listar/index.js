@@ -94,7 +94,7 @@ export default class ListarBadge extends ListarPagina {
       return <TableRow key={badge.bdg_cod}>
          <TextCell data-title="Nome">{badge.bdg_name}</TextCell>
          <TextCell data-title="Jornada">{badge.journey.jny_name ? badge.journey.jny_name : <p style={{ color: "transparent" }}>.</p>}</TextCell>{/*Waiting for api fix*/}
-         <TextCell data-title="Empresa">{badge.company.cpn_name}</TextCell>
+         <TextCell data-title="Empresa">{badge.company.cpn_name? badge.company.cpn_name : <p style={{ color: "transparent" }}>.</p>}</TextCell>
          <TextCell data-title="Mentor" className="icon">
             <Icon>{badge.bdg_mentor ? <IoCheckboxOutline align="center" size={25} /> : <p style={{ color: "transparent" }}>.</p>}</Icon>
          </TextCell>
