@@ -6,7 +6,7 @@ import { ButtonRow } from '../../../Componentes/ButtonRow'
 import { EditCreateForm } from '../../../Componentes/EditCreateForm/index'
 import ListCompanies from '../../../Componentes/ListCompanies'
 import ListUserStatusControlled from '../../../Componentes/ListUserStatus'
-
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 export default function UserForm (props) {
   return <UserFormBuilder insertDataEndpoint="usuarios/cadastrar"
@@ -17,7 +17,16 @@ export default function UserForm (props) {
 
 export class UserFormBuilder extends EditCreateForm {
    render() {
-      return <Form onSubmit={this.handleSubmit}>
+      return (
+         <>
+         {this.state.loading && this.paramRoute !== 'inserir' 
+            ?
+               <Row>
+                  <Col md={{ offset: 6 }}><CircularProgress /></Col>
+               </Row> 
+            : 
+            (
+               <Form onSubmit={this.handleSubmit}>
          <Row>
             <Col>
                <NumberField
@@ -62,26 +71,30 @@ export class UserFormBuilder extends EditCreateForm {
          </Row>
          
          {this.props.paramRoute === 'inserir'
-            ? ''
-            : (
-               <>
-                  <DateField
-                     controlId="usr_dtcreation"
-                     Label="Data de criação:"
-                     date={this.state.primaryData?.usr_dtcreation} />
-                  {this.state.primaryData?.usr_dtcreation === null
                      ? ''
                      : (
-                        <DateField
-                           controlId="usr_dtcreation"
-                           Label="Data de atualização:"
-                           date={this.state.primaryData?.usr_dtcreation} />
+                        <>
+                           <DateField
+                              controlId="usr_dtcreation"
+                              Label="Data de criação:"
+                              date={this.state.primaryData?.usr_dtcreation} />
+                           {this.state.primaryData?.usr_dtcreation === null
+                              ? ''
+                              : (
+                                 <DateField
+                                    controlId="usr_dtcreation"
+                                    Label="Data de atualização:"
+                                    date={this.state.primaryData?.usr_dtcreation} />
+                              )}
+                        </>
                      )}
-               </>
-            )}
-         <ButtonRow
-            cancelButton={<Button variant="warning" onClick={this.redirectCallback}>Voltar</Button>}
-            confirmButton={<Button variant="dark" type="submit">{this.props.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'}</Button>} />
-      </Form>
+                  <ButtonRow
+                     cancelButton={<Button variant="warning" onClick={this.redirectCallback}>Voltar</Button>}
+                     confirmButton={<Button variant="dark" type="submit">{this.props.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'}</Button>} />
+               </Form>
+            )
+         }
+         </>
+      )
    }
 }

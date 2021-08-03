@@ -5,7 +5,7 @@ import { DateField } from '../../../Componentes/DateField'
 import { ButtonRow } from '../../../Componentes/ButtonRow'
 import { EditCreateForm } from '../../../Componentes/EditCreateForm/index'
 import ListCompanies from '../../../Componentes/ListCompanies'
-
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 export default function TypeDemandForm (props) {
   return <TypeDemandFormBuilder insertDataEndpoint="types-demand/cadastrar"
@@ -20,7 +20,16 @@ export class TypeDemandFormBuilder extends EditCreateForm {
       return this.state.primaryData
    }
    render() {
-      return <Form onSubmit={this.handleSubmit}>
+      return (
+         <>
+         {this.state.loading && this.paramRoute !== 'inserir' 
+            ?
+              <Row>
+                <Col md={{ offset: 6 }}><CircularProgress /></Col>
+              </Row> 
+            :
+            (
+              <Form onSubmit={this.handleSubmit}>
          <Row>
             <Col>
                <TextField
@@ -65,5 +74,7 @@ export class TypeDemandFormBuilder extends EditCreateForm {
             cancelButton={<Button variant="warning" onClick={this.redirectCallback}>Voltar</Button>}
             confirmButton={<Button variant="dark" type="submit">{this.props.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'}</Button>} />
       </Form>
-   }
+            )}
+            </>
+      )}
 }

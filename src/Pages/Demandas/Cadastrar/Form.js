@@ -8,6 +8,7 @@ import ListTypeDemand from '../../../Componentes/ListTypeDemand'
 import ListStatusDemands from '../../../Componentes/ListStatusDemands'
 import ListResultDemands from '../../../Componentes/ListResultDemands'
 import ListUsers from '../../../Componentes/ListUsers'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 export default function DemandForm(props) {
    return <DemandFormBuilder insertDataEndpoint="demands/cadastrar"
@@ -18,7 +19,16 @@ export default function DemandForm(props) {
 
 export class DemandFormBuilder extends EditCreateForm {
    render() {
-      return <Form onSubmit={this.handleSubmit}>
+      return (
+         <>
+         {this.state.loading && this.paramRoute !== 'inserir' 
+            ?
+               <Row>
+                  <Col md={{ offset: 6 }}><CircularProgress /></Col>
+               </Row> 
+            : 
+            (
+               <Form onSubmit={this.handleSubmit}>
          <Row>
             <Col>
                <NumberField
@@ -34,8 +44,8 @@ export class DemandFormBuilder extends EditCreateForm {
                   controlId="dem_externalid"
                   Label="ID Externo:"
                   maxLength="10"
-                  type="text"
                   defaultValue={this.state.primaryData?.dem_externalid}
+                  type="text"
                   onChange={this.handleChange} />
             </Col>
          </Row>
@@ -108,26 +118,30 @@ export class DemandFormBuilder extends EditCreateForm {
             </Col>
          </Row>
          {this.props.paramRoute === 'inserir'
-            ? ''
-            : (
-               <>
-                  <DateField
-                     controlId="dem_dtcreation"
-                     Label="Data de criação:"
-                     date={this.state.primaryData?.dem_dtcreation} />
-                  {this.state.primaryData?.dem_dtupdate === null
                      ? ''
                      : (
-                        <DateField
-                           controlId="dem_dtupdate"
-                           Label="Data de atualização:"
-                           date={this.state.primaryData?.dem_dtupdate} />
+                        <>
+                           <DateField
+                              controlId="dem_dtcreation"
+                              Label="Data de criação:"
+                              date={this.state.primaryData?.dem_dtcreation} />
+                           {this.state.primaryData?.dem_dtupdate === null
+                              ? ''
+                              : (
+                                 <DateField
+                                    controlId="dem_dtupdate"
+                                    Label="Data de atualização:"
+                                    date={this.state.primaryData?.dem_dtupdate} />
+                              )}
+                        </>
                      )}
-               </>
-            )}
-         <ButtonRow
-            cancelButton={<Button variant="warning" onClick={this.redirectCallback}>Voltar</Button>}
-            confirmButton={<Button variant="dark" type="submit">{this.props.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'}</Button>} />
-      </Form>
+                  <ButtonRow
+                     cancelButton={<Button variant="warning" onClick={this.redirectCallback}>Voltar</Button>}
+                     confirmButton={<Button variant="dark" type="submit">{this.props.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'}</Button>} />
+               </Form>
+            )
+         }
+         </>
+      )
    }
 }
