@@ -18,7 +18,7 @@ export default class ListUsers extends Component {
   async getUsers() {
     const data = await request({
       method: 'get',
-      endpoint: 'usuarios/listar'
+      endpoint: 'usuarios/listar-todos'
     });
     this.setState({
       users: data.data
