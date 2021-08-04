@@ -51,7 +51,16 @@ export class EditCreateForm extends Component {
       });
    }
    formatData() {
-      return this.state.primaryData
+      let formData = this.state.primaryData
+      const keys = Object.keys(formData)
+      keys.forEach(
+         (curr) => {
+            if ((typeof formData[curr]) === "string") {
+               formData[curr] = formData[curr].trim()
+            }
+         }
+      )
+      return formData
    }
 
    handleSubmit = async (e) => {
@@ -74,7 +83,7 @@ export class EditCreateForm extends Component {
    handleChange = (e) => {
       this.setState((state, props) => ({
          primaryData: {
-            ...state.primaryData, [e.target.id]: e.target.value.trim()
+            ...state.primaryData, [e.target.id]: e.target.value
          }
       }))
    };
