@@ -32,19 +32,17 @@ export const request = async ({
 
    try {
       result = await axios(config)
-      if(result.data.meta.token!==token)
-      {
-         cookieGetter.set("auth",result.data.meta.token, { path: "/" })
+      if (result.data.meta.token !== token) {
+         cookieGetter.set("auth", result.data.meta.token, { path: "/" })
       }
       return result.data
    } catch (error) {
-      if(error.response.data.meta.status===203)
-      {
-         window.Eduzz.Accounts.logout({ env: "staging" , redirectTo: window.location.origin})
+      if (error.response.data.meta.status === 203) {
+         window.Eduzz.Accounts.logout({ env: "staging", redirectTo: window.location.origin })
          return
       }
       throw new Error("Tratamento de página vazia não feito")
    }
 
-   
+
 }

@@ -35,7 +35,7 @@ export default class ListarBadge extends ListarPagina {
       })
       return data
    }
-   
+
    SearchBarCustom(props) {
       return <BadgeSearchBar
          filterData={props.filterData}
@@ -45,7 +45,7 @@ export default class ListarBadge extends ListarPagina {
    PageHeaderCustom() {
       return <PageHeaderCustomComponent
          Title="Badges"
-         href="cadastrar/badges/inserir/"/>
+         href="cadastrar/badges/inserir/" />
    }
 
    TableHeaderCustom(props) {
@@ -84,7 +84,7 @@ export default class ListarBadge extends ListarPagina {
                sortCallback={props.sortCallback}
                receiver={props.subscribe}
                wipeAll={props.wipeAll}
-               />
+            />
          </TextHeaderCell>
          <ActionHeaderCell scope="col">Ações</ActionHeaderCell>
       </TableRow>
@@ -94,17 +94,19 @@ export default class ListarBadge extends ListarPagina {
       return <TableRow key={badge.bdg_cod}>
          <TextCell data-title="Nome">{badge.bdg_name}</TextCell>
          <TextCell data-title="Jornada">{badge.journey.jny_name ? badge.journey.jny_name : <p style={{ color: "transparent" }}>.</p>}</TextCell>{/*Waiting for api fix*/}
-         <TextCell data-title="Empresa">{badge.company.cpn_name? badge.company.cpn_name : <p style={{ color: "transparent" }}>.</p>}</TextCell>
+         <TextCell data-title="Empresa">{badge.company.cpn_name ? badge.company.cpn_name : <p style={{ color: "transparent" }}>.</p>}</TextCell>
          <TextCell data-title="Mentor" className="icon">
             <Icon>{badge.bdg_mentor ? <IoCheckboxOutline align="center" size={25} /> : <p style={{ color: "transparent" }}>.</p>}</Icon>
          </TextCell>
          <ActionCell data-title="Ações">
             <Button variant="warning" href={`/editar-badges/${badge.bdg_cod}/alterar`}>Editar</Button>
             <Button variant="dark" onClick={() => {
-                  this.setState({deletionId: badge.bdg_cod,
-                                 modalIdentifier: "a badge"})
-                  this.openModal()
-                  }}>Excluir</Button>
+               this.setState({
+                  deletionId: badge.bdg_cod,
+                  modalIdentifier: "a badge"
+               })
+               this.openModal()
+            }}>Excluir</Button>
          </ActionCell>
       </TableRow>
    }

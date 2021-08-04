@@ -27,16 +27,15 @@ export class CustomAlert extends React.Component {
          statusMsg = 'warning'
       }
 
-    this.setContent(message, statusMsg)
-    this.setState({ showAlert: true })
-    if(statusMsg==="success")
-    {
-      window.setTimeout(() => {
-          this.props.redirectCallback()
-          this.setState({showAlert: false})
-        }, 2500)
-    }
-  }
+      this.setContent(message, statusMsg)
+      this.setState({ showAlert: true })
+      if (statusMsg === "success") {
+         window.setTimeout(() => {
+            this.props.redirectCallback()
+            this.setState({ showAlert: false })
+         }, 2500)
+      }
+   }
 
    render() {
       return <Alert
@@ -50,8 +49,8 @@ export class CustomAlert extends React.Component {
    }
 }
 
-CustomAlert.propTypes=
+CustomAlert.propTypes =
 {
-  showAlertCallback: PropTypes.func.isRequired,
-  redirectCallback: PropTypes.func.isRequired
+   showAlertCallback: PropTypes.func.isRequired,
+   redirectCallback: PropTypes.func.isRequired
 }
