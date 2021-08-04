@@ -13,7 +13,7 @@ export class UserSearchBar extends SearchBar {
           <Row>
             <Col xs={12} sm={4}>
               <TextField Label="ID:"
-                controlId="param"
+                controlId="usr_cli_cod"
                 onChange={this.onChange}
                 type="text"
                 placeholder="Insira o ID do usuário" />
