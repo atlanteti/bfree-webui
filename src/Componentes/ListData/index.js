@@ -53,9 +53,8 @@ export default class ListarPagina extends Component {
          responseMetaData: data.meta,
          responseData: data.data,
          page: data.meta.pagination
-      },() => {
-         if(data.data.length===0)
-         {
+      }, () => {
+         if (data.data.length === 0) {
             this.state.responseAlertShow({
                message: "Nenhum registro encontrado",
                responseType: "Success"
