@@ -35,6 +35,15 @@ export const request = async ({
       if (result.data.meta.token !== token) {
          cookieGetter.set("auth", result.data.meta.token, { path: "/" })
       }
+      if (result.data.meta.status === 422) {
+         let message = `
+         <Row sm={1}>
+            ${result.data.data.map((element) => {
+            return '<Col>' + element.message + '</Col>'
+         })}
+         </Row>`
+         result.data.message = message
+      }
       return result.data
    } catch (error) {
       if (error.response.data.meta.status === 203) {
