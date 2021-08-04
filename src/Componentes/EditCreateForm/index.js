@@ -31,59 +31,59 @@ export class EditCreateForm extends Component {
          }
       }
       if (this.paramRoute !== "inserir") {
-        requestData();
+         requestData();
       }
-    };
-  async insertPrimaryData(formData) {
-    return await request({
-      method: "post",
-      endpoint: this.props.insertDataEndpoint,
-      data: formData,
-    });
-  }
+   };
+   async insertPrimaryData(formData) {
+      return await request({
+         method: "post",
+         endpoint: this.props.insertDataEndpoint,
+         data: formData,
+      });
+   }
 
-  async editPrimaryData(formData) {
-    return await request({
-      method: "put",
+   async editPrimaryData(formData) {
+      return await request({
+         method: "put",
 
-      endpoint: this.props.editDataEndpoint + this.primaryId,
-      data: formData,
-    });
-  }
-  formatData() {
-    return this.state.primaryData
-  }
+         endpoint: this.props.editDataEndpoint + this.primaryId,
+         data: formData,
+      });
+   }
+   formatData() {
+      return this.state.primaryData
+   }
 
-  handleSubmit = async (e) => {
-    const formData = this.formatData();
-    e.preventDefault();
-    let data = null;
-    try {
-      if (this.props.paramRoute === "inserir") {
-        data = await this.insertPrimaryData(formData);
-      }
+   handleSubmit = async (e) => {
+      const formData = this.formatData();
+      e.preventDefault();
+      let data = null;
+      try {
+         if (this.props.paramRoute === "inserir") {
+            data = await this.insertPrimaryData(formData);
+         }
 
-      else {
-        data = await this.editPrimaryData(formData);
+         else {
+            data = await this.editPrimaryData(formData);
+         }
+         this.props.showAlert(data.meta);
+      } catch (error) {
+         console.log(error);
       }
-      this.props.showAlert(data.meta);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  handleChange = (e) => {
-    this.setState((state, props) => ({
-      primaryData: {
-        ...state.primaryData, [e.target.id]: e.target.value.trim()
-      }
-    }))
-  };
-  handleCheck = (e) => {
-    this.setState({
-      primaryData: {
-        ...this.state.primaryData, [e.target.name]: !this.state.primaryData[e.target.name]
-      }
-    })
-  };
+   };
+   handleChange = (e) => {
+      this.setState((state, props) => ({
+         primaryData: {
+            ...state.primaryData, [e.target.id]: e.target.value.trim()
+         }
+      }))
+   };
+   handleCheck = (e) => {
+      this.setState({
+         primaryData: {
+            ...this.state.primaryData, [e.target.name]: !this.state.primaryData[e.target.name]
+         }
+      })
+   };
 }
 

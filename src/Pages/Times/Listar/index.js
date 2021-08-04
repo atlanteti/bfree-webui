@@ -34,7 +34,7 @@ export default class ListarTime extends ListarPagina {
       })
       return data
    }
-   
+
    SearchBarCustom(props) {
       return <TeamSearchBar
          filterData={props.filterData}
@@ -44,7 +44,7 @@ export default class ListarTime extends ListarPagina {
    PageHeaderCustom() {
       return <PageHeaderCustomComponent
          Title="Times"
-         href="cadastrar/times/inserir/"/>
+         href="cadastrar/times/inserir/" />
    }
 
    TableHeaderCustom(props) {
@@ -90,10 +90,12 @@ export default class ListarTime extends ListarPagina {
          <ActionCell data-title="Ações">
             <Button variant="warning" href={`/editar-time/${time.tea_cod}/alterar`}>Editar</Button>
             <Button variant="dark" onClick={() => {
-                  this.setState({deletionId: time.tea_cod,
-                                 modalIdentifier: "o time"})
-                  this.openModal()
-                  }}>Excluir</Button>
+               this.setState({
+                  deletionId: time.tea_cod,
+                  modalIdentifier: "o time"
+               })
+               this.openModal()
+            }}>Excluir</Button>
          </ActionCell>
       </TableRow>
    }
