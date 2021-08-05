@@ -25,15 +25,16 @@ export class JourneyFormBuilder extends EditCreateForm {
                </Row>
                :
                (
-                  <Form onSubmit={this.handleSubmit}>
+                  <Form onSubmit={this.handleSubmit} validated={this.state.validated} noValidate>
                      <Row>
                         <Col>
                            <TextField
                               controlId="jny_name"
+                              errorMessage={this.state.jny_name}
                               Label="Nome:"
                               type="text"
                               maxLength="45"
-                              defaultValue={this.state.primaryData?.jny_name}
+                              defaultValue={this.state.primaryData.jny_name}
                               onChange={this.handleChange}
                               required />
                         </Col>
