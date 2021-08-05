@@ -1,10 +1,9 @@
 import React from 'react'
 import { Form } from 'react-bootstrap'
 import PropTypes from 'prop-types'
-import { RequiredField } from '../../styles/CommonStyles'
+import { RequiredField, SelectFieldStyle } from '../../styles/CommonStyles'
 
 export function TextField(props) {
-
    return <Form.Group controlId={props.controlId}>
       <Form.Label>{props.Label} {props.required ? <RequiredField>*</RequiredField> : null}</Form.Label>
       <Form.Control
@@ -14,7 +13,9 @@ export function TextField(props) {
          onChange={props.onChange}
          placeholder={props.placeholder}
          required={props.required}
-         {...props} />
+         {...props}
+      />
+      <Form.Control.Feedback type="invalid">{props.errorMessage}</Form.Control.Feedback>
    </Form.Group>
 }
 TextField.propTypes = {
@@ -46,7 +47,9 @@ export function NumberField(props) {
          placeholder={props.placeholder}
          required={props.required}
          onKeyPress={(e) => preventNonNumericalInput(e)}
-         {...props} />
+         {...props}
+      />
+      <Form.Control.Feedback type="invalid">{props.errorMessage}</Form.Control.Feedback>
    </Form.Group>
 }
 NumberField.propTypes = {
@@ -62,8 +65,7 @@ NumberField.propTypes = {
 export function SelectField(props) {
    return <Form.Group controlId={props.controlId}>
       <Form.Label >{props.Label}</Form.Label>
-      <Form.Control
-         as="select"
+      <SelectFieldStyle
          defaultValue={props.defaultValue}
          required
          onChange={props.onChange}
@@ -72,7 +74,7 @@ export function SelectField(props) {
          {props.dataCollection?.map(collection => {
             return (<option key={collection.cpn_cod} value={collection.cpn_cod}>{collection.cpn_name}</option>)
          })}
-      </Form.Control>
+      </SelectFieldStyle>
    </Form.Group>
 }
 

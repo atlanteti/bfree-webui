@@ -66,6 +66,12 @@ export class EditCreateForm extends Component {
    handleSubmit = async (e) => {
       const formData = this.formatData();
       e.preventDefault();
+      this.setState({
+         validated: true
+      })
+      if (!e.target.checkValidity()) {
+         return
+      }
       let data = null;
       try {
          if (this.props.paramRoute === "inserir") {
@@ -75,7 +81,16 @@ export class EditCreateForm extends Component {
          else {
             data = await this.editPrimaryData(formData);
          }
-         this.props.showAlert(data.meta);
+         if (data.meta.status === 422) {
+            data.data.map((datum) => {
+               this.setState({
+                  [datum.field.toLowerCase()]: datum.message
+               })
+            })
+         }
+         else {
+            this.props.showAlert(data.meta);
+         }
       } catch (error) {
          console.log(error);
       }
