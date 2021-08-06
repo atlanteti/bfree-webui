@@ -104,7 +104,7 @@ export default class ListarPagina extends Component {
    }
 
    updateListing() {
-      this.fetchAndSetData({ page: this.state.page })
+      this.fetchAndSetData({ page: this.state.page.current })
    }
 
    componentDidMount(oldProps) {
