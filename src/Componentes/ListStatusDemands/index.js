@@ -2,7 +2,7 @@ import { Form } from 'react-bootstrap';
 import { React, Component } from 'react';
 import { request } from '../../Services/api';
 import PropTypes from 'prop-types'
-import { RequiredField } from '../../styles/CommonStyles'
+import { RequiredField, SelectValidateStyle } from '../../styles/CommonStyles'
 
 export default class ListStatusDemands extends Component {
    constructor(props) {
@@ -48,6 +48,7 @@ export default class ListStatusDemands extends Component {
       return <Form.Group controlId={this.props.controlId} /*"companyId"*/>
          <Form.Label>Status da Demanda: {this.props.required ? <RequiredField>*</RequiredField> : null}</Form.Label>
          <Form.Control //Form.Select não funciona por razões misteriosas
+            style={SelectValidateStyle}
             disabled={this.props.disabled}
             as="select"
             required={this.props.required}

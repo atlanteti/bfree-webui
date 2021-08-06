@@ -28,11 +28,12 @@ export class DemandFormBuilder extends EditCreateForm {
                </Row>
                :
                (
-                  <Form onSubmit={this.handleSubmit}>
+                  <Form onSubmit={this.handleSubmit} validated={this.state.validated} noValidate>
                      <Row>
                         <Col>
                            <NumberField
                               controlId="dem_cli_cod"
+                              errorMessage={this.state.dem_cli_cod}
                               Label="ID Eduzz:"
                               type="text"
                               maxLength="10"
@@ -42,6 +43,7 @@ export class DemandFormBuilder extends EditCreateForm {
                         <Col>
                            <TextField
                               controlId="dem_externalid"
+                              errorMessage={this.state.dem_externalid}
                               Label="ID Externo:"
                               maxLength="10"
                               defaultValue={this.state.primaryData?.dem_externalid}
@@ -53,6 +55,7 @@ export class DemandFormBuilder extends EditCreateForm {
                         <Col>
                            <TextField
                               controlId="dem_title"
+                              errorMessage={this.state.dem_title}
                               Label="Titulo:"
                               required
                               type="text"
@@ -65,6 +68,7 @@ export class DemandFormBuilder extends EditCreateForm {
                         <Col>
                            <TextField
                               controlId="dem_desc"
+                              errorMessage={this.state.dem_desc}
                               Label="Descrição:"
                               required
                               as="textarea"
@@ -77,6 +81,7 @@ export class DemandFormBuilder extends EditCreateForm {
                         <Col>
                            <ListUsers
                               defaultValue={this.props.primaryId}
+                              errorMessage={this.state.dem_usr_cod}
                               onChange={this.handleChange}
                               required
                               controlId="dem_usr_cod"
@@ -88,6 +93,7 @@ export class DemandFormBuilder extends EditCreateForm {
                         <Col>
                            <ListStatusDemands
                               defaultValue={this.props.primaryId}
+                              errorMessage={this.state.dem_sdm_cod}
                               onChange={this.handleChange}
                               required
                               controlId="dem_sdm_cod"
@@ -99,6 +105,7 @@ export class DemandFormBuilder extends EditCreateForm {
                         <Col>
                            <ListResultDemands
                               defaultValue={this.props.primaryId}
+                              errorMessage={this.state.dem_rdm_cod}
                               onChange={this.handleChange}
                               required
                               controlId="dem_rdm_cod"
@@ -110,6 +117,7 @@ export class DemandFormBuilder extends EditCreateForm {
                         <Col>
                            <ListTypeDemand
                               defaultValue={this.props.primaryId}
+                              errorMessage={this.state.dem_tdm_cod}
                               onChange={this.handleChange}
                               controlId="dem_tdm_cod"
                               defaultTypeDemand={this.state.primaryData.dem_tdm_cod}

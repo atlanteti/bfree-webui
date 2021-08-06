@@ -30,7 +30,7 @@ export class CompanyFormBuilder extends EditCreateForm {
                </Row>
                :
                (
-                  <Form onSubmit={this.handleSubmit}>
+                  <Form onSubmit={this.handleSubmit} validated={this.state.validated} noValidate>
                      <Row>
                         <Col>
                            <NumberField
@@ -39,6 +39,7 @@ export class CompanyFormBuilder extends EditCreateForm {
                               type="text"
                               maxLength="10"
                               defaultValue={this.state.primaryData?.cpn_cli_cod}
+                              errorMessage={this.state.cpn_cli_cod}
                               onChange={this.handleChange}
                               required />
                         </Col>
@@ -51,6 +52,7 @@ export class CompanyFormBuilder extends EditCreateForm {
                               type="text"
                               defaultValue={this.state.primaryData?.cpn_name}
                               onChange={this.handleChange}
+                              errorMessage={this.state.cpn_name}
                               required
                               maxLength="45" />
                         </Col>

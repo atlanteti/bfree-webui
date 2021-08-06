@@ -28,11 +28,12 @@ export class TypeDemandFormBuilder extends EditCreateForm {
                </Row>
                :
                (
-                  <Form onSubmit={this.handleSubmit}>
+                  <Form onSubmit={this.handleSubmit} validated={this.state.validated} noValidate>
                      <Row>
                         <Col>
                            <TextField
                               controlId="tdm_name"
+                              errorMessage={this.state.tdm_name}
                               Label="Nome:"
                               type="text"
                               maxLength="45"
@@ -47,6 +48,7 @@ export class TypeDemandFormBuilder extends EditCreateForm {
                               defaultValue={this.props.primaryId}
                               onChange={this.handleChange}
                               controlId="tdm_cpn_cod"
+                              errorMessage={this.state.tdm_cpn_cod}
                               defaultCompany={this.state.primaryData.tdm_cpn_cod ? this.state.primaryData.tdm_cpn_cod : ""}
                               required />
                         </Col>

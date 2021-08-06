@@ -1,12 +1,21 @@
 import styled from 'styled-components'
-import { Container, Row, Col } from 'react-bootstrap'
+import { Container, Row, Col, Form } from 'react-bootstrap'
+
+//Estilização especial para o ícone da validação dos seletores
+export const SelectValidateStyle = {
+   backgroundRepeat: "no-repeat",
+   backgroundPosition: "right calc(.875em + .1875rem) center",
+   backgroundSize: "calc(.75em + .375rem) calc(.75em + .375rem)"
+}
 
 export const Title = styled.h1`
    text-align: center;
    font-size: 2rem;
 `
+
 export const RequiredField = styled.text`
    color: red`
+
 export const RightAlignText = styled.div`
    .col{
       text-align: end

@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { Col, Row } from 'react-bootstrap'
 import { Cookies } from 'react-cookie'
 import { Redirect } from 'react-router-dom'
 import { baseEndpoint } from './config'
@@ -34,6 +35,16 @@ export const request = async ({
       result = await axios(config)
       if (result.data.meta.token !== token) {
          cookieGetter.set("auth", result.data.meta.token, { path: "/" })
+      }
+      if (result.data.meta.status === 422) {
+         let Alert = () => {
+            return <Row sm={1}>
+               {result.data.data.map((element) => {
+                  return <Col>{element.message}</Col>
+               })}
+            </Row>
+         }
+         result.data.meta.message = <Alert />
       }
       return result.data
    } catch (error) {

@@ -44,7 +44,7 @@ export class CustomAlert extends React.Component {
          show={this.state.showAlert}
          variant={this.state.statusMsg}
       >
-         <p>{this.state.message}</p>
+         {this.state.message}
       </Alert>
    }
 }
