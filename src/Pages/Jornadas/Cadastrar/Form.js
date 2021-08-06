@@ -43,6 +43,7 @@ export class JourneyFormBuilder extends EditCreateForm {
                         <Col>
                            <ListCompanies
                               defaultValue={this.props.primaryId}
+                              errorMessage={this.state.jny_cpn_cod}
                               onChange={this.handleChange}
                               controlId="jny_cpn_cod"
                               defaultCompany={this.state.primaryData.jny_cpn_cod}

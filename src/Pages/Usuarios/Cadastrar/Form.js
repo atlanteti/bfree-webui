@@ -26,7 +26,7 @@ export class UserFormBuilder extends EditCreateForm {
                </Row>
                :
                (
-                  <Form onSubmit={this.handleSubmit}>
+                  <Form onSubmit={this.handleSubmit} validated={this.state.validated} noValidate>
                      <Row>
                         <Col>
                            <NumberField

@@ -25,11 +25,12 @@ export class TeamFormBuilder extends EditCreateForm {
                </Row>
                :
                (
-                  <Form onSubmit={this.handleSubmit}>
+                  <Form onSubmit={this.handleSubmit} validated={this.state.validated} noValidate>
                      <Row>
                         <Col>
                            <TextField
                               controlId="tea_name"
+                              errorMessage={this.state.tea_name}
                               Label="Nome:"
                               type="text"
                               defaultValue={this.state.primaryData?.tea_name}

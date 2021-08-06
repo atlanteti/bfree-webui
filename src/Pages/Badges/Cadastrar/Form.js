@@ -87,11 +87,12 @@ export class BadgeFormBuilder extends EditCreateForm {
                </Row>
                :
                (
-                  <Form onSubmit={this.handleSubmit}>
+                  <Form onSubmit={this.handleSubmit} validated={this.state.validated} noValidate>
                      <Row>
                         <Col>
                            <TextField
                               controlId="bdg_name"
+                              errorMessage={this.state.bdg_name}
                               Label="Nome:"
                               type="text"
                               maxLength="45"
