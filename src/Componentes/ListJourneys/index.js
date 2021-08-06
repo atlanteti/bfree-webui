@@ -76,6 +76,7 @@ export default class ListJourneys extends Component {
                })}
             </>
          </Form.Control>
+         <Form.Control.Feedback type="invalid">{this.props.errorMessage}</Form.Control.Feedback>
       </Form.Group>;
    }
 }

@@ -1,6 +1,7 @@
 import { Form } from 'react-bootstrap';
 import { React, Component } from 'react';
 import { request } from '../../Services/api';
+import { SelectValidateStyle } from '../../styles/CommonStyles';
 
 
 export default class ListJourneysControlled extends Component {
@@ -43,7 +44,7 @@ export default class ListJourneysControlled extends Component {
       return <Form.Group controlId={this.props.controlId} /*"companyId"*/>
          <Form.Label>Jornada: </Form.Label>
          <Form.Control //Form.Select não funciona por razões misteriosas
-
+            style={SelectValidateStyle}
             required={this.props.required}
             as="select"
             onChange={this.onChange.bind(this)}
@@ -62,6 +63,7 @@ export default class ListJourneysControlled extends Component {
                })}
             </>
          </Form.Control>
+         <Form.Control.Feedback type="invalid">{this.props.errorMessage}</Form.Control.Feedback>
       </Form.Group>;
    }
 }

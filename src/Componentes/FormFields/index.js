@@ -1,7 +1,7 @@
 import React from 'react'
 import { Form } from 'react-bootstrap'
 import PropTypes from 'prop-types'
-import { RequiredField, SelectFieldStyle } from '../../styles/CommonStyles'
+import { RequiredField, SelectFieldStyle, SelectValidateStyle } from '../../styles/CommonStyles'
 
 export function TextField(props) {
    return <Form.Group controlId={props.controlId}>
@@ -65,7 +65,8 @@ NumberField.propTypes = {
 export function SelectField(props) {
    return <Form.Group controlId={props.controlId}>
       <Form.Label >{props.Label}</Form.Label>
-      <SelectFieldStyle
+      <Form.Control
+         style={SelectValidateStyle}
          defaultValue={props.defaultValue}
          required
          onChange={props.onChange}
@@ -74,7 +75,7 @@ export function SelectField(props) {
          {props.dataCollection?.map(collection => {
             return (<option key={collection.cpn_cod} value={collection.cpn_cod}>{collection.cpn_name}</option>)
          })}
-      </SelectFieldStyle>
+      </Form.Control>
    </Form.Group>
 }
 
@@ -83,6 +84,7 @@ export function BooleanField(props) {
       <Form.Label >{props.Label} {props.required ? <RequiredField>*</RequiredField> : null}</Form.Label>
       <Form.Control
          as="select"
+         style={SelectValidateStyle}
          required={props.required}
          onChange={props.onChange}
          value={props.value}>
