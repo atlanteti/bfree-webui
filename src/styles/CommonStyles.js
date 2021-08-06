@@ -13,11 +13,6 @@ export const Title = styled.h1`
    font-size: 2rem;
 `
 
-export const SelectFieldStyle = styled(Form)`
-   margin: 20px;
-   
-`
-
 export const RequiredField = styled.text`
    color: red`
 
