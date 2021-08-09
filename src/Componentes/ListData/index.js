@@ -166,7 +166,8 @@ export default class ListarPagina extends Component {
                   <Container fluid>
                      <CustomAlert
                         showAlertCallback={this.getAlertCallback.bind(this)}
-                        redirectCallback={this.redirectCallback.bind(this)} />
+                        redirectCallback={this.redirectCallback.bind(this)}
+                     />
                      <Row xs={1}>
                         <this.PageHeaderCustom />
                      </Row>
@@ -208,7 +209,8 @@ export default class ListarPagina extends Component {
                      <CustomAlert
                         showAlertCallback={this.getNoDataCallback.bind(this)}
                         redirectCallback={this.redirectCallback.bind(this)}
-                        noDataAlert={true} />
+                        noDataAlert={true}
+                        noData={this.state.noData} />
                      <PaginationRow>
                         <CustomPagination
                            fetchAndSetData={this.fetchAndSetData}

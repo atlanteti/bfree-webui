@@ -43,7 +43,7 @@ export class CustomAlert extends React.Component {
       return <Alert
          onClose={() => { this.setState({ showAlert: false }) }}
          dismissible={!this.props.noDataAlert}
-         show={this.state.showAlert}
+         show={this.state.showAlert && this.props.noData}
          variant={this.state.statusMsg}
       >
          {this.state.message}
@@ -55,5 +55,6 @@ CustomAlert.propTypes =
 {
    showAlertCallback: PropTypes.func.isRequired,
    redirectCallback: PropTypes.func.isRequired,
-   noDataAlert: PropTypes.bool
+   noDataAlert: PropTypes.bool,
+   noData: PropTypes.bool
 }
