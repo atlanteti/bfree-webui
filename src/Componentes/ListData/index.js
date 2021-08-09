@@ -5,7 +5,7 @@ import { CustomMenu } from '../CustomMenu'
 import CustomPagination from '../CustomPagination'
 import { CustomAlert } from '../CustomAlert'
 import {
-   MainContainer, Title, Table, TableHeader, TableData, CustomMenuCol,
+   MainContainer, Title, MainTable, TableHeader, TableData, CustomMenuCol,
    MainRow, PaginationRow, HeaderContainer, RowTopMargin, RightAlignText
 } from '../../styles/CommonStyles'
 import PropTypes from "prop-types"
@@ -22,7 +22,9 @@ export default class ListarPagina extends Component {
          showModal: false,
          responseData: null,
          responseAlertShow: null,
-         redirect: false
+         noDataAlertShow: null,
+         redirect: false,
+         noData: false
       }
       this.requestForm = {
          extraParams: {},
@@ -55,9 +57,18 @@ export default class ListarPagina extends Component {
          page: data.meta.pagination
       }, () => {
          if (data.data.length === 0) {
-            this.state.responseAlertShow({
-               message: "Nenhum registro encontrado",
-               responseType: "Success"
+            this.setState({
+               noData: true
+            }, () => {
+               this.state.noDataAlertShow({
+                  message: "Nenhum registro encontrado",
+                  responseType: "Success"
+               })
+            })
+         }
+         else {
+            this.setState({
+               noData: false
             })
          }
       })
@@ -68,7 +79,11 @@ export default class ListarPagina extends Component {
          responseAlertShow: func
       })
    }
-
+   getNoDataCallback(func) {
+      this.setState({
+         noDataAlertShow: func
+      })
+   }
    showAlert(data) {
       this.state.responseAlertShow(data)
       this.updateListing()
@@ -151,14 +166,15 @@ export default class ListarPagina extends Component {
                   <Container fluid>
                      <CustomAlert
                         showAlertCallback={this.getAlertCallback.bind(this)}
-                        redirectCallback={this.redirectCallback.bind(this)} />
+                        redirectCallback={this.redirectCallback.bind(this)}
+                     />
                      <Row xs={1}>
                         <this.PageHeaderCustom />
                      </Row>
                      <this.SearchBarCustom
                         filterData={this.searchData} />
                      <Row noGutters>
-                        <Table>
+                        <MainTable noData={this.state.noData}>
                            {this.state.responseData === null
                               ?
                               <Row>
@@ -188,8 +204,13 @@ export default class ListarPagina extends Component {
                               )
                            }
                            {this.createModal()}
-                        </Table>
+                        </MainTable>
                      </Row>
+                     <CustomAlert
+                        showAlertCallback={this.getNoDataCallback.bind(this)}
+                        redirectCallback={this.redirectCallback.bind(this)}
+                        noDataAlert={true}
+                        noData={this.state.noData} />
                      <PaginationRow>
                         <CustomPagination
                            fetchAndSetData={this.fetchAndSetData}

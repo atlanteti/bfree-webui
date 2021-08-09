@@ -137,7 +137,10 @@ export const Table = styled.table`
       }
    }
 `
-
+export const MainTable = styled(Table)`
+   ${(props) => props.noData && `
+      margin-bottom: 0`}
+`
 export const TableHeader = styled.thead`
 `
 
