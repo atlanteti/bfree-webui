@@ -1,6 +1,6 @@
 import React from 'react'
 import { Form, Col, Row, Button } from 'react-bootstrap'
-import { TextField, SelectField, NumberField } from '../../../Componentes/FormFields'
+import { TextField, SelectField, NumberField, PhoneField } from '../../../Componentes/FormFields'
 import { DateField } from '../../../Componentes/DateField'
 import { ButtonRow } from '../../../Componentes/ButtonRow'
 import { EditCreateForm } from '../../../Componentes/EditCreateForm/index'
@@ -31,6 +31,7 @@ export class UserFormBuilder extends EditCreateForm {
                         <Col>
                            <NumberField
                               controlId="usr_cli_cod"
+                              errorMessage={this.state.usr_cli_cod}
                               Label="ID Eduzz:"
                               type="text"
                               required
@@ -53,12 +54,25 @@ export class UserFormBuilder extends EditCreateForm {
                         <Col>
                            <TextField
                               controlId="usr_name"
+                              errorMessage={this.state.usr_name}
                               Label="Nome:"
                               required
                               maxLength="200"
                               type="text"
                               defaultValue={this.state.primaryData?.usr_name}
                               onChange={this.handleChange} />
+                        </Col>
+                     </Row>
+                     <Row>
+                        <Col>
+                           <PhoneField
+                              required
+                              controlId="usr_phone"
+                              Label="Telefone:"
+                              errorMessage={this.state.usr_phone}
+                              defaultValue={this.state.primaryData.usr_phone}
+                              onChange={this.handleChange}
+                              minLength="15" />
                         </Col>
                      </Row>
                      <Row>

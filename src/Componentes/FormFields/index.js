@@ -2,7 +2,7 @@ import React from 'react'
 import { Form } from 'react-bootstrap'
 import PropTypes from 'prop-types'
 import { RequiredField, SelectFieldStyle, SelectValidateStyle } from '../../styles/CommonStyles'
-
+import InputMask from "react-input-mask"
 export function TextField(props) {
    return <Form.Group controlId={props.controlId}>
       <Form.Label>{props.Label} {props.required ? <RequiredField>*</RequiredField> : null}</Form.Label>
@@ -26,7 +26,15 @@ TextField.propTypes = {
    onChange: PropTypes.func.isRequired,
    required: PropTypes.bool,
 }
-
+export function PhoneField(props) {
+   return <NumberField
+      pattern=".{15,}"
+      as={InputMask}
+      formatChars={{ "x": '[0-9]' }}
+      mask="(xx) xxxxx-xxxx"
+      maskChar={null}
+      {...props} />
+}
 export function NumberField(props) {
    function preventNonNumericalInput(e) {
       e = e || window.event;
