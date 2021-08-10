@@ -70,6 +70,7 @@ export class UserFormBuilder extends EditCreateForm {
                               controlId="usr_phone"
                               Label="Telefone:"
                               errorMessage={this.state.usr_phone}
+                              defaultValue={this.state.primaryData.usr_phone}
                               onChange={this.handleChange}
                               minLength="15" />
                         </Col>
