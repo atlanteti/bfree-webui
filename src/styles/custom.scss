@@ -23,8 +23,8 @@ $custom-control-label-color: inherit !important;
    .custom-control-input:checked ~ .custom-control-label {
      &::after {
        background-image: escape-svg($custom-checkbox-indicator-icon-checked);
-       background-color: $warning;
-       @include border-radius($custom-checkbox-indicator-border-radius);
+       background-color: $warning; //Usando a mesma cor do botão de voltar para ficar estéticamente consistente
+       @include border-radius($custom-checkbox-indicator-border-radius); //Precisa ser redefinido para que funcione
      }
    }
  
