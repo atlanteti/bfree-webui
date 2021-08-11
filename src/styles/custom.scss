@@ -1,0 +1,18 @@
+/* custom.scss */    
+
+/* import the necessary Bootstrap files */
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+
+/* -------begin customization-------- */   
+
+$form-validation-states: (
+  "valid": (
+    "color": $input-border-color,
+    "icon": none
+  )
+);
+/* -------end customization-------- */  
+
+/* finally, import Bootstrap to set the changes! */
+@import "bootstrap";

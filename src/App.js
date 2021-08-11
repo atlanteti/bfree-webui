@@ -1,8 +1,8 @@
 
 import { useState, React, useEffect, useContext } from 'react'
-import 'bootstrap/dist/css/bootstrap.min.css'
+// import 'bootstrap/dist/css/bootstrap.min.css'
+import './styles/custom.scss'
 import './styles/main.bundle.css'
-
 import CircularProgress from '@material-ui/core/CircularProgress'
 import ContextLogin from "../src/Context/ContextLogin";
 

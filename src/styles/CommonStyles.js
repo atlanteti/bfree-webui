@@ -6,7 +6,7 @@ export const SelectValidateStyle = {
    backgroundRepeat: "no-repeat",
    backgroundPosition: "right calc(.875em + .1875rem) center",
    backgroundSize: "calc(.75em + .375rem) calc(.75em + .375rem)"
-}
+}//Verificar se SASS pode fazer isso
 
 export const Title = styled.h1`
    text-align: center;
