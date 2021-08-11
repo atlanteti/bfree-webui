@@ -90,7 +90,7 @@ export const Table = styled.table`
    border: 1px solid #dee2e6;
    border-radius: 5px;
    margin: 2rem 0;
-
+   
    /* colunas na tabela que sempre irão ficar nessa posição*/
    .acoes {
       text-align: center;
