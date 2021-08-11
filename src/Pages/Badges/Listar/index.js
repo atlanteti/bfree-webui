@@ -61,24 +61,6 @@ export default class ListarBadge extends ListarPagina {
          </TextHeaderCell>
          <TextHeaderCell scope="col">
             <SortColumn
-               label="Descrição"
-               attribute="bdg_description"
-               sortCallback={props.sortCallback}
-               receiver={props.subscribe}
-               wipeAll={props.wipeAll}
-            />
-         </TextHeaderCell>
-         <TextHeaderCell columnWidth scope="col">
-            <SortColumn
-               label="Detalhamento"
-               attribute="bdg_detail"
-               sortCallback={props.sortCallback}
-               receiver={props.subscribe}
-               wipeAll={props.wipeAll}
-            />
-         </TextHeaderCell>
-         <TextHeaderCell scope="col">
-            <SortColumn
                label="Jornada"
                attribute="jny_name"
                sortCallback={props.sortCallback}
@@ -111,8 +93,6 @@ export default class ListarBadge extends ListarPagina {
    createRecord(badge) {
       return <TableRow key={badge.bdg_cod}>
          <TextCell data-title="Nome">{badge.bdg_name}</TextCell>
-         <TextCell data-title="Descrição">{badge.bdg_description}</TextCell>
-         <TextCell data-title="Detalhamento">{badge.bdg_detail}</TextCell>
          <TextCell data-title="Jornada">{badge.journey.jny_name ? badge.journey.jny_name : <p style={{ color: "transparent" }}>.</p>}</TextCell>{/*Waiting for api fix*/}
          <TextCell data-title="Empresa">{badge.company.cpn_name ? badge.company.cpn_name : <p style={{ color: "transparent" }}>.</p>}</TextCell>
          <TextCell data-title="Mentor" className="icon">
