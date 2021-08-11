@@ -220,7 +220,7 @@ export default class ListarPagina extends Component {
                </Col>
             </Col>
          </MainRow>
-      </MainContainer>
+      </MainContainer >
    }
 };
 

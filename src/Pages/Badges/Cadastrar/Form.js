@@ -103,6 +103,32 @@ export class BadgeFormBuilder extends EditCreateForm {
                      </Row>
                      <Row>
                         <Col>
+                           <TextField
+                              controlId="bdg_description"
+                              errorMessage={this.state.bdg_description}
+                              Label="Descrição:"
+                              type="text"
+                              maxLength="45"
+                              required
+                              defaultValue={this.state.primaryData?.bdg_description}
+                              onChange={this.handleChange} />
+                        </Col>
+                     </Row>
+                     <Row>
+                        <Col>
+                           <TextField
+                              controlId="bdg_detail"
+                              errorMessage={this.state.bdg_detail}
+                              Label="Detalhamento:"
+                              as="textarea"
+                              maxLength="200"
+                              required
+                              defaultValue={this.state.primaryData?.bdg_detail}
+                              onChange={this.handleChange} />
+                        </Col>
+                     </Row>
+                     <Row>
+                        <Col>
                            <ListJourneysControlled
                               value={this.state.primaryData.bdg_jny_cod ? this.state.primaryData.bdg_jny_cod : ""}
                               disabled={this.state.disableJourney || (Boolean(this.state.primaryData.bdg_cpn_cod) && !Boolean(this.state.primaryData.bdg_jny_cod))}
