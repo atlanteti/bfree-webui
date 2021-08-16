@@ -121,7 +121,7 @@ export class BadgeFormBuilder extends EditCreateForm {
                               errorMessage={this.state.bdg_detail}
                               Label="Motivadores:"
                               as="textarea"
-                              maxLength="200"
+                              maxLength="400"
                               required
                               defaultValue={this.state.primaryData?.bdg_detail}
                               onChange={this.handleChange} />

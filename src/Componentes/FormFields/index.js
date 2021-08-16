@@ -7,6 +7,7 @@ export function TextField(props) {
    return <Form.Group controlId={props.controlId}>
       <Form.Label>{props.Label} {props.required ? <RequiredField>*</RequiredField> : null}</Form.Label>
       <Form.Control
+         rows={5}
          type={props.type}
          as={props.as}
          value={props.defaultValue}

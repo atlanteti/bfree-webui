@@ -73,10 +73,12 @@ export default class MultiSelectForm extends Component {
       if (this.state.redirect) {
          return <Redirect to="/usuarios" />
       }
-      return <MainContainer>
-         <MainRow>
+      return <>
             <CustomMenuCol md={2}><CustomMenu /></CustomMenuCol>
-            <Col sm={{ span: 8, offset: 2 }}>
+            <Col                   
+                  sm={{ offset: 2, span: 6 }}// Temporary until styled components
+                  md={{ offset: 3, span: 5 }}
+                  lg={{ offset: 3, span: 5 }}>
                <Col>
                   <CustomAlert
                      showAlertCallback={this.getAlertCallback.bind(this)}
@@ -118,8 +120,7 @@ export default class MultiSelectForm extends Component {
                   </Col>
                </Form>
             </Col>
-         </MainRow>
-      </MainContainer>
+         </>
    }
 }
 
