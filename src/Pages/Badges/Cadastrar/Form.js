@@ -119,7 +119,7 @@ export class BadgeFormBuilder extends EditCreateForm {
                            <TextField
                               controlId="bdg_detail"
                               errorMessage={this.state.bdg_detail}
-                              Label="Detalhamento:"
+                              Label="Motivadores:"
                               as="textarea"
                               maxLength="200"
                               required
