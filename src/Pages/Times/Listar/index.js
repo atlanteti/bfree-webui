@@ -1,16 +1,16 @@
 import { Button, Col, Container, Row } from 'react-bootstrap'
-// import SearchBar from '../../../Componentes/SearchBar'
 import { request } from '../../../Services/api'
-import ExclusionModal from '../../../Componentes/ExclusionModal'
 import ListarPagina, { PageHeaderCustomComponent } from '../../../Componentes/ListData'
 import {
    ActionCell, ActionHeaderCell,
+   Icon,
    RightAlignText,
    TableRow, TextCell, TextHeaderCell, Title
 } from '../../../styles/CommonStyles'
 import SortColumn from '../../../Componentes/SortColumn'
 import { React } from 'react'
 import { TeamSearchBar } from "./TeamSearchBar"
+import { IoPeopleOutline } from 'react-icons/io5'
 
 export default class ListarTime extends ListarPagina {
    async deleteRecord(id) {
@@ -96,6 +96,7 @@ export default class ListarTime extends ListarPagina {
                })
                this.openModal()
             }}>Excluir</Button>
+            <Button variant="secondary" href={`/tipo-mentores/${time.tea_cod}`}><IoPeopleOutline size={23} color="#0" /></Button>
          </ActionCell>
       </TableRow>
    }
