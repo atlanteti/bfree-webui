@@ -1,4 +1,4 @@
-import { Button, Col, Container, Row } from 'react-bootstrap'
+import { Button, Col, Container, OverlayTrigger, Row, Tooltip } from 'react-bootstrap'
 import { request } from '../../../Services/api'
 import ListarPagina, { PageHeaderCustomComponent } from '../../../Componentes/ListData'
 import {
@@ -89,14 +89,20 @@ export default class ListarTime extends ListarPagina {
          </TextCell>
          <ActionCell data-title="Ações">
             <Button variant="warning" href={`/editar-time/${time.tea_cod}/alterar`}>Editar</Button>
-            <Button variant="dark" onClick={() => {
+            <Button variant="dark" href="#" onClick={() => {
                this.setState({
                   deletionId: time.tea_cod,
                   modalIdentifier: "o time"
                })
                this.openModal()
             }}>Excluir</Button>
-            <Button variant="secondary" href={`/tipo-mentores/${time.tea_cod}`}><IoPeopleOutline size={23} color="#0" /></Button>
+            {!time.qtd_team_mentors ?
+               <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">Time não possui mentores</Tooltip>}>
+                  <span className="d-inline-block">
+                     <Button disabled={!time.qtd_team_mentors} variant="secondary" href={`/tipo-mentores/${time.tea_cod}`}><IoPeopleOutline size={23} color="#0" /></Button>
+                  </span>
+               </OverlayTrigger> :
+               <Button disabled={!time.qtd_team_mentors} variant="secondary" href={`/tipo-mentores/${time.tea_cod}`}><IoPeopleOutline size={23} color="#0" /></Button>}
          </ActionCell>
       </TableRow>
    }
