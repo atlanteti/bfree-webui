@@ -1,16 +1,16 @@
-import { Button, Col, Container, Row } from 'react-bootstrap'
-// import SearchBar from '../../../Componentes/SearchBar'
+import { Button, Col, Container, OverlayTrigger, Row, Tooltip } from 'react-bootstrap'
 import { request } from '../../../Services/api'
-import ExclusionModal from '../../../Componentes/ExclusionModal'
 import ListarPagina, { PageHeaderCustomComponent } from '../../../Componentes/ListData'
 import {
    ActionCell, ActionHeaderCell,
+   Icon,
    RightAlignText,
    TableRow, TextCell, TextHeaderCell, Title
 } from '../../../styles/CommonStyles'
 import SortColumn from '../../../Componentes/SortColumn'
 import { React } from 'react'
 import { TeamSearchBar } from "./TeamSearchBar"
+import { IoPeopleOutline } from 'react-icons/io5'
 
 export default class ListarTime extends ListarPagina {
    async deleteRecord(id) {
@@ -89,13 +89,20 @@ export default class ListarTime extends ListarPagina {
          </TextCell>
          <ActionCell data-title="Ações">
             <Button variant="warning" href={`/editar-time/${time.tea_cod}/alterar`}>Editar</Button>
-            <Button variant="dark" onClick={() => {
+            <Button variant="dark" href="#" onClick={() => {
                this.setState({
                   deletionId: time.tea_cod,
                   modalIdentifier: "o time"
                })
                this.openModal()
             }}>Excluir</Button>
+            {!time.qtd_team_mentors ?
+               <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">Time não possui mentores</Tooltip>}>
+                  <span className="d-inline-block">
+                     <Button disabled={!time.qtd_team_mentors} variant="secondary" href={`/tipo-mentores/${time.tea_cod}`}><IoPeopleOutline size={23} color="#0" /></Button>
+                  </span>
+               </OverlayTrigger> :
+               <Button disabled={!time.qtd_team_mentors} variant="secondary" href={`/tipo-mentores/${time.tea_cod}`}><IoPeopleOutline size={23} color="#0" /></Button>}
          </ActionCell>
       </TableRow>
    }

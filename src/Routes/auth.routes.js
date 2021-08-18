@@ -32,6 +32,8 @@ import CadastrarTime from '../Pages/Times/Cadastrar'
 import App from "../App";
 import CadastrarDemanda from "../Pages/Demandas/Cadastrar";
 import ListarDemandas from "../Pages/Demandas/Listar";
+import Error404 from "../Pages/Error";
+import CadastrarTipoMentores from "../Pages/Times/TipoMentores";
 
 
 export default function AuthRoutes() {
@@ -69,7 +71,7 @@ export default function AuthRoutes() {
          {/* rotas de times */}
          <Route path="/times" component={ListarTime} />
          <Route path="/editar-time/:tea_cod/:param" component={CadastrarTime} />
-
+         <Route path="/tipo-mentores/:tea_cod" component={CadastrarTipoMentores} />
          <Route exact path="/" component={App} />
          <Route path="/cadastrar" component={Cadastros} />
 
