@@ -9,6 +9,7 @@ import Select from 'react-select'
 import { CustomAlert } from "../../../Componentes/CustomAlert";
 import { ButtonRow } from "../../../Componentes/ButtonRow";
 import { TextField } from "../../../Componentes/FormFields";
+import { CircularProgress } from "@material-ui/core";
 export default class MultiSelectForm extends Component {
    constructor(props) {
       super(props);
@@ -47,7 +48,7 @@ export default class MultiSelectForm extends Component {
                      umt_cod: option.umt_cod,
                      umt_usrmentor_cod: option.umt_usrmentor_cod,
                      umt_tea_cod: option.umt_tea_cod,
-                     umt_tmt_cod: null,
+                     umt_tmt_cod: option.umt_tmt_cod,
                      umt_active: option.umt_active
                   }
                })
@@ -77,11 +78,11 @@ export default class MultiSelectForm extends Component {
    async handleSubmit(e) {
       e.preventDefault()
       const data = await request({
-         method: "post",
-         endpoint: "meteam-mentors/atualizar",
+         method: "put",
+         endpoint: "team-mentors/atualizar",
          data: Object.values(this.state.responseForm)
       })
-      // throw new Error("Método abstrato deve ser implementado")
+      this.showAlert(data)
    }
 
    handleChange(event) {
@@ -123,36 +124,43 @@ export default class MultiSelectForm extends Component {
                <Title>Tipos de Mentoria</Title>
             </Col>
             <Form onSubmit={this.handleSubmit.bind(this)}>
-               {this.state.mentores?.map(mentor => {
-                  return (
-                     <Row>
-                        <Col>
-                           <Form.Group>
-                              <Form.Label>Nome do mentor</Form.Label>
-                              <Form.Control
-                                 type="text"
-                                 value={mentor.user.usr_name}
-                                 disabled
-                                 required />
-                           </Form.Group>
-                        </Col>
-                        <Col key="selector-1">
-                           <Form.Group>
-                              <Form.Label>Tipos de mentoria</Form.Label>
-                              <Select
-                                 controlId="test"
-                                 onChange={(event) => { this.handleChange({ index: mentor.umt_cod, ...event }) }}
-                                 name="Tipos de mentoria" //"selectBadges"
-                                 options={this.state.tiposDeMentoria} />
-                           </Form.Group>
-                        </Col>
-                     </Row>);
-               })}
-               <Col className="mt-2">
-                  <ButtonRow
-                     cancelButton={<Button variant="warning" href="/usuarios">Cancelar</Button>}
-                     confirmButton={<Button type="submit" variant="dark">Editar</Button>} />
-               </Col>
+               {this.state.mentores === undefined ?
+                  <Row>
+                     <Col md={{ offset: 5 }}><CircularProgress /></Col>
+                  </Row> :
+                  (<>
+                     {this.state.mentores.map(mentor => {
+                        return (
+                           <Row>
+                              <Col>
+                                 <Form.Group>
+                                    <Form.Label>Nome do mentor</Form.Label>
+                                    <Form.Control
+                                       type="text"
+                                       value={mentor.user.usr_name}
+                                       disabled
+                                       required />
+                                 </Form.Group>
+                              </Col>
+                              <Col key="selector-1">
+                                 <Form.Group>
+                                    <Form.Label>Tipo de mentoria</Form.Label>
+                                    <Select
+                                       controlId="test"
+                                       onChange={(event) => { this.handleChange({ index: mentor.umt_cod, ...event }) }}
+                                       name="Tipos de mentoria"
+                                       options={this.state.tiposDeMentoria}
+                                       defaultValue={{ value: mentor.typeMentor?.tmt_cod, label: mentor.typeMentor?.tmt_name }} />
+                                 </Form.Group>
+                              </Col>
+                           </Row>);
+                     })}
+                     <Col className="mt-2">
+                        <ButtonRow
+                           cancelButton={<Button variant="warning" href="/times">Cancelar</Button>}
+                           confirmButton={<Button type="submit" variant="dark">Editar</Button>} />
+                     </Col>
+                  </>)}
             </Form>
          </Col>
       </>
