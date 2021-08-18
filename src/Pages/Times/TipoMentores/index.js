@@ -62,7 +62,9 @@ export default class MultiSelectForm extends Component {
          endpoint: "types-mentor/listar-todos"
       })
       this.setState({
-         tiposDeMentoria: mentorshipTypes.data
+         tiposDeMentoria: [
+            { tmt_cod: null, tmt_name: "Nenhum" },
+            ...mentorshipTypes.data]
       }, () => {
          this.setState((state) => ({
             tiposDeMentoria: state.tiposDeMentoria.map(tmentor => {
