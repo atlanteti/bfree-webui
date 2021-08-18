@@ -10,6 +10,7 @@ import { CustomAlert } from "../../../Componentes/CustomAlert";
 import { ButtonRow } from "../../../Componentes/ButtonRow";
 import { TextField } from "../../../Componentes/FormFields";
 import { CircularProgress } from "@material-ui/core";
+import { CheckBox } from "../../../Componentes/CheckBox";
 export default class MultiSelectForm extends Component {
    constructor(props) {
       super(props);
@@ -98,6 +99,17 @@ export default class MultiSelectForm extends Component {
          }
       }))
    }
+   handleCheck(event) {
+      this.setState((state) => ({
+         responseForm: {
+            ...state.responseForm,
+            [event.index]: {
+               ...state.responseForm[event.index],
+               "umt_active": event.target.checked
+            }
+         }
+      }))
+   }
    componentDidMount() {
       this.populateList();
    }
@@ -133,7 +145,7 @@ export default class MultiSelectForm extends Component {
                   (<>
                      {this.state.mentores.map(mentor => {
                         return (
-                           <Row>
+                           <Row xs={2}>
                               <Col>
                                  <Form.Group>
                                     <Form.Label>Nome do mentor</Form.Label>
@@ -153,6 +165,22 @@ export default class MultiSelectForm extends Component {
                                        name="Tipos de mentoria"
                                        options={this.state.tiposDeMentoria}
                                        defaultValue={{ value: mentor.typeMentor?.tmt_cod, label: mentor.typeMentor?.tmt_name }} />
+                                 </Form.Group>
+                              </Col>
+                              <Col>
+                                 <Form.Group>
+                                    <CheckBox
+                                       label="Inativo"
+                                       name="umt_active"
+                                       onChange={
+                                          (event) => {
+                                             this.handleCheck({ index: mentor.umt_cod, ...event })
+                                          }
+                                       }
+                                       checked={this.state.responseForm[mentor.umt_cod]?.umt_active}
+                                       id={"CheckboxFor" + mentor.umt_cod}
+                                       defaultValue={mentor.umt_active}
+                                    />
                                  </Form.Group>
                               </Col>
                            </Row>);
