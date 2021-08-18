@@ -11,7 +11,7 @@ import { ButtonRow } from "../../../Componentes/ButtonRow";
 import { TextField } from "../../../Componentes/FormFields";
 import { CircularProgress } from "@material-ui/core";
 import { CheckBox } from "../../../Componentes/CheckBox";
-export default class MultiSelectForm extends Component {
+export default class TiposDeMentoria extends Component {
    constructor(props) {
       super(props);
       this.state = {
@@ -195,14 +195,4 @@ export default class MultiSelectForm extends Component {
          </Col>
       </>
    }
-}
-
-MultiSelectForm.propTypes =
-{
-   label: PropTypes.string.isRequired,
-   name: PropTypes.string,
-   userId: PropTypes.string.isRequired,
-   populateListEndpoint: PropTypes.string.isRequired,
-   userName: PropTypes.string.isRequired,
-   pageTitle: PropTypes.string.isRequired
 }
