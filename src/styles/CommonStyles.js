@@ -63,6 +63,19 @@ export const MainContainer = styled.div`
    .page-link {
       color: #000;
    }
+
+   @media (min-width: 767px){
+      .row {
+         justify-content: center;
+         min-width: max-content;
+      }
+   }
+
+   @media (max-width: 766px){
+      .row{
+         justify-content: flex-end;
+      }  
+   }
 `
 
 export const BtnCadastrar = styled.a`
