@@ -9,6 +9,7 @@ import { CustomAlert } from "../../../Componentes/CustomAlert";
 import { ButtonRow } from "../../../Componentes/ButtonRow";
 import { CircularProgress } from "@material-ui/core";
 import { CheckBox } from "../../../Componentes/CheckBox";
+import { Helmet } from "react-helmet";
 export default class TiposDeMentoria extends Component {
    constructor(props) {
       super(props);
@@ -124,14 +125,15 @@ export default class TiposDeMentoria extends Component {
          return <Redirect to="/times" />
       }
       return <>
+         <Helmet title={`Tipos de Mentoria`} />
          <CustomMenuCol md={2}><CustomMenu /></CustomMenuCol>
          <Col>
             <Title>Tipos de Mentoria</Title>
          </Col>
          <Col
-            sm={{ offset: 2, span: 6 }}// Temporary until styled components
-            md={{ offset: 3, span: 5 }}
-            lg={{ offset: 3, span: 5 }}
+            sm={{ offset: 2, span: 10 }}// Temporary until styled components
+            md={{ offset: 3, span: 9 }}
+            lg={{ offset: 3, span: 9 }}
             style={{ marginTop: 50 }}
          >
             <CustomAlert
@@ -145,7 +147,7 @@ export default class TiposDeMentoria extends Component {
                   (<>
                      {this.state.mentores.map(mentor => {
                         return (
-                           <Row xs={2}>
+                           <Row xs={2} sm={3}>
                               <Col>
                                  <Form.Group>
                                     <Form.Label>Nome do mentor</Form.Label>
@@ -170,8 +172,8 @@ export default class TiposDeMentoria extends Component {
                               </Col>
                               <Col>
                                  <Form.Group>
+                                    <Form.Label>Inativo</Form.Label>
                                     <CheckBox
-                                       label="Inativo"
                                        name="umt_active"
                                        onChange={
                                           (event) => {
