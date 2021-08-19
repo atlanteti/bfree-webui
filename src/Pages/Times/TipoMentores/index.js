@@ -1,6 +1,5 @@
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { request } from "../../../Services/api";
-import PropTypes from 'prop-types'
 import { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { CustomMenuCol, Title } from "../../../styles/CommonStyles";
@@ -8,7 +7,6 @@ import { CustomMenu } from "../../../Componentes/CustomMenu";
 import Select from 'react-select'
 import { CustomAlert } from "../../../Componentes/CustomAlert";
 import { ButtonRow } from "../../../Componentes/ButtonRow";
-import { TextField } from "../../../Componentes/FormFields";
 import { CircularProgress } from "@material-ui/core";
 import { CheckBox } from "../../../Componentes/CheckBox";
 export default class TiposDeMentoria extends Component {
@@ -64,7 +62,7 @@ export default class TiposDeMentoria extends Component {
       })
       this.setState({
          tiposDeMentoria: [
-            { tmt_cod: null, tmt_name: "Nenhum" },
+            { tmt_cod: null, tmt_name: "" },
             ...mentorshipTypes.data]
       }, () => {
          this.setState((state) => ({
@@ -160,6 +158,7 @@ export default class TiposDeMentoria extends Component {
                                  <Form.Group>
                                     <Form.Label>Tipo de mentoria</Form.Label>
                                     <Select
+                                       styles={{ option: styles => ({ minHeight: 40, ...styles }) }}
                                        controlId="test"
                                        onChange={(event) => { this.handleChange({ index: mentor.umt_cod, ...event }) }}
                                        name="Tipos de mentoria"
