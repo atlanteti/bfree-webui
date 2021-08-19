@@ -125,16 +125,18 @@ export default class TiposDeMentoria extends Component {
       }
       return <>
          <CustomMenuCol md={2}><CustomMenu /></CustomMenuCol>
+         <Col>
+            <Title>Tipos de Mentoria</Title>
+         </Col>
          <Col
             sm={{ offset: 2, span: 6 }}// Temporary until styled components
             md={{ offset: 3, span: 5 }}
-            lg={{ offset: 3, span: 5 }}>
-            <Col>
-               <CustomAlert
-                  showAlertCallback={this.getAlertCallback.bind(this)}
-                  redirectCallback={this.redirect.bind(this)} />
-               <Title>Tipos de Mentoria</Title>
-            </Col>
+            lg={{ offset: 3, span: 5 }}
+            style={{ marginTop: 50 }}
+         >
+            <CustomAlert
+               showAlertCallback={this.getAlertCallback.bind(this)}
+               redirectCallback={this.redirect.bind(this)} />
             <Form onSubmit={this.handleSubmit.bind(this)}>
                {this.state.mentores === undefined ?
                   <Row>
@@ -184,11 +186,9 @@ export default class TiposDeMentoria extends Component {
                               </Col>
                            </Row>);
                      })}
-                     <Col className="mt-2">
-                        <ButtonRow
-                           cancelButton={<Button variant="warning" href="/times">Cancelar</Button>}
-                           confirmButton={<Button type="submit" variant="dark">Editar</Button>} />
-                     </Col>
+                     <ButtonRow
+                        cancelButton={<Button variant="warning" href="/times">Cancelar</Button>}
+                        confirmButton={<Button type="submit" variant="dark">Editar</Button>} />
                   </>)}
             </Form>
          </Col>
