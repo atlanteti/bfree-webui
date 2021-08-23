@@ -83,7 +83,7 @@ export default class ListarTime extends ListarPagina {
    createRecord(time) {
       return <TableRow key={time.tea_cod}>
          <TextCell data-title="Nome">{time.tea_name}</TextCell>
-         <TextCell data-title="Empresa" className="text">{time.company.cpn_name}</TextCell>
+         <TextCell data-title="Empresa" className="text">{time.company.cpn_name ? time.company.cpn_name : <p style={{ color: "transparent" }}>.</p>}</TextCell>
          <TextCell data-title="Status" className="text">
             {time.tea_active ? "ATIVO" : "INATIVO"}
          </TextCell>

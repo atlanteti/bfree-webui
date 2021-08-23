@@ -102,7 +102,7 @@ export default class ListarDemandas extends ListarPagina {
 
    createRecord(demanda) {
       return <TableRow key={demanda.dem_cod}>
-         <TextCell data-title="ID Eduzz">{demanda.dem_cli_cod}</TextCell>
+         <TextCell data-title="ID Eduzz">{demanda.dem_cli_cod ? demanda.dem_cli_cod : <p style={{ color: "transparent" }}>.</p>}</TextCell>
          <TextCell data-title="Título" className="text">{demanda.dem_title}</TextCell>
          <TextCell data-title="Usuário" className="text">{demanda.user.usr_name}</TextCell>
          <TextCell data-title="Status" className="text">{demanda.statusDemand.sdm_name}</TextCell>
