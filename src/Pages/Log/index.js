@@ -28,6 +28,22 @@ class Log extends Component {
                <Col offset={3}>
                   {this.state.logs ?
                      <>{this.state.logs.map(log => {
+                        let logKeys = {}
+                        let newValue = false
+                        let oldValue = false
+                        let highlight = false;
+                        if (log.log_new_values) {
+                           newValue = JSON.parse(log.log_new_values)
+                        }
+                        if (log.log_old_values) {
+                           oldValue = JSON.parse(log.log_old_values)
+                        }
+                        if (newValue) {
+                           logKeys = Object.keys(newValue)
+                        }
+                        else if (oldValue) {
+                           logKeys = Object.keys(oldValue)
+                        }
                         return <><Card style={{ marginBottom: "0.5rem" }}>
                            <Card.Body style={{ padding: 0 }}>
                               <Card.Text>
@@ -54,25 +70,16 @@ class Log extends Component {
                                                    </tr>
                                                 </thead>
                                                 <tbody>
-                                                   {Object.keys(JSON.parse(log.log_new_values)).map(
+                                                   {logKeys.map(
                                                       (key) => {
-                                                         let newValue = false
-                                                         let oldValue = false
-                                                         let highlight = false;
-                                                         if (log.log_new_values) {
-                                                            newValue = JSON.parse(log.log_new_values)
-                                                         }
-                                                         if (log.log_old_values) {
-                                                            oldValue = JSON.parse(log.log_old_values)
-                                                         }
                                                          if (newValue && oldValue) {
                                                             highlight = newValue[key] !== oldValue[key]
                                                          }
                                                          if (key.includes("_") && !key.includes("dt")) {
                                                             return <tr>
                                                                <td>{key}</td>
-                                                               <td>{log.log_new_values ? newValue[key] : ""}</td>
-                                                               <td style={{ color: highlight ? "red" : null }}>{log.log_old_values ? oldValue[key] : ""}</td>
+                                                               <td>{oldValue ? oldValue[key] : ""}</td>
+                                                               <td style={{ color: highlight ? "red" : null }}>{newValue ? newValue[key] : ""}</td>
                                                             </tr>
                                                          }
                                                       })}
