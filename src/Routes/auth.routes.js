@@ -33,6 +33,7 @@ import App from "../App";
 import CadastrarDemanda from "../Pages/Demandas/Cadastrar";
 import ListarDemandas from "../Pages/Demandas/Listar";
 import CadastrarTipoMentores from "../Pages/Times/TipoMentores";
+import Log from "../Pages/Log";
 
 
 export default function AuthRoutes() {
@@ -74,6 +75,11 @@ export default function AuthRoutes() {
             <Route path="/tipo-mentores/:tea_cod" component={CadastrarTipoMentores} />
             <Route exact path="/" component={App} />
             <Route path="/cadastrar" component={Cadastros} />
+
+            {/* rotas de log */}
+            <Route path="/log" component={Log}></Route>
+
+            {/*Rota de 404, deve ficar por último sempre */}
             <Route path="*" component={Error404} />
          </Switch>
       </Router>
