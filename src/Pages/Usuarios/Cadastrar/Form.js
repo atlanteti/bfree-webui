@@ -65,6 +65,19 @@ export class UserFormBuilder extends EditCreateForm {
                      </Row>
                      <Row>
                         <Col>
+                           <TextField
+                              controlId="usr_email"
+                              errorMessage={this.state.usr_email}
+                              Label="Email:"
+                              required
+                              maxLength="144"
+                              type="email"
+                              defaultValue={this.state.primaryData?.usr_email}
+                              onChange={this.handleChange} />
+                        </Col>
+                     </Row>
+                     <Row>
+                        <Col>
                            <PhoneField
                               required
                               controlId="usr_phone"
