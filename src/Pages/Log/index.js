@@ -2,30 +2,53 @@ import { Component } from "react"
 import { Accordion, Card, Col, Container, ListGroup, ListGroupItem, Row, Table } from "react-bootstrap";
 import { CustomMenu } from "../../Componentes/CustomMenu";
 import { request } from "../../Services/api";
-import { CustomMenuCol, Title } from "../../styles/CommonStyles";
+import { CustomMenuCol, Title, PaginationRow, MainContainer, MainRow } from "../../styles/CommonStyles";
 import { displayDate } from '../../Componentes/DateField'
 import { Helmet } from "react-helmet";
+import CustomPagination from "../../Componentes/CustomPagination";
 class Log extends Component {
    constructor(props) {
       super(props);
       this.state = {
+         page: 1,
          logs: false
       }
+
+      this.fetchAndSetData = this.fetchAndSetData.bind(this)
    }
-   componentDidMount() {
-      const data = request({
+
+   async fetchAndSetData ({ page = '1' }) {
+      const data = await request({
          method: "get",
          endpoint: "logs/listar",
-      }).then(data => { this.setState({ logs: data.data }) })
+         params: { page: page }
+      }).then(data => {
+          this.setState({ 
+             logs: data.data,
+             page: data.meta.pagination 
+         }) 
+      })
    }
+
+   componentDidMount() {
+      this.fetchAndSetData({page: 1})
+   }
+
    render() {
-      return (<>
-         <Container>
-            <Helmet title="Logs" />
-            <Title style={{ marginBottom: 48 }}>Logs</Title>
-            <Row>
+      return (
+         <MainContainer>
+            <MainRow>
                <CustomMenuCol lg={2}><CustomMenu /></CustomMenuCol>
-               <Col offset={3}>
+               <Col style={{ marginTop: '1rem'}}>
+                  <Title style={{ marginBottom: 18 }}>Logs</Title>
+                  <Helmet title="Logs" />
+               </Col>
+               <Col 
+                  sm={{ offset: 2, span: 9 }}// Temporary until styled components
+                  md={{ offset: 2, span: 9 }}
+                  lg={{ offset: 2, span: 9 }}
+                  style={{ marginTop: 50 }}
+               >
                   {this.state.logs ?
                      <>{this.state.logs.map(log => {
                         let logKeys = {}
@@ -75,7 +98,7 @@ class Log extends Component {
                                                          if (newValue && oldValue) {
                                                             highlight = newValue[key] !== oldValue[key]
                                                          }
-                                                         if (key.includes("_") && !key.includes("dt")) {
+                                                         if (!key.includes("Data")) {
                                                             return <tr>
                                                                <td>{key}</td>
                                                                <td>{oldValue ? oldValue[key] : ""}</td>
@@ -94,10 +117,15 @@ class Log extends Component {
                         </Card></>
                      })}</> : null
                   }
-               </Col>
-            </Row>
-         </Container>
-      </>);
+                  <PaginationRow>
+                     <CustomPagination
+                        fetchAndSetData={this.fetchAndSetData}
+                        page={this.state.page} />
+                  </PaginationRow>
+               </Col>               
+            </MainRow>
+         </MainContainer>
+      );
    }
 }
 
