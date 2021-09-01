@@ -48,11 +48,14 @@ export const request = async ({
       }
       return result.data
    } catch (error) {
-      if (error.response.data.meta.status === 203) {
-         window.Eduzz.Accounts.logout({ env: "staging", redirectTo: window.location.origin })
-         return
+      try {
+         if (error.response.data.meta.status === 203) {
+            window.Eduzz.Accounts.logout({ env: "staging", redirectTo: window.location.origin })
+            return
+         }
+      } catch {
+         throw new Error("Tratamento de página vazia não feito")
       }
-      throw new Error("Tratamento de página vazia não feito")
    }
 
 
