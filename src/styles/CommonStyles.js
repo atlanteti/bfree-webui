@@ -96,7 +96,8 @@ export const LittleBtn = styled.button`
       border-color: #d39e00
    }
 `
-
+export const BottomMargin = styled.div`
+   margin-bottom: 2rem`
 export const Table = styled.table`
    flex: 1;
    width: 100%;
