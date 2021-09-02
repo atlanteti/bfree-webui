@@ -103,7 +103,7 @@ class Log extends Component {
                                        onChange={this.onChange}></SelectField></Col>
                                  </Row>
                                  <Row>
-                                    <Col><Button type="submit" variant="warning">Cadê</Button></Col>
+                                    <Col><Button type="submit" variant="warning">Buscar</Button></Col>
                                  </Row>
                               </Form>
                            </SearchBarBorder>
