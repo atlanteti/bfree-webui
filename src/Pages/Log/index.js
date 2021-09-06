@@ -7,12 +7,17 @@ import { displayDate } from '../../Componentes/DateField'
 import { Helmet } from "react-helmet";
 import CustomPagination from "../../Componentes/CustomPagination";
 import { SelectField, TextField } from "../../Componentes/FormFields";
+import moment from "moment";
+import DatePicker from "react-datepicker";
+
 class Log extends Component {
    constructor(props) {
       super(props);
       this.state = {
          page: 1,
          logs: false,
+         initialDate: null,
+         finalDate: null
          // userId,  initialDate, finalDate, logAction
       }
       this.filter = {
@@ -21,6 +26,7 @@ class Log extends Component {
          finalDate: null,
          logAction: null
       }
+      this.changeDate = this.changeDate.bind(this)
       this.onChange = this.onChange.bind(this)
       this.fetchAndSetData = this.fetchAndSetData.bind(this)
    }
@@ -67,6 +73,15 @@ class Log extends Component {
          [data.target.id]: data.target.value,
       }
    }
+   changeDate(date, id) {
+      this.filter = {
+         ...this.filter,
+         [id]: moment(date).format('yyyy-MM-DD')
+      }
+      this.setState({
+         [id]: date
+      })
+   }
    //TODO: 
    //1. Extract css-type styles to styled-components
    //2. Extract components and modularize
@@ -88,9 +103,43 @@ class Log extends Component {
                            <SearchBarBorder>
                               <Form onSubmit={this.onSubmit.bind(this)}>
                                  <Row>
-                                    <Col xs={12} sm={3}><TextField Label="Nome do Usuário" controlId="userName" onChange={this.onChange} maxLength="200" /></Col>
-                                    <Col xs={12} sm={3}><TextField Label="Data Inicial" controlId="initialDate" type="date" onChange={this.onChange} /></Col>
-                                    <Col xs={12} sm={3}><TextField Label="Data Final" controlId="finalDate" type="date" onChange={this.onChange} /></Col>
+                                    <Col xs={12} sm={3}>
+                                       <TextField
+                                          Label="Nome do Usuário"
+                                          controlId="userName"
+                                          onChange={this.onChange}
+                                          maxLength="200"
+                                       />
+                                    </Col>
+                                    <Col xs={12} sm={3}>
+                                       <DatePicker
+                                          placeholderText="dd/mm/aaaa"
+                                          dateFormat="dd/MM/yyyy"
+                                          isClearable
+                                          selected={this.state.initialDate}
+                                          onChange={(dateSelect) => this.changeDate(dateSelect, "initialDate")}
+                                          customInput={
+                                             <TextField
+                                                Label="Data Inicial"
+                                                type="text"
+                                             />
+                                          }
+                                       />
+                                    </Col>
+                                    <Col xs={12} sm={3}>
+                                       <DatePicker
+                                          placeholderText="dd/mm/aaaa"
+                                          dateFormat="dd/MM/yyyy"
+                                          selected={this.state.finalDate}
+                                          onChange={(dateSelect) => this.changeDate(dateSelect, "finalDate")}
+                                          customInput={
+                                             <TextField
+                                                Label="Data Final"
+                                                type="text"
+                                             />
+                                          }
+                                       />
+                                    </Col>
                                     <Col xs={12} sm={3}><SelectField
                                        Label="Ações"
                                        controlId="logAction"
