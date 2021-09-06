@@ -1,5 +1,5 @@
 import { Component } from "react"
-import { Accordion, Button, Card, Col, Container, Form, ListGroup, ListGroupItem, Row, Table } from "react-bootstrap";
+import { Accordion, Button, Card, Col, Container, Form, Row, Table } from "react-bootstrap";
 import { CustomMenu } from "../../Componentes/CustomMenu";
 import { request } from "../../Services/api";
 import { CustomMenuCol, Title, PaginationRow, MainContainer, MainRow, SearchBarBorder, BottomMargin } from "../../styles/CommonStyles";
@@ -9,6 +9,7 @@ import CustomPagination from "../../Componentes/CustomPagination";
 import { SelectField, TextField } from "../../Componentes/FormFields";
 import moment from "moment";
 import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 class Log extends Component {
    constructor(props) {
@@ -80,7 +81,7 @@ class Log extends Component {
    changeDate(date, id) {
       this.filter = {
          ...this.filter,
-         [id]: moment(date).format('yyyy-MM-DD')
+         [id]: date ? moment(date).format('yyyy-MM-DD') : null
       }
       this.setState({
          [id]: date
@@ -119,7 +120,6 @@ class Log extends Component {
                                        <DatePicker
                                           placeholderText="dd/mm/aaaa"
                                           dateFormat="dd/MM/yyyy"
-                                          isClearable
                                           selected={this.state.initialDate}
                                           onChange={(dateSelect) => this.changeDate(dateSelect, "initialDate")}
                                           customInput={
