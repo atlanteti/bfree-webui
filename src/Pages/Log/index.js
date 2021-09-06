@@ -19,7 +19,7 @@ class Log extends Component {
          userName: null,
          initialDate: null,
          finalDate: null,
-         logAction: null
+         type: null
       }
       this.onChange = this.onChange.bind(this)
       this.fetchAndSetData = this.fetchAndSetData.bind(this)
@@ -35,7 +35,7 @@ class Log extends Component {
             userName: this.filter.userName,
             initialDate: this.filter.initialDate,
             finalDate: this.filter.finalDate,
-            logAction: this.filter.logAction
+            type: this.filter.type
          }
       }).then(data => {
          this.setState({
@@ -47,6 +47,10 @@ class Log extends Component {
 
    componentDidMount() {
       this.fetchAndSetData({ page: 1 })
+      const data = request({
+         method: "get",
+         endpoint: "logs/listar-tipo"
+      }).then(data => { this.setState({ dataCollection: data.data }) })
    }
    onSubmit(e) {
       e.preventDefault()
@@ -57,7 +61,7 @@ class Log extends Component {
                userName: this.filter.userName,
                initialDate: this.filter.initialDate,
                finalDate: this.filter.finalDate,
-               logAction: this.filter.logAction
+               type: this.filter.type
             }
          })
    }
@@ -92,14 +96,9 @@ class Log extends Component {
                                     <Col xs={12} sm={3}><TextField Label="Data Inicial" controlId="initialDate" type="date" onChange={this.onChange} /></Col>
                                     <Col xs={12} sm={3}><TextField Label="Data Final" controlId="finalDate" type="date" onChange={this.onChange} /></Col>
                                     <Col xs={12} sm={3}><SelectField
-                                       Label="Ações"
-                                       controlId="logAction"
-                                       dataCollection=
-                                       {{
-                                          "SVE": "Adição",
-                                          "UPD": "Alteração",
-                                          "DEL": "Exclusão",
-                                       }}
+                                       Label="Tipo de Log"
+                                       controlId="type"
+                                       dataCollection={this.state.dataCollection}
                                        onChange={this.onChange}></SelectField></Col>
                                  </Row>
                                  <Row>
