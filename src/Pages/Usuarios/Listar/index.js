@@ -128,7 +128,7 @@ export default class ListarUsuario extends ListarPagina {
          <TextCell data-title="Telefone">{usuario.usr_phone}</TextCell>
          <TextCell data-title="Status">{usuario.statusUser.sus_name ? usuario.statusUser.sus_name : <p style={{ color: "transparent" }}>.</p>}</TextCell>
          <ActionCell data-title="Ações">
-            <Row noGutters>
+            <Row noGutters className="positionButtonsFixed">
                <Button variant="warning" href={`/editar-usuario/${usuario.usr_cod}/alterar`}>Editar</Button>
                <Button variant="dark" className="mr-1"
                   onClick={() => {
