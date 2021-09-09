@@ -1,7 +1,6 @@
 import axios from 'axios'
 import { Col, Row } from 'react-bootstrap'
 import { Cookies } from 'react-cookie'
-import { Redirect } from 'react-router-dom'
 import { baseEndpoint } from './config'
 
 export const request = async ({
@@ -45,6 +44,10 @@ export const request = async ({
             </Row>
          }
          result.data.meta.message = <Alert />
+      }
+      if(result.data.meta.status === 201){
+         window.Eduzz.Accounts.logout({ env: "staging", redirectTo: window.location.origin })
+         return
       }
       return result.data
    } catch (error) {
