@@ -35,6 +35,7 @@ import ListarDemandas from "../Pages/Demandas/Listar";
 import CadastrarTipoMentores from "../Pages/Times/TipoMentores";
 import Log from "../Pages/Log";
 
+import ListarRelatorio from "../Pages/Relatorio/Listar";
 
 export default function AuthRoutes() {
    return (
@@ -79,6 +80,8 @@ export default function AuthRoutes() {
             {/* rotas de log */}
             <Route path="/log" component={Log}></Route>
 
+            {/* rotas de relatorio */}
+            <Route path="/relatorios" component={ListarRelatorio} />
             {/*Rota de 404, deve ficar por último sempre */}
             <Route path="*" component={Error404} />
          </Switch>

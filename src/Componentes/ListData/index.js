@@ -24,14 +24,19 @@ export default class ListarPagina extends Component {
          responseAlertShow: null,
          noDataAlertShow: null,
          redirect: false,
-         noData: false
+         noData: false,
+         showTotal: false,
+         usuarios: [
+            {'vendedor': "Alan", 'etapa1': 120, 'etapa2': 11, 'etapa3' : 22},
+            {'vendedor': "João", 'etapa1': 110, 'etapa2': 10, 'etapa3' : 15}
+         ],
+         total: 0
       }
       this.requestForm = {
          extraParams: {},
          sort: null,
          isDesc: null,
       }
-
       this.openModal = this.openModal.bind(this)
       this.closeModal = this.closeModal.bind(this)
       this.fetchAndSetData = this.fetchAndSetData.bind(this)
@@ -107,6 +112,10 @@ export default class ListarPagina extends Component {
    }
 
    createRecord(record) {
+      throw new Error('Método abstrato deve ser implementado')
+   }
+
+   createTotal(record) {
       throw new Error('Método abstrato deve ser implementado')
    }
 
@@ -194,11 +203,17 @@ export default class ListarPagina extends Component {
                                           userName={this.state.userName} />
                                     </TableHeader>
                                     <TableData>
-                                       {this.state.responseData.map((companhia) => {
+                                       {/* {this.state.responseData.map((companhia) => {
                                           return (
                                              this.createRecord(companhia)
                                           )
+                                       })} */}
+                                       {this.state.usuarios.map((usuario) => {
+                                          return (
+                                             this.createRecord(usuario)
+                                          )
                                        })}
+                                       {this.state.showTotal && this.createTotal()}
                                     </TableData>
                                  </>
                               )
