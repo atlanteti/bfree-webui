@@ -8,6 +8,7 @@ import { IoBusinessOutline, IoBookmarkOutline, IoAlbumsOutline } from 'react-ico
 import { RiTeamLine, RiMedalLine } from 'react-icons/ri'
 import { FaTasks, FaRegFileAlt } from 'react-icons/fa'
 import { BsGraphUp } from 'react-icons/bs'
+import { AiOutlineCloudUpload } from 'react-icons/ai'
 import 'react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css'
 import './styles.css'
 import { CustomMenuCol } from '../../styles/CommonStyles'
@@ -89,6 +90,11 @@ export const CustomMenu = () => {
                      title: 'Logs',
                      itemId: '/log',
                      elemBefore: () => <FaRegFileAlt size={23} color="#ffb509" />
+                  },
+                  {
+                     title: 'Upload File',
+                     itemId: '/upload',
+                     elemBefore: () => <AiOutlineCloudUpload size={23} color="#ffb509" />
                   },
                   // {
                   //    title: 'Conquistas',

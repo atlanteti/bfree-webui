@@ -9,7 +9,8 @@ export const request = async ({
    headers,
    endpoint,
    data,
-   params
+   params,
+   contentType
 }) => {
 
    const baseUrl = baseEndpoint
@@ -20,9 +21,9 @@ export const request = async ({
       baseURL: `http://${baseUrl}/${endpoint}`,
       data: data || null,
       params: params || null,
-      timeout: 7000,
+      timeout: 27000,
       headers: {
-         'Content-Type': 'application/json',
+         'Content-Type': contentType || 'application/json',
          'Access-Control-Allow-Origin': '*',
          'Authorization': "Bearer " + token,
          ...headers
@@ -57,6 +58,4 @@ export const request = async ({
          throw new Error("Tratamento de página vazia não feito")
       }
    }
-
-
 }
