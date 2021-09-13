@@ -27,10 +27,15 @@ export default class ListarPagina extends Component {
          noData: false,
          showTotal: false,
          usuarios: [
-            {'vendedor': "Alan", 'etapa1': 120, 'etapa2': 11, 'etapa3' : 22},
-            {'vendedor': "João", 'etapa1': 110, 'etapa2': 10, 'etapa3' : 15}
+            {'operador': "Alan", 'etapa1': 120, 'etapa2': 11, 'etapa3' : 22},
+            {'operador': "João", 'etapa1': 110, 'etapa2': 10, 'etapa3' : 15}
          ],
          total: 0
+         // total: {
+         //    'etapa1': "",
+         //    'etapa2': "",
+         //    'etapa3': ""
+         // }
       }
       this.requestForm = {
          extraParams: {},
@@ -209,6 +214,21 @@ export default class ListarPagina extends Component {
                                           )
                                        })} */}
                                        {this.state.usuarios.map((usuario) => {
+                                          this.setState({ total: total + 1})
+                                          if(this.state.showTotal){
+                                             const operacao = Object.keys(usuario)
+                                             operacao.filter((item) => item !== "operador").map(result => {
+                                                console.log(result)
+                                             })
+                                                      // this.setState(prevState  => ({
+                                                      //    total : {
+                                                      //       ...prevState.total,
+                                                      //       etapa1: usuario[item]
+                                                      //    }
+                                                      // }))
+                                                // }
+                                             // })
+                                          }
                                           return (
                                              this.createRecord(usuario)
                                           )

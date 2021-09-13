@@ -52,7 +52,7 @@ export default class ListarRelatorio extends ListarPagina {
       return <TableRow {...props}>
          <TextHeaderCell scope="col">
             <SortColumn
-               label="Pré-vendedor"
+               label="Operador"
                attribute="xxx"
                sortCallback={props.sortCallback}
                receiver={props.subscribe}
@@ -91,7 +91,7 @@ export default class ListarRelatorio extends ListarPagina {
    createRecord(user) {
       return (
          <TableRow key={user}>
-            <TextCell data-title="Pré-vendedor">{user.vendedor}</TextCell>
+            <TextCell data-title="Pré-vendedor">{user.operador}</TextCell>
             <NumberCell data-title="Etapa 1">{user.etapa1}</NumberCell>
             <NumberCell data-title="Etapa 2">{user.etapa2}</NumberCell>
             <NumberCell data-title="Etapa 3">{user.etapa3}</NumberCell>
@@ -103,7 +103,7 @@ export default class ListarRelatorio extends ListarPagina {
       return(
          <TableRow>
             <TextCell fontTotal data-title="Total">TOTAL</TextCell>
-            <NumberCell fontTotal data-title="Etapa 1">{user.etapa1 + user.etapa2}</NumberCell>
+            <NumberCell fontTotal data-title="Etapa 1">19</NumberCell>
             <NumberCell fontTotal data-title="Etapa 2">10</NumberCell>
             <NumberCell fontTotal data-title="Etapa 3">11</NumberCell>
          </TableRow>
