@@ -12,6 +12,7 @@ import PropTypes from "prop-types"
 import ExclusionModal from '../ExclusionModal'
 import { Redirect } from "react-router-dom"
 import CircularProgress from '@material-ui/core/CircularProgress'
+import Restricted from '../../Context/AccessPermission'
 
 export default class ListarPagina extends Component {
    constructor(props) {
@@ -232,7 +233,7 @@ export function PageHeaderCustomComponent(props) {
             <Title>{props.Title}</Title>
          </Col>
          <RightAlignText>
-            <Col><Button variant="dark" href={props.href}>Cadastrar</Button></Col>
+            <Col><Restricted><Button variant="dark" href={props.href}>Cadastrar</Button></Restricted></Col>
          </RightAlignText>
       </RowTopMargin>
    </HeaderContainer>
