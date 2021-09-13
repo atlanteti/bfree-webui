@@ -2,16 +2,18 @@
 import { Navigation } from 'react-minimal-side-navigation'
 import { useHistory, useLocation } from 'react-router-dom'
 import Icon from 'awesome-react-icons'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { AiOutlineUser } from 'react-icons/ai'
 import { IoBusinessOutline, IoBookmarkOutline, IoAlbumsOutline } from 'react-icons/io5'
 import { RiTeamLine, RiMedalLine } from 'react-icons/ri'
-import { FaUserGraduate, FaTasks } from 'react-icons/fa'
+import { FaTasks, FaRegFileAlt } from 'react-icons/fa'
 import { BsGraphUp } from 'react-icons/bs'
+import { AiOutlineCloudUpload } from 'react-icons/ai'
 import 'react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css'
 import './styles.css'
 import { CustomMenuCol } from '../../styles/CommonStyles'
 import { Cookies } from "react-cookie";
+import ContextLogin from '../../Context/ContextLogin'
 
 export const CustomMenu = () => {
    const cookie = new Cookies();
@@ -19,7 +21,7 @@ export const CustomMenu = () => {
    const history = useHistory()
    const location = useLocation()
    const [isSidebarOpen, setIsSidebarOpen] = useState(false)
-
+   const { admin } = useContext(ContextLogin)
    return (
       <React.Fragment>
          {/* Sidebar Overlay */}
@@ -49,53 +51,7 @@ export const CustomMenu = () => {
                onSelect={({ itemId }) => {
                   history.push(itemId)
                }}
-               items={[
-                  {
-                     title: 'Empresas',
-                     itemId: '/companhia',
-                     elemBefore: () => <IoBusinessOutline size={23} color="#ffb509" />
-                  },
-                  {
-                     title: 'Jornadas',
-                     itemId: '/jornadas',
-                     elemBefore: () => <BsGraphUp size={23} color="#ffb509" />
-                  },
-                  {
-                     title: 'Tipos de Demanda',
-                     itemId: '/tipodemanda',
-                     elemBefore: () => <IoAlbumsOutline size={23} color="#ffb509" />
-                  },
-                  {
-                     title: 'Badges',
-                     itemId: '/badges',
-                     elemBefore: () => <RiMedalLine size={23} color="#ffb509" />
-                  },
-                  {
-                     title: 'Times',
-                     itemId: '/times',
-                     elemBefore: () => <RiTeamLine size={23} color="#ffb509" />
-                  },
-                  {
-                     title: 'Usuários',
-                     itemId: '/usuarios',
-                     elemBefore: () => <AiOutlineUser size={23} color="#ffb509" />
-                  },
-                  {
-                     title: 'Demandas',
-                     itemId: '/demandas',
-                     elemBefore: () => <FaTasks size={23} color="#ffb509" />
-                  },
-                  // {
-                  //    title: 'Conquistas',
-                  //    itemId: '#2',
-                  //    elemBefore: () => <IoBookmarkOutline size={23} color="#ffb509" />
-                  // },
-                  // {
-                  //    title: 'Mentores',
-                  //    itemId: '#3',
-                  //    elemBefore: () => <FaUserGraduate size={23} color="#ffb509" />
-                  // }
-               ]}
+               items={newFunction(admin)}
             />
 
             <div className="absolute bottom-0 w-full my-8">
@@ -109,6 +65,7 @@ export const CustomMenu = () => {
                   ]}
                   onSelect={() => {
                      cookie.remove('auth', { path: "/" })
+                     cookie.remove('hasJourney', { path: "/" })
                      window.Eduzz.Accounts.logout({ env: "staging", redirectTo: window.location.origin })
                   }}
                />
@@ -117,3 +74,60 @@ export const CustomMenu = () => {
       </React.Fragment>
    )
 }
+function newFunction(admin) {
+   const complete = [
+      {
+         title: 'Empresas',
+         itemId: '/companhia',
+         elemBefore: () => <IoBusinessOutline size={23} color="#ffb509" />
+      },
+      {
+         title: 'Jornadas',
+         itemId: '/jornadas',
+         elemBefore: () => <BsGraphUp size={23} color="#ffb509" />
+      },
+      {
+         title: 'Tipos de Demanda',
+         itemId: '/tipodemanda',
+         elemBefore: () => <IoAlbumsOutline size={23} color="#ffb509" />
+      },
+      {
+         title: 'Badges',
+         itemId: '/badges',
+         elemBefore: () => <RiMedalLine size={23} color="#ffb509" />
+      },
+      {
+         title: 'Times',
+         itemId: '/times',
+         elemBefore: () => <RiTeamLine size={23} color="#ffb509" />
+      },
+      {
+         title: 'Usuários',
+         itemId: '/usuarios',
+         elemBefore: () => <AiOutlineUser size={23} color="#ffb509" />
+      },
+      {
+         title: 'Demandas',
+         itemId: '/demandas',
+         elemBefore: () => <FaTasks size={23} color="#ffb509" />
+      },
+      {
+         title: 'Logs',
+         itemId: '/log',
+         elemBefore: () => <FaRegFileAlt size={23} color="#ffb509" />
+      },
+      {
+         title: 'Upload File',
+         itemId: '/upload',
+         elemBefore: () => <AiOutlineCloudUpload size={23} color="#ffb509" />
+      },
+   ]
+   let filteredForUser = complete.filter(conditionalForPermissionAccess)
+   if (!admin) { return filteredForUser }
+   return complete
+
+   function conditionalForPermissionAccess(line) {
+      { return line.title == "Demandas" }
+   }
+}
+

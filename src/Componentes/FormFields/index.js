@@ -75,19 +75,33 @@ export function SelectField(props) {
    return <Form.Group controlId={props.controlId}>
       <Form.Label >{props.Label}</Form.Label>
       <Form.Control
+         as="select"
+         type={props.type}
          style={SelectValidateStyle}
          defaultValue={props.defaultValue}
-         required
+         required={props.required}
          onChange={props.onChange}
       >
-         <option value={null}></option>
-         {props.dataCollection?.map(collection => {
-            return (<option key={collection.cpn_cod} value={collection.cpn_cod}>{collection.cpn_name}</option>)
-         })}
+         {props.hasNull ? <option value={null}></option> : null}
+         {props.dataCollection ?
+            Object.keys(props.dataCollection).map(key => {
+               return (<option key={key} value={key}>{props.dataCollection[key]}</option>)
+            }) : null}
       </Form.Control>
    </Form.Group>
 }
-
+SelectField.defaultProps =
+{
+   hasNull: true
+}
+SelectField.propTypes =
+{
+   Label: PropTypes.string.isRequired,
+   onChange: PropTypes.func.isRequired,
+   controlId: PropTypes.string.isRequired,
+   dataCollection: PropTypes.object.isRequired,
+   hasNull: PropTypes.bool.isRequired
+}
 export function BooleanField(props) {
    return <Form.Group controlId={props.controlId}>
       <Form.Label >{props.Label} {props.required ? <RequiredField>*</RequiredField> : null}</Form.Label>

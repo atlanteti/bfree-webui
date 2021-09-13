@@ -65,14 +65,14 @@ export const MainContainer = styled.div`
    }
 
    @media (min-width: 767px){
-      .row {
+      .positionButtonsFixed {
          justify-content: center;
          min-width: max-content;
       }
    }
 
    @media (max-width: 766px){
-      .row{
+      .positionButtonsFixed{
          justify-content: flex-end;
       }  
    }
@@ -96,7 +96,8 @@ export const LittleBtn = styled.button`
       border-color: #d39e00
    }
 `
-
+export const BottomMargin = styled.div`
+   margin-bottom: 2rem`
 export const Table = styled.table`
    flex: 1;
    width: 100%;

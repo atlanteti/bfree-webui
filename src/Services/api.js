@@ -1,7 +1,6 @@
 import axios from 'axios'
 import { Col, Row } from 'react-bootstrap'
 import { Cookies } from 'react-cookie'
-import { Redirect } from 'react-router-dom'
 import { baseEndpoint } from './config'
 
 export const request = async ({
@@ -9,7 +8,8 @@ export const request = async ({
    headers,
    endpoint,
    data,
-   params
+   params,
+   contentType
 }) => {
 
    const baseUrl = baseEndpoint
@@ -20,9 +20,9 @@ export const request = async ({
       baseURL: `http://${baseUrl}/${endpoint}`,
       data: data || null,
       params: params || null,
-      timeout: 7000,
+      timeout: 27000,
       headers: {
-         'Content-Type': 'application/json',
+         'Content-Type': contentType || 'application/json',
          'Access-Control-Allow-Origin': '*',
          'Authorization': "Bearer " + token,
          ...headers
@@ -46,14 +46,19 @@ export const request = async ({
          }
          result.data.meta.message = <Alert />
       }
-      return result.data
-   } catch (error) {
-      if (error.response.data.meta.status === 203) {
+      if(result.data.meta.status === 201){
          window.Eduzz.Accounts.logout({ env: "staging", redirectTo: window.location.origin })
          return
       }
-      throw new Error("Tratamento de página vazia não feito")
+      return result.data
+   } catch (error) {
+      try {
+         if (error.response.data.meta.status === 203) {
+            window.Eduzz.Accounts.logout({ env: "staging", redirectTo: window.location.origin })
+            return
+         }
+      } catch {
+         throw new Error("Tratamento de página vazia não feito")
+      }
    }
-
-
 }
