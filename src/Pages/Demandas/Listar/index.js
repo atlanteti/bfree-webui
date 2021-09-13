@@ -7,8 +7,10 @@ import {
    TableRow, TextCell, TextHeaderCell
 } from '../../../styles/CommonStyles'
 import SortColumn from '../../../Componentes/SortColumn'
-import { React } from 'react'
+import { React, useContext } from 'react'
 import { DemandSearchBar } from './DemandSearchBar'
+import Restricted from '../../../Context/AccessPermission'
+import ContextLogin from '../../../Context/ContextLogin'
 
 export default class ListarDemandas extends ListarPagina {
    async deleteRecord(id) {
@@ -20,6 +22,7 @@ export default class ListarDemandas extends ListarPagina {
    }
 
    async fetchData(page, sort, isDesc, extraParams) {
+
       const data = await request({
          method: 'get',
          endpoint: 'demands/listar',
@@ -110,14 +113,16 @@ export default class ListarDemandas extends ListarPagina {
          <TextCell data-title="Tipo da Demanda" className="text">{demanda.typeDemand.tdm_name}</TextCell>
          <ActionCell data-title="Ações">
             <Button variant="warning" href={`/editar-demanda/${demanda.dem_cod}/alterar`}>Editar</Button>
-            <Button variant="dark"
-               onClick={() => {
-                  this.setState({
-                     deletionId: demanda.dem_cod,
-                     modalIdentifier: "a demanda"
-                  })
-                  this.openModal()
-               }}>Excluir</Button>
+            <Restricted>
+               <Button variant="dark"
+                  onClick={() => {
+                     this.setState({
+                        deletionId: demanda.dem_cod,
+                        modalIdentifier: "a demanda"
+                     })
+                     this.openModal()
+                  }}>Excluir</Button>
+            </Restricted>
          </ActionCell>
       </TableRow>
    }

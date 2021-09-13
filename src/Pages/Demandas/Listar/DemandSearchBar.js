@@ -7,6 +7,7 @@ import ListStatusDemands from '../../../Componentes/ListStatusDemands';
 import ListResultDemands from '../../../Componentes/ListResultDemands';
 import ListTypeDemand from '../../../Componentes/ListTypeDemand';
 import ListUsers from '../../../Componentes/ListUsers';
+import Restricted from '../../../Context/AccessPermission';
 
 
 export class DemandSearchBar extends SearchBar {
@@ -15,23 +16,25 @@ export class DemandSearchBar extends SearchBar {
          <Row xs={1} className={'mb-2'} noGutters>
             <Form onSubmit={this.handleSubmit}>
                <Row>
-                  <Col xs={12} sm={3}>
-                     <ListUsers
-                        onChange={this.onChange}
-                        controlId="dem_usr_cod"
-                     />
-                  </Col>
-                  <Col xs={12} sm={3}>
+                  <Restricted>
+                     <Col >
+                        <ListUsers
+                           onChange={this.onChange}
+                           controlId="dem_usr_cod"
+                        />
+                     </Col>
+                  </Restricted>
+                  <Col >
                      <ListStatusDemands
                         onChange={this.onChange}
                         controlId="dem_sdm_cod" />
                   </Col>
-                  <Col xs={12} sm={3}>
+                  <Col >
                      <ListResultDemands
                         onChange={this.onChange}
                         controlId="dem_rdm_cod" />
                   </Col>
-                  <Col xs={12} sm={3}>
+                  <Col >
                      <ListTypeDemand
                         onChange={this.onChange}
                         controlId="dem_tdm_cod" />

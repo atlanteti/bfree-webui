@@ -9,6 +9,7 @@ import ListStatusDemands from '../../../Componentes/ListStatusDemands'
 import ListResultDemands from '../../../Componentes/ListResultDemands'
 import ListUsers from '../../../Componentes/ListUsers'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import ContextLogin from '../../../Context/ContextLogin'
 
 export default function DemandForm(props) {
    return <DemandFormBuilder insertDataEndpoint="demands/cadastrar"
@@ -32,6 +33,7 @@ export class DemandFormBuilder extends EditCreateForm {
                      <Row>
                         <Col>
                            <NumberField
+                              disabled={!this.context.admin}
                               controlId="dem_cli_cod"
                               errorMessage={this.state.dem_cli_cod}
                               Label="ID Eduzz:"
@@ -48,7 +50,8 @@ export class DemandFormBuilder extends EditCreateForm {
                               maxLength="10"
                               defaultValue={this.state.primaryData?.dem_externalid}
                               type="text"
-                              onChange={this.handleChange} />
+                              disabled={!this.context.admin}
+                              onChange={this.context.admin ? this.handleChange : null} />
                         </Col>
                      </Row>
                      <Row>
@@ -61,7 +64,8 @@ export class DemandFormBuilder extends EditCreateForm {
                               type="text"
                               maxLength="45"
                               defaultValue={this.state.primaryData?.dem_title}
-                              onChange={this.handleChange} />
+                              disabled={!this.context.admin}
+                              onChange={this.context.admin ? this.handleChange : null} />
                         </Col>
                      </Row>
                      <Row>
@@ -82,10 +86,11 @@ export class DemandFormBuilder extends EditCreateForm {
                            <ListUsers
                               defaultValue={this.props.primaryId}
                               errorMessage={this.state.dem_usr_cod}
-                              onChange={this.handleChange}
                               required
                               controlId="dem_usr_cod"
                               defaultUser={this.state.primaryData.dem_usr_cod}
+                              disabled={!this.context.admin}
+                              onChange={this.context.admin ? this.handleChange : null}
                               required />
                         </Col>
                      </Row>
@@ -95,7 +100,6 @@ export class DemandFormBuilder extends EditCreateForm {
                               defaultValue={this.props.primaryId}
                               errorMessage={this.state.dem_sdm_cod}
                               onChange={this.handleChange}
-                              required
                               controlId="dem_sdm_cod"
                               defaultStatusDemand={this.state.primaryData.dem_sdm_cod}
                               required />
@@ -106,10 +110,10 @@ export class DemandFormBuilder extends EditCreateForm {
                            <ListResultDemands
                               defaultValue={this.props.primaryId}
                               errorMessage={this.state.dem_rdm_cod}
-                              onChange={this.handleChange}
-                              required
                               controlId="dem_rdm_cod"
                               defaultResultDemand={this.state.primaryData.dem_rdm_cod}
+                              disabled={!this.context.admin}
+                              onChange={this.context.admin ? this.handleChange : null}
                               required />
                         </Col>
                      </Row>
@@ -118,9 +122,10 @@ export class DemandFormBuilder extends EditCreateForm {
                            <ListTypeDemand
                               defaultValue={this.props.primaryId}
                               errorMessage={this.state.dem_tdm_cod}
-                              onChange={this.handleChange}
                               controlId="dem_tdm_cod"
                               defaultTypeDemand={this.state.primaryData.dem_tdm_cod}
+                              disabled={!this.context.admin}
+                              onChange={this.context.admin ? this.handleChange : null}
                               required
                            />
                         </Col>
@@ -153,3 +158,4 @@ export class DemandFormBuilder extends EditCreateForm {
       )
    }
 }
+DemandFormBuilder.contextType = ContextLogin
