@@ -65,8 +65,7 @@ export default class UploadSheet extends Component {
   handleChangeFile = (event) => {
     const uploadFile = new FormData();
     uploadFile.append("file", event.target.files[0]);
-    this.setState({ file: uploadFile });
-    this.setState({ fileName: event.target.files[0].name})
+    this.setState({ file: uploadFile, fileName: event.target.files[0].name });
   };
 
   handleSubmitFile = async (event) => {
