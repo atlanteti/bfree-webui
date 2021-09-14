@@ -125,7 +125,7 @@ export default class ListarUsuario extends ListarPagina {
          <NumberCell data-title="ID Eduzz">{usuario.usr_cli_cod}</NumberCell>
          <TextCell data-title="ID Externo" className="text">{usuario.usr_externalid ? usuario.usr_externalid : <p style={{ color: "transparent" }}>.</p>}</TextCell>
          <TextCell data-title="Nome">{usuario.usr_name}</TextCell>
-         <TextCell data-title="Telefone">{usuario.usr_phone}</TextCell>
+         <TextCell data-title="Telefone">{usuario.usr_phone ? usuario.usr_phone : <p style={{ color: "transparent" }}>.</p>}</TextCell>
          <TextCell data-title="Status">{usuario.statusUser.sus_name ? usuario.statusUser.sus_name : <p style={{ color: "transparent" }}>.</p>}</TextCell>
          <ActionCell data-title="Ações">
             <Row noGutters className="positionButtonsFixed">
