@@ -22,6 +22,7 @@ export default class UploadSheet extends Component {
       failUploadMessage: null,
       responseAlertShow: null,
       redirect: false,
+      fileName: "Escolha a planilha excel para enviar",
       formData: {},
     };
 
@@ -64,7 +65,7 @@ export default class UploadSheet extends Component {
   handleChangeFile = (event) => {
     const uploadFile = new FormData();
     uploadFile.append("file", event.target.files[0]);
-    this.setState({ file: uploadFile });
+    this.setState({ file: uploadFile, fileName: event.target.files[0].name });
   };
 
   handleSubmitFile = async (event) => {
@@ -122,13 +123,19 @@ export default class UploadSheet extends Component {
                             onChange={this.handleChangeFile}
                           />
                           <Form.File.Label data-browse="Selecionar Arquivos">
-                            Escolha a planilha excel para enviar
+                            {this.state.fileName}
                           </Form.File.Label>
-                          <Form.Control.Feedback type="valid">
+                          <Form.Control.Feedback type="valid" style={{ marginTop: 10 }}>
                             Número máximo de linhas: 500
                           </Form.Control.Feedback>
                         </Form.File>
-                        <Button type="submit">Enviar</Button>
+                        <Button 
+                          style={{ marginTop: 10 }} 
+                          type="submit"
+                          variant="warning"
+                        >
+                            Enviar
+                        </Button>
                       </Form>
                     </Container>
                   </Col>
