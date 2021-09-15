@@ -189,6 +189,9 @@ text-align: center`
 
 export const TableData = styled.tbody``
 
+export const ReportTableData = styled(TableData)`
+   &:last-child{font-weight: bold !important;  }
+`
 export const TableCell = styled.td`
    text-align: ${props => props.align};
    vertical-align: baseline;
@@ -198,10 +201,12 @@ export const TableCell = styled.td`
 `
 export const NumberCell = styled(TableCell)`
    text-align: right;
+   font-weight: ${props => props.fontTotal ? 'bold' : '400'}
    `
 
 export const TextCell = styled(TableCell)`
    text-align: left;
+   font-weight: ${props => props.fontTotal ? 'bold' : '400'}
    `
 export const ActionCell = styled(TableCell)`
    text-align: center;

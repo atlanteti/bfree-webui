@@ -10,7 +10,6 @@ import {
 } from '../../styles/CommonStyles'
 import PropTypes from "prop-types"
 import ExclusionModal from '../ExclusionModal'
-import { Redirect } from "react-router-dom"
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Restricted from '../../Context/AccessPermission'
 
@@ -32,7 +31,6 @@ export default class ListarPagina extends Component {
          sort: null,
          isDesc: null,
       }
-
       this.openModal = this.openModal.bind(this)
       this.closeModal = this.closeModal.bind(this)
       this.fetchAndSetData = this.fetchAndSetData.bind(this)
@@ -212,16 +210,20 @@ export default class ListarPagina extends Component {
                         redirectCallback={this.redirectCallback.bind(this)}
                         noDataAlert={true}
                         noData={this.state.noData} />
-                     <PaginationRow>
-                        <CustomPagination
-                           fetchAndSetData={this.fetchAndSetData}
-                           page={this.state.page} />
-                     </PaginationRow>
+                     {this.renderPagination()}
                   </Container>
                </Col>
             </Col>
          </MainRow>
       </MainContainer >
+   }
+
+   renderPagination() {
+      return <PaginationRow>
+         <CustomPagination
+            fetchAndSetData={this.fetchAndSetData}
+            page={this.state.page} />
+      </PaginationRow>
    }
 };
 
