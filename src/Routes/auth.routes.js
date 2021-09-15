@@ -34,6 +34,7 @@ import CadastrarDemanda from "../Pages/Demandas/Cadastrar";
 import ListarDemandas from "../Pages/Demandas/Listar";
 import CadastrarTipoMentores from "../Pages/Times/TipoMentores";
 import Log from "../Pages/Log";
+import UploadSheet from "../Pages/UploadSheet";
 
 import ListarRelatorio from "../Pages/Relatorio/Listar";
 
@@ -77,6 +78,8 @@ export default function AuthRoutes() {
             <Route exact path="/" component={App} />
             <Route path="/cadastrar" component={Cadastros} />
 
+            {/* rotas de upload*/}
+            <Route path="/upload" component={UploadSheet} />
             {/* rotas de log */}
             <Route path="/log" component={Log}></Route>
 
