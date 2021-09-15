@@ -14,26 +14,29 @@ import { React } from 'react'
 // import { JourneySearchBar } from './JourneySearchBar'
 
 export default class ListarRelatorio extends ListarPagina {
-   async deleteRecord(id) {
-      const data = await request({
-         method: 'delete',
-         endpoint: 'journeys/excluir/' + id
-      })
-      return data
+   constructor(props) {
+      super(props)
+      this.state = {
+         ...this.state,
+         headerData: []
+      }
    }
-   
-   async fetchData(page, sort, isDesc, extraParams) {
-      const data = await request({
+
+   async fetchData() {
+      let data = await request({
          method: 'get',
-         endpoint: 'journeys/listar',
-         params: {
-            page: Number(page),
-            sort: sort,
-            isDesc: isDesc,
-            ...extraParams
-         }
+         endpoint: 'demands/report-billing',
+      }).then((data) =>{
+         const bodyData = data.data.splice(1)
+         this.setState({
+            headerData: data.data
+         })
+
+         data.data = bodyData
+         
+         return data
       })
-      this.setState({showTotal: true})
+
       return data
    }
 
@@ -50,63 +53,15 @@ export default class ListarRelatorio extends ListarPagina {
 
    TableHeaderCustom(props) {
       return <TableRow {...props}>
-         <TextHeaderCell scope="col">
-            <SortColumn
-               label="Operador"
-               attribute="xxx"
-               sortCallback={props.sortCallback}
-               receiver={props.subscribe}
-               wipeAll={props.wipeAll} />
-         </TextHeaderCell>
-         <TextHeaderCell scope="col">
-            <SortColumn
-               label="Etapa 1"
-               attribute="xxx"
-               sortCallback={props.sortCallback}
-               receiver={props.subscribe}
-               wipeAll={props.wipeAll} 
-            />
-         </TextHeaderCell>
-         <TextHeaderCell scope="col">
-            <SortColumn
-               label="Etapa 2"
-               attribute="xxx"
-               sortCallback={props.sortCallback}
-               receiver={props.subscribe}
-               wipeAll={props.wipeAll} 
-            />
-         </TextHeaderCell>
-         <TextHeaderCell scope="col">
-            <SortColumn
-               label="Etapa 3"
-               attribute="xxx"
-               sortCallback={props.sortCallback}
-               receiver={props.subscribe}
-               wipeAll={props.wipeAll} 
-            />
-         </TextHeaderCell>
       </TableRow>
    }
 
-   createRecord(user) {
-      return (
-         <TableRow key={user}>
-            <TextCell data-title="Pré-vendedor">{user.operador}</TextCell>
-            <NumberCell data-title="Etapa 1">{user.etapa1}</NumberCell>
-            <NumberCell data-title="Etapa 2">{user.etapa2}</NumberCell>
-            <NumberCell data-title="Etapa 3">{user.etapa3}</NumberCell>
-         </TableRow>
-      ) 
+   renderPagination() {
+      return null
    }
 
-   createTotal(user){
-      return(
-         <TableRow>
-            <TextCell fontTotal data-title="Total">TOTAL</TextCell>
-            <NumberCell fontTotal data-title="Etapa 1">19</NumberCell>
-            <NumberCell fontTotal data-title="Etapa 2">10</NumberCell>
-            <NumberCell fontTotal data-title="Etapa 3">11</NumberCell>
-         </TableRow>
-      )
-   }
+   createRecord(user) {
+      console.log(user)
+      return null
+   }   
 };

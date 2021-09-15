@@ -10,7 +10,6 @@ import {
 } from '../../styles/CommonStyles'
 import PropTypes from "prop-types"
 import ExclusionModal from '../ExclusionModal'
-import { Redirect } from "react-router-dom"
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Restricted from '../../Context/AccessPermission'
 
@@ -25,18 +24,7 @@ export default class ListarPagina extends Component {
          responseAlertShow: null,
          noDataAlertShow: null,
          redirect: false,
-         noData: false,
-         showTotal: false,
-         usuarios: [
-            {'operador': "Alan", 'etapa1': 120, 'etapa2': 11, 'etapa3' : 22},
-            {'operador': "João", 'etapa1': 110, 'etapa2': 10, 'etapa3' : 15}
-         ],
-         total: 0
-         // total: {
-         //    'etapa1': "",
-         //    'etapa2': "",
-         //    'etapa3': ""
-         // }
+         noData: null
       }
       this.requestForm = {
          extraParams: {},
@@ -118,10 +106,6 @@ export default class ListarPagina extends Component {
    }
 
    createRecord(record) {
-      throw new Error('Método abstrato deve ser implementado')
-   }
-
-   createTotal(record) {
       throw new Error('Método abstrato deve ser implementado')
    }
 
@@ -209,32 +193,11 @@ export default class ListarPagina extends Component {
                                           userName={this.state.userName} />
                                     </TableHeader>
                                     <TableData>
-                                       {/* {this.state.responseData.map((companhia) => {
+                                       {this.state.responseData.map((companhia) => {
                                           return (
                                              this.createRecord(companhia)
                                           )
-                                       })} */}
-                                       {this.state.usuarios.map((usuario) => {
-                                          this.setState({ total: total + 1})
-                                          if(this.state.showTotal){
-                                             const operacao = Object.keys(usuario)
-                                             operacao.filter((item) => item !== "operador").map(result => {
-                                                console.log(result)
-                                             })
-                                                      // this.setState(prevState  => ({
-                                                      //    total : {
-                                                      //       ...prevState.total,
-                                                      //       etapa1: usuario[item]
-                                                      //    }
-                                                      // }))
-                                                // }
-                                             // })
-                                          }
-                                          return (
-                                             this.createRecord(usuario)
-                                          )
                                        })}
-                                       {this.state.showTotal && this.createTotal()}
                                     </TableData>
                                  </>
                               )
@@ -247,16 +210,20 @@ export default class ListarPagina extends Component {
                         redirectCallback={this.redirectCallback.bind(this)}
                         noDataAlert={true}
                         noData={this.state.noData} />
-                     <PaginationRow>
-                        <CustomPagination
-                           fetchAndSetData={this.fetchAndSetData}
-                           page={this.state.page} />
-                     </PaginationRow>
+                     {this.renderPagination()}
                   </Container>
                </Col>
             </Col>
          </MainRow>
       </MainContainer >
+   }
+
+   renderPagination() {
+      return <PaginationRow>
+         <CustomPagination
+            fetchAndSetData={this.fetchAndSetData}
+            page={this.state.page} />
+      </PaginationRow>
    }
 };
 
