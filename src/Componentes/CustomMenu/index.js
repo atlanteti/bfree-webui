@@ -14,7 +14,7 @@ import './styles.css'
 import { CustomMenuCol } from '../../styles/CommonStyles'
 import { Cookies } from "react-cookie";
 import ContextLogin from '../../Context/ContextLogin'
-
+import { MdAttachMoney } from 'react-icons/md'
 export const CustomMenu = () => {
    const cookie = new Cookies();
 
@@ -121,6 +121,11 @@ function newFunction(admin) {
          itemId: '/upload',
          elemBefore: () => <AiOutlineCloudUpload size={23} color="#ffb509" />
       },
+      {
+         title: "Relatorios",
+         itemId: '/relatorios',
+         elemBefore: () => <MdAttachMoney size={23} color="#ffb509" />
+      }
    ]
    let filteredForUser = complete.filter(conditionalForPermissionAccess)
    if (!admin) { return filteredForUser }
