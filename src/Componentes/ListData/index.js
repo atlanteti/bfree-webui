@@ -24,7 +24,7 @@ export default class ListarPagina extends Component {
          responseAlertShow: null,
          noDataAlertShow: null,
          redirect: false,
-         noData: null
+         noData: false
       }
       this.requestForm = {
          extraParams: {},
