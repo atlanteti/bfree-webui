@@ -20,6 +20,9 @@ import { Helmet } from 'react-helmet'
 import { TextField } from '../../../Componentes/FormFields'
 import DatePicker from "react-datepicker";
 import moment from 'moment'
+import ListUsers from '../../../Componentes/ListUsers'
+import ContextLogin from "../../../Context/ContextLogin";
+
 // import { JourneySearchBar } from './JourneySearchBar'
 
 export default class ListarRelatorio extends ListarPagina {
@@ -27,11 +30,13 @@ export default class ListarRelatorio extends ListarPagina {
       super(props)
       this.state = {
          ...this.state,
-         headerData: []
+         headerData: [],
+         initialDate: new Date(moment().startOf('week')),
+         finalDate: new Date(moment().weekday(7))
       }
       this.filter = {
-         initialDate: null,
-         finalDate: null,
+         initialDate: new Date(moment().startOf('week')),
+         finalDate: new Date(moment().weekday(7)),
       }
    }
 
@@ -40,8 +45,8 @@ export default class ListarRelatorio extends ListarPagina {
          method: 'get',
          endpoint: 'demands/report-billing',
          params: {
-            dataInicial: this.filter.initialDate,
-            dataFinal: this.filter.finalDate,
+            dataInicial: moment(this.filter.initialDate).format('yyyy-MM-DD'),
+            dataFinal: moment(this.filter.finalDate).format('yyyy-MM-DD'),
          }
       }).then((data) => {
          let bodyData = data.data.splice(1)
@@ -65,46 +70,6 @@ export default class ListarRelatorio extends ListarPagina {
    onSubmit(e) {
       e.preventDefault()
       this.fetchAndSetData({page:1})
-   }
-
-   SearchBarCustom(props) {
-      return <SearchBarBorder>
-         <Form onSubmit={this.onSubmit.bind(this)}>
-            <Row>
-               <Col xs={12} sm={3}>
-                  <DatePicker
-                     placeholderText="dd/mm/aaaa"
-                     dateFormat="dd/MM/yyyy"
-                     selected={this.state.initialDate}
-                     onChange={(dateSelect) => this.changeDate(dateSelect, "initialDate")}
-                     customInput={
-                        <TextField
-                           Label="Data Inicial"
-                           type="text"
-                        />
-                     }
-                  />
-               </Col>
-               <Col xs={12} sm={3}>
-                  <DatePicker
-                     placeholderText="dd/mm/aaaa"
-                     dateFormat="dd/MM/yyyy"
-                     selected={this.state.finalDate}
-                     onChange={(dateSelect) => this.changeDate(dateSelect, "finalDate")}
-                     customInput={
-                        <TextField
-                           Label="Data Final"
-                           type="text"
-                        />
-                     }
-                  />
-               </Col>
-            </Row>
-            <Row>
-               <Col><Button type="submit" variant="warning">Buscar</Button></Col>
-            </Row>
-         </Form>
-      </SearchBarBorder>
    }
 
    PageHeaderCustom() {
@@ -159,6 +124,15 @@ export default class ListarRelatorio extends ListarPagina {
                      <SearchBarBorder>
                         <Form onSubmit={this.onSubmit.bind(this)}>
                            <Row>
+                           <Col>
+                              <ListUsers
+                                 controlId="dem_usr_cod"
+                                 defaultValue={this.context.admin ? null : this.context.user}
+                                 defaultUser={this.context.admin ? null : this.context.user}
+                                 disabled={!this.context.admin}
+                                 onChange={this.context.admin ? this.onChange : null}
+                              />
+                           </Col>
                               <Col>
                                  <DatePicker
                                     placeholderText="dd/mm/aaaa"
@@ -258,3 +232,4 @@ export default class ListarRelatorio extends ListarPagina {
       </MainContainer >
    }
 };
+ListarRelatorio.contextType = ContextLogin;
