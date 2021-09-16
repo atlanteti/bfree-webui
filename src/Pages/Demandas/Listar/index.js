@@ -71,7 +71,7 @@ export default class ListarDemandas extends ListarPagina {
          <TextHeaderCell scope="col">
             <SortColumn
                label="Usuário"
-               attribute="dem_usr_cod"
+               attribute="dem_usr_name"
                sortCallback={props.sortCallback}
                receiver={props.subscribe}
                wipeAll={props.wipeAll} />
@@ -79,7 +79,7 @@ export default class ListarDemandas extends ListarPagina {
          <TextHeaderCell scope="col">
             <SortColumn
                label="Status"
-               attribute="dem_sdm_cod"
+               attribute="dem_sdm_name"
                sortCallback={props.sortCallback}
                receiver={props.subscribe}
                wipeAll={props.wipeAll} />
@@ -88,7 +88,7 @@ export default class ListarDemandas extends ListarPagina {
          <TextHeaderCell scope="col">
             <SortColumn
                label="Tipo da Demanda"
-               attribute="dem_tdm_cod"
+               attribute="dem_tdm_name"
                sortCallback={props.sortCallback}
                receiver={props.subscribe}
                wipeAll={props.wipeAll} />
