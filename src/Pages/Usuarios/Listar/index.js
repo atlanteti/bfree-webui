@@ -85,7 +85,12 @@ export default class ListarUsuario extends ListarPagina {
                sortCallback={props.sortCallback}
                receiver={props.subscribe}
                wipeAll={props.wipeAll} /></TextHeaderCell>
-         <TextHeaderCell scope="col">Telefone</TextHeaderCell>
+         <TextHeaderCell scope="col"><SortColumn
+               label="Telefone"
+               attribute="usr_name"
+               sortCallback={props.sortCallback}
+               receiver={props.subscribe}
+               wipeAll={props.wipeAll} /></TextHeaderCell>
          <TextHeaderCell scope="col">
             <SortColumn
                label="Status"
