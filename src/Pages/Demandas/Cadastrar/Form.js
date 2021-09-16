@@ -32,30 +32,6 @@ export class DemandFormBuilder extends EditCreateForm {
                   <Form onSubmit={this.handleSubmit} validated={this.state.validated} noValidate>
                      <Row>
                         <Col>
-                           <NumberField
-                              disabled={!this.context.admin}
-                              controlId="dem_cli_cod"
-                              errorMessage={this.state.dem_cli_cod}
-                              Label="ID Eduzz:"
-                              type="text"
-                              maxLength="10"
-                              defaultValue={this.state.primaryData?.dem_cli_cod}
-                              onChange={this.handleChange} />
-                        </Col>
-                        <Col>
-                           <TextField
-                              controlId="dem_externalid"
-                              errorMessage={this.state.dem_externalid}
-                              Label="ID Externo:"
-                              maxLength="10"
-                              defaultValue={this.state.primaryData?.dem_externalid}
-                              type="text"
-                              disabled={!this.context.admin}
-                              onChange={this.context.admin ? this.handleChange : null} />
-                        </Col>
-                     </Row>
-                     <Row>
-                        <Col>
                            <TextField
                               controlId="dem_title"
                               errorMessage={this.state.dem_title}
@@ -71,14 +47,42 @@ export class DemandFormBuilder extends EditCreateForm {
                      <Row>
                         <Col>
                            <TextField
+                              controlId="dem_contact_email"
+                              errorMessage={this.state.dem_contact_email}
+                              Label="Email do Contato:"
+                              required
+                              maxLength="144"
+                              type="email"
+                              defaultValue={this.state.primaryData?.dem_contact_email}
+                              disabled={!this.context.admin}
+                              onChange={this.context.admin ? this.handleChange : null} />
+                        </Col>
+                     </Row>
+                     <Row>
+                        <Col>
+                           <TextField
                               controlId="dem_desc"
                               errorMessage={this.state.dem_desc}
-                              Label="Descrição:"
+                              Label="Detalhes:"
                               required
                               as="textarea"
                               maxLength="200"
                               defaultValue={this.state.primaryData?.dem_desc}
                               onChange={this.handleChange} />
+                        </Col>
+                     </Row>
+                     <Row>
+                        <Col>
+                           <TextField
+                              controlId="dem_comments"
+                              errorMessage={this.state.dem_comments}
+                              Label="Observações:"
+                              as="textarea"
+                              required
+                              maxLength="200"
+                              defaultValue={this.state.primaryData?.dem_comments}
+                              disabled={!this.context.admin}
+                              onChange={this.context.admin ? this.handleChange : null} />
                         </Col>
                      </Row>
                      <Row>
@@ -102,18 +106,6 @@ export class DemandFormBuilder extends EditCreateForm {
                               onChange={this.handleChange}
                               controlId="dem_sdm_cod"
                               defaultStatusDemand={this.state.primaryData.dem_sdm_cod}
-                              required />
-                        </Col>
-                     </Row>
-                     <Row>
-                        <Col>
-                           <ListResultDemands
-                              defaultValue={this.props.primaryId}
-                              errorMessage={this.state.dem_rdm_cod}
-                              controlId="dem_rdm_cod"
-                              defaultResultDemand={this.state.primaryData.dem_rdm_cod}
-                              disabled={!this.context.admin}
-                              onChange={this.context.admin ? this.handleChange : null}
                               required />
                         </Col>
                      </Row>
