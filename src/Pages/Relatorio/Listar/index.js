@@ -31,6 +31,7 @@ export default class ListarRelatorio extends ListarPagina {
       this.state = {
          ...this.state,
          headerData: [],
+         formData: {},
          initialDate: new Date(moment().startOf('week')),
          finalDate: new Date(moment().weekday(7))
       }
@@ -38,6 +39,7 @@ export default class ListarRelatorio extends ListarPagina {
          initialDate: new Date(moment().startOf('week')),
          finalDate: new Date(moment().weekday(7)),
       }
+      this.onChange = this.onChange.bind(this)
    }
 
    async fetchData() {
@@ -45,6 +47,7 @@ export default class ListarRelatorio extends ListarPagina {
          method: 'get',
          endpoint: 'demands/report-billing',
          params: {
+            ...this.state.formData,
             dataInicial: moment(this.filter.initialDate).format('yyyy-MM-DD'),
             dataFinal: moment(this.filter.finalDate).format('yyyy-MM-DD'),
          }
@@ -106,6 +109,16 @@ export default class ListarRelatorio extends ListarPagina {
          [id]: date
       })
    }
+
+   onChange(event) {
+      this.setState({
+         formData: {
+            ...this.state.formData,
+            [event.target.id]: event.target.value.trim()
+         }
+      })
+   }
+
    render() {
       return <MainContainer>
          <MainRow>
@@ -126,7 +139,7 @@ export default class ListarRelatorio extends ListarPagina {
                            <Row>
                            <Col>
                               <ListUsers
-                                 controlId="dem_usr_cod"
+                                 controlId="usr_cod"
                                  defaultValue={this.context.admin ? null : this.context.user}
                                  defaultUser={this.context.admin ? null : this.context.user}
                                  disabled={!this.context.admin}
