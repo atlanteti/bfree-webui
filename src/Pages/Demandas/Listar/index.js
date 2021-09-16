@@ -1,4 +1,4 @@
-import { Button } from 'react-bootstrap'
+import { Button, Row } from 'react-bootstrap'
 // import SearchBar from '../../../Componentes/SearchBar'
 import { request } from '../../../Services/api'
 import ListarPagina, { PageHeaderCustomComponent } from '../../../Componentes/ListData'
@@ -105,17 +105,19 @@ export default class ListarDemandas extends ListarPagina {
          <TextCell data-title="Status" className="text">{demanda.statusDemand.sdm_name}</TextCell>
          <TextCell data-title="Tipo da Demanda" className="text">{demanda.typeDemand.tdm_name}</TextCell>
          <ActionCell data-title="Ações">
-            <Button variant="warning" href={`/editar-demanda/${demanda.dem_cod}/alterar`}>Editar</Button>
-            <Restricted>
-               <Button variant="dark"
-                  onClick={() => {
-                     this.setState({
-                        deletionId: demanda.dem_cod,
-                        modalIdentifier: "a demanda"
-                     })
-                     this.openModal()
-                  }}>Excluir</Button>
-            </Restricted>
+            <Row noGutters className="positionButtonsFixed">
+               <Button variant="warning" href={`/editar-demanda/${demanda.dem_cod}/alterar`}>Editar</Button>
+               <Restricted>
+                  <Button variant="dark"
+                     onClick={() => {
+                        this.setState({
+                           deletionId: demanda.dem_cod,
+                           modalIdentifier: "a demanda"
+                        })
+                        this.openModal()
+                     }}>Excluir</Button>
+               </Restricted>
+            </Row>
          </ActionCell>
       </TableRow>
    }
