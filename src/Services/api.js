@@ -20,7 +20,7 @@ export const request = async ({
       baseURL: `http://${baseUrl}/${endpoint}`,
       data: data || null,
       params: params || null,
-      timeout: 60000,
+      timeout: 120000,
       headers: {
          'Content-Type': contentType || 'application/json',
          'Access-Control-Allow-Origin': '*',
