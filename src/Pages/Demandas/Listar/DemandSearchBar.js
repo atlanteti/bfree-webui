@@ -14,14 +14,14 @@ export class DemandSearchBar extends SearchBar {
          <Row xs={1} className={'mb-2'} noGutters>
             <Form onSubmit={this.handleSubmit}>
                <Row>
-                  <Col>
+                  <Col sm={3}>
                      <TextField Label="Título da Demanda"
                         controlId="dem_title"
                         onChange={this.onChange}
                         type="text"
                         placeholder="Insira o título da Demanda" />
                   </Col>
-                  <Col>
+                  <Col sm={3}>
                      <ListUsers
                         controlId="dem_usr_cod"
                         defaultValue={this.context.admin ? null : this.context.user}
@@ -30,12 +30,12 @@ export class DemandSearchBar extends SearchBar {
                         onChange={this.context.admin ? this.onChange : null}
                      />
                   </Col>
-                  <Col >
+                  <Col sm={3}>
                      <ListStatusDemands
                         onChange={this.onChange}
                         controlId="dem_sdm_cod" />
                   </Col>
-                  <Col >
+                  <Col sm={3}>
                      <ListTypeDemand
                         onChange={this.onChange}
                         controlId="dem_tdm_cod" />
