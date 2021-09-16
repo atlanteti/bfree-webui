@@ -7,13 +7,21 @@ import ListResultDemands from '../../../Componentes/ListResultDemands';
 import ListTypeDemand from '../../../Componentes/ListTypeDemand';
 import ListUsers from '../../../Componentes/ListUsers';
 import ContextLogin from "../../../Context/ContextLogin";
+import { TextField } from '../../../Componentes/FormFields';
 export class DemandSearchBar extends SearchBar {
    render() {
       return <SearchBarBorder>
          <Row xs={1} className={'mb-2'} noGutters>
             <Form onSubmit={this.handleSubmit}>
                <Row>
-                  <Col >
+                  <Col>
+                     <TextField Label="Título da Demanda"
+                        controlId="dem_title"
+                        onChange={this.onChange}
+                        type="text"
+                        placeholder="Insira o título da Demanda" />
+                  </Col>
+                  <Col>
                      <ListUsers
                         controlId="dem_usr_cod"
                         defaultValue={this.context.admin ? null : this.context.user}
@@ -26,11 +34,6 @@ export class DemandSearchBar extends SearchBar {
                      <ListStatusDemands
                         onChange={this.onChange}
                         controlId="dem_sdm_cod" />
-                  </Col>
-                  <Col >
-                     <ListResultDemands
-                        onChange={this.onChange}
-                        controlId="dem_rdm_cod" />
                   </Col>
                   <Col >
                      <ListTypeDemand
