@@ -63,7 +63,7 @@ export default class ListarDemandas extends ListarPagina {
          <TextHeaderCell>
             <SortColumn
                label="E-mail de Contato"
-               attribute="contact_email"
+               attribute="dem_contact_email"
                sortCallback={props.sortCallback}
                receiver={props.subscribe}
                wipeAll={props.wipeAll} />
@@ -100,7 +100,7 @@ export default class ListarDemandas extends ListarPagina {
    createRecord(demanda) {
       return <TableRow key={demanda.dem_cod}>
          <TextCell data-title="Título" className="text">{demanda.dem_title}</TextCell>
-         <TextCell data-title="E-mail de Contato" classname="text">{ }</TextCell>
+         <TextCell data-title="E-mail de Contato" classname="text">{demanda.dem_contact_email}</TextCell>
          <TextCell data-title="Usuário" className="text">{demanda.user.usr_name}</TextCell>
          <TextCell data-title="Status" className="text">{demanda.statusDemand.sdm_name}</TextCell>
          <TextCell data-title="Tipo da Demanda" className="text">{demanda.typeDemand.tdm_name}</TextCell>
