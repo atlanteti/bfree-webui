@@ -112,9 +112,9 @@ function newFunction(admin) {
          elemBefore: () => <FaTasks size={23} color="#ffb509" />
       },
       {
-         title: 'Logs',
-         itemId: '/log',
-         elemBefore: () => <FaRegFileAlt size={23} color="#ffb509" />
+         title: "Relatorios",
+         itemId: '/relatorios',
+         elemBefore: () => <MdAttachMoney size={23} color="#ffb509" />
       },
       {
          title: 'Upload File',
@@ -122,10 +122,10 @@ function newFunction(admin) {
          elemBefore: () => <AiOutlineCloudUpload size={23} color="#ffb509" />
       },
       {
-         title: "Relatorios",
-         itemId: '/relatorios',
-         elemBefore: () => <MdAttachMoney size={23} color="#ffb509" />
-      }
+         title: 'Logs',
+         itemId: '/log',
+         elemBefore: () => <FaRegFileAlt size={23} color="#ffb509" />
+      },
    ]
    let filteredForUser = complete.filter(conditionalForPermissionAccess)
    if (!admin) { return filteredForUser }
