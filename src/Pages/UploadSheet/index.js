@@ -72,14 +72,13 @@ export default class UploadSheet extends Component {
 
   handleSubmitFile = async (event) => {
     event.preventDefault();
-    // this.setState({loadTable: true})
+    this.setState({loadTable: true})
     const response = await request({
       method: "post",
       endpoint: "demands/import-file",
       contentType: "multipart/form-data",
       data: this.state.file,
     });
-    // this.setState({loadTable: false})
     if (response.meta.status === 213) {
       this.setState({
         failUploadStatus: true,
@@ -89,6 +88,7 @@ export default class UploadSheet extends Component {
     } else {
       this.showAlert(response.meta);
     }
+    this.setState({loadTable: false})
   };
 
   redirect() {
