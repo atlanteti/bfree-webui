@@ -92,6 +92,7 @@ export class UserFormBuilder extends EditCreateForm {
                         <Col>
                            <ListUserStatusControlled
                               controlId="usr_sus_cod"
+                              required
                               onChange={this.handleChange}
                               value={this.state.primaryData.usr_sus_cod ? this.state.primaryData.usr_sus_cod : null} />
                         </Col>
