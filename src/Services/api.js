@@ -49,7 +49,10 @@ export const request = async ({
       if(result.data.meta.status === 201){
          window.Eduzz.Accounts.logout({ env: "staging", redirectTo: window.location.origin })
          return
+      } else if (result.data.meta.status === 204) {
+         window.location.replace("/demandas")
       }
+      
       return result.data
    } catch (error) {
       try {
