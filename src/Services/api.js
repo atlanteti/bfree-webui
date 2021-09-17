@@ -46,7 +46,7 @@ export const request = async ({
          }
          result.data.meta.message = <Alert />
       }
-      if(result.data.meta.status === 201){
+      if(result.data.meta.status === 201 || result.data.meta.status === 202){
          window.Eduzz.Accounts.logout({ env: "staging", redirectTo: window.location.origin })
          return
       } else if (result.data.meta.status === 204) {
