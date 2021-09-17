@@ -134,6 +134,7 @@ export default class UploadSheet extends Component {
                           <Form.File id="formcheck-api-custom" custom>
                             <Form.File.Input
                               isValid
+                              required
                               onChange={this.handleChangeFile}
                             />
                             <Form.File.Label data-browse="Selecionar Arquivos">
