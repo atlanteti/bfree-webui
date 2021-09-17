@@ -219,11 +219,11 @@ export default class ListarPagina extends Component {
    }
 
    renderPagination() {
-      return <PaginationRow>
+      return !this.state.noData ? (<PaginationRow>
          <CustomPagination
             fetchAndSetData={this.fetchAndSetData}
             page={this.state.page} />
-      </PaginationRow>
+      </PaginationRow>) : null
    }
 };
 
