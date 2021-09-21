@@ -3,6 +3,9 @@ import { Pagination } from 'react-bootstrap'
 
 export default function CustomPagination(props) {
    return <Pagination className="pagination">
+      <Pagination.Item disabled={true}>
+         {props.page.totalRecords ? `Registros: ${props.page.totalRecords }` : ""}
+      </Pagination.Item>
       <Pagination.First onClick={(e) => {
          props.fetchAndSetData({ page: 1 }) // props.fetchAndSetData
          window.scroll(0, 0)
