@@ -40,7 +40,7 @@ export class DemandFormBuilder extends EditCreateForm {
                               type="text"
                               maxLength="45"
                               defaultValue={this.state.primaryData?.dem_title}
-                              disabled={!this.context.admin}
+                              disabled={(this.context.admin && this.paramRoute === 'inserir') ? false : true}
                               onChange={this.context.admin ? this.handleChange : null} />
                         </Col>
                      </Row>
@@ -54,7 +54,7 @@ export class DemandFormBuilder extends EditCreateForm {
                               maxLength="144"
                               type="email"
                               defaultValue={this.state.primaryData?.dem_contact_email}
-                              disabled={!this.context.admin}
+                              disabled={(this.context.admin && this.paramRoute === 'inserir') ? false : true}
                               onChange={this.context.admin ? this.handleChange : null} />
                         </Col>
                      </Row>
@@ -81,7 +81,7 @@ export class DemandFormBuilder extends EditCreateForm {
                               required
                               maxLength="200"
                               defaultValue={this.state.primaryData?.dem_comments}
-                              disabled={!this.context.admin}
+                              disabled={(this.context.admin && this.paramRoute === 'inserir') ? false : true}
                               onChange={this.context.admin ? this.handleChange : null} />
                         </Col>
                      </Row>
@@ -93,7 +93,7 @@ export class DemandFormBuilder extends EditCreateForm {
                               required
                               controlId="dem_usr_cod"
                               defaultUser={this.state.primaryData.dem_usr_cod}
-                              disabled={!this.context.admin}
+                              disabled={(this.context.admin && this.paramRoute === 'inserir') ? false : true}
                               onChange={this.context.admin ? this.handleChange : null}
                               required />
                         </Col>
@@ -116,7 +116,7 @@ export class DemandFormBuilder extends EditCreateForm {
                               errorMessage={this.state.dem_tdm_cod}
                               controlId="dem_tdm_cod"
                               defaultTypeDemand={this.state.primaryData.dem_tdm_cod}
-                              disabled={!this.context.admin}
+                              disabled={(this.context.admin && this.paramRoute === 'inserir') ? false : true}
                               onChange={this.context.admin ? this.handleChange : null}
                               required
                            />
