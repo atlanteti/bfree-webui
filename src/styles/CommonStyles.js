@@ -144,7 +144,7 @@ export const Table = styled.table`
 
       tbody tr td {
          display: block;
-         text-align: right !important;
+         text-align: left !important;
       }
 
       tbody tr {
