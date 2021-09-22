@@ -66,6 +66,7 @@ export const MainContainer = styled.div`
 
    @media (min-width: 767px){
       .positionButtonsFixed {
+         margin-top: 8px;
          justify-content: center;
          min-width: max-content;
       }
@@ -73,6 +74,7 @@ export const MainContainer = styled.div`
 
    @media (max-width: 766px){
       .positionButtonsFixed{
+         margin-top: 8px;
          justify-content: flex-end;
       }  
    }
@@ -132,7 +134,7 @@ export const Table = styled.table`
 
       tbody tr td::before {
          content: attr(data-title);
-         position: absolute;
+         font-weight: bold;
          display: block;
       }
 
