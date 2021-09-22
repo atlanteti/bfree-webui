@@ -12,6 +12,8 @@ import PropTypes from "prop-types"
 import ExclusionModal from '../ExclusionModal'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Restricted from '../../Context/AccessPermission'
+import { request } from "../../Services/api";
+
 
 export default class ListarPagina extends Component {
    constructor(props) {
@@ -42,6 +44,17 @@ export default class ListarPagina extends Component {
       return await this.fetchAndSetData({ page: 1 })
    }
 
+   async searchExportData({ extraParams }){
+      const data = await request({
+         method: 'get',
+         endpoint: 'demands/export-file',
+         params: {
+            ...extraParams
+         }
+      })
+      // console.log(data)
+      return data
+   }
    async reorderData({ sort, isDesc = false }) {
       this.requestForm.sort = sort
       this.requestForm.isDesc = isDesc
@@ -171,7 +184,8 @@ export default class ListarPagina extends Component {
                         <this.PageHeaderCustom />
                      </Row>
                      <this.SearchBarCustom
-                        filterData={this.searchData} />
+                        filterData={this.searchData} 
+                        exportData={this.searchExportData} />
                      <Row noGutters>
                         <MainTable noData={this.state.noData}>
                            {this.state.responseData === null

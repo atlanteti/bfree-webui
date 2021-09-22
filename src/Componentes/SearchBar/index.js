@@ -24,5 +24,11 @@ export default class SearchBar extends Component {
       this.props.filterData({ extraParams: this.state.formData })
       return
    }
+
+   requestExportData(event){
+      event.preventDefault()
+      this.props.exportData({ extraParams: this.state.formData })
+      return
+   }
 }
 
