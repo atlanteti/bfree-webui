@@ -44,7 +44,13 @@ export default class ListarPagina extends Component {
       return await this.fetchAndSetData({ page: 1 })
    }
 
-   async searchExportData({ extraParams }){
+   async searchExportData({ extraParams }) {
+      const s2ab = (s) => {
+         var buf = new ArrayBuffer(s.length);
+         var view = new Uint8Array(buf);
+         for (var i = 0; i != s.length; ++i) view[i] = String.fromCharCode(s[i]) & 0xFF;
+         return buf;
+      }
       const data = await request({
          method: 'get',
          endpoint: 'demands/export-file',
@@ -53,7 +59,9 @@ export default class ListarPagina extends Component {
          }
       })
       // console.log(data)
-      return data
+      var file = new Blob([new Uint8Array(Buffer.from(data.data, 'base64'))], { type: "application/vnd.ms-excel" })
+      const url = window.URL.createObjectURL(file)
+      return url
    }
    async reorderData({ sort, isDesc = false }) {
       this.requestForm.sort = sort
@@ -184,7 +192,7 @@ export default class ListarPagina extends Component {
                         <this.PageHeaderCustom />
                      </Row>
                      <this.SearchBarCustom
-                        filterData={this.searchData} 
+                        filterData={this.searchData}
                         exportData={this.searchExportData} />
                      <Row noGutters>
                         <MainTable noData={this.state.noData}>
