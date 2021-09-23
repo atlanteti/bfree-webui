@@ -61,6 +61,17 @@ export default class ListarPagina extends Component {
       // console.log(data)
       var file = new Blob([new Uint8Array(Buffer.from(data.data, 'base64'))], { type: "application/vnd.ms-excel" })
       const url = window.URL.createObjectURL(file)
+      var a = window.document.createElement('a');
+
+      a.setAttribute("download", "Relatório.xls")
+      a.href = url
+      // Append anchor to body.
+      document.body.appendChild(a)
+      a.click();
+
+
+      // Remove anchor from body
+      document.body.removeChild(a)
       return url
    }
    async reorderData({ sort, isDesc = false }) {
