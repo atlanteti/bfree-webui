@@ -63,7 +63,7 @@ export default class ListarPagina extends Component {
       const url = window.URL.createObjectURL(file)
       var relatorio = window.document.createElement('a');
 
-      relatorio.setAttribute("download", "Relatório.xls")
+      relatorio.setAttribute("download", "Demandas.xls")
       relatorio.href = url
       // Append anchor to body.
       document.body.appendChild(relatorio)
