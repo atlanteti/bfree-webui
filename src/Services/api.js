@@ -36,6 +36,8 @@ export const request = async ({
       if (result.data.meta.token !== token) {
          cookieGetter.set("auth", result.data.meta.token, { path: "/" })
       }
+      cookieGetter.set("admin", !result.data.meta.hasJourney, { path: "/" })
+
       if (result.data.meta.status === 422) {
          let Alert = () => {
             return <Row sm={1}>
