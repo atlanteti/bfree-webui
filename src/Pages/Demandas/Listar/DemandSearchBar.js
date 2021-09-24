@@ -54,7 +54,7 @@ export class DemandSearchBar extends SearchBar {
                            className="ml-2" 
                            variant="dark"
                         >
-                           Importar excel
+                           Exportar excel
                         </Button>
                      </Restricted>
                   </Col>
