@@ -12,6 +12,8 @@ import PropTypes from "prop-types"
 import ExclusionModal from '../ExclusionModal'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Restricted from '../../Context/AccessPermission'
+import { request } from "../../Services/api";
+
 
 export default class ListarPagina extends Component {
    constructor(props) {
@@ -42,6 +44,36 @@ export default class ListarPagina extends Component {
       return await this.fetchAndSetData({ page: 1 })
    }
 
+   async searchExportData({ extraParams }) {
+      const s2ab = (s) => {
+         var buf = new ArrayBuffer(s.length);
+         var view = new Uint8Array(buf);
+         for (var i = 0; i != s.length; ++i) view[i] = String.fromCharCode(s[i]) & 0xFF;
+         return buf;
+      }
+      const data = await request({
+         method: 'get',
+         endpoint: 'demands/export-file',
+         params: {
+            ...extraParams
+         }
+      })
+      // console.log(data)
+      var file = new Blob([new Uint8Array(Buffer.from(data.data, 'base64'))], { type: "application/vnd.ms-excel" })
+      const url = window.URL.createObjectURL(file)
+      var relatorio = window.document.createElement('a');
+
+      relatorio.setAttribute("download", "Demandas.xlsx")
+      relatorio.href = url
+      // Append anchor to body.
+      document.body.appendChild(relatorio)
+      relatorio.click();
+
+
+      // Remove anchor from body
+      document.body.removeChild(relatorio)
+      return
+   }
    async reorderData({ sort, isDesc = false }) {
       this.requestForm.sort = sort
       this.requestForm.isDesc = isDesc
@@ -171,7 +203,8 @@ export default class ListarPagina extends Component {
                         <this.PageHeaderCustom />
                      </Row>
                      <this.SearchBarCustom
-                        filterData={this.searchData} />
+                        filterData={this.searchData}
+                        exportData={this.searchExportData} />
                      <Row noGutters>
                         <MainTable noData={this.state.noData}>
                            {this.state.responseData === null

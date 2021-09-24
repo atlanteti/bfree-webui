@@ -10,7 +10,6 @@ import SortColumn from '../../../Componentes/SortColumn'
 import { React, useContext } from 'react'
 import { DemandSearchBar } from './DemandSearchBar'
 import Restricted from '../../../Context/AccessPermission'
-import ContextLogin from '../../../Context/ContextLogin'
 
 export default class ListarDemandas extends ListarPagina {
    async deleteRecord(id) {
@@ -39,6 +38,7 @@ export default class ListarDemandas extends ListarPagina {
    SearchBarCustom(props) {
       return <DemandSearchBar
          filterData={props.filterData}
+         exportData={props.exportData}
       />
    }
 

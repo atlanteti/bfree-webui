@@ -8,6 +8,8 @@ import ListTypeDemand from '../../../Componentes/ListTypeDemand';
 import ListUsers from '../../../Componentes/ListUsers';
 import ContextLogin from "../../../Context/ContextLogin";
 import { TextField } from '../../../Componentes/FormFields';
+import Restricted from '../../../Context/AccessPermission'
+
 export class DemandSearchBar extends SearchBar {
    render() {
       return <SearchBarBorder>
@@ -41,9 +43,22 @@ export class DemandSearchBar extends SearchBar {
                         controlId="dem_tdm_cod" />
                   </Col>
                </Row>
-               <Button variant="warning" type="submit">
-                  Buscar
-               </Button>
+               <Row >
+                  <Col>
+                     <Button variant="warning" type="submit">
+                        Buscar
+                     </Button>
+                     <Restricted>
+                        <Button 
+                           onClick={(event) => this.requestExportData(event)}
+                           className="ml-2" 
+                           variant="dark"
+                        >
+                           Exportar excel
+                        </Button>
+                     </Restricted>
+                  </Col>
+               </Row>
             </Form>
          </Row>
       </SearchBarBorder>;
