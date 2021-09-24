@@ -14,15 +14,14 @@ export const AuthProvider = ({ children }) => {
    useEffect(() => {
       async function loadStoraged() {
          const storagedUser = await cookie.get("auth");
-         const storedPermission = await cookie.get("hasJourney")
+         const storedPermission = await cookie.get("admin")
          const storedSelect = await cookie.get("user")
          if (storagedUser) {
             setAuth(storagedUser);
             setUser(storedSelect)
          }
-         if (storedPermission) {
-            console.log(storedPermission)
-            setAdmin(storedPermission === "true")
+         if (storedPermission !== undefined) {
+            setAdmin(storedPermission === "true") // Tratamento para converter de string para booleano
          }
       }
 
@@ -37,7 +36,7 @@ export const AuthProvider = ({ children }) => {
          })
          if (data.meta.status === 100) {
             cookie.set('auth', data.data.token, { path: "/" })
-            cookie.set('hasJourney', !data.meta.hasJourney, { path: "/" })
+            cookie.set('admin', !data.meta.hasJourney, { path: "/" })
             cookie.set('user', decodeToken(data.data.token)["ID Bfree"], { path: "/" })
             setAuth(data.data.token)
             setAdmin(!data.meta.hasJourney)
