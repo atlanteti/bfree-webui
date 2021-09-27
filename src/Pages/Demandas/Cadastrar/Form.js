@@ -79,7 +79,7 @@ export class DemandFormBuilder extends EditCreateForm {
                               errorMessage={this.state.dem_contact_phone}
                               defaultValue={this.state.primaryData.dem_contact_phone}
                               onChange={this.context.admin ? this.handleChange : null}
-                              disabled={!this.context.admin}
+                              disabled={(this.context.admin && this.paramRoute === 'inserir') ? false : true}
                               minLength="15" 
                            />
                         </Col>
