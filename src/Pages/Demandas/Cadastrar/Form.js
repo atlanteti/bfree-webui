@@ -3,7 +3,7 @@ import { Form, Col, Row, Button } from 'react-bootstrap'
 import { DateField } from '../../../Componentes/DateField'
 import { ButtonRow } from '../../../Componentes/ButtonRow'
 import { EditCreateForm } from '../../../Componentes/EditCreateForm/index'
-import { NumberField, TextField } from '../../../Componentes/FormFields'
+import { NumberField, PhoneField, TextField } from '../../../Componentes/FormFields'
 import ListTypeDemand from '../../../Componentes/ListTypeDemand'
 import ListStatusDemands from '../../../Componentes/ListStatusDemands'
 import ListResultDemands from '../../../Componentes/ListResultDemands'
@@ -69,6 +69,19 @@ export class DemandFormBuilder extends EditCreateForm {
                               maxLength="200"
                               defaultValue={this.state.primaryData?.dem_desc}
                               onChange={this.handleChange} />
+                        </Col>
+                     </Row>
+                     <Row>
+                        <Col>
+                           <PhoneField
+                              controlId="dem_contact_phone"
+                              Label="Telefone:"
+                              errorMessage={this.state.dem_contact_phone}
+                              defaultValue={this.state.primaryData.dem_contact_phone}
+                              onChange={this.context.admin ? this.handleChange : null}
+                              disabled={!this.context.admin}
+                              minLength="15" 
+                           />
                         </Col>
                      </Row>
                      <Row>
