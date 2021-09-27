@@ -106,7 +106,7 @@ export class UserFormBuilder extends EditCreateForm {
                                  controlId="usr_dtcreation"
                                  Label="Data de criação:"
                                  date={this.state.primaryData?.usr_dtcreation} />
-                              {this.state.primaryData?.usr_dtcreation === null
+                              {this.state.primaryData?.usr_dtupdate === null
                                  ? ''
                                  : (
                                     <DateField
