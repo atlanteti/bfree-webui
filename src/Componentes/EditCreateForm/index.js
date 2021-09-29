@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { request } from '../../Services/api';
+import moment from "moment";
 export class EditCreateForm extends Component {
    constructor(props) {
       super(props);
@@ -7,6 +8,8 @@ export class EditCreateForm extends Component {
          primaryData: {},
          responseAlertShow: null,
          loading: true,
+         checkStatus: null,
+         dateAction: null,
       };
       this.paramRoute = props.paramRoute;
       this.primaryId = Number(props.primaryId);
@@ -99,9 +102,19 @@ export class EditCreateForm extends Component {
       this.setState((state, props) => ({
          primaryData: {
             ...state.primaryData, [e.target.id]: e.target.value
-         }
+         },
+         checkStatus: e.target.value
       }))
    };
+   handleDate(date, id) {
+      this.setState((state, props) => ({
+         dateAction: date,
+         primaryData: {
+            ...state.primaryData, 
+            [id]: date && moment(date).format('yyyy-MM-DD'),
+         }
+      }))
+   }
    handleCheck = (e) => {
       this.setState({
          primaryData: {

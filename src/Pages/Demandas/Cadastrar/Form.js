@@ -6,10 +6,11 @@ import { EditCreateForm } from '../../../Componentes/EditCreateForm/index'
 import { NumberField, PhoneField, TextField } from '../../../Componentes/FormFields'
 import ListTypeDemand from '../../../Componentes/ListTypeDemand'
 import ListStatusDemands from '../../../Componentes/ListStatusDemands'
-import ListResultDemands from '../../../Componentes/ListResultDemands'
 import ListUsers from '../../../Componentes/ListUsers'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import ContextLogin from '../../../Context/ContextLogin'
+import DatePicker from "react-datepicker";
+import Restricted from '../../../Context/AccessPermission'
 
 export default function DemandForm(props) {
    return <DemandFormBuilder insertDataEndpoint="demands/cadastrar"
@@ -122,6 +123,30 @@ export class DemandFormBuilder extends EditCreateForm {
                               required />
                         </Col>
                      </Row>
+                     {(this.state.checkStatus >= 3 && this.state.checkStatus <= 4) &&
+                     (
+                        <Restricted>
+                           <Row>
+                              <Col>
+                              <DatePicker
+                                 controlId="dem_dtaction"
+                                 placeholderText="dd/mm/aaaa"
+                                 dateFormat="dd/MM/yyyy"
+                                 maxDate={new Date()}
+                                 selected={this.state.dateAction}
+                                 onChange={(dateSelect) => this.handleDate(dateSelect, "dem_dtaction")}
+                                 customInput={
+                                    <TextField
+                                       Label="Data de Ação:"
+                                       type="text"
+                                    />
+                                 }
+                              />
+                              </Col>
+                           </Row>
+                        </Restricted>
+
+                     )}
                      <Row>
                         <Col>
                            <ListTypeDemand
