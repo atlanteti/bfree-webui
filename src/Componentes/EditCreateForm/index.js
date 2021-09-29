@@ -111,7 +111,7 @@ export class EditCreateForm extends Component {
          dateAction: date,
          primaryData: {
             ...state.primaryData, 
-            [id]: date ? moment(date).format('yyyy-MM-DD') : null
+            [id]: date && moment(date).format('yyyy-MM-DD'),
          }
       }))
    }

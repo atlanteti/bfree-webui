@@ -123,7 +123,7 @@ export class DemandFormBuilder extends EditCreateForm {
                               required />
                         </Col>
                      </Row>
-                     {this.state.checkStatus >= 3 && 
+                     {(this.state.checkStatus >= 3 && this.state.checkStatus <= 4) &&
                      (
                         <Restricted>
                            <Row>
