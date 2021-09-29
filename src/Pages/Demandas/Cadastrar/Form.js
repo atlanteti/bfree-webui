@@ -132,6 +132,7 @@ export class DemandFormBuilder extends EditCreateForm {
                                  controlId="dem_dtaction"
                                  placeholderText="dd/mm/aaaa"
                                  dateFormat="dd/MM/yyyy"
+                                 maxDate={new Date()}
                                  selected={this.state.dateAction}
                                  onChange={(dateSelect) => this.handleDate(dateSelect, "dem_dtaction")}
                                  customInput={
