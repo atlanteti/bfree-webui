@@ -8,7 +8,8 @@ export class EditCreateForm extends Component {
          primaryData: {},
          responseAlertShow: null,
          loading: true,
-         dem_dtaction: null,
+         checkStatus: null,
+         dateAction: null,
       };
       this.paramRoute = props.paramRoute;
       this.primaryId = Number(props.primaryId);
@@ -101,15 +102,17 @@ export class EditCreateForm extends Component {
       this.setState((state, props) => ({
          primaryData: {
             ...state.primaryData, [e.target.id]: e.target.value
-         }
+         },
+         checkStatus: e.target.value
       }))
    };
    handleDate(date, id) {
       this.setState((state, props) => ({
+         dateAction: date,
          primaryData: {
-            ...state.primaryData, [id]: date
-         },
-         [id]: date
+            ...state.primaryData, 
+            [id]: date ? moment(date).format('yyyy-MM-DD') : null
+         }
       }))
    }
    handleCheck = (e) => {

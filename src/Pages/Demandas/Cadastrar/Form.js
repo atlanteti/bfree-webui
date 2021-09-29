@@ -123,25 +123,29 @@ export class DemandFormBuilder extends EditCreateForm {
                               required />
                         </Col>
                      </Row>
-                     <Restricted>
-                        <Row>
-                           <Col>
-                           <DatePicker
-                              controlId="dem_dtaction"
-                              placeholderText="dd/mm/aaaa"
-                              dateFormat="dd/MM/yyyy"
-                              selected={this.state.primaryData.dem_dtaction}
-                              onChange={(dateSelect) => this.handleDate(dateSelect, "dem_dtaction")}
-                              customInput={
-                                 <TextField
-                                    Label="Data de Ação:"
-                                    type="text"
-                                 />
-                              }
-                           />
-                           </Col>
-                        </Row>
-                     </Restricted>
+                     {this.state.checkStatus >= 3 && 
+                     (
+                        <Restricted>
+                           <Row>
+                              <Col>
+                              <DatePicker
+                                 controlId="dem_dtaction"
+                                 placeholderText="dd/mm/aaaa"
+                                 dateFormat="dd/MM/yyyy"
+                                 selected={this.state.dateAction}
+                                 onChange={(dateSelect) => this.handleDate(dateSelect, "dem_dtaction")}
+                                 customInput={
+                                    <TextField
+                                       Label="Data de Ação:"
+                                       type="text"
+                                    />
+                                 }
+                              />
+                              </Col>
+                           </Row>
+                        </Restricted>
+
+                     )}
                      <Row>
                         <Col>
                            <ListTypeDemand
