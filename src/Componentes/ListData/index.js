@@ -13,6 +13,7 @@ import ExclusionModal from '../ExclusionModal'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Restricted from '../../Context/AccessPermission'
 import { request } from "../../Services/api";
+import moment from 'moment';
 
 
 export default class ListarPagina extends Component {
@@ -55,7 +56,9 @@ export default class ListarPagina extends Component {
          method: 'get',
          endpoint: `demands/${endpointExport}`,
          params: {
-            ...extraParams
+            ...extraParams,
+            dataInicial: nameFile !== "Demandas" ? moment(this.filter.initialDate).format('yyyy-MM-DD') : null,
+            dataFinal: nameFile !== "Demandas" ? moment(this.filter.finalDate).format('yyyy-MM-DD') : null,
          }
       })
       // console.log(data)
