@@ -32,11 +32,11 @@ export default class ListarRelatorio extends ListarPagina {
          ...this.state,
          headerData: [],
          formData: {},
-         initialDate: new Date(moment().startOf('week')),
+         initialDate: new Date(moment().startOf('isoWeek')),
          finalDate: new Date(moment().weekday(7))
       }
       this.filter = {
-         initialDate: new Date(moment().startOf('week')),
+         initialDate: new Date(moment().startOf('isoWeek')),
          finalDate: new Date(moment().weekday(7)),
       }
       this.onChange = this.onChange.bind(this)
