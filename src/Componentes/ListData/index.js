@@ -44,7 +44,7 @@ export default class ListarPagina extends Component {
       return await this.fetchAndSetData({ page: 1 })
    }
 
-   async searchExportData({ extraParams }) {
+   async searchExportData({ extraParams, endpointExport, nameFile  }) {
       const s2ab = (s) => {
          var buf = new ArrayBuffer(s.length);
          var view = new Uint8Array(buf);
@@ -53,7 +53,7 @@ export default class ListarPagina extends Component {
       }
       const data = await request({
          method: 'get',
-         endpoint: 'demands/export-file',
+         endpoint: `demands/${endpointExport}`,
          params: {
             ...extraParams
          }
@@ -63,7 +63,7 @@ export default class ListarPagina extends Component {
       const url = window.URL.createObjectURL(file)
       var relatorio = window.document.createElement('a');
 
-      relatorio.setAttribute("download", "Demandas.xlsx")
+      relatorio.setAttribute("download", `${nameFile}.xlsx`)
       relatorio.href = url
       // Append anchor to body.
       document.body.appendChild(relatorio)

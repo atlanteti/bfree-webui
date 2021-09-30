@@ -40,6 +40,7 @@ export default class ListarRelatorio extends ListarPagina {
          finalDate: new Date(moment().weekday(7)),
       }
       this.onChange = this.onChange.bind(this)
+      this.requestExportData = this.requestExportData.bind(this)
    }
 
    async fetchData() {
@@ -100,6 +101,13 @@ export default class ListarRelatorio extends ListarPagina {
          return <NumberCell>{data}</NumberCell>
       })}</TableRow>
    }
+
+   requestExportData(event, endpointExport, nameFile) {
+      event.preventDefault()
+      let data = this.searchExportData({ extraParams: this.state.formData, endpointExport, nameFile })
+      return
+   }
+
    changeDate(date, id) {
       this.filter = {
          ...this.filter,
@@ -176,7 +184,16 @@ export default class ListarRelatorio extends ListarPagina {
                               </Col>
                            </Row>
                            <Row>
-                              <Col><Button type="submit" variant="warning">Buscar</Button></Col>
+                              <Col>
+                                 <Button type="submit" variant="warning">Buscar</Button>
+                                 <Button 
+                                    onClick={(event) => this.requestExportData(event, "export-billing", "Relatorio")}
+                                    className="ml-2" 
+                                    variant="dark"
+                                 >
+                                    Exportar excel
+                                 </Button>
+                              </Col>
                            </Row>
                         </Form>
                      </SearchBarBorder>
