@@ -50,7 +50,7 @@ export class DemandSearchBar extends SearchBar {
                      </Button>
                      <Restricted>
                         <Button 
-                           onClick={(event) => this.requestExportData(event)}
+                           onClick={(event) => this.requestExportData(event, "export-file", "Demandas")}
                            className="ml-2" 
                            variant="dark"
                         >
