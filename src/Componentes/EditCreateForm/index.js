@@ -99,12 +99,15 @@ export class EditCreateForm extends Component {
       }
    };
    handleChange = (e) => {
+      if(e.target.id === "dem_sdm_cod"){
+         this.setState({
+            checkStatus: e.target.options[e.target.selectedIndex].innerText
+         })
+      }
       this.setState((state, props) => ({
          primaryData: {
             ...state.primaryData, [e.target.id]: e.target.value
          },
-         // Acessando texto do seletor para verificação de permissão
-         checkStatus: e.target.options[e.target.selectedIndex].innerText
       }))
    };
    handleDate(date, id) {
