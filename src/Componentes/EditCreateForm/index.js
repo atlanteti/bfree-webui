@@ -103,7 +103,8 @@ export class EditCreateForm extends Component {
          primaryData: {
             ...state.primaryData, [e.target.id]: e.target.value
          },
-         checkStatus: e.target.value
+         // Acessando texto do seletor para verificação de permissão
+         checkStatus: e.target.options[e.target.selectedIndex].innerText
       }))
    };
    handleDate(date, id) {
