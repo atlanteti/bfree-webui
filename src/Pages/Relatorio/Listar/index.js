@@ -22,6 +22,7 @@ import DatePicker from "react-datepicker";
 import moment from 'moment'
 import ListUsers from '../../../Componentes/ListUsers'
 import ContextLogin from "../../../Context/ContextLogin";
+import Restricted from '../../../Context/AccessPermission'
 
 // import { JourneySearchBar } from './JourneySearchBar'
 
@@ -186,13 +187,15 @@ export default class ListarRelatorio extends ListarPagina {
                            <Row>
                               <Col>
                                  <Button type="submit" variant="warning">Buscar</Button>
-                                 <Button 
-                                    onClick={(event) => this.requestExportData(event, "export-billing", "Relatorio")}
-                                    className="ml-2" 
-                                    variant="dark"
-                                 >
-                                    Exportar excel
-                                 </Button>
+                                 <Restricted>
+                                    <Button 
+                                       onClick={(event) => this.requestExportData(event, "export-billing", "Relatorio")}
+                                       className="ml-2" 
+                                       variant="dark"
+                                    >
+                                       Exportar excel
+                                    </Button>
+                                 </Restricted>
                               </Col>
                            </Row>
                         </Form>
