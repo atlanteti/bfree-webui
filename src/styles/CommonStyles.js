@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { Container, Row, Col, Form } from 'react-bootstrap'
+import { Grid } from '@material-ui/core';
 
 //Estilização especial para o ícone da validação dos seletores
 export const SelectValidateStyle = {
@@ -8,13 +9,19 @@ export const SelectValidateStyle = {
    backgroundSize: "calc(.75em + .375rem) calc(.75em + .375rem)"
 }//Verificar se SASS pode fazer isso
 
+export const IndexContainer = styled.div`
+   background-color: #F7F7FA;
+   min-height: 100vh;
+`
+
 export const Title = styled.h1`
    text-align: center;
    font-size: 2rem;
 `
 
 export const RequiredField = styled.text`
-   color: red`
+   color: red;
+`
 
 export const RightAlignText = styled.div`
    .col{
@@ -33,7 +40,7 @@ export const CustomMenuCol = styled(Col)`
                        //Do bootstrap precisam ser consertados na mão.
 `
 export const HeaderContainer = styled(Container)`
-      margin-bottom: 1.5rem
+      margin-bottom: 1.5rem;
 `
 export const RowTopMargin = styled(Row)`
    margin-top: 1rem;
@@ -95,11 +102,13 @@ export const LittleBtn = styled.button`
    &:hover{
       color: #212529;
       background-color: #e0a800;
-      border-color: #d39e00
+      border-color: #d39e00;
    }
 `
 export const BottomMargin = styled.div`
-   margin-bottom: 2rem`
+   margin-bottom: 2rem;
+`
+
 export const Table = styled.table`
    flex: 1;
    width: 100%;
@@ -187,7 +196,7 @@ text-align: left;
 `
 
 export const ActionHeaderCell = styled(ColumnTitle)`
-text-align: center`
+text-align: center;`
 
 export const TableData = styled.tbody``
 
@@ -203,12 +212,12 @@ export const TableCell = styled.td`
 `
 export const NumberCell = styled(TableCell)`
    text-align: right;
-   font-weight: ${props => props.fontTotal ? 'bold' : '400'}
+   font-weight: ${props => props.fontTotal ? 'bold' : '400'};
    `
 
 export const TextCell = styled(TableCell)`
    text-align: left;
-   font-weight: ${props => props.fontTotal ? 'bold' : '400'}
+   font-weight: ${props => props.fontTotal ? 'bold' : '400'};
    `
 export const ActionCell = styled(TableCell)`
    text-align: center;
@@ -236,4 +245,9 @@ export const Icon = styled.div`
 
 export const BtnMenu = styled.button`
    margin-left: 0.5rem;
+`
+export const BackGroundForm = styled(Grid)`
+   background-color: #ffff;
+   padding: 2rem;
+   border-radius: 8px;
 `

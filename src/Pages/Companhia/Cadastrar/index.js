@@ -7,6 +7,7 @@ import { CustomMenu } from '../../../Componentes/CustomMenu'
 import { CustomAlert } from '../../../Componentes/CustomAlert'
 import CompanyForm from './Form'
 import { Title } from '../../../styles/CommonStyles'
+import { Grid, Container, Box } from "@mui/material"
 
 export default class CadastrarCompanhia extends Component {
    constructor(props) {
