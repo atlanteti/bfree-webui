@@ -28,13 +28,13 @@ export class JourneyFormBuilder extends EditCreateForm {
                :
                (
                   <>
-                     <Form onSubmit={this.handleSubmit} validated={this.state.validated} noValidate>
-                        <ButtonRow
-                           cancelButton={<Button variant="light" onClick={this.redirectCallback}><IoChevronBackCircleSharp size={30} color="#E0E7F2" /></Button>}
-                           titlePage={<TitleRegister>{this.paramRoute === 'inserir' ? 'Cadastro' : 'Edição'}</TitleRegister>}
-                           confirmButton={<Button variant="primary" type="submit">Salvar</Button>}
-                        />
-                        <BackGroundForm xs={1} className={'mb-2'} noGutters>
+                  <Form onSubmit={this.handleSubmit} validated={this.state.validated} noValidate>
+                     <ButtonRow
+                        cancelButton={<Button variant="light" onClick={this.redirectCallback}><IoChevronBackCircleSharp size={30} color="#E0E7F2" /></Button>}
+                        titlePage={<TitleRegister>{this.paramRoute === 'inserir' ? 'Cadastro' : 'Edição'}</TitleRegister>}
+                        confirmButton={<Button variant="primary" type="submit">Salvar</Button>}
+                     />
+                     <BackGroundForm xs={1} className={'mb-2'} noGutters>
                            <Row>
                               <Col xs={12} sm={6}>
                                  <TextField
