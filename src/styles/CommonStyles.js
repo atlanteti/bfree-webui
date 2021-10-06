@@ -19,8 +19,14 @@ export const Title = styled.h1`
    font-size: 2rem;
 `
 
+export const TitleRegister = styled.h1`
+   font-size: 1.5rem;
+   color: #3E516E;
+`
+
 export const RequiredField = styled.text`
-   color: red;
+   color: rgba(0,0,0,0.6);
+   margin-left: 0.5rem;
 `
 
 export const RightAlignText = styled.div`
@@ -246,8 +252,20 @@ export const Icon = styled.div`
 export const BtnMenu = styled.button`
    margin-left: 0.5rem;
 `
-export const BackGroundForm = styled(Grid)`
+export const BackGroundForm = styled(Row)`
    background-color: #ffff;
    padding: 2rem;
    border-radius: 8px;
+   box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+`
+
+export const BtnContainer = styled.div`
+   display: flex;
+   justify-content: space-between;
+`
+
+export const TopBarContainer = styled(Col)`
+   background: #fff;
+   min-height: 8vh;
+   box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
 `

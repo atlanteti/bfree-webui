@@ -31,7 +31,7 @@ export default class ListUserStatusControlled extends Component {
 
    render() {
       return <Form.Group controlId={this.props.controlId} /*"companyId"*/>
-         <Form.Label>Status: {this.props.required ? <RequiredField>*</RequiredField> : null}</Form.Label>
+         <Form.Label>Status:</Form.Label>
          <Form.Control //Form.Select não funciona por razões misteriosas
             style={SelectValidateStyle}
 
@@ -53,6 +53,7 @@ export default class ListUserStatusControlled extends Component {
                })}
             </>
          </Form.Control>
+         <Form.Text className="text-muted">{this.props.Text} {this.props.required ? <RequiredField>Campo obrigatório</RequiredField> : null}</Form.Text>
          <Form.Control.Feedback type="invalid">{this.props.errorMessage}</Form.Control.Feedback>
       </Form.Group>;
    }

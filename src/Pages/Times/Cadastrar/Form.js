@@ -6,6 +6,8 @@ import { EditCreateForm } from '../../../Componentes/EditCreateForm/index'
 import { BooleanField, TextField } from '../../../Componentes/FormFields'
 import ListCompanies from '../../../Componentes/ListCompanies'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import { BackGroundForm, TitleRegister } from '../../../styles/CommonStyles'
+import { IoChevronBackCircleSharp } from "react-icons/io5"
 
 export default function TeamForm(props) {
    return <TeamFormBuilder insertDataEndpoint="teams/cadastrar"
@@ -26,62 +28,61 @@ export class TeamFormBuilder extends EditCreateForm {
                :
                (
                   <Form onSubmit={this.handleSubmit} validated={this.state.validated} noValidate>
-                     <Row>
-                        <Col>
-                           <TextField
-                              controlId="tea_name"
-                              errorMessage={this.state.tea_name}
-                              Label="Nome:"
-                              type="text"
-                              defaultValue={this.state.primaryData?.tea_name}
-                              maxLength="45"
-                              onChange={this.handleChange}
-                              required />
-                        </Col>
-                     </Row>
-                     <Row>
-                        <Col>
-                           <ListCompanies
-                              defaultValue={this.props.primaryId}
-                              onChange={this.handleChange}
-                              controlId="tea_cpn_cod"
-                              defaultCompany={this.state.primaryData.tea_cpn_cod ? this.state.primaryData.tea_cpn_cod : null} />
-                        </Col>
-                     </Row>
-                     <Row>
-                        <Col>
-                           <BooleanField Label="Status:"
-                              onFalse="Inativo"
-                              onTrue="Ativo"
-                              controlId="tea_active"
-                              required
-                              key="tea_active"
-                              onChange={this.handleChange}
-                              register={true}
-                              value={this.state.primaryData?.tea_active} />
-                        </Col>
-                     </Row>
-                     {this.props.paramRoute === 'inserir'
-                        ? ''
-                        : (
-                           <>
-                              <DateField
-                                 controlId="tea_dtcreation"
-                                 Label="Data de criação:"
-                                 date={this.state.primaryData?.tea_dtcreation} />
-                              {this.state.primaryData?.tea_dtupdate === null
-                                 ? ''
-                                 : (
-                                    <DateField
-                                       controlId="tea_dtupdate"
-                                       Label="Data de atualização:"
-                                       date={this.state.primaryData?.tea_dtupdate} />
-                                 )}
-                           </>
-                        )}
                      <ButtonRow
-                        cancelButton={<Button variant="warning" onClick={this.redirectCallback}>Voltar</Button>}
-                        confirmButton={<Button variant="dark" type="submit">{this.props.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'}</Button>} />
+                        cancelButton={<Button variant="light" onClick={this.redirectCallback}><IoChevronBackCircleSharp size={30} color="#E0E7F2" /></Button>}
+                        titlePage={<TitleRegister>{this.paramRoute === 'inserir' ? 'Cadastro' : 'Edição'}</TitleRegister>}
+                        confirmButton={<Button variant="primary" type="submit">Salvar</Button>}
+                     />
+                     <BackGroundForm xs={1} className={'mb-2'} noGutters>
+                        <Row>
+                           <Col xs={12} sm={4}>
+                              <TextField
+                                 controlId="tea_name"
+                                 errorMessage={this.state.tea_name}
+                                 placeholder="Nome"
+                                 type="text"
+                                 defaultValue={this.state.primaryData?.tea_name}
+                                 maxLength="45"
+                                 onChange={this.handleChange}
+                                 required />
+                           </Col>
+                           <Col xs={12} sm={4}>
+                              <ListCompanies
+                                 defaultValue={this.props.primaryId}
+                                 onChange={this.handleChange}
+                                 controlId="tea_cpn_cod"
+                                 defaultCompany={this.state.primaryData.tea_cpn_cod ? this.state.primaryData.tea_cpn_cod : null} />
+                           </Col>
+                           <Col xs={12} sm={4}>
+                              <BooleanField Label="Status:"
+                                 onFalse="Inativo"
+                                 onTrue="Ativo"
+                                 controlId="tea_active"
+                                 key="tea_active"
+                                 onChange={this.handleChange}
+                                 register={true}
+                                 value={this.state.primaryData?.tea_active} />
+                           </Col>
+                        </Row>
+                        {this.props.paramRoute === 'inserir'
+                           ? ''
+                           : (
+                              <>
+                                 <DateField
+                                    controlId="tea_dtcreation"
+                                    Label="Data de criação:"
+                                    date={this.state.primaryData?.tea_dtcreation} />
+                                 {this.state.primaryData?.tea_dtupdate === null
+                                    ? ''
+                                    : (
+                                       <DateField
+                                          controlId="tea_dtupdate"
+                                          Label="Data de atualização:"
+                                          date={this.state.primaryData?.tea_dtupdate} />
+                                    )}
+                              </>
+                           )}
+                     </BackGroundForm>
                   </Form>
                )
             }

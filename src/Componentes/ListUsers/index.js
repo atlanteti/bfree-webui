@@ -46,7 +46,7 @@ export default class ListUsers extends Component {
 
    render() {
       return <Form.Group controlId={this.props.controlId} /*"companyId"*/>
-         <Form.Label>Usuário: {this.props.required ? <RequiredField>*</RequiredField> : null}</Form.Label>
+         <Form.Label>Usuário:</Form.Label>
          <Form.Control //Form.Select não funciona por razões misteriosas
             style={SelectValidateStyle}
             disabled={this.props.disabled}

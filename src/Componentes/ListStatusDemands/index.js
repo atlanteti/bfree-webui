@@ -46,7 +46,7 @@ export default class ListStatusDemands extends Component {
 
    render() {
       return <Form.Group controlId={this.props.controlId} /*"companyId"*/>
-         <Form.Label>Status da Demanda: {this.props.required ? <RequiredField>*</RequiredField> : null}</Form.Label>
+         <Form.Label>Status da Demanda:</Form.Label>
          <Form.Control //Form.Select não funciona por razões misteriosas
             style={SelectValidateStyle}
             disabled={this.props.disabled}

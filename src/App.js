@@ -34,7 +34,7 @@ function App() {
             // logo: this.options?.logo,
             // create: this.options?.create || undefined,
             // register: this.options?.register || undefined,
-            btnColor: "#000000",
+            btnColor: "#0509EE",
             // dark: this.options?.dark || undefined,
             // email: this.options?.email || undefined 
          }).subscribe(token => {

@@ -132,7 +132,7 @@ function newFunction(admin) {
    return complete
 
    function conditionalForPermissionAccess(line) {
-      { return line.title == "Demandas" ||  line.title == "Relatorios"}
+      { return line.title == "Demandas" || line.title == "Relatorios" }
    }
 }
 

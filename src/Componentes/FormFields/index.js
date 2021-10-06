@@ -5,7 +5,7 @@ import { RequiredField, SelectFieldStyle, SelectValidateStyle } from '../../styl
 import InputMask from "react-input-mask"
 export function TextField(props) {
    return <Form.Group controlId={props.controlId}>
-      <Form.Label>{props.Label} {props.required ? <RequiredField>*</RequiredField> : null}</Form.Label>
+      <Form.Label><p style={{ color: "transparent" }}>.</p></Form.Label>
       <Form.Control
          rows={5}
          type={props.type}
@@ -17,6 +17,7 @@ export function TextField(props) {
          {...props}
       />
       <Form.Control.Feedback type="invalid">{props.errorMessage}</Form.Control.Feedback>
+      <Form.Text className="text-muted">{props.required ? <RequiredField>Campo obrigatório</RequiredField> : null}</Form.Text>
    </Form.Group>
 }
 TextField.propTypes = {
@@ -47,7 +48,7 @@ export function NumberField(props) {
    }
 
    return <Form.Group controlId={props.controlId}>
-      <Form.Label>{props.Label} {props.required ? <RequiredField>*</RequiredField> : null}</Form.Label>
+      <Form.Label><p style={{ color: "transparent" }}>.</p></Form.Label>
       <Form.Control
          type={props.type}
          as={props.as}
@@ -59,6 +60,7 @@ export function NumberField(props) {
          {...props}
       />
       <Form.Control.Feedback type="invalid">{props.errorMessage}</Form.Control.Feedback>
+      <Form.Text className="text-muted">{props.Text} {props.required ? <RequiredField>Campo obrigatório</RequiredField> : null}</Form.Text>
    </Form.Group>
 }
 NumberField.propTypes = {

@@ -6,6 +6,8 @@ import { ButtonRow } from '../../../Componentes/ButtonRow'
 import { EditCreateForm } from '../../../Componentes/EditCreateForm/index'
 import ListCompanies from '../../../Componentes/ListCompanies'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import { BackGroundForm, TitleRegister } from '../../../styles/CommonStyles'
+import { IoChevronBackCircleSharp } from "react-icons/io5"
 
 export default function TypeDemandForm(props) {
    return <TypeDemandFormBuilder insertDataEndpoint="types-demand/cadastrar"
@@ -29,51 +31,53 @@ export class TypeDemandFormBuilder extends EditCreateForm {
                :
                (
                   <Form onSubmit={this.handleSubmit} validated={this.state.validated} noValidate>
-                     <Row>
-                        <Col>
-                           <TextField
-                              controlId="tdm_name"
-                              errorMessage={this.state.tdm_name}
-                              Label="Nome:"
-                              type="text"
-                              maxLength="45"
-                              defaultValue={this.state.primaryData?.tdm_name}
-                              onChange={this.handleChange}
-                              required />
-                        </Col>
-                     </Row>
-                     <Row>
-                        <Col>
-                           <ListCompanies
-                              defaultValue={this.props.primaryId}
-                              onChange={this.handleChange}
-                              controlId="tdm_cpn_cod"
-                              errorMessage={this.state.tdm_cpn_cod}
-                              defaultCompany={this.state.primaryData.tdm_cpn_cod ? this.state.primaryData.tdm_cpn_cod : ""}
-                              required />
-                        </Col>
-                     </Row>
-                     {this.props.paramRoute === 'inserir'
-                        ? ''
-                        : (
-                           <>
-                              <DateField
-                                 controlId="tdm_dtcreation"
-                                 Label="Data de criação:"
-                                 date={this.state.primaryData?.tdm_dtcreation} />
-                              {this.state.primaryData?.tdm_dtupdate === null
-                                 ? ''
-                                 : (
-                                    <DateField
-                                       controlId="tdm_dtupdate"
-                                       Label="Data de atualização:"
-                                       date={this.state.primaryData?.tdm_dtupdate} />
-                                 )}
-                           </>
-                        )}
                      <ButtonRow
-                        cancelButton={<Button variant="warning" onClick={this.redirectCallback}>Voltar</Button>}
-                        confirmButton={<Button variant="dark" type="submit">{this.props.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'}</Button>} />
+                        cancelButton={<Button variant="light" onClick={this.redirectCallback}><IoChevronBackCircleSharp size={30} color="#E0E7F2" /></Button>}
+                        titlePage={<TitleRegister>{this.paramRoute === 'inserir' ? 'Cadastro' : 'Edição'}</TitleRegister>}
+                        confirmButton={<Button variant="primary" type="submit">Salvar</Button>}
+                     />
+                     <BackGroundForm xs={1} className={'mb-2'} noGutters>
+                        <Row>
+                           <Col xs={12} sm={6}>
+                              <TextField
+                                 controlId="tdm_name"
+                                 errorMessage={this.state.tdm_name}
+                                 placeHolder="Nome"
+                                 type="text"
+                                 maxLength="45"
+                                 defaultValue={this.state.primaryData?.tdm_name}
+                                 onChange={this.handleChange}
+                                 required />
+                           </Col>
+                           <Col xs={12} sm={6}>
+                              <ListCompanies
+                                 defaultValue={this.props.primaryId}
+                                 onChange={this.handleChange}
+                                 controlId="tdm_cpn_cod"
+                                 errorMessage={this.state.tdm_cpn_cod}
+                                 defaultCompany={this.state.primaryData.tdm_cpn_cod ? this.state.primaryData.tdm_cpn_cod : ""}
+                                 required />
+                           </Col>
+                        </Row>
+                        {this.props.paramRoute === 'inserir'
+                           ? ''
+                           : (
+                              <>
+                                 <DateField
+                                    controlId="tdm_dtcreation"
+                                    Label="Data de criação:"
+                                    date={this.state.primaryData?.tdm_dtcreation} />
+                                 {this.state.primaryData?.tdm_dtupdate === null
+                                    ? ''
+                                    : (
+                                       <DateField
+                                          controlId="tdm_dtupdate"
+                                          Label="Data de atualização:"
+                                          date={this.state.primaryData?.tdm_dtupdate} />
+                                    )}
+                              </>
+                           )}
+                     </BackGroundForm>
                   </Form>
                )}
          </>
