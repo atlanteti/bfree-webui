@@ -94,7 +94,7 @@ export class BadgeFormBuilder extends EditCreateForm {
                      <ButtonRow
                         cancelButton={<Button variant="light" onClick={this.redirectCallback}><IoChevronBackCircleSharp size={30} color="#E0E7F2" /></Button>}
                         titlePage={<TitleRegister>{this.paramRoute === 'inserir' ? 'Cadastro' : 'Edição'}</TitleRegister>}
-                        confirmButton={<Button variant="primary" type="submit">Salvar</Button>}
+                        confirmButton={<Button variant="dark" type="submit">Salvar</Button>}
                      />
                      <BackGroundForm xs={1} className={'mb-2'} noGutters>
                         <Row>
@@ -102,7 +102,7 @@ export class BadgeFormBuilder extends EditCreateForm {
                               <TextField
                                  controlId="bdg_name"
                                  errorMessage={this.state.bdg_name}
-                                 Label="Nome:"
+                                 placeholder="Nome"
                                  type="text"
                                  maxLength="45"
                                  required
@@ -113,7 +113,7 @@ export class BadgeFormBuilder extends EditCreateForm {
                               <TextField
                                  controlId="bdg_description"
                                  errorMessage={this.state.bdg_description}
-                                 Label="Descrição:"
+                                 placeholder="Descrição"
                                  type="text"
                                  maxLength="45"
                                  required
@@ -126,7 +126,7 @@ export class BadgeFormBuilder extends EditCreateForm {
                               <TextField
                                  controlId="bdg_detail"
                                  errorMessage={this.state.bdg_detail}
-                                 Label="Motivadores:"
+                                 placeholder="Motivadores"
                                  as="textarea"
                                  maxLength="400"
                                  required
