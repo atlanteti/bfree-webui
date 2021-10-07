@@ -1,3 +1,18 @@
 .btn-position {
    margin-left: 1rem !important;
 }
+
+div:hover > span > svg {
+   color:#0509EE !important
+}
+div:hover > span > span {
+   color:#0509EE !important
+}
+
+.side-navigation-panel-select-option-selected > span > svg {
+   color:#0509EE !important
+}
+
+.side-navigation-panel-select-option-selected > span > span {
+   color:#0509EE !important
+}
