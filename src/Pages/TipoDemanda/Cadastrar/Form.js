@@ -34,7 +34,7 @@ export class TypeDemandFormBuilder extends EditCreateForm {
                      <ButtonRow
                         cancelButton={<Button variant="light" onClick={this.redirectCallback}><IoChevronBackCircleSharp size={30} color="#E0E7F2" /></Button>}
                         titlePage={<TitleRegister>{this.paramRoute === 'inserir' ? 'Cadastro' : 'Edição'}</TitleRegister>}
-                        confirmButton={<Button variant="primary" type="submit">Salvar</Button>}
+                        confirmButton={<Button variant="dark" type="submit">Salvar</Button>}
                      />
                      <BackGroundForm xs={1} className={'mb-2'} noGutters>
                         <Row>

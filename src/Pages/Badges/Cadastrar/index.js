@@ -44,7 +44,7 @@ export default class CadastrarBadge extends Component {
          return <>
             <Helmet title={`${this.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'} Badge`} />
             <CustomMenu />
-            <Col style={{ marginTop: 48 }}>
+            <Col>
                <Col
                   sm={{ offset: 1, span: 10 }}// Temporary until styled components
                   md={{ offset: 1, span: 10 }}
