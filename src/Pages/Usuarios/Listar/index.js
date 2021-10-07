@@ -134,7 +134,7 @@ export default class ListarUsuario extends ListarPagina {
          <TextCell data-title="Status">{usuario.statusUser.sus_name ? usuario.statusUser.sus_name : <p style={{ color: "transparent" }}>.</p>}</TextCell>
          <ActionCell data-title="Ações">
             <Row noGutters className="positionButtonsFixed">
-               <Button variant="warning" href={`/editar-usuario/${usuario.usr_cod}/alterar`}>Editar</Button>
+               <Button variant="warning" href={`/editar/usuarios/${usuario.usr_cod}/alterar`}>Editar</Button>
                <Button variant="dark" className="mr-1"
                   onClick={() => {
                      this.setState({

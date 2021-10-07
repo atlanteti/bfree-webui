@@ -44,7 +44,7 @@ export default class ListarTime extends ListarPagina {
    PageHeaderCustom() {
       return <PageHeaderCustomComponent
          Title="Times"
-         href="cadastrar/times/inserir/" />
+         href="cadastrar/times/inserir" />
    }
 
    TableHeaderCustom(props) {
@@ -88,7 +88,7 @@ export default class ListarTime extends ListarPagina {
             {time.tea_active ? "ATIVO" : "INATIVO"}
          </TextCell>
          <ActionCell data-title="Ações">
-            <Button variant="warning" href={`/editar-time/${time.tea_cod}/alterar`}>Editar</Button>
+            <Button variant="warning" href={`/editar/times/${time.tea_cod}/alterar`}>Editar</Button>
             <Button variant="dark" href="#" onClick={() => {
                this.setState({
                   deletionId: time.tea_cod,

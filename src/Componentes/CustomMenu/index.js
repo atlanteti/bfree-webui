@@ -47,7 +47,7 @@ export const CustomMenu = () => {
          >
             {/* https://github.com/abhijithvijayan/react-minimal-side-navigation */}
             <Navigation
-               activeItemId={location.pathname.replace("/cadastrar", "").replace("/inserir/", "")}
+            activeItemId={location.pathname.replace("/cadastrar", "").replace("/inserir", "") || location.pathname.replace("/editar", "").replace("/4/alterar", "")}
                onSelect={({ itemId }) => {
                   history.push(itemId)
                }}

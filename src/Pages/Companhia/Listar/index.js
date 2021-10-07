@@ -70,7 +70,7 @@ export default class ListarCompanhia extends ListarPagina {
          <NumberCell data-title="ID Eduzz">{companhia.cpn_cli_cod}</NumberCell>
          <TextCell data-title="Nome">{companhia.cpn_name}</TextCell>
          <ActionCell data-title="Ações">
-            <Button variant="warning" href={`/editar-companhia/${companhia.cpn_cod}/alterar`}>Editar</Button>
+            <Button variant="warning" href={`/editar/companhia/${companhia.cpn_cod}/alterar`}>Editar</Button>
             <Button variant="dark" onClick={() => {
                this.setState({
                   deletionId: companhia.cpn_cod,

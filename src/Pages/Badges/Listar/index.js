@@ -45,7 +45,7 @@ export default class ListarBadge extends ListarPagina {
    PageHeaderCustom() {
       return <PageHeaderCustomComponent
          Title="Badges"
-         href="cadastrar/badges/inserir/" />
+         href="cadastrar/badges/inserir" />
    }
 
    TableHeaderCustom(props) {
@@ -99,7 +99,7 @@ export default class ListarBadge extends ListarPagina {
             <Icon>{badge.bdg_mentor ? <IoCheckboxOutline align="center" size={25} /> : <p style={{ color: "transparent" }}>.</p>}</Icon>
          </TextCell>
          <ActionCell data-title="Ações">
-            <Button variant="warning" href={`/editar-badges/${badge.bdg_cod}/alterar`}>Editar</Button>
+            <Button variant="warning" href={`/editar/badges/${badge.bdg_cod}/alterar`}>Editar</Button>
             <Button variant="dark" onClick={() => {
                this.setState({
                   deletionId: badge.bdg_cod,

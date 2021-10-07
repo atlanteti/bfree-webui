@@ -75,7 +75,7 @@ export default class ListarJornada extends ListarPagina {
          <TextCell data-title="Nome">{jornada.jny_name}</TextCell>
          <TextCell data-title="Empresa" className="text">{jornada.company.cpn_name}</TextCell>
          <ActionCell data-title="Ações">
-            <Button variant="warning" href={`/editar-jornada/${jornada.jny_cod}/alterar`}>Editar</Button>
+            <Button variant="warning" href={`/editar/jornadas/${jornada.jny_cod}/alterar`}>Editar</Button>
             <Button variant="dark"
                onClick={() => {
                   this.setState({

@@ -106,7 +106,7 @@ export default class ListarDemandas extends ListarPagina {
          <TextCell data-title="Tipo da Demanda" className="text">{demanda.typeDemand.tdm_name}</TextCell>
          <ActionCell data-title="Ações">
             <Row noGutters className="positionButtonsFixed">
-               <Button variant="warning" href={`/editar-demanda/${demanda.dem_cod}/alterar`}>Editar</Button>
+               <Button variant="warning" href={`/editar/demandas/${demanda.dem_cod}/alterar`}>Editar</Button>
                <Restricted>
                   <Button variant="dark"
                      onClick={() => {

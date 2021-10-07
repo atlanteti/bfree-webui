@@ -71,7 +71,7 @@ export default class ListarTipoDemanda extends ListarPagina {
          <TextCell data-title="Nome">{tDemand.tdm_name}</TextCell>
          <TextCell data-title="Empresa" className="text">{tDemand.company.cpn_name}</TextCell>
          <ActionCell data-title="Ações">
-            <Button variant="warning" href={`/editar-tipodemanda/${tDemand.tdm_cod}/alterar`}>Editar</Button>
+            <Button variant="warning" href={`/editar/tipodemanda/${tDemand.tdm_cod}/alterar`}>Editar</Button>
             <Button variant="dark"
                onClick={() => {
                   this.setState({
