@@ -7,7 +7,7 @@ import { EditCreateForm } from '../../../Componentes/EditCreateForm/index'
 import ListCompanies from '../../../Componentes/ListCompanies'
 import ListUserStatusControlled from '../../../Componentes/ListUserStatus'
 import CircularProgress from '@material-ui/core/CircularProgress'
-import { BackGroundForm, TitleRegister } from '../../../styles/CommonStyles'
+import { BackGroundForm, BtnSalvar, TitleRegister } from '../../../styles/CommonStyles'
 import { IoChevronBackCircleSharp } from "react-icons/io5"
 
 export default function UserForm(props) {
@@ -31,10 +31,43 @@ export class UserFormBuilder extends EditCreateForm {
                   <Form onSubmit={this.handleSubmit} validated={this.state.validated} noValidate>
                      <ButtonRow
                         cancelButton={<Button variant="light" onClick={this.redirectCallback}><IoChevronBackCircleSharp size={30} color="#E0E7F2" /></Button>}
-                        titlePage={<TitleRegister>{this.paramRoute === 'inserir' ? 'Cadastro' : 'Edição'}</TitleRegister>}
-                        confirmButton={<Button variant="dark" type="submit">Salvar</Button>}
+                        titlePage={<TitleRegister>{this.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'} Usuário</TitleRegister>}
                      />
                      <BackGroundForm xs={1} className={'mb-2'} noGutters>
+                        <Row>
+                           <Col xs={12} sm={4}>
+                              <TextField
+                                 controlId="usr_name"
+                                 errorMessage={this.state.usr_name}
+                                 placeholder="Nome"
+                                 required
+                                 maxLength="200"
+                                 type="text"
+                                 defaultValue={this.state.primaryData?.usr_name}
+                                 onChange={this.handleChange} />
+                           </Col>
+                           <Col xs={12} sm={4}>
+                              <PhoneField
+                                 required
+                                 controlId="usr_phone"
+                                 placeholder="Telefone"
+                                 errorMessage={this.state.usr_phone}
+                                 defaultValue={this.state.primaryData.usr_phone}
+                                 onChange={this.handleChange}
+                                 minLength="15" />
+                           </Col>
+                           <Col xs={12} sm={4}>
+                              <TextField
+                                 controlId="usr_email"
+                                 errorMessage={this.state.usr_email}
+                                 placeholder="Email"
+                                 required
+                                 maxLength="144"
+                                 type="email"
+                                 defaultValue={this.state.primaryData?.usr_email}
+                                 onChange={this.handleChange} />
+                           </Col>
+                        </Row>
                         <Row>
                            <Col xs={12} sm={4}>
                               <NumberField
@@ -56,40 +89,6 @@ export class UserFormBuilder extends EditCreateForm {
                                  onChange={this.handleChange} />
                            </Col>
                            <Col xs={12} sm={4}>
-                              <TextField
-                                 controlId="usr_name"
-                                 errorMessage={this.state.usr_name}
-                                 placeholder="Nome"
-                                 required
-                                 maxLength="200"
-                                 type="text"
-                                 defaultValue={this.state.primaryData?.usr_name}
-                                 onChange={this.handleChange} />
-                           </Col>
-                        </Row>
-                        <Row>
-                           <Col xs={12} sm={4}>
-                              <TextField
-                                 controlId="usr_email"
-                                 errorMessage={this.state.usr_email}
-                                 placeholder="Email"
-                                 required
-                                 maxLength="144"
-                                 type="email"
-                                 defaultValue={this.state.primaryData?.usr_email}
-                                 onChange={this.handleChange} />
-                           </Col>
-                           <Col xs={12} sm={4}>
-                              <PhoneField
-                                 required
-                                 controlId="usr_phone"
-                                 placeholder="Telefone"
-                                 errorMessage={this.state.usr_phone}
-                                 defaultValue={this.state.primaryData.usr_phone}
-                                 onChange={this.handleChange}
-                                 minLength="15" />
-                           </Col>
-                           <Col xs={12} sm={4}>
                               <ListUserStatusControlled
                                  controlId="usr_sus_cod"
                                  required
@@ -97,7 +96,11 @@ export class UserFormBuilder extends EditCreateForm {
                                  value={this.state.primaryData.usr_sus_cod ? this.state.primaryData.usr_sus_cod : null} />
                            </Col>
                         </Row>
-
+                        <Row>
+                           <Col md={{ offset: 5}}>
+                              <BtnSalvar variant="dark" type="submit">Salvar</BtnSalvar>
+                           </Col>
+                        </Row>
                         {this.props.paramRoute === 'inserir'
                            ? ''
                            : (

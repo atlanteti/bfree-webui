@@ -5,11 +5,11 @@ export function ButtonRow(props) {
    return <Row
       style={{ marginBottom: 15, display: "flex", justifyContent: 'space-between' }}
    >
-      <Col style={{ display: "flex", alignItems: 'center' }}>
+      <Col xs={12} sm={8} style={{ display: "flex", alignItems: 'center' }}>
          {props.cancelButton}
          {props.titlePage}
       </Col>
-      <Col style={{ display: "flex", justifyContent: 'flex-end' }}>
+      <Col xs={12} sm={2} style={{ display: "flex", justifyContent: 'flex-end' }}>
          {props.confirmButton}
       </Col>
    </Row>

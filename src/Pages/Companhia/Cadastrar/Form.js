@@ -5,7 +5,7 @@ import { ButtonRow } from '../../../Componentes/ButtonRow'
 import { EditCreateForm } from '../../../Componentes/EditCreateForm/index'
 import { NumberField, TextField } from '../../../Componentes/FormFields'
 import CircularProgress from '@material-ui/core/CircularProgress'
-import { BackGroundForm, TitleRegister } from '../../../styles/CommonStyles'
+import { BackGroundForm, BtnSalvar, TitleRegister } from '../../../styles/CommonStyles'
 import { IoChevronBackCircleSharp } from "react-icons/io5"
 
 export default function CompanyForm(props) {
@@ -35,12 +35,11 @@ export class CompanyFormBuilder extends EditCreateForm {
                   <Form onSubmit={this.handleSubmit} validated={this.state.validated} noValidate>
                      <ButtonRow
                         cancelButton={<Button variant="light" onClick={this.redirectCallback}><IoChevronBackCircleSharp size={30} color="#E0E7F2" /></Button>}
-                        titlePage={<TitleRegister>{this.paramRoute === 'inserir' ? 'Cadastro' : 'Edição'}</TitleRegister>}
-                        confirmButton={<Button variant="dark" type="submit">Salvar</Button>}
+                        titlePage={<TitleRegister>{this.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'} Empresa</TitleRegister>}
                      />
                      <BackGroundForm xs={1} className={'mb-2'} noGutters>
                         <Row>
-                           <Col xs={12} sm={6}>
+                           <Col xs={12} sm={5}>
                               <NumberField
                                  controlId="cpn_cli_cod"
                                  placeHolder="ID Eduzz"
@@ -51,7 +50,7 @@ export class CompanyFormBuilder extends EditCreateForm {
                                  onChange={this.handleChange}
                                  required />
                            </Col>
-                           <Col xs={12} sm={6}>
+                           <Col xs={12} sm={5}>
                               <TextField
                                  controlId="cpn_name"
                                  placeHolder="Nome"
@@ -62,6 +61,7 @@ export class CompanyFormBuilder extends EditCreateForm {
                                  required
                                  maxLength="45" />
                            </Col>
+                           <Col xs={12} sm={2}><BtnSalvar variant="dark" type="submit">Salvar</BtnSalvar></Col>
                         </Row>
                         {this.props.paramRoute === 'inserir'
                            ? ''

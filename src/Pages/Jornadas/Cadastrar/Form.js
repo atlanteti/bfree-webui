@@ -6,7 +6,7 @@ import { ButtonRow } from '../../../Componentes/ButtonRow'
 import { EditCreateForm } from '../../../Componentes/EditCreateForm/index'
 import ListCompanies from '../../../Componentes/ListCompanies'
 import CircularProgress from '@material-ui/core/CircularProgress'
-import { BackGroundForm, TitleRegister } from '../../../styles/CommonStyles'
+import { BackGroundForm, BtnSalvar, TitleRegister } from '../../../styles/CommonStyles'
 import { IoChevronBackCircleSharp } from "react-icons/io5"
 
 export default function JourneyForm(props) {
@@ -31,12 +31,11 @@ export class JourneyFormBuilder extends EditCreateForm {
                   <Form onSubmit={this.handleSubmit} validated={this.state.validated} noValidate>
                      <ButtonRow
                         cancelButton={<Button variant="light" onClick={this.redirectCallback}><IoChevronBackCircleSharp size={30} color="#E0E7F2" /></Button>}
-                        titlePage={<TitleRegister>{this.paramRoute === 'inserir' ? 'Cadastro' : 'Edição'}</TitleRegister>}
-                        confirmButton={<Button variant="dark" type="submit">Salvar</Button>}
+                        titlePage={<TitleRegister>{this.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'} Jornada</TitleRegister>}
                      />
                      <BackGroundForm xs={1} className={'mb-2'} noGutters>
                            <Row>
-                              <Col xs={12} sm={6}>
+                              <Col xs={12} sm={5}>
                                  <TextField
                                     controlId="jny_name"
                                     errorMessage={this.state.jny_name}
@@ -47,7 +46,7 @@ export class JourneyFormBuilder extends EditCreateForm {
                                     onChange={this.handleChange}
                                     required />
                               </Col>
-                              <Col xs={12} sm={6}>
+                              <Col xs={12} sm={5}>
                                  <ListCompanies
                                     defaultValue={this.props.primaryId}
                                     errorMessage={this.state.jny_cpn_cod}
@@ -55,6 +54,9 @@ export class JourneyFormBuilder extends EditCreateForm {
                                     controlId="jny_cpn_cod"
                                     defaultCompany={this.state.primaryData.jny_cpn_cod}
                                     required />
+                              </Col>
+                              <Col xs={12} sm={2}>
+                                 <BtnSalvar variant="dark" type="submit">Salvar</BtnSalvar>
                               </Col>
                            </Row>
 

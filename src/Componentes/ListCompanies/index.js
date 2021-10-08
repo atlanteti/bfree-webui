@@ -55,7 +55,7 @@ export default class ListCompanies extends Component {
             onChange={this.onChange.bind(this)}
             value={this.props.defaultCompany}>
             <>
-               <option value={null} />
+               <option value={null}>{this.props.required ? "Empresa" : null}</option>
                {this.state.companies?.map(company => {
                   return (
                      <option

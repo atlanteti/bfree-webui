@@ -6,7 +6,7 @@ import { EditCreateForm } from '../../../Componentes/EditCreateForm/index'
 import { BooleanField, TextField } from '../../../Componentes/FormFields'
 import ListCompanies from '../../../Componentes/ListCompanies'
 import CircularProgress from '@material-ui/core/CircularProgress'
-import { BackGroundForm, TitleRegister } from '../../../styles/CommonStyles'
+import { BackGroundForm, BtnSalvar, TitleRegister } from '../../../styles/CommonStyles'
 import { IoChevronBackCircleSharp } from "react-icons/io5"
 
 export default function TeamForm(props) {
@@ -30,8 +30,7 @@ export class TeamFormBuilder extends EditCreateForm {
                   <Form onSubmit={this.handleSubmit} validated={this.state.validated} noValidate>
                      <ButtonRow
                         cancelButton={<Button variant="light" onClick={this.redirectCallback}><IoChevronBackCircleSharp size={30} color="#E0E7F2" /></Button>}
-                        titlePage={<TitleRegister>{this.paramRoute === 'inserir' ? 'Cadastro' : 'Edição'}</TitleRegister>}
-                        confirmButton={<Button variant="dark" type="submit">Salvar</Button>}
+                        titlePage={<TitleRegister>{this.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'} Editar</TitleRegister>}
                      />
                      <BackGroundForm xs={1} className={'mb-2'} noGutters>
                         <Row>
@@ -62,6 +61,11 @@ export class TeamFormBuilder extends EditCreateForm {
                                  onChange={this.handleChange}
                                  register={true}
                                  value={this.state.primaryData?.tea_active} />
+                           </Col>
+                        </Row>
+                        <Row>
+                           <Col md={{ offset: 5}}>
+                              <BtnSalvar variant="dark" type="submit">Salvar</BtnSalvar>
                            </Col>
                         </Row>
                         {this.props.paramRoute === 'inserir'

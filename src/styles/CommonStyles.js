@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Container, Row, Col, Form } from 'react-bootstrap'
+import { Container, Row, Col, Form, Button } from 'react-bootstrap'
 import { Grid } from '@material-ui/core';
 
 //Estilização especial para o ícone da validação dos seletores
@@ -20,8 +20,9 @@ export const Title = styled.h1`
 `
 
 export const TitleRegister = styled.h1`
-   font-size: 1.5rem;
+   font-size: 2rem;
    color: #3E516E;
+   font-weight: 700 !important;
 `
 
 export const RequiredField = styled.text`
@@ -93,7 +94,8 @@ export const MainContainer = styled.div`
    }
 `
 
-export const BtnCadastrar = styled.a`
+export const BtnSalvar = styled(Button)`
+   width: 120px !important;
 `
 
 export const Input = styled.input`

@@ -11,7 +11,7 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import ContextLogin from '../../../Context/ContextLogin'
 import DatePicker from "react-datepicker";
 import Restricted from '../../../Context/AccessPermission'
-import { BackGroundForm, TitleRegister } from '../../../styles/CommonStyles'
+import { BackGroundForm, BtnSalvar, TitleRegister } from '../../../styles/CommonStyles'
 import { IoChevronBackCircleSharp } from "react-icons/io5"
 
 export default function DemandForm(props) {
@@ -35,12 +35,11 @@ export class DemandFormBuilder extends EditCreateForm {
                   <Form onSubmit={this.handleSubmit} validated={this.state.validated} noValidate>
                      <ButtonRow
                         cancelButton={<Button variant="light" onClick={this.redirectCallback}><IoChevronBackCircleSharp size={30} color="#E0E7F2" /></Button>}
-                        titlePage={<TitleRegister>{this.paramRoute === 'inserir' ? 'Cadastro' : 'Edição'}</TitleRegister>}
-                        confirmButton={<Button variant="dark" type="submit">Salvar</Button>}
+                        titlePage={<TitleRegister>{this.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'} Demanda</TitleRegister>}
                      />
                      <BackGroundForm xs={1} className={'mb-2'} noGutters>
                         <Row>
-                           <Col xs={12} sm={6}>
+                           <Col xs={12} sm={4}>
                               <TextField
                                  controlId="dem_title"
                                  errorMessage={this.state.dem_title}
@@ -52,17 +51,28 @@ export class DemandFormBuilder extends EditCreateForm {
                                  disabled={(this.context.admin && this.paramRoute === 'inserir') ? false : true}
                                  onChange={this.context.admin ? this.handleChange : null} />
                            </Col>
-                           <Col xs={12} sm={6}>
+                           <Col xs={12} sm={4}>
                               <TextField
                                  controlId="dem_contact_email"
                                  errorMessage={this.state.dem_contact_email}
-                                 placeholder="Email do Contato"
+                                 placeholder="Email"
                                  required
                                  maxLength="144"
                                  type="email"
                                  defaultValue={this.state.primaryData?.dem_contact_email}
                                  disabled={(this.context.admin && this.paramRoute === 'inserir') ? false : true}
                                  onChange={this.context.admin ? this.handleChange : null} />
+                           </Col>
+                           <Col xs={12} sm={4}>
+                              <PhoneField
+                                 controlId="dem_contact_phone"
+                                 placeholder="Telefone"
+                                 errorMessage={this.state.dem_contact_phone}
+                                 defaultValue={this.state.primaryData.dem_contact_phone}
+                                 onChange={this.context.admin ? this.handleChange : null}
+                                 disabled={(this.context.admin && this.paramRoute === 'inserir') ? false : true}
+                                 minLength="15"
+                              />
                            </Col>
                         </Row>
                         <Row>
@@ -76,19 +86,6 @@ export class DemandFormBuilder extends EditCreateForm {
                                  maxLength="200"
                                  defaultValue={this.state.primaryData?.dem_desc}
                                  onChange={this.handleChange} />
-                           </Col>
-                        </Row>
-                        <Row>
-                           <Col xs={12} sm={6}>
-                              <PhoneField
-                                 controlId="dem_contact_phone"
-                                 placeholder="Telefone"
-                                 errorMessage={this.state.dem_contact_phone}
-                                 defaultValue={this.state.primaryData.dem_contact_phone}
-                                 onChange={this.context.admin ? this.handleChange : null}
-                                 disabled={(this.context.admin && this.paramRoute === 'inserir') ? false : true}
-                                 minLength="15"
-                              />
                            </Col>
                         </Row>
                         <Row>
@@ -106,7 +103,7 @@ export class DemandFormBuilder extends EditCreateForm {
                            </Col>
                         </Row>
                         <Row>
-                           <Col xs={12} sm={6}>
+                           <Col xs={12} sm={4}>
                               <ListUsers
                                  defaultValue={this.props.primaryId}
                                  errorMessage={this.state.dem_usr_cod}
@@ -117,7 +114,7 @@ export class DemandFormBuilder extends EditCreateForm {
                                  onChange={this.context.admin ? this.handleChange : null}
                                  required />
                            </Col>
-                           <Col xs={12} sm={6}>
+                           <Col xs={12} sm={4}>
                               <ListStatusDemands
                                  defaultValue={this.props.primaryId}
                                  errorMessage={this.state.dem_sdm_cod}
@@ -125,6 +122,17 @@ export class DemandFormBuilder extends EditCreateForm {
                                  controlId="dem_sdm_cod"
                                  defaultStatusDemand={this.state.primaryData.dem_sdm_cod}
                                  required />
+                           </Col>
+                           <Col xs={12} sm={4}>
+                              <ListTypeDemand
+                                 defaultValue={this.props.primaryId}
+                                 errorMessage={this.state.dem_tdm_cod}
+                                 controlId="dem_tdm_cod"
+                                 defaultTypeDemand={this.state.primaryData.dem_tdm_cod}
+                                 disabled={(this.context.admin && this.paramRoute === 'inserir') ? false : true}
+                                 onChange={this.context.admin ? this.handleChange : null}
+                                 required
+                              />
                            </Col>
                         </Row>
                         {(this.state.checkStatus === "COMPARECIDO" || this.state.checkStatus === "VENDA") &&
@@ -151,17 +159,9 @@ export class DemandFormBuilder extends EditCreateForm {
                               </Restricted>
 
                            )}
-                        <Row>
-                           <Col xs={12} sm={6}>
-                              <ListTypeDemand
-                                 defaultValue={this.props.primaryId}
-                                 errorMessage={this.state.dem_tdm_cod}
-                                 controlId="dem_tdm_cod"
-                                 defaultTypeDemand={this.state.primaryData.dem_tdm_cod}
-                                 disabled={(this.context.admin && this.paramRoute === 'inserir') ? false : true}
-                                 onChange={this.context.admin ? this.handleChange : null}
-                                 required
-                              />
+                        <Row style={{ marginTop: 10 }}>
+                           <Col md={{ offset: 5}}>
+                              <BtnSalvar variant="dark" type="submit">Salvar</BtnSalvar>
                            </Col>
                         </Row>
                         {this.props.paramRoute === 'inserir'
