@@ -13,7 +13,7 @@ export class CompanySearchBar extends SearchBar {
                   {this.props.children}
                   <Col xs={12} sm={6}>
                      <TextField
-                        Label="ID Eduzz: "
+                        label="ID Eduzz: "
                         controlId="cpn_cli_cod"
                         onChange={this.onChange}
                         placeholder="Insira o Id Externo da empresa"
@@ -21,7 +21,7 @@ export class CompanySearchBar extends SearchBar {
                   </Col>
                   <Col xs={12} sm={6}>
                      <TextField
-                        Label="Nome"
+                        label="Nome:"
                         controlId="name"
                         onChange={this.onChange}
                         placeholder="Insira o nome da empresa"

@@ -92,7 +92,7 @@ export class BadgeFormBuilder extends EditCreateForm {
                (
                   <Form onSubmit={this.handleSubmit} validated={this.state.validated} noValidate>
                      <ButtonRow
-                        cancelButton={<Button variant="light" onClick={this.redirectCallback}><IoChevronBackCircleSharp size={30} color="#E0E7F2" /></Button>}
+                        cancelButton={<Button variant="light" onClick={this.redirectCallback}><IoChevronBackCircleSharp size={30} color="#BFCADD" /></Button>}
                         titlePage={<TitleRegister>{this.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'} Badge</TitleRegister>}
                      />
                      <BackGroundForm xs={1} className={'mb-2'} noGutters>
@@ -101,7 +101,7 @@ export class BadgeFormBuilder extends EditCreateForm {
                               <TextField
                                  controlId="bdg_name"
                                  errorMessage={this.state.bdg_name}
-                                 placeholder="Nome"
+                                 label="Nome:"
                                  type="text"
                                  maxLength="45"
                                  required
@@ -118,13 +118,16 @@ export class BadgeFormBuilder extends EditCreateForm {
                         </Row>
                         <Row>
                            <Col xs={12} sm={6}>
-                              <BooleanField Label="Mentor"
+                              <BooleanField Label="Mentor: "
                                  onTrue="Sim"
                                  onFalse="Não"
                                  controlId="bdg_mentor"
                                  key="bdg_mentor"
                                  value={this.state.primaryData?.bdg_mentor}
-                                 onChange={this.onChange} />
+                                 onChange={this.handleChange} 
+                                 register={true}
+                                 required
+                              />
                            </Col>
                            <Col xs={12} sm={6}>
                               <ListJourneysControlled
@@ -140,7 +143,7 @@ export class BadgeFormBuilder extends EditCreateForm {
                               <TextField
                                  controlId="bdg_description"
                                  errorMessage={this.state.bdg_description}
-                                 placeholder="Descrição"
+                                 label="Descrição:"
                                  as="textarea"
                                  maxLength="45"
                                  required
@@ -153,7 +156,7 @@ export class BadgeFormBuilder extends EditCreateForm {
                               <TextField
                                  controlId="bdg_detail"
                                  errorMessage={this.state.bdg_detail}
-                                 placeholder="Motivadores"
+                                 label="Motivadores: "
                                  as="textarea"
                                  maxLength="400"
                                  required

@@ -31,7 +31,7 @@ export default class ListUserStatusControlled extends Component {
 
    render() {
       return <Form.Group controlId={this.props.controlId} /*"companyId"*/>
-         <Form.Label>Status:</Form.Label>
+         <Form.Label style={{color: "#B0BEC5"}}>Status:</Form.Label>
          <Form.Control //Form.Select não funciona por razões misteriosas
             style={SelectValidateStyle}
 

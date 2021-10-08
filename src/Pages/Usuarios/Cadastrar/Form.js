@@ -30,7 +30,7 @@ export class UserFormBuilder extends EditCreateForm {
                (
                   <Form onSubmit={this.handleSubmit} validated={this.state.validated} noValidate>
                      <ButtonRow
-                        cancelButton={<Button variant="light" onClick={this.redirectCallback}><IoChevronBackCircleSharp size={30} color="#E0E7F2" /></Button>}
+                        cancelButton={<Button variant="light" onClick={this.redirectCallback}><IoChevronBackCircleSharp size={30} color="#BFCADD" /></Button>}
                         titlePage={<TitleRegister>{this.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'} Usuário</TitleRegister>}
                      />
                      <BackGroundForm xs={1} className={'mb-2'} noGutters>
@@ -39,7 +39,7 @@ export class UserFormBuilder extends EditCreateForm {
                               <TextField
                                  controlId="usr_name"
                                  errorMessage={this.state.usr_name}
-                                 placeholder="Nome"
+                                 label="Nome:"
                                  required
                                  maxLength="200"
                                  type="text"
@@ -50,7 +50,7 @@ export class UserFormBuilder extends EditCreateForm {
                               <PhoneField
                                  required
                                  controlId="usr_phone"
-                                 placeholder="Telefone"
+                                 label="Telefone:"
                                  errorMessage={this.state.usr_phone}
                                  defaultValue={this.state.primaryData.usr_phone}
                                  onChange={this.handleChange}
@@ -60,7 +60,7 @@ export class UserFormBuilder extends EditCreateForm {
                               <TextField
                                  controlId="usr_email"
                                  errorMessage={this.state.usr_email}
-                                 placeholder="Email"
+                                 label="Email:"
                                  required
                                  maxLength="144"
                                  type="email"
@@ -73,7 +73,7 @@ export class UserFormBuilder extends EditCreateForm {
                               <NumberField
                                  controlId="usr_cli_cod"
                                  errorMessage={this.state.usr_cli_cod}
-                                 placeholder="ID Eduzz"
+                                 label="ID Eduzz:"
                                  type="text"
                                  required
                                  defaultValue={this.state.primaryData?.usr_cli_cod}
@@ -82,7 +82,7 @@ export class UserFormBuilder extends EditCreateForm {
                            <Col xs={12} sm={4}>
                               <TextField
                                  controlId="usr_externalid"
-                                 placeholder="ID Externo"
+                                 label="ID Externo:"
                                  type="text"
                                  maxLength="10"
                                  defaultValue={this.state.primaryData?.usr_externalid}

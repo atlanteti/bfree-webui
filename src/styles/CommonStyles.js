@@ -10,7 +10,7 @@ export const SelectValidateStyle = {
 }//Verificar se SASS pode fazer isso
 
 export const IndexContainer = styled.div`
-   background-color: #F7F7FA;
+   background-color: #ECEFF1;
    min-height: 100vh;
 `
 
@@ -39,6 +39,7 @@ export const SearchBarBorder = styled.div`
       border: 1px solid rgba(0,0,0,0.20);
       padding: 15px;
       border-radius: 5px;
+      background: #fff;
       `
 
 export const CustomMenuCol = styled(Col)`

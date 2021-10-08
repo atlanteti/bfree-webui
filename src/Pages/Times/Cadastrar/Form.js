@@ -29,7 +29,7 @@ export class TeamFormBuilder extends EditCreateForm {
                (
                   <Form onSubmit={this.handleSubmit} validated={this.state.validated} noValidate>
                      <ButtonRow
-                        cancelButton={<Button variant="light" onClick={this.redirectCallback}><IoChevronBackCircleSharp size={30} color="#E0E7F2" /></Button>}
+                        cancelButton={<Button variant="light" onClick={this.redirectCallback}><IoChevronBackCircleSharp size={30} color="#BFCADD" /></Button>}
                         titlePage={<TitleRegister>{this.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'} Editar</TitleRegister>}
                      />
                      <BackGroundForm xs={1} className={'mb-2'} noGutters>
@@ -38,7 +38,7 @@ export class TeamFormBuilder extends EditCreateForm {
                               <TextField
                                  controlId="tea_name"
                                  errorMessage={this.state.tea_name}
-                                 placeholder="Nome"
+                                 label="Nome:"
                                  type="text"
                                  defaultValue={this.state.primaryData?.tea_name}
                                  maxLength="45"

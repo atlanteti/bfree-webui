@@ -12,7 +12,8 @@ export class JourneySearchBar extends SearchBar {
             <Form onSubmit={this.handleSubmit}>
                <Row>
                   <Col xs={12} sm={6}>
-                     <TextField Label="Nome: "
+                     <TextField 
+                        label="Nome:"
                         controlId="name"
                         onChange={this.onChange}
                         type="text"

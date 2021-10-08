@@ -46,7 +46,7 @@ export default class ListUsers extends Component {
 
    render() {
       return <Form.Group controlId={this.props.controlId} /*"companyId"*/>
-         <Form.Label>Usuário:</Form.Label>
+         <Form.Label style={{color: "#B0BEC5"}}>Usuário: </Form.Label>
          <Form.Control //Form.Select não funciona por razões misteriosas
             style={SelectValidateStyle}
             disabled={this.props.disabled}
@@ -68,6 +68,7 @@ export default class ListUsers extends Component {
             </>
          </Form.Control>
          <Form.Control.Feedback type="invalid">{this.props.errorMessage}</Form.Control.Feedback>
+         <Form.Text className="text-muted">{this.props.Text} {this.props.required ? <RequiredField>Campo obrigatório</RequiredField> : null}</Form.Text>
       </Form.Group>;
    }
 }

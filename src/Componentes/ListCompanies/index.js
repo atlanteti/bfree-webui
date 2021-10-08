@@ -46,7 +46,7 @@ export default class ListCompanies extends Component {
    render() {
 
       return <Form.Group controlId={this.props.controlId} /*"companyId"*/>
-         <Form.Label>Empresa:</Form.Label>
+         <Form.Label style={{color: "#B0BEC5"}}>Empresa:</Form.Label>
          <Form.Control //Form.Select não funciona por razões misteriosas
             style={SelectValidateStyle}
             disabled={this.props.disabled}
@@ -55,7 +55,7 @@ export default class ListCompanies extends Component {
             onChange={this.onChange.bind(this)}
             value={this.props.defaultCompany}>
             <>
-               <option value={null}>{this.props.required ? "Empresa" : null}</option>
+               <option value={null} />
                {this.state.companies?.map(company => {
                   return (
                      <option

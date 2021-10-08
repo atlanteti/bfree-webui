@@ -34,7 +34,7 @@ export class CompanyFormBuilder extends EditCreateForm {
                (
                   <Form onSubmit={this.handleSubmit} validated={this.state.validated} noValidate>
                      <ButtonRow
-                        cancelButton={<Button variant="light" onClick={this.redirectCallback}><IoChevronBackCircleSharp size={30} color="#E0E7F2" /></Button>}
+                        cancelButton={<Button variant="light" onClick={this.redirectCallback}><IoChevronBackCircleSharp size={30} color="#BFCADD" /></Button>}
                         titlePage={<TitleRegister>{this.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'} Empresa</TitleRegister>}
                      />
                      <BackGroundForm xs={1} className={'mb-2'} noGutters>
@@ -42,7 +42,7 @@ export class CompanyFormBuilder extends EditCreateForm {
                            <Col xs={12} sm={5}>
                               <NumberField
                                  controlId="cpn_cli_cod"
-                                 placeHolder="ID Eduzz"
+                                 label="ID Eduzz:"
                                  type="text"
                                  maxLength="10"
                                  defaultValue={this.state.primaryData?.cpn_cli_cod}
@@ -53,7 +53,7 @@ export class CompanyFormBuilder extends EditCreateForm {
                            <Col xs={12} sm={5}>
                               <TextField
                                  controlId="cpn_name"
-                                 placeHolder="Nome"
+                                 label="Nome:"
                                  type="text"
                                  defaultValue={this.state.primaryData?.cpn_name}
                                  onChange={this.handleChange}
@@ -61,7 +61,9 @@ export class CompanyFormBuilder extends EditCreateForm {
                                  required
                                  maxLength="45" />
                            </Col>
-                           <Col xs={12} sm={2}><BtnSalvar variant="dark" type="submit">Salvar</BtnSalvar></Col>
+                           <Col className="mt-8" xs={12} sm={2}>
+                              <BtnSalvar variant="dark" type="submit">Salvar</BtnSalvar>
+                           </Col>
                         </Row>
                         {this.props.paramRoute === 'inserir'
                            ? ''

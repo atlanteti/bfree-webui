@@ -17,7 +17,7 @@ export class DemandSearchBar extends SearchBar {
             <Form onSubmit={this.handleSubmit}>
                <Row>
                   <Col sm={3}>
-                     <TextField Label="Título da Demanda"
+                     <TextField label="Título da Demanda"
                         controlId="dem_title"
                         onChange={this.onChange}
                         type="text"

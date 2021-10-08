@@ -42,7 +42,7 @@ export default class ListJourneysControlled extends Component {
    }
    render() {
       return <Form.Group controlId={this.props.controlId} /*"companyId"*/>
-         <Form.Label>Jornada: </Form.Label>
+         <Form.Label style={{color: "#B0BEC5"}}>Jornada: </Form.Label>
          <Form.Control //Form.Select não funciona por razões misteriosas
             style={SelectValidateStyle}
             required={this.props.required}

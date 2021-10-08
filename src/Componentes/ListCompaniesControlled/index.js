@@ -31,7 +31,7 @@ export default class ListCompaniesControlled extends Component {
 
    render() {
       return <Form.Group controlId={this.props.controlId} /*"companyId"*/>
-         <Form.Label>Empresa: </Form.Label>
+         <Form.Label style={{color: "#B0BEC5"}}>Empresa: </Form.Label>
          <Form.Control //Form.Select não funciona por razões misteriosas
             style={SelectValidateStyle}
             disabled={this.props.disabled}

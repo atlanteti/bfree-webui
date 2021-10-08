@@ -15,8 +15,10 @@ $form-validation-states: (
 );
 $custom-control-label-color: inherit !important;
 $dark: #0203AD;
+$light: #ECEFF1;
 $theme-colors: (
-   "dark": $dark
+   "dark": $dark,
+   "light": $light
 );
 // Essa classe deve ser completamente reescrita devido a limitações do SASS para sobreescrever atributos específicos de uma dada classe
 .custom-checkbox {

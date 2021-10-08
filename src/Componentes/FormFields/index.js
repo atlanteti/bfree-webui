@@ -5,7 +5,7 @@ import { RequiredField, SelectFieldStyle, SelectValidateStyle } from '../../styl
 import InputMask from "react-input-mask"
 export function TextField(props) {
    return <Form.Group controlId={props.controlId}>
-      <Form.Label><p style={{ color: "transparent" }}>.</p></Form.Label>
+      <Form.Label style={{color: "#B0BEC5"}}>{props.label}</Form.Label>
       <Form.Control
          rows={5}
          type={props.type}
@@ -48,7 +48,7 @@ export function NumberField(props) {
    }
 
    return <Form.Group controlId={props.controlId}>
-      <Form.Label><p style={{ color: "transparent" }}>.</p></Form.Label>
+      <Form.Label style={{color: "#B0BEC5"}}>{props.label}</Form.Label>
       <Form.Control
          type={props.type}
          as={props.as}
@@ -75,7 +75,7 @@ NumberField.propTypes = {
 
 export function SelectField(props) {
    return <Form.Group controlId={props.controlId}>
-      <Form.Label >{props.Label}</Form.Label>
+      <Form.Label style={{color: "#B0BEC5"}}>{props.label}</Form.Label>
       <Form.Control
          as="select"
          type={props.type}
@@ -106,7 +106,7 @@ SelectField.propTypes =
 }
 export function BooleanField(props) {
    return <Form.Group controlId={props.controlId}>
-      <Form.Label >{props.Label} {props.required ? <RequiredField>*</RequiredField> : null}</Form.Label>
+      <Form.Label style={{color: "#B0BEC5"}}>{props.Label}</Form.Label>
       <Form.Control
          as="select"
          style={SelectValidateStyle}

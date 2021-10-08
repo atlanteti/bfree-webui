@@ -46,7 +46,7 @@ export default class ListTypeDemand extends Component {
 
    render() {
       return <Form.Group controlId={this.props.controlId} /*"companyId"*/>
-         <Form.Label>Tipos de Demanda:</Form.Label>
+         <Form.Label style={{color: "#B0BEC5"}}>Tipos de Demanda:</Form.Label>
          <Form.Control //Form.Select não funciona por razões misteriosas
             style={SelectValidateStyle}
             disabled={this.props.disabled}
@@ -67,6 +67,7 @@ export default class ListTypeDemand extends Component {
                })}
             </>
          </Form.Control>
+         <Form.Text className="text-muted">{this.props.Text} {this.props.required ? <RequiredField>Campo obrigatório</RequiredField> : null}</Form.Text>
       </Form.Group>;
    }
 }

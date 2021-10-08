@@ -12,14 +12,14 @@ export class UserSearchBar extends SearchBar {
             <Form onSubmit={this.handleSubmit}>
                <Row>
                   <Col xs={12} sm={4}>
-                     <TextField Label="ID:"
+                     <TextField label="ID:"
                         controlId="usr_cli_cod"
                         onChange={this.onChange}
                         type="text"
                         placeholder="Insira o ID do usuário" />
                   </Col>
                   <Col xs={12} sm={4}>
-                     <TextField Label="Nome:"
+                     <TextField label="Nome:"
                         controlId="name"
                         onChange={this.onChange}
                         type="text"
