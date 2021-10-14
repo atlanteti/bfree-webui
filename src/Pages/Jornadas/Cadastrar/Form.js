@@ -29,7 +29,7 @@ export class JourneyFormBuilder extends EditCreateForm {
                :
                (
                   <>
-                  <Form onSubmit={this.handleSubmit} validated={this.state.validated} noValidate>
+                  <Form onSubmit={this.handleSubmit} validated={this.state.validated}>
                      <ButtonRow
                         cancelButton={<Button variant="light" onClick={this.redirectCallback}><IoChevronBackCircleSharp size={30} color="#BFCADD" /></Button>}
                         titlePage={<TitleRegister>{this.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'} Jornada</TitleRegister>}
@@ -44,8 +44,10 @@ export class JourneyFormBuilder extends EditCreateForm {
                                     defaultValue={this.state.primaryData?.jny_name}
                                     onChange={this.handleChange}
                                     fullWidth
+                                    required
                                     InputLabelProps={{
                                        shrink: true,
+                                       required: false
                                     }}
                                     helperText="Campo Obrigatório"
                                  />

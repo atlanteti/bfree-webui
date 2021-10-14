@@ -44,7 +44,7 @@ export class BadgeFormBuilder extends EditCreateForm {
          this.setState({ disableCompany: false })
          cpn_value = ""
       }
-      this.journeyCodeSetter(e.target.value)
+      this.journeyCodeSetter(e.value)
       this.handleChange({ target: { id: "bdg_cpn_cod", value: String(cpn_value) } })
    }
 
@@ -92,7 +92,7 @@ export class BadgeFormBuilder extends EditCreateForm {
                </Row>
                :
                (
-                  <Form onSubmit={this.handleSubmit} validated={this.state.validated} noValidate>
+                  <Form onSubmit={this.handleSubmit} validated={this.state.validated}>
                      <ButtonRow
                         cancelButton={<Button variant="light" onClick={this.redirectCallback}><IoChevronBackCircleSharp size={30} color="#BFCADD" /></Button>}
                         titlePage={<TitleRegister>{this.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'} Badge</TitleRegister>}
@@ -107,9 +107,11 @@ export class BadgeFormBuilder extends EditCreateForm {
                                  defaultValue={this.state.primaryData?.bdg_name}
                                  onChange={this.handleChange}
                                  fullWidth
+                                 required
                                  maxLength="45"
                                  InputLabelProps={{
                                     shrink: true,
+                                    required: false
                                  }}
                                  helperText="Campo Obrigatório"
                               />
@@ -137,7 +139,7 @@ export class BadgeFormBuilder extends EditCreateForm {
                                  controlId="bdg_mentor"
                                  name="bdg_mentor"
                                  defaultValue={this.state.primaryData?.bdg_mentor}
-                                 onChange={this.handleCheck} 
+                                 onChange={this.handleCheck}
                                  checked={this.state.primaryData?.bdg_mentor}
                                  required
                               />
@@ -148,10 +150,11 @@ export class BadgeFormBuilder extends EditCreateForm {
                                  disabled={this.state.disableJourney || (Boolean(this.state.primaryData.bdg_cpn_cod) && !Boolean(this.state.primaryData.bdg_jny_cod))}
                                  onChange={this.handleChangeJourneyControlled.bind(this)}
                                  controlId="bdg_jny_cod"
+                                 name="bdg_jny_cod"
                               />
                            </Col>
                         </Row>
-                        <Row>
+                        <Row className="mt-3">
                            <Col>
                               <TextField
                                  id="bdg_description"
@@ -161,10 +164,12 @@ export class BadgeFormBuilder extends EditCreateForm {
                                  onChange={this.handleChange}
                                  fullWidth
                                  multiline
+                                 required
                                  rows={4}
                                  maxLength="45"
                                  InputLabelProps={{
                                     shrink: true,
+                                    required: false
                                  }}
                                  helperText="Campo Obrigatório"
                               />
@@ -179,7 +184,7 @@ export class BadgeFormBuilder extends EditCreateForm {
                                  onChange={this.handleChange} /> */}
                            </Col>
                         </Row>
-                        <Row>
+                        <Row className="mt-3">
                            <Col>
                               <TextField
                                  id="bdg_detail"
@@ -189,10 +194,12 @@ export class BadgeFormBuilder extends EditCreateForm {
                                  onChange={this.handleChange}
                                  fullWidth
                                  multiline
+                                 required
                                  rows={4}
                                  maxLength="45"
                                  InputLabelProps={{
                                     shrink: true,
+                                    required: false
                                  }}
                                  helperText="Campo Obrigatório"
                               />
@@ -207,29 +214,32 @@ export class BadgeFormBuilder extends EditCreateForm {
                                  onChange={this.handleChange} /> */}
                            </Col>
                         </Row>
+                        {this.props.paramRoute === 'inserir'
+                           ? ''
+                           :
+                           <Row className="mt-4">
+                              <Col md={{ offset: 2 }} xs={12} sm={6}>
+                                 <DateField
+                                    controlId="bdg_dtcreation"
+                                    Label="Data de criação:"
+                                    date={this.state.primaryData?.bdg_dtcreation} />
+                              </Col>
+                              {this.state.primaryData?.bdg_dtupdate === null
+                                 ? ''
+                                 : <Col xs={12} sm={6}>
+                                    <DateField
+                                       controlId="bdg_dtupdate"
+                                       Label="Data de atualização:"
+                                       date={this.state.primaryData?.bdg_dtupdate} />
+                                 </Col>
+                              }
+                           </Row>
+                        }
                         <Row>
                            <Col md={{ offset: 5 }}>
                               <BtnSalvar variant="dark" type="submit">Salvar</BtnSalvar>
                            </Col>
                         </Row>
-                        {this.props.paramRoute === 'inserir'
-                           ? ''
-                           : (
-                              <>
-                                 <DateField
-                                    controlId="bdg_dtcreation"
-                                    Label="Data de criação:"
-                                    date={this.state.primaryData?.bdg_dtcreation} />
-                                 {this.state.primaryData?.bdg_dtupdate === null
-                                    ? ''
-                                    : (
-                                       <DateField
-                                          controlId="bdg_dtupdate"
-                                          Label="Data de atualização:"
-                                          date={this.state.primaryData?.bdg_dtupdate} />
-                                    )}
-                              </>
-                           )}
                      </BackGroundForm>
                   </Form>
                )

@@ -30,7 +30,7 @@ export class TypeDemandFormBuilder extends EditCreateForm {
                </Row>
                :
                (
-                  <Form onSubmit={this.handleSubmit} validated={this.state.validated} noValidate>
+                  <Form onSubmit={this.handleSubmit} validated={this.state.validated}>
                      <ButtonRow
                         cancelButton={<Button variant="light" onClick={this.redirectCallback}><IoChevronBackCircleSharp size={30} color="#BFCADD" /></Button>}
                         titlePage={<TitleRegister>{this.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'} Tipos de Demandas</TitleRegister>}
@@ -39,18 +39,20 @@ export class TypeDemandFormBuilder extends EditCreateForm {
                         <Row>
                            <Col className="mt-2" xs={12} sm={6}>
                               <TextField
-                                    id="tdm_name"
-                                    label="Nome"
-                                    type="text"
-                                    maxLength="45"
-                                    defaultValue={this.state.primaryData?.tdm_name}
-                                    onChange={this.handleChange}
-                                    fullWidth
-                                    InputLabelProps={{
-                                       shrink: true,
-                                    }}
-                                    helperText="Campo Obrigatório"
-                                 />
+                                 id="tdm_name"
+                                 label="Nome"
+                                 type="text"
+                                 maxLength="45"
+                                 defaultValue={this.state.primaryData?.tdm_name}
+                                 onChange={this.handleChange}
+                                 required
+                                 fullWidth
+                                 InputLabelProps={{
+                                    shrink: true,
+                                    required: false
+                                 }}
+                                 helperText="Campo Obrigatório"
+                              />
                               {/* <TextField
                                  controlId="tdm_name"
                                  errorMessage={this.state.tdm_name}
@@ -74,7 +76,7 @@ export class TypeDemandFormBuilder extends EditCreateForm {
                            ? ''
                            : (
                               <Row className="mt-6">
-                                 <Col md={{ offset: 1}} xs={12} sm={5}>
+                                 <Col md={{ offset: 1 }} xs={12} sm={5}>
                                     <DateField
                                        controlId="tdm_dtcreation"
                                        Label="Data de criação:"
@@ -90,11 +92,11 @@ export class TypeDemandFormBuilder extends EditCreateForm {
                                     </Col>}
                               </Row>
                            )}
-                           <Row>
-                              <Col className="mt-4" md={{ offset: 5 }}>
-                                 <BtnSalvar variant="dark" type="submit">Salvar</BtnSalvar>
-                              </Col>
-                           </Row>
+                        <Row>
+                           <Col className="mt-4" md={{ offset: 5 }}>
+                              <BtnSalvar variant="dark" type="submit">Salvar</BtnSalvar>
+                           </Col>
+                        </Row>
                      </BackGroundForm>
                   </Form>
                )}

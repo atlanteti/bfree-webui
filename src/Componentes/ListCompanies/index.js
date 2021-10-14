@@ -3,7 +3,7 @@ import { React, Component } from 'react';
 import { request } from '../../Services/api';
 import PropTypes from 'prop-types'
 import { RequiredField, SelectValidateStyle } from '../../styles/CommonStyles';
-import {TextField, MenuItem} from '@mui/material';
+import { TextField, MenuItem } from '@mui/material';
 export default class ListCompanies extends Component {
    constructor(props) {
       super(props);
@@ -46,29 +46,31 @@ export default class ListCompanies extends Component {
 
    render() {
       return <TextField
-          id={this.props.id}
-          select
-          fullWidth
-          name={this.props.name}
-          label="Empresa"
-          value={this.props.defaultCompany}
-          onChange={this.onChange.bind(this)}
-          InputLabelProps={{
+         id={this.props.id}
+         select
+         fullWidth
+         name={this.props.name}
+         label="Empresa"
+         required={this.props.required}
+         value={this.props.defaultCompany}
+         onChange={this.onChange.bind(this)}
+         InputLabelProps={{
             shrink: true,
+            required: false,
          }}
-          helperText={this.props.required ? <RequiredField>Campo obrigatório</RequiredField> : null}
-        >
-            <MenuItem value={null} />
-                {this.state.companies?.map(company => {
-                  return (
-                     <MenuItem
-                        key={company.cpn_cod}
-                        value={company.cpn_cod}
-                     >
-                        {company.cpn_name}
-                     </MenuItem>);
-               })}
-        </TextField>
+         helperText={this.props.required ? <RequiredField>Campo obrigatório</RequiredField> : null}
+      >
+         <MenuItem value={null} />
+         {this.state.companies?.map(company => {
+            return (
+               <MenuItem
+                  key={company.cpn_cod}
+                  value={company.cpn_cod}
+               >
+                  {company.cpn_name}
+               </MenuItem>);
+         })}
+      </TextField>
 
       // return <Form.Group controlId={this.props.controlId} /*"companyId"*/>
       //    <Form.Label style={{color: "#B0BEC5"}}>Empresa:</Form.Label>

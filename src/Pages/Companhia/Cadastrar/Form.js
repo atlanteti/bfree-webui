@@ -33,7 +33,7 @@ export class CompanyFormBuilder extends EditCreateForm {
                </Row>
                :
                (
-                  <Form onSubmit={this.handleSubmit} validated={this.state.validated} noValidate>
+                  <Form onSubmit={this.handleSubmit} validated={this.state.validated}>
                      <ButtonRow
                         cancelButton={<Button variant="light" onClick={this.redirectCallback}><IoChevronBackCircleSharp size={30} color="#BFCADD" /></Button>}
                         titlePage={<TitleRegister>{this.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'} Empresa</TitleRegister>}
@@ -48,8 +48,10 @@ export class CompanyFormBuilder extends EditCreateForm {
                                  defaultValue={this.state.primaryData?.cpn_cli_cod}
                                  onChange={this.handleChange}
                                  fullWidth
+                                 required
                                  InputLabelProps={{
                                     shrink: true,
+                                    required: false
                                  }}
                                  helperText="Campo Obrigatório"
                               />
@@ -64,15 +66,17 @@ export class CompanyFormBuilder extends EditCreateForm {
                                  required /> */}
                            </Col>
                            <Col className="mt-2" xs={12} sm={5}>
-                              <TextField 
-                                 id="cpn_name" 
-                                 label="Nome" 
-                                 variant="outlined" 
-                                 fullWidth 
+                              <TextField
+                                 id="cpn_name"
+                                 label="Nome"
+                                 variant="outlined"
+                                 fullWidth
+                                 required
                                  onChange={this.handleChange}
                                  defaultValue={this.state.primaryData?.cpn_name}
                                  InputLabelProps={{
                                     shrink: true,
+                                    required: false
                                  }}
                                  helperText="Campo Obrigatório"
                               />
