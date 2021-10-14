@@ -3,6 +3,8 @@ import { Form } from 'react-bootstrap'
 import PropTypes from 'prop-types'
 import { RequiredField, SelectFieldStyle, SelectValidateStyle } from '../../styles/CommonStyles'
 import InputMask from "react-input-mask"
+import {MenuItem, TextField as Boolean} from '@mui/material';
+
 export function TextField(props) {
    return <Form.Group controlId={props.controlId}>
       <Form.Label style={{color: "#B0BEC5"}}>{props.label}</Form.Label>
@@ -20,6 +22,7 @@ export function TextField(props) {
       <Form.Text className="text-muted">{props.required ? <RequiredField>Campo obrigatório</RequiredField> : null}</Form.Text>
    </Form.Group>
 }
+
 TextField.propTypes = {
    controlId: PropTypes.string.isRequired,
    Label: PropTypes.string.isRequired,
@@ -105,22 +108,43 @@ SelectField.propTypes =
    hasNull: PropTypes.bool.isRequired
 }
 export function BooleanField(props) {
-   return <Form.Group controlId={props.controlId}>
-      <Form.Label style={{color: "#B0BEC5"}}>{props.Label}</Form.Label>
-      <Form.Control
-         as="select"
-         style={SelectValidateStyle}
-         required={props.required}
-         onChange={props.onChange}
-         value={props.value}>
-         {!props.register ?
-            <> <option value={null}></option>
-               <option value={false}>{props.onFalse}</option>
+   return <Boolean
+          id={props.id}
+          select
+          fullWidth
+          name={props.name}
+          label={props.Label}
+          controlId="jny_cpn_cod"
+          value={props.value}
+          onChange={props.onChange}
+          InputLabelProps={{
+            shrink: true,
+         }}
+          helperText={props.required ? <RequiredField>Campo obrigatório</RequiredField> : null}
+        >
+            {!props.register ?
+            <> <MenuItem value={null}></MenuItem>
+               <MenuItem value={false}>{props.onFalse}</MenuItem>
             </>
-            : <option value={false}>{props.onFalse}</option>}
-         <option value={true}>{props.onTrue}</option>
-      </Form.Control>
-   </Form.Group>
+            : <MenuItem value={false}>{props.onFalse}</MenuItem>}
+         <MenuItem value={true}>{props.onTrue}</MenuItem>
+        </Boolean>
+   // return <Form.Group controlId={props.controlId}>
+   //    <Form.Label style={{color: "#B0BEC5"}}>{props.Label}</Form.Label>
+   //    <Form.Control
+   //       as="select"
+   //       style={SelectValidateStyle}
+   //       required={props.required}
+   //       onChange={props.onChange}
+   //       value={props.value}>
+   //       {!props.register ?
+   //          <> <option value={null}></option>
+   //             <option value={false}>{props.onFalse}</option>
+   //          </>
+   //          : <option value={false}>{props.onFalse}</option>}
+   //       <option value={true}>{props.onTrue}</option>
+   //    </Form.Control>
+   // </Form.Group>
 }
 
 BooleanField.propTypes = {

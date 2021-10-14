@@ -3,13 +3,14 @@ import { Form, Col, Row, Button } from 'react-bootstrap'
 import { DateField } from '../../../Componentes/DateField'
 import { ButtonRow } from '../../../Componentes/ButtonRow'
 import { EditCreateForm } from '../../../Componentes/EditCreateForm/index'
-import { BooleanField, TextField } from '../../../Componentes/FormFields'
+import { BooleanField } from '../../../Componentes/FormFields'
 import { CheckBox } from '../../../Componentes/CheckBox'
 import ListCompaniesControlled from "../../../Componentes/ListCompaniesControlled"
 import ListJourneysControlled from "../../../Componentes/ListJourneysControlled"
 import { CircularProgress } from '@material-ui/core'
 import { BackGroundForm, BtnSalvar, TitleRegister } from '../../../styles/CommonStyles'
 import { IoChevronBackCircleSharp } from "react-icons/io5"
+import TextField from '@mui/material/TextField'
 
 export default function BadgeForm(props) {
    return <BadgeFormBuilder insertDataEndpoint="badges/cadastrar"
@@ -30,6 +31,7 @@ export class BadgeFormBuilder extends EditCreateForm {
       }
    }
    handleChangeJourneyControlled(e) {
+      console.log(e)
       let cpn_value;
       if (e.jny_cpn_cod !== undefined) {
          this.companyCodeSetter(e.jny_cpn_cod)
@@ -57,7 +59,7 @@ export class BadgeFormBuilder extends EditCreateForm {
 
    handleChangeCompanyControlled(e) {
       {
-         if (e.target.value !== "") {
+         if (e.target.value !== null) {
             this.journeyCodeSetter("")
             this.setState({
                disableJourney: true
@@ -99,6 +101,19 @@ export class BadgeFormBuilder extends EditCreateForm {
                         <Row>
                            <Col xs={12} sm={6}>
                               <TextField
+                                 id="bdg_name"
+                                 label="Nome"
+                                 type="text"
+                                 defaultValue={this.state.primaryData?.bdg_name}
+                                 onChange={this.handleChange}
+                                 fullWidth
+                                 maxLength="45"
+                                 InputLabelProps={{
+                                    shrink: true,
+                                 }}
+                                 helperText="Campo Obrigatório"
+                              />
+                              {/* <TextField
                                  controlId="bdg_name"
                                  errorMessage={this.state.bdg_name}
                                  label="Nome:"
@@ -106,7 +121,7 @@ export class BadgeFormBuilder extends EditCreateForm {
                                  maxLength="45"
                                  required
                                  defaultValue={this.state.primaryData?.bdg_name}
-                                 onChange={this.handleChange} />
+                                 onChange={this.handleChange} /> */}
                            </Col>
                            <Col xs={12} sm={6}>
                               <ListCompaniesControlled
@@ -118,14 +133,12 @@ export class BadgeFormBuilder extends EditCreateForm {
                         </Row>
                         <Row>
                            <Col xs={12} sm={6}>
-                              <BooleanField Label="Mentor: "
-                                 onTrue="Sim"
-                                 onFalse="Não"
+                              <CheckBox label="É badge de mentoria?"
                                  controlId="bdg_mentor"
-                                 key="bdg_mentor"
-                                 value={this.state.primaryData?.bdg_mentor}
-                                 onChange={this.handleChange} 
-                                 register={true}
+                                 name="bdg_mentor"
+                                 defaultValue={this.state.primaryData?.bdg_mentor}
+                                 onChange={this.handleCheck} 
+                                 checked={this.state.primaryData?.bdg_mentor}
                                  required
                               />
                            </Col>
@@ -141,6 +154,21 @@ export class BadgeFormBuilder extends EditCreateForm {
                         <Row>
                            <Col>
                               <TextField
+                                 id="bdg_description"
+                                 label="Descrição"
+                                 type="textarea"
+                                 defaultValue={this.state.primaryData?.bdg_description}
+                                 onChange={this.handleChange}
+                                 fullWidth
+                                 multiline
+                                 rows={4}
+                                 maxLength="45"
+                                 InputLabelProps={{
+                                    shrink: true,
+                                 }}
+                                 helperText="Campo Obrigatório"
+                              />
+                              {/* <TextField
                                  controlId="bdg_description"
                                  errorMessage={this.state.bdg_description}
                                  label="Descrição:"
@@ -148,12 +176,27 @@ export class BadgeFormBuilder extends EditCreateForm {
                                  maxLength="45"
                                  required
                                  defaultValue={this.state.primaryData?.bdg_description}
-                                 onChange={this.handleChange} />
+                                 onChange={this.handleChange} /> */}
                            </Col>
                         </Row>
                         <Row>
                            <Col>
                               <TextField
+                                 id="bdg_detail"
+                                 label="Motivadores"
+                                 type="textarea"
+                                 defaultValue={this.state.primaryData?.bdg_detail}
+                                 onChange={this.handleChange}
+                                 fullWidth
+                                 multiline
+                                 rows={4}
+                                 maxLength="45"
+                                 InputLabelProps={{
+                                    shrink: true,
+                                 }}
+                                 helperText="Campo Obrigatório"
+                              />
+                              {/* <TextField
                                  controlId="bdg_detail"
                                  errorMessage={this.state.bdg_detail}
                                  label="Motivadores: "
@@ -161,7 +204,7 @@ export class BadgeFormBuilder extends EditCreateForm {
                                  maxLength="400"
                                  required
                                  defaultValue={this.state.primaryData?.bdg_detail}
-                                 onChange={this.handleChange} />
+                                 onChange={this.handleChange} /> */}
                            </Col>
                         </Row>
                         <Row>

@@ -126,5 +126,12 @@ export class EditCreateForm extends Component {
          }
       })
    };
+   handleSelect = (e) => {
+      this.setState((state, props) => ({
+         primaryData: {
+            ...state.primaryData, [e.target.name]: e.target.value
+         },
+      }))
+   }
 }
 

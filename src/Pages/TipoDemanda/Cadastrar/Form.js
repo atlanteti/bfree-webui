@@ -1,6 +1,5 @@
 import React from 'react'
 import { Form, Col, Row, Button } from 'react-bootstrap'
-import { TextField } from '../../../Componentes/FormFields'
 import { DateField } from '../../../Componentes/DateField'
 import { ButtonRow } from '../../../Componentes/ButtonRow'
 import { EditCreateForm } from '../../../Componentes/EditCreateForm/index'
@@ -8,6 +7,7 @@ import ListCompanies from '../../../Componentes/ListCompanies'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { BackGroundForm, BtnSalvar, TitleRegister } from '../../../styles/CommonStyles'
 import { IoChevronBackCircleSharp } from "react-icons/io5"
+import TextField from '@mui/material/TextField'
 
 export default function TypeDemandForm(props) {
    return <TypeDemandFormBuilder insertDataEndpoint="types-demand/cadastrar"
@@ -37,8 +37,21 @@ export class TypeDemandFormBuilder extends EditCreateForm {
                      />
                      <BackGroundForm xs={1} className={'mb-2'} noGutters>
                         <Row>
-                           <Col xs={12} sm={6}>
+                           <Col className="mt-2" xs={12} sm={6}>
                               <TextField
+                                    id="tdm_name"
+                                    label="Nome"
+                                    type="text"
+                                    maxLength="45"
+                                    defaultValue={this.state.primaryData?.tdm_name}
+                                    onChange={this.handleChange}
+                                    fullWidth
+                                    InputLabelProps={{
+                                       shrink: true,
+                                    }}
+                                    helperText="Campo Obrigatório"
+                                 />
+                              {/* <TextField
                                  controlId="tdm_name"
                                  errorMessage={this.state.tdm_name}
                                  label="Nome:"
@@ -46,41 +59,42 @@ export class TypeDemandFormBuilder extends EditCreateForm {
                                  maxLength="45"
                                  defaultValue={this.state.primaryData?.tdm_name}
                                  onChange={this.handleChange}
-                                 required />
+                                 required /> */}
                            </Col>
-                           <Col xs={12} sm={6}>
+                           <Col className="mt-2" xs={12} sm={6}>
                               <ListCompanies
                                  defaultValue={this.props.primaryId}
                                  onChange={this.handleChange}
-                                 controlId="tdm_cpn_cod"
-                                 errorMessage={this.state.tdm_cpn_cod}
+                                 id="tdm_cpn_cod"
                                  defaultCompany={this.state.primaryData.tdm_cpn_cod ? this.state.primaryData.tdm_cpn_cod : ""}
                                  required />
-                           </Col>
-                        </Row>
-                        <Row>
-                           <Col md={{ offset: 5 }}>
-                              <BtnSalvar variant="dark" type="submit">Salvar</BtnSalvar>
                            </Col>
                         </Row>
                         {this.props.paramRoute === 'inserir'
                            ? ''
                            : (
-                              <>
-                                 <DateField
-                                    controlId="tdm_dtcreation"
-                                    Label="Data de criação:"
-                                    date={this.state.primaryData?.tdm_dtcreation} />
+                              <Row className="mt-6">
+                                 <Col md={{ offset: 1}} xs={12} sm={5}>
+                                    <DateField
+                                       controlId="tdm_dtcreation"
+                                       Label="Data de criação:"
+                                       date={this.state.primaryData?.tdm_dtcreation} />
+                                 </Col>
                                  {this.state.primaryData?.tdm_dtupdate === null
                                     ? ''
-                                    : (
+                                    : <Col xs={12} sm={5}>
                                        <DateField
                                           controlId="tdm_dtupdate"
                                           Label="Data de atualização:"
                                           date={this.state.primaryData?.tdm_dtupdate} />
-                                    )}
-                              </>
+                                    </Col>}
+                              </Row>
                            )}
+                           <Row>
+                              <Col className="mt-4" md={{ offset: 5 }}>
+                                 <BtnSalvar variant="dark" type="submit">Salvar</BtnSalvar>
+                              </Col>
+                           </Row>
                      </BackGroundForm>
                   </Form>
                )}

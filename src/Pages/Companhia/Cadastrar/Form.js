@@ -3,10 +3,11 @@ import { Form, Col, Row, Button } from 'react-bootstrap'
 import { DateField } from '../../../Componentes/DateField'
 import { ButtonRow } from '../../../Componentes/ButtonRow'
 import { EditCreateForm } from '../../../Componentes/EditCreateForm/index'
-import { NumberField, TextField } from '../../../Componentes/FormFields'
+import { NumberField } from '../../../Componentes/FormFields'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { BackGroundForm, BtnSalvar, TitleRegister } from '../../../styles/CommonStyles'
 import { IoChevronBackCircleSharp } from "react-icons/io5"
+import TextField from '@mui/material/TextField'
 
 export default function CompanyForm(props) {
    return <CompanyFormBuilder insertDataEndpoint="companies/cadastrar"
@@ -39,8 +40,20 @@ export class CompanyFormBuilder extends EditCreateForm {
                      />
                      <BackGroundForm xs={1} className={'mb-2'} noGutters>
                         <Row>
-                           <Col xs={12} sm={5}>
-                              <NumberField
+                           <Col className="mt-2" xs={12} sm={5}>
+                              <TextField
+                                 id="cpn_cli_cod"
+                                 label="ID Eduzz"
+                                 type="number"
+                                 defaultValue={this.state.primaryData?.cpn_cli_cod}
+                                 onChange={this.handleChange}
+                                 fullWidth
+                                 InputLabelProps={{
+                                    shrink: true,
+                                 }}
+                                 helperText="Campo Obrigatório"
+                              />
+                              {/* <NumberField
                                  controlId="cpn_cli_cod"
                                  label="ID Eduzz:"
                                  type="text"
@@ -48,28 +61,31 @@ export class CompanyFormBuilder extends EditCreateForm {
                                  defaultValue={this.state.primaryData?.cpn_cli_cod}
                                  errorMessage={this.state.cpn_cli_cod}
                                  onChange={this.handleChange}
-                                 required />
+                                 required /> */}
                            </Col>
-                           <Col xs={12} sm={5}>
-                              <TextField
-                                 controlId="cpn_name"
-                                 label="Nome:"
-                                 type="text"
-                                 defaultValue={this.state.primaryData?.cpn_name}
+                           <Col className="mt-2" xs={12} sm={5}>
+                              <TextField 
+                                 id="cpn_name" 
+                                 label="Nome" 
+                                 variant="outlined" 
+                                 fullWidth 
                                  onChange={this.handleChange}
-                                 errorMessage={this.state.cpn_name}
-                                 required
-                                 maxLength="45" />
+                                 defaultValue={this.state.primaryData?.cpn_name}
+                                 InputLabelProps={{
+                                    shrink: true,
+                                 }}
+                                 helperText="Campo Obrigatório"
+                              />
                            </Col>
-                           <Col className="mt-8" xs={12} sm={2}>
+                           <Col className="mt-3" xs={12} sm={2}>
                               <BtnSalvar variant="dark" type="submit">Salvar</BtnSalvar>
                            </Col>
                         </Row>
                         {this.props.paramRoute === 'inserir'
                            ? ''
                            : (
-                              <Row>
-                                 <Col>
+                              <Row className="mt-6">
+                                 <Col xs={12} sm={5}>
                                     <DateField
                                        controlId="cpn_dtcreation"
                                        Label="Data de criação:"
@@ -78,7 +94,7 @@ export class CompanyFormBuilder extends EditCreateForm {
                                  {this.state.primaryData.cpn_dtupdate === null
                                     ? ''
                                     :
-                                    <Col>
+                                    <Col xs={12} sm={5}>
                                        <DateField
                                           controlId="cpn_dtupdate"
                                           Label="Data de atualização:"
