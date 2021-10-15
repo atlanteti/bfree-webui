@@ -14,7 +14,6 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import Restricted from '../../Context/AccessPermission'
 import { request } from "../../Services/api";
 import moment from 'moment';
-import { IoChevronBackOutline, IoChevronForwardOutline } from 'react-icons/io5'
 
 
 export default class ListarPagina extends Component {
