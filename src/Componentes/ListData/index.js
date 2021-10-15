@@ -6,9 +6,7 @@ import CustomPagination from '../CustomPagination'
 import { CustomAlert } from '../CustomAlert'
 import {
    MainContainer, Title, MainTable, TableHeader, TableData, CustomMenuCol,
-   MainRow, HeaderContainer, RowTopMargin, RightAlignText,
-   TextCell, Table, TableCell, ActionCell, TableRow, TextHeaderCell,
-   ActionHeaderCell, NumberHeaderCell, PaginationRow
+   MainRow, HeaderContainer, RowTopMargin, RightAlignText
 } from '../../styles/CommonStyles'
 import PropTypes from "prop-types"
 import ExclusionModal from '../ExclusionModal'
@@ -16,7 +14,6 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import Restricted from '../../Context/AccessPermission'
 import { request } from "../../Services/api";
 import moment from 'moment';
-import { IoChevronBackOutline, IoChevronForwardOutline } from 'react-icons/io5'
 
 
 export default class ListarPagina extends Component {
@@ -245,24 +242,12 @@ export default class ListarPagina extends Component {
                            {this.createModal()}
                         </MainTable>
                      </Row>
-                     <Row noGutters>
-                        <MainTable style={{ marginTop: 0 }} className="table-borderless">
-                           <PaginationRow>
-                              <TextHeaderCell>nn itens</TextHeaderCell>
-                              <NumberHeaderCell>Página 1 de 40</NumberHeaderCell>
-                              <ActionCell style={{ backgroundColor: "white" }}>
-                                 <Button variant="transparent"><IoChevronBackOutline></IoChevronBackOutline></Button>
-                                 <Button variant="transparent"><IoChevronForwardOutline></IoChevronForwardOutline></Button>
-                              </ActionCell>
-                           </PaginationRow>
-                        </MainTable>
-                     </Row>
+                     <Row noGutters>{this.renderPagination()}</Row>
                      <CustomAlert
                         showAlertCallback={this.getNoDataCallback.bind(this)}
                         redirectCallback={this.redirectCallback.bind(this)}
                         noDataAlert={true}
                         noData={this.state.noData} />
-                     {this.renderPagination()}
                   </Container>
                </Col>
             </Col>
@@ -271,11 +256,11 @@ export default class ListarPagina extends Component {
    }
 
    renderPagination() {
-      return !this.state.noData ? (<PaginationRow>
-         <CustomPagination
+      return !this.state.noData ?
+         (<CustomPagination
             fetchAndSetData={this.fetchAndSetData}
             page={this.state.page} />
-      </PaginationRow>) : null
+         ) : null
    }
 };
 
