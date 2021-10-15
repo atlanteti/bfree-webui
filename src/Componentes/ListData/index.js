@@ -6,7 +6,9 @@ import CustomPagination from '../CustomPagination'
 import { CustomAlert } from '../CustomAlert'
 import {
    MainContainer, Title, MainTable, TableHeader, TableData, CustomMenuCol,
-   MainRow, PaginationRow, HeaderContainer, RowTopMargin, RightAlignText
+   MainRow, HeaderContainer, RowTopMargin, RightAlignText,
+   TextCell, Table, TableCell, ActionCell, TableRow, TextHeaderCell,
+   ActionHeaderCell, NumberHeaderCell, PaginationRow
 } from '../../styles/CommonStyles'
 import PropTypes from "prop-types"
 import ExclusionModal from '../ExclusionModal'
@@ -14,6 +16,7 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import Restricted from '../../Context/AccessPermission'
 import { request } from "../../Services/api";
 import moment from 'moment';
+import { IoChevronBackOutline, IoChevronForwardOutline } from 'react-icons/io5'
 
 
 export default class ListarPagina extends Component {
@@ -45,7 +48,7 @@ export default class ListarPagina extends Component {
       return await this.fetchAndSetData({ page: 1 })
    }
 
-   async searchExportData({ extraParams, endpointExport, nameFile  }) {
+   async searchExportData({ extraParams, endpointExport, nameFile }) {
       const s2ab = (s) => {
          var buf = new ArrayBuffer(s.length);
          var view = new Uint8Array(buf);
@@ -209,7 +212,8 @@ export default class ListarPagina extends Component {
                         filterData={this.searchData}
                         exportData={this.searchExportData} />
                      <Row noGutters>
-                        <MainTable noData={this.state.noData}>
+                        <MainTable noData={this.state.noData} className={"table-borderless"}
+                           style={{ marginBottom: 0 }}>
                            {this.state.responseData === null
                               ?
                               <Row>
@@ -239,6 +243,18 @@ export default class ListarPagina extends Component {
                               )
                            }
                            {this.createModal()}
+                        </MainTable>
+                     </Row>
+                     <Row noGutters>
+                        <MainTable style={{ marginTop: 0 }} className="table-borderless">
+                           <PaginationRow>
+                              <TextHeaderCell>nn itens</TextHeaderCell>
+                              <NumberHeaderCell>Página 1 de 40</NumberHeaderCell>
+                              <ActionCell style={{ backgroundColor: "white" }}>
+                                 <Button variant="transparent"><IoChevronBackOutline></IoChevronBackOutline></Button>
+                                 <Button variant="transparent"><IoChevronForwardOutline></IoChevronForwardOutline></Button>
+                              </ActionCell>
+                           </PaginationRow>
                         </MainTable>
                      </Row>
                      <CustomAlert
@@ -271,7 +287,7 @@ export function PageHeaderCustomComponent(props) {
             <Title>{props.Title}</Title>
          </Col>
          <RightAlignText>
-            <Col><Restricted><Button variant="dark" href={props.href}>Cadastrar</Button></Restricted></Col>
+            <Col><Restricted><Button variant="register" href={props.href}>Cadastrar</Button></Restricted></Col>
          </RightAlignText>
       </RowTopMargin>
    </HeaderContainer>

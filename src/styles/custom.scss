@@ -16,7 +16,9 @@ $form-validation-states: (
 $custom-control-label-color: inherit !important;
 $dark: #0203ad;
 $light: #eceff1;
+$register: #4CAF50;
 $theme-colors: (
+  "register": $register,
   "dark": $dark,
   "light": $light,
 );
