@@ -1,17 +1,17 @@
 .side-navigation-panel .side-navigation-panel-select .side-navigation-panel-select-wrap .side-navigation-panel-select-option {
-   color: #3E516E !important;
+   color: #546E7A !important;
    border-color: #F7F7FA !important;
 }
 
 .side-navigation-panel .side-navigation-panel-select .side-navigation-panel-select-wrap .side-navigation-panel-select-option-selected {
-   background-color: #F7F7FA !important;
+   background-color: #0509EE !important;
    border-color: #0408ED !important;
-   color: #021770 !important;
+   color: #fff !important;
 }
 
 .side-navigation-panel .side-navigation-panel-select .side-navigation-panel-select-inner .side-navigation-panel-select-inner-wrap .side-navigation-panel-select-inner-option-selected {
    border-color: #0408ED !important;
-   color: #021770 !important;
+   color: #fff !important;
 }
 
 .side-navigation-panel .side-navigation-panel-select .side-navigation-panel-select-wrap .side-navigation-panel-select-option:hover {

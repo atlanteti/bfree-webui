@@ -3,16 +3,16 @@
 }
 
 div:hover > span > svg {
-   color:#0509EE !important
+   color:#546E7A !important
 }
 div:hover > span > span {
-   color:#0509EE !important
+   color:#546E7A !important
 }
 
 .side-navigation-panel-select-option-selected > span > svg {
-   color:#0509EE !important
+   color:#fff !important
 }
 
 .side-navigation-panel-select-option-selected > span > span {
-   color:#0509EE !important
+   color:#fff !important
 }
