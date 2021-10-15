@@ -58,9 +58,9 @@ export const MainRow = styled(Row)`
    margin-right: 0px;
 `
 
-export const PaginationRow = styled(Row)`
-   justify-content: center;
-   margin-bottom: 20px;`
+// export const PaginationRow = styled(Row)`
+//    justify-content: center;
+//    margin-bottom: 20px;`
 
 export const MainContainer = styled.div`
    .container{
@@ -177,23 +177,44 @@ export const MainTable = styled(Table)`
 `
 export const TableHeader = styled.thead`
 `
-
+export const PaginationRow = styled.tr`
+   td:last-child {
+      width: 1%;
+      white-space: nowrap;
+   }
+   td:first-child {
+      width: 20%;
+      white-space: nowrap;
+   }
+`
 export const TableRow = styled.tr`
    &:nth-child(even) {background: #FFF}
-   &:nth-child(odd) {background: #EEE}
-
+   &:nth-child(odd) {background: #F8FAFF}
+   td:last-child {
+      width: 1%;
+      white-space: nowrap;
+   }
+   td:first-child {
+      color: #000;
+      width: 20%;
+      white-space: nowrap;
+   }
+   td {
+      color: #546E7A
+   }
    a {
       margin-right: 0.2rem;
    }
 `
 
 export const ColumnTitle = styled.th`
-   padding: 0.1rem 0.4rem;
+   padding: 22px 0px 22px 12px;
    width: ${props => props.columnWidth ? '100px' : '50px'};
    cursor: ${props => props.sort ? 'pointer' : 'default'};
    text-align: left;
    border: 1px solid #dee2e6;
    background: #fff;
+   color: #546E7A;
 `
 
 export const NumberHeaderCell = styled(ColumnTitle)`
@@ -220,7 +241,7 @@ export const TableCell = styled.td`
    padding: 0.1rem 0.8rem;
 `
 export const NumberCell = styled(TableCell)`
-   text-align: right;
+   text-align: left;
    font-weight: ${props => props.fontTotal ? 'bold' : '400'};
    `
 
@@ -230,6 +251,7 @@ export const TextCell = styled(TableCell)`
    `
 export const ActionCell = styled(TableCell)`
    text-align: center;
+   vertical-align: middle;
    `
 
 export const SortIcon = styled.div`
