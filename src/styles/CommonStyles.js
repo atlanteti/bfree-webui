@@ -121,7 +121,6 @@ export const BottomMargin = styled.div`
 export const Table = styled.table`
    flex: 1;
    width: 100%;
-   border: 1px solid #dee2e6;
    border-radius: 5px;
    margin: 2rem 0;
    
@@ -207,6 +206,12 @@ export const TableRow = styled.tr`
    }
 `
 
+export const PaginationHeader = styled.th`
+   padding: 22px 0px 22px 12px;
+   background: #fff;
+   font-weight:normal;
+   text-align: ${props => props.align};`
+
 export const ColumnTitle = styled.th`
    padding: 22px 0px 22px 12px;
    width: ${props => props.columnWidth ? '100px' : '50px'};
@@ -238,7 +243,7 @@ export const TableCell = styled.td`
    vertical-align: baseline;
    border: 1px solid #dee2e6;
 
-   padding: 0.1rem 0.8rem;
+   padding: 1.1rem 0.8rem;
 `
 export const NumberCell = styled(TableCell)`
    text-align: left;
