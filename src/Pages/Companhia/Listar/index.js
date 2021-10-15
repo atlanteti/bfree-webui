@@ -8,7 +8,8 @@ import {
 import SortColumn from '../../../Componentes/SortColumn'
 import React from 'react'
 import { CompanySearchBar } from './CompanySearchBar'
-
+import { ReactComponent as EditIcon } from '../../../Assets/Icons/icon_editar.svg'
+import { ReactComponent as DeleteIcon } from '../../../Assets/Icons/icon_delete.svg'
 export default class ListarCompanhia extends ListarPagina {
    async deleteRecord(id) {
       const data = await request({
@@ -70,14 +71,14 @@ export default class ListarCompanhia extends ListarPagina {
          <NumberCell data-title="ID Eduzz">{companhia.cpn_cli_cod}</NumberCell>
          <TextCell data-title="Nome">{companhia.cpn_name}</TextCell>
          <ActionCell data-title="Ações">
-            <Button variant="warning" href={`/editar/companhia/${companhia.cpn_cod}/alterar`}>Editar</Button>
-            <Button variant="dark" onClick={() => {
+            <Button variant="transparent" href={`/editar/companhia/${companhia.cpn_cod}/alterar`}><EditIcon /></Button>
+            <Button variant="transparent" onClick={() => {
                this.setState({
                   deletionId: companhia.cpn_cod,
                   modalIdentifier: "a empresa"
                })
                this.openModal()
-            }}>Excluir</Button>
+            }}><DeleteIcon /></Button>
          </ActionCell>
       </TableRow>
    }
