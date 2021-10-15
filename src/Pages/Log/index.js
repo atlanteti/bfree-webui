@@ -6,7 +6,7 @@ import { CustomMenuCol, Title, PaginationRow, MainContainer, MainRow, SearchBarB
 import { displayDate } from '../../Componentes/DateField'
 import { Helmet } from "react-helmet";
 import CustomPagination from "../../Componentes/CustomPagination";
-import { SelectField, TextField } from "../../Componentes/FormFields";
+import { SelectField, InputTextField } from "../../Componentes/FormFields";
 import moment from "moment";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -109,7 +109,7 @@ class Log extends Component {
                               <Form onSubmit={this.onSubmit.bind(this)}>
                                  <Row>
                                     <Col xs={12} sm={3}>
-                                       <TextField
+                                       <InputTextField
                                           Label="Nome do Usuário"
                                           controlId="userName"
                                           onChange={this.onChange}
@@ -123,7 +123,7 @@ class Log extends Component {
                                           selected={this.state.initialDate}
                                           onChange={(dateSelect) => this.changeDate(dateSelect, "initialDate")}
                                           customInput={
-                                             <TextField
+                                             <InputTextField
                                                 Label="Data Inicial"
                                                 type="text"
                                              />
@@ -137,7 +137,7 @@ class Log extends Component {
                                           selected={this.state.finalDate}
                                           onChange={(dateSelect) => this.changeDate(dateSelect, "finalDate")}
                                           customInput={
-                                             <TextField
+                                             <InputTextField
                                                 Label="Data Final"
                                                 type="text"
                                              />

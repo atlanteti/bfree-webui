@@ -1,6 +1,6 @@
 import React from 'react'
 import { Form, Col, Row, Button } from 'react-bootstrap'
-import { SelectField, NumberField, PhoneField } from '../../../Componentes/FormFields'
+import { SelectField, NumberField, PhoneField, InputTextField, ValidationTextField } from '../../../Componentes/FormFields'
 import { DateField } from '../../../Componentes/DateField'
 import { ButtonRow } from '../../../Componentes/ButtonRow'
 import { EditCreateForm } from '../../../Componentes/EditCreateForm/index'
@@ -37,8 +37,8 @@ export class UserFormBuilder extends EditCreateForm {
                      />
                      <BackGroundForm xs={1} className={'mb-2'} noGutters>
                         <Row>
-                           <Col xs={12} sm={4}>
-                              <TextField
+                           <Col className="mt-3" xs={12} sm={4}>
+                              <InputTextField
                                  id="usr_name"
                                  label="Nome"
                                  type="text"
@@ -47,11 +47,6 @@ export class UserFormBuilder extends EditCreateForm {
                                  onChange={this.handleChange}
                                  fullWidth
                                  required
-                                 InputLabelProps={{
-                                    shrink: true,
-                                    required: false
-                                 }}
-                                 helperText="Campo Obrigatório"
                               />
                               {/* <TextField
                                  controlId="usr_name"
@@ -63,7 +58,7 @@ export class UserFormBuilder extends EditCreateForm {
                                  defaultValue={this.state.primaryData?.usr_name}
                                  onChange={this.handleChange} /> */}
                            </Col>
-                           <Col xs={12} sm={4}>
+                           <Col className="mt-3" xs={12} sm={4}>
                               <InputMask
                                  mask="(xx) xxxxx-xxxx"
                                  value={this.state.primaryData?.usr_phone}
@@ -72,17 +67,16 @@ export class UserFormBuilder extends EditCreateForm {
                                  maskChar=" "
                                  required
                                  onChange={this.handleChange}
-
                               >
                                  {() =>
-                                    <TextField
+                                    <ValidationTextField
                                        id="usr_phone"
                                        label="Telefone"
                                        type="text"
                                        maxLength="200"
                                        required
                                        // defaultValue={this.state.primaryData?.usr_phone}
-                                       // onChange={this.handleChange}
+                                       onChange={this.handleChange}
                                        fullWidth
                                        InputLabelProps={{
                                           shrink: true,
@@ -100,8 +94,8 @@ export class UserFormBuilder extends EditCreateForm {
                                  onChange={this.handleChange}
                                  minLength="15" /> */}
                            </Col>
-                           <Col xs={12} sm={4}>
-                              <TextField
+                           <Col className="mt-3" xs={12} sm={4}>
+                              <InputTextField
                                  id="usr_email"
                                  label="Email"
                                  type="email"
@@ -110,11 +104,6 @@ export class UserFormBuilder extends EditCreateForm {
                                  onChange={this.handleChange}
                                  fullWidth
                                  required
-                                 InputLabelProps={{
-                                    shrink: true,
-                                    required: false
-                                 }}
-                                 helperText="Campo Obrigatório"
                               />
                               {/* <TextField
                                  controlId="usr_email"
@@ -130,7 +119,7 @@ export class UserFormBuilder extends EditCreateForm {
                         </Row>
                         <Row>
                            <Col className="mt-3" xs={12} sm={4}>
-                              <TextField
+                              <NumberField
                                  id="usr_cli_cod"
                                  label="ID Eduzz"
                                  type="text"
@@ -139,11 +128,6 @@ export class UserFormBuilder extends EditCreateForm {
                                  defaultValue={this.state.primaryData?.usr_cli_cod}
                                  onChange={this.handleChange}
                                  fullWidth
-                                 InputLabelProps={{
-                                    shrink: true,
-                                    required: false
-                                 }}
-                                 helperText="Campo Obrigatório"
                               />
                               {/* <NumberField
                                  controlId="usr_cli_cod"
@@ -155,7 +139,7 @@ export class UserFormBuilder extends EditCreateForm {
                                  onChange={this.handleChange} /> */}
                            </Col>
                            <Col className="mt-3" xs={12} sm={4}>
-                              <TextField
+                              <InputTextField
                                  id="usr_externalid"
                                  label="ID Externo"
                                  type="text"
@@ -163,10 +147,6 @@ export class UserFormBuilder extends EditCreateForm {
                                  defaultValue={this.state.primaryData?.usr_externalid}
                                  onChange={this.handleChange}
                                  fullWidth
-                                 InputLabelProps={{
-                                    shrink: true,
-                                 }}
-                              // helperText="Campo Obrigatório"
                               />
                               {/* <TextField
                                  controlId="usr_externalid"
@@ -208,7 +188,7 @@ export class UserFormBuilder extends EditCreateForm {
                            </Row>
                         }
                         <Row>
-                           <Col md={{ offset: 5 }}>
+                           <Col className="mt-3" md={{ offset: 5 }}>
                               <BtnSalvar variant="dark" type="submit">Salvar</BtnSalvar>
                            </Col>
                         </Row>

@@ -1,7 +1,7 @@
 import { Row, Form, Button, Col } from 'react-bootstrap';
 import { React } from 'react';
 import { SearchBarBorder } from '../../../styles/CommonStyles';
-import { TextField } from '../../../Componentes/FormFields';
+import { InputTextField } from '../../../Componentes/FormFields';
 import SearchBar from '../../../Componentes/SearchBar/index';
 
 export class CompanySearchBar extends SearchBar {
@@ -12,7 +12,7 @@ export class CompanySearchBar extends SearchBar {
                <Row>
                   {this.props.children}
                   <Col xs={12} sm={6}>
-                     <TextField
+                     <InputTextField
                         label="ID Eduzz: "
                         controlId="cpn_cli_cod"
                         onChange={this.onChange}
@@ -20,7 +20,7 @@ export class CompanySearchBar extends SearchBar {
                         key="cpn_cli_cod" />
                   </Col>
                   <Col xs={12} sm={6}>
-                     <TextField
+                     <InputTextField
                         label="Nome:"
                         controlId="name"
                         onChange={this.onChange}

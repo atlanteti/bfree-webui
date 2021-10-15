@@ -1,6 +1,6 @@
 import React from 'react'
 import { Form, Col, Row, Button } from 'react-bootstrap'
-import { SelectField } from '../../../Componentes/FormFields'
+import { SelectField, InputTextField } from '../../../Componentes/FormFields'
 import { DateField } from '../../../Componentes/DateField'
 import { ButtonRow } from '../../../Componentes/ButtonRow'
 import { EditCreateForm } from '../../../Componentes/EditCreateForm/index'
@@ -8,7 +8,7 @@ import ListCompanies from '../../../Componentes/ListCompanies'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { BackGroundForm, BtnSalvar, TitleRegister } from '../../../styles/CommonStyles'
 import { IoChevronBackCircleSharp } from "react-icons/io5"
-import TextField from '@mui/material/TextField'
+// import TextField from '@mui/material/TextField'
 
 export default function JourneyForm(props) {
    return <JourneyFormBuilder insertDataEndpoint="journeys/cadastrar"
@@ -29,27 +29,22 @@ export class JourneyFormBuilder extends EditCreateForm {
                :
                (
                   <>
-                  <Form onSubmit={this.handleSubmit} validated={this.state.validated}>
-                     <ButtonRow
-                        cancelButton={<Button variant="light" onClick={this.redirectCallback}><IoChevronBackCircleSharp size={30} color="#BFCADD" /></Button>}
-                        titlePage={<TitleRegister>{this.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'} Jornada</TitleRegister>}
-                     />
-                     <BackGroundForm xs={1} className={'mb-2'} noGutters>
+                     <Form onSubmit={this.handleSubmit} validated={this.state.validated}>
+                        <ButtonRow
+                           cancelButton={<Button variant="light" onClick={this.redirectCallback}><IoChevronBackCircleSharp size={30} color="#BFCADD" /></Button>}
+                           titlePage={<TitleRegister>{this.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'} Jornada</TitleRegister>}
+                        />
+                        <BackGroundForm xs={1} className={'mb-2'} noGutters>
                            <Row>
-                              <Col className="mt-2" xs={12} sm={5}>
-                                 <TextField
+                              <Col className="mt-3" xs={12} sm={5}>
+                                 <InputTextField
                                     id="jny_name"
                                     label="Nome"
                                     type="text"
+                                    fullWidth
                                     defaultValue={this.state.primaryData?.jny_name}
                                     onChange={this.handleChange}
-                                    fullWidth
                                     required
-                                    InputLabelProps={{
-                                       shrink: true,
-                                       required: false
-                                    }}
-                                    helperText="Campo Obrigatório"
                                  />
                                  {/* <TextField
                                     controlId="jny_name"
@@ -61,7 +56,7 @@ export class JourneyFormBuilder extends EditCreateForm {
                                     onChange={this.handleChange}
                                     required /> */}
                               </Col>
-                              <Col className="mt-2" xs={12} sm={5}>
+                              <Col className="mt-3" xs={12} sm={5}>
                                  <ListCompanies
                                     name="jny_cpn_cod"
                                     defaultValue={this.props.primaryId}
@@ -70,7 +65,7 @@ export class JourneyFormBuilder extends EditCreateForm {
                                     defaultCompany={this.state.primaryData.jny_cpn_cod}
                                     required />
                               </Col>
-                              <Col className="mt-3" xs={12} sm={2}>
+                              <Col className="mt-4" xs={12} sm={2}>
                                  <BtnSalvar variant="dark" type="submit">Salvar</BtnSalvar>
                               </Col>
                            </Row>

@@ -1,7 +1,7 @@
 import { Row, Form, Button, Col } from 'react-bootstrap';
 import { React } from 'react';
 import { SearchBarBorder } from '../../../styles/CommonStyles';
-import { TextField } from '../../../Componentes/FormFields';
+import { InputTextField } from '../../../Componentes/FormFields';
 import SearchBar from '../../../Componentes/SearchBar/index';
 import ListUserStatusControlled from '../../../Componentes/ListUserStatus';
 
@@ -12,14 +12,14 @@ export class UserSearchBar extends SearchBar {
             <Form onSubmit={this.handleSubmit}>
                <Row>
                   <Col xs={12} sm={4}>
-                     <TextField label="ID:"
+                     <InputTextField label="ID:"
                         controlId="usr_cli_cod"
                         onChange={this.onChange}
                         type="text"
                         placeholder="Insira o ID do usuário" />
                   </Col>
                   <Col xs={12} sm={4}>
-                     <TextField label="Nome:"
+                     <InputTextField label="Nome:"
                         controlId="name"
                         onChange={this.onChange}
                         type="text"

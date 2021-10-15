@@ -3,14 +3,14 @@ import { Form, Col, Row, Button } from 'react-bootstrap'
 import { DateField } from '../../../Componentes/DateField'
 import { ButtonRow } from '../../../Componentes/ButtonRow'
 import { EditCreateForm } from '../../../Componentes/EditCreateForm/index'
-import { BooleanField } from '../../../Componentes/FormFields'
+import { BooleanField, InputTextField } from '../../../Componentes/FormFields'
 import { CheckBox } from '../../../Componentes/CheckBox'
 import ListCompaniesControlled from "../../../Componentes/ListCompaniesControlled"
 import ListJourneysControlled from "../../../Componentes/ListJourneysControlled"
 import { CircularProgress } from '@material-ui/core'
 import { BackGroundForm, BtnSalvar, TitleRegister } from '../../../styles/CommonStyles'
 import { IoChevronBackCircleSharp } from "react-icons/io5"
-import TextField from '@mui/material/TextField'
+// import TextField from '@mui/material/TextField'
 
 export default function BadgeForm(props) {
    return <BadgeFormBuilder insertDataEndpoint="badges/cadastrar"
@@ -99,8 +99,8 @@ export class BadgeFormBuilder extends EditCreateForm {
                      />
                      <BackGroundForm xs={1} className={'mb-2'} noGutters>
                         <Row>
-                           <Col xs={12} sm={6}>
-                              <TextField
+                           <Col className="mt-3" xs={12} sm={6}>
+                              <InputTextField
                                  id="bdg_name"
                                  label="Nome"
                                  type="text"
@@ -109,11 +109,6 @@ export class BadgeFormBuilder extends EditCreateForm {
                                  fullWidth
                                  required
                                  maxLength="45"
-                                 InputLabelProps={{
-                                    shrink: true,
-                                    required: false
-                                 }}
-                                 helperText="Campo Obrigatório"
                               />
                               {/* <TextField
                                  controlId="bdg_name"
@@ -125,7 +120,7 @@ export class BadgeFormBuilder extends EditCreateForm {
                                  defaultValue={this.state.primaryData?.bdg_name}
                                  onChange={this.handleChange} /> */}
                            </Col>
-                           <Col xs={12} sm={6}>
+                           <Col className="mt-3" xs={12} sm={6}>
                               <ListCompaniesControlled
                                  value={this.state.primaryData.bdg_cpn_cod ? this.state.primaryData.bdg_cpn_cod : ""}
                                  disabled={this.state.disableCompany || Boolean(this.state.primaryData.bdg_jny_cod)}
@@ -134,7 +129,7 @@ export class BadgeFormBuilder extends EditCreateForm {
                            </Col>
                         </Row>
                         <Row>
-                           <Col xs={12} sm={6}>
+                           <Col className="mt-3" xs={12} sm={6}>
                               <CheckBox label="É badge de mentoria?"
                                  controlId="bdg_mentor"
                                  name="bdg_mentor"
@@ -144,7 +139,7 @@ export class BadgeFormBuilder extends EditCreateForm {
                                  required
                               />
                            </Col>
-                           <Col xs={12} sm={6}>
+                           <Col className="mt-3" xs={12} sm={6}>
                               <ListJourneysControlled
                                  value={this.state.primaryData.bdg_jny_cod ? this.state.primaryData.bdg_jny_cod : ""}
                                  disabled={this.state.disableJourney || (Boolean(this.state.primaryData.bdg_cpn_cod) && !Boolean(this.state.primaryData.bdg_jny_cod))}
@@ -154,9 +149,9 @@ export class BadgeFormBuilder extends EditCreateForm {
                               />
                            </Col>
                         </Row>
-                        <Row className="mt-3">
-                           <Col>
-                              <TextField
+                        <Row>
+                           <Col className="mt-4">
+                              <InputTextField
                                  id="bdg_description"
                                  label="Descrição"
                                  type="textarea"
@@ -167,11 +162,6 @@ export class BadgeFormBuilder extends EditCreateForm {
                                  required
                                  rows={4}
                                  maxLength="45"
-                                 InputLabelProps={{
-                                    shrink: true,
-                                    required: false
-                                 }}
-                                 helperText="Campo Obrigatório"
                               />
                               {/* <TextField
                                  controlId="bdg_description"
@@ -186,7 +176,7 @@ export class BadgeFormBuilder extends EditCreateForm {
                         </Row>
                         <Row className="mt-3">
                            <Col>
-                              <TextField
+                              <InputTextField
                                  id="bdg_detail"
                                  label="Motivadores"
                                  type="textarea"
@@ -197,11 +187,6 @@ export class BadgeFormBuilder extends EditCreateForm {
                                  required
                                  rows={4}
                                  maxLength="45"
-                                 InputLabelProps={{
-                                    shrink: true,
-                                    required: false
-                                 }}
-                                 helperText="Campo Obrigatório"
                               />
                               {/* <TextField
                                  controlId="bdg_detail"
@@ -235,7 +220,7 @@ export class BadgeFormBuilder extends EditCreateForm {
                               }
                            </Row>
                         }
-                        <Row>
+                        <Row className="mt-4">
                            <Col md={{ offset: 5 }}>
                               <BtnSalvar variant="dark" type="submit">Salvar</BtnSalvar>
                            </Col>

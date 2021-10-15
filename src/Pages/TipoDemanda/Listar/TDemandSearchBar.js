@@ -2,7 +2,7 @@ import { Row, Form, Button, Col } from 'react-bootstrap';
 import { React } from 'react';
 import ListCompanies from '../../../Componentes/ListCompanies';
 import { SearchBarBorder } from '../../../styles/CommonStyles';
-import { TextField } from '../../../Componentes/FormFields';
+import { InputTextField } from '../../../Componentes/FormFields';
 import SearchBar from '../../../Componentes/SearchBar/index';
 
 export class TDemandSearchBar extends SearchBar {
@@ -12,7 +12,7 @@ export class TDemandSearchBar extends SearchBar {
         <Form onSubmit={this.handleSubmit}>
           <Row>
             <Col xs={12} sm={6}>
-              <TextField label="Nome: "
+              <InputTextField label="Nome: "
                 controlId="name"
                 onChange={this.onChange}
                 type="text"

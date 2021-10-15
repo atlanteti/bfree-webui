@@ -4,6 +4,7 @@ import { request } from '../../Services/api';
 import PropTypes from 'prop-types'
 import { RequiredField, SelectValidateStyle } from '../../styles/CommonStyles'
 import { TextField, MenuItem } from '@mui/material';
+import { ValidationTextField } from '../FormFields';
 
 export default class ListStatusDemands extends Component {
    constructor(props) {
@@ -46,7 +47,7 @@ export default class ListStatusDemands extends Component {
    }
 
    render() {
-      return <TextField
+      return <ValidationTextField
          id={this.props.id}
          select
          fullWidth
@@ -72,7 +73,7 @@ export default class ListStatusDemands extends Component {
                   {statusDemand.sdm_name}
                </MenuItem>);
          })}
-      </TextField>
+      </ValidationTextField>
       // return <Form.Group controlId={this.props.controlId} /*"companyId"*/>
       //    <Form.Label style={{color: "#B0BEC5"}}>Status da Demanda:</Form.Label>
       //    <Form.Control //Form.Select não funciona por razões misteriosas

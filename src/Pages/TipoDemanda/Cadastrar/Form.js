@@ -7,7 +7,7 @@ import ListCompanies from '../../../Componentes/ListCompanies'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { BackGroundForm, BtnSalvar, TitleRegister } from '../../../styles/CommonStyles'
 import { IoChevronBackCircleSharp } from "react-icons/io5"
-import TextField from '@mui/material/TextField'
+import { InputTextField } from '../../../Componentes/FormFields'
 
 export default function TypeDemandForm(props) {
    return <TypeDemandFormBuilder insertDataEndpoint="types-demand/cadastrar"
@@ -37,8 +37,8 @@ export class TypeDemandFormBuilder extends EditCreateForm {
                      />
                      <BackGroundForm xs={1} className={'mb-2'} noGutters>
                         <Row>
-                           <Col className="mt-2" xs={12} sm={6}>
-                              <TextField
+                           <Col className="mt-3" xs={12} sm={5}>
+                              <InputTextField
                                  id="tdm_name"
                                  label="Nome"
                                  type="text"
@@ -47,11 +47,6 @@ export class TypeDemandFormBuilder extends EditCreateForm {
                                  onChange={this.handleChange}
                                  required
                                  fullWidth
-                                 InputLabelProps={{
-                                    shrink: true,
-                                    required: false
-                                 }}
-                                 helperText="Campo Obrigatório"
                               />
                               {/* <TextField
                                  controlId="tdm_name"
@@ -63,13 +58,16 @@ export class TypeDemandFormBuilder extends EditCreateForm {
                                  onChange={this.handleChange}
                                  required /> */}
                            </Col>
-                           <Col className="mt-2" xs={12} sm={6}>
+                           <Col className="mt-3" xs={12} sm={5}>
                               <ListCompanies
+                                 name="tdm_cpn_cod"
                                  defaultValue={this.props.primaryId}
-                                 onChange={this.handleChange}
-                                 id="tdm_cpn_cod"
+                                 onChange={this.handleSelect}
                                  defaultCompany={this.state.primaryData.tdm_cpn_cod ? this.state.primaryData.tdm_cpn_cod : ""}
                                  required />
+                           </Col>
+                           <Col className="mt-4">
+                              <BtnSalvar variant="dark" type="submit">Salvar</BtnSalvar>
                            </Col>
                         </Row>
                         {this.props.paramRoute === 'inserir'
@@ -93,9 +91,6 @@ export class TypeDemandFormBuilder extends EditCreateForm {
                               </Row>
                            )}
                         <Row>
-                           <Col className="mt-4" md={{ offset: 5 }}>
-                              <BtnSalvar variant="dark" type="submit">Salvar</BtnSalvar>
-                           </Col>
                         </Row>
                      </BackGroundForm>
                   </Form>

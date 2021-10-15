@@ -7,7 +7,7 @@ import ListResultDemands from '../../../Componentes/ListResultDemands';
 import ListTypeDemand from '../../../Componentes/ListTypeDemand';
 import ListUsers from '../../../Componentes/ListUsers';
 import ContextLogin from "../../../Context/ContextLogin";
-import { TextField } from '../../../Componentes/FormFields';
+import { InputTextField } from '../../../Componentes/FormFields';
 import Restricted from '../../../Context/AccessPermission'
 
 export class DemandSearchBar extends SearchBar {
@@ -17,7 +17,7 @@ export class DemandSearchBar extends SearchBar {
             <Form onSubmit={this.handleSubmit}>
                <Row>
                   <Col sm={3}>
-                     <TextField label="Título da Demanda"
+                     <InputTextField label="Título da Demanda"
                         controlId="dem_title"
                         onChange={this.onChange}
                         type="text"
@@ -49,9 +49,9 @@ export class DemandSearchBar extends SearchBar {
                         Buscar
                      </Button>
                      <Restricted>
-                        <Button 
+                        <Button
                            onClick={(event) => this.requestExportData(event, "export-file", "Demandas")}
-                           className="ml-2" 
+                           className="ml-2"
                            variant="dark"
                         >
                            Exportar excel

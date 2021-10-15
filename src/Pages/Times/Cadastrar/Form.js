@@ -3,12 +3,11 @@ import { Form, Col, Row, Button } from 'react-bootstrap'
 import { DateField } from '../../../Componentes/DateField'
 import { ButtonRow } from '../../../Componentes/ButtonRow'
 import { EditCreateForm } from '../../../Componentes/EditCreateForm/index'
-import { BooleanField } from '../../../Componentes/FormFields'
+import { BooleanField, InputTextField } from '../../../Componentes/FormFields'
 import ListCompanies from '../../../Componentes/ListCompanies'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { BackGroundForm, BtnSalvar, TitleRegister } from '../../../styles/CommonStyles'
 import { IoChevronBackCircleSharp } from "react-icons/io5"
-import TextField from '@mui/material/TextField'
 
 export default function TeamForm(props) {
    return <TeamFormBuilder insertDataEndpoint="teams/cadastrar"
@@ -35,8 +34,8 @@ export class TeamFormBuilder extends EditCreateForm {
                      />
                      <BackGroundForm xs={1} className={'mb-2'} noGutters>
                         <Row>
-                           <Col className="mt-2" xs={12} sm={3}>
-                              <TextField
+                           <Col className="mt-3" xs={12} sm={3}>
+                              <InputTextField
                                  id="tea_name"
                                  label="Nome"
                                  type="text"
@@ -45,11 +44,6 @@ export class TeamFormBuilder extends EditCreateForm {
                                  fullWidth
                                  required
                                  maxLength="45"
-                                 InputLabelProps={{
-                                    shrink: true,
-                                    required: false
-                                 }}
-                                 helperText="Campo Obrigatório"
                               />
                               {/* <TextField
                                  controlId="tea_name"
@@ -61,7 +55,7 @@ export class TeamFormBuilder extends EditCreateForm {
                                  onChange={this.handleChange}
                                  required /> */}
                            </Col>
-                           <Col className="mt-2" xs={12} sm={3}>
+                           <Col className="mt-3" xs={12} sm={3}>
                               <ListCompanies
                                  defaultValue={this.props.primaryId}
                                  name="tea_cpn_cod"
@@ -69,7 +63,7 @@ export class TeamFormBuilder extends EditCreateForm {
                                  controlId="tea_cpn_cod"
                                  defaultCompany={this.state.primaryData.tea_cpn_cod ? this.state.primaryData.tea_cpn_cod : null} />
                            </Col>
-                           <Col className="mt-2" xs={12} sm={3}>
+                           <Col className="mt-3" xs={12} sm={3}>
                               <BooleanField Label="Status"
                                  onFalse="Inativo"
                                  onTrue="Ativo"
@@ -80,7 +74,7 @@ export class TeamFormBuilder extends EditCreateForm {
                                  value={this.state.primaryData?.tea_active}
                                  required />
                            </Col>
-                           <Col className="mt-3" xs={10} sm={3}>
+                           <Col className="mt-4" xs={10} sm={3}>
                               <BtnSalvar variant="dark" type="submit">Salvar</BtnSalvar>
                            </Col>
                         </Row>

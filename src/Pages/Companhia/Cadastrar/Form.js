@@ -3,11 +3,10 @@ import { Form, Col, Row, Button } from 'react-bootstrap'
 import { DateField } from '../../../Componentes/DateField'
 import { ButtonRow } from '../../../Componentes/ButtonRow'
 import { EditCreateForm } from '../../../Componentes/EditCreateForm/index'
-import { NumberField } from '../../../Componentes/FormFields'
+import { NumberField, InputTextField } from '../../../Componentes/FormFields'
 import CircularProgress from '@material-ui/core/CircularProgress'
-import { BackGroundForm, BtnSalvar, TitleRegister } from '../../../styles/CommonStyles'
+import { BackGroundForm, BtnSalvar, NumberCell, TitleRegister } from '../../../styles/CommonStyles'
 import { IoChevronBackCircleSharp } from "react-icons/io5"
-import TextField from '@mui/material/TextField'
 
 export default function CompanyForm(props) {
    return <CompanyFormBuilder insertDataEndpoint="companies/cadastrar"
@@ -40,20 +39,15 @@ export class CompanyFormBuilder extends EditCreateForm {
                      />
                      <BackGroundForm xs={1} className={'mb-2'} noGutters>
                         <Row>
-                           <Col className="mt-2" xs={12} sm={5}>
-                              <TextField
+                           <Col className="mt-3" xs={12} sm={5}>
+                              <NumberField
                                  id="cpn_cli_cod"
                                  label="ID Eduzz"
                                  type="number"
+                                 fullWidth
                                  defaultValue={this.state.primaryData?.cpn_cli_cod}
                                  onChange={this.handleChange}
-                                 fullWidth
                                  required
-                                 InputLabelProps={{
-                                    shrink: true,
-                                    required: false
-                                 }}
-                                 helperText="Campo Obrigatório"
                               />
                               {/* <NumberField
                                  controlId="cpn_cli_cod"
@@ -65,23 +59,17 @@ export class CompanyFormBuilder extends EditCreateForm {
                                  onChange={this.handleChange}
                                  required /> */}
                            </Col>
-                           <Col className="mt-2" xs={12} sm={5}>
-                              <TextField
+                           <Col className="mt-3" xs={12} sm={5}>
+                              <InputTextField
                                  id="cpn_name"
-                                 label="Nome"
-                                 variant="outlined"
+                                 label="Nome da Empresa"
                                  fullWidth
                                  required
                                  onChange={this.handleChange}
                                  defaultValue={this.state.primaryData?.cpn_name}
-                                 InputLabelProps={{
-                                    shrink: true,
-                                    required: false
-                                 }}
-                                 helperText="Campo Obrigatório"
                               />
                            </Col>
-                           <Col className="mt-3" xs={12} sm={2}>
+                           <Col className="mt-4" xs={12} sm={2}>
                               <BtnSalvar variant="dark" type="submit">Salvar</BtnSalvar>
                            </Col>
                         </Row>
