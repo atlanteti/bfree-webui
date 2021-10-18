@@ -3,18 +3,27 @@ import { Navigation } from 'react-minimal-side-navigation'
 import { useHistory, useLocation } from 'react-router-dom'
 import Icon from 'awesome-react-icons'
 import React, { useContext, useState } from 'react'
-import { AiOutlineUser } from 'react-icons/ai'
-import { IoBusinessOutline, IoBookmarkOutline, IoAlbumsOutline } from 'react-icons/io5'
-import { RiTeamLine, RiMedalLine } from 'react-icons/ri'
-import { FaTasks, FaRegFileAlt } from 'react-icons/fa'
-import { BsGraphUp } from 'react-icons/bs'
-import { AiOutlineCloudUpload } from 'react-icons/ai'
 import 'react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css'
 import './styles.css'
-import { CustomMenuCol } from '../../styles/CommonStyles'
+import { CustomMenuCol, TopBarContainerMenu } from '../../styles/CommonStyles'
 import { Cookies } from "react-cookie";
 import ContextLogin from '../../Context/ContextLogin'
-import { MdAttachMoney } from 'react-icons/md'
+import { IoChevronForwardOutline } from "react-icons/io5"
+
+import { ReactComponent as EmpresaIcon } from "../../Assets/Icons/icon_empresa.svg"
+import { ReactComponent as JornadaIcon } from "../../Assets/Icons/icon_jornada.svg"
+import { ReactComponent as DemandasIcon } from "../../Assets/Icons/icon_demanda.svg"
+import { ReactComponent as TiposDemandasIcon } from "../../Assets/Icons/icon_tipos_demandas.svg"
+import { ReactComponent as BagdeIcon } from "../../Assets/Icons/icon_badge.svg"
+import { ReactComponent as TimeIcon } from "../../Assets/Icons/icon_time.svg"
+import { ReactComponent as UsuariosIcon } from "../../Assets/Icons/icon_usuarios.svg"
+import { ReactComponent as RelatoriosIcon } from "../../Assets/Icons/icon_relatorios.svg"
+import { ReactComponent as UploadsIcon } from "../../Assets/Icons/icon_uploads.svg"
+import { ReactComponent as LogsIcon } from "../../Assets/Icons/icon_logs.svg"
+import { ReactComponent as SairIcon } from "../../Assets/Icons/icon_sair.svg"
+import TopBar from '../TopBar'
+
+
 export const CustomMenu = () => {
    const cookie = new Cookies();
 
@@ -27,7 +36,7 @@ export const CustomMenu = () => {
          {/* Sidebar Overlay */}
          <div
             onClick={() => setIsSidebarOpen(false)}
-            className={`fixed border-l-0 inset-0 z-20 block transition-opacity bg-white opacity-50 lg:hidden ${isSidebarOpen ? 'block' : 'hidden'
+            className={`fixed border-l-0 inset-0 z-17 block transition-opacity bg-white opacity-50 lg:hidden ${isSidebarOpen ? 'block' : 'hidden'
                }`}
          />
          <div className="btn-position">
@@ -39,13 +48,13 @@ export const CustomMenu = () => {
                <Icon name="burger" className="w-8 h-8" />
             </button>
          </div>
-
          {/* Sidebar */}
          <CustomMenuCol xs={6} sm={3} md={3} lg={2}
             className={`fixed inset-y-0 border-r-2 border-l-0 left-0 z-30 overflow-y-auto transition duration-300 ease-out transform translate-x-0 bg-white lg:translate-x-0 lg:static lg:inset-0 ${isSidebarOpen ? 'ease-out translate-x-0' : 'ease-in -translate-x-full'
-               }`}
+         }`}
          >
             {/* https://github.com/abhijithvijayan/react-minimal-side-navigation */}
+            <TopBarContainerMenu />
             <Navigation
             activeItemId={location.pathname.replace("/cadastrar", "").replace("/inserir", "") || location.pathname.replace("/editar", "").replace("/4/alterar", "")}
                onSelect={({ itemId }) => {
@@ -54,13 +63,13 @@ export const CustomMenu = () => {
                items={newFunction(admin)}
             />
 
-            <div className="absolute bottom-0 w-full my-8">
+            <div className="absolute bottom-0 w-full">
                <Navigation
                   activeItemId={location.pathname}
                   items={[
                      {
                         title: "Sair",
-                        elemBefore: () => <Icon name="activity" />
+                        elemBefore: () => <SairIcon />
                      }
                   ]}
                   onSelect={() => {
@@ -77,54 +86,54 @@ export const CustomMenu = () => {
 function newFunction(admin) {
    const complete = [
       {
-         title: 'Empresas',
+         title: <span className="title-arrow">Empresa <IoChevronForwardOutline size={17} /></span>, 
          itemId: '/companhia',
-         elemBefore: () => <IoBusinessOutline size={23} color="#BFCADD" />
+         elemBefore: () => <EmpresaIcon />
       },
       {
-         title: 'Jornadas',
+         title: <span className="title-arrow">Jornadas <IoChevronForwardOutline size={17} /></span>,
          itemId: '/jornadas',
-         elemBefore: () => <BsGraphUp size={23} color="#BFCADD" />
+         elemBefore: () => <JornadaIcon />
       },
       {
-         title: 'Tipos de Demanda',
-         itemId: '/tipodemanda',
-         elemBefore: () => <IoAlbumsOutline size={23} color="#BFCADD" />
-      },
-      {
-         title: 'Badges',
-         itemId: '/badges',
-         elemBefore: () => <RiMedalLine size={23} color="#BFCADD" />
-      },
-      {
-         title: 'Times',
-         itemId: '/times',
-         elemBefore: () => <RiTeamLine size={23} color="#BFCADD" />
-      },
-      {
-         title: 'Usuários',
-         itemId: '/usuarios',
-         elemBefore: () => <AiOutlineUser size={23} color="#BFCADD" />
-      },
-      {
-         title: 'Demandas',
+         title: <span className="title-arrow">Demandas <IoChevronForwardOutline size={17} /></span>,
          itemId: '/demandas',
-         elemBefore: () => <FaTasks size={23} color="#BFCADD" />
+         elemBefore: () => <DemandasIcon/>
       },
       {
-         title: "Relatorios",
+         title: <span className="title-arrow">Tipos de Demandas  <IoChevronForwardOutline size={19} /></span>,
+         itemId: '/tipodemanda',
+         elemBefore: () => <TiposDemandasIcon />
+      },
+      {
+         title: <span className="title-arrow">Bagdes <IoChevronForwardOutline size={17} /></span>,
+         itemId: '/badges',
+         elemBefore: () => <BagdeIcon />
+      },
+      {
+         title: <span className="title-arrow">Times <IoChevronForwardOutline size={17} /></span>,
+         itemId: '/times',
+         elemBefore: () => <TimeIcon />
+      },
+      {
+         title: <span className="title-arrow">Usuários <IoChevronForwardOutline size={17} /></span>,
+         itemId: '/usuarios',
+         elemBefore: () => <UsuariosIcon />
+      },
+      {
+         title: <span className="title-arrow">Relatórios <IoChevronForwardOutline size={17} /></span>,
          itemId: '/relatorios',
-         elemBefore: () => <MdAttachMoney size={23} color="#BFCADD" />
+         elemBefore: () => <RelatoriosIcon />
       },
       {
-         title: 'Upload File',
+         title: <span className="title-arrow">Uploads <IoChevronForwardOutline size={17} /></span>,
          itemId: '/upload',
-         elemBefore: () => <AiOutlineCloudUpload size={23} color="#BFCADD" />
+         elemBefore: () => <UploadsIcon />
       },
       {
-         title: 'Logs',
+         title: <span className="title-arrow">Logs <IoChevronForwardOutline size={17} /></span>,
          itemId: '/log',
-         elemBefore: () => <FaRegFileAlt size={23} color="#BFCADD" />
+         elemBefore: () => <LogsIcon />
       },
    ]
    let filteredForUser = complete.filter(conditionalForPermissionAccess)

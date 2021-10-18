@@ -289,6 +289,12 @@ export const BtnContainer = styled.div`
    justify-content: space-between;
 `
 
+export const TopBarContainerMenu = styled(Col)`
+   background: #fff;
+   min-height: 8vh;
+   /* box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px; */
+`
+
 export const TopBarContainer = styled(Col)`
    background: #fff;
    min-height: 8vh;

@@ -1839,8 +1839,7 @@
  
  .bg-white {
    --bg-opacity: 1;
-   background-color: #F7F7FA !important;
-   background-color: rgba(255, 255, 255, var(--bg-opacity));
+   background-color: #fff !important;
  }
  
  .bg-gray-100 {

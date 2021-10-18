@@ -1,18 +1,41 @@
 .btn-position {
    margin-left: 1rem !important;
 }
-
-div:hover > span > svg {
-   color:#546E7A !important
-}
-div:hover > span > span {
-   color:#546E7A !important
+span > svg {
+   fill:#546E7A !important
 }
 
+span > span {
+   font-size: 0.875rem;
+}
+.side-navigation-panel-select-option-wrap {
+   flex: 1 !important;
+}
+.side-navigation-panel-select-option-text {
+   flex: 1 !important;
+}
+
+.title-arrow {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+}
+
+.title-arrow > svg {
+   align-items: right;
+}
 .side-navigation-panel-select-option-selected > span > svg {
-   color:#fff !important
+   fill:#fff !important
 }
+
+.side-navigation-panel-select-option-selected > span > svg:hover{
+   fill:#fff !important
+}
+
 
 .side-navigation-panel-select-option-selected > span > span {
+   color:#fff !important
+}
+.side-navigation-panel-select-option-selected > span > span:hover {
    color:#fff !important
 }
