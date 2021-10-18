@@ -49,15 +49,6 @@ export class CompanyFormBuilder extends EditCreateForm {
                                  onChange={this.handleChange}
                                  required
                               />
-                              {/* <NumberField
-                                 controlId="cpn_cli_cod"
-                                 label="ID Eduzz:"
-                                 type="text"
-                                 maxLength="10"
-                                 defaultValue={this.state.primaryData?.cpn_cli_cod}
-                                 errorMessage={this.state.cpn_cli_cod}
-                                 onChange={this.handleChange}
-                                 required /> */}
                            </Col>
                            <Col className="mt-3" xs={12} sm={5}>
                               <InputTextField

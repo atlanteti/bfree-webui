@@ -59,32 +59,6 @@ export default class ListUserStatusControlled extends Component {
                </MenuItem>);
          })}
       </ValidationTextField>
-      // return <Form.Group controlId={this.props.controlId} /*"companyId"*/>
-      //    <Form.Label style={{color: "#B0BEC5"}}>Status:</Form.Label>
-      //    <Form.Control //Form.Select não funciona por razões misteriosas
-      //       style={SelectValidateStyle}
-
-      //       required={this.props.required}
-      //       as="select"
-      //       onChange={this.onChange.bind(this)}
-      //       disabled={this.props.disabled}
-      //       value={this.props.value}>
-      //       <>
-      //          <option value={null} />
-      //          {this.state.statuses?.map(status => {
-      //             return (
-      //                <option
-      //                   key={status.sus_cod}
-      //                   value={status.sus_cod}
-      //                >
-      //                   {status.sus_name}
-      //                </option>);
-      //          })}
-      //       </>
-      //    </Form.Control>
-      //    <Form.Text className="text-muted">{this.props.Text} {this.props.required ? <RequiredField>Campo obrigatório</RequiredField> : null}</Form.Text>
-      //    <Form.Control.Feedback type="invalid">{this.props.errorMessage}</Form.Control.Feedback>
-      // </Form.Group>;
    }
 }
 ListUserStatusControlled.propTypes =

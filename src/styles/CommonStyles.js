@@ -58,9 +58,6 @@ export const MainRow = styled(Row)`
    margin-right: 0px;
 `
 
-// export const PaginationRow = styled(Row)`
-//    justify-content: center;
-//    margin-bottom: 20px;`
 
 export const MainContainer = styled.div`
    .container{

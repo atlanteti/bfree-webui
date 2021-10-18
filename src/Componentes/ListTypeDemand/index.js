@@ -74,30 +74,6 @@ export default class ListTypeDemand extends Component {
                </MenuItem>);
          })}
       </ValidationTextField>
-      // return <Form.Group controlId={this.props.controlId} /*"companyId"*/>
-      //    <Form.Label style={{ color: "#B0BEC5" }}>Tipos de Demanda:</Form.Label>
-      //    <Form.Control //Form.Select não funciona por razões misteriosas
-      //       style={SelectValidateStyle}
-      //       disabled={this.props.disabled}
-      //       as="select"
-      //       required={this.props.required}
-      //       onChange={this.onChange.bind(this)}
-      //       value={this.props.defaultTypeDemand}>
-      //       <>
-      //          <option value={null}></option>
-      //          {this.state.typeDemands?.map(typeDemand => {
-      //             return (
-      //                <option
-      //                   key={typeDemand.tdm_cod}
-      //                   value={typeDemand.tdm_cod}
-      //                >
-      //                   {typeDemand.tdm_name}
-      //                </option>);
-      //          })}
-      //       </>
-      //    </Form.Control>
-      //    <Form.Text className="text-muted">{this.props.Text} {this.props.required ? <RequiredField>Campo obrigatório</RequiredField> : null}</Form.Text>
-      // </Form.Group>;
    }
 }
 

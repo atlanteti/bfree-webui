@@ -56,28 +56,5 @@ export default class ListCompaniesControlled extends Component {
                </MenuItem>);
          })}
       </ValidationTextField>
-      // return <Form.Group controlId={this.props.controlId} /*"companyId"*/>
-      //    <Form.Label style={{color: "#B0BEC5"}}>Empresa: </Form.Label>
-      //    <Form.Control //Form.Select não funciona por razões misteriosas
-      //       style={SelectValidateStyle}
-      //       disabled={this.props.disabled}
-      //       as="select"
-      //       onChange={this.onChange.bind(this)}
-      //       value={this.props.value}>
-      //       <>
-      //          <option value={null} />
-      //          {this.state.companies?.map(company => {
-      //             return (
-      //                <option
-      //                   key={company.cpn_cod}
-      //                   value={company.cpn_cod}
-      //                >
-      //                   {company.cpn_name}
-      //                </option>);
-      //          })}
-      //       </>
-      //    </Form.Control>
-      //    <Form.Control.Feedback type="invalid">{this.props.errorMessage}</Form.Control.Feedback>
-      // </Form.Group>;
    }
 }
