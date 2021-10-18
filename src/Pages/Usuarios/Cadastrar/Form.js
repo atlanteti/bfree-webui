@@ -129,7 +129,7 @@ export class UserFormBuilder extends EditCreateForm {
                            ? ''
                            :
                            <Row className="mt-4">
-                              <Col md={{ offset: 2 }} xs={12} sm={6}>
+                              <Col md={{ offset: 1 }} xs={12} sm={5}>
                                  <DateField
                                     controlId="usr_dtcreation"
                                     Label="Data de criação:"
@@ -137,7 +137,7 @@ export class UserFormBuilder extends EditCreateForm {
                               </Col>
                               {this.state.primaryData?.usr_dtupdate === null
                                  ? ''
-                                 : <Col xs={12} sm={6}>
+                                 : <Col xs={12} sm={5}>
                                     <DateField
                                        controlId="usr_dtcreation"
                                        Label="Data de atualização:"

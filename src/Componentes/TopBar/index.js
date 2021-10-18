@@ -3,8 +3,6 @@ import { TopBarContainer } from '../../styles/CommonStyles';
 
 export default function TopBar() {
    return (
-      <TopBarContainer>
-         <p>aaa</p>
-      </TopBarContainer>
+      <TopBarContainer />
    );
 }

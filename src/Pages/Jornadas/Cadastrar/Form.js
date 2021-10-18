@@ -64,7 +64,7 @@ export class JourneyFormBuilder extends EditCreateForm {
                               ? ''
                               : (
                                  <Row className="mt-6">
-                                    <Col xs={12} sm={5}>
+                                    <Col md={{ offset: 1 }} xs={12} sm={5}>
                                        <DateField
                                           controlId="jny_dtcreation"
                                           Label="Data de criação:"
