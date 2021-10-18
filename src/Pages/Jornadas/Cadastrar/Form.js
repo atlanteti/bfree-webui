@@ -8,7 +8,6 @@ import ListCompanies from '../../../Componentes/ListCompanies'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { BackGroundForm, BtnSalvar, TitleRegister } from '../../../styles/CommonStyles'
 import { IoChevronBackCircleSharp } from "react-icons/io5"
-// import TextField from '@mui/material/TextField'
 
 export default function JourneyForm(props) {
    return <JourneyFormBuilder insertDataEndpoint="journeys/cadastrar"
@@ -46,16 +45,7 @@ export class JourneyFormBuilder extends EditCreateForm {
                                     onChange={this.handleChange}
                                     required
                                  />
-                                 {/* <TextField
-                                    controlId="jny_name"
-                                    errorMessage={this.state.jny_name}
-                                    label="Nome:"
-                                    type="text"
-                                    maxLength="45"
-                                    defaultValue={this.state.primaryData.jny_name}
-                                    onChange={this.handleChange}
-                                    required /> */}
-                              </Col>
+                               </Col>
                               <Col className="mt-3" xs={12} sm={5}>
                                  <ListCompanies
                                     name="jny_cpn_cod"

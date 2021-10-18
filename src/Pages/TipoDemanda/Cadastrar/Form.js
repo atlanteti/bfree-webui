@@ -48,15 +48,6 @@ export class TypeDemandFormBuilder extends EditCreateForm {
                                  required
                                  fullWidth
                               />
-                              {/* <TextField
-                                 controlId="tdm_name"
-                                 errorMessage={this.state.tdm_name}
-                                 label="Nome:"
-                                 type="text"
-                                 maxLength="45"
-                                 defaultValue={this.state.primaryData?.tdm_name}
-                                 onChange={this.handleChange}
-                                 required /> */}
                            </Col>
                            <Col className="mt-3" xs={12} sm={5}>
                               <ListCompanies

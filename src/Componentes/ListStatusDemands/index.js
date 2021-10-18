@@ -74,30 +74,6 @@ export default class ListStatusDemands extends Component {
                </MenuItem>);
          })}
       </ValidationTextField>
-      // return <Form.Group controlId={this.props.controlId} /*"companyId"*/>
-      //    <Form.Label style={{color: "#B0BEC5"}}>Status da Demanda:</Form.Label>
-      //    <Form.Control //Form.Select não funciona por razões misteriosas
-      //       style={SelectValidateStyle}
-      //       disabled={this.props.disabled}
-      //       as="select"
-      //       required={this.props.required}
-      //       onChange={this.onChange.bind(this)}
-      //       value={this.props.defaultStatusDemand}>
-      //       <>
-      //          <option value={null} />
-      //          {this.state.statusDemands?.map(statusDemand => {
-      //             return (
-      //                <option
-      //                   key={statusDemand.sdm_cod}
-      //                   value={statusDemand.sdm_cod}
-      //                >
-      //                   {statusDemand.sdm_name}
-      //                </option>);
-      //          })}
-      //       </>
-      //    </Form.Control>
-      //    <Form.Text className="text-muted">{this.props.Text} {this.props.required ? <RequiredField>Campo obrigatório</RequiredField> : null}</Form.Text>
-      // </Form.Group>;
    }
 }
 

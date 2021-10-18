@@ -10,7 +10,6 @@ import ListJourneysControlled from "../../../Componentes/ListJourneysControlled"
 import { CircularProgress } from '@material-ui/core'
 import { BackGroundForm, BtnSalvar, TitleRegister } from '../../../styles/CommonStyles'
 import { IoChevronBackCircleSharp } from "react-icons/io5"
-// import TextField from '@mui/material/TextField'
 
 export default function BadgeForm(props) {
    return <BadgeFormBuilder insertDataEndpoint="badges/cadastrar"
@@ -31,7 +30,6 @@ export class BadgeFormBuilder extends EditCreateForm {
       }
    }
    handleChangeJourneyControlled(e) {
-      console.log(e)
       let cpn_value;
       if (e.jny_cpn_cod !== undefined) {
          this.companyCodeSetter(e.jny_cpn_cod)
@@ -110,15 +108,6 @@ export class BadgeFormBuilder extends EditCreateForm {
                                  required
                                  maxLength="45"
                               />
-                              {/* <TextField
-                                 controlId="bdg_name"
-                                 errorMessage={this.state.bdg_name}
-                                 label="Nome:"
-                                 type="text"
-                                 maxLength="45"
-                                 required
-                                 defaultValue={this.state.primaryData?.bdg_name}
-                                 onChange={this.handleChange} /> */}
                            </Col>
                            <Col className="mt-3" xs={12} sm={6}>
                               <ListCompaniesControlled
@@ -163,15 +152,6 @@ export class BadgeFormBuilder extends EditCreateForm {
                                  rows={4}
                                  maxLength="45"
                               />
-                              {/* <TextField
-                                 controlId="bdg_description"
-                                 errorMessage={this.state.bdg_description}
-                                 label="Descrição:"
-                                 as="textarea"
-                                 maxLength="45"
-                                 required
-                                 defaultValue={this.state.primaryData?.bdg_description}
-                                 onChange={this.handleChange} /> */}
                            </Col>
                         </Row>
                         <Row className="mt-3">
@@ -188,15 +168,7 @@ export class BadgeFormBuilder extends EditCreateForm {
                                  rows={4}
                                  maxLength="45"
                               />
-                              {/* <TextField
-                                 controlId="bdg_detail"
-                                 errorMessage={this.state.bdg_detail}
-                                 label="Motivadores: "
-                                 as="textarea"
-                                 maxLength="400"
-                                 required
-                                 defaultValue={this.state.primaryData?.bdg_detail}
-                                 onChange={this.handleChange} /> */}
+
                            </Col>
                         </Row>
                         {this.props.paramRoute === 'inserir'

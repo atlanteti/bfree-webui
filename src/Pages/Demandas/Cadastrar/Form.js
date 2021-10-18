@@ -51,17 +51,7 @@ export class DemandFormBuilder extends EditCreateForm {
                                  onChange={this.context.admin ? this.handleChange : null}
                                  fullWidth
                               />
-                              {/* <TextField
-                                 controlId="dem_title"
-                                 errorMessage={this.state.dem_title}
-                                 label="Titulo:"
-                                 required
-                                 type="text"
-                                 maxLength="45"
-                                 defaultValue={this.state.primaryData?.dem_title}
-                                 disabled={(this.context.admin && this.paramRoute === 'inserir') ? false : true}
-                                 onChange={this.context.admin ? this.handleChange : null} /> */}
-                           </Col>
+                                                         </Col>
                            <Col className="mt-3" xs={12} sm={4}>
                               <InputTextField
                                  id="dem_contact_email"
@@ -73,16 +63,7 @@ export class DemandFormBuilder extends EditCreateForm {
                                  onChange={this.context.admin ? this.handleChange : null}
                                  fullWidth
                               />
-                              {/* <TextField
-                                 controlId="dem_contact_email"
-                                 errorMessage={this.state.dem_contact_email}
-                                 label="Email:"
-                                 required
-                                 maxLength="144"
-                                 type="email"
-                                 defaultValue={this.state.primaryData?.dem_contact_email}
-                                 disabled={(this.context.admin && this.paramRoute === 'inserir') ? false : true}
-                                 onChange={this.context.admin ? this.handleChange : null} /> */}
+                                                              onChange={this.context.admin ? this.handleChange : null} /> */}
                            </Col>
                            <Col className="mt-3" xs={12} sm={4}>
                               <InputMask
@@ -112,15 +93,6 @@ export class DemandFormBuilder extends EditCreateForm {
                                        helperText="Campo Obrigatório"
                                     />}
                               </InputMask>
-                              {/* <PhoneField
-                                 controlId="dem_contact_phone"
-                                 label="Telefone:"
-                                 errorMessage={this.state.dem_contact_phone}
-                                 defaultValue={this.state.primaryData.dem_contact_phone}
-                                 onChange={this.context.admin ? this.handleChange : null}
-                                 disabled={(this.context.admin && this.paramRoute === 'inserir') ? false : true}
-                                 minLength="15"
-                              /> */}
                            </Col>
                         </Row>
                         <Row>
@@ -136,16 +108,7 @@ export class DemandFormBuilder extends EditCreateForm {
                                  onChange={this.handleChange}
                                  fullWidth
                               />
-                              {/* <TextField
-                                 controlId="dem_desc"
-                                 errorMessage={this.state.dem_desc}
-                                 label="Detalhes:"
-                                 required
-                                 as="textarea"
-                                 maxLength="200"
-                                 defaultValue={this.state.primaryData?.dem_desc}
-                                 onChange={this.handleChange} /> */}
-                           </Col>
+                                                         </Col>
                         </Row>
                         <Row>
                            <Col className="mt-3">
@@ -161,17 +124,7 @@ export class DemandFormBuilder extends EditCreateForm {
                                  onChange={this.context.admin ? this.handleChange : null}
                                  fullWidth
                               />
-                              {/* <TextField
-                                 controlId="dem_comments"
-                                 errorMessage={this.state.dem_comments}
-                                 label="Observações:"
-                                 as="textarea"
-                                 required
-                                 maxLength="200"
-                                 defaultValue={this.state.primaryData?.dem_comments}
-                                 disabled={(this.context.admin && this.paramRoute === 'inserir') ? false : true}
-                                 onChange={this.context.admin ? this.handleChange : null} /> */}
-                           </Col>
+                                                        </Col>
                         </Row>
                         <Row>
                            <Col className="mt-3" xs={12} sm={4}>

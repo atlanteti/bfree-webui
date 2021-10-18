@@ -74,31 +74,6 @@ export default class ListCompanies extends Component {
          })}
       </ValidationTextField>
 
-      // return <Form.Group controlId={this.props.controlId} /*"companyId"*/>
-      //    <Form.Label style={{color: "#B0BEC5"}}>Empresa:</Form.Label>
-      //    <Form.Control //Form.Select não funciona por razões misteriosas
-      //       style={SelectValidateStyle}
-      //       disabled={this.props.disabled}
-      //       as="select"
-      //       required={this.props.required}
-      //       onChange={this.onChange.bind(this)}
-      //       value={this.props.defaultCompany}>
-      //       <>
-      //          <option value={null} />
-      //          {this.state.companies?.map(company => {
-      //             return (
-      //                <option
-      //                   key={company.cpn_cod}
-      //                   value={company.cpn_cod}
-      //                >
-      //                   {company.cpn_name}
-      //                </option>);
-      //          })}
-      //       </>
-      //    </Form.Control>
-      //    <Form.Control.Feedback type="invalid">{this.props.errorMessage}</Form.Control.Feedback>
-      //    <Form.Text className="text-muted">{this.props.Text} {this.props.required ? <RequiredField>Campo obrigatório</RequiredField> : null}</Form.Text>
-      // </Form.Group>;
    }
 }
 
