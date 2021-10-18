@@ -14,7 +14,9 @@ import { UserSearchBar } from './UserSearchBar'
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { Link } from "react-router-dom"
-
+import { ReactComponent as EditIcon } from '../../../Assets/Icons/icon_editar.svg'
+import { ReactComponent as DeleteIcon } from '../../../Assets/Icons/icon_delete.svg'
+import { ActiveStatusBadge, StatusBadgePropped } from '../../../Componentes/StatusBadges'
 
 export default class ListarUsuario extends ListarPagina {
    constructor(props) {
@@ -86,11 +88,11 @@ export default class ListarUsuario extends ListarPagina {
                receiver={props.subscribe}
                wipeAll={props.wipeAll} /></TextHeaderCell>
          <TextHeaderCell scope="col"><SortColumn
-               label="Telefone"
-               attribute="usr_phone"
-               sortCallback={props.sortCallback}
-               receiver={props.subscribe}
-               wipeAll={props.wipeAll} /></TextHeaderCell>
+            label="Telefone"
+            attribute="usr_phone"
+            sortCallback={props.sortCallback}
+            receiver={props.subscribe}
+            wipeAll={props.wipeAll} /></TextHeaderCell>
          <TextHeaderCell scope="col">
             <SortColumn
                label="Status"
@@ -131,26 +133,24 @@ export default class ListarUsuario extends ListarPagina {
          <TextCell data-title="ID Externo" className="text">{usuario.usr_externalid ? usuario.usr_externalid : <p style={{ color: "transparent" }}>.</p>}</TextCell>
          <TextCell data-title="Nome">{usuario.usr_name}</TextCell>
          <TextCell data-title="Telefone">{usuario.usr_phone ? usuario.usr_phone : <p style={{ color: "transparent" }}>.</p>}</TextCell>
-         <TextCell data-title="Status">{usuario.statusUser.sus_name ? usuario.statusUser.sus_name : <p style={{ color: "transparent" }}>.</p>}</TextCell>
+         <TextCell data-title="Status">{usuario.statusUser.sus_name ? <StatusBadgePropped active={usuario.statusUser.sus_name === "ATIVO"} /> : <p style={{ color: "transparent" }}>.</p>}</TextCell>
          <ActionCell data-title="Ações">
-            <Row noGutters className="positionButtonsFixed">
-               <Button variant="warning" href={`/editar-usuario/${usuario.usr_cod}/alterar`}>Editar</Button>
-               <Button variant="dark" className="mr-1"
-                  onClick={() => {
-                     this.setState({
-                        deletionId: usuario.usr_cod,
-                        modalIdentifier: "o usuário"
-                     })
-                     this.openModal()
-                  }}>Excluir</Button>
-               <Button onClick={(event) => {
-                  this.setState({
-                     anchorEl: event.currentTarget,
-                     idUser: usuario.usr_cod,
-                     userName: usuario.usr_name
-                  })
-               }} variant="secondary">...</Button>
-            </Row>
+            <Button variant="transparent" href={`/editar/usuarios/${usuario.usr_cod}/alterar`}><EditIcon /></Button>
+            <Button variant="transparent" onClick={() => {
+               this.setState({
+                  deletionId: usuario.usr_cod,
+                  modalIdentifier: "o usuário"
+               })
+               this.openModal()
+            }}><DeleteIcon />
+            </Button>
+            <Button onClick={(event) => {
+               this.setState({
+                  anchorEl: event.currentTarget,
+                  idUser: usuario.usr_cod,
+                  userName: usuario.usr_name
+               })
+            }} variant="transparent">...</Button>
          </ActionCell>
       </TableRow>
    }

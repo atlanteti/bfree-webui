@@ -3,6 +3,8 @@ import { React, Component } from 'react';
 import { request } from '../../Services/api';
 import PropTypes from 'prop-types'
 import { RequiredField, SelectValidateStyle } from '../../styles/CommonStyles'
+import { TextField, MenuItem } from '@mui/material';
+import { ValidationTextField } from '../FormFields';
 
 export default class ListStatusDemands extends Component {
    constructor(props) {
@@ -37,7 +39,7 @@ export default class ListStatusDemands extends Component {
       this.setState({ selectedValue: typeStatusCode })
       this.props.onChange({
          target: {
-            id: this.props.controlId,
+            id: this.props.id,
             value: String(typeStatusCode),
             selected: true
          }
@@ -45,36 +47,40 @@ export default class ListStatusDemands extends Component {
    }
 
    render() {
-      return <Form.Group controlId={this.props.controlId} /*"companyId"*/>
-         <Form.Label>Status da Demanda: {this.props.required ? <RequiredField>*</RequiredField> : null}</Form.Label>
-         <Form.Control //Form.Select não funciona por razões misteriosas
-            style={SelectValidateStyle}
-            disabled={this.props.disabled}
-            as="select"
-            required={this.props.required}
-            onChange={this.onChange.bind(this)}
-            value={this.props.defaultStatusDemand}>
-            <>
-               <option value={null} />
-               {this.state.statusDemands?.map(statusDemand => {
-                  return (
-                     <option
-                        key={statusDemand.sdm_cod}
-                        value={statusDemand.sdm_cod}
-                     >
-                        {statusDemand.sdm_name}
-                     </option>);
-               })}
-            </>
-         </Form.Control>
-      </Form.Group>;
+      return <ValidationTextField
+         id={this.props.id}
+         select
+         fullWidth
+         name={this.props.name}
+         label="Status da Demanda"
+         value={this.props.defaultStatusDemand}
+         disabled={this.props.disabled}
+         required={this.props.required}
+         onChange={this.onChange.bind(this)}
+         InputLabelProps={{
+            shrink: true,
+            required: false
+         }}
+         helperText={this.props.required ? <RequiredField>Campo obrigatório</RequiredField> : null}
+      >
+         <MenuItem value={null} />
+         {this.state.statusDemands?.map(statusDemand => {
+            return (
+               <MenuItem
+                  key={statusDemand.sdm_cod}
+                  value={statusDemand.sdm_cod}
+               >
+                  {statusDemand.sdm_name}
+               </MenuItem>);
+         })}
+      </ValidationTextField>
    }
 }
 
 ListStatusDemands.propTypes = {
    getSetCallback: PropTypes.func,
    defaultStatusDemand: PropTypes.number,
-   controlId: PropTypes.number.isRequired,
+   id: PropTypes.number.isRequired,
    onChange: PropTypes.func.isRequired,
    required: PropTypes.bool,
    disabled: PropTypes.bool

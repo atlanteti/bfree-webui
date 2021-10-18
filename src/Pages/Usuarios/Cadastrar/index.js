@@ -40,13 +40,12 @@ export default class CadastrarUsuario extends Component {
       } else {
          return <>
             <Helmet title={`${this.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'} Usuários`} />
-            <Title>{this.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'} Usuários </Title>
             <CustomMenu />
-            <Col style={{ marginTop: 48 }}>
+            <Col>
                <Col
-                  sm={{ offset: 2, span: 6 }}// Temporary until styled components
-                  md={{ offset: 3, span: 5 }}
-                  lg={{ offset: 3, span: 5 }}>
+                  sm={{ offset: 1, span: 10 }}// Temporary until styled components
+                  md={{ offset: 1, span: 10 }}
+                  lg={{ offset: 2, span: 10 }}>
                   <CustomAlert
                      data={this.state.responseData}
                      showAlertCallback={this.getAlertCallback.bind(this)}

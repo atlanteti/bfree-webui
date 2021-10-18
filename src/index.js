@@ -6,13 +6,16 @@ import reportWebVitals from './reportWebVitals'
 import { CookiesProvider } from "react-cookie";
 import { AuthProvider } from './Context/ContextLogin'
 import Routes from "../src/Routes/index";
+import { IndexContainer } from "./styles/CommonStyles";
 
 ReactDOM.render(
-   <AuthProvider>
-      <CookiesProvider>
-         <Routes />
-      </CookiesProvider>
-   </AuthProvider>,
+   <IndexContainer>
+      <AuthProvider>
+         <CookiesProvider>
+            <Routes />
+         </CookiesProvider>
+      </AuthProvider>
+   </IndexContainer>,
    document.getElementById('root')
 )
 

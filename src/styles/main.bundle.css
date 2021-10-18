@@ -1,33 +1,30 @@
 .side-navigation-panel .side-navigation-panel-select .side-navigation-panel-select-wrap .side-navigation-panel-select-option {
-   color: #fff !important;
-   border-color: #000 !important;
+   color: #3E516E !important;
+   border-color: #F7F7FA !important;
 }
 
 .side-navigation-panel .side-navigation-panel-select .side-navigation-panel-select-wrap .side-navigation-panel-select-option-selected {
-   background-color: #c9c9c9 !important;
-   border-color: rgba(255, 181, 9, var(--tw-bg-opacity)) !important;
-   color: #000 !important;
+   background-color: #F7F7FA !important;
+   border-color: #0408ED !important;
+   color: #021770 !important;
 }
 
 .side-navigation-panel .side-navigation-panel-select .side-navigation-panel-select-inner .side-navigation-panel-select-inner-wrap .side-navigation-panel-select-inner-option-selected {
-   background-color: #c9c9c9 !important;
-   border-color: rgba(255, 181, 9, var(--tw-bg-opacity)) !important;
-   color: #000 !important;
+   border-color: #0408ED !important;
+   color: #021770 !important;
 }
 
 .side-navigation-panel .side-navigation-panel-select .side-navigation-panel-select-wrap .side-navigation-panel-select-option:hover {
-   background-color: #c9c9c9 !important;
-   border-color: rgba(255, 181, 9, var(--tw-bg-opacity)) !important;
-   color: #000 !important;
+   border-color: #0408ED !important;
+   color: #021770 !important;
 }
 
 .side-navigation-panel .side-navigation-panel-select .side-navigation-panel-select-inner .side-navigation-panel-select-inner-wrap .side-navigation-panel-select-inner-option {
-   color: #fff !important;
+   color: #021770 !important;
    border-color: #000 !important;
 }
 
 .side-navigation-panel .side-navigation-panel-select .side-navigation-panel-select-inner .side-navigation-panel-select-inner-wrap .side-navigation-panel-select-inner-option:hover{
-   background-color: #c9c9c9 !important;
    border-color: rgba(255, 181, 9, var(--tw-bg-opacity)) !important;
    color: #000 !important;
 }
@@ -1842,7 +1839,7 @@
  
  .bg-white {
    --bg-opacity: 1;
-   background-color: #fff;
+   background-color: #F7F7FA !important;
    background-color: rgba(255, 255, 255, var(--bg-opacity));
  }
  

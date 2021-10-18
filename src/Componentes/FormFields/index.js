@@ -3,25 +3,55 @@ import { Form } from 'react-bootstrap'
 import PropTypes from 'prop-types'
 import { RequiredField, SelectFieldStyle, SelectValidateStyle } from '../../styles/CommonStyles'
 import InputMask from "react-input-mask"
-export function TextField(props) {
-   return <Form.Group controlId={props.controlId}>
-      <Form.Label>{props.Label} {props.required ? <RequiredField>*</RequiredField> : null}</Form.Label>
-      <Form.Control
-         rows={5}
-         type={props.type}
-         as={props.as}
-         value={props.defaultValue}
-         onChange={props.onChange}
-         placeholder={props.placeholder}
-         required={props.required}
-         {...props}
-      />
-      <Form.Control.Feedback type="invalid">{props.errorMessage}</Form.Control.Feedback>
-   </Form.Group>
+import { MenuItem, TextField } from '@mui/material';
+import { alpha, styled } from '@mui/material/styles';
+
+export const ValidationTextField = styled(TextField)({
+   '& label': {
+      color: '#546E7A',
+      fontWeight: 600,
+      fontFamily: 'Open Sans',
+      style: 'normal'
+   },
+   '& input:invalid': {
+      borderColor: 'red !important',
+      borderWidth: 1,
+   },
+   '& .MuiInput-underline:after': {
+      borderBottomColor: 'green',
+   },
+   '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+         borderColor: '#B0BEC5',
+      },
+      '&:hover fieldset': {
+         borderColor: '#0203ad',
+      },
+   },
+});
+
+export function InputTextField(props, classes) {
+   return <ValidationTextField
+      id={props.id}
+      label={props.label}
+      type={props.type}
+      value={props.defaultValue}
+      onChange={props.onChange}
+      className={classes.textField}
+      fullWidth={props.fullWidth ? true : null}
+      required={props.required}
+      multiline={props.multiline ? true : null}
+      rows={props.rows ? props.rows : null}
+      InputLabelProps={{
+         shrink: true,
+         required: false,
+      }}
+      helperText={props.required ? "Campo Obrigatório" : null}
+   />
 }
 TextField.propTypes = {
-   controlId: PropTypes.string.isRequired,
-   Label: PropTypes.string.isRequired,
+   id: PropTypes.string.isRequired,
+   label: PropTypes.string.isRequired,
    type: PropTypes.string,
    as: PropTypes.string,
    onChange: PropTypes.func.isRequired,
@@ -46,20 +76,23 @@ export function NumberField(props) {
          e.preventDefault();
    }
 
-   return <Form.Group controlId={props.controlId}>
-      <Form.Label>{props.Label} {props.required ? <RequiredField>*</RequiredField> : null}</Form.Label>
-      <Form.Control
-         type={props.type}
-         as={props.as}
-         value={props.defaultValue}
-         onChange={props.onChange}
-         placeholder={props.placeholder}
-         required={props.required}
-         onKeyPress={(e) => preventNonNumericalInput(e)}
-         {...props}
-      />
-      <Form.Control.Feedback type="invalid">{props.errorMessage}</Form.Control.Feedback>
-   </Form.Group>
+   return <ValidationTextField
+      id={props.id}
+      label={props.label}
+      type={props.type}
+      value={props.defaultValue}
+      onChange={props.onChange}
+      fullWidth={props.fullWidth ? true : null}
+      required={props.required}
+      multiline={props.multiline ? true : null}
+      rows={props.rows ? props.rows : null}
+      onKeyPress={(e) => preventNonNumericalInput(e)}
+      InputLabelProps={{
+         shrink: true,
+         required: false
+      }}
+      helperText={props.required ? "Campo Obrigatório" : null}
+   />
 }
 NumberField.propTypes = {
    controlId: PropTypes.string.isRequired,
@@ -73,7 +106,7 @@ NumberField.propTypes = {
 
 export function SelectField(props) {
    return <Form.Group controlId={props.controlId}>
-      <Form.Label >{props.Label}</Form.Label>
+      <Form.Label style={{ color: "#B0BEC5" }}>{props.label}</Form.Label>
       <Form.Control
          as="select"
          type={props.type}
@@ -103,22 +136,29 @@ SelectField.propTypes =
    hasNull: PropTypes.bool.isRequired
 }
 export function BooleanField(props) {
-   return <Form.Group controlId={props.controlId}>
-      <Form.Label >{props.Label} {props.required ? <RequiredField>*</RequiredField> : null}</Form.Label>
-      <Form.Control
-         as="select"
-         style={SelectValidateStyle}
-         required={props.required}
-         onChange={props.onChange}
-         value={props.value}>
-         {!props.register ?
-            <> <option value={null}></option>
-               <option value={false}>{props.onFalse}</option>
-            </>
-            : <option value={false}>{props.onFalse}</option>}
-         <option value={true}>{props.onTrue}</option>
-      </Form.Control>
-   </Form.Group>
+   return <ValidationTextField
+      id={props.id}
+      select
+      fullWidth
+      name={props.name}
+      label={props.Label}
+      required={props.required}
+      controlId="jny_cpn_cod"
+      value={props.value}
+      onChange={props.onChange}
+      InputLabelProps={{
+         shrink: true,
+         required: false
+      }}
+      helperText={props.required ? <RequiredField>Campo obrigatório</RequiredField> : null}
+   >
+      {!props.register ?
+         <> <MenuItem value={null}></MenuItem>
+            <MenuItem value={false}>{props.onFalse}</MenuItem>
+         </>
+         : <MenuItem value={false}>{props.onFalse}</MenuItem>}
+      <MenuItem value={true}>{props.onTrue}</MenuItem>
+   </ValidationTextField>
 }
 
 BooleanField.propTypes = {

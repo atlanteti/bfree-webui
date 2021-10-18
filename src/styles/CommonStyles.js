@@ -1,5 +1,6 @@
 import styled from 'styled-components'
-import { Container, Row, Col, Form } from 'react-bootstrap'
+import { Container, Row, Col, Form, Button } from 'react-bootstrap'
+import { Grid } from '@material-ui/core';
 
 //Estilização especial para o ícone da validação dos seletores
 export const SelectValidateStyle = {
@@ -8,13 +9,26 @@ export const SelectValidateStyle = {
    backgroundSize: "calc(.75em + .375rem) calc(.75em + .375rem)"
 }//Verificar se SASS pode fazer isso
 
+export const IndexContainer = styled.div`
+   background-color: #ECEFF1;
+   min-height: 100vh;
+`
+
 export const Title = styled.h1`
    text-align: center;
    font-size: 2rem;
 `
 
+export const TitleRegister = styled.h1`
+   font-size: 2rem;
+   color: #3E516E;
+   font-weight: 700 !important;
+`
+
 export const RequiredField = styled.text`
-   color: red`
+   color: rgba(0,0,0,0.6);
+   margin-left: 0.5rem;
+`
 
 export const RightAlignText = styled.div`
    .col{
@@ -25,6 +39,7 @@ export const SearchBarBorder = styled.div`
       border: 1px solid rgba(0,0,0,0.20);
       padding: 15px;
       border-radius: 5px;
+      background: #fff;
       `
 
 export const CustomMenuCol = styled(Col)`
@@ -33,7 +48,7 @@ export const CustomMenuCol = styled(Col)`
                        //Do bootstrap precisam ser consertados na mão.
 `
 export const HeaderContainer = styled(Container)`
-      margin-bottom: 1.5rem
+      margin-bottom: 1.5rem;
 `
 export const RowTopMargin = styled(Row)`
    margin-top: 1rem;
@@ -43,9 +58,6 @@ export const MainRow = styled(Row)`
    margin-right: 0px;
 `
 
-export const PaginationRow = styled(Row)`
-   justify-content: center;
-   margin-bottom: 20px;`
 
 export const MainContainer = styled.div`
    .container{
@@ -80,7 +92,8 @@ export const MainContainer = styled.div`
    }
 `
 
-export const BtnCadastrar = styled.a`
+export const BtnSalvar = styled(Button)`
+   width: 120px !important;
 `
 
 export const Input = styled.input`
@@ -95,15 +108,16 @@ export const LittleBtn = styled.button`
    &:hover{
       color: #212529;
       background-color: #e0a800;
-      border-color: #d39e00
+      border-color: #d39e00;
    }
 `
 export const BottomMargin = styled.div`
-   margin-bottom: 2rem`
+   margin-bottom: 2rem;
+`
+
 export const Table = styled.table`
    flex: 1;
    width: 100%;
-   border: 1px solid #dee2e6;
    border-radius: 5px;
    margin: 2rem 0;
    
@@ -159,23 +173,50 @@ export const MainTable = styled(Table)`
 `
 export const TableHeader = styled.thead`
 `
-
+export const PaginationRow = styled.tr`
+   td:last-child {
+      width: 1%;
+      white-space: nowrap;
+   }
+   td:first-child {
+      width: 20%;
+      white-space: nowrap;
+   }
+`
 export const TableRow = styled.tr`
    &:nth-child(even) {background: #FFF}
-   &:nth-child(odd) {background: #EEE}
-
+   &:nth-child(odd) {background: #F8FAFF}
+   td:last-child {
+      width: 1%;
+      white-space: nowrap;
+   }
+   td:first-child {
+      color: #000;
+      width: 20%;
+      white-space: nowrap;
+   }
+   td {
+      color: #546E7A
+   }
    a {
       margin-right: 0.2rem;
    }
 `
 
+export const PaginationHeader = styled.th`
+   padding: 22px 0px 22px 12px;
+   background: #fff;
+   font-weight:normal;
+   text-align: ${props => props.align};`
+
 export const ColumnTitle = styled.th`
-   padding: 0.1rem 0.4rem;
+   padding: 22px 0px 22px 12px;
    width: ${props => props.columnWidth ? '100px' : '50px'};
    cursor: ${props => props.sort ? 'pointer' : 'default'};
    text-align: left;
    border: 1px solid #dee2e6;
    background: #fff;
+   color: #546E7A;
 `
 
 export const NumberHeaderCell = styled(ColumnTitle)`
@@ -187,7 +228,7 @@ text-align: left;
 `
 
 export const ActionHeaderCell = styled(ColumnTitle)`
-text-align: center`
+text-align: center;`
 
 export const TableData = styled.tbody``
 
@@ -199,19 +240,20 @@ export const TableCell = styled.td`
    vertical-align: baseline;
    border: 1px solid #dee2e6;
 
-   padding: 0.1rem 0.8rem;
+   padding: 1.1rem 0.8rem;
 `
 export const NumberCell = styled(TableCell)`
-   text-align: right;
-   font-weight: ${props => props.fontTotal ? 'bold' : '400'}
+   text-align: left;
+   font-weight: ${props => props.fontTotal ? 'bold' : '400'};
    `
 
 export const TextCell = styled(TableCell)`
    text-align: left;
-   font-weight: ${props => props.fontTotal ? 'bold' : '400'}
+   font-weight: ${props => props.fontTotal ? 'bold' : '400'};
    `
 export const ActionCell = styled(TableCell)`
    text-align: center;
+   vertical-align: middle;
    `
 
 export const SortIcon = styled.div`
@@ -236,4 +278,21 @@ export const Icon = styled.div`
 
 export const BtnMenu = styled.button`
    margin-left: 0.5rem;
+`
+export const BackGroundForm = styled(Row)`
+   background-color: #ffff;
+   padding: 2rem;
+   border-radius: 8px;
+   box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+`
+
+export const BtnContainer = styled.div`
+   display: flex;
+   justify-content: space-between;
+`
+
+export const TopBarContainer = styled(Col)`
+   background: #fff;
+   min-height: 8vh;
+   box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
 `

@@ -3,11 +3,14 @@ import { Form, Col, Row, Button } from 'react-bootstrap'
 import { DateField } from '../../../Componentes/DateField'
 import { ButtonRow } from '../../../Componentes/ButtonRow'
 import { EditCreateForm } from '../../../Componentes/EditCreateForm/index'
-import { BooleanField, TextField } from '../../../Componentes/FormFields'
+import { BooleanField, InputTextField } from '../../../Componentes/FormFields'
 import { CheckBox } from '../../../Componentes/CheckBox'
 import ListCompaniesControlled from "../../../Componentes/ListCompaniesControlled"
 import ListJourneysControlled from "../../../Componentes/ListJourneysControlled"
 import { CircularProgress } from '@material-ui/core'
+import { BackGroundForm, BtnSalvar, TitleRegister } from '../../../styles/CommonStyles'
+import { IoChevronBackCircleSharp } from "react-icons/io5"
+
 export default function BadgeForm(props) {
    return <BadgeFormBuilder insertDataEndpoint="badges/cadastrar"
       requestDataEndpoint="badges/procurar/"
@@ -39,7 +42,7 @@ export class BadgeFormBuilder extends EditCreateForm {
          this.setState({ disableCompany: false })
          cpn_value = ""
       }
-      this.journeyCodeSetter(e.target.value)
+      this.journeyCodeSetter(e.value)
       this.handleChange({ target: { id: "bdg_cpn_cod", value: String(cpn_value) } })
    }
 
@@ -54,7 +57,7 @@ export class BadgeFormBuilder extends EditCreateForm {
 
    handleChangeCompanyControlled(e) {
       {
-         if (e.target.value !== "") {
+         if (e.target.value !== null) {
             this.journeyCodeSetter("")
             this.setState({
                disableJourney: true
@@ -87,97 +90,114 @@ export class BadgeFormBuilder extends EditCreateForm {
                </Row>
                :
                (
-                  <Form onSubmit={this.handleSubmit} validated={this.state.validated} noValidate>
-                     <Row>
-                        <Col>
-                           <TextField
-                              controlId="bdg_name"
-                              errorMessage={this.state.bdg_name}
-                              Label="Nome:"
-                              type="text"
-                              maxLength="45"
-                              required
-                              defaultValue={this.state.primaryData?.bdg_name}
-                              onChange={this.handleChange} />
-                        </Col>
-                     </Row>
-                     <Row>
-                        <Col>
-                           <TextField
-                              controlId="bdg_description"
-                              errorMessage={this.state.bdg_description}
-                              Label="Descrição:"
-                              type="text"
-                              maxLength="45"
-                              required
-                              defaultValue={this.state.primaryData?.bdg_description}
-                              onChange={this.handleChange} />
-                        </Col>
-                     </Row>
-                     <Row>
-                        <Col>
-                           <TextField
-                              controlId="bdg_detail"
-                              errorMessage={this.state.bdg_detail}
-                              Label="Motivadores:"
-                              as="textarea"
-                              maxLength="400"
-                              required
-                              defaultValue={this.state.primaryData?.bdg_detail}
-                              onChange={this.handleChange} />
-                        </Col>
-                     </Row>
-                     <Row>
-                        <Col>
-                           <ListJourneysControlled
-                              value={this.state.primaryData.bdg_jny_cod ? this.state.primaryData.bdg_jny_cod : ""}
-                              disabled={this.state.disableJourney || (Boolean(this.state.primaryData.bdg_cpn_cod) && !Boolean(this.state.primaryData.bdg_jny_cod))}
-                              onChange={this.handleChangeJourneyControlled.bind(this)}
-                              controlId="bdg_jny_cod"
-                           />
-                        </Col>
-                     </Row>
-                     <Row>
-                        <Col>
-                           <ListCompaniesControlled
-                              value={this.state.primaryData.bdg_cpn_cod ? this.state.primaryData.bdg_cpn_cod : ""}
-                              disabled={this.state.disableCompany || Boolean(this.state.primaryData.bdg_jny_cod)}
-                              onChange={this.handleChangeCompanyControlled.bind(this)}
-                              controlId="bdg_cpn_cod" />
-                        </Col>
-                     </Row>
-                     <Row style={{ marginBottom: 15 }}>
-                        <Col>
-                           <CheckBox
-                              label="Mentor"
-                              name="bdg_mentor"
-                              onChange={this.handleCheck}
-                              checked={this.state.primaryData?.bdg_mentor}
-                              defaultValue={this.state.primaryData?.bdg_mentor}
-                           />
-                        </Col>
-                     </Row>
-                     {this.props.paramRoute === 'inserir'
-                        ? ''
-                        : (
-                           <>
-                              <DateField
-                                 controlId="bdg_dtcreation"
-                                 Label="Data de criação:"
-                                 date={this.state.primaryData?.bdg_dtcreation} />
+                  <Form onSubmit={this.handleSubmit} validated={this.state.validated}>
+                     <ButtonRow
+                        cancelButton={<Button variant="light" onClick={this.redirectCallback}><IoChevronBackCircleSharp size={30} color="#BFCADD" /></Button>}
+                        titlePage={<TitleRegister>{this.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'} Badge</TitleRegister>}
+                     />
+                     <BackGroundForm xs={1} className={'mb-2'} noGutters>
+                        <Row>
+                           <Col className="mt-3" xs={12} sm={6}>
+                              <InputTextField
+                                 id="bdg_name"
+                                 label="Nome"
+                                 type="text"
+                                 defaultValue={this.state.primaryData?.bdg_name}
+                                 onChange={this.handleChange}
+                                 fullWidth
+                                 required
+                                 maxLength="45"
+                              />
+                           </Col>
+                           <Col className="mt-3" xs={12} sm={6}>
+                              <ListCompaniesControlled
+                                 value={this.state.primaryData.bdg_cpn_cod ? this.state.primaryData.bdg_cpn_cod : ""}
+                                 disabled={this.state.disableCompany || Boolean(this.state.primaryData.bdg_jny_cod)}
+                                 onChange={this.handleChangeCompanyControlled.bind(this)}
+                                 controlId="bdg_cpn_cod" />
+                           </Col>
+                        </Row>
+                        <Row>
+                           <Col className="mt-3" xs={12} sm={6}>
+                              <CheckBox label="É badge de mentoria?"
+                                 controlId="bdg_mentor"
+                                 name="bdg_mentor"
+                                 defaultValue={this.state.primaryData?.bdg_mentor}
+                                 onChange={this.handleCheck}
+                                 checked={this.state.primaryData?.bdg_mentor}
+                                 required
+                              />
+                           </Col>
+                           <Col className="mt-3" xs={12} sm={6}>
+                              <ListJourneysControlled
+                                 value={this.state.primaryData.bdg_jny_cod ? this.state.primaryData.bdg_jny_cod : ""}
+                                 disabled={this.state.disableJourney || (Boolean(this.state.primaryData.bdg_cpn_cod) && !Boolean(this.state.primaryData.bdg_jny_cod))}
+                                 onChange={this.handleChangeJourneyControlled.bind(this)}
+                                 controlId="bdg_jny_cod"
+                                 name="bdg_jny_cod"
+                              />
+                           </Col>
+                        </Row>
+                        <Row>
+                           <Col className="mt-4">
+                              <InputTextField
+                                 id="bdg_description"
+                                 label="Descrição"
+                                 type="textarea"
+                                 defaultValue={this.state.primaryData?.bdg_description}
+                                 onChange={this.handleChange}
+                                 fullWidth
+                                 multiline
+                                 required
+                                 rows={4}
+                                 maxLength="45"
+                              />
+                           </Col>
+                        </Row>
+                        <Row className="mt-3">
+                           <Col>
+                              <InputTextField
+                                 id="bdg_detail"
+                                 label="Motivadores"
+                                 type="textarea"
+                                 defaultValue={this.state.primaryData?.bdg_detail}
+                                 onChange={this.handleChange}
+                                 fullWidth
+                                 multiline
+                                 required
+                                 rows={4}
+                                 maxLength="45"
+                              />
+
+                           </Col>
+                        </Row>
+                        {this.props.paramRoute === 'inserir'
+                           ? ''
+                           :
+                           <Row className="mt-4">
+                              <Col md={{ offset: 2 }} xs={12} sm={6}>
+                                 <DateField
+                                    controlId="bdg_dtcreation"
+                                    Label="Data de criação:"
+                                    date={this.state.primaryData?.bdg_dtcreation} />
+                              </Col>
                               {this.state.primaryData?.bdg_dtupdate === null
                                  ? ''
-                                 : (
+                                 : <Col xs={12} sm={6}>
                                     <DateField
                                        controlId="bdg_dtupdate"
                                        Label="Data de atualização:"
                                        date={this.state.primaryData?.bdg_dtupdate} />
-                                 )}
-                           </>
-                        )}
-                     <ButtonRow
-                        cancelButton={<Button variant="warning" onClick={this.redirectCallback}>Voltar</Button>}
-                        confirmButton={<Button variant="dark" type="submit">{this.props.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'}</Button>} />
+                                 </Col>
+                              }
+                           </Row>
+                        }
+                        <Row className="mt-4">
+                           <Col md={{ offset: 5 }}>
+                              <BtnSalvar variant="dark" type="submit">Salvar</BtnSalvar>
+                           </Col>
+                        </Row>
+                     </BackGroundForm>
                   </Form>
                )
             }

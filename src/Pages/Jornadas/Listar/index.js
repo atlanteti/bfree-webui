@@ -12,7 +12,8 @@ import {
 import SortColumn from '../../../Componentes/SortColumn'
 import { React } from 'react'
 import { JourneySearchBar } from './JourneySearchBar'
-
+import { ReactComponent as EditIcon } from '../../../Assets/Icons/icon_editar.svg'
+import { ReactComponent as DeleteIcon } from '../../../Assets/Icons/icon_delete.svg'
 export default class ListarJornada extends ListarPagina {
    async deleteRecord(id) {
       const data = await request({
@@ -75,15 +76,14 @@ export default class ListarJornada extends ListarPagina {
          <TextCell data-title="Nome">{jornada.jny_name}</TextCell>
          <TextCell data-title="Empresa" className="text">{jornada.company.cpn_name}</TextCell>
          <ActionCell data-title="Ações">
-            <Button variant="warning" href={`/editar-jornada/${jornada.jny_cod}/alterar`}>Editar</Button>
-            <Button variant="dark"
-               onClick={() => {
-                  this.setState({
-                     deletionId: jornada.jny_cod,
-                     modalIdentifier: "a jornada"
-                  })
-                  this.openModal()
-               }}>Excluir</Button>
+            <Button variant="transparent" href={`/editar/jornadas/${jornada.jny_cod}/alterar`}><EditIcon /></Button>
+            <Button variant="transparent" onClick={() => {
+               this.setState({
+                  deletionId: jornada.jny_cod,
+                  modalIdentifier: "a jornada"
+               })
+               this.openModal()
+            }}><DeleteIcon /></Button>
          </ActionCell>
       </TableRow>
    }

@@ -27,7 +27,7 @@ export const CustomMenu = () => {
          {/* Sidebar Overlay */}
          <div
             onClick={() => setIsSidebarOpen(false)}
-            className={`fixed inset-0 z-20 block transition-opacity bg-black opacity-50 lg:hidden ${isSidebarOpen ? 'block' : 'hidden'
+            className={`fixed border-l-0 inset-0 z-20 block transition-opacity bg-white opacity-50 lg:hidden ${isSidebarOpen ? 'block' : 'hidden'
                }`}
          />
          <div className="btn-position">
@@ -42,12 +42,12 @@ export const CustomMenu = () => {
 
          {/* Sidebar */}
          <CustomMenuCol xs={6} sm={3} md={3} lg={2}
-            className={`fixed inset-y-0 left-0 z-30 overflow-y-auto transition duration-300 ease-out transform translate-x-0 bg-black lg:translate-x-0 lg:static lg:inset-0 ${isSidebarOpen ? 'ease-out translate-x-0' : 'ease-in -translate-x-full'
+            className={`fixed inset-y-0 border-r-2 border-l-0 left-0 z-30 overflow-y-auto transition duration-300 ease-out transform translate-x-0 bg-white lg:translate-x-0 lg:static lg:inset-0 ${isSidebarOpen ? 'ease-out translate-x-0' : 'ease-in -translate-x-full'
                }`}
          >
             {/* https://github.com/abhijithvijayan/react-minimal-side-navigation */}
             <Navigation
-               activeItemId={location.pathname}
+            activeItemId={location.pathname.replace("/cadastrar", "").replace("/inserir", "") || location.pathname.replace("/editar", "").replace("/4/alterar", "")}
                onSelect={({ itemId }) => {
                   history.push(itemId)
                }}
@@ -79,52 +79,52 @@ function newFunction(admin) {
       {
          title: 'Empresas',
          itemId: '/companhia',
-         elemBefore: () => <IoBusinessOutline size={23} color="#ffb509" />
+         elemBefore: () => <IoBusinessOutline size={23} color="#BFCADD" />
       },
       {
          title: 'Jornadas',
          itemId: '/jornadas',
-         elemBefore: () => <BsGraphUp size={23} color="#ffb509" />
+         elemBefore: () => <BsGraphUp size={23} color="#BFCADD" />
       },
       {
          title: 'Tipos de Demanda',
          itemId: '/tipodemanda',
-         elemBefore: () => <IoAlbumsOutline size={23} color="#ffb509" />
+         elemBefore: () => <IoAlbumsOutline size={23} color="#BFCADD" />
       },
       {
          title: 'Badges',
          itemId: '/badges',
-         elemBefore: () => <RiMedalLine size={23} color="#ffb509" />
+         elemBefore: () => <RiMedalLine size={23} color="#BFCADD" />
       },
       {
          title: 'Times',
          itemId: '/times',
-         elemBefore: () => <RiTeamLine size={23} color="#ffb509" />
+         elemBefore: () => <RiTeamLine size={23} color="#BFCADD" />
       },
       {
          title: 'Usuários',
          itemId: '/usuarios',
-         elemBefore: () => <AiOutlineUser size={23} color="#ffb509" />
+         elemBefore: () => <AiOutlineUser size={23} color="#BFCADD" />
       },
       {
          title: 'Demandas',
          itemId: '/demandas',
-         elemBefore: () => <FaTasks size={23} color="#ffb509" />
+         elemBefore: () => <FaTasks size={23} color="#BFCADD" />
       },
       {
          title: "Relatorios",
          itemId: '/relatorios',
-         elemBefore: () => <MdAttachMoney size={23} color="#ffb509" />
+         elemBefore: () => <MdAttachMoney size={23} color="#BFCADD" />
       },
       {
          title: 'Upload File',
          itemId: '/upload',
-         elemBefore: () => <AiOutlineCloudUpload size={23} color="#ffb509" />
+         elemBefore: () => <AiOutlineCloudUpload size={23} color="#BFCADD" />
       },
       {
          title: 'Logs',
          itemId: '/log',
-         elemBefore: () => <FaRegFileAlt size={23} color="#ffb509" />
+         elemBefore: () => <FaRegFileAlt size={23} color="#BFCADD" />
       },
    ]
    let filteredForUser = complete.filter(conditionalForPermissionAccess)
@@ -132,7 +132,7 @@ function newFunction(admin) {
    return complete
 
    function conditionalForPermissionAccess(line) {
-      { return line.title == "Demandas" ||  line.title == "Relatorios"}
+      { return line.title == "Demandas" || line.title == "Relatorios" }
    }
 }
 

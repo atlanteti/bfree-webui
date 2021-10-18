@@ -6,7 +6,7 @@ import CustomPagination from '../CustomPagination'
 import { CustomAlert } from '../CustomAlert'
 import {
    MainContainer, Title, MainTable, TableHeader, TableData, CustomMenuCol,
-   MainRow, PaginationRow, HeaderContainer, RowTopMargin, RightAlignText
+   MainRow, HeaderContainer, RowTopMargin, RightAlignText
 } from '../../styles/CommonStyles'
 import PropTypes from "prop-types"
 import ExclusionModal from '../ExclusionModal'
@@ -45,7 +45,7 @@ export default class ListarPagina extends Component {
       return await this.fetchAndSetData({ page: 1 })
    }
 
-   async searchExportData({ extraParams, endpointExport, nameFile  }) {
+   async searchExportData({ extraParams, endpointExport, nameFile }) {
       const s2ab = (s) => {
          var buf = new ArrayBuffer(s.length);
          var view = new Uint8Array(buf);
@@ -209,7 +209,8 @@ export default class ListarPagina extends Component {
                         filterData={this.searchData}
                         exportData={this.searchExportData} />
                      <Row noGutters>
-                        <MainTable noData={this.state.noData}>
+                        <MainTable noData={this.state.noData} className={"table-borderless"}
+                           style={{ marginBottom: 0 }}>
                            {this.state.responseData === null
                               ?
                               <Row>
@@ -241,12 +242,12 @@ export default class ListarPagina extends Component {
                            {this.createModal()}
                         </MainTable>
                      </Row>
+                     <Row noGutters>{this.renderPagination()}</Row>
                      <CustomAlert
                         showAlertCallback={this.getNoDataCallback.bind(this)}
                         redirectCallback={this.redirectCallback.bind(this)}
                         noDataAlert={true}
                         noData={this.state.noData} />
-                     {this.renderPagination()}
                   </Container>
                </Col>
             </Col>
@@ -255,11 +256,11 @@ export default class ListarPagina extends Component {
    }
 
    renderPagination() {
-      return !this.state.noData ? (<PaginationRow>
-         <CustomPagination
+      return !this.state.noData ?
+         (<CustomPagination
             fetchAndSetData={this.fetchAndSetData}
             page={this.state.page} />
-      </PaginationRow>) : null
+         ) : null
    }
 };
 
@@ -271,7 +272,7 @@ export function PageHeaderCustomComponent(props) {
             <Title>{props.Title}</Title>
          </Col>
          <RightAlignText>
-            <Col><Restricted><Button variant="dark" href={props.href}>Cadastrar</Button></Restricted></Col>
+            <Col><Restricted><Button variant="register" href={props.href}>Cadastrar</Button></Restricted></Col>
          </RightAlignText>
       </RowTopMargin>
    </HeaderContainer>

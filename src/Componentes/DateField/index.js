@@ -11,14 +11,8 @@ export function DateField(props) {
       <Row>
          <Col>
             <Form.Group controlId={props.controlId}>
-               <Form.Label>{props.Label}</Form.Label>
+               <Form.Label style={{color: "#546E7A"}}>{props.Label} <strong>{displayDate(props.date)}</strong></Form.Label>
             </Form.Group>
-         </Col>
-      </Row>
-      <Row>
-         <Col style={{ marginBottom: 20 }}>
-            {/* formatando data */}
-            {displayDate(props.date)}
          </Col>
       </Row>
    </>

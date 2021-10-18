@@ -3,8 +3,10 @@ import { Form, Col, Row, Button } from 'react-bootstrap'
 import { DateField } from '../../../Componentes/DateField'
 import { ButtonRow } from '../../../Componentes/ButtonRow'
 import { EditCreateForm } from '../../../Componentes/EditCreateForm/index'
-import { NumberField, TextField } from '../../../Componentes/FormFields'
+import { NumberField, InputTextField } from '../../../Componentes/FormFields'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import { BackGroundForm, BtnSalvar, NumberCell, TitleRegister } from '../../../styles/CommonStyles'
+import { IoChevronBackCircleSharp } from "react-icons/io5"
 
 export default function CompanyForm(props) {
    return <CompanyFormBuilder insertDataEndpoint="companies/cadastrar"
@@ -30,54 +32,61 @@ export class CompanyFormBuilder extends EditCreateForm {
                </Row>
                :
                (
-                  <Form onSubmit={this.handleSubmit} validated={this.state.validated} noValidate>
-                     <Row>
-                        <Col>
-                           <NumberField
-                              controlId="cpn_cli_cod"
-                              Label="ID Eduzz:"
-                              type="text"
-                              maxLength="10"
-                              defaultValue={this.state.primaryData?.cpn_cli_cod}
-                              errorMessage={this.state.cpn_cli_cod}
-                              onChange={this.handleChange}
-                              required />
-                        </Col>
-                     </Row>
-                     <Row>
-                        <Col>
-                           <TextField
-                              controlId="cpn_name"
-                              Label="Nome:"
-                              type="text"
-                              defaultValue={this.state.primaryData?.cpn_name}
-                              onChange={this.handleChange}
-                              errorMessage={this.state.cpn_name}
-                              required
-                              maxLength="45" />
-                        </Col>
-                     </Row>
-                     {this.props.paramRoute === 'inserir'
-                        ? ''
-                        : (
-                           <>
-                              <DateField
-                                 controlId="cpn_dtcreation"
-                                 Label="Data de criação:"
-                                 date={this.state.primaryData?.cpn_dtcreation} />
-                              {this.state.primaryData.cpn_dtupdate === null
-                                 ? ''
-                                 : (
-                                    <DateField
-                                       controlId="cpn_dtupdate"
-                                       Label="Data de atualização:"
-                                       date={this.state.primaryData?.cpn_dtupdate} />
-                                 )}
-                           </>
-                        )}
+                  <Form onSubmit={this.handleSubmit} validated={this.state.validated}>
                      <ButtonRow
-                        cancelButton={<Button variant="warning" onClick={this.redirectCallback}>Voltar</Button>}
-                        confirmButton={<Button variant="dark" type="submit">{this.props.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'}</Button>} />
+                        cancelButton={<Button variant="light" onClick={this.redirectCallback}><IoChevronBackCircleSharp size={30} color="#BFCADD" /></Button>}
+                        titlePage={<TitleRegister>{this.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'} Empresa</TitleRegister>}
+                     />
+                     <BackGroundForm xs={1} className={'mb-2'} noGutters>
+                        <Row>
+                           <Col className="mt-3" xs={12} sm={5}>
+                              <NumberField
+                                 id="cpn_cli_cod"
+                                 label="ID Eduzz"
+                                 type="number"
+                                 fullWidth
+                                 defaultValue={this.state.primaryData?.cpn_cli_cod}
+                                 onChange={this.handleChange}
+                                 required
+                              />
+                           </Col>
+                           <Col className="mt-3" xs={12} sm={5}>
+                              <InputTextField
+                                 id="cpn_name"
+                                 label="Nome da Empresa"
+                                 fullWidth
+                                 required
+                                 onChange={this.handleChange}
+                                 defaultValue={this.state.primaryData?.cpn_name}
+                              />
+                           </Col>
+                           <Col className="mt-4" xs={12} sm={2}>
+                              <BtnSalvar variant="dark" type="submit">Salvar</BtnSalvar>
+                           </Col>
+                        </Row>
+                        {this.props.paramRoute === 'inserir'
+                           ? ''
+                           : (
+                              <Row className="mt-6">
+                                 <Col xs={12} sm={5}>
+                                    <DateField
+                                       controlId="cpn_dtcreation"
+                                       Label="Data de criação:"
+                                       date={this.state.primaryData?.cpn_dtcreation} />
+                                 </Col>
+                                 {this.state.primaryData.cpn_dtupdate === null
+                                    ? ''
+                                    :
+                                    <Col xs={12} sm={5}>
+                                       <DateField
+                                          controlId="cpn_dtupdate"
+                                          Label="Data de atualização:"
+                                          date={this.state.primaryData?.cpn_dtupdate} />
+                                    </Col>
+                                 }
+                              </Row>
+                           )}
+                     </BackGroundForm>
                   </Form>
                )}
          </>

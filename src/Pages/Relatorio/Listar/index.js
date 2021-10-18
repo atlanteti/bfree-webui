@@ -17,7 +17,7 @@ import { CustomMenu } from '../../../Componentes/CustomMenu'
 import { CustomAlert } from '../../../Componentes/CustomAlert'
 import { CircularProgress, LinearProgress } from '@material-ui/core'
 import { Helmet } from 'react-helmet'
-import { TextField } from '../../../Componentes/FormFields'
+import { InputTextField } from '../../../Componentes/FormFields'
 import DatePicker from "react-datepicker";
 import moment from 'moment'
 import ListUsers from '../../../Componentes/ListUsers'
@@ -74,7 +74,7 @@ export default class ListarRelatorio extends ListarPagina {
    }
    onSubmit(e) {
       e.preventDefault()
-      this.fetchAndSetData({page:1})
+      this.fetchAndSetData({ page: 1 })
    }
 
    PageHeaderCustom() {
@@ -146,15 +146,15 @@ export default class ListarRelatorio extends ListarPagina {
                      <SearchBarBorder>
                         <Form onSubmit={this.onSubmit.bind(this)}>
                            <Row>
-                           <Col>
-                              <ListUsers
-                                 controlId="usr_cod"
-                                 defaultValue={this.context.admin ? null : this.context.user}
-                                 defaultUser={this.context.admin ? null : this.context.user}
-                                 disabled={!this.context.admin}
-                                 onChange={this.context.admin ? this.onChange : null}
-                              />
-                           </Col>
+                              <Col>
+                                 <ListUsers
+                                    controlId="usr_cod"
+                                    defaultValue={this.context.admin ? null : this.context.user}
+                                    defaultUser={this.context.admin ? null : this.context.user}
+                                    disabled={!this.context.admin}
+                                    onChange={this.context.admin ? this.onChange : null}
+                                 />
+                              </Col>
                               <Col>
                                  <DatePicker
                                     placeholderText="dd/mm/aaaa"
@@ -162,7 +162,7 @@ export default class ListarRelatorio extends ListarPagina {
                                     selected={this.state.initialDate}
                                     onChange={(dateSelect) => this.changeDate(dateSelect, "initialDate")}
                                     customInput={
-                                       <TextField
+                                       <InputTextField
                                           Label="Data Inicial"
                                           type="text"
                                        />
@@ -176,7 +176,7 @@ export default class ListarRelatorio extends ListarPagina {
                                     selected={this.state.finalDate}
                                     onChange={(dateSelect) => this.changeDate(dateSelect, "finalDate")}
                                     customInput={
-                                       <TextField
+                                       <InputTextField
                                           Label="Data Final"
                                           type="text"
                                        />
@@ -188,9 +188,9 @@ export default class ListarRelatorio extends ListarPagina {
                               <Col>
                                  <Button type="submit" variant="warning">Buscar</Button>
                                  <Restricted>
-                                    <Button 
+                                    <Button
                                        onClick={(event) => this.requestExportData(event, "export-billing", "Relatorio")}
-                                       className="ml-2" 
+                                       className="ml-2"
                                        variant="dark"
                                     >
                                        Exportar excel
@@ -201,7 +201,7 @@ export default class ListarRelatorio extends ListarPagina {
                         </Form>
                      </SearchBarBorder>
                      <Row noGutters>
-                        <MainTable noData={this.state.noData}>
+                        <MainTable noData={this.state.noData} className="table-borderless">
                            {this.state.responseData === null
                               ?
                               <Row>

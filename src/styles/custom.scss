@@ -1,54 +1,66 @@
-/* custom.scss */    
+/* custom.scss */
 
 /* import the necessary Bootstrap files */
 @import "bootstrap/scss/functions";
 @import "bootstrap/scss/variables";
 @import "bootstrap/scss/mixins";
 
-/* -------begin customization-------- */   
+/* -------begin customization-------- */
 
 $form-validation-states: (
   "valid": (
     "color": $input-border-color,
-    "icon": none
-  )
+    "icon": none,
+  ),
 );
 $custom-control-label-color: inherit !important;
+$dark: #0203ad;
+$light: #eceff1;
+$register: #4CAF50;
+$theme-colors: (
+  "register": $register,
+  "dark": $dark,
+  "light": $light,
+);
 // Essa classe deve ser completamente reescrita devido a limitações do SASS para sobreescrever atributos específicos de uma dada classe
 .custom-checkbox {
-   .custom-control-label::before {
-     @include border-radius($custom-checkbox-indicator-border-radius);
-   }
- 
-   .custom-control-input:checked ~ .custom-control-label {
-     &::after {
-       background-image: escape-svg($custom-checkbox-indicator-icon-checked);
-       background-color: $warning; //Usando a mesma cor do botão de voltar para ficar estéticamente consistente
-       @include border-radius($custom-checkbox-indicator-border-radius); //Precisa ser redefinido para que funcione
-     }
-   }
- 
-   .custom-control-input:indeterminate ~ .custom-control-label {
-     &::before {
-       border-color: $yellow;
-       @include gradient-bg($custom-checkbox-indicator-indeterminate-bg);
-       @include box-shadow($custom-checkbox-indicator-indeterminate-box-shadow);
-     }
-     &::after {
-       background-image: escape-svg($custom-checkbox-indicator-icon-indeterminate);
-     }
-   }
- 
-   .custom-control-input:disabled {
-     &:checked ~ .custom-control-label::before {
-       @include gradient-bg($custom-control-indicator-checked-disabled-bg);
-     }
-     &:indeterminate ~ .custom-control-label::before {
-       @include gradient-bg($custom-control-indicator-checked-disabled-bg);
-     }
-   }
- }
-/* -------end customization-------- */  
+  .custom-control-label::before {
+    @include border-radius($custom-checkbox-indicator-border-radius);
+  }
+
+  .custom-control-input:checked ~ .custom-control-label {
+    &::after {
+      background-image: escape-svg($custom-checkbox-indicator-icon-checked);
+      background-color: $dark; //Usando a mesma cor do botão de voltar para ficar estéticamente consistente
+      @include border-radius(
+        $custom-checkbox-indicator-border-radius
+      ); //Precisa ser redefinido para que funcione
+    }
+  }
+
+  .custom-control-input:indeterminate ~ .custom-control-label {
+    &::before {
+      border-color: $yellow;
+      @include gradient-bg($custom-checkbox-indicator-indeterminate-bg);
+      @include box-shadow($custom-checkbox-indicator-indeterminate-box-shadow);
+    }
+    &::after {
+      background-image: escape-svg(
+        $custom-checkbox-indicator-icon-indeterminate
+      );
+    }
+  }
+
+  .custom-control-input:disabled {
+    &:checked ~ .custom-control-label::before {
+      @include gradient-bg($custom-control-indicator-checked-disabled-bg);
+    }
+    &:indeterminate ~ .custom-control-label::before {
+      @include gradient-bg($custom-control-indicator-checked-disabled-bg);
+    }
+  }
+}
+/* -------end customization-------- */
 
 /* finally, import Bootstrap to set the changes! */
 @import "bootstrap";

@@ -1,62 +1,31 @@
 import React from 'react'
-import { Pagination } from 'react-bootstrap'
+import { Button, Pagination } from 'react-bootstrap'
+import { IoChevronBackOutline, IoChevronForwardOutline } from 'react-icons/io5'
+import { ActionCell, MainTable, PaginationHeader, PaginationRow } from '../../styles/CommonStyles'
 
 export default function CustomPagination(props) {
-   return <Pagination className="pagination">
-      <Pagination.Item disabled={true}>
-         {props.page.totalRecords ? `Registros: ${props.page.totalRecords }` : ""}
-      </Pagination.Item>
-      <Pagination.First onClick={(e) => {
-         props.fetchAndSetData({ page: 1 }) // props.fetchAndSetData
-         window.scroll(0, 0)
-      }} />
-      <Pagination.Prev
-         disabled={props.page.current === 1} // props.page.current
-         onClick={(e) => {
-            props.fetchAndSetData({ page: props.page.current - 1 })
-            window.scroll(0, 0)
-         }} />
-      {props.page.current >= 3 ? <Pagination.Ellipsis disabled={true} /> : null}
-      {props.page.current >= 2
-         ? (
-            <Pagination.Item
+   return <MainTable style={{ marginTop: 0 }} className="table-borderless">
+      <PaginationRow>
+         <PaginationHeader>{props.page.totalRecords} itens</PaginationHeader>
+         <PaginationHeader align="right">Página {props.page.current} de {props.page.total}</PaginationHeader>
+         <ActionCell style={{ backgroundColor: "white" }}>
+            <Button variant="transparent"
+               disabled={props.page.current === 1}
                onClick={(e) => {
                   props.fetchAndSetData({ page: props.page.current - 1 })
                   window.scroll(0, 0)
-               }}
-            >
-               {props.page.current - 1}
-            </Pagination.Item>
-         )
-         : null}
-      <Pagination.Item active>{props.page.current}</Pagination.Item>
-      {props.page.total - props.page.current >= 1
-         ? (
-            <Pagination.Item
+               }}>
+               <IoChevronBackOutline />
+            </Button>
+            <Button variant="transparent"
+               disabled={props.page.current === props.page.total}
                onClick={(e) => {
                   props.fetchAndSetData({ page: props.page.current + 1 })
                   window.scroll(0, 0)
-               }}
-            >
-               {props.page.current + 1}
-            </Pagination.Item>
-         )
-         : null}
-      {props.page.total - props.page.current >= 2
-         ? (
-            <Pagination.Ellipsis disabled={true} />
-         )
-         : null}
-      <Pagination.Next
-         disabled={props.page.current === props.page.total}
-         onClick={(e) => {
-            props.fetchAndSetData({ page: props.page.current + 1 })
-            window.scroll(0, 0)
-         }} />
-      <Pagination.Last
-         onClick={(e) => {
-            props.fetchAndSetData({ page: props.page.total })
-            window.scroll(0, 0)
-         }} />
-   </Pagination>
+               }}>
+               <IoChevronForwardOutline />
+            </Button>
+         </ActionCell>
+      </PaginationRow>
+   </MainTable>
 }
