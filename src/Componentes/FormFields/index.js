@@ -5,6 +5,7 @@ import { RequiredField, SelectFieldStyle, SelectValidateStyle } from '../../styl
 import InputMask from "react-input-mask"
 import { MenuItem, TextField } from '@mui/material';
 import { alpha, styled } from '@mui/material/styles';
+import NoDataComp from '../NoDataComp'
 
 export const ValidationTextField = styled(TextField)({
    '& label': {
@@ -115,7 +116,7 @@ export function SelectField(props) {
          required={props.required}
          onChange={props.onChange}
       >
-         {props.hasNull ? <option value={null}></option> : null}
+         {props.hasNull ? <option value={null}><NoDataComp /></option> : null}
          {props.dataCollection ?
             Object.keys(props.dataCollection).map(key => {
                return (<option key={key} value={key}>{props.dataCollection[key]}</option>)
@@ -151,7 +152,7 @@ export function BooleanField(props) {
       }}
       helperText={props.required ? <RequiredField>Campo obrigatório</RequiredField> : null}
    >
-      <MenuItem value={null}></MenuItem>
+      <MenuItem value={null}><NoDataComp /></MenuItem>
       <MenuItem value={false}>{props.onFalse}</MenuItem>
       <MenuItem value={true}>{props.onTrue}</MenuItem>
    </ValidationTextField>

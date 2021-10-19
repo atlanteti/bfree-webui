@@ -51,7 +51,7 @@ export class DemandFormBuilder extends EditCreateForm {
                                  onChange={this.context.admin ? this.handleChange : null}
                                  fullWidth
                               />
-                                                         </Col>
+                           </Col>
                            <Col className="mt-3" xs={12} sm={4}>
                               <InputTextField
                                  id="dem_contact_email"
@@ -63,7 +63,6 @@ export class DemandFormBuilder extends EditCreateForm {
                                  onChange={this.context.admin ? this.handleChange : null}
                                  fullWidth
                               />
-                                                              onChange={this.context.admin ? this.handleChange : null} /> */}
                            </Col>
                            <Col className="mt-3" xs={12} sm={4}>
                               <InputMask
@@ -108,7 +107,7 @@ export class DemandFormBuilder extends EditCreateForm {
                                  onChange={this.handleChange}
                                  fullWidth
                               />
-                                                         </Col>
+                           </Col>
                         </Row>
                         <Row>
                            <Col className="mt-3">
@@ -124,7 +123,7 @@ export class DemandFormBuilder extends EditCreateForm {
                                  onChange={this.context.admin ? this.handleChange : null}
                                  fullWidth
                               />
-                                                        </Col>
+                           </Col>
                         </Row>
                         <Row>
                            <Col className="mt-3" xs={12} sm={4}>

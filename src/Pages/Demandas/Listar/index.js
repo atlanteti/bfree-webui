@@ -10,6 +10,8 @@ import SortColumn from '../../../Componentes/SortColumn'
 import { React, useContext } from 'react'
 import { DemandSearchBar } from './DemandSearchBar'
 import Restricted from '../../../Context/AccessPermission'
+import { ReactComponent as EditIcon } from '../../../Assets/Icons/icon_editar.svg'
+import { ReactComponent as DeleteIcon } from '../../../Assets/Icons/icon_delete.svg'
 
 export default class ListarDemandas extends ListarPagina {
    async deleteRecord(id) {
@@ -105,19 +107,16 @@ export default class ListarDemandas extends ListarPagina {
          <TextCell data-title="Status" className="text">{demanda.statusDemand.sdm_name}</TextCell>
          <TextCell data-title="Tipo da Demanda" className="text">{demanda.typeDemand.tdm_name}</TextCell>
          <ActionCell data-title="Ações">
-            <Row noGutters className="positionButtonsFixed">
-               <Button variant="warning" href={`/editar/demandas/${demanda.dem_cod}/alterar`}>Editar</Button>
-               <Restricted>
-                  <Button variant="dark"
-                     onClick={() => {
-                        this.setState({
-                           deletionId: demanda.dem_cod,
-                           modalIdentifier: "a demanda"
-                        })
-                        this.openModal()
-                     }}>Excluir</Button>
-               </Restricted>
-            </Row>
+            <Button variant="transparent" href={`/editar/demandas/${demanda.dem_cod}/alterar`}><EditIcon /></Button>
+            <Restricted>
+               <Button variant="transparent" onClick={() => {
+                  this.setState({
+                     deletionId: demanda.dem_cod,
+                     modalIdentifier: "a demanda"
+                  })
+                  this.openModal()
+               }}><DeleteIcon /></Button>
+            </Restricted>
          </ActionCell>
       </TableRow>
    }

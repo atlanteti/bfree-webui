@@ -193,7 +193,6 @@ export const TableRow = styled.tr`
    td:first-child {
       color: #000;
       width: 20%;
-      white-space: nowrap;
    }
    td {
       color: #546E7A
