@@ -48,15 +48,6 @@ export class DemandSearchBar extends SearchBar {
                      <BtnBlue variant="dark" type="submit">
                         Buscar
                      </BtnBlue>
-                     {/* <Restricted>
-                        <Button
-                           onClick={(event) => this.requestExportData(event, "export-file", "Demandas")}
-                           className="ml-2"
-                           variant="dark"
-                        >
-                           Exportar excel
-                        </Button>
-                     </Restricted> */}
                   </Col>
                </Row>
             </Form>

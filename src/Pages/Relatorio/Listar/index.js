@@ -198,15 +198,6 @@ export default class ListarRelatorio extends ListarPagina {
                               </Col>
                               <Col className="mt-3" xs={12} sm={3} md={2}>
                                  <BtnBlue type="submit" variant="dark">Buscar</BtnBlue>
-                                 {/* <Restricted>
-                                    <Button
-                                       onClick={(event) => this.requestExportData(event, "export-billing", "Relatorio")}
-                                       className="ml-2"
-                                       variant="dark"
-                                    >
-                                       Exportar excel
-                                    </Button>
-                                 </Restricted> */}
                               </Col>
                            </Row>
                         </Form>
