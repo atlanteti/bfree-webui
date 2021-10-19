@@ -2,11 +2,11 @@ import { Component } from "react"
 import { Accordion, Button, Card, Col, Container, Form, Row, Table } from "react-bootstrap";
 import { CustomMenu } from "../../Componentes/CustomMenu";
 import { request } from "../../Services/api";
-import { CustomMenuCol, Title, PaginationRow, MainContainer, MainRow, SearchBarBorder, BottomMargin } from "../../styles/CommonStyles";
+import { CustomMenuCol, Title, PaginationRow, MainContainer, MainRow, SearchBarBorder, BottomMargin, BtnBlue } from "../../styles/CommonStyles";
 import { displayDate } from '../../Componentes/DateField'
 import { Helmet } from "react-helmet";
 import CustomPagination from "../../Componentes/CustomPagination";
-import { SelectField, InputTextField } from "../../Componentes/FormFields";
+import { SelectField, InputTextField, ValidationTextField } from "../../Componentes/FormFields";
 import moment from "moment";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -108,50 +108,66 @@ class Log extends Component {
                            <SearchBarBorder>
                               <Form onSubmit={this.onSubmit.bind(this)}>
                                  <Row>
-                                    <Col xs={12} sm={3}>
+                                    <Col className="mt-2" xs={12} md={3} sm={3}>
                                        <InputTextField
-                                          Label="Nome do Usuário"
-                                          controlId="userName"
+                                          label="Nome"
+                                          id="userName"
+                                          fullWidth
                                           onChange={this.onChange}
                                           maxLength="200"
                                        />
                                     </Col>
-                                    <Col xs={12} sm={3}>
+                                    <Col className="mt-2" xs={12} md={3} sm={3}>
+                                       <SelectField
+                                       Label="Tipo de Log"
+                                       controlId="type"
+                                       dataCollection={this.state.dataCollection}
+                                       onChange={this.onChange}>
+                                       </SelectField>
+                                    </Col>
+                                    <Col className="mt-2" xs={12} md={3} sm={3}>
                                        <DatePicker
                                           placeholderText="dd/mm/aaaa"
                                           dateFormat="dd/MM/yyyy"
                                           selected={this.state.initialDate}
                                           onChange={(dateSelect) => this.changeDate(dateSelect, "initialDate")}
                                           customInput={
-                                             <InputTextField
-                                                Label="Data Inicial"
+                                             <ValidationTextField
+                                                label="Data Inicial"
                                                 type="text"
+                                                fullWidth
+                                                InputLabelProps={{
+                                                   shrink: true,
+                                                   required: false,
+                                                }}
                                              />
                                           }
                                        />
                                     </Col>
-                                    <Col xs={12} sm={3}>
+                                    <Col className="mt-2" xs={12} md={3} sm={3}>
                                        <DatePicker
                                           placeholderText="dd/mm/aaaa"
                                           dateFormat="dd/MM/yyyy"
                                           selected={this.state.finalDate}
                                           onChange={(dateSelect) => this.changeDate(dateSelect, "finalDate")}
                                           customInput={
-                                             <InputTextField
-                                                Label="Data Final"
+                                             <ValidationTextField
+                                                label="Data Final"
                                                 type="text"
+                                                fullWidth
+                                                InputLabelProps={{
+                                                   shrink: true,
+                                                   required: false,
+                                                }}
                                              />
                                           }
                                        />
                                     </Col>
-                                    <Col xs={12} sm={3}><SelectField
-                                       Label="Tipo de Log"
-                                       controlId="type"
-                                       dataCollection={this.state.dataCollection}
-                                       onChange={this.onChange}></SelectField></Col>
                                  </Row>
                                  <Row>
-                                    <Col><Button type="submit" variant="warning">Buscar</Button></Col>
+                                    <Col className="mt-4" md={{offset: 5}}>
+                                       <BtnBlue type="submit" variant="dark">Buscar</BtnBlue>
+                                    </Col>
                                  </Row>
                               </Form>
                            </SearchBarBorder>
@@ -209,7 +225,7 @@ class Log extends Component {
                                                                   return <tr>
                                                                      <td>{key}</td>
                                                                      <td>{oldValue ? oldValue[key] : ""}</td>
-                                                                     <td style={{ color: highlight ? "red" : null }}>{newValue ? newValue[key] : ""}</td>
+                                                                     <td style={{ color: highlight ? "#4CAF50" : null }}>{newValue ? newValue[key] : ""}</td>
                                                                   </tr>
                                                                }
                                                             })}
