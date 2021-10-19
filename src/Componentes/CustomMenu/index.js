@@ -51,12 +51,12 @@ export const CustomMenu = () => {
          {/* Sidebar */}
          <CustomMenuCol xs={6} sm={3} md={3} lg={2}
             className={`fixed inset-y-0 border-r-2 border-l-0 left-0 z-30 overflow-y-auto transition duration-300 ease-out transform translate-x-0 bg-white lg:translate-x-0 lg:static lg:inset-0 ${isSidebarOpen ? 'ease-out translate-x-0' : 'ease-in -translate-x-full'
-         }`}
+               }`}
          >
             {/* https://github.com/abhijithvijayan/react-minimal-side-navigation */}
             <TopBarContainerMenu />
             <Navigation
-            activeItemId={location.pathname.replace("/cadastrar", "").replace("/inserir", "") || location.pathname.replace("/editar", "").replace("/4/alterar", "")}
+               activeItemId={location.pathname.replace("/cadastrar", "").replace("/inserir", "") || location.pathname.replace("/editar", "").replace("/4/alterar", "")}
                onSelect={({ itemId }) => {
                   history.push(itemId)
                }}
@@ -86,7 +86,7 @@ export const CustomMenu = () => {
 function newFunction(admin) {
    const complete = [
       {
-         title: <span className="title-arrow">Empresa <IoChevronForwardOutline size={17} /></span>, 
+         title: <span className="title-arrow">Empresa <IoChevronForwardOutline size={17} /></span>,
          itemId: '/companhia',
          elemBefore: () => <EmpresaIcon />
       },
@@ -98,7 +98,7 @@ function newFunction(admin) {
       {
          title: <span className="title-arrow">Demandas <IoChevronForwardOutline size={17} /></span>,
          itemId: '/demandas',
-         elemBefore: () => <DemandasIcon/>
+         elemBefore: () => <DemandasIcon />
       },
       {
          title: <span className="title-arrow">Tipos de Demandas  <IoChevronForwardOutline size={19} /></span>,
@@ -106,7 +106,7 @@ function newFunction(admin) {
          elemBefore: () => <TiposDemandasIcon />
       },
       {
-         title: <span className="title-arrow">Bagdes <IoChevronForwardOutline size={17} /></span>,
+         title: <span className="title-arrow">Badges <IoChevronForwardOutline size={17} /></span>,
          itemId: '/badges',
          elemBefore: () => <BagdeIcon />
       },
