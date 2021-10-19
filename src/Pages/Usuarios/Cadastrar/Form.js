@@ -48,16 +48,7 @@ export class UserFormBuilder extends EditCreateForm {
                                  fullWidth
                                  required
                               />
-                              {/* <TextField
-                                 controlId="usr_name"
-                                 errorMessage={this.state.usr_name}
-                                 label="Nome:"
-                                 required
-                                 maxLength="200"
-                                 type="text"
-                                 defaultValue={this.state.primaryData?.usr_name}
-                                 onChange={this.handleChange} /> */}
-                           </Col>
+                                                        </Col>
                            <Col className="mt-3" xs={12} sm={4}>
                               <InputMask
                                  mask="(xx) xxxxx-xxxx"
@@ -85,15 +76,7 @@ export class UserFormBuilder extends EditCreateForm {
                                        helperText="Campo Obrigatório"
                                     />}
                               </InputMask>
-                              {/* <PhoneField
-                                 required
-                                 controlId="usr_phone"
-                                 label="Telefone:"
-                                 errorMessage={this.state.usr_phone}
-                                 defaultValue={this.state.primaryData.usr_phone}
-                                 onChange={this.handleChange}
-                                 minLength="15" /> */}
-                           </Col>
+                                                        </Col>
                            <Col className="mt-3" xs={12} sm={4}>
                               <InputTextField
                                  id="usr_email"
@@ -105,16 +88,7 @@ export class UserFormBuilder extends EditCreateForm {
                                  fullWidth
                                  required
                               />
-                              {/* <TextField
-                                 controlId="usr_email"
-                                 errorMessage={this.state.usr_email}
-                                 label="Email"
-                                 required
-                                 maxLength="144"
-                                 type="email"
-                                 defaultValue={this.state.primaryData?.usr_email}
-                                 onChange={this.handleChange} 
-                                 /> */}
+                                                              /> */}
                            </Col>
                         </Row>
                         <Row>
@@ -129,15 +103,7 @@ export class UserFormBuilder extends EditCreateForm {
                                  onChange={this.handleChange}
                                  fullWidth
                               />
-                              {/* <NumberField
-                                 controlId="usr_cli_cod"
-                                 errorMessage={this.state.usr_cli_cod}
-                                 label="ID Eduzz:"
-                                 type="text"
-                                 required
-                                 defaultValue={this.state.primaryData?.usr_cli_cod}
-                                 onChange={this.handleChange} /> */}
-                           </Col>
+                                                        </Col>
                            <Col className="mt-3" xs={12} sm={4}>
                               <InputTextField
                                  id="usr_externalid"
@@ -148,14 +114,7 @@ export class UserFormBuilder extends EditCreateForm {
                                  onChange={this.handleChange}
                                  fullWidth
                               />
-                              {/* <TextField
-                                 controlId="usr_externalid"
-                                 label="ID Externo:"
-                                 type="text"
-                                 maxLength="10"
-                                 defaultValue={this.state.primaryData?.usr_externalid}
-                                 onChange={this.handleChange} /> */}
-                           </Col>
+                                                        </Col>
                            <Col className="mt-3" xs={12} sm={4}>
                               <ListUserStatusControlled
                                  label="Status do Usuário"

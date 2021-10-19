@@ -45,16 +45,7 @@ export class TeamFormBuilder extends EditCreateForm {
                                  required
                                  maxLength="45"
                               />
-                              {/* <TextField
-                                 controlId="tea_name"
-                                 errorMessage={this.state.tea_name}
-                                 label="Nome:"
-                                 type="text"
-                                 defaultValue={this.state.primaryData?.tea_name}
-                                 maxLength="45"
-                                 onChange={this.handleChange}
-                                 required /> */}
-                           </Col>
+                                                         </Col>
                            <Col className="mt-3" xs={12} sm={3}>
                               <ListCompanies
                                  defaultValue={this.props.primaryId}

@@ -48,21 +48,6 @@ export function InputTextField(props, classes) {
       }}
       helperText={props.required ? "Campo Obrigatório" : null}
    />
-   // return <Form.Group controlId={props.controlId}>
-   //    <Form.Label style={{ color: "#B0BEC5" }}>{props.label}</Form.Label>
-   //    <Form.Control
-   //       rows={5}
-   //       type={props.type}
-   //       as={props.as}
-   //       value={props.defaultValue}
-   //       onChange={props.onChange}
-   //       placeholder={props.placeholder}
-   //       required={props.required}
-   //       {...props}
-   //    />
-   //    <Form.Control.Feedback type="invalid">{props.errorMessage}</Form.Control.Feedback>
-   //    <Form.Text className="text-muted">{props.required ? <RequiredField>Campo obrigatório</RequiredField> : null}</Form.Text>
-   // </Form.Group>
 }
 TextField.propTypes = {
    id: PropTypes.string.isRequired,
@@ -108,22 +93,6 @@ export function NumberField(props) {
       }}
       helperText={props.required ? "Campo Obrigatório" : null}
    />
-
-   // return <Form.Group controlId={props.controlId}>
-   //    <Form.Label style={{ color: "#B0BEC5" }}>{props.label}</Form.Label>
-   //    <Form.Control
-   //       type={props.type}
-   //       as={props.as}
-   //       value={props.defaultValue}
-   //       onChange={props.onChange}
-   //       placeholder={props.placeholder}
-   //       required={props.required}
-   //       onKeyPress={(e) => preventNonNumericalInput(e)}
-   //       {...props}
-   //    />
-   //    <Form.Control.Feedback type="invalid">{props.errorMessage}</Form.Control.Feedback>
-   //    <Form.Text className="text-muted">{props.Text} {props.required ? <RequiredField>Campo obrigatório</RequiredField> : null}</Form.Text>
-   // </Form.Group>
 }
 NumberField.propTypes = {
    controlId: PropTypes.string.isRequired,
@@ -191,22 +160,6 @@ export function BooleanField(props) {
       <MenuItem value={false}>{props.onFalse}</MenuItem>
       <MenuItem value={true}>{props.onTrue}</MenuItem>
    </ValidationTextField>
-   // return <Form.Group controlId={props.controlId}>
-   //    <Form.Label style={{color: "#B0BEC5"}}>{props.Label}</Form.Label>
-   //    <Form.Control
-   //       as="select"
-   //       style={SelectValidateStyle}
-   //       required={props.required}
-   //       onChange={props.onChange}
-   //       value={props.value}>
-   //       {!props.register ?
-   //          <> <option value={null}></option>
-   //             <option value={false}>{props.onFalse}</option>
-   //          </>
-   //          : <option value={false}>{props.onFalse}</option>}
-   //       <option value={true}>{props.onTrue}</option>
-   //    </Form.Control>
-   // </Form.Group>
 }
 
 BooleanField.propTypes = {

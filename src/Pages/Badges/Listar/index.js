@@ -12,7 +12,9 @@ import SortColumn from '../../../Componentes/SortColumn'
 import { React } from 'react'
 import { BadgeSearchBar } from "./BadgeSearchBar"
 import { IoCheckboxOutline } from 'react-icons/io5'
-
+import { ReactComponent as EditIcon } from '../../../Assets/Icons/icon_editar.svg'
+import { ReactComponent as DeleteIcon } from '../../../Assets/Icons/icon_delete.svg'
+import { ReactComponent as GreenCheck } from "../../../Assets/Icons/icon_check.svg"
 export default class ListarBadge extends ListarPagina {
    async deleteRecord(id) {
       const data = await request({
@@ -95,18 +97,18 @@ export default class ListarBadge extends ListarPagina {
          <TextCell data-title="Nome">{badge.bdg_name}</TextCell>
          <TextCell data-title="Jornada">{badge.journey.jny_name ? badge.journey.jny_name : <p style={{ color: "transparent" }}>.</p>}</TextCell>{/*Waiting for api fix*/}
          <TextCell data-title="Empresa">{badge.company.cpn_name ? badge.company.cpn_name : <p style={{ color: "transparent" }}>.</p>}</TextCell>
-         <TextCell data-title="Mentor" className="icon">
-            <Icon>{badge.bdg_mentor ? <IoCheckboxOutline align="center" size={25} /> : <p style={{ color: "transparent" }}>.</p>}</Icon>
+         <TextCell data-title="Mentor">
+            <Icon>{badge.bdg_mentor ? <GreenCheck /> : <p style={{ color: "transparent" }}>.</p>}</Icon>
          </TextCell>
          <ActionCell data-title="Ações">
-            <Button variant="warning" href={`/editar/badges/${badge.bdg_cod}/alterar`}>Editar</Button>
-            <Button variant="dark" onClick={() => {
+            <Button variant="transparent" href={`/editar/badges/${badge.bdg_cod}/alterar`}><EditIcon /></Button>
+            <Button variant="transparent" onClick={() => {
                this.setState({
                   deletionId: badge.bdg_cod,
                   modalIdentifier: "a badge"
                })
                this.openModal()
-            }}>Excluir</Button>
+            }}><DeleteIcon /></Button>
          </ActionCell>
       </TableRow>
    }

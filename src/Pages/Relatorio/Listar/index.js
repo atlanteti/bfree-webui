@@ -212,7 +212,7 @@ export default class ListarRelatorio extends ListarPagina {
                         </Form>
                      </SearchBarBorder>
                      <Row noGutters>
-                        <MainTable noData={this.state.noData}>
+                        <MainTable noData={this.state.noData} className="table-borderless">
                            {this.state.responseData === null
                               ?
                               <Row>
