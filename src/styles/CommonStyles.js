@@ -291,14 +291,19 @@ export const BtnContainer = styled.div`
    justify-content: space-between;
 `
 
-export const TopBarContainerMenu = styled(Col)`
-   background: #fff;
-   min-height: 8vh;
-   /* box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px; */
-`
-
 export const TopBarContainer = styled(Col)`
    background: #fff;
-   min-height: 8vh;
-   box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
-`
+   min-height: 6.5vh;
+   box-shadow: rgba(33, 35, 38, 0.2) 0px 10px 10px -10px;
+   color: #0509EE;
+   display: flex;
+   font-size: 1.3rem;
+   align-items: center;
+   
+   span{
+      margin-right: 2rem;
+   }
+   `
+export const TopBarContainerMenu = styled(TopBarContainer)`
+   margin-bottom: 3rem;
+   `
