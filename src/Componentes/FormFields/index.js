@@ -143,7 +143,6 @@ export function BooleanField(props) {
       name={props.name}
       label={props.Label}
       required={props.required}
-      controlId="jny_cpn_cod"
       value={props.value}
       onChange={props.onChange}
       InputLabelProps={{
@@ -152,11 +151,8 @@ export function BooleanField(props) {
       }}
       helperText={props.required ? <RequiredField>Campo obrigatório</RequiredField> : null}
    >
-      {!props.register ?
-         <> <MenuItem value={null}></MenuItem>
-            <MenuItem value={false}>{props.onFalse}</MenuItem>
-         </>
-         : <MenuItem value={false}>{props.onFalse}</MenuItem>}
+      <MenuItem value={null}></MenuItem>
+      <MenuItem value={false}>{props.onFalse}</MenuItem>
       <MenuItem value={true}>{props.onTrue}</MenuItem>
    </ValidationTextField>
 }
@@ -164,7 +160,7 @@ export function BooleanField(props) {
 BooleanField.propTypes = {
    onFalse: PropTypes.string.isRequired,
    onTrue: PropTypes.string.isRequired,
-   controlId: PropTypes.string.isRequired,
+   id: PropTypes.string.isRequired,
    Label: PropTypes.string.isRequired,
    onChange: PropTypes.func.isRequired,
    required: PropTypes.bool

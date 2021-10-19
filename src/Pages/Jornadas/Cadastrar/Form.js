@@ -6,7 +6,7 @@ import { ButtonRow } from '../../../Componentes/ButtonRow'
 import { EditCreateForm } from '../../../Componentes/EditCreateForm/index'
 import ListCompanies from '../../../Componentes/ListCompanies'
 import CircularProgress from '@material-ui/core/CircularProgress'
-import { BackGroundForm, BtnSalvar, TitleRegister } from '../../../styles/CommonStyles'
+import { BackGroundForm, BtnBlue, TitleRegister } from '../../../styles/CommonStyles'
 import { IoChevronBackCircleSharp } from "react-icons/io5"
 
 export default function JourneyForm(props) {
@@ -56,7 +56,7 @@ export class JourneyFormBuilder extends EditCreateForm {
                                     required />
                               </Col>
                               <Col className="mt-4" xs={12} sm={2}>
-                                 <BtnSalvar variant="dark" type="submit">Salvar</BtnSalvar>
+                                 <BtnBlue variant="dark" type="submit">Salvar</BtnBlue>
                               </Col>
                            </Row>
 

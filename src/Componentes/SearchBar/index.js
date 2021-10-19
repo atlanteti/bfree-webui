@@ -18,7 +18,14 @@ export default class SearchBar extends Component {
          }
       })
    }
-
+   handleSelect = (e) => {
+      this.setState(({
+         formData: {
+            ...this.state.formData,
+            [e.target.name]: e.target.value
+         },
+      }))
+   }
    handleSubmit(event) {
       event.preventDefault()
       this.props.filterData({ extraParams: this.state.formData })

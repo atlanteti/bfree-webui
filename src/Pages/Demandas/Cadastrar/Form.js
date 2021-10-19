@@ -11,7 +11,7 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import ContextLogin from '../../../Context/ContextLogin'
 import DatePicker from "react-datepicker";
 import Restricted from '../../../Context/AccessPermission'
-import { BackGroundForm, BtnSalvar, TitleRegister } from '../../../styles/CommonStyles'
+import { BackGroundForm, BtnBlue, TitleRegister } from '../../../styles/CommonStyles'
 import { IoChevronBackCircleSharp } from "react-icons/io5"
 import InputMask from "react-input-mask"
 
@@ -210,7 +210,7 @@ export class DemandFormBuilder extends EditCreateForm {
                         }
                         <Row style={{ marginTop: 25 }}>
                            <Col md={{ offset: 5 }}>
-                              <BtnSalvar variant="dark" type="submit">Salvar</BtnSalvar>
+                              <BtnBlue variant="dark" type="submit">Salvar</BtnBlue>
                            </Col>
                         </Row>
                      </BackGroundForm>

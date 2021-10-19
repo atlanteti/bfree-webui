@@ -5,7 +5,7 @@ import { ButtonRow } from '../../../Componentes/ButtonRow'
 import { EditCreateForm } from '../../../Componentes/EditCreateForm/index'
 import { NumberField, InputTextField } from '../../../Componentes/FormFields'
 import CircularProgress from '@material-ui/core/CircularProgress'
-import { BackGroundForm, BtnSalvar, NumberCell, TitleRegister } from '../../../styles/CommonStyles'
+import { BackGroundForm, BtnBlue, NumberCell, TitleRegister } from '../../../styles/CommonStyles'
 import { IoChevronBackCircleSharp } from "react-icons/io5"
 
 export default function CompanyForm(props) {
@@ -61,7 +61,7 @@ export class CompanyFormBuilder extends EditCreateForm {
                               />
                            </Col>
                            <Col className="mt-4" xs={12} sm={2}>
-                              <BtnSalvar variant="dark" type="submit">Salvar</BtnSalvar>
+                              <BtnBlue variant="dark" type="submit">Salvar</BtnBlue>
                            </Col>
                         </Row>
                         {this.props.paramRoute === 'inserir'

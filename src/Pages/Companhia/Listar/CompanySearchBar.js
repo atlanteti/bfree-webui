@@ -1,6 +1,6 @@
 import { Row, Form, Button, Col } from 'react-bootstrap';
 import { React } from 'react';
-import { SearchBarBorder } from '../../../styles/CommonStyles';
+import { BtnBlue, SearchBarBorder } from '../../../styles/CommonStyles';
 import { InputTextField } from '../../../Componentes/FormFields';
 import SearchBar from '../../../Componentes/SearchBar/index';
 
@@ -11,26 +11,30 @@ export class CompanySearchBar extends SearchBar {
             <Form onSubmit={this.handleSubmit}>
                <Row>
                   {this.props.children}
-                  <Col xs={12} sm={6}>
+                  <Col className="mt-2" xs={12} sm={5}>
                      <InputTextField
-                        label="ID Eduzz: "
-                        controlId="cpn_cli_cod"
+                        label="ID Eduzz "
+                        id="cpn_cli_cod"
+                        fullWidth
                         onChange={this.onChange}
                         placeholder="Insira o Id Externo da empresa"
                         key="cpn_cli_cod" />
                   </Col>
-                  <Col xs={12} sm={6}>
+                  <Col className="mt-2" xs={12} sm={5}>
                      <InputTextField
-                        label="Nome:"
-                        controlId="name"
+                        label="Nome da Empresa"
+                        id="name"
+                        fullWidth
                         onChange={this.onChange}
                         placeholder="Insira o nome da empresa"
                         key="cpn_name" />
                   </Col>
+                  <Col className="mt-3" xs={12} sm={3} md={2}>
+                     <BtnBlue variant="dark" type="submit">
+                        Buscar
+                     </BtnBlue>
+                  </Col>
                </Row>
-               <Button variant="warning" type="submit">
-                  Buscar
-               </Button>
             </Form>
          </Row>
       </SearchBarBorder>;

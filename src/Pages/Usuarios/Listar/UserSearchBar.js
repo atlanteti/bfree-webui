@@ -1,6 +1,6 @@
 import { Row, Form, Button, Col } from 'react-bootstrap';
 import { React } from 'react';
-import { SearchBarBorder } from '../../../styles/CommonStyles';
+import { BtnBlue, SearchBarBorder } from '../../../styles/CommonStyles';
 import { InputTextField } from '../../../Componentes/FormFields';
 import SearchBar from '../../../Componentes/SearchBar/index';
 import ListUserStatusControlled from '../../../Componentes/ListUserStatus';
@@ -11,30 +11,37 @@ export class UserSearchBar extends SearchBar {
          <Row xs={1} className={'mb-2'} noGutters>
             <Form onSubmit={this.handleSubmit}>
                <Row>
-                  <Col xs={12} sm={4}>
-                     <InputTextField label="ID:"
-                        controlId="usr_cli_cod"
+                  <Col className="mt-2" xs={12} sm={4} md={3}>
+                     <InputTextField label="ID"
+                        id="usr_cli_cod"
                         onChange={this.onChange}
                         type="text"
+                        fullWidth
                         placeholder="Insira o ID do usuário" />
                   </Col>
-                  <Col xs={12} sm={4}>
-                     <InputTextField label="Nome:"
-                        controlId="name"
+                  <Col className="mt-2" xs={12} sm={4}>
+                     <InputTextField label="Nome do Usuário"
+                        id="name"
                         onChange={this.onChange}
                         type="text"
+                        fullWidth
                         placeholder="Insira o nome do usuário" />
                   </Col>
-                  <Col xs={12} sm={4}>
+                  <Col className="mt-2" xs={12} sm={4} md={3}>
                      <ListUserStatusControlled
-                        controlId="statusId"
-                        onChange={this.onChange}
+                        label="Status do Usuário"
+                        id="statusId"
+                        name="statusId"
+                        onChange={this.handleSelect}
+                        value={this.state.formData.statusId ? this.state.formData.statusId : null}
                      />
                   </Col>
+                  <Col className="mt-3" xs={12} sm={4} md={2}>
+                     <BtnBlue variant="dark" type="submit">
+                        Buscar
+                     </BtnBlue>
+                  </Col>
                </Row>
-               <Button variant="warning" type="submit">
-                  Buscar
-               </Button>
             </Form>
          </Row>
       </SearchBarBorder>;

@@ -8,7 +8,7 @@ import { CheckBox } from '../../../Componentes/CheckBox'
 import ListCompaniesControlled from "../../../Componentes/ListCompaniesControlled"
 import ListJourneysControlled from "../../../Componentes/ListJourneysControlled"
 import { CircularProgress } from '@material-ui/core'
-import { BackGroundForm, BtnSalvar, TitleRegister } from '../../../styles/CommonStyles'
+import { BackGroundForm, BtnBlue, TitleRegister } from '../../../styles/CommonStyles'
 import { IoChevronBackCircleSharp } from "react-icons/io5"
 
 export default function BadgeForm(props) {
@@ -194,7 +194,7 @@ export class BadgeFormBuilder extends EditCreateForm {
                         }
                         <Row className="mt-4">
                            <Col md={{ offset: 5 }}>
-                              <BtnSalvar variant="dark" type="submit">Salvar</BtnSalvar>
+                              <BtnBlue variant="dark" type="submit">Salvar</BtnBlue>
                            </Col>
                         </Row>
                      </BackGroundForm>

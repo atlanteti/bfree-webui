@@ -5,7 +5,7 @@ import { ButtonRow } from '../../../Componentes/ButtonRow'
 import { EditCreateForm } from '../../../Componentes/EditCreateForm/index'
 import ListCompanies from '../../../Componentes/ListCompanies'
 import CircularProgress from '@material-ui/core/CircularProgress'
-import { BackGroundForm, BtnSalvar, TitleRegister } from '../../../styles/CommonStyles'
+import { BackGroundForm, BtnBlue, TitleRegister } from '../../../styles/CommonStyles'
 import { IoChevronBackCircleSharp } from "react-icons/io5"
 import { InputTextField } from '../../../Componentes/FormFields'
 
@@ -58,7 +58,7 @@ export class TypeDemandFormBuilder extends EditCreateForm {
                                  required />
                            </Col>
                            <Col className="mt-4">
-                              <BtnSalvar variant="dark" type="submit">Salvar</BtnSalvar>
+                              <BtnBlue variant="dark" type="submit">Salvar</BtnBlue>
                            </Col>
                         </Row>
                         {this.props.paramRoute === 'inserir'

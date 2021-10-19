@@ -38,7 +38,7 @@ export default class ListUserStatusControlled extends Component {
          select
          fullWidth
          name={this.props.name}
-         label="Status"
+         label={this.props.label}
          value={this.props.value}
          required={this.props.required}
          onChange={this.onChange.bind(this)}
@@ -56,7 +56,7 @@ export default class ListUserStatusControlled extends Component {
                   value={status.sus_cod}
                >
                   {status.sus_name}
-               </MenuItem>);
+               </MenuItem>)
          })}
       </ValidationTextField>
    }
@@ -66,5 +66,5 @@ ListUserStatusControlled.propTypes =
    required: PropTypes.bool,
    value: PropTypes.string.isRequired,
    disabled: PropTypes.string,
-   controlId: PropTypes.string.isRequired
+   id: PropTypes.string.isRequired
 }

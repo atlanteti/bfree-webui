@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import { RequiredField, SelectValidateStyle } from '../../styles/CommonStyles'
 import { TextField, MenuItem } from '@mui/material';
 import { ValidationTextField } from '../FormFields';
-
+import ContextLogin from "../../Context/ContextLogin";
 export default class ListUsers extends Component {
    constructor(props) {
       super(props);
@@ -110,3 +110,4 @@ ListUsers.propTypes = {
    required: PropTypes.bool,
    disabled: PropTypes.bool
 }
+ListUsers.contextType = ContextLogin
