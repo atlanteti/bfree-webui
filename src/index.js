@@ -7,9 +7,11 @@ import { CookiesProvider } from "react-cookie";
 import { AuthProvider } from './Context/ContextLogin'
 import Routes from "../src/Routes/index";
 import { IndexContainer } from "./styles/CommonStyles";
+import TopBar from './Componentes/TopBar';
 
 ReactDOM.render(
    <IndexContainer>
+      <TopBar />
       <AuthProvider>
          <CookiesProvider>
             <Routes />
