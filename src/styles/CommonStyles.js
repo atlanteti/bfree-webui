@@ -37,7 +37,7 @@ export const RightAlignText = styled.div`
 
 export const SearchBarBorder = styled.div`
       border: 1px solid rgba(0,0,0,0.20);
-      padding: 15px;
+      padding: 25px;
       border-radius: 5px;
       background: #fff;
       `
@@ -95,7 +95,7 @@ export const MainContainer = styled.div`
    }
 `
 
-export const BtnSalvar = styled(Button)`
+export const BtnBlue = styled(Button)`
    width: 120px !important;
 `
 

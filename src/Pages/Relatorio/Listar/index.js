@@ -9,7 +9,7 @@ import {
    TableRow, TextCell, TextHeaderCell, Title,
    HeaderContainer, RowTopMargin, NumberCell,
    MainContainer, MainRow, CustomMenuCol, TableHeader,
-   TableData, MainTable, ReportTableData, SearchBarBorder
+   TableData, MainTable, ReportTableData, SearchBarBorder, BtnBlue
 } from '../../../styles/CommonStyles'
 import SortColumn from '../../../Componentes/SortColumn'
 import { React } from 'react'
@@ -17,7 +17,7 @@ import { CustomMenu } from '../../../Componentes/CustomMenu'
 import { CustomAlert } from '../../../Componentes/CustomAlert'
 import { CircularProgress, LinearProgress } from '@material-ui/core'
 import { Helmet } from 'react-helmet'
-import { InputTextField } from '../../../Componentes/FormFields'
+import { InputTextField, ValidationTextField } from '../../../Componentes/FormFields'
 import DatePicker from "react-datepicker";
 import moment from 'moment'
 import ListUsers from '../../../Componentes/ListUsers'
@@ -128,6 +128,15 @@ export default class ListarRelatorio extends ListarPagina {
       })
    }
 
+   handleSelect = (e) => {
+      this.setState(({
+         formData: {
+            ...this.state.formData,
+            [e.target.name]: e.target.value
+         },
+      }))
+   }
+
    render() {
       return <MainContainer>
          <MainRow>
@@ -146,48 +155,50 @@ export default class ListarRelatorio extends ListarPagina {
                      <SearchBarBorder>
                         <Form onSubmit={this.onSubmit.bind(this)}>
                            <Row>
-                              <Col>
+                              <Col className="mt-2" xs={12} sm={4}>
                                  <ListUsers
-                                    controlId="usr_cod"
-                                    defaultValue={this.context.admin ? null : this.context.user}
-                                    defaultUser={this.context.admin ? null : this.context.user}
+                                    name="usr_cod"
+                                    fullWidth
+                                    defaultValue={this.context.admin ? this.state.formData?.usr_cod : this.context.user}
+                                    defaultUser={this.context.admin ? this.state.formData?.usr_cod : this.context.user}
                                     disabled={!this.context.admin}
-                                    onChange={this.context.admin ? this.onChange : null}
+                                    onChange={this.context.admin ? this.handleSelect : null}
                                  />
                               </Col>
-                              <Col>
+                              <Col className="mt-2" xs={12} sm={3} md={3}>
                                  <DatePicker
                                     placeholderText="dd/mm/aaaa"
                                     dateFormat="dd/MM/yyyy"
                                     selected={this.state.initialDate}
                                     onChange={(dateSelect) => this.changeDate(dateSelect, "initialDate")}
                                     customInput={
-                                       <InputTextField
-                                          Label="Data Inicial"
+                                       <ValidationTextField
+                                          label="Data Inicial"
                                           type="text"
+                                          fullWidth
                                        />
                                     }
                                  />
                               </Col>
-                              <Col>
+                              <Col className="mt-2" xs={12} sm={3} md={3}>
                                  <DatePicker
                                     placeholderText="dd/mm/aaaa"
                                     dateFormat="dd/MM/yyyy"
                                     selected={this.state.finalDate}
+                                    maxDate={this.state.finalDate}
                                     onChange={(dateSelect) => this.changeDate(dateSelect, "finalDate")}
                                     customInput={
-                                       <InputTextField
-                                          Label="Data Final"
+                                       <ValidationTextField
+                                          label="Data Final"
                                           type="text"
+                                          fullWidth
                                        />
                                     }
                                  />
                               </Col>
-                           </Row>
-                           <Row>
-                              <Col>
-                                 <Button type="submit" variant="warning">Buscar</Button>
-                                 <Restricted>
+                              <Col className="mt-3" xs={12} sm={3} md={2}>
+                                 <BtnBlue type="submit" variant="dark">Buscar</BtnBlue>
+                                 {/* <Restricted>
                                     <Button
                                        onClick={(event) => this.requestExportData(event, "export-billing", "Relatorio")}
                                        className="ml-2"
@@ -195,7 +206,7 @@ export default class ListarRelatorio extends ListarPagina {
                                     >
                                        Exportar excel
                                     </Button>
-                                 </Restricted>
+                                 </Restricted> */}
                               </Col>
                            </Row>
                         </Form>

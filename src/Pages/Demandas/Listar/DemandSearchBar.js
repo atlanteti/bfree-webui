@@ -1,6 +1,6 @@
 import { Row, Form, Button, Col } from 'react-bootstrap';
 import { React, useReducer } from 'react';
-import { SearchBarBorder } from '../../../styles/CommonStyles';
+import { BtnBlue, SearchBarBorder } from '../../../styles/CommonStyles';
 import SearchBar from '../../../Componentes/SearchBar/index';
 import ListStatusDemands from '../../../Componentes/ListStatusDemands';
 import ListResultDemands from '../../../Componentes/ListResultDemands';
@@ -16,39 +16,39 @@ export class DemandSearchBar extends SearchBar {
          <Row xs={1} className={'mb-2'} noGutters>
             <Form onSubmit={this.handleSubmit}>
                <Row>
-                  <Col sm={3}>
-                     <InputTextField label="Título da Demanda"
-                        controlId="dem_title"
+                  <Col className="mt-2" xs={12} sm={3} md={3}>
+                     <InputTextField label="Título"
+                        id="dem_title"
                         onChange={this.onChange}
                         type="text"
+                        fullWidth
                         placeholder="Insira o título da Demanda" />
                   </Col>
-                  <Col sm={3}>
+                  <Col className="mt-2" xs={12} sm={3} md={3}>
                      <ListUsers
-                        controlId="dem_usr_cod"
-                        defaultValue={this.context.admin ? null : this.context.user}
-                        defaultUser={this.context.admin ? null : this.context.user}
+                        id="dem_usr_cod"
+                        name="dem_usr_cod"
+                        defaultValue={this.context.admin ? this.state.formData?.dem_usr_cod : this.context.user}
+                        defaultUser={this.context.admin ? this.state.formData?.dem_usr_cod : this.context.user}
                         disabled={!this.context.admin}
-                        onChange={this.context.admin ? this.onChange : null}
+                        onChange={this.context.admin ? this.handleSelect : null}
                      />
                   </Col>
-                  <Col sm={3}>
+                  <Col className="mt-2" xs={12} sm={3} md={2}>
                      <ListStatusDemands
-                        onChange={this.onChange}
-                        controlId="dem_sdm_cod" />
+                        onChange={this.handleSelect}
+                        name="dem_sdm_cod" />
                   </Col>
-                  <Col sm={3}>
+                  <Col className="mt-2" xs={12} sm={3} md={2}>
                      <ListTypeDemand
-                        onChange={this.onChange}
-                        controlId="dem_tdm_cod" />
+                        onChange={this.handleSelect}
+                        name="dem_tdm_cod" />
                   </Col>
-               </Row>
-               <Row >
-                  <Col>
-                     <Button variant="warning" type="submit">
+                  <Col className="mt-3" xs={12} sm={4} md={1}>
+                     <BtnBlue variant="dark" type="submit">
                         Buscar
-                     </Button>
-                     <Restricted>
+                     </BtnBlue>
+                     {/* <Restricted>
                         <Button
                            onClick={(event) => this.requestExportData(event, "export-file", "Demandas")}
                            className="ml-2"
@@ -56,7 +56,7 @@ export class DemandSearchBar extends SearchBar {
                         >
                            Exportar excel
                         </Button>
-                     </Restricted>
+                     </Restricted> */}
                   </Col>
                </Row>
             </Form>
