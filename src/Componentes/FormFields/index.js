@@ -34,6 +34,7 @@ export const ValidationTextField = styled(TextField)({
 export function InputTextField(props, classes) {
    return <ValidationTextField
       id={props.id}
+      disabled={props.disabled}
       label={props.label}
       type={props.type}
       value={props.defaultValue}
