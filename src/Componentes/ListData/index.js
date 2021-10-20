@@ -272,7 +272,7 @@ export function PageHeaderCustomComponent(props) {
             <Title>{props.Title}</Title>
          </Col>
          <RightAlignText>
-            <Col><Restricted><Button variant="register" href={props.href}>Cadastrar</Button></Restricted></Col>
+            <Col><Restricted><Button variant="register" href={props.href}>+ CADASTRAR {props.Title.toUpperCase()}</Button></Restricted></Col>
          </RightAlignText>
       </RowTopMargin>
    </HeaderContainer>
