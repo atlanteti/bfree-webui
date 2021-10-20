@@ -17,6 +17,8 @@ export const IndexContainer = styled.div`
 export const Title = styled.h1`
    text-align: left;
    font-size: 2rem;
+   font-weight: 700;
+   color: #3E516E;
 `
 
 export const TitleRegister = styled.h1`
