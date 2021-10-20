@@ -205,13 +205,13 @@ export const TableRow = styled.tr`
 `
 
 export const PaginationHeader = styled.th`
-   padding: 22px 0px 22px 12px;
+   padding: 22px 12px;
    background: #fff;
    font-weight:normal;
    text-align: ${props => props.align};`
 
 export const ColumnTitle = styled.th`
-   padding: 22px 0px 22px 12px;
+   padding: 22px 12px;
    width: ${props => props.columnWidth ? '100px' : '50px'};
    cursor: ${props => props.sort ? 'pointer' : 'default'};
    text-align: left;
