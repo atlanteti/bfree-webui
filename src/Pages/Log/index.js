@@ -98,7 +98,7 @@ class Log extends Component {
             <MainRow>
                <CustomMenuCol lg={2}><CustomMenu /></CustomMenuCol>
                <Col>
-                  <Col style={{ marginTop: '1rem' }}>
+                  <Col style={{ marginTop: '1rem', marginLeft: 12 }}>
                      <Title style={{ marginBottom: 18 }}>Logs</Title>
                      <Helmet title="Logs" />
                   </Col>
