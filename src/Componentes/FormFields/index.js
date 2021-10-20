@@ -33,6 +33,7 @@ export const ValidationTextField = styled(TextField)({
 
 export function InputTextField(props, classes) {
    return <ValidationTextField
+      onClick={props.onClick}
       id={props.id}
       disabled={props.disabled}
       label={props.label}
@@ -49,6 +50,7 @@ export function InputTextField(props, classes) {
          required: false,
       }}
       helperText={props.required ? "Campo Obrigatório" : null}
+      {...props}
    />
 }
 TextField.propTypes = {
