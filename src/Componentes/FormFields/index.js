@@ -159,7 +159,7 @@ export function BooleanField(props) {
       }}
       helperText={props.required ? <RequiredField>Campo obrigatório</RequiredField> : null}
    >
-      <MenuItem value={null}><NoDataComp /></MenuItem>
+      {!props.register && <MenuItem value={null}><NoDataComp /></MenuItem>}
       <MenuItem value={false}>{props.onFalse}</MenuItem>
       <MenuItem value={true}>{props.onTrue}</MenuItem>
    </ValidationTextField>
