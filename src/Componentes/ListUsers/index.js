@@ -6,6 +6,7 @@ import { RequiredField, SelectValidateStyle } from '../../styles/CommonStyles'
 import { TextField, MenuItem } from '@mui/material';
 import { ValidationTextField } from '../FormFields';
 import ContextLogin from "../../Context/ContextLogin";
+import NoDataComp from '../NoDataComp';
 export default class ListUsers extends Component {
    constructor(props) {
       super(props);
@@ -63,7 +64,7 @@ export default class ListUsers extends Component {
          }}
          helperText={this.props.required ? <RequiredField>Campo obrigatório</RequiredField> : null}
       >
-         <MenuItem value={null} />
+         <MenuItem value={null}><NoDataComp /></MenuItem>
          {this.state.users?.map(user => {
             return (
                <MenuItem
@@ -74,31 +75,6 @@ export default class ListUsers extends Component {
                </MenuItem>);
          })}
       </ValidationTextField>
-      // return <Form.Group controlId={this.props.controlId} /*"companyId"*/>
-      //    <Form.Label style={{color: "#B0BEC5"}}>Usuário: </Form.Label>
-      //    <Form.Control //Form.Select não funciona por razões misteriosas
-      //       style={SelectValidateStyle}
-      //       disabled={this.props.disabled}
-      //       as="select"
-      //       required={this.props.required}
-      //       onChange={this.onChange.bind(this)}
-      //       value={this.props.defaultUser}>
-      //       <>
-      //          <option value={null} />
-      //          {this.state.users?.map(user => {
-      //             return (
-      //                <option
-      //                   key={user.usr_cod}
-      //                   value={user.usr_cod}
-      //                >
-      //                   {user.usr_name}
-      //                </option>);
-      //          })}
-      //       </>
-      //    </Form.Control>
-      //    <Form.Control.Feedback type="invalid">{this.props.errorMessage}</Form.Control.Feedback>
-      //    <Form.Text className="text-muted">{this.props.Text} {this.props.required ? <RequiredField>Campo obrigatório</RequiredField> : null}</Form.Text>
-      // </Form.Group>;
    }
 }
 

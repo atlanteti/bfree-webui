@@ -5,6 +5,7 @@ import { RequiredField, SelectFieldStyle, SelectValidateStyle } from '../../styl
 import InputMask from "react-input-mask"
 import { MenuItem, TextField } from '@mui/material';
 import { alpha, styled } from '@mui/material/styles';
+import NoDataComp from '../NoDataComp'
 
 export const ValidationTextField = styled(TextField)({
    '& label': {
@@ -33,6 +34,7 @@ export const ValidationTextField = styled(TextField)({
 export function InputTextField(props, classes) {
    return <ValidationTextField
       id={props.id}
+      disabled={props.disabled}
       label={props.label}
       type={props.type}
       value={props.defaultValue}
@@ -117,15 +119,15 @@ export function SelectField(props) {
       InputLabelProps={{
          shrink: true,
          required: false
-         }}
-         helperText={props.required ? <RequiredField>Campo obrigatório</RequiredField> : null}
-      >
-         {props.hasNull ? <MenuItem value={null}></MenuItem> : null}
-            {props.dataCollection ?
-            Object.keys(props.dataCollection).map(key => {
-               return (<MenuItem key={key} value={key}>{props.dataCollection[key]}</MenuItem>)
-            }) : null}
-      </ValidationTextField>
+      }}
+      helperText={props.required ? <RequiredField>Campo obrigatório</RequiredField> : null}
+   >
+      {props.hasNull ? <option value={null}><NoDataComp /></option> : null}
+      {props.dataCollection ?
+         Object.keys(props.dataCollection).map(key => {
+            return (<MenuItem key={key} value={key}>{props.dataCollection[key]}</MenuItem>)
+         }) : null}
+   </ValidationTextField>
 }
 SelectField.defaultProps =
 {
@@ -155,7 +157,7 @@ export function BooleanField(props) {
       }}
       helperText={props.required ? <RequiredField>Campo obrigatório</RequiredField> : null}
    >
-      <MenuItem value={null}></MenuItem>
+      <MenuItem value={null}><NoDataComp /></MenuItem>
       <MenuItem value={false}>{props.onFalse}</MenuItem>
       <MenuItem value={true}>{props.onTrue}</MenuItem>
    </ValidationTextField>

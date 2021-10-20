@@ -17,6 +17,7 @@ import { Link } from "react-router-dom"
 import { ReactComponent as EditIcon } from '../../../Assets/Icons/icon_editar.svg'
 import { ReactComponent as DeleteIcon } from '../../../Assets/Icons/icon_delete.svg'
 import { ActiveStatusBadge, StatusBadgePropped } from '../../../Componentes/StatusBadges'
+import NoDataComp from '../../../Componentes/NoDataComp'
 
 export default class ListarUsuario extends ListarPagina {
    constructor(props) {
@@ -130,10 +131,10 @@ export default class ListarUsuario extends ListarPagina {
    createRecord(usuario) {
       return <TableRow key={usuario.usr_cod}>
          <NumberCell data-title="ID Eduzz">{usuario.usr_cli_cod}</NumberCell>
-         <TextCell data-title="ID Externo" className="text">{usuario.usr_externalid ? usuario.usr_externalid : <p style={{ color: "transparent" }}>.</p>}</TextCell>
+         <TextCell data-title="ID Externo" className="text">{usuario.usr_externalid ? usuario.usr_externalid : <NoDataComp />}</TextCell>
          <TextCell data-title="Nome">{usuario.usr_name}</TextCell>
-         <TextCell data-title="Telefone">{usuario.usr_phone ? usuario.usr_phone : <p style={{ color: "transparent" }}>.</p>}</TextCell>
-         <TextCell data-title="Status">{usuario.statusUser.sus_name ? <StatusBadgePropped active={usuario.statusUser.sus_name === "ATIVO"} /> : <p style={{ color: "transparent" }}>.</p>}</TextCell>
+         <TextCell data-title="Telefone">{usuario.usr_phone ? usuario.usr_phone : <NoDataComp />}</TextCell>
+         <TextCell data-title="Status">{usuario.statusUser.sus_name ? <StatusBadgePropped active={usuario.statusUser.sus_name === "ATIVO"} /> : <NoDataComp />}</TextCell>
          <ActionCell data-title="Ações">
             <Button variant="transparent" href={`/editar/usuarios/${usuario.usr_cod}/alterar`}><EditIcon /></Button>
             <Button variant="transparent" onClick={() => {

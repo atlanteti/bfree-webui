@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import { RequiredField, SelectValidateStyle } from '../../styles/CommonStyles';
 import { TextField, MenuItem } from '@mui/material';
 import { ValidationTextField } from '../FormFields';
+import NoDataComp from '../NoDataComp';
 
 export default class ListCompanies extends Component {
    constructor(props) {
@@ -62,7 +63,7 @@ export default class ListCompanies extends Component {
          }}
          helperText={this.props.required ? <RequiredField>Campo obrigatório</RequiredField> : null}
       >
-         <MenuItem value={null} />
+         <MenuItem value={null}><NoDataComp /></MenuItem>
          {this.state.companies?.map(company => {
             return (
                <MenuItem

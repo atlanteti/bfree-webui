@@ -48,7 +48,7 @@ export class UserFormBuilder extends EditCreateForm {
                                  fullWidth
                                  required
                               />
-                                                        </Col>
+                           </Col>
                            <Col className="mt-3" xs={12} sm={4}>
                               <InputMask
                                  mask="(xx) xxxxx-xxxx"
@@ -76,7 +76,7 @@ export class UserFormBuilder extends EditCreateForm {
                                        helperText="Campo Obrigatório"
                                     />}
                               </InputMask>
-                                                        </Col>
+                           </Col>
                            <Col className="mt-3" xs={12} sm={4}>
                               <InputTextField
                                  id="usr_email"
@@ -88,7 +88,6 @@ export class UserFormBuilder extends EditCreateForm {
                                  fullWidth
                                  required
                               />
-                                                              /> */}
                            </Col>
                         </Row>
                         <Row>
@@ -103,7 +102,7 @@ export class UserFormBuilder extends EditCreateForm {
                                  onChange={this.handleChange}
                                  fullWidth
                               />
-                                                        </Col>
+                           </Col>
                            <Col className="mt-3" xs={12} sm={4}>
                               <InputTextField
                                  id="usr_externalid"
@@ -114,7 +113,7 @@ export class UserFormBuilder extends EditCreateForm {
                                  onChange={this.handleChange}
                                  fullWidth
                               />
-                                                        </Col>
+                           </Col>
                            <Col className="mt-3" xs={12} sm={4}>
                               <ListUserStatusControlled
                                  label="Status do Usuário"

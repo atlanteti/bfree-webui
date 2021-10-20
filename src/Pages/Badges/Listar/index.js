@@ -15,6 +15,7 @@ import { IoCheckboxOutline } from 'react-icons/io5'
 import { ReactComponent as EditIcon } from '../../../Assets/Icons/icon_editar.svg'
 import { ReactComponent as DeleteIcon } from '../../../Assets/Icons/icon_delete.svg'
 import { ReactComponent as GreenCheck } from "../../../Assets/Icons/icon_check.svg"
+import NoDataComp from '../../../Componentes/NoDataComp'
 export default class ListarBadge extends ListarPagina {
    async deleteRecord(id) {
       const data = await request({
@@ -95,10 +96,10 @@ export default class ListarBadge extends ListarPagina {
    createRecord(badge) {
       return <TableRow key={badge.bdg_cod}>
          <TextCell data-title="Nome">{badge.bdg_name}</TextCell>
-         <TextCell data-title="Jornada">{badge.journey.jny_name ? badge.journey.jny_name : <p style={{ color: "transparent" }}>.</p>}</TextCell>{/*Waiting for api fix*/}
-         <TextCell data-title="Empresa">{badge.company.cpn_name ? badge.company.cpn_name : <p style={{ color: "transparent" }}>.</p>}</TextCell>
+         <TextCell data-title="Jornada">{badge.journey.jny_name ? badge.journey.jny_name : <NoDataComp />}</TextCell>{/*Waiting for api fix*/}
+         <TextCell data-title="Empresa">{badge.company.cpn_name ? badge.company.cpn_name : <NoDataComp />}</TextCell>
          <TextCell data-title="Mentor">
-            <Icon>{badge.bdg_mentor ? <GreenCheck /> : <p style={{ color: "transparent" }}>.</p>}</Icon>
+            <Icon>{badge.bdg_mentor ? <GreenCheck /> : <NoDataComp />}</Icon>
          </TextCell>
          <ActionCell data-title="Ações">
             <Button variant="transparent" href={`/editar/badges/${badge.bdg_cod}/alterar`}><EditIcon /></Button>

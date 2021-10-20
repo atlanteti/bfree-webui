@@ -4,6 +4,7 @@ import { request } from '../../Services/api';
 import { SelectValidateStyle, RequiredField } from '../../styles/CommonStyles';
 import { TextField, MenuItem, ListSubheader } from '@mui/material';
 import { ValidationTextField } from '../FormFields';
+import NoDataComp from '../NoDataComp';
 
 
 export default class ListJourneysControlled extends Component {
@@ -57,7 +58,7 @@ export default class ListJourneysControlled extends Component {
          }}
          helperText={this.props.required ? <RequiredField>Campo obrigatório</RequiredField> : null}
       >
-         <MenuItem value={null} />
+         <MenuItem value={null}><NoDataComp /></MenuItem>
          {this.state.journeys?.map(journey => {
             return (
                <MenuItem

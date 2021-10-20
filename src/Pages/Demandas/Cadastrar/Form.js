@@ -24,6 +24,7 @@ export default function DemandForm(props) {
 
 export class DemandFormBuilder extends EditCreateForm {
    render() {
+      const disableField = !(this.context.admin && this.paramRoute === 'inserir')
       return (
          <>
             {this.state.loading && this.paramRoute !== 'inserir'
@@ -47,11 +48,11 @@ export class DemandFormBuilder extends EditCreateForm {
                                  type="text"
                                  required
                                  defaultValue={this.state.primaryData?.dem_title}
-                                 disabled={(this.context.admin && this.paramRoute === 'inserir') ? false : true}
+                                 disabled={disableField}
                                  onChange={this.context.admin ? this.handleChange : null}
                                  fullWidth
                               />
-                                                         </Col>
+                           </Col>
                            <Col className="mt-3" xs={12} sm={4}>
                               <InputTextField
                                  id="dem_contact_email"
@@ -59,17 +60,16 @@ export class DemandFormBuilder extends EditCreateForm {
                                  type="email"
                                  required
                                  defaultValue={this.state.primaryData?.dem_contact_email}
-                                 disabled={(this.context.admin && this.paramRoute === 'inserir') ? false : true}
+                                 disabled={disableField}
                                  onChange={this.context.admin ? this.handleChange : null}
                                  fullWidth
                               />
-                                                              onChange={this.context.admin ? this.handleChange : null} /> */}
                            </Col>
                            <Col className="mt-3" xs={12} sm={4}>
                               <InputMask
                                  mask="(xx) xxxxx-xxxx"
                                  value={this.state.primaryData?.dem_contact_phone}
-                                 disabled={(this.context.admin && this.paramRoute === 'inserir') ? false : true}
+                                 disabled={disableField}
                                  formatChars={{ "x": '[0-9]' }}
                                  maskChar=" "
                                  required
@@ -82,7 +82,7 @@ export class DemandFormBuilder extends EditCreateForm {
                                        type="text"
                                        required
                                        maxLength="200"
-                                       disabled={(this.context.admin && this.paramRoute === 'inserir') ? false : true}
+                                       disabled={disableField}
                                        // defaultValue={this.state.primaryData?.usr_phone}
                                        // onChange={this.handleChange}
                                        fullWidth
@@ -108,7 +108,7 @@ export class DemandFormBuilder extends EditCreateForm {
                                  onChange={this.handleChange}
                                  fullWidth
                               />
-                                                         </Col>
+                           </Col>
                         </Row>
                         <Row>
                            <Col className="mt-3">
@@ -119,12 +119,12 @@ export class DemandFormBuilder extends EditCreateForm {
                                  required
                                  multiline
                                  rows={4}
-                                 disabled={(this.context.admin && this.paramRoute === 'inserir') ? false : true}
+                                 disabled={disableField}
                                  defaultValue={this.state.primaryData?.dem_comments}
                                  onChange={this.context.admin ? this.handleChange : null}
                                  fullWidth
                               />
-                                                        </Col>
+                           </Col>
                         </Row>
                         <Row>
                            <Col className="mt-3" xs={12} sm={4}>
@@ -133,7 +133,7 @@ export class DemandFormBuilder extends EditCreateForm {
                                  errorMessage={this.state.dem_usr_cod}
                                  name="dem_usr_cod"
                                  defaultUser={this.state.primaryData.dem_usr_cod}
-                                 disabled={(this.context.admin && this.paramRoute === 'inserir') ? false : true}
+                                 disabled={disableField}
                                  onChange={this.context.admin ? this.handleSelect : null}
                                  required
                               />
@@ -154,7 +154,7 @@ export class DemandFormBuilder extends EditCreateForm {
                                  // errorMessage={this.state.dem_tdm_cod}
                                  name="dem_tdm_cod"
                                  defaultTypeDemand={this.state.primaryData.dem_tdm_cod}
-                                 disabled={(this.context.admin && this.paramRoute === 'inserir') ? false : true}
+                                 disabled={disableField}
                                  onChange={this.context.admin ? this.handleSelect : null}
                                  required
                               />
