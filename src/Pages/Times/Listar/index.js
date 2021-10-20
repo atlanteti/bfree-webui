@@ -15,6 +15,7 @@ import { ReactComponent as EditIcon } from '../../../Assets/Icons/icon_editar.sv
 import { ReactComponent as DeleteIcon } from '../../../Assets/Icons/icon_delete.svg'
 import { ReactComponent as TeamIcon } from '../../../Assets/Icons/icon_mentores.svg'
 import { ActiveStatusBadge, InactiveStatusBadge } from '../../../Componentes/StatusBadges'
+import NoDataComp from '../../../Componentes/NoDataComp'
 export default class ListarTime extends ListarPagina {
    async deleteRecord(id) {
       const data = await request({
@@ -86,7 +87,7 @@ export default class ListarTime extends ListarPagina {
    createRecord(time) {
       return <TableRow key={time.tea_cod}>
          <TextCell data-title="Nome">{time.tea_name}</TextCell>
-         <TextCell data-title="Empresa" className="text">{time.company.cpn_name ? time.company.cpn_name : <p style={{ color: "transparent" }}>.</p>}</TextCell>
+         <TextCell data-title="Empresa" className="text">{time.company.cpn_name ? time.company.cpn_name : <NoDataComp/>}</TextCell>
          <TextCell data-title="Status" className="text">
             {time.tea_active ? <ActiveStatusBadge /> : <InactiveStatusBadge />}
          </TextCell>
