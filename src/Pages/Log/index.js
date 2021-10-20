@@ -2,12 +2,13 @@ import { Component } from "react"
 import { Accordion, Button, Card, Col, Container, Form, Row, Table } from "react-bootstrap";
 import { CustomMenu } from "../../Componentes/CustomMenu";
 import { request } from "../../Services/api";
-import { CustomMenuCol, Title, PaginationRow, MainContainer, MainRow, SearchBarBorder, BottomMargin, BtnBlue } from "../../styles/CommonStyles";
+import { CustomMenuCol, Title, PaginationRow, MainContainer, MainRow, SearchBarBorder, BottomMargin, BtnBlue, TableHeader, TableRow, TextHeaderCell, TableData, TextCell, DataSearchTitle } from "../../styles/CommonStyles";
 import { displayDate } from '../../Componentes/DateField'
 import { Helmet } from "react-helmet";
 import CustomPagination from "../../Componentes/CustomPagination";
 import { SelectField, InputTextField, ValidationTextField } from "../../Componentes/FormFields";
 import moment from "moment";
+
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -18,7 +19,7 @@ class Log extends Component {
          page: 1,
          logs: false,
          initialDate: null,
-         finalDate: null
+         finalDate: null,
          // userId,  initialDate, finalDate, logAction
       }
       this.filter = {
@@ -108,64 +109,74 @@ class Log extends Component {
                            <SearchBarBorder>
                               <Form onSubmit={this.onSubmit.bind(this)}>
                                  <Row>
-                                    <Col className="mt-2" xs={12} md={3} sm={3}>
-                                       <InputTextField
-                                          label="Nome"
-                                          id="userName"
-                                          fullWidth
-                                          onChange={this.onChange}
-                                          maxLength="200"
-                                       />
-                                    </Col>
-                                    <Col className="mt-2" xs={12} md={3} sm={3}>
-                                       <SelectField
-                                       Label="Tipo de Log"
-                                       controlId="type"
-                                       dataCollection={this.state.dataCollection}
-                                       onChange={this.onChange}>
-                                       </SelectField>
-                                    </Col>
-                                    <Col className="mt-2" xs={12} md={3} sm={3}>
-                                       <DatePicker
-                                          placeholderText="dd/mm/aaaa"
-                                          dateFormat="dd/MM/yyyy"
-                                          selected={this.state.initialDate}
-                                          onChange={(dateSelect) => this.changeDate(dateSelect, "initialDate")}
-                                          customInput={
-                                             <ValidationTextField
-                                                label="Data Inicial"
-                                                type="text"
+                                    <Col xs={12} md={6} sm={5}>
+                                       <p style={{ color: 'transparent' }}>.</p>
+                                       <Row>
+                                          <Col className="mt-2" xs={12} md={6} sm={6}>
+                                             <InputTextField
+                                                label="Nome"
+                                                id="userName"
                                                 fullWidth
-                                                InputLabelProps={{
-                                                   shrink: true,
-                                                   required: false,
-                                                }}
+                                                onChange={this.onChange}
+                                                maxLength="200"
                                              />
-                                          }
-                                       />
+                                          </Col>
+                                          <Col className="mt-2" xs={12} md={6} sm={6}>
+                                             <SelectField
+                                                Label="Tipo de Log"
+                                                controlId="type"
+                                                dataCollection={this.state.dataCollection}
+                                                onChange={this.onChange}>
+                                             </SelectField>
+                                          </Col>
+                                       </Row>
                                     </Col>
-                                    <Col className="mt-2" xs={12} md={3} sm={3}>
-                                       <DatePicker
-                                          placeholderText="dd/mm/aaaa"
-                                          dateFormat="dd/MM/yyyy"
-                                          selected={this.state.finalDate}
-                                          onChange={(dateSelect) => this.changeDate(dateSelect, "finalDate")}
-                                          customInput={
-                                             <ValidationTextField
-                                                label="Data Final"
-                                                type="text"
-                                                fullWidth
-                                                InputLabelProps={{
-                                                   shrink: true,
-                                                   required: false,
-                                                }}
+                                    <Col xs={12} md={6} sm={5}>
+                                       <DataSearchTitle>Pesquisar por período</DataSearchTitle>
+                                       <Row>
+                                          <Col className="mt-2" xs={12} md={6} sm={6}>
+                                             <DatePicker
+                                                placeholderText="dd/mm/aaaa"
+                                                dateFormat="dd/MM/yyyy"
+                                                selected={this.state.initialDate}
+                                                onChange={(dateSelect) => this.changeDate(dateSelect, "initialDate")}
+                                                customInput={
+                                                   <ValidationTextField
+                                                      label="Data Inicial"
+                                                      type="text"
+                                                      fullWidth
+                                                      InputLabelProps={{
+                                                         shrink: true,
+                                                         required: false,
+                                                      }}
+                                                   />
+                                                }
                                              />
-                                          }
-                                       />
+                                          </Col>
+                                          <Col className="mt-2" xs={12} md={6} sm={6}>
+                                             <DatePicker
+                                                placeholderText="dd/mm/aaaa"
+                                                dateFormat="dd/MM/yyyy"
+                                                selected={this.state.finalDate}
+                                                onChange={(dateSelect) => this.changeDate(dateSelect, "finalDate")}
+                                                customInput={
+                                                   <ValidationTextField
+                                                      label="Data Final"
+                                                      type="text"
+                                                      fullWidth
+                                                      InputLabelProps={{
+                                                         shrink: true,
+                                                         required: false,
+                                                      }}
+                                                   />
+                                                }
+                                             />
+                                          </Col>
+                                       </Row>
                                     </Col>
                                  </Row>
                                  <Row>
-                                    <Col className="mt-4" md={{offset: 5}}>
+                                    <Col className="mt-4" md={{ offset: 5 }}>
                                        <BtnBlue type="submit" variant="dark">Buscar</BtnBlue>
                                     </Col>
                                  </Row>
@@ -199,37 +210,36 @@ class Log extends Component {
                                              <Accordion.Toggle as={Card.Header} eventKey="0">
                                                 <Card.Title>
                                                    <Row>
-                                                      <Col>{`${log.log_action} ${log.log_table}`}</Col>
-                                                      <Col style={{ textAlign: "end" }}>
-                                                         {displayDate(log.log_dtcreation)}
-                                                      </Col>
+                                                      <Col style={{ color: "#546E7A" }}>{`${log.log_action} ${log.log_table}`}</Col>
                                                    </Row>
                                                 </Card.Title>
-                                                <Card.Subtitle className="mb-2 text-muted">{log.user.usr_name}</Card.Subtitle>
+                                                <Card.Subtitle className="mb-3 text-muted">{log.user.usr_name} - {displayDate(log.log_dtcreation)}</Card.Subtitle>
                                                 <Accordion.Collapse eventKey="0">
-                                                   <Card.Body style={{ padding: 0 }}><Table striped bordered responsive hover>
-                                                      <thead>
-                                                         <tr>
-                                                            <th>Campo</th>
-                                                            <th>Antes</th>
-                                                            <th>Depois</th>
-                                                         </tr>
-                                                      </thead>
-                                                      <tbody>
+                                                   <Card.Body style={{ padding: 0 }}><Table>
+                                                      <TableHeader>
+                                                         <TableRow>
+                                                            <TextHeaderCell>Campo</TextHeaderCell>
+                                                            <TextHeaderCell>Antes</TextHeaderCell>
+                                                            <TextHeaderCell>Depois</TextHeaderCell>
+                                                         </TableRow>
+                                                      </TableHeader>
+                                                      <TableData>
                                                          {logKeys.map(
                                                             (key) => {
                                                                if (newValue && oldValue) {
                                                                   highlight = newValue[key] !== oldValue[key]
                                                                }
                                                                if (!key.includes("Data")) {
-                                                                  return <tr>
-                                                                     <td>{key}</td>
-                                                                     <td>{oldValue ? oldValue[key] : ""}</td>
-                                                                     <td style={{ color: highlight ? "#4CAF50" : null }}>{newValue ? newValue[key] : ""}</td>
-                                                                  </tr>
+                                                                  return (
+                                                                     <tr className="rowLogs table-borderless">
+                                                                        <TextCell>{key}</TextCell>
+                                                                        <TextCell>{oldValue ? oldValue[key] : ""}</TextCell>
+                                                                        <TextCell style={{ color: highlight ? "#4CAF50" : null }}>{newValue ? newValue[key] : ""}</TextCell>
+                                                                     </tr>
+                                                                  )
                                                                }
                                                             })}
-                                                      </tbody>
+                                                      </TableData>
                                                    </Table></Card.Body>
                                                 </Accordion.Collapse>
                                              </Accordion.Toggle>
