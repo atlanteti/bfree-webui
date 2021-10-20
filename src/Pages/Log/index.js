@@ -134,7 +134,7 @@ class Log extends Component {
                                     <Col xs={12} md={6} sm={5}>
                                        <DataSearchTitle>Pesquisar por período</DataSearchTitle>
                                        <Row>
-                                          <Col className="mt-2" xs={12} md={6} sm={6}>
+                                          <Col className="mt-2">
                                              <DatePicker
                                                 placeholderText="dd/mm/aaaa"
                                                 dateFormat="dd/MM/yyyy"
@@ -153,7 +153,7 @@ class Log extends Component {
                                                 }
                                              />
                                           </Col>
-                                          <Col className="mt-2" xs={12} md={6} sm={6}>
+                                          <Col className="mt-2">
                                              <DatePicker
                                                 placeholderText="dd/mm/aaaa"
                                                 dateFormat="dd/MM/yyyy"

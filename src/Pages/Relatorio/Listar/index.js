@@ -9,7 +9,7 @@ import {
    TableRow, TextCell, TextHeaderCell, Title,
    HeaderContainer, RowTopMargin, NumberCell,
    MainContainer, MainRow, CustomMenuCol, TableHeader,
-   TableData, MainTable, ReportTableData, SearchBarBorder, BtnBlue
+   TableData, MainTable, ReportTableData, SearchBarBorder, BtnBlue, DataSearchTitle
 } from '../../../styles/CommonStyles'
 import SortColumn from '../../../Componentes/SortColumn'
 import { React } from 'react'
@@ -155,49 +155,64 @@ export default class ListarRelatorio extends ListarPagina {
                      <SearchBarBorder>
                         <Form onSubmit={this.onSubmit.bind(this)}>
                            <Row>
-                              <Col className="mt-2" xs={12} sm={4}>
-                                 <ListUsers
-                                    name="usr_cod"
-                                    fullWidth
-                                    defaultValue={this.context.admin ? this.state.formData?.usr_cod : this.context.user}
-                                    defaultUser={this.context.admin ? this.state.formData?.usr_cod : this.context.user}
-                                    disabled={!this.context.admin}
-                                    onChange={this.context.admin ? this.handleSelect : null}
-                                 />
-                              </Col>
-                              <Col className="mt-2" xs={12} sm={3} md={3}>
-                                 <DatePicker
-                                    placeholderText="dd/mm/aaaa"
-                                    dateFormat="dd/MM/yyyy"
-                                    selected={this.state.initialDate}
-                                    onChange={(dateSelect) => this.changeDate(dateSelect, "initialDate")}
-                                    customInput={
-                                       <ValidationTextField
-                                          label="Data Inicial"
-                                          type="text"
+                              <Col xs={12} md={3} sm={5}>
+                                 <p style={{ color: 'transparent' }}>.</p>
+                                 <Row>
+                                    <Col className="mt-2">
+                                       <ListUsers
+                                          name="usr_cod"
                                           fullWidth
+                                          defaultValue={this.context.admin ? this.state.formData?.usr_cod : this.context.user}
+                                          defaultUser={this.context.admin ? this.state.formData?.usr_cod : this.context.user}
+                                          disabled={!this.context.admin}
+                                          onChange={this.context.admin ? this.handleSelect : null}
                                        />
-                                    }
-                                 />
+                                    </Col>
+                                 </Row>
                               </Col>
-                              <Col className="mt-2" xs={12} sm={3} md={3}>
-                                 <DatePicker
-                                    placeholderText="dd/mm/aaaa"
-                                    dateFormat="dd/MM/yyyy"
-                                    selected={this.state.finalDate}
-                                    maxDate={this.state.finalDate}
-                                    onChange={(dateSelect) => this.changeDate(dateSelect, "finalDate")}
-                                    customInput={
-                                       <ValidationTextField
-                                          label="Data Final"
-                                          type="text"
-                                          fullWidth
+                              <Col xs={12} md={7} sm={7}>
+                                 <DataSearchTitle>Pesquisar por período</DataSearchTitle>
+                                 <Row>
+                                    <Col className="mt-2">
+                                       <DatePicker
+                                          placeholderText="dd/mm/aaaa"
+                                          dateFormat="dd/MM/yyyy"
+                                          selected={this.state.initialDate}
+                                          onChange={(dateSelect) => this.changeDate(dateSelect, "initialDate")}
+                                          customInput={
+                                             <ValidationTextField
+                                                label="Data Inicial"
+                                                type="text"
+                                                fullWidth
+                                             />
+                                          }
                                        />
-                                    }
-                                 />
+                                    </Col>
+                                    <Col className="mt-2">
+                                       <DatePicker
+                                          placeholderText="dd/mm/aaaa"
+                                          dateFormat="dd/MM/yyyy"
+                                          selected={this.state.finalDate}
+                                          maxDate={this.state.finalDate}
+                                          onChange={(dateSelect) => this.changeDate(dateSelect, "finalDate")}
+                                          customInput={
+                                             <ValidationTextField
+                                                label="Data Final"
+                                                type="text"
+                                                fullWidth
+                                             />
+                                          }
+                                       />
+                                    </Col>
+                                 </Row>
                               </Col>
-                              <Col className="mt-3" xs={12} sm={3} md={2}>
-                                 <BtnBlue type="submit" variant="dark">Buscar</BtnBlue>
+                              <Col className="mt-3" xs={12} md={2} sm={5}>
+                                 <p style={{ color: 'transparent' }}>.</p>
+                                 <Row>
+                                    <Col>
+                                       <BtnBlue type="submit" variant="dark">Buscar</BtnBlue>
+                                    </Col>
+                                 </Row>
                               </Col>
                            </Row>
                         </Form>

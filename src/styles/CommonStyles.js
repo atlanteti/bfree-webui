@@ -258,6 +258,7 @@ export const NumberCell = styled(TableCell)`
 export const TextCell = styled(TableCell)`
    text-align: left;
    font-weight: ${props => props.fontTotal ? 'bold' : '400'};
+   color: ${props => props.fontTotal ? '#0203AD !important' : 'default'}
    `
 export const ActionCell = styled(TableCell)`
    text-align: center;
