@@ -122,7 +122,7 @@ export function SelectField(props) {
       }}
       helperText={props.required ? <RequiredField>Campo obrigatório</RequiredField> : null}
    >
-      {props.hasNull ? <option value={null}><NoDataComp /></option> : null}
+      {props.hasNull ? <MenuItem value={null}><NoDataComp /></MenuItem> : null}
       {props.dataCollection ?
          Object.keys(props.dataCollection).map(key => {
             return (<MenuItem key={key} value={key}>{props.dataCollection[key]}</MenuItem>)
