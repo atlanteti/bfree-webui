@@ -229,7 +229,15 @@ text-align: left;
 export const ActionHeaderCell = styled(ColumnTitle)`
 text-align: center;`
 
-export const TableData = styled.tbody``
+export const TableData = styled.tbody`
+    .rowLogs {
+      &:nth-child(even) {background: #FFF}
+      &:nth-child(odd) {background: #F8FAFF}
+
+      td {
+         color: #546E7A
+      }
+    }`
 
 export const ReportTableData = styled(TableData)`
    &:last-child{font-weight: bold !important;  }
@@ -249,6 +257,7 @@ export const NumberCell = styled(TableCell)`
 export const TextCell = styled(TableCell)`
    text-align: left;
    font-weight: ${props => props.fontTotal ? 'bold' : '400'};
+   color: ${props => props.fontTotal ? '#0203AD !important' : 'default'}
    `
 export const ActionCell = styled(TableCell)`
    text-align: center;
@@ -306,3 +315,10 @@ export const TopBarContainer = styled(Col)`
 export const TopBarContainerMenu = styled(TopBarContainer)`
    margin-bottom: 3rem;
    `
+
+export const DataSearchTitle = styled.p`
+   color:#3E516E;
+   font-size: 0.8rem;
+   font-weight: bold;
+   margin-bottom: 4px;
+`

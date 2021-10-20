@@ -13,6 +13,13 @@ $form-validation-states: (
     "icon": none,
   ),
 );
+/* change card style */
+$card-border-radius: 0.5rem;
+$card-cap-bg: #fff !important;
+$card-spacer-y: 1.25rem;
+$card-spacer-x: 2rem;
+/*--------------------*/
+$font-family-sans-serif: 'Open Sans', sans-serif;
 $custom-control-label-color: inherit !important;
 $dark: #0203ad;
 $light: #eceff1;

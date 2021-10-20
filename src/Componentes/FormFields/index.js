@@ -107,23 +107,27 @@ NumberField.propTypes = {
 
 
 export function SelectField(props) {
-   return <Form.Group controlId={props.controlId}>
-      <Form.Label style={{ color: "#B0BEC5" }}>{props.label}</Form.Label>
-      <Form.Control
-         as="select"
-         type={props.type}
-         style={SelectValidateStyle}
-         defaultValue={props.defaultValue}
-         required={props.required}
-         onChange={props.onChange}
-      >
-         {props.hasNull ? <option value={null}><NoDataComp /></option> : null}
-         {props.dataCollection ?
-            Object.keys(props.dataCollection).map(key => {
-               return (<option key={key} value={key}>{props.dataCollection[key]}</option>)
-            }) : null}
-      </Form.Control>
-   </Form.Group>
+   return <ValidationTextField
+      id={props.id}
+      select
+      fullWidth
+      name={props.name}
+      label={props.Label}
+      required={props.required}
+      defaultValue={props.defaultValue}
+      onChange={props.onChange}
+      InputLabelProps={{
+         shrink: true,
+         required: false
+      }}
+      helperText={props.required ? <RequiredField>Campo obrigatório</RequiredField> : null}
+   >
+      {props.hasNull ? <MenuItem value={null}><NoDataComp /></MenuItem> : null}
+      {props.dataCollection ?
+         Object.keys(props.dataCollection).map(key => {
+            return (<MenuItem key={key} value={key}>{props.dataCollection[key]}</MenuItem>)
+         }) : null}
+   </ValidationTextField>
 }
 SelectField.defaultProps =
 {
