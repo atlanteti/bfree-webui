@@ -12,12 +12,12 @@ export default function ExclusionModal(props) {
          <Modal.Title>Cuidado!</Modal.Title>
       </Modal.Header>
       <Modal.Body>Você deseja excluir {props.pageIdentifier}?</Modal.Body>
-      <Modal.Footer>
-         <Button variant="warning" onClick={props.closeModal}>
-            Não
+      <Modal.Footer style={{ justifyContent: "center" }}>
+         <Button variant="dark" onClick={confirmDeletion}>
+            Sim
          </Button>
-         <Button variant="danger" onClick={confirmDeletion}>
-            Excluir
+         <Button variant="outline-dark" onClick={props.closeModal}>
+            Não
          </Button>
       </Modal.Footer>
    </Modal>
