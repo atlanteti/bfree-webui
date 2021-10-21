@@ -72,7 +72,6 @@ export class DemandFormBuilder extends EditCreateForm {
                                  disabled={disableField}
                                  formatChars={{ "x": '[0-9]' }}
                                  maskChar=" "
-                                 required
                                  onChange={this.context.admin ? this.handleChange : null}
                               >
                                  {() =>
@@ -80,7 +79,6 @@ export class DemandFormBuilder extends EditCreateForm {
                                        id="dem_contact_phone"
                                        label="Telefone"
                                        type="text"
-                                       required
                                        maxLength="200"
                                        disabled={disableField}
                                        // defaultValue={this.state.primaryData?.usr_phone}
@@ -90,7 +88,6 @@ export class DemandFormBuilder extends EditCreateForm {
                                           shrink: true,
                                           required: false
                                        }}
-                                       helperText="Campo Obrigatório"
                                     />}
                               </InputMask>
                            </Col>
