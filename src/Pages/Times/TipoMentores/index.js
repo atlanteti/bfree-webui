@@ -127,7 +127,10 @@ export default class TiposDeMentoria extends Component {
       return <>
          <Helmet title={`Tipos de Mentoria`} />
          <CustomMenuCol md={2}><CustomMenu /></CustomMenuCol>
-         <Col>
+         <Col
+            sm={{ offset: 2, span: 10 }}// Temporary until styled components
+            md={{ offset: 3, span: 9 }}
+            lg={{ offset: 3, span: 9 }}>
             <Title>Tipos de Mentoria</Title>
          </Col>
          <Col
