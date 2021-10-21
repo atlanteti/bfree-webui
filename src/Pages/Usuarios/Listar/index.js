@@ -1,22 +1,20 @@
-import { Button, Col, Container, Row } from 'react-bootstrap'
+import { Button } from 'react-bootstrap'
 // import SearchBar from '../../../Componentes/SearchBar'
 import { request } from '../../../Services/api'
 import ListarPagina, { PageHeaderCustomComponent } from '../../../Componentes/ListData'
 import {
    ActionCell, ActionHeaderCell,
-   RightAlignText,
-   TableRow, TextCell, TextHeaderCell, Title,
-   HeaderContainer, RowTopMargin, NumberCell
+   TableRow, TextCell, TextHeaderCell,
+   NumberCell
 } from '../../../styles/CommonStyles'
 import SortColumn from '../../../Componentes/SortColumn'
 import { React } from 'react'
 import { UserSearchBar } from './UserSearchBar'
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
+import { Menu, MenuItem } from '@mui/material';
 import { Link } from "react-router-dom"
 import { ReactComponent as EditIcon } from '../../../Assets/Icons/icon_editar.svg'
 import { ReactComponent as DeleteIcon } from '../../../Assets/Icons/icon_delete.svg'
-import { ActiveStatusBadge, StatusBadgePropped } from '../../../Componentes/StatusBadges'
+import { StatusBadgePropped } from '../../../Componentes/StatusBadges'
 import NoDataComp from '../../../Componentes/NoDataComp'
 
 export default class ListarUsuario extends ListarPagina {
