@@ -98,11 +98,6 @@ function newFunction(admin) {
          elemBefore: () => <JornadaIcon />
       },
       {
-         title: <span className="title-arrow">Demandas <IoChevronForwardOutline size={17} /></span>,
-         itemId: '/demandas',
-         elemBefore: () => <DemandasIcon />
-      },
-      {
          title: <span className="title-arrow">Tipos de Demandas  <IoChevronForwardOutline size={19} /></span>,
          itemId: '/tipodemanda',
          elemBefore: () => <TiposDemandasIcon />
@@ -121,6 +116,11 @@ function newFunction(admin) {
          title: <span className="title-arrow">Usuários <IoChevronForwardOutline size={17} /></span>,
          itemId: '/usuarios',
          elemBefore: () => <UsuariosIcon />
+      },
+      {
+         title: <span className="title-arrow">Demandas <IoChevronForwardOutline size={17} /></span>,
+         itemId: '/demandas',
+         elemBefore: () => <DemandasIcon />
       },
       {
          title: <span className="title-arrow">Relatórios <IoChevronForwardOutline size={17} /></span>,
