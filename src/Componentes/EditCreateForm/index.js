@@ -1,9 +1,11 @@
-import { Component } from 'react';
+import { Component, createRef } from 'react';
 import { request } from '../../Services/api';
 import moment from "moment";
+
 export class EditCreateForm extends Component {
    constructor(props) {
       super(props);
+      this.myRef = createRef();
       this.state = {
          primaryData: {},
          responseAlertShow: null,
@@ -99,11 +101,6 @@ export class EditCreateForm extends Component {
       }
    };
    handleChange = (e) => {
-      if(e.target.id === "dem_sdm_cod"){
-         this.setState({
-            checkStatus: e.target.options[e.target.selectedIndex].innerText
-         })
-      }
       this.setState((state, props) => ({
          primaryData: {
             ...state.primaryData, [e.target.id]: e.target.value
@@ -114,7 +111,7 @@ export class EditCreateForm extends Component {
       this.setState((state, props) => ({
          dateAction: date,
          primaryData: {
-            ...state.primaryData, 
+            ...state.primaryData,
             [id]: date && moment(date).format('yyyy-MM-DD'),
          }
       }))
@@ -127,6 +124,12 @@ export class EditCreateForm extends Component {
       })
    };
    handleSelect = (e) => {
+      if (e.target.name === "dem_sdm_cod") {
+         const ref = this.myRef.current;
+         this.setState({
+            checkStatus: ref.state.statusDemands[e.target.value - 1].sdm_name
+         })
+      }
       this.setState((state, props) => ({
          primaryData: {
             ...state.primaryData, [e.target.name]: e.target.value

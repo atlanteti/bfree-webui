@@ -72,7 +72,6 @@ export class DemandFormBuilder extends EditCreateForm {
                                  disabled={disableField}
                                  formatChars={{ "x": '[0-9]' }}
                                  maskChar=" "
-                                 required
                                  onChange={this.context.admin ? this.handleChange : null}
                               >
                                  {() =>
@@ -80,17 +79,13 @@ export class DemandFormBuilder extends EditCreateForm {
                                        id="dem_contact_phone"
                                        label="Telefone"
                                        type="text"
-                                       required
                                        maxLength="200"
                                        disabled={disableField}
-                                       // defaultValue={this.state.primaryData?.usr_phone}
-                                       // onChange={this.handleChange}
                                        fullWidth
                                        InputLabelProps={{
                                           shrink: true,
                                           required: false
                                        }}
-                                       helperText="Campo Obrigatório"
                                     />}
                               </InputMask>
                            </Col>
@@ -140,10 +135,10 @@ export class DemandFormBuilder extends EditCreateForm {
                            </Col>
                            <Col className="mt-3" xs={12} sm={4}>
                               <ListStatusDemands
+                                 ref={this.myRef}
                                  defaultValue={this.props.primaryId}
-                                 // errorMessage={this.state.dem_sdm_cod}
-                                 onChange={this.handleSelect}
                                  name="dem_sdm_cod"
+                                 onChange={this.handleSelect}
                                  defaultStatusDemand={this.state.primaryData.dem_sdm_cod}
                                  required
                               />
@@ -164,7 +159,7 @@ export class DemandFormBuilder extends EditCreateForm {
                            (
                               <Restricted>
                                  <Row>
-                                    <Col xs={12} sm={6}>
+                                    <Col className="mt-3" xs={12} sm={6}>
                                        <DatePicker
                                           controlId="dem_dtaction"
                                           placeholderText="dd/mm/aaaa"
@@ -173,8 +168,8 @@ export class DemandFormBuilder extends EditCreateForm {
                                           selected={this.state.dateAction}
                                           onChange={(dateSelect) => this.handleDate(dateSelect, "dem_dtaction")}
                                           customInput={
-                                             <InputTextField
-                                                Label="Data de Ação"
+                                             <ValidationTextField
+                                                label="Data de Ação"
                                                 type="text"
                                                 InputLabelProps={{
                                                    shrink: true,
