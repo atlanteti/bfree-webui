@@ -45,7 +45,7 @@ export class TeamFormBuilder extends EditCreateForm {
                                  required
                                  maxLength="45"
                               />
-                                                         </Col>
+                           </Col>
                            <Col className="mt-3" xs={12} sm={3}>
                               <ListCompanies
                                  defaultValue={this.props.primaryId}
@@ -59,8 +59,8 @@ export class TeamFormBuilder extends EditCreateForm {
                                  onFalse="Inativo"
                                  onTrue="Ativo"
                                  controlId="tea_active"
-                                 key="tea_active"
-                                 onChange={this.handleChange}
+                                 name="tea_active"
+                                 onChange={this.handleSelect}
                                  register={true}
                                  value={this.state.primaryData?.tea_active}
                                  required />
