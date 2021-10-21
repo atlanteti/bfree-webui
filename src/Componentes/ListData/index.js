@@ -197,7 +197,7 @@ export default class ListarPagina extends Component {
             <CustomMenuCol lg={2}><CustomMenu /></CustomMenuCol>
             <Col>
                <Col>
-                  <Container fluid>
+                  <Container fluid className="mt-3">
                      <CustomAlert
                         showAlertCallback={this.getAlertCallback.bind(this)}
                         redirectCallback={this.redirectCallback.bind(this)}
