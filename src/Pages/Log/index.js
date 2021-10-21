@@ -251,11 +251,9 @@ class Log extends Component {
                            })}</> : null
                         }
 
-                        <PaginationRow>
-                           <CustomPagination
-                              fetchAndSetData={this.fetchAndSetData}
-                              page={this.state.page} />
-                        </PaginationRow>
+                        <CustomPagination
+                           fetchAndSetData={this.fetchAndSetData}
+                           page={this.state.page} />
                      </Container>
                   </Col>
                </Col>
