@@ -76,7 +76,7 @@ export default class ListarTipoDemanda extends ListarPagina {
             <Button variant="transparent" onClick={() => {
                this.setState({
                   deletionId: tDemand.tdm_cod,
-                  modalIdentifier: "a demanda"
+                  modalIdentifier: "o Tipo de Demanda"
                })
                this.openModal()
             }}><DeleteIcon /></Button>
