@@ -58,7 +58,7 @@ export const CustomMenu = () => {
                <span>{" "}</span><strong>B</strong>free
             </TopBarContainerMenu>
             <Navigation
-               activeItemId={location.pathname.replace("/cadastrar", "").replace("/inserir", "") || location.pathname.replace("/editar", "").replace("/4/alterar", "")}
+               activeItemId={location.pathname.replace("/cadastrar", "").replace("/inserir", "")}
                onSelect={({ itemId }) => {
                   history.push(itemId)
                }}
@@ -143,7 +143,7 @@ function newFunction(admin) {
    return complete
 
    function conditionalForPermissionAccess(line) {
-      { return line.title == "Demandas" || line.title == "Relatorios" }
+      { return line.itemId == "/demandas" || line.itemId == "/relatorios" }
    }
 }
 
