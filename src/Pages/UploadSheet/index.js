@@ -141,6 +141,7 @@ export default class UploadSheet extends Component {
                                                 <Col style={{ textAlign: "center" }}>
                                                    <Button type="submit" variant="dark"
                                                       style={{
+                                                         marginTop: "2rem",
                                                          padding: "0.5rem 3rem"
                                                       }}>
                                                       Enviar
