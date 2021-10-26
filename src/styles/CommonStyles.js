@@ -324,3 +324,12 @@ export const DataSearchTitle = styled.p`
    font-weight: bold;
    margin-bottom: 4px;
 `
+
+export const ExportContainer = styled.span`
+   display: flex;
+   flex-direction: row;
+   margin-top: 1.5rem;
+   align-items: center;
+   color: #546E7A;
+   cursor: pointer;
+`

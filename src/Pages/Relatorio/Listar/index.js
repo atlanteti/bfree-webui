@@ -9,7 +9,7 @@ import {
    TableRow, TextCell, TextHeaderCell, Title,
    HeaderContainer, RowTopMargin, NumberCell,
    MainContainer, MainRow, CustomMenuCol, TableHeader,
-   TableData, MainTable, ReportTableData, SearchBarBorder, BtnBlue, DataSearchTitle
+   TableData, MainTable, ReportTableData, SearchBarBorder, BtnBlue, DataSearchTitle, ExportContainer
 } from '../../../styles/CommonStyles'
 import SortColumn from '../../../Componentes/SortColumn'
 import { React } from 'react'
@@ -23,6 +23,7 @@ import moment from 'moment'
 import ListUsers from '../../../Componentes/ListUsers'
 import ContextLogin from "../../../Context/ContextLogin";
 import Restricted from '../../../Context/AccessPermission'
+import { AiOutlineUpload } from "react-icons/ai"
 
 // import { JourneySearchBar } from './JourneySearchBar'
 
@@ -217,6 +218,11 @@ export default class ListarRelatorio extends ListarPagina {
                            </Row>
                         </Form>
                      </SearchBarBorder>
+                     <Restricted>
+                        <ExportContainer onClick={(event) => this.requestExportData(event, "export-billing", "Relatorio")}>
+                           <AiOutlineUpload size={23} className="mr-2"/> EXPORTAR EXCEL
+                        </ExportContainer>
+                     </Restricted>
                      <Row noGutters>
                         <MainTable noData={this.state.noData} className="table-borderless">
                            {this.state.responseData === null
