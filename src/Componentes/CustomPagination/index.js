@@ -13,7 +13,6 @@ export default function CustomPagination(props) {
                disabled={props.page.current === 1}
                onClick={(e) => {
                   props.fetchAndSetData({ page: props.page.current - 1 })
-                  window.scroll(0, 0)
                }}>
                <IoChevronBackOutline />
             </Button>
@@ -21,7 +20,6 @@ export default function CustomPagination(props) {
                disabled={props.page.current === props.page.total}
                onClick={(e) => {
                   props.fetchAndSetData({ page: props.page.current + 1 })
-                  window.scroll(0, 0)
                }}>
                <IoChevronForwardOutline />
             </Button>
