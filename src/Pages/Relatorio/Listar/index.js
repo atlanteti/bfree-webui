@@ -82,7 +82,7 @@ export default class ListarRelatorio extends ListarPagina {
       return <HeaderContainer fluid>
          <RowTopMargin >
             <Col>
-               <Helmet title={"Relatório"} />
+               <Helmet title={"Relatórios"} />
                <Title>{"Relatórios"}</Title>
             </Col>
          </RowTopMargin>
