@@ -27,16 +27,15 @@ export default function CustomFileInputField(props) {
                   onChange={props.onChange}
                   label={"Arquivo"}
                   defaultValue={props.filename}
-                  style={{ caretColor: "transparent" }}>
+                  style={{ caretColor: "transparent" }}
+                  helperText="Número máximo de linhas: 500">
                </InputTextField>
             </Col>
-            <Col style={{ alignSelf: "center" }} xs={3}>
+            <Col style={{
+               alignSelf: "center",
+               marginBottom: "22px"
+            }} xs={3}>
                <Button style={{ whiteSpace: "nowrap" }} variant="register" onClick={handleUpload} >SELECIONAR ARQUIVO</Button>
-            </Col>
-         </Row>
-         <Row>
-            <Col>
-               Número máximo de linhas: 500
             </Col>
          </Row>
       </Col>

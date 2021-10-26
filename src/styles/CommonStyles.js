@@ -291,7 +291,7 @@ export const BtnMenu = styled.button`
 `
 export const BackGroundForm = styled(Row)`
    background-color: #ffff;
-   padding: 2rem;
+   padding: 2rem 0rem 1rem;
    border-radius: 8px;
    box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
 `
