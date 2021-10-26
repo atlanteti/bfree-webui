@@ -218,11 +218,15 @@ export default class ListarRelatorio extends ListarPagina {
                            </Row>
                         </Form>
                      </SearchBarBorder>
-                     <Restricted>
-                        <ExportContainer onClick={(event) => this.requestExportData(event, "export-billing", "Relatorio")}>
-                           <AiOutlineUpload size={23} className="mr-2"/> EXPORTAR EXCEL
-                        </ExportContainer>
-                     </Restricted>
+                     <Col>
+                        <Row>
+                           <Restricted>
+                              <ExportContainer onClick={(event) => this.requestExportData(event, "export-billing", "Relatorio")}>
+                                 <AiOutlineUpload size={23} className="mr-2"/> EXPORTAR EXCEL
+                              </ExportContainer>
+                           </Restricted>
+                        </Row>
+                     </Col>
                      <Row noGutters>
                         <MainTable noData={this.state.noData} className="table-borderless">
                            {this.state.responseData === null

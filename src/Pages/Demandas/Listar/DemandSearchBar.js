@@ -55,11 +55,15 @@ export class DemandSearchBar extends SearchBar {
                </Form>
             </Row>
          </SearchBarBorder>
-         <Restricted>
-            <ExportContainer onClick={(event) => this.requestExportData(event, "export-file", "Demandas")}>
-               <AiOutlineUpload size={23} className="mr-2"/> EXPORTAR EXCEL
-            </ExportContainer>
-         </Restricted>
+         <Col>
+            <Row>
+               <Restricted>
+                  <ExportContainer onClick={(event) => this.requestExportData(event, "export-file", "Demandas")}>
+                     <AiOutlineUpload size={23} className="mr-2"/> EXPORTAR EXCEL
+                  </ExportContainer>
+               </Restricted>
+            </Row>
+         </Col>
       </>
       )
    }
