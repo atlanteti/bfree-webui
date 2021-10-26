@@ -98,7 +98,7 @@ function newFunction(admin) {
          elemBefore: () => <JornadaIcon />
       },
       {
-         title: <span className="title-arrow">Tipos de Demandas  <IoChevronForwardOutline size={19} /></span>,
+         title: <span className="title-arrow">Tipos de Demanda  <IoChevronForwardOutline size={19} /></span>,
          itemId: '/tipodemanda',
          elemBefore: () => <TiposDemandasIcon />
       },
