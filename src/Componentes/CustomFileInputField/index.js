@@ -31,7 +31,7 @@ export default function CustomFileInputField(props) {
                </InputTextField>
             </Col>
             <Col style={{ alignSelf: "center" }} xs={3}>
-               <Button style={{ whiteSpace: "nowrap" }} variant="register" onClick={handleUpload} >Selecionar Arquivo</Button>
+               <Button style={{ whiteSpace: "nowrap" }} variant="register" onClick={handleUpload} >SELECIONAR ARQUIVO</Button>
             </Col>
          </Row>
          <Row>
