@@ -88,7 +88,7 @@ export const CustomMenu = () => {
 function newFunction(admin) {
    const complete = [
       {
-         title: <span className="title-arrow">Empresa <IoChevronForwardOutline size={17} /></span>,
+         title: <span className="title-arrow">Empresas <IoChevronForwardOutline size={17} /></span>,
          itemId: '/companhia',
          elemBefore: () => <EmpresaIcon />
       },
@@ -98,7 +98,7 @@ function newFunction(admin) {
          elemBefore: () => <JornadaIcon />
       },
       {
-         title: <span className="title-arrow">Tipos de Demandas  <IoChevronForwardOutline size={19} /></span>,
+         title: <span className="title-arrow">Tipos de Demanda  <IoChevronForwardOutline size={19} /></span>,
          itemId: '/tipodemanda',
          elemBefore: () => <TiposDemandasIcon />
       },
