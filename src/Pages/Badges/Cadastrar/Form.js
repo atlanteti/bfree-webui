@@ -166,7 +166,7 @@ export class BadgeFormBuilder extends EditCreateForm {
                                  multiline
                                  required
                                  rows={4}
-                                 maxLength="45"
+                                 maxLength="400"
                               />
 
                            </Col>

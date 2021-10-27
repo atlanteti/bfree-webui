@@ -43,7 +43,8 @@ export class CompanyFormBuilder extends EditCreateForm {
                               <NumberField
                                  id="cpn_cli_cod"
                                  label="ID Eduzz"
-                                 type="number"
+                                 type="text"
+                                 maxLength="10"
                                  fullWidth
                                  defaultValue={this.state.primaryData?.cpn_cli_cod}
                                  onChange={this.handleChange}
@@ -55,6 +56,7 @@ export class CompanyFormBuilder extends EditCreateForm {
                                  id="cpn_name"
                                  label="Nome da Empresa"
                                  fullWidth
+                                 maxLength="45"
                                  required
                                  onChange={this.handleChange}
                                  defaultValue={this.state.primaryData?.cpn_name}

@@ -41,6 +41,7 @@ export class JourneyFormBuilder extends EditCreateForm {
                                     label="Nome"
                                     type="text"
                                     fullWidth
+                                    maxLength="45"
                                     defaultValue={this.state.primaryData?.jny_name}
                                     onChange={this.handleChange}
                                     required
