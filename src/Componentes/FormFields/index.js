@@ -33,26 +33,15 @@ export const ValidationTextField = styled(TextField)({
 
 export function InputTextField(props, classes) {
    return <ValidationTextField
-      onClick={props.onClick}
-      id={props.id}
-      disabled={props.disabled}
-      label={props.label}
-      type={props.type}
-      value={props.defaultValue}
-      onChange={props.onChange}
-      className={classes.textField}
-      fullWidth={props.fullWidth ? true : null}
-      required={props.required}
-      multiline={props.multiline ? true : null}
-      rows={props.rows ? props.rows : null}
+      {...props}
       InputLabelProps={{
          shrink: true,
          required: false,
       }}
-      inputProps={{
-         maxLength: props.maxLength,
-       }}
-      helperText={props.required ? "Campo Obrigatório" : null}
+      error={!!props.errorMessage}
+      helperText={props.required ?
+         (props.errorMessage ? props.errorMessage : "Campo Obrigatório")
+         : props.errorMessage}
       {...props}
    />
 }
