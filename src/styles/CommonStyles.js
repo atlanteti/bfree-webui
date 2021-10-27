@@ -290,10 +290,13 @@ export const BtnMenu = styled.button`
    margin-left: 0.5rem;
 `
 export const BackGroundForm = styled(Row)`
-   background-color: #ffff;
+background-color: #ffff;
+padding: 2rem;
+border-radius: 8px;
+box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+`
+export const UploadSheetBackground = styled(BackGroundForm)`
    padding: 2rem 0rem 1rem;
-   border-radius: 8px;
-   box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
 `
 
 export const BtnContainer = styled.div`
