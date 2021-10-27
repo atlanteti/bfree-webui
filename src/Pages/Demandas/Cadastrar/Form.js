@@ -94,6 +94,7 @@ export class DemandFormBuilder extends EditCreateForm {
                            <Col className="mt-3" >
                               <InputTextField
                                  id="dem_desc"
+                                 errorMessage={this.state.dem_desc}
                                  label="Descrição"
                                  type="textarea"
                                  required
