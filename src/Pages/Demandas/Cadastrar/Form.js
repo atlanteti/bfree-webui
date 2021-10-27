@@ -46,6 +46,7 @@ export class DemandFormBuilder extends EditCreateForm {
                                  id="dem_title"
                                  label="Titulo"
                                  type="text"
+                                 maxLength="45"
                                  required
                                  defaultValue={this.state.primaryData?.dem_title}
                                  disabled={disableField}
@@ -58,6 +59,7 @@ export class DemandFormBuilder extends EditCreateForm {
                                  id="dem_contact_email"
                                  label="Email"
                                  type="email"
+                                 maxLength="144"
                                  required
                                  defaultValue={this.state.primaryData?.dem_contact_email}
                                  disabled={disableField}
@@ -79,7 +81,6 @@ export class DemandFormBuilder extends EditCreateForm {
                                        id="dem_contact_phone"
                                        label="Telefone"
                                        type="text"
-                                       maxLength="200"
                                        disabled={disableField}
                                        fullWidth
                                        InputLabelProps={{
@@ -96,6 +97,7 @@ export class DemandFormBuilder extends EditCreateForm {
                                  id="dem_desc"
                                  label="Descrição"
                                  type="textarea"
+                                 maxLength="200"
                                  required
                                  multiline
                                  rows={4}
@@ -112,6 +114,7 @@ export class DemandFormBuilder extends EditCreateForm {
                                  label="Observações"
                                  type="textarea"
                                  required
+                                 maxLength="200"
                                  multiline
                                  rows={4}
                                  disabled={disableField}

@@ -49,6 +49,9 @@ export function InputTextField(props, classes) {
          shrink: true,
          required: false,
       }}
+      inputProps={{
+         maxLength: props.maxLength,
+       }}
       helperText={props.required ? "Campo Obrigatório" : null}
       {...props}
    />
@@ -95,12 +98,15 @@ export function NumberField(props) {
          shrink: true,
          required: false
       }}
+      inputProps={{
+         maxLength: props.maxLength,
+       }}
       helperText={props.required ? "Campo Obrigatório" : null}
    />
 }
 NumberField.propTypes = {
-   controlId: PropTypes.string.isRequired,
-   Label: PropTypes.string.isRequired,
+   id: PropTypes.string.isRequired,
+   label: PropTypes.string.isRequired,
    type: PropTypes.string,
    as: PropTypes.string,
    onChange: PropTypes.func.isRequired,
