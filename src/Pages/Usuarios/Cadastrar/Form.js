@@ -64,7 +64,6 @@ export class UserFormBuilder extends EditCreateForm {
                                        id="usr_phone"
                                        label="Telefone"
                                        type="text"
-                                       maxLength="200"
                                        required
                                        // defaultValue={this.state.primaryData?.usr_phone}
                                        onChange={this.handleChange}
@@ -96,7 +95,7 @@ export class UserFormBuilder extends EditCreateForm {
                                  id="usr_cli_cod"
                                  label="ID Eduzz"
                                  type="text"
-                                 maxLength="144"
+                                 maxLength="45"
                                  required
                                  defaultValue={this.state.primaryData?.usr_cli_cod}
                                  onChange={this.handleChange}
@@ -108,7 +107,7 @@ export class UserFormBuilder extends EditCreateForm {
                                  id="usr_externalid"
                                  label="ID Externo"
                                  type="text"
-                                 maxLength="144"
+                                 maxLength="10"
                                  defaultValue={this.state.primaryData?.usr_externalid}
                                  onChange={this.handleChange}
                                  fullWidth
