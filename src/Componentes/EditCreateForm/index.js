@@ -124,7 +124,6 @@ export class EditCreateForm extends Component {
       })
    };
    handleSelect = (e) => {
-      console.log(e.target.value)
       if (e.target.value !== null && e.target.name === "dem_sdm_cod") {
          const ref = this.myRef.current;
          this.setState({
