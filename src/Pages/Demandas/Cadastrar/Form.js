@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Col, Row, Button } from 'react-bootstrap'
+import { Form, Col, Row, Button, Table } from 'react-bootstrap'
 import { DateField } from '../../../Componentes/DateField'
 import { ButtonRow } from '../../../Componentes/ButtonRow'
 import { EditCreateForm } from '../../../Componentes/EditCreateForm/index'
@@ -11,7 +11,10 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import ContextLogin from '../../../Context/ContextLogin'
 import DatePicker from "react-datepicker";
 import Restricted from '../../../Context/AccessPermission'
-import { BackGroundForm, BtnBlue, TitleRegister } from '../../../styles/CommonStyles'
+import {
+   BackGroundForm, BtnBlue, MainTable, TableData,
+   TableHeader, TableRow, TextCell, TextHeaderCell, TitleRegister
+} from '../../../styles/CommonStyles'
 import { IoChevronBackCircleSharp } from "react-icons/io5"
 import InputMask from "react-input-mask"
 
@@ -211,6 +214,28 @@ export class DemandFormBuilder extends EditCreateForm {
                            <Col md={{ offset: 5 }}>
                               <BtnBlue variant="dark" type="submit">Salvar</BtnBlue>
                            </Col>
+                        </Row>
+                        <Row style={{ marginTop: 25 }}>
+                           <MainTable className={"table-borderless"}>
+                              <TableHeader>
+                                 <TextHeaderCell>
+                                    Status:
+                                 </TextHeaderCell>
+                                 <TextHeaderCell>
+                                    Data de alteração:
+                                 </TextHeaderCell>
+                              </TableHeader>
+                              <TableData>
+                                 <TableRow>
+                                    <TextCell data-title="Status:">
+                                       COMPARECIDO
+                                    </TextCell>
+                                    <TextCell data-title="Data de alteração:">
+                                       01-10-2021 11:10
+                                    </TextCell>
+                                 </TableRow>
+                              </TableData>
+                           </MainTable>
                         </Row>
                      </BackGroundForm>
                   </Form>
