@@ -104,10 +104,13 @@ export default class ListarDemandas extends ListarPagina {
          Desfazer mudança de Status
       </Tooltip>
    }
-   async undoStatusChange(demandCode) {
+   async undoStatusChange(demandCode, demandUpdate) {
       const data = await request({
          method: 'put',
-         endpoint: `demands/desfazer/${demandCode}`,
+         endpoint: `reverter-status/${demandCode}`,
+         params: {
+            dateLastUpdate: demandUpdate
+         }
       })
       this.fetchAndSetData({ page: this.state.page })
       return data
@@ -128,7 +131,7 @@ export default class ListarDemandas extends ListarPagina {
                   disabled={demanda.statusDemand.sdm_cod == 1}
                   variant="transparent" onClick={
                      () => {
-                        this.undoStatusChange(demanda.dem_cod)
+                        this.undoStatusChange(demanda.dem_cod, demanda.dem_dtupdate)
                      }
                   }><MdUndo /></Button>
             </OverlayTrigger>
