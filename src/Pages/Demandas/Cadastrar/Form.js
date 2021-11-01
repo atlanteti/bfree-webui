@@ -216,33 +216,39 @@ export class DemandFormBuilder extends EditCreateForm {
                            </Col>
                         </Row>
                         <Row style={{ marginTop: 25 }}>
-                           <MainTable className={"table-borderless"}>
-                              <TableHeader>
-                                 <TextHeaderCell>
-                                    Status:
-                                 </TextHeaderCell>
-                                 <TextHeaderCell>
-                                    Data de alteração:
-                                 </TextHeaderCell>
-                              </TableHeader>
-                              <TableData>
-                                 {this.state.primaryData?.demandStatusHistories.map(
-                                    (entry) => {
-
-                                       return <TableRow>
-                                          <TextCell data-title="Status:">
-                                             {entry.statusDemand.sdm_name}
-                                          </TextCell>
-                                          <TextCell data-title="Data de alteração:">
-                                             <DateField
-                                                controlId="dem_dtupdate"
-                                                Label=""
-                                                date={entry.statusDemand.sdm_dtupdate} />
-                                          </TextCell>
-                                       </TableRow>
-                                    })}
-                              </TableData>
-                           </MainTable>
+                           <Col>
+                              <Row noGutters>
+                                 <b>Histórico de Alterações de Status:</b>
+                              </Row>
+                              <Row noGutters>
+                                 <MainTable className={"table-borderless"}>
+                                    <TableHeader>
+                                       <TextHeaderCell>
+                                          Status:
+                                       </TextHeaderCell>
+                                       <TextHeaderCell>
+                                          Data de alteração:
+                                       </TextHeaderCell>
+                                    </TableHeader>
+                                    <TableData>
+                                       {this.state.primaryData?.demandStatusHistories.map(
+                                          (entry) => {
+                                             return <TableRow>
+                                                <TextCell data-title="Status:">
+                                                   {entry.statusDemand.sdm_name}
+                                                </TextCell>
+                                                <TextCell data-title="Data de alteração:">
+                                                   <DateField
+                                                      controlId="dem_dtupdate"
+                                                      Label=""
+                                                      date={entry.statusDemand.sdm_dtupdate} />
+                                                </TextCell>
+                                             </TableRow>
+                                          })}
+                                    </TableData>
+                                 </MainTable>
+                              </Row>
+                           </Col>
                         </Row>
                      </BackGroundForm>
                   </Form>
