@@ -241,7 +241,7 @@ export class DemandFormBuilder extends EditCreateForm {
                                                    <DateField
                                                       controlId="dem_dtupdate"
                                                       Label=""
-                                                      date={entry.statusDemand.sdm_dtupdate} />
+                                                      date={entry.dsh_dtcreation} />
                                                 </TextCell>
                                              </TableRow>
                                           })}
