@@ -107,12 +107,13 @@ export default class ListarDemandas extends ListarPagina {
    async undoStatusChange(demandCode, demandUpdate) {
       const data = await request({
          method: 'put',
-         endpoint: `reverter-status/${demandCode}`,
+         endpoint: `demands/reverter-status/${demandCode}`,
          params: {
             dateLastUpdate: demandUpdate
          }
       })
       this.fetchAndSetData({ page: this.state.page })
+      this.showAlert(data.meta)
       return data
    }
    createRecord(demanda) {
