@@ -226,14 +226,21 @@ export class DemandFormBuilder extends EditCreateForm {
                                  </TextHeaderCell>
                               </TableHeader>
                               <TableData>
-                                 <TableRow>
-                                    <TextCell data-title="Status:">
-                                       COMPARECIDO
-                                    </TextCell>
-                                    <TextCell data-title="Data de alteração:">
-                                       01-10-2021 11:10
-                                    </TextCell>
-                                 </TableRow>
+                                 {this.state.primaryData?.demandStatusHistories.map(
+                                    (entry) => {
+
+                                       return <TableRow>
+                                          <TextCell data-title="Status:">
+                                             {entry.statusDemand.sdm_name}
+                                          </TextCell>
+                                          <TextCell data-title="Data de alteração:">
+                                             <DateField
+                                                controlId="dem_dtupdate"
+                                                Label=""
+                                                date={entry.statusDemand.sdm_dtupdate} />
+                                          </TextCell>
+                                       </TableRow>
+                                    })}
                               </TableData>
                            </MainTable>
                         </Row>
