@@ -30,7 +30,7 @@ export class TypeDemandFormBuilder extends EditCreateForm {
                </Row>
                :
                (
-                  <Form onSubmit={this.handleSubmit} validated={this.state.validated}>
+                  <Form onSubmit={this.handleSubmit} validated={this.state.validated} noValidate>
                      <ButtonRow
                         cancelButton={<Button variant="light" onClick={this.redirectCallback}><IoChevronBackCircleSharp size={30} color="#BFCADD" /></Button>}
                         titlePage={<TitleRegister>{this.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'} Tipos de Demandas</TitleRegister>}
