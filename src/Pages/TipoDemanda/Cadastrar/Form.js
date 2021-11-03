@@ -45,6 +45,7 @@ export class TypeDemandFormBuilder extends EditCreateForm {
                                  maxLength="45"
                                  defaultValue={this.state.primaryData?.tdm_name}
                                  onChange={this.handleChange}
+                                 errorMessage={this.state.tdm_name}
                                  required
                                  fullWidth
                               />
@@ -54,6 +55,7 @@ export class TypeDemandFormBuilder extends EditCreateForm {
                                  name="tdm_cpn_cod"
                                  defaultValue={this.props.primaryId}
                                  onChange={this.handleSelect}
+                                 errorMessage={this.state.tdm_cpn_cod}
                                  defaultCompany={this.state.primaryData.tdm_cpn_cod ? this.state.primaryData.tdm_cpn_cod : ""}
                                  required />
                            </Col>
