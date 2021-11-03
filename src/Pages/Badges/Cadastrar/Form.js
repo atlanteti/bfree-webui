@@ -154,7 +154,7 @@ export class BadgeFormBuilder extends EditCreateForm {
                                  required
                                  errorMessage={this.state.bdg_description}
                                  rows={4}
-                                 maxLength="45"
+                                 maxLength="400"
                               />
                            </Col>
                         </Row>
