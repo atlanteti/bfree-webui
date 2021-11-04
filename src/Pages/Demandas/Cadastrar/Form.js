@@ -162,34 +162,29 @@ export class DemandFormBuilder extends EditCreateForm {
                               />
                            </Col>
                         </Row>
-                        {(this.state.checkStatus === "COMPARECIDO" || this.state.checkStatus === "VENDA") &&
-                           (
-                              <Restricted>
-                                 <Row>
-                                    <Col className="mt-3" xs={12} sm={6}>
-                                       <DatePicker
-                                          controlId="dem_dtaction"
-                                          placeholderText="dd/mm/aaaa"
-                                          dateFormat="dd/MM/yyyy"
-                                          maxDate={new Date()}
-                                          selected={this.state.dateAction}
-                                          onChange={(dateSelect) => this.handleDate(dateSelect, "dem_dtaction")}
-                                          customInput={
-                                             <ValidationTextField
-                                                label="Data de Ação"
-                                                type="text"
-                                                InputLabelProps={{
-                                                   shrink: true,
-                                                }}
-                                             />
-                                          }
+                           <Row>
+                              <Col className="mt-3" xs={12} sm={6} >
+                                 <DatePicker
+                                    controlId="dem_dtaction"
+                                    placeholderText="dd/mm/aaaa"
+                                    dateFormat="dd/MM/yyyy"
+                                    maxDate={new Date()}
+                                    disabled={!this.context.admin && this.state.primaryData.dem_sdm_cod !== 2} // caso mude a ordem dos status, isso precisa ser refatorado
+                                    selected={this.state.dateAction}
+                                    onChange={(dateSelect) => this.handleDate(dateSelect, "dem_dtaction")}
+                                    customInput={
+                                       <ValidationTextField
+                                          label="Data de Ação"
+                                          type="text"
+                                          InputLabelProps={{
+                                             shrink: true,
+                                          }}
                                        />
-                                    </Col>
-                                 </Row>
-                              </Restricted>
-
-                           )}
-                        {this.paramRoute === 'inserir'
+                                    }
+                                 />
+                              </Col>
+                           </Row>
+                        {this.props.paramRoute === 'inserir'
                            ? ''
                            :
                            <Row className="mt-6">
