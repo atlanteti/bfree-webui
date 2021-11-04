@@ -32,7 +32,7 @@ export class CompanyFormBuilder extends EditCreateForm {
                </Row>
                :
                (
-                  <Form onSubmit={this.handleSubmit} validated={this.state.validated}>
+                  <Form onSubmit={this.handleSubmit} validated={this.state.validated} noValidate>
                      <ButtonRow
                         cancelButton={<Button variant="light" onClick={this.redirectCallback}><IoChevronBackCircleSharp size={30} color="#BFCADD" /></Button>}
                         titlePage={<TitleRegister>{this.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'} Empresa</TitleRegister>}
@@ -47,6 +47,7 @@ export class CompanyFormBuilder extends EditCreateForm {
                                  maxLength="10"
                                  fullWidth
                                  defaultValue={this.state.primaryData?.cpn_cli_cod}
+                                 errorMessage={this.state.cpn_cli_cod}
                                  onChange={this.handleChange}
                                  required
                               />
@@ -59,6 +60,7 @@ export class CompanyFormBuilder extends EditCreateForm {
                                  maxLength="45"
                                  required
                                  onChange={this.handleChange}
+                                 errorMessage={this.state.cpn_name}
                                  defaultValue={this.state.primaryData?.cpn_name}
                               />
                            </Col>

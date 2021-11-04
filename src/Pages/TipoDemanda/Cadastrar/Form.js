@@ -30,7 +30,7 @@ export class TypeDemandFormBuilder extends EditCreateForm {
                </Row>
                :
                (
-                  <Form onSubmit={this.handleSubmit} validated={this.state.validated}>
+                  <Form onSubmit={this.handleSubmit} validated={this.state.validated} noValidate>
                      <ButtonRow
                         cancelButton={<Button variant="light" onClick={this.redirectCallback}><IoChevronBackCircleSharp size={30} color="#BFCADD" /></Button>}
                         titlePage={<TitleRegister>{this.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'} Tipos de Demandas</TitleRegister>}
@@ -45,6 +45,7 @@ export class TypeDemandFormBuilder extends EditCreateForm {
                                  maxLength="45"
                                  defaultValue={this.state.primaryData?.tdm_name}
                                  onChange={this.handleChange}
+                                 errorMessage={this.state.tdm_name}
                                  required
                                  fullWidth
                               />
@@ -54,6 +55,7 @@ export class TypeDemandFormBuilder extends EditCreateForm {
                                  name="tdm_cpn_cod"
                                  defaultValue={this.props.primaryId}
                                  onChange={this.handleSelect}
+                                 errorMessage={this.state.tdm_cpn_cod}
                                  defaultCompany={this.state.primaryData.tdm_cpn_cod ? this.state.primaryData.tdm_cpn_cod : ""}
                                  required />
                            </Col>

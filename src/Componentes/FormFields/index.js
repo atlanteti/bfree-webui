@@ -38,6 +38,9 @@ export function InputTextField(props, classes) {
          shrink: true,
          required: false,
       }}
+      inputProps={{
+         maxLength: props.maxLength,
+      }}
       error={!!props.errorMessage}
       helperText={props.required ?
          (props.errorMessage ? props.errorMessage : "Campo Obrigatório")
