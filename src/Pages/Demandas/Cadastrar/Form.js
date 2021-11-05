@@ -13,8 +13,9 @@ import DatePicker from "react-datepicker";
 import Restricted from '../../../Context/AccessPermission'
 import {
    BackGroundForm, BtnBlue, MainTable, TableData,
-   TableHeader, TableRow, TextCell, TextHeaderCell, TitleRegister
+   TableHeader, TextCell, TextHeaderCell, TitleRegister, NumberHeaderCell
 } from '../../../styles/CommonStyles'
+import { TableRowStatus } from "./styles.js"
 import { IoChevronBackCircleSharp } from "react-icons/io5"
 import InputMask from "react-input-mask"
 
@@ -166,28 +167,28 @@ export class DemandFormBuilder extends EditCreateForm {
                               />
                            </Col>
                         </Row>
-                           <Row>
-                              <Col className="mt-3" xs={12} sm={6} >
-                                 <DatePicker
-                                    controlId="dem_dtaction"
-                                    placeholderText="dd/mm/aaaa"
-                                    dateFormat="dd/MM/yyyy"
-                                    maxDate={new Date()}
-                                    disabled={!this.context.admin && this.state.primaryData.dem_sdm_cod !== 2} // caso mude a ordem dos status, isso precisa ser refatorado
-                                    selected={this.state.dateAction}
-                                    onChange={(dateSelect) => this.handleDate(dateSelect, "dem_dtaction")}
-                                    customInput={
-                                       <ValidationTextField
-                                          label="Data de Ação"
-                                          type="text"
-                                          InputLabelProps={{
-                                             shrink: true,
-                                          }}
-                                       />
-                                    }
-                                 />
-                              </Col>
-                           </Row>
+                        <Row>
+                           <Col className="mt-3" xs={12} sm={6} >
+                              <DatePicker
+                                 controlId="dem_dtaction"
+                                 placeholderText="dd/mm/aaaa"
+                                 dateFormat="dd/MM/yyyy"
+                                 maxDate={new Date()}
+                                 disabled={!this.context.admin && this.state.primaryData.dem_sdm_cod !== 2} // caso mude a ordem dos status, isso precisa ser refatorado
+                                 selected={this.state.dateAction}
+                                 onChange={(dateSelect) => this.handleDate(dateSelect, "dem_dtaction")}
+                                 customInput={
+                                    <ValidationTextField
+                                       label="Data de Ação"
+                                       type="text"
+                                       InputLabelProps={{
+                                          shrink: true,
+                                       }}
+                                    />
+                                 }
+                              />
+                           </Col>
+                        </Row>
                         {this.props.paramRoute === 'inserir'
                            ? ''
                            :
@@ -229,14 +230,14 @@ export class DemandFormBuilder extends EditCreateForm {
                                           <TextHeaderCell>
                                              Data de alteração:
                                           </TextHeaderCell>
-                                          <TextHeaderCell>
+                                          <NumberHeaderCell>
                                              Data de ação:
-                                          </TextHeaderCell>
+                                          </NumberHeaderCell>
                                        </TableHeader>
                                        <TableData>
                                           {this.state.primaryData?.demandStatusHistories.map(
                                              (entry) => {
-                                                return <TableRow>
+                                                return <TableRowStatus>
                                                    <TextCell data-title="Status:">
                                                       {entry.statusDemand.sdm_name}
                                                    </TextCell>
@@ -252,7 +253,7 @@ export class DemandFormBuilder extends EditCreateForm {
                                                          Label=""
                                                          date={entry.dsh_dtaction} />
                                                    </TextCell>
-                                                </TableRow>
+                                                </TableRowStatus>
                                              })}
                                        </TableData>
                                     </MainTable>
