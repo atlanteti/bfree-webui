@@ -74,6 +74,12 @@ class Log extends Component {
          })
    }
    onChange(data) {
+      if(data.target.name === "type"){
+         this.filter = {
+            ...this.filter,
+            [data.target.name]: data.target.value,
+         }
+      }
       this.filter = {
          ...this.filter,
          [data.target.id]: data.target.value,
@@ -124,7 +130,7 @@ class Log extends Component {
                                           <Col className="mt-2" xs={12} md={6} sm={6}>
                                              <SelectField
                                                 Label="Tipo de Log"
-                                                controlId="type"
+                                                name="type"
                                                 dataCollection={this.state.dataCollection}
                                                 onChange={this.onChange}>
                                              </SelectField>
