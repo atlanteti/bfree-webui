@@ -7,8 +7,11 @@ export function displayDate(date) {
    if (formatedHour === 0) {
       formatedHour = "00"
    }
-   const formattedDateFromAM = (moment(date).format('DD-MM-YYYY') + ' ' + formatedHour + ':' + moment(date).format('mm'))
-   const formatedDate = moment(date).format('DD-MM-YYYY hh:mm')
+   const formattedDateFromAM = (moment(date).format('DD/MM/YYYY') + ' ' + formatedHour + ':' + moment(date).format('mm'))
+   var formatedDate = moment(date).format('DD/MM/YYYY hh:mm')
+   if (noHour) {
+      formatedDate = moment(date).format('DD/MM/YYYY')
+   }
    const result = moment(date).format('a') === 'pm' ? formattedDateFromAM : formatedDate
 
    return result
