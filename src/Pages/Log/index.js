@@ -74,7 +74,7 @@ class Log extends Component {
          })
    }
    onChange(data) {
-      if(data.target.name === "type"){
+      if (data.target.name === "type") {
          this.filter = {
             ...this.filter,
             [data.target.name]: data.target.value,
@@ -247,8 +247,8 @@ class Log extends Component {
                                                                   return (
                                                                      <tr className="rowLogs table-borderless">
                                                                         <TextCell>{key}</TextCell>
-                                                                        <TextCell>{oldValue ? displayDate(oldValue[key]) : ""}</TextCell>
-                                                                        <TextCell style={{ color: highlight ? "#4CAF50" : null }}>{newValue ? displayDate(newValue[key]) : ""}</TextCell>
+                                                                        <TextCell>{oldValue ? displayDate(oldValue[key], true) : ""}</TextCell>
+                                                                        <TextCell style={{ color: highlight ? "#4CAF50" : null }}>{newValue ? displayDate(newValue[key], true) : ""}</TextCell>
                                                                      </tr>
                                                                   )
                                                                }
