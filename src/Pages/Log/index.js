@@ -229,7 +229,7 @@ class Log extends Component {
                                                                if (newValue && oldValue) {
                                                                   highlight = newValue[key] !== oldValue[key]
                                                                }
-                                                               if (!key.includes("Data")) {
+                                                               if (!key.includes("Data") || key.includes("Ação")) {
                                                                   return (
                                                                      <tr className="rowLogs table-borderless">
                                                                         <TextCell>{key}</TextCell>
