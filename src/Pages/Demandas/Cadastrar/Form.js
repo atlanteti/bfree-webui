@@ -1,6 +1,6 @@
 import React from 'react'
 import { Form, Col, Row, Button, Table } from 'react-bootstrap'
-import { DateField } from '../../../Componentes/DateField'
+import { DateField, DateFieldStatus } from '../../../Componentes/DateField'
 import { ButtonRow } from '../../../Componentes/ButtonRow'
 import { EditCreateForm } from '../../../Componentes/EditCreateForm/index'
 import { NumberField, InputTextField, ValidationTextField } from '../../../Componentes/FormFields'
@@ -13,11 +13,15 @@ import DatePicker from "react-datepicker";
 import Restricted from '../../../Context/AccessPermission'
 import {
    BackGroundForm, BtnBlue, MainTable, TableData,
-   TableHeader, TableRow, TextCell, TextHeaderCell, TitleRegister
+   TableHeader, TextCell, TextHeaderCell, TitleRegister, NumberHeaderCell
 } from '../../../styles/CommonStyles'
+import { StatusAccordionHeader, TableRowStatus, TextHeaderStatus } from "./styles.js"
 import { IoChevronBackCircleSharp } from "react-icons/io5"
 import InputMask from "react-input-mask"
-
+import { Accordion } from '@mui/material'
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import { MdOutlineExpandMore } from 'react-icons/md'
 export default function DemandForm(props) {
    return <DemandFormBuilder insertDataEndpoint="demands/cadastrar"
       requestDataEndpoint="demands/procurar/"
@@ -166,28 +170,28 @@ export class DemandFormBuilder extends EditCreateForm {
                               />
                            </Col>
                         </Row>
-                           <Row>
-                              <Col className="mt-3" xs={12} sm={6} >
-                                 <DatePicker
-                                    controlId="dem_dtaction"
-                                    placeholderText="dd/mm/aaaa"
-                                    dateFormat="dd/MM/yyyy"
-                                    maxDate={new Date()}
-                                    disabled={!this.context.admin && this.state.primaryData.dem_sdm_cod !== 2} // caso mude a ordem dos status, isso precisa ser refatorado
-                                    selected={this.state.dateAction}
-                                    onChange={(dateSelect) => this.handleDate(dateSelect, "dem_dtaction")}
-                                    customInput={
-                                       <ValidationTextField
-                                          label="Data de Ação"
-                                          type="text"
-                                          InputLabelProps={{
-                                             shrink: true,
-                                          }}
-                                       />
-                                    }
-                                 />
-                              </Col>
-                           </Row>
+                        <Row>
+                           <Col className="mt-3" xs={12} sm={6} >
+                              <DatePicker
+                                 controlId="dem_dtaction"
+                                 placeholderText="dd/mm/aaaa"
+                                 dateFormat="dd/MM/yyyy"
+                                 maxDate={new Date()}
+                                 disabled={!this.context.admin && this.state.primaryData.dem_sdm_cod !== 2} // caso mude a ordem dos status, isso precisa ser refatorado
+                                 selected={this.state.dateAction}
+                                 onChange={(dateSelect) => this.handleDate(dateSelect, "dem_dtaction")}
+                                 customInput={
+                                    <ValidationTextField
+                                       label="Data de Ação"
+                                       type="text"
+                                       InputLabelProps={{
+                                          shrink: true,
+                                       }}
+                                    />
+                                 }
+                              />
+                           </Col>
+                        </Row>
                         {this.props.paramRoute === 'inserir'
                            ? ''
                            :
@@ -209,47 +213,63 @@ export class DemandFormBuilder extends EditCreateForm {
                               }
                            </Row>
                         }
-                        <Row style={{ marginTop: 25 }}>
+                        <Row style={{ marginTop: 25, marginBottom: 31 }}>
                            <Col md={{ offset: 5 }}>
                               <BtnBlue variant="dark" type="submit">Salvar</BtnBlue>
                            </Col>
                         </Row>
                         {this.paramRoute !== "inserir" ?
-                           <Row style={{ marginTop: 25 }}>
-                              <Col>
-                                 <Row noGutters>
-                                    <b>Histórico de Alterações de Status:</b>
-                                 </Row>
+                           <Accordion>
+                              <AccordionSummary
+                                 expandIcon={<MdOutlineExpandMore />}
+                                 aria-controls="panel1a-content"
+                                 id="panel1a-header"
+                              >
+                                 <StatusAccordionHeader>Histórico de Alterações de Status:</StatusAccordionHeader>
+                              </AccordionSummary>
+                              <AccordionDetails>
                                  <Row noGutters>
                                     <MainTable className={"table-borderless"}>
                                        <TableHeader>
-                                          <TextHeaderCell>
+                                          <TextHeaderStatus>
                                              Status:
-                                          </TextHeaderCell>
-                                          <TextHeaderCell>
-                                             Data de alteração:
-                                          </TextHeaderCell>
+                                          </TextHeaderStatus>
+                                          <TextHeaderStatus>
+                                             Data de Alteração:
+                                          </TextHeaderStatus>
+                                          <TextHeaderStatus>
+                                             Data de Ação:
+                                          </TextHeaderStatus>
                                        </TableHeader>
                                        <TableData>
                                           {this.state.primaryData?.demandStatusHistories.map(
                                              (entry) => {
-                                                return <TableRow>
+                                                return <TableRowStatus>
                                                    <TextCell data-title="Status:">
                                                       {entry.statusDemand.sdm_name}
                                                    </TextCell>
                                                    <TextCell data-title="Data de alteração:">
-                                                      <DateField
-                                                         controlId="dem_dtupdate"
+                                                      <DateFieldStatus
+                                                         controlId="dsh_dtcreation"
                                                          Label=""
                                                          date={entry.dsh_dtcreation} />
                                                    </TextCell>
-                                                </TableRow>
+                                                   <TextCell data-title="Data de ação:">
+                                                      <DateFieldStatus
+                                                         controlId="dsh_dtaction"
+                                                         Label=""
+                                                         noHour={true}
+                                                         date={entry.dsh_dtaction} />
+                                                   </TextCell>
+                                                </TableRowStatus>
                                              })}
                                        </TableData>
                                     </MainTable>
                                  </Row>
-                              </Col>
-                           </Row> : null}
+                              </AccordionDetails>
+                           </Accordion>
+
+                           : null}
                      </BackGroundForm>
                   </Form>
                )
