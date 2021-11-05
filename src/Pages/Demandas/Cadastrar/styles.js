@@ -14,5 +14,7 @@ export const StatusAccordionHeader = styled.b`
    color: #546E7A
 `
 export const TextHeaderStatus = styled(ColumnTitle)`
-   width: auto
+   width: auto;
+   padding-bottom: 12px;
+   padding-top: 0px
 `

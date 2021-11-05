@@ -1,6 +1,6 @@
 import React from 'react'
 import { Form, Col, Row, Button, Table } from 'react-bootstrap'
-import { DateField } from '../../../Componentes/DateField'
+import { DateField, DateFieldStatus } from '../../../Componentes/DateField'
 import { ButtonRow } from '../../../Componentes/ButtonRow'
 import { EditCreateForm } from '../../../Componentes/EditCreateForm/index'
 import { NumberField, InputTextField, ValidationTextField } from '../../../Componentes/FormFields'
@@ -249,13 +249,13 @@ export class DemandFormBuilder extends EditCreateForm {
                                                       {entry.statusDemand.sdm_name}
                                                    </TextCell>
                                                    <TextCell data-title="Data de alteração:">
-                                                      <DateField
+                                                      <DateFieldStatus
                                                          controlId="dsh_dtcreation"
                                                          Label=""
                                                          date={entry.dsh_dtcreation} />
                                                    </TextCell>
                                                    <TextCell data-title="Data de ação:">
-                                                      <DateField
+                                                      <DateFieldStatus
                                                          controlId="dsh_dtaction"
                                                          Label=""
                                                          noHour={true}
