@@ -12,13 +12,8 @@ import { Cookies } from "react-cookie"
 function App() {
    const cookies = new Cookies()
    const [load, setLoad] = useState(true)
-   const [redirect, setRedirect] = useState(false);
-   const { getToken, auth } = useContext(ContextLogin)
-
-   setTimeout(() => {
-      setLoad(false)
-   }, 1000)
-
+   // const [redirect, setRedirect] = useState(false);
+   const { getToken, auth, verifyUser, redirect, signed } = useContext(ContextLogin)
 
    useEffect(() => {
       if (auth !== null) {
@@ -39,13 +34,19 @@ function App() {
             // email: this.options?.email || undefined 
          }).subscribe(token => {
             getToken(token)
-            setRedirect(true)
             window.history.pushState(null, null, window.location.pathname)
          })
    }, [auth])
 
-   if (redirect) {
+   setTimeout(() => {
+      setLoad(false)
+   }, 1000)
+
+   if(verifyUser === 100){
       return <Redirect to="/demandas" />
+   } 
+   if (verifyUser === 215) {
+      return <Redirect to="/termos" />
    }
 
    return (

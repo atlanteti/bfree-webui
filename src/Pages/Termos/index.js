@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import { Col, Row } from "react-bootstrap"
 import { CheckBox } from "../../Componentes/CheckBox"
 import ImageBackground from "../../Assets/logo.JPG"
@@ -6,27 +6,38 @@ import Logo from "../../Assets/icon-blue.png"
 import { RowTitle, Title, SubTitle, Terms, TermItem } from "./styles"
 import { request } from "../../Services/api";
 import { Redirect } from "react-router";
+import { decodeToken } from "react-jwt";
+import { Cookies } from 'react-cookie'
 
 export function TermosCompromisso(){
+   const cookieGetter = new Cookies()
+   const token = cookieGetter.get("auth")
    const [term, setTerm] = useState(true);
    const [redirect, setRedirect] = useState(false);
+   const [userEmail, setUserEmail] = useState(null);
    
    const handleCheck = async (e) => {
-      console.log(e)
       setTerm(!term)
-      // const data = await request({
-      //    method: "post",
-      //    endpoint: "",
-      // })
-
-      // if(data.meta.status){
-      //    setRedirect(true);
-      // }
+      const data = await request({
+         method: "post",
+         endpoint: "commitment-term/confirmar-termo",
+         params: {
+            userEmail
+         }
+      })
+      if(data.meta.status === 100){
+         setRedirect(true);
+      }
    };
+
+   useEffect(() => {
+      setUserEmail(decodeToken(token)["Email"], { path: "/" })
+   }, [userEmail])
 
    if(redirect){
       return <Redirect to="/demandas" />
    }
+
    return(
       <Col style={{background: '#fff'}}>
          <Row>
