@@ -15,10 +15,13 @@ import {
    BackGroundForm, BtnBlue, MainTable, TableData,
    TableHeader, TextCell, TextHeaderCell, TitleRegister, NumberHeaderCell
 } from '../../../styles/CommonStyles'
-import { TableRowStatus } from "./styles.js"
+import { StatusAccordionHeader, TableRowStatus, TextHeaderStatus } from "./styles.js"
 import { IoChevronBackCircleSharp } from "react-icons/io5"
 import InputMask from "react-input-mask"
-
+import { Accordion } from '@mui/material'
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import { MdOutlineExpandMore } from 'react-icons/md'
 export default function DemandForm(props) {
    return <DemandFormBuilder insertDataEndpoint="demands/cadastrar"
       requestDataEndpoint="demands/procurar/"
@@ -210,29 +213,33 @@ export class DemandFormBuilder extends EditCreateForm {
                               }
                            </Row>
                         }
-                        <Row style={{ marginTop: 25 }}>
+                        <Row style={{ marginTop: 25, marginBottom: 31 }}>
                            <Col md={{ offset: 5 }}>
                               <BtnBlue variant="dark" type="submit">Salvar</BtnBlue>
                            </Col>
                         </Row>
                         {this.paramRoute !== "inserir" ?
-                           <Row style={{ marginTop: 25 }}>
-                              <Col>
-                                 <Row noGutters>
-                                    <b>Histórico de Alterações de Status:</b>
-                                 </Row>
+                           <Accordion>
+                              <AccordionSummary
+                                 expandIcon={<MdOutlineExpandMore />}
+                                 aria-controls="panel1a-content"
+                                 id="panel1a-header"
+                              >
+                                 <StatusAccordionHeader>Histórico de Alterações de Status:</StatusAccordionHeader>
+                              </AccordionSummary>
+                              <AccordionDetails>
                                  <Row noGutters>
                                     <MainTable className={"table-borderless"}>
                                        <TableHeader>
-                                          <TextHeaderCell>
+                                          <TextHeaderStatus>
                                              Status:
-                                          </TextHeaderCell>
-                                          <TextHeaderCell>
-                                             Data de alteração:
-                                          </TextHeaderCell>
-                                          <NumberHeaderCell>
-                                             Data de ação:
-                                          </NumberHeaderCell>
+                                          </TextHeaderStatus>
+                                          <TextHeaderStatus>
+                                             Data de Alteração:
+                                          </TextHeaderStatus>
+                                          <TextHeaderStatus>
+                                             Data de Ação:
+                                          </TextHeaderStatus>
                                        </TableHeader>
                                        <TableData>
                                           {this.state.primaryData?.demandStatusHistories.map(
@@ -251,6 +258,7 @@ export class DemandFormBuilder extends EditCreateForm {
                                                       <DateField
                                                          controlId="dsh_dtaction"
                                                          Label=""
+                                                         noHour={true}
                                                          date={entry.dsh_dtaction} />
                                                    </TextCell>
                                                 </TableRowStatus>
@@ -258,8 +266,10 @@ export class DemandFormBuilder extends EditCreateForm {
                                        </TableData>
                                     </MainTable>
                                  </Row>
-                              </Col>
-                           </Row> : null}
+                              </AccordionDetails>
+                           </Accordion>
+
+                           : null}
                      </BackGroundForm>
                   </Form>
                )
