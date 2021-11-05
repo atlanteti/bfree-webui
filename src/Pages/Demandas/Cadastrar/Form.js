@@ -229,6 +229,9 @@ export class DemandFormBuilder extends EditCreateForm {
                                           <TextHeaderCell>
                                              Data de alteração:
                                           </TextHeaderCell>
+                                          <TextHeaderCell>
+                                             Data de ação:
+                                          </TextHeaderCell>
                                        </TableHeader>
                                        <TableData>
                                           {this.state.primaryData?.demandStatusHistories.map(
@@ -239,9 +242,15 @@ export class DemandFormBuilder extends EditCreateForm {
                                                    </TextCell>
                                                    <TextCell data-title="Data de alteração:">
                                                       <DateField
-                                                         controlId="dem_dtupdate"
+                                                         controlId="dsh_dtcreation"
                                                          Label=""
                                                          date={entry.dsh_dtcreation} />
+                                                   </TextCell>
+                                                   <TextCell data-title="Data de ação:">
+                                                      <DateField
+                                                         controlId="dsh_dtaction"
+                                                         Label=""
+                                                         date={entry.dsh_dtaction} />
                                                    </TextCell>
                                                 </TableRow>
                                              })}
