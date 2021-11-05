@@ -30,7 +30,7 @@ export class UserFormBuilder extends EditCreateForm {
                </Row>
                :
                (
-                  <Form onSubmit={this.handleSubmit} validated={this.state.validated}>
+                  <Form onSubmit={this.handleSubmit} validated={this.state.validated} noValidate>
                      <ButtonRow
                         cancelButton={<Button variant="light" onClick={this.redirectCallback}><IoChevronBackCircleSharp size={30} color="#BFCADD" /></Button>}
                         titlePage={<TitleRegister>{this.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'} Usuário</TitleRegister>}
@@ -47,6 +47,7 @@ export class UserFormBuilder extends EditCreateForm {
                                  onChange={this.handleChange}
                                  fullWidth
                                  required
+                                 errorMessage={this.state.usr_name}
                               />
                            </Col>
                            <Col className="mt-3" xs={12} sm={4}>
@@ -65,7 +66,7 @@ export class UserFormBuilder extends EditCreateForm {
                                        label="Telefone"
                                        type="text"
                                        required
-                                       // defaultValue={this.state.primaryData?.usr_phone}
+                                       errorMessage={this.state.usr_phone}
                                        onChange={this.handleChange}
                                        fullWidth
                                        InputLabelProps={{
@@ -86,6 +87,7 @@ export class UserFormBuilder extends EditCreateForm {
                                  onChange={this.handleChange}
                                  fullWidth
                                  required
+                                 errorMessage={this.state.usr_email}
                               />
                            </Col>
                         </Row>
@@ -97,6 +99,7 @@ export class UserFormBuilder extends EditCreateForm {
                                  type="text"
                                  maxLength="45"
                                  required
+                                 errorMessage={this.state.usr_cli_cod}
                                  defaultValue={this.state.primaryData?.usr_cli_cod}
                                  onChange={this.handleChange}
                                  fullWidth
@@ -108,6 +111,7 @@ export class UserFormBuilder extends EditCreateForm {
                                  label="ID Externo"
                                  type="text"
                                  maxLength="10"
+                                 errorMessage={this.state.usr_externalid}
                                  defaultValue={this.state.primaryData?.usr_externalid}
                                  onChange={this.handleChange}
                                  fullWidth
@@ -119,6 +123,7 @@ export class UserFormBuilder extends EditCreateForm {
                                  id="usr_sus_cod"
                                  name="usr_sus_cod"
                                  required
+                                 errorMessage={this.state.usr_sus_cod}
                                  onChange={this.handleSelect}
                                  value={this.state.primaryData.usr_sus_cod ? this.state.primaryData.usr_sus_cod : null} />
                            </Col>

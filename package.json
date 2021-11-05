@@ -41,7 +41,7 @@
       "build": "react-scripts build",
       "test": "react-scripts test",
       "eject": "react-scripts eject",
-      "deploy-production": "npm run build && scp -r ./build/* root@209.97.146.187:/var/www/html"
+      "deploy-production": "npm run build && scp -r ./build/* root@209.97.146.187:/var/www/bfree-webui"
    },
    "eslintConfig": {
       "extends": [

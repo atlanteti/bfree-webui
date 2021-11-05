@@ -28,7 +28,7 @@ export class JourneyFormBuilder extends EditCreateForm {
                :
                (
                   <>
-                     <Form onSubmit={this.handleSubmit} validated={this.state.validated}>
+                     <Form onSubmit={this.handleSubmit} validated={this.state.validated} noValidate>
                         <ButtonRow
                            cancelButton={<Button variant="light" onClick={this.redirectCallback}><IoChevronBackCircleSharp size={30} color="#BFCADD" /></Button>}
                            titlePage={<TitleRegister>{this.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'} Jornada</TitleRegister>}
@@ -44,6 +44,7 @@ export class JourneyFormBuilder extends EditCreateForm {
                                     maxLength="45"
                                     defaultValue={this.state.primaryData?.jny_name}
                                     onChange={this.handleChange}
+                                    errorMessage={this.state.jny_name}
                                     required
                                  />
                                </Col>
@@ -51,7 +52,7 @@ export class JourneyFormBuilder extends EditCreateForm {
                                  <ListCompanies
                                     name="jny_cpn_cod"
                                     defaultValue={this.props.primaryId}
-                                    // errorMessage={this.state.jny_cpn_cod}
+                                    errorMessage={this.state.jny_cpn_cod}
                                     onChange={this.handleSelect}
                                     defaultCompany={this.state.primaryData.jny_cpn_cod}
                                     required />

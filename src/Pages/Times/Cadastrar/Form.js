@@ -27,7 +27,7 @@ export class TeamFormBuilder extends EditCreateForm {
                </Row>
                :
                (
-                  <Form onSubmit={this.handleSubmit} validated={this.state.validated} >
+                  <Form onSubmit={this.handleSubmit} validated={this.state.validated} noValidate>
                      <ButtonRow
                         cancelButton={<Button variant="light" onClick={this.redirectCallback}><IoChevronBackCircleSharp size={30} color="#BFCADD" /></Button>}
                         titlePage={<TitleRegister>{this.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'} Time</TitleRegister>}
@@ -43,6 +43,7 @@ export class TeamFormBuilder extends EditCreateForm {
                                  onChange={this.handleChange}
                                  fullWidth
                                  required
+                                 errorMessage={this.state.tea_name}
                                  maxLength="45"
                               />
                            </Col>
@@ -52,6 +53,7 @@ export class TeamFormBuilder extends EditCreateForm {
                                  name="tea_cpn_cod"
                                  onChange={this.handleSelect}
                                  controlId="tea_cpn_cod"
+                                 errorMessage={this.state.tea_cpn_cod}
                                  defaultCompany={this.state.primaryData.tea_cpn_cod ? this.state.primaryData.tea_cpn_cod : null} />
                            </Col>
                            <Col className="mt-3" xs={12} sm={3}>

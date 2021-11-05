@@ -37,7 +37,7 @@ export class DemandFormBuilder extends EditCreateForm {
                </Row>
                :
                (
-                  <Form onSubmit={this.handleSubmit} validated={this.state.validated}>
+                  <Form onSubmit={this.handleSubmit} validated={this.state.validated} noValidate>
                      <ButtonRow
                         cancelButton={<Button variant="light" onClick={this.redirectCallback}><IoChevronBackCircleSharp size={30} color="#BFCADD" /></Button>}
                         titlePage={<TitleRegister>{this.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'} Demanda</TitleRegister>}
@@ -51,6 +51,7 @@ export class DemandFormBuilder extends EditCreateForm {
                                  type="text"
                                  maxLength="45"
                                  required
+                                 errorMessage={this.state.dem_title}
                                  defaultValue={this.state.primaryData?.dem_title}
                                  disabled={disableField}
                                  onChange={this.context.admin ? this.handleChange : null}
@@ -64,6 +65,7 @@ export class DemandFormBuilder extends EditCreateForm {
                                  type="email"
                                  maxLength="144"
                                  required
+                                 errorMessage={this.state.dem_contact_email}
                                  defaultValue={this.state.primaryData?.dem_contact_email}
                                  disabled={disableField}
                                  onChange={this.context.admin ? this.handleChange : null}
@@ -118,6 +120,7 @@ export class DemandFormBuilder extends EditCreateForm {
                                  label="Observações"
                                  type="textarea"
                                  required
+                                 errorMessage={this.state.dem_comments}
                                  maxLength="200"
                                  multiline
                                  rows={4}
@@ -144,6 +147,7 @@ export class DemandFormBuilder extends EditCreateForm {
                               <ListStatusDemands
                                  ref={this.myRef}
                                  defaultValue={this.props.primaryId}
+                                 errorMessage={this.state.dem_sdm_cod}
                                  name="dem_sdm_cod"
                                  onChange={this.handleSelect}
                                  defaultStatusDemand={this.state.primaryData.dem_sdm_cod}
@@ -153,7 +157,7 @@ export class DemandFormBuilder extends EditCreateForm {
                            <Col className="mt-3" xs={12} sm={4}>
                               <ListTypeDemand
                                  defaultValue={this.props.primaryId}
-                                 // errorMessage={this.state.dem_tdm_cod}
+                                 errorMessage={this.state.dem_tdm_cod}
                                  name="dem_tdm_cod"
                                  defaultTypeDemand={this.state.primaryData.dem_tdm_cod}
                                  disabled={disableField}
@@ -210,41 +214,42 @@ export class DemandFormBuilder extends EditCreateForm {
                               <BtnBlue variant="dark" type="submit">Salvar</BtnBlue>
                            </Col>
                         </Row>
-                        <Row style={{ marginTop: 25 }}>
-                           <Col>
-                              <Row noGutters>
-                                 <b>Histórico de Alterações de Status:</b>
-                              </Row>
-                              <Row noGutters>
-                                 <MainTable className={"table-borderless"}>
-                                    <TableHeader>
-                                       <TextHeaderCell>
-                                          Status:
-                                       </TextHeaderCell>
-                                       <TextHeaderCell>
-                                          Data de alteração:
-                                       </TextHeaderCell>
-                                    </TableHeader>
-                                    <TableData>
-                                       {this.state.primaryData?.demandStatusHistories.map(
-                                          (entry) => {
-                                             return <TableRow>
-                                                <TextCell data-title="Status:">
-                                                   {entry.statusDemand.sdm_name}
-                                                </TextCell>
-                                                <TextCell data-title="Data de alteração:">
-                                                   <DateField
-                                                      controlId="dem_dtupdate"
-                                                      Label=""
-                                                      date={entry.dsh_dtcreation} />
-                                                </TextCell>
-                                             </TableRow>
-                                          })}
-                                    </TableData>
-                                 </MainTable>
-                              </Row>
-                           </Col>
-                        </Row>
+                        {this.paramRoute !== "inserir" ?
+                           <Row style={{ marginTop: 25 }}>
+                              <Col>
+                                 <Row noGutters>
+                                    <b>Histórico de Alterações de Status:</b>
+                                 </Row>
+                                 <Row noGutters>
+                                    <MainTable className={"table-borderless"}>
+                                       <TableHeader>
+                                          <TextHeaderCell>
+                                             Status:
+                                          </TextHeaderCell>
+                                          <TextHeaderCell>
+                                             Data de alteração:
+                                          </TextHeaderCell>
+                                       </TableHeader>
+                                       <TableData>
+                                          {this.state.primaryData?.demandStatusHistories.map(
+                                             (entry) => {
+                                                return <TableRow>
+                                                   <TextCell data-title="Status:">
+                                                      {entry.statusDemand.sdm_name}
+                                                   </TextCell>
+                                                   <TextCell data-title="Data de alteração:">
+                                                      <DateField
+                                                         controlId="dem_dtupdate"
+                                                         Label=""
+                                                         date={entry.dsh_dtcreation} />
+                                                   </TextCell>
+                                                </TableRow>
+                                             })}
+                                       </TableData>
+                                    </MainTable>
+                                 </Row>
+                              </Col>
+                           </Row> : null}
                      </BackGroundForm>
                   </Form>
                )

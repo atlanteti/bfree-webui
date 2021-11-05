@@ -90,7 +90,7 @@ export class BadgeFormBuilder extends EditCreateForm {
                </Row>
                :
                (
-                  <Form onSubmit={this.handleSubmit} validated={this.state.validated}>
+                  <Form onSubmit={this.handleSubmit} validated={this.state.validated} noValidate>
                      <ButtonRow
                         cancelButton={<Button variant="light" onClick={this.redirectCallback}><IoChevronBackCircleSharp size={30} color="#BFCADD" /></Button>}
                         titlePage={<TitleRegister>{this.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'} Badge</TitleRegister>}
@@ -106,6 +106,7 @@ export class BadgeFormBuilder extends EditCreateForm {
                                  onChange={this.handleChange}
                                  fullWidth
                                  required
+                                 errorMessage={this.state.bdg_name}
                                  maxLength="45"
                               />
                            </Col>
@@ -114,6 +115,7 @@ export class BadgeFormBuilder extends EditCreateForm {
                                  value={this.state.primaryData.bdg_cpn_cod ? this.state.primaryData.bdg_cpn_cod : ""}
                                  disabled={this.state.disableCompany || Boolean(this.state.primaryData.bdg_jny_cod)}
                                  onChange={this.handleChangeCompanyControlled.bind(this)}
+                                 errorMessage={this.state.bdg_cpn_cod}
                                  controlId="bdg_cpn_cod" />
                            </Col>
                         </Row>
@@ -133,6 +135,7 @@ export class BadgeFormBuilder extends EditCreateForm {
                                  value={this.state.primaryData.bdg_jny_cod ? this.state.primaryData.bdg_jny_cod : ""}
                                  disabled={this.state.disableJourney || (Boolean(this.state.primaryData.bdg_cpn_cod) && !Boolean(this.state.primaryData.bdg_jny_cod))}
                                  onChange={this.handleChangeJourneyControlled.bind(this)}
+                                 errorMessage={this.state.bdg_jny_cod}
                                  controlId="bdg_jny_cod"
                                  name="bdg_jny_cod"
                               />
@@ -149,8 +152,9 @@ export class BadgeFormBuilder extends EditCreateForm {
                                  fullWidth
                                  multiline
                                  required
+                                 errorMessage={this.state.bdg_description}
                                  rows={4}
-                                 maxLength="45"
+                                 maxLength="400"
                               />
                            </Col>
                         </Row>
@@ -165,6 +169,7 @@ export class BadgeFormBuilder extends EditCreateForm {
                                  fullWidth
                                  multiline
                                  required
+                                 errorMessage={this.state.bdg_detail}
                                  rows={4}
                                  maxLength="400"
                               />
