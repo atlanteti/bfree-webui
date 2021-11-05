@@ -237,6 +237,14 @@ class Log extends Component {
                                                                         <TextCell style={{ color: highlight ? "#4CAF50" : null }}>{newValue ? newValue[key] : ""}</TextCell>
                                                                      </tr>
                                                                   )
+                                                               } else if (key.includes("Ação")) {
+                                                                  return (
+                                                                     <tr className="rowLogs table-borderless">
+                                                                        <TextCell>{key}</TextCell>
+                                                                        <TextCell>{oldValue ? displayDate(oldValue[key]) : ""}</TextCell>
+                                                                        <TextCell style={{ color: highlight ? "#4CAF50" : null }}>{newValue ? displayDate(newValue[key]) : ""}</TextCell>
+                                                                     </tr>
+                                                                  )
                                                                }
                                                             })}
                                                       </TableData>
