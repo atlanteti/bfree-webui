@@ -171,7 +171,7 @@ export default class ListarPagina extends Component {
    PageHeaderCustom() {
       throw new Error('Componente abstrato deve ser implementado')
    }
-   createModal() {
+   createExclusionModal() {
       return <ExclusionModal
          showModal={this.state.showModal}
          closeModal={this.closeModal}
@@ -239,7 +239,7 @@ export default class ListarPagina extends Component {
                                  </>
                               )
                            }
-                           {this.createModal()}
+                           {this.createExclusionModal()}
                         </MainTable>
                      </Row>
                      <Row noGutters>{this.renderPagination()}</Row>
