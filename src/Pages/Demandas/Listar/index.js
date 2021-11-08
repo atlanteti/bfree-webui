@@ -7,7 +7,7 @@ import {
    TableRow, TextCell, TextHeaderCell
 } from '../../../styles/CommonStyles'
 import SortColumn from '../../../Componentes/SortColumn'
-import { React, useContext, useEffect, useState } from 'react'
+import React from 'react'
 import { DemandSearchBar } from './DemandSearchBar'
 import Restricted from '../../../Context/AccessPermission'
 import { ReactComponent as EditIcon } from '../../../Assets/Icons/icon_editar.svg'
@@ -101,13 +101,6 @@ export default class ListarDemandas extends ListarPagina {
          <ActionHeaderCell scope="col">Ações</ActionHeaderCell>
       </TableRow>
    }
-   showReversion(demandCode, demandUpdate) {
-      this.setState({
-         showReversion: true,
-         demandCode: demandCode,
-         demandUpdate: demandUpdate,
-      })
-   }
    async undoStatusChange() {
       const data = await request({
          method: 'put',
@@ -181,32 +174,3 @@ export default class ListarDemandas extends ListarPagina {
       </TableRow>
    }
 };
-
-function Example(props) {
-   const [drawn, setDrawn] = useState(false);
-
-   useEffect(() => {
-      setDrawn(true)
-   }, [])
-   if (!drawn) {
-      return (
-         <>
-            <Modal show={props.show} onHide={props.handleClose}>
-               <Modal.Header closeButton>
-                  <Modal.Title>Modal heading</Modal.Title>
-               </Modal.Header>
-               <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-               <Modal.Footer>
-                  <Button variant="secondary" onClick={props.deny}>
-                     Close
-                  </Button>
-                  <Button variant="primary" onClick={props.confirm}>
-                     Save Changes
-                  </Button>
-               </Modal.Footer>
-            </Modal>
-         </>
-      );
-   }
-   return null
-}
