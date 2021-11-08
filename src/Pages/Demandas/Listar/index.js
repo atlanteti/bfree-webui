@@ -13,6 +13,7 @@ import Restricted from '../../../Context/AccessPermission'
 import { ReactComponent as EditIcon } from '../../../Assets/Icons/icon_editar.svg'
 import { ReactComponent as DeleteIcon } from '../../../Assets/Icons/icon_delete.svg'
 import { MdUndo } from 'react-icons/md'
+import IconOverlayMessage from '../../../Componentes/IconOverlayMessage'
 
 export default class ListarDemandas extends ListarPagina {
    async deleteRecord(id) {
@@ -99,11 +100,6 @@ export default class ListarDemandas extends ListarPagina {
          <ActionHeaderCell scope="col">Ações</ActionHeaderCell>
       </TableRow>
    }
-   renderTooltip(props) {
-      return <Tooltip id="button-tooltip" {...props}>
-         Desfazer mudança de Status
-      </Tooltip>
-   }
    async undoStatusChange(demandCode, demandUpdate) {
       const data = await request({
          method: 'put',
@@ -125,17 +121,26 @@ export default class ListarDemandas extends ListarPagina {
          <TextCell data-title="Tipo da Demanda" className="text">{demanda.typeDemand.tdm_name}</TextCell>
          <ActionCell data-title="Ações">
             <Button variant="transparent" href={`/editar/demandas/${demanda.dem_cod}/alterar`}><EditIcon /></Button>
-            <OverlayTrigger
-               placement="top"
-               overlay={this.renderTooltip}>
-               <Button
-                  disabled={demanda.statusDemand.sdm_cod == 1}
-                  variant="transparent" onClick={
-                     () => {
-                        this.undoStatusChange(demanda.dem_cod, demanda.dem_dtupdate)
-                     }
-                  }><MdUndo /></Button>
-            </OverlayTrigger>
+            <Restricted>
+               {demanda.statusDemand.sdm_cod == 1 ?
+                  <IconOverlayMessage
+                     message={
+                        "Status em Aberto não pode ser revertido"}>
+                     <Button
+                        variant="transparent"><MdUndo /></Button>
+                  </IconOverlayMessage> :
+                  <IconOverlayMessage
+                     message={
+                        "Desfazer mudança de Status"}>
+                     <Button
+                        variant="transparent" onClick={
+                           () => {
+                              this.undoStatusChange(demanda.dem_cod, demanda.dem_dtupdate)
+                           }
+                        }><MdUndo /></Button>
+                  </IconOverlayMessage>
+               }
+            </Restricted>
             <Restricted>
                <Button variant="transparent" onClick={() => {
                   this.setState({
