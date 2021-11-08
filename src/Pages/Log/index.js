@@ -74,6 +74,12 @@ class Log extends Component {
          })
    }
    onChange(data) {
+      if (data.target.name === "type") {
+         this.filter = {
+            ...this.filter,
+            [data.target.name]: data.target.value,
+         }
+      }
       this.filter = {
          ...this.filter,
          [data.target.id]: data.target.value,
@@ -124,7 +130,7 @@ class Log extends Component {
                                           <Col className="mt-2" xs={12} md={6} sm={6}>
                                              <SelectField
                                                 Label="Tipo de Log"
-                                                controlId="type"
+                                                name="type"
                                                 dataCollection={this.state.dataCollection}
                                                 onChange={this.onChange}>
                                              </SelectField>
@@ -235,6 +241,14 @@ class Log extends Component {
                                                                         <TextCell>{key}</TextCell>
                                                                         <TextCell>{oldValue ? oldValue[key] : ""}</TextCell>
                                                                         <TextCell style={{ color: highlight ? "#4CAF50" : null }}>{newValue ? newValue[key] : ""}</TextCell>
+                                                                     </tr>
+                                                                  )
+                                                               } else if (key.includes("Ação")) {
+                                                                  return (
+                                                                     <tr className="rowLogs table-borderless">
+                                                                        <TextCell>{key}</TextCell>
+                                                                        <TextCell>{oldValue ? displayDate(oldValue[key], true) : ""}</TextCell>
+                                                                        <TextCell style={{ color: highlight ? "#4CAF50" : null }}>{newValue ? displayDate(newValue[key], true) : ""}</TextCell>
                                                                      </tr>
                                                                   )
                                                                }
