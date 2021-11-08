@@ -12,7 +12,6 @@ export const AuthProvider = ({ children }) => {
    const [admin, setAdmin] = useState(null);
    const [user, setUser] = useState(null);
    const [verifyUser, setVerifyUser] = useState(null);
-   const [token, setToken] = useState(null);
 
    useEffect(() => {
       async function loadStoraged() {
@@ -38,6 +37,7 @@ export const AuthProvider = ({ children }) => {
             endpoint: `auth/login?token=${token}`,
          })
          setVerifyUser(data.meta.status)
+         console.log(data)
          if (data.meta.status === 100) {
             cookie.set('auth', data.data.token, { path: "/" })
             cookie.set('admin', !data.meta.hasJourney, { path: "/" })

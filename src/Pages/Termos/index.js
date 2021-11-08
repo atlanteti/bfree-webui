@@ -8,13 +8,15 @@ import { request } from "../../Services/api";
 import { Redirect } from "react-router";
 import { decodeToken } from "react-jwt";
 import { Cookies } from 'react-cookie'
+import { CustomAlert } from "../../Componentes/CustomAlert";
 
 export function TermosCompromisso(){
    const cookieGetter = new Cookies()
    const token = cookieGetter.get("auth")
    const [term, setTerm] = useState(true);
    const [redirect, setRedirect] = useState(false);
-   const [userEmail, setUserEmail] = useState(null);
+   const [bfreeId, setBfreeId] = useState(null);
+   const [responseAlertShow, setResponseAlertShow] = useState(null);
    
    const handleCheck = async (e) => {
       setTerm(!term)
@@ -22,7 +24,7 @@ export function TermosCompromisso(){
          method: "post",
          endpoint: "commitment-term/confirmar-termo",
          params: {
-            userEmail
+            bfreeId
          }
       })
       if(data.meta.status === 100){
@@ -31,11 +33,11 @@ export function TermosCompromisso(){
    };
 
    useEffect(() => {
-      setUserEmail(decodeToken(token)["Email"], { path: "/" })
-   }, [userEmail])
+      setBfreeId(decodeToken(token)["ID Bfree"], { path: "/" })
+   }, [bfreeId])
 
    if(redirect){
-      return <Redirect to="/demandas" />
+      return <Redirect to="/" />
    }
 
    return(

@@ -39,7 +39,7 @@ export default function AuthRoutes() {
          <Switch>
             {/* rotas de usuarios */}
             <Route path="/usuarios" component={ListarUsuarios} />
-            <Route path="/termos" component={TermosCompromisso} />
+            {/* <Route path="/termos" component={TermosCompromisso} /> */}
             <Route path="/usuario-companhia/:userId/:userName" component={UsuarioCompanies} />
             <Route path="/usuario-jornadas/:userId/:userName" component={UsuarioJornadas} />
             <Route path="/usuario-badges/:userId/:userName" component={UsuarioBadges} />
