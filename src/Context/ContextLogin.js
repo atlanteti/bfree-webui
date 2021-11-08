@@ -37,7 +37,6 @@ export const AuthProvider = ({ children }) => {
             endpoint: `auth/login?token=${token}`,
          })
          setVerifyUser(data.meta.status)
-         console.log(data)
          if (data.meta.status === 100) {
             cookie.set('auth', data.data.token, { path: "/" })
             cookie.set('admin', !data.meta.hasJourney, { path: "/" })
@@ -46,14 +45,24 @@ export const AuthProvider = ({ children }) => {
             setAdmin(!data.meta.hasJourney)
             setUser(decodeToken(data.data.token)["ID Bfree"], { path: "/" })
          } else if(data.meta.status === 215) {
-            cookie.set('auth', data.data.token, { path: "/" })
+            cookie.set('term', data.meta.token, { path: "/" })
+            setAdmin(!data.meta.hasJourney)
          }
       } catch (error) {
          console.log(error)
       }
    }
    return (
-      <ContextLogin.Provider value={{ signed: Boolean(auth), getToken, admin: admin, user, verifyUser }}>
+      <ContextLogin.Provider value={{ 
+         signed: Boolean(auth), 
+         getToken, 
+         admin: admin, 
+         user, 
+         verifyUser,
+         setVerifyUser, 
+         setUser, 
+         setAuth 
+      }}>
          {children}
       </ContextLogin.Provider>
    )

@@ -1,4 +1,4 @@
-import {useState, useEffect} from "react";
+import {useState, useEffect, useContext} from "react";
 import { Col, Row } from "react-bootstrap"
 import { CheckBox } from "../../Componentes/CheckBox"
 import ImageBackground from "../../Assets/logo.JPG"
@@ -8,15 +8,15 @@ import { request } from "../../Services/api";
 import { Redirect } from "react-router";
 import { decodeToken } from "react-jwt";
 import { Cookies } from 'react-cookie'
-import { CustomAlert } from "../../Componentes/CustomAlert";
+import ContextLogin from "../../Context/ContextLogin";
 
 export function TermosCompromisso(){
-   const cookieGetter = new Cookies()
-   const token = cookieGetter.get("auth")
+   const { setVerifyUser, setUser, setAuth, token } = useContext(ContextLogin)
+   const cookie = new Cookies()
    const [term, setTerm] = useState(true);
    const [redirect, setRedirect] = useState(false);
    const [bfreeId, setBfreeId] = useState(null);
-   const [responseAlertShow, setResponseAlertShow] = useState(null);
+   const storedPermission = cookie.get("term")
    
    const handleCheck = async (e) => {
       setTerm(!term)
@@ -25,19 +25,28 @@ export function TermosCompromisso(){
          endpoint: "commitment-term/confirmar-termo",
          params: {
             bfreeId
+         },
+         headers: {
+            'Authorization': "Bearer " + storedPermission,
          }
       })
       if(data.meta.status === 100){
+         cookie.remove('term', { path: "/" })
+         cookie.set('user', decodeToken(data.meta.token)["ID Bfree"], { path: "/" })
+         cookie.set('auth', data.meta.token, { path: "/" })
+         setUser(decodeToken(data.meta.token)["ID Bfree"], { path: "/" })
+         setVerifyUser(data.meta.status)
          setRedirect(true);
+         setAuth(data.meta.token)
       }
    };
 
    useEffect(() => {
-      setBfreeId(decodeToken(token)["ID Bfree"], { path: "/" })
+      setBfreeId(decodeToken(cookie.get("term"))["ID Bfree"], { path: "/" })
    }, [bfreeId])
 
    if(redirect){
-      return <Redirect to="/" />
+      return <Redirect to="/demandas" />
    }
 
    return(

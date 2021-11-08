@@ -12,7 +12,6 @@ import { Cookies } from "react-cookie"
 function App() {
    const cookies = new Cookies()
    const [load, setLoad] = useState(true)
-   const [redirect, setRedirect] = useState(false);
    const { getToken, auth, verifyUser } = useContext(ContextLogin)
 
    useEffect(() => {
@@ -34,7 +33,6 @@ function App() {
             // email: this.options?.email || undefined 
          }).subscribe(token => {
             getToken(token)
-            setRedirect(true)
             window.history.pushState(null, null, window.location.pathname)
          })
    }, [auth])
@@ -42,15 +40,13 @@ function App() {
    setTimeout(() => {
       setLoad(false)
    }, 1000)
+
    if(verifyUser === 100){
       return <Redirect to="/demandas" />
    } 
    if (verifyUser === 215) {
       return <Redirect to="/termos" />
    }
-   // if(redirect){
-   //    window.Eduzz.Accounts.logout({ env: "staging", redirectTo: window.location.origin })
-   // }
 
    return (
       <div>

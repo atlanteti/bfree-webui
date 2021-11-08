@@ -31,7 +31,6 @@ import UploadSheet from "../Pages/UploadSheet";
 
 import ListarRelatorio from "../Pages/Relatorio/Listar";
 import Editar from "../Pages/Editar";
-import {TermosCompromisso} from "../Pages/Termos";
 
 export default function AuthRoutes() {
    return (
@@ -39,7 +38,6 @@ export default function AuthRoutes() {
          <Switch>
             {/* rotas de usuarios */}
             <Route path="/usuarios" component={ListarUsuarios} />
-            {/* <Route path="/termos" component={TermosCompromisso} /> */}
             <Route path="/usuario-companhia/:userId/:userName" component={UsuarioCompanies} />
             <Route path="/usuario-jornadas/:userId/:userName" component={UsuarioJornadas} />
             <Route path="/usuario-badges/:userId/:userName" component={UsuarioBadges} />
