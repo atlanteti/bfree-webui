@@ -11,6 +11,8 @@ export const AuthProvider = ({ children }) => {
    const [auth, setAuth] = useState(null);
    const [admin, setAdmin] = useState(null);
    const [user, setUser] = useState(null);
+   const [verifyUser, setVerifyUser] = useState(null);
+
    useEffect(() => {
       async function loadStoraged() {
          const storagedUser = await cookie.get("auth");
@@ -34,6 +36,7 @@ export const AuthProvider = ({ children }) => {
             method: "post",
             endpoint: `auth/login?token=${token}`,
          })
+         setVerifyUser(data.meta.status)
          if (data.meta.status === 100) {
             cookie.set('auth', data.data.token, { path: "/" })
             cookie.set('admin', !data.meta.hasJourney, { path: "/" })
@@ -41,13 +44,25 @@ export const AuthProvider = ({ children }) => {
             setAuth(data.data.token)
             setAdmin(!data.meta.hasJourney)
             setUser(decodeToken(data.data.token)["ID Bfree"], { path: "/" })
+         } else if(data.meta.status === 215) {
+            cookie.set('term', data.meta.token, { path: "/" })
+            setAdmin(!data.meta.hasJourney)
          }
       } catch (error) {
          console.log(error)
       }
    }
    return (
-      <ContextLogin.Provider value={{ signed: Boolean(auth), getToken, admin: admin, user }}>
+      <ContextLogin.Provider value={{ 
+         signed: Boolean(auth), 
+         getToken, 
+         admin: admin, 
+         user, 
+         verifyUser,
+         setVerifyUser, 
+         setUser, 
+         setAuth 
+      }}>
          {children}
       </ContextLogin.Provider>
    )

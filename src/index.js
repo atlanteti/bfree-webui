@@ -11,8 +11,8 @@ import TopBar from './Componentes/TopBar';
 
 ReactDOM.render(
    <IndexContainer>
-      <TopBar />
       <AuthProvider>
+         <TopBar />
          <CookiesProvider>
             <Routes />
          </CookiesProvider>
