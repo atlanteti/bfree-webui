@@ -1,4 +1,4 @@
-import { Button, OverlayTrigger, Row, Tooltip } from 'react-bootstrap'
+import { Button, Modal } from 'react-bootstrap'
 // import SearchBar from '../../../Componentes/SearchBar'
 import { request } from '../../../Services/api'
 import ListarPagina, { PageHeaderCustomComponent } from '../../../Componentes/ListData'
@@ -7,12 +7,14 @@ import {
    TableRow, TextCell, TextHeaderCell
 } from '../../../styles/CommonStyles'
 import SortColumn from '../../../Componentes/SortColumn'
-import { React, useContext } from 'react'
+import React from 'react'
 import { DemandSearchBar } from './DemandSearchBar'
 import Restricted from '../../../Context/AccessPermission'
 import { ReactComponent as EditIcon } from '../../../Assets/Icons/icon_editar.svg'
 import { ReactComponent as DeleteIcon } from '../../../Assets/Icons/icon_delete.svg'
 import { MdUndo } from 'react-icons/md'
+import IconOverlayMessage from '../../../Componentes/IconOverlayMessage'
+import ExclusionModal from '../../../Componentes/ExclusionModal'
 
 export default class ListarDemandas extends ListarPagina {
    async deleteRecord(id) {
@@ -99,22 +101,30 @@ export default class ListarDemandas extends ListarPagina {
          <ActionHeaderCell scope="col">Ações</ActionHeaderCell>
       </TableRow>
    }
-   renderTooltip(props) {
-      return <Tooltip id="button-tooltip" {...props}>
-         Desfazer mudança de Status
-      </Tooltip>
-   }
-   async undoStatusChange(demandCode, demandUpdate) {
+   async undoStatusChange() {
       const data = await request({
          method: 'put',
-         endpoint: `demands/reverter-status/${demandCode}`,
+         endpoint: `demands/reverter-status/${this.state.deletionId}`,
          params: {
-            dateLastUpdate: demandUpdate
+            dateLastUpdate: this.state.modalIdentifier
          }
       })
       this.fetchAndSetData({ page: this.state.page })
       this.showAlert(data.meta)
       return data
+   }
+   createExclusionModal() {
+      return <>
+         <ExclusionModal
+            reversion={this.state.reversion}
+            showModal={this.state.showModal}
+            closeModal={this.closeModal}
+            pageIdentifier={this.state.modalIdentifier} // Talvez isso possa ser generalizado para o contexto da página
+            deletionCallback={this.state.reversion ? this.undoStatusChange.bind(this) : this.deleteRecord}
+            identifierCode={this.state.deletionId}
+            updateListing={this.updateListing.bind(this)}
+            showAlert={this.showAlert.bind(this)} />
+      </>
    }
    createRecord(demanda) {
       return <TableRow key={demanda.dem_cod}>
@@ -125,20 +135,35 @@ export default class ListarDemandas extends ListarPagina {
          <TextCell data-title="Tipo da Demanda" className="text">{demanda.typeDemand.tdm_name}</TextCell>
          <ActionCell data-title="Ações">
             <Button variant="transparent" href={`/editar/demandas/${demanda.dem_cod}/alterar`}><EditIcon /></Button>
-            <OverlayTrigger
-               placement="top"
-               overlay={this.renderTooltip}>
-               <Button
-                  disabled={demanda.statusDemand.sdm_cod == 1}
-                  variant="transparent" onClick={
-                     () => {
-                        this.undoStatusChange(demanda.dem_cod, demanda.dem_dtupdate)
-                     }
-                  }><MdUndo /></Button>
-            </OverlayTrigger>
+            <Restricted>
+               {demanda.statusDemand.sdm_cod == 1 ?
+                  <IconOverlayMessage
+                     message={
+                        "Status em Aberto não pode ser revertido"}>
+                     <Button
+                        variant="transparent"><MdUndo /></Button>
+                  </IconOverlayMessage> :
+                  (<IconOverlayMessage
+                     message={
+                        "Desfazer mudança de Status"}>
+                     <Button
+                        variant="transparent" onClick={
+                           () => {
+                              this.setState({
+                                 reversion: true,
+                                 deletionId: demanda.dem_cod,
+                                 modalIdentifier: demanda.dem_dtupdate
+                              })
+                              this.openModal()
+                           }
+                        }><MdUndo /></Button>
+                  </IconOverlayMessage>)
+               }
+            </Restricted>
             <Restricted>
                <Button variant="transparent" onClick={() => {
                   this.setState({
+                     reversion: false,
                      deletionId: demanda.dem_cod,
                      modalIdentifier: "a demanda"
                   })
