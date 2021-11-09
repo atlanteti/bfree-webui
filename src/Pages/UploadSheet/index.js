@@ -114,12 +114,10 @@ export default class UploadSheet extends Component {
                            <Helmet title="Upload" />
                         </Col>
                         <Col>
-                           <Container fluid>
-                              <CustomAlert
-                                 showAlertCallback={this.getAlertCallback.bind(this)}
-                                 redirectCallback={this.redirect.bind(this)}
-                              />
-                           </Container>
+                           <CustomAlert
+                              showAlertCallback={this.getAlertCallback.bind(this)}
+                              redirectCallback={this.redirect.bind(this)}
+                           />
                         </Col>
                         {this.state.loadTable ?
                            <Col>
