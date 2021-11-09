@@ -251,6 +251,14 @@ class Log extends Component {
                                                                         <TextCell style={{ color: highlight ? "#4CAF50" : null }}>{newValue ? displayDate(newValue[key], true) : ""}</TextCell>
                                                                      </tr>
                                                                   )
+                                                               } else if (key.includes("Confirmação")) {
+                                                                  return (
+                                                                     <tr className="rowLogs table-borderless">
+                                                                        <TextCell>{key}</TextCell>
+                                                                        <TextCell>{oldValue ? displayDate(oldValue[key], true) : ""}</TextCell>
+                                                                        <TextCell style={{ color: highlight ? "#4CAF50" : null }}>{newValue ? displayDate(newValue[key], true) : ""}</TextCell>
+                                                                     </tr>
+                                                                  )
                                                                }
                                                             })}
                                                       </TableData>
