@@ -139,7 +139,14 @@ export const Table = styled.table`
    .icon {
        vertical-align: inherit;
     }
-
+   
+   .elipses {
+      display: block;
+      width: 200px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+   }
+    
    /* responsividade da tabela */
    @media all and (max-width: 767px) {
       border: none;
