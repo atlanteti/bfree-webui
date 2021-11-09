@@ -113,7 +113,7 @@ export default class ListarDemandas extends ListarPagina {
       this.showAlert(data.meta)
       return data
    }
-   createExclusionModal() {
+   createModal() {
       return <>
          <ExclusionModal
             reversion={this.state.reversion}
