@@ -176,6 +176,7 @@ export class DemandFormBuilder extends EditCreateForm {
                                  controlId="dem_dtaction"
                                  placeholderText="dd/mm/aaaa"
                                  dateFormat="dd/MM/yyyy"
+                                 required={this.props.paramRoute !== 'inserir' && this.state.primaryData.dem_sdm_cod > 1}
                                  maxDate={new Date()}
                                  disabled={!this.context.admin && this.state.primaryData.dem_sdm_cod !== 2} // caso mude a ordem dos status, isso precisa ser refatorado
                                  selected={this.state.dateAction}
@@ -184,9 +185,15 @@ export class DemandFormBuilder extends EditCreateForm {
                                     <ValidationTextField
                                        label="Data de Ação"
                                        type="text"
+                                       errorMessage={this.state.dem_tdm_cod}
                                        InputLabelProps={{
                                           shrink: true,
+                                          required: false,
                                        }}
+                                       error={!!this.state.dem_tdm_cod}
+                                       helperText={this.props.paramRoute !== 'inserir' && this.state.primaryData.dem_sdm_cod > 1 ?
+                                          (this.state.dem_tdm_cod ? this.state.dem_tdm_cod : "Campo Obrigatório")
+                                          : this.state.dem_tdm_cod}
                                     />
                                  }
                               />

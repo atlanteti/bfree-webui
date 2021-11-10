@@ -71,6 +71,7 @@ export class EditCreateForm extends Component {
 
    handleSubmit = async (e) => {
       const formData = this.formatData();
+      console.log(formData)
       e.preventDefault();
       this.setState({
          validated: true
@@ -131,10 +132,14 @@ export class EditCreateForm extends Component {
             dtAction.dsh_sdm_cod === e.target.value
          )
          const ref = this.myRef.current;
-         this.setState({
+         this.setState((state, props) => ({
+            primaryData: {
+               ...state.primaryData, 
+               dem_dtaction: filterDtAction.length > 0 ? new Date(filterDtAction[0].dsh_dtaction) : null
+            },
             dateAction: filterDtAction.length > 0 ? new Date(filterDtAction[0].dsh_dtaction) : null,
             checkStatus: ref.state.statusDemands[e.target.value - 1].sdm_name
-         })
+         }))
       }
       this.setState((state, props) => ({
          primaryData: {
