@@ -176,7 +176,6 @@ export class DemandFormBuilder extends EditCreateForm {
                                  controlId="dem_dtaction"
                                  placeholderText="dd/mm/aaaa"
                                  dateFormat="dd/MM/yyyy"
-                                 required={this.props.paramRoute !== 'inserir' && this.state.primaryData.dem_sdm_cod > 1}
                                  maxDate={new Date()}
                                  disabled={!this.context.admin && this.state.primaryData.dem_sdm_cod !== 2} // caso mude a ordem dos status, isso precisa ser refatorado
                                  selected={this.state.dateAction}
