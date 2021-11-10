@@ -54,6 +54,14 @@ export default class UploadSheet extends Component {
       console.log(this.state);
    };
 
+   handleSelect = (e) => {
+      this.setState({
+         formData: {
+            ...this.state.formData, 
+            [e.target.name]: e.target.value
+         },
+      })
+   }
    handleSubmit = async (event) => {
       event.preventDefault();
       this.setState({ loadTable: true })
@@ -154,13 +162,20 @@ export default class UploadSheet extends Component {
                                  <Col>
                                     <Container fluid>
                                        <BackGroundForm>
-                                          <Form onSubmit={this.handleSubmit}>
-                                             <ListUsers
-                                                onChange={this.handleChange}
-                                                controlId="operatorId"
-                                             />
-                                             <Button variant="dark" type="submit">Enviar</Button>
-                                          </Form>
+                                          <Col xs={12} md={5} sm={5}>
+                                             <Form onSubmit={this.handleSubmit}>
+                                                   <Row>
+                                                      <ListUsers
+                                                         onChange={this.handleSelect}
+                                                         name="operatorId"
+                                                         fullWidth
+                                                      />
+                                                   </Row>
+                                                   <Row className="mt-3">
+                                                      <Button variant="dark" type="submit">Enviar</Button>
+                                                   </Row>
+                                             </Form>
+                                          </Col>
                                        </BackGroundForm>
                                     </Container>
                                  </Col>
