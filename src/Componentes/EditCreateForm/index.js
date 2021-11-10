@@ -71,7 +71,6 @@ export class EditCreateForm extends Component {
 
    handleSubmit = async (e) => {
       const formData = this.formatData();
-      console.log(formData)
       e.preventDefault();
       this.setState({
          validated: true
