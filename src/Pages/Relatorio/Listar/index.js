@@ -261,7 +261,7 @@ export default class ListarRelatorio extends ListarPagina {
                                        {this.state.responseData.slice(0, -1).map((user) => {
                                           return (
                                              <TableRow>{user.map((data) => {
-                                                return <TextCell data-title={data[0]}>{data[1]}</TextCell>
+                                                return <TextCell data-title={data[0]} Elipse>{data[1]}</TextCell>
                                              })}</TableRow>
                                           )
                                        })}
