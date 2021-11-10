@@ -61,14 +61,8 @@ export default class ListCompanies extends Component {
             shrink: true,
             required: false,
          }}
-         error={!!this.props.errorMessage ||
-            ((this.props.value == "" || this.props.value == null)
-               && this.props.required)}
-
-         helperText={this.props.required ?
-            (this.props.errorMessage ? this.props.errorMessage : "Campo Obrigatório")
-            : this.props.errorMessage}>
-
+         helperText={this.props.required ? <RequiredField>Campo obrigatório</RequiredField> : null}
+      >
          <MenuItem value={null}><NoDataComp /></MenuItem>
          {this.state.companies?.map(company => {
             return (
