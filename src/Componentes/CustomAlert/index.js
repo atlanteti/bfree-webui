@@ -6,6 +6,7 @@ export class CustomAlert extends React.Component {
       super(props)
       this.state = { showAlert: false }
       this.props.showAlertCallback(this.onShowAlert.bind(this))
+      this.myRef = React.createRef()
    }
 
    setContent(message, statusMsg) {
@@ -31,6 +32,7 @@ export class CustomAlert extends React.Component {
       }
       this.setState({ showAlert: true })
       this.setContent(message, statusMsg)
+      this.myRef.current.scrollIntoView()
       if (statusMsg === "success") {
          window.setTimeout(() => {
             this.props.redirectCallback()
@@ -41,6 +43,7 @@ export class CustomAlert extends React.Component {
 
    render() {
       return <Alert
+         ref={this.myRef}
          onClose={() => { this.setState({ showAlert: false }) }}
          dismissible={!this.props.noDataAlert}
          show={this.state.showAlert && this.props.noData}
