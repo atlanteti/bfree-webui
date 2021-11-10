@@ -26,7 +26,7 @@ export default function CustomFileInputField(props) {
                   onClick={handleUpload}
                   onChange={props.onChange}
                   label={"Arquivo"}
-                  defaultValue={props.filename}
+                  value={props.filename}
                   style={{ caretColor: "transparent" }}
                   helperText="Número máximo de linhas: 500">
                </InputTextField>
