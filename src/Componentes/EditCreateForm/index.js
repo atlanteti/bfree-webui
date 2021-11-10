@@ -126,7 +126,10 @@ export class EditCreateForm extends Component {
    };
    handleSelect = (e) => {
       if (e.target.value !== null && e.target.name === "dem_sdm_cod") {
-         const filterDtAction = this.state.primaryData.demandStatusHistories.filter(dtAction => dtAction.dsh_sdm_cod === e.target.value)
+         const filterDtAction = this.state.primaryData.demandStatusHistories != null && 
+         this.state.primaryData.demandStatusHistories.filter(dtAction => 
+            dtAction.dsh_sdm_cod === e.target.value
+         )
          const ref = this.myRef.current;
          this.setState({
             dateAction: filterDtAction.length > 0 ? new Date(filterDtAction[0].dsh_dtaction) : null,
