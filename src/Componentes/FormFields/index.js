@@ -41,11 +41,13 @@ export function InputTextField(props, classes) {
       inputProps={{
          maxLength: props.maxLength,
       }}
-      error={!!props.errorMessage}
+      error={!!props.errorMessage ||
+         ((props.defaultValue == "" || props.defaultValue == null)
+            && props.required)}
+
       helperText={props.required ?
          (props.errorMessage ? props.errorMessage : "Campo Obrigatório")
          : props.errorMessage}
-      {...props}
    />
 }
 TextField.propTypes = {
@@ -92,7 +94,7 @@ export function NumberField(props) {
       }}
       inputProps={{
          maxLength: props.maxLength,
-       }}
+      }}
       helperText={props.required ? "Campo Obrigatório" : null}
    />
 }

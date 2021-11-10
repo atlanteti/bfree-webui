@@ -44,7 +44,13 @@ export default class ListCompaniesControlled extends Component {
          InputLabelProps={{
             shrink: true,
          }}
-         helperText={this.props.required ? <RequiredField>Campo obrigatório</RequiredField> : null}
+         error={!!this.props.errorMessage ||
+            ((this.props.defaultValue == "" || this.props.defaultValue == null)
+               && this.props.required)}
+
+         helperText={this.props.required ?
+            (this.props.errorMessage ? this.props.errorMessage : "Campo Obrigatório")
+            : this.props.errorMessage}
       >
          <MenuItem value={null}><NoDataComp /></MenuItem>
          {this.state.companies?.map(company => {
