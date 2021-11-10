@@ -73,7 +73,10 @@ export class UserFormBuilder extends EditCreateForm {
                                           shrink: true,
                                           required: false
                                        }}
-                                       helperText="Campo Obrigatório"
+                                       error={!!this.state.usr_phone ||
+                                          (this.state.primaryData?.usr_phone == "" || this.state.primaryData?.usr_phone == null)}
+
+                                       helperText={this.state.usr_phone ? this.state.usr_phone : "Campo Obrigatório"}
                                     />}
                               </InputMask>
                            </Col>
