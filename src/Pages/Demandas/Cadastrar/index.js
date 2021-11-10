@@ -29,7 +29,6 @@ export default class CadastrarDemanda extends Component {
 
    showAlert(data) {
       this.state.responseAlertShow(data)
-      window.scroll(0, 0)
    }
 
    redirect() {
