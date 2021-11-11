@@ -158,6 +158,7 @@ export default class TiposDeMentoria extends Component {
                                        type="text"
                                        value={mentor.user.usr_name}
                                        disabled
+                                       maxLength="45"
                                        required />
                                  </Form.Group>
                               </Col>

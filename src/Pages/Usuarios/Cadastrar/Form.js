@@ -82,7 +82,7 @@ export class UserFormBuilder extends EditCreateForm {
                                  id="usr_email"
                                  label="Email"
                                  type="email"
-                                 maxLength="144"
+                                 maxLength="45"
                                  defaultValue={this.state.primaryData?.usr_email}
                                  onChange={this.handleChange}
                                  fullWidth
@@ -97,7 +97,7 @@ export class UserFormBuilder extends EditCreateForm {
                                  id="usr_cli_cod"
                                  label="ID Eduzz"
                                  type="text"
-                                 maxLength="45"
+                                 maxLength="10"
                                  required
                                  errorMessage={this.state.usr_cli_cod}
                                  defaultValue={this.state.primaryData?.usr_cli_cod}
