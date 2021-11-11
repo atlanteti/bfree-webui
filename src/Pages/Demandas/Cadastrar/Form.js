@@ -107,7 +107,7 @@ export class DemandFormBuilder extends EditCreateForm {
                                  errorMessage={this.state.dem_desc}
                                  label="Descrição"
                                  type="textarea"
-                                 maxLength="400"
+                                 maxLength="500"
                                  required
                                  multiline
                                  rows={4}
@@ -125,7 +125,7 @@ export class DemandFormBuilder extends EditCreateForm {
                                  type="textarea"
                                  required
                                  errorMessage={this.state.dem_comments}
-                                 maxLength="400"
+                                 maxLength="500"
                                  multiline
                                  rows={4}
                                  disabled={disableField}
