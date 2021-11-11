@@ -177,7 +177,9 @@ export class DemandFormBuilder extends EditCreateForm {
                                  placeholderText="dd/mm/aaaa"
                                  dateFormat="dd/MM/yyyy"
                                  maxDate={new Date()}
-                                 disabled={!this.context.admin && this.state.primaryData.dem_sdm_cod !== 2} // caso mude a ordem dos status, isso precisa ser refatorado
+                                 disabled={!this.context.admin
+                                    &&
+                                    (this.state.primaryData.dem_sdm_cod !== 2 && this.state.primaryData.dem_sdm_cod !== 5)} // caso mude a ordem dos status, isso precisa ser refatorado
                                  selected={this.state.dateAction}
                                  onChange={(dateSelect) => this.handleDate(dateSelect, "dem_dtaction")}
                                  customInput={
