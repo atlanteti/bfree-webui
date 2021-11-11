@@ -53,7 +53,7 @@ export class DemandFormBuilder extends EditCreateForm {
                                  id="dem_title"
                                  label="Titulo"
                                  type="text"
-                                 maxLength="45"
+                                 maxLength="500"
                                  required
                                  errorMessage={this.state.dem_title}
                                  defaultValue={this.state.primaryData?.dem_title}
@@ -67,7 +67,7 @@ export class DemandFormBuilder extends EditCreateForm {
                                  id="dem_contact_email"
                                  label="Email"
                                  type="email"
-                                 maxLength="144"
+                                 maxLength="255"
                                  required
                                  errorMessage={this.state.dem_contact_email}
                                  defaultValue={this.state.primaryData?.dem_contact_email}
