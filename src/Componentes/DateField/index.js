@@ -3,20 +3,13 @@ import { Form, Col, Row } from 'react-bootstrap'
 import moment from 'moment'
 import { FormGroup, FormLabel } from './styles'
 export function displayDate(date, noHour) {
-   const parsedTime = moment(date).format('hh')
-   var formatedHour = (parseInt(parsedTime) + 12) % 24
-   if (formatedHour === 0) {
-      formatedHour = "00"
-   }
-   var formattedDateFromAM = (moment(date).format('DD/MM/YYYY') + ' ' + formatedHour + ':' + moment(date).format('mm'))
-   var formatedDate = moment(date).format('DD/MM/YYYY hh:mm')
-   if (noHour) {
-      formattedDateFromAM = (moment(date).format('DD/MM/YYYY'))
-      formatedDate = moment(date).format('DD/MM/YYYY')
-   }
-   const result = moment(date).format('a') === 'pm' ? formattedDateFromAM : formatedDate
 
-   return result
+   if (!noHour) {
+      return moment(date).format('DD/MM/YYYY HH:mm')
+   }
+   else {
+      return moment(date).format('DD/MM/YYYY')
+   }
 }
 export function DateField(props) {
    return <>
