@@ -32,21 +32,8 @@ export const ValidationTextField = styled(TextField)({
 });
 
 export function InputTextField(props, classes) {
-   return <ValidationTextField
-      {...props}
-      InputLabelProps={{
-         shrink: true,
-         required: false,
-      }}
-      inputProps={{
-         maxLength: props.maxLength,
-      }}
-      error={!!props.errorMessage}
-      helperText={props.required ?
-         (props.errorMessage ? props.errorMessage : "Campo Obrigatório")
-         : props.errorMessage}
-      {...props}
-   />
+   return <DefaultValidationTextField
+      {...props} />
 }
 TextField.propTypes = {
    id: PropTypes.string.isRequired,
@@ -65,6 +52,27 @@ export function PhoneField(props) {
       maskChar={null}
       {...props} />
 }
+const DefaultValidationTextField = (props) => {
+   return <ValidationTextField
+      {...props}
+      fullWidth
+      InputLabelProps={{
+         shrink: true,
+         required: false
+      }}
+      inputProps={{
+         maxLength: props.maxLength,
+      }}
+      error={(!!props.errorMessage ||
+         ((props.defaultValue == "" || props.defaultValue == null)
+            && props.required) && props.validated)}
+
+      helperText={props.required ?
+         (props.errorMessage ? props.errorMessage : "Campo Obrigatório")
+         : props.errorMessage}
+
+   />
+}
 export function NumberField(props) {
    function preventNonNumericalInput(e) {
       e = e || window.event;
@@ -74,33 +82,18 @@ export function NumberField(props) {
       if (!charStr.match(/^[0-9]+$/))
          e.preventDefault();
    }
-
-   return <ValidationTextField
-      id={props.id}
-      label={props.label}
-      type={props.type}
-      value={props.defaultValue}
-      onChange={props.onChange}
-      fullWidth={props.fullWidth ? true : null}
-      required={props.required}
-      multiline={props.multiline ? true : null}
-      rows={props.rows ? props.rows : null}
+   return <DefaultValidationTextField
+      {...props}
       onKeyPress={(e) => preventNonNumericalInput(e)}
-      InputLabelProps={{
-         shrink: true,
-         required: false
-      }}
-      inputProps={{
-         maxLength: props.maxLength,
-       }}
-      helperText={props.required ? "Campo Obrigatório" : null}
    />
 }
 NumberField.propTypes = {
    id: PropTypes.string.isRequired,
    label: PropTypes.string.isRequired,
    type: PropTypes.string,
-   as: PropTypes.string,
+   validated: PropTypes.bool.isRequired,
+   defaultValue: PropTypes.object,
+   errorMessage: PropTypes.string.isRequired,
    onChange: PropTypes.func.isRequired,
    required: PropTypes.bool,
 }
