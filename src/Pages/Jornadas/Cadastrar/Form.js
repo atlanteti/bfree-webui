@@ -40,17 +40,18 @@ export class JourneyFormBuilder extends EditCreateForm {
                                     id="jny_name"
                                     label="Nome"
                                     type="text"
-                                    fullWidth
                                     maxLength="45"
+                                    validated={this.state.validated}
                                     defaultValue={this.state.primaryData?.jny_name}
-                                    onChange={this.handleChange}
                                     errorMessage={this.state.jny_name}
+                                    onChange={this.handleChange}
                                     required
                                  />
-                               </Col>
+                              </Col>
                               <Col className="mt-3" xs={12} sm={5}>
                                  <ListCompanies
                                     name="jny_cpn_cod"
+                                    validated={this.state.validated}
                                     defaultValue={this.props.primaryId}
                                     errorMessage={this.state.jny_cpn_cod}
                                     onChange={this.handleSelect}

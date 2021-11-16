@@ -4,8 +4,8 @@ import { request } from '../../Services/api';
 import PropTypes from 'prop-types'
 import { RequiredField, SelectValidateStyle } from '../../styles/CommonStyles';
 import { TextField, MenuItem } from '@mui/material';
-import { ValidationTextField } from '../FormFields';
 import NoDataComp from '../NoDataComp';
+import { DefaultValidateSelectField } from '../DefaultValidateInputs/DefaultValidateSelectField';
 
 export default class ListCompanies extends Component {
    constructor(props) {
@@ -48,21 +48,10 @@ export default class ListCompanies extends Component {
    }
 
    render() {
-      return <ValidationTextField
-         id={this.props.id}
-         select
-         fullWidth
-         name={this.props.name}
-         label="Empresa"
-         required={this.props.required}
+      return <DefaultValidateSelectField
+         {...this.props}
          value={this.props.defaultCompany}
-         onChange={this.onChange.bind(this)}
-         InputLabelProps={{
-            shrink: true,
-            required: false,
-         }}
-         helperText={this.props.required ? <RequiredField>Campo obrigatório</RequiredField> : null}
-      >
+         label="Empresa">
          <MenuItem value={null}><NoDataComp /></MenuItem>
          {this.state.companies?.map(company => {
             return (
@@ -73,16 +62,14 @@ export default class ListCompanies extends Component {
                   {company.cpn_name}
                </MenuItem>);
          })}
-      </ValidationTextField>
-
+      </DefaultValidateSelectField>
    }
 }
-
 ListCompanies.propTypes = {
-   getSetCallback: PropTypes.func,
-   defaultCompany: PropTypes.number,
-   id: PropTypes.number.isRequired,
+   name: PropTypes.string.isRequired,
+   validated: PropTypes.bool.isRequired,
+   errorMessage: PropTypes.string.isRequired,
    onChange: PropTypes.func.isRequired,
-   required: PropTypes.bool,
-   disabled: PropTypes.bool
+   defaultCompany: PropTypes.number.isRequired
 }
+
