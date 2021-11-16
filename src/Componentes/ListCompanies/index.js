@@ -52,7 +52,7 @@ export default class ListCompanies extends Component {
          {...this.props}
          value={this.props.defaultCompany}
          label="Empresa">
-         <MenuItem value={null}><NoDataComp /></MenuItem>
+         <MenuItem value={""}><NoDataComp /></MenuItem>
          {this.state.companies?.map(company => {
             return (
                <MenuItem
