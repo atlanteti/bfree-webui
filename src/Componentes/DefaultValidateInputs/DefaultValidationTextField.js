@@ -3,7 +3,6 @@ import { ValidationTextField } from '../FormFields/index';
 
 export function DefaultValidationTextField(props) {
    return <ValidationTextField
-      {...props}
       fullWidth
 
       InputLabelProps={{
@@ -19,5 +18,8 @@ export function DefaultValidationTextField(props) {
 
       helperText={props.required ?
          (props.errorMessage ? props.errorMessage : "Campo Obrigatório")
-         : props.errorMessage} />;
+         : props.errorMessage}
+      {...props} />;
+
+
 }
