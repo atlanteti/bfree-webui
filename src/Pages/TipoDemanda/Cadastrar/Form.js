@@ -48,17 +48,15 @@ export class TypeDemandFormBuilder extends EditCreateForm {
                                  errorMessage={this.state.tdm_name}
                                  onChange={this.handleChange}
                                  required
-                                 fullWidth
                               />
                            </Col>
                            <Col className="mt-3" xs={12} sm={5}>
                               <ListCompanies
                                  name="tdm_cpn_cod"
                                  validated={this.state.validated}
-                                 defaultValue={this.props.primaryId}
+                                 defaultCompany={this.state.primaryData.tdm_cpn_cod ? this.state.primaryData.tdm_cpn_cod : ""}
                                  errorMessage={this.state.tdm_cpn_cod}
                                  onChange={this.handleSelect}
-                                 defaultCompany={this.state.primaryData.tdm_cpn_cod ? this.state.primaryData.tdm_cpn_cod : ""}
                                  required />
                            </Col>
                            <Col className="mt-4">
