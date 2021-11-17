@@ -6,6 +6,7 @@ import InputMask from "react-input-mask"
 import { MenuItem, TextField } from '@mui/material';
 import { alpha, styled } from '@mui/material/styles';
 import NoDataComp from '../NoDataComp'
+import { DefaultValidationTextField } from '../DefaultValidateInputs/DefaultValidationTextField'
 
 export const ValidationTextField = styled(TextField)({
    '& label': {
@@ -51,27 +52,6 @@ export function PhoneField(props) {
       mask="(xx) xxxxx-xxxx"
       maskChar={null}
       {...props} />
-}
-const DefaultValidationTextField = (props) => {
-   return <ValidationTextField
-      {...props}
-      fullWidth
-      InputLabelProps={{
-         shrink: true,
-         required: false
-      }}
-      inputProps={{
-         maxLength: props.maxLength,
-      }}
-      error={(!!props.errorMessage ||
-         ((props.defaultValue == "" || props.defaultValue == null)
-            && props.required) && props.validated)}
-
-      helperText={props.required ?
-         (props.errorMessage ? props.errorMessage : "Campo Obrigatório")
-         : props.errorMessage}
-
-   />
 }
 export function NumberField(props) {
    function preventNonNumericalInput(e) {
