@@ -31,6 +31,7 @@ import UploadSheet from "../Pages/UploadSheet";
 
 import ListarRelatorio from "../Pages/Relatorio/Listar";
 import Editar from "../Pages/Editar";
+import { Resultados } from "../Pages/Resultados";
 
 export default function AuthRoutes() {
    return (
@@ -38,6 +39,7 @@ export default function AuthRoutes() {
          <Switch>
             {/* rotas de usuarios */}
             <Route path="/usuarios" component={ListarUsuarios} />
+            <Route path="/resultados" component={Resultados} />
             <Route path="/usuario-companhia/:userId/:userName" component={UsuarioCompanies} />
             <Route path="/usuario-jornadas/:userId/:userName" component={UsuarioJornadas} />
             <Route path="/usuario-badges/:userId/:userName" component={UsuarioBadges} />
