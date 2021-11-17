@@ -13,9 +13,6 @@ export default class ListCompanies extends Component {
       this.state = {
          companies: [],
       };
-      if (this.props.getSetCallback) {
-         this.props.getSetCallback(this.select.bind(this))
-      }
    }
 
    async getCompanies() {
@@ -36,16 +33,6 @@ export default class ListCompanies extends Component {
       this.props.onChange(e)
    }
 
-   select(companyCode) {
-      this.setState({ selectedValue: companyCode })
-      this.props.onChange({
-         target: {
-            id: this.props.id,
-            value: String(companyCode),
-            selected: true
-         }
-      })
-   }
 
    render() {
       return <DefaultValidateSelectField
