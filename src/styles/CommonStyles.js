@@ -142,8 +142,7 @@ export const Table = styled.table`
    
    .elipses {
       white-space: nowrap;
-      display: block;
-      width: 170px;
+      max-width: 170px;
       overflow: hidden;
       text-overflow: ellipsis;
    }
