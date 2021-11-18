@@ -6,6 +6,7 @@ import { RequiredField, SelectValidateStyle } from '../../styles/CommonStyles'
 import { TextField, MenuItem } from '@mui/material';
 import { ValidationTextField } from '../FormFields';
 import NoDataComp from '../NoDataComp';
+import { DefaultValidateSelectField } from '../DefaultValidateInputs/DefaultValidateSelectField';
 
 export default class ListUserStatusControlled extends Component {
    constructor(props) {
@@ -34,32 +35,23 @@ export default class ListUserStatusControlled extends Component {
    }
 
    render() {
-      return <ValidationTextField
-         id={this.props.id}
-         select
-         fullWidth
-         name={this.props.name}
-         label={this.props.label}
-         value={this.props.value}
-         required={this.props.required}
-         onChange={this.onChange.bind(this)}
-         InputLabelProps={{
-            shrink: true,
-            required: false
-         }}
-         helperText={this.props.required ? <RequiredField>Campo obrigatório</RequiredField> : null}
+      return <DefaultValidateSelectField
+         {...this.props}
+         label="Status do Usuário"
       >
-         <MenuItem value={null}><NoDataComp /></MenuItem>
-         {this.state.statuses?.map(status => {
-            return (
-               <MenuItem
-                  key={status.sus_cod}
-                  value={status.sus_cod}
-               >
-                  {status.sus_name}
-               </MenuItem>)
-         })}
-      </ValidationTextField>
+         {!this.props.register && <MenuItem value={""}><NoDataComp /></MenuItem>}
+         {
+            this.state.statuses?.map(status => {
+               return (
+                  <MenuItem
+                     key={status.sus_cod}
+                     value={status.sus_cod}
+                  >
+                     {status.sus_name}
+                  </MenuItem>)
+            })
+         }
+      </DefaultValidateSelectField >
    }
 }
 ListUserStatusControlled.propTypes =
