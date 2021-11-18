@@ -194,7 +194,7 @@ export default class ListarRelatorio extends ListarPagina {
                                           placeholderText="dd/mm/aaaa"
                                           dateFormat="dd/MM/yyyy"
                                           selected={this.state.finalDate}
-                                          maxDate={this.state.finalDate}
+                                          maxDate={new Date(moment().weekday(7))}
                                           onChange={(dateSelect) => this.changeDate(dateSelect, "finalDate")}
                                           customInput={
                                              <ValidationTextField
