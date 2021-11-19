@@ -76,27 +76,14 @@ export class DemandFormBuilder extends EditCreateForm {
                               />
                            </Col>
                            <Col className="mt-3" xs={12} sm={4}>
-                              <InputMask
-                                 mask="(xx) xxxxx-xxxx"
-                                 value={this.state.primaryData?.dem_contact_phone}
+                              <PhoneInput
+                                 id="dem_contact_phone"
                                  disabled={disableField}
-                                 formatChars={{ "x": '[0-9]' }}
-                                 maskChar=" "
+                                 validated={this.state.validated}
+                                 defaultValue={this.state.primaryData?.dem_contact_phone}
+                                 errorMessage={this.state.dem_contact_phone}
                                  onChange={this.context.admin ? this.handleChange : null}
-                              >
-                                 {() =>
-                                    <ValidationTextField
-                                       id="dem_contact_phone"
-                                       label="Telefone"
-                                       type="text"
-                                       disabled={disableField}
-                                       fullWidth
-                                       InputLabelProps={{
-                                          shrink: true,
-                                          required: false
-                                       }}
-                                    />}
-                              </InputMask>
+                                 required />
                            </Col>
                         </Row>
                         <Row>
