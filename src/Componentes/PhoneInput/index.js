@@ -5,7 +5,7 @@ export function PhoneInput(props) {
       mask="(xx) xxxxx-xxxx"
       value={props.defaultValue}
       formatChars={{ "x": '[0-9]' }}
-      disabled={false}
+      disabled={props.disabled}
       maskChar=" "
       required
       onChange={props.onChange}
@@ -13,7 +13,8 @@ export function PhoneInput(props) {
       {() =>
          <DefaultValidationTextField
             {...props}
-            id="usr_phone"
+            defaultValue={props.defaultValue}
+            disabled={props.disabled}
             label="Telefone"
             type="text"
             required
