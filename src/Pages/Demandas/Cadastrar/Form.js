@@ -1,27 +1,26 @@
-import React from 'react'
-import { Form, Col, Row, Button, Table } from 'react-bootstrap'
-import { DateField, DateFieldStatus } from '../../../Componentes/DateField'
-import { ButtonRow } from '../../../Componentes/ButtonRow'
-import { EditCreateForm } from '../../../Componentes/EditCreateForm/index'
-import { NumberField, InputTextField, ValidationTextField } from '../../../Componentes/FormFields'
-import ListTypeDemand from '../../../Componentes/ListTypeDemand'
-import ListStatusDemands from '../../../Componentes/ListStatusDemands'
-import ListUsers from '../../../Componentes/ListUsers'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import { Accordion } from '@mui/material'
+import AccordionDetails from '@mui/material/AccordionDetails'
+import AccordionSummary from '@mui/material/AccordionSummary'
+import React from 'react'
+import { Button, Col, Form, Row } from 'react-bootstrap'
+import { IoChevronBackCircleSharp } from "react-icons/io5"
+import { MdOutlineExpandMore } from 'react-icons/md'
+import ValidatedDatePicker from '../../../Componentes/ActionDatePicker'
+import { ButtonRow } from '../../../Componentes/ButtonRow'
+import { DateField, DateFieldStatus } from '../../../Componentes/DateField'
+import { EditCreateForm } from '../../../Componentes/EditCreateForm/index'
+import { InputTextField } from '../../../Componentes/FormFields'
+import ListStatusDemands from '../../../Componentes/ListStatusDemands'
+import ListTypeDemand from '../../../Componentes/ListTypeDemand'
+import ListUsers from '../../../Componentes/ListUsers'
+import { PhoneInput } from '../../../Componentes/PhoneInput'
 import ContextLogin from '../../../Context/ContextLogin'
-import DatePicker from "react-datepicker";
-import Restricted from '../../../Context/AccessPermission'
 import {
    BackGroundForm, BtnBlue, MainTable, TableData,
-   TableHeader, TextCell, TextHeaderCell, TitleRegister, NumberHeaderCell
+   TableHeader, TextCell, TitleRegister
 } from '../../../styles/CommonStyles'
 import { StatusAccordionHeader, TableRowStatus, TextHeaderStatus } from "./styles.js"
-import { IoChevronBackCircleSharp } from "react-icons/io5"
-import InputMask from "react-input-mask"
-import { Accordion } from '@mui/material'
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import { MdOutlineExpandMore } from 'react-icons/md'
 export default function DemandForm(props) {
    return <DemandFormBuilder insertDataEndpoint="demands/cadastrar"
       requestDataEndpoint="demands/procurar/"
@@ -54,66 +53,54 @@ export class DemandFormBuilder extends EditCreateForm {
                                  label="Titulo"
                                  type="text"
                                  maxLength="500"
-                                 required
-                                 errorMessage={this.state.dem_title}
-                                 defaultValue={this.state.primaryData?.dem_title}
                                  disabled={disableField}
+                                 validated={this.state.validated}
+                                 defaultValue={this.state.primaryData?.dem_title}
+                                 errorMessage={this.state.dem_title}
                                  onChange={this.context.admin ? this.handleChange : null}
-                                 fullWidth
+                                 required
                               />
                            </Col>
                            <Col className="mt-3" xs={12} sm={4}>
                               <InputTextField
                                  id="dem_contact_email"
                                  label="Email"
-                                 type="email"
+                                 type="text"
                                  maxLength="255"
-                                 required
-                                 errorMessage={this.state.dem_contact_email}
-                                 defaultValue={this.state.primaryData?.dem_contact_email}
                                  disabled={disableField}
+                                 validated={this.state.validated}
+                                 defaultValue={this.state.primaryData?.dem_contact_email}
+                                 errorMessage={this.state.dem_contact_email}
                                  onChange={this.context.admin ? this.handleChange : null}
-                                 fullWidth
+                                 required
                               />
                            </Col>
                            <Col className="mt-3" xs={12} sm={4}>
-                              <InputMask
-                                 mask="(xx) xxxxx-xxxx"
-                                 value={this.state.primaryData?.dem_contact_phone}
+                              <PhoneInput
+                                 id="dem_contact_phone"
                                  disabled={disableField}
-                                 formatChars={{ "x": '[0-9]' }}
-                                 maskChar=" "
+                                 validated={this.state.validated}
+                                 defaultValue={this.state.primaryData?.dem_contact_phone}
+                                 errorMessage={this.state.dem_contact_phone}
                                  onChange={this.context.admin ? this.handleChange : null}
-                              >
-                                 {() =>
-                                    <ValidationTextField
-                                       id="dem_contact_phone"
-                                       label="Telefone"
-                                       type="text"
-                                       disabled={disableField}
-                                       fullWidth
-                                       InputLabelProps={{
-                                          shrink: true,
-                                          required: false
-                                       }}
-                                    />}
-                              </InputMask>
+                                 required />
                            </Col>
                         </Row>
                         <Row>
                            <Col className="mt-3" >
                               <InputTextField
                                  id="dem_desc"
-                                 errorMessage={this.state.dem_desc}
                                  label="Descrição"
                                  type="textarea"
                                  maxLength="500"
+                                 validated={this.state.validated}
+                                 defaultValue={this.state.primaryData?.dem_desc}
+                                 errorMessage={this.state.dem_desc}
+                                 onChange={this.handleChange}
                                  required
+
                                  multiline
                                  rows={4}
-                                 defaultValue={this.state.primaryData?.dem_desc}
-                                 onChange={this.handleChange}
-                                 fullWidth
                               />
                            </Col>
                         </Row>
@@ -123,48 +110,48 @@ export class DemandFormBuilder extends EditCreateForm {
                                  id="dem_comments"
                                  label="Observações"
                                  type="textarea"
-                                 required
-                                 errorMessage={this.state.dem_comments}
                                  maxLength="500"
+                                 disabled={disableField}
+                                 validated={this.state.validated}
+                                 defaultValue={this.state.primaryData?.dem_comments}
+                                 errorMessage={this.state.dem_comments}
+                                 onChange={this.context.admin ? this.handleChange : null}
+                                 required
                                  multiline
                                  rows={4}
-                                 disabled={disableField}
-                                 defaultValue={this.state.primaryData?.dem_comments}
-                                 onChange={this.context.admin ? this.handleChange : null}
-                                 fullWidth
                               />
                            </Col>
                         </Row>
                         <Row>
                            <Col className="mt-3" xs={12} sm={4}>
                               <ListUsers
-                                 defaultValue={this.props.primaryId}
-                                 errorMessage={this.state.dem_usr_cod}
                                  name="dem_usr_cod"
-                                 defaultUser={this.state.primaryData.dem_usr_cod}
                                  disabled={disableField}
+                                 validated={this.state.validated}
+                                 defaultUser={this.state.primaryData.dem_usr_cod}
+                                 errorMessage={this.state.dem_usr_cod}
                                  onChange={this.context.admin ? this.handleSelect : null}
                                  required
                               />
                            </Col>
                            <Col className="mt-3" xs={12} sm={4}>
                               <ListStatusDemands
-                                 ref={this.myRef}
-                                 defaultValue={this.props.primaryId}
-                                 errorMessage={this.state.dem_sdm_cod}
                                  name="dem_sdm_cod"
-                                 onChange={this.handleSelect}
+                                 ref={this.myRef}
+                                 validated={this.state.validated}
                                  defaultStatusDemand={this.state.primaryData.dem_sdm_cod}
+                                 errorMessage={this.state.dem_sdm_cod}
+                                 onChange={this.handleSelect}
                                  required
                               />
                            </Col>
                            <Col className="mt-3" xs={12} sm={4}>
                               <ListTypeDemand
-                                 defaultValue={this.props.primaryId}
-                                 errorMessage={this.state.dem_tdm_cod}
                                  name="dem_tdm_cod"
-                                 defaultTypeDemand={this.state.primaryData.dem_tdm_cod}
                                  disabled={disableField}
+                                 validated={this.state.validated}
+                                 defaultTypeDemand={this.state.primaryData.dem_tdm_cod}
+                                 errorMessage={this.state.dem_tdm_cod}
                                  onChange={this.context.admin ? this.handleSelect : null}
                                  required
                               />
@@ -172,31 +159,18 @@ export class DemandFormBuilder extends EditCreateForm {
                         </Row>
                         <Row>
                            <Col className="mt-3" xs={12} sm={6} >
-                              <DatePicker
+                              <ValidatedDatePicker
                                  controlId="dem_dtaction"
-                                 placeholderText="dd/mm/aaaa"
-                                 dateFormat="dd/MM/yyyy"
-                                 maxDate={new Date()}
-                                 disabled={!this.context.admin
-                                    &&
-                                    (this.state.primaryData.dem_sdm_cod !== 2 && this.state.primaryData.dem_sdm_cod !== 5)} // caso mude a ordem dos status, isso precisa ser refatorado
+                                 label="Data de Ação"
+                                 disabled={!this.context.admin &&
+                                    (this.state.primaryData.dem_sdm_cod !== 2 &&
+                                       this.state.primaryData.dem_sdm_cod !== 5)}
                                  selected={this.state.dateAction}
+                                 validated={this.state.validated}
+                                 defaultValue={this.state.primaryData.dem_dtaction ? this.state.primaryData.dem_dtaction : ""}
+                                 errorMessage={this.state.dem_tdm_cod}
                                  onChange={(dateSelect) => this.handleDate(dateSelect, "dem_dtaction")}
-                                 customInput={
-                                    <ValidationTextField
-                                       label="Data de Ação"
-                                       type="text"
-                                       errorMessage={this.state.dem_tdm_cod}
-                                       InputLabelProps={{
-                                          shrink: true,
-                                          required: false,
-                                       }}
-                                       error={!!this.state.dem_tdm_cod}
-                                       helperText={this.props.paramRoute !== 'inserir' && this.state.primaryData.dem_sdm_cod > 1 ?
-                                          (this.state.dem_tdm_cod ? this.state.dem_tdm_cod : "Campo Obrigatório")
-                                          : this.state.dem_tdm_cod}
-                                    />
-                                 }
+                                 required={this.state.primaryData.dem_sdm_cod > 1 && this.state.primaryData.dem_sdm_cod < 5}
                               />
                            </Col>
                         </Row>
