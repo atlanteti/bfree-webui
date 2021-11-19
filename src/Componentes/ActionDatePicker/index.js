@@ -1,8 +1,8 @@
 import DatePicker from "react-datepicker";
 import { DefaultValidationTextField } from "../DefaultValidateInputs/DefaultValidationTextField";
-export default function ActionDatePicker(props) {
+export default function ValidatedDatePicker(props) {
    return <DatePicker
-      controlId="dem_dtaction"
+      controlId={props.controlId}
       placeholderText="dd/mm/aaaa"
       dateFormat="dd/MM/yyyy"
       {...props}
@@ -10,7 +10,7 @@ export default function ActionDatePicker(props) {
          <DefaultValidationTextField
             {...props}
             fullWidth={false}
-            label="Data de Ação"
+            label={props.label}
          />
       }
    />
