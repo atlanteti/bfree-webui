@@ -53,26 +53,26 @@ export class DemandFormBuilder extends EditCreateForm {
                                  label="Titulo"
                                  type="text"
                                  maxLength="500"
-                                 required
-                                 errorMessage={this.state.dem_title}
-                                 defaultValue={this.state.primaryData?.dem_title}
                                  disabled={disableField}
+                                 validated={this.state.validated}
+                                 defaultValue={this.state.primaryData?.dem_title}
+                                 errorMessage={this.state.dem_title}
                                  onChange={this.context.admin ? this.handleChange : null}
-                                 fullWidth
+                                 required
                               />
                            </Col>
                            <Col className="mt-3" xs={12} sm={4}>
                               <InputTextField
                                  id="dem_contact_email"
                                  label="Email"
-                                 type="email"
+                                 type="text"
                                  maxLength="255"
-                                 required
-                                 errorMessage={this.state.dem_contact_email}
-                                 defaultValue={this.state.primaryData?.dem_contact_email}
                                  disabled={disableField}
+                                 validated={this.state.validated}
+                                 defaultValue={this.state.primaryData?.dem_contact_email}
+                                 errorMessage={this.state.dem_contact_email}
                                  onChange={this.context.admin ? this.handleChange : null}
-                                 fullWidth
+                                 required
                               />
                            </Col>
                            <Col className="mt-3" xs={12} sm={4}>
@@ -103,16 +103,17 @@ export class DemandFormBuilder extends EditCreateForm {
                            <Col className="mt-3" >
                               <InputTextField
                                  id="dem_desc"
-                                 errorMessage={this.state.dem_desc}
                                  label="Descrição"
                                  type="textarea"
                                  maxLength="500"
+                                 validated={this.state.validated}
+                                 defaultValue={this.state.primaryData?.dem_desc}
+                                 errorMessage={this.state.dem_desc}
+                                 onChange={this.handleChange}
                                  required
+
                                  multiline
                                  rows={4}
-                                 defaultValue={this.state.primaryData?.dem_desc}
-                                 onChange={this.handleChange}
-                                 fullWidth
                               />
                            </Col>
                         </Row>
@@ -122,48 +123,48 @@ export class DemandFormBuilder extends EditCreateForm {
                                  id="dem_comments"
                                  label="Observações"
                                  type="textarea"
-                                 required
-                                 errorMessage={this.state.dem_comments}
                                  maxLength="500"
+                                 disabled={disableField}
+                                 validated={this.state.validated}
+                                 defaultValue={this.state.primaryData?.dem_comments}
+                                 errorMessage={this.state.dem_comments}
+                                 onChange={this.context.admin ? this.handleChange : null}
+                                 required
                                  multiline
                                  rows={4}
-                                 disabled={disableField}
-                                 defaultValue={this.state.primaryData?.dem_comments}
-                                 onChange={this.context.admin ? this.handleChange : null}
-                                 fullWidth
                               />
                            </Col>
                         </Row>
                         <Row>
                            <Col className="mt-3" xs={12} sm={4}>
                               <ListUsers
-                                 defaultValue={this.props.primaryId}
-                                 errorMessage={this.state.dem_usr_cod}
                                  name="dem_usr_cod"
-                                 defaultUser={this.state.primaryData.dem_usr_cod}
                                  disabled={disableField}
+                                 validated={this.state.validated}
+                                 defaultUser={this.state.primaryData.dem_usr_cod}
+                                 errorMessage={this.state.dem_usr_cod}
                                  onChange={this.context.admin ? this.handleSelect : null}
                                  required
                               />
                            </Col>
                            <Col className="mt-3" xs={12} sm={4}>
                               <ListStatusDemands
-                                 ref={this.myRef}
-                                 defaultValue={this.props.primaryId}
-                                 errorMessage={this.state.dem_sdm_cod}
                                  name="dem_sdm_cod"
-                                 onChange={this.handleSelect}
+                                 ref={this.myRef}
+                                 validated={this.state.validated}
                                  defaultStatusDemand={this.state.primaryData.dem_sdm_cod}
+                                 errorMessage={this.state.dem_sdm_cod}
+                                 onChange={this.handleSelect}
                                  required
                               />
                            </Col>
                            <Col className="mt-3" xs={12} sm={4}>
                               <ListTypeDemand
-                                 defaultValue={this.props.primaryId}
-                                 errorMessage={this.state.dem_tdm_cod}
                                  name="dem_tdm_cod"
-                                 defaultTypeDemand={this.state.primaryData.dem_tdm_cod}
                                  disabled={disableField}
+                                 validated={this.state.validated}
+                                 defaultTypeDemand={this.state.primaryData.dem_tdm_cod}
+                                 errorMessage={this.state.dem_tdm_cod}
                                  onChange={this.context.admin ? this.handleSelect : null}
                                  required
                               />
