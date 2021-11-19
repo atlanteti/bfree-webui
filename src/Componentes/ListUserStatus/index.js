@@ -39,7 +39,6 @@ export default class ListUserStatusControlled extends Component {
          {...this.props}
          label="Status do Usuário"
       >
-         {!this.props.register && <MenuItem value={""}><NoDataComp /></MenuItem>}
          {
             this.state.statuses?.map(status => {
                return (
