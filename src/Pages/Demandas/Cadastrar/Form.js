@@ -159,31 +159,18 @@ export class DemandFormBuilder extends EditCreateForm {
                         </Row>
                         <Row>
                            <Col className="mt-3" xs={12} sm={6} >
-                              <DatePicker
+                              <ValidatedDatePicker
                                  controlId="dem_dtaction"
-                                 placeholderText="dd/mm/aaaa"
-                                 dateFormat="dd/MM/yyyy"
-                                 maxDate={new Date()}
-                                 disabled={!this.context.admin
-                                    &&
-                                    (this.state.primaryData.dem_sdm_cod !== 2 && this.state.primaryData.dem_sdm_cod !== 5)} // caso mude a ordem dos status, isso precisa ser refatorado
+                                 label="Data de Ação"
+                                 disabled={!this.context.admin &&
+                                    (this.state.primaryData.dem_sdm_cod !== 2 &&
+                                       this.state.primaryData.dem_sdm_cod !== 5)}
                                  selected={this.state.dateAction}
+                                 validated={this.state.validated}
+                                 defaultValue={this.state.primaryData.dem_dtaction ? this.state.primaryData.dem_dtaction : ""}
+                                 errorMessage={this.state.dem_tdm_cod}
                                  onChange={(dateSelect) => this.handleDate(dateSelect, "dem_dtaction")}
-                                 customInput={
-                                    <ValidationTextField
-                                       label="Data de Ação"
-                                       type="text"
-                                       errorMessage={this.state.dem_tdm_cod}
-                                       InputLabelProps={{
-                                          shrink: true,
-                                          required: false,
-                                       }}
-                                       error={!!this.state.dem_tdm_cod}
-                                       helperText={this.props.paramRoute !== 'inserir' && this.state.primaryData.dem_sdm_cod > 1 ?
-                                          (this.state.dem_tdm_cod ? this.state.dem_tdm_cod : "Campo Obrigatório")
-                                          : this.state.dem_tdm_cod}
-                                    />
-                                 }
+                                 required={this.state.primaryData.dem_sdm_cod > 1 && this.state.primaryData.dem_sdm_cod < 5}
                               />
                            </Col>
                         </Row>
