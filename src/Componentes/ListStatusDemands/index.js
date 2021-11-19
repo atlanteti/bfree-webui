@@ -6,6 +6,8 @@ import { RequiredField, SelectValidateStyle } from '../../styles/CommonStyles'
 import { TextField, MenuItem } from '@mui/material';
 import { ValidationTextField } from '../FormFields';
 import NoDataComp from '../NoDataComp';
+import { DefaultValidateSelectField } from '../DefaultValidateInputs/DefaultValidateSelectField';
+
 
 export default class ListStatusDemands extends Component {
    constructor(props) {
@@ -13,9 +15,6 @@ export default class ListStatusDemands extends Component {
       this.state = {
          statusDemands: [],
       };
-      if (this.props.getSetCallback) {
-         this.props.getSetCallback(this.select.bind(this))
-      }
    }
 
    async getStatusDemands() {
@@ -32,39 +31,11 @@ export default class ListStatusDemands extends Component {
       this.getStatusDemands();
    }
 
-   onChange(e) {
-      this.props.onChange(e)
-   }
-
-   select(typeStatusCode) {
-      this.setState({ selectedValue: typeStatusCode })
-      this.props.onChange({
-         target: {
-            id: this.props.id,
-            value: String(typeStatusCode),
-            selected: true
-         }
-      })
-   }
-
    render() {
-      return <ValidationTextField
-         id={this.props.id}
-         select
-         fullWidth
-         name={this.props.name}
-         label="Status da Demanda"
+      return <DefaultValidateSelectField
+         {...this.props}
          value={this.props.defaultStatusDemand}
-         disabled={this.props.disabled}
-         required={this.props.required}
-         onChange={this.onChange.bind(this)}
-         InputLabelProps={{
-            shrink: true,
-            required: false
-         }}
-         helperText={this.props.required ? <RequiredField>Campo obrigatório</RequiredField> : null}
-      >
-         <MenuItem value={null}><NoDataComp /></MenuItem>
+         label="Status da Demanda">
          {this.state.statusDemands?.map(statusDemand => {
             return (
                <MenuItem
@@ -74,7 +45,7 @@ export default class ListStatusDemands extends Component {
                   {statusDemand.sdm_name}
                </MenuItem>);
          })}
-      </ValidationTextField>
+      </DefaultValidateSelectField>
    }
 }
 
