@@ -105,7 +105,6 @@ export class UserFormBuilder extends EditCreateForm {
 
                                  id="usr_sus_cod"
                                  name="usr_sus_cod"
-                                 register={true}
                                  validated={this.state.validated}
                                  value={this.state.primaryData.usr_sus_cod ? this.state.primaryData.usr_sus_cod : ""}
                                  errorMessage={this.state.usr_sus_cod}
