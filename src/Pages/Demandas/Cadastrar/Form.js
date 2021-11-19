@@ -1,27 +1,26 @@
-import React from 'react'
-import { Form, Col, Row, Button, Table } from 'react-bootstrap'
-import { DateField, DateFieldStatus } from '../../../Componentes/DateField'
-import { ButtonRow } from '../../../Componentes/ButtonRow'
-import { EditCreateForm } from '../../../Componentes/EditCreateForm/index'
-import { NumberField, InputTextField, ValidationTextField } from '../../../Componentes/FormFields'
-import ListTypeDemand from '../../../Componentes/ListTypeDemand'
-import ListStatusDemands from '../../../Componentes/ListStatusDemands'
-import ListUsers from '../../../Componentes/ListUsers'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import { Accordion } from '@mui/material'
+import AccordionDetails from '@mui/material/AccordionDetails'
+import AccordionSummary from '@mui/material/AccordionSummary'
+import React from 'react'
+import { Button, Col, Form, Row } from 'react-bootstrap'
+import { IoChevronBackCircleSharp } from "react-icons/io5"
+import { MdOutlineExpandMore } from 'react-icons/md'
+import ValidatedDatePicker from '../../../Componentes/ActionDatePicker'
+import { ButtonRow } from '../../../Componentes/ButtonRow'
+import { DateField, DateFieldStatus } from '../../../Componentes/DateField'
+import { EditCreateForm } from '../../../Componentes/EditCreateForm/index'
+import { InputTextField } from '../../../Componentes/FormFields'
+import ListStatusDemands from '../../../Componentes/ListStatusDemands'
+import ListTypeDemand from '../../../Componentes/ListTypeDemand'
+import ListUsers from '../../../Componentes/ListUsers'
+import { PhoneInput } from '../../../Componentes/PhoneInput'
 import ContextLogin from '../../../Context/ContextLogin'
-import DatePicker from "react-datepicker";
-import Restricted from '../../../Context/AccessPermission'
 import {
    BackGroundForm, BtnBlue, MainTable, TableData,
-   TableHeader, TextCell, TextHeaderCell, TitleRegister, NumberHeaderCell
+   TableHeader, TextCell, TitleRegister
 } from '../../../styles/CommonStyles'
 import { StatusAccordionHeader, TableRowStatus, TextHeaderStatus } from "./styles.js"
-import { IoChevronBackCircleSharp } from "react-icons/io5"
-import InputMask from "react-input-mask"
-import { Accordion } from '@mui/material'
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import { MdOutlineExpandMore } from 'react-icons/md'
 export default function DemandForm(props) {
    return <DemandFormBuilder insertDataEndpoint="demands/cadastrar"
       requestDataEndpoint="demands/procurar/"
