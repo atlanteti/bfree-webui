@@ -1,11 +1,9 @@
-import { Form } from 'react-bootstrap';
 import { React, Component } from 'react';
 import { request } from '../../Services/api';
 import PropTypes from 'prop-types'
-import { RequiredField, SelectValidateStyle } from '../../styles/CommonStyles'
 import { TextField, MenuItem } from '@mui/material';
-import { ValidationTextField } from '../FormFields';
 import NoDataComp from '../NoDataComp';
+import { DefaultValidateSelectField } from '../DefaultValidateInputs/DefaultValidateSelectField';
 
 export default class ListTypeDemand extends Component {
    constructor(props) {
@@ -13,9 +11,6 @@ export default class ListTypeDemand extends Component {
       this.state = {
          typeDemands: [],
       };
-      if (this.props.getSetCallback) {
-         this.props.getSetCallback(this.select.bind(this))
-      }
    }
 
    async getTypeDemands() {
@@ -32,39 +27,11 @@ export default class ListTypeDemand extends Component {
       this.getTypeDemands();
    }
 
-   onChange(e) {
-      this.props.onChange(e)
-   }
-
-   select(typeDemandCode) {
-      this.setState({ selectedValue: typeDemandCode })
-      this.props.onChange({
-         target: {
-            id: this.props.id,
-            value: String(typeDemandCode),
-            selected: true
-         }
-      })
-   }
-
    render() {
-      return <ValidationTextField
-         id={this.props.id}
-         select
-         fullWidth
-         name={this.props.name}
-         label="Tipos de Demanda"
-         disabled={this.props.disabled}
+      return <DefaultValidateSelectField
+         {...this.props}
          value={this.props.defaultTypeDemand}
-         required={this.props.required}
-         onChange={this.onChange.bind(this)}
-         InputLabelProps={{
-            shrink: true,
-            required: false
-         }}
-         helperText={this.props.required ? <RequiredField>Campo obrigatório</RequiredField> : null}
-      >
-         <MenuItem value={null}><NoDataComp /></MenuItem>
+         label="Tipos de Demanda">
          {this.state.typeDemands?.map(typeDemand => {
             return (
                <MenuItem
@@ -74,14 +41,12 @@ export default class ListTypeDemand extends Component {
                   {typeDemand.tdm_name}
                </MenuItem>);
          })}
-      </ValidationTextField>
+      </DefaultValidateSelectField>
    }
 }
 
 ListTypeDemand.propTypes = {
-   getSetCallback: PropTypes.func,
    defaultTypeDemand: PropTypes.number,
-   id: PropTypes.number.isRequired,
    onChange: PropTypes.func.isRequired,
    required: PropTypes.bool,
    disabled: PropTypes.bool
