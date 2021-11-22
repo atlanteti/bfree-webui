@@ -121,30 +121,10 @@ export function BooleanField(props) {
       value={props.value}
       label={props.Label}>
 
-      {!props.register && <MenuItem value={null}><NoDataComp /></MenuItem>}
       <MenuItem value={"false"}>{props.onFalse}</MenuItem>
       <MenuItem value={"true"}>{props.onTrue}</MenuItem>
 
    </DefaultValidateSelectField>
-   return <ValidationTextField
-      id={props.id}
-      select
-      fullWidth
-      name={props.name}
-      label={props.Label}
-      required={props.required}
-      value={props.value}
-      onChange={props.onChange}
-      InputLabelProps={{
-         shrink: true,
-         required: false
-      }}
-      helperText={props.required ? <RequiredField>Campo obrigatório</RequiredField> : null}
-   >
-      {!props.register && <MenuItem value={null}><NoDataComp /></MenuItem>}
-      <MenuItem value={false}>{props.onFalse}</MenuItem>
-      <MenuItem value={true}>{props.onTrue}</MenuItem>
-   </ValidationTextField>
 }
 
 BooleanField.propTypes = {

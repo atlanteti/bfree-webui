@@ -46,7 +46,6 @@ export default class ListJourneysControlled extends Component {
          {...this.props}
          onChange={this.onChange.bind(this)}
          label="Jornada">
-         <MenuItem value={null}><NoDataComp /></MenuItem>
          {this.state.journeys?.map(journey => {
             return (
                <MenuItem

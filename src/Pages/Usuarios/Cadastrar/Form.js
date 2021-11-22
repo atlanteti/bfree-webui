@@ -11,6 +11,7 @@ import { BackGroundForm, BtnBlue, TitleRegister } from '../../../styles/CommonSt
 import { IoChevronBackCircleSharp } from "react-icons/io5"
 import TextField from '@mui/material/TextField'
 import InputMask from "react-input-mask"
+import { PhoneInput } from '../../../Componentes/PhoneInput'
 
 export default function UserForm(props) {
    return <UserFormBuilder insertDataEndpoint="usuarios/cadastrar"
@@ -43,51 +44,33 @@ export class UserFormBuilder extends EditCreateForm {
                                  label="Nome"
                                  type="text"
                                  maxLength="200"
+                                 validated={this.state.validated}
                                  defaultValue={this.state.primaryData?.usr_name}
-                                 onChange={this.handleChange}
-                                 fullWidth
-                                 required
                                  errorMessage={this.state.usr_name}
+                                 onChange={this.handleChange}
+                                 required
                               />
                            </Col>
                            <Col className="mt-3" xs={12} sm={4}>
-                              <InputMask
-                                 mask="(xx) xxxxx-xxxx"
-                                 value={this.state.primaryData?.usr_phone}
-                                 formatChars={{ "x": '[0-9]' }}
-                                 disabled={false}
-                                 maskChar=" "
-                                 required
+                              <PhoneInput
+                                 id="usr_phone"
+                                 validated={this.state.validated}
+                                 defaultValue={this.state.primaryData?.usr_phone}
+                                 errorMessage={this.state.usr_phone}
                                  onChange={this.handleChange}
-                              >
-                                 {() =>
-                                    <ValidationTextField
-                                       id="usr_phone"
-                                       label="Telefone"
-                                       type="text"
-                                       required
-                                       errorMessage={this.state.usr_phone}
-                                       onChange={this.handleChange}
-                                       fullWidth
-                                       InputLabelProps={{
-                                          shrink: true,
-                                          required: false
-                                       }}
-                                       helperText="Campo Obrigatório"
-                                    />}
-                              </InputMask>
+                                 required />
                            </Col>
                            <Col className="mt-3" xs={12} sm={4}>
                               <InputTextField
                                  id="usr_email"
                                  label="Email"
-                                 type="email"
+                                 type="text"
                                  maxLength="45"
+                                 validated={this.state.validated}
                                  defaultValue={this.state.primaryData?.usr_email}
-                                 onChange={this.handleChange}
-                                 fullWidth
-                                 required
                                  errorMessage={this.state.usr_email}
+                                 onChange={this.handleChange}
+                                 required
                               />
                            </Col>
                         </Row>
@@ -98,11 +81,11 @@ export class UserFormBuilder extends EditCreateForm {
                                  label="ID Eduzz"
                                  type="text"
                                  maxLength="10"
-                                 required
-                                 errorMessage={this.state.usr_cli_cod}
+                                 validated={this.state.validated}
                                  defaultValue={this.state.primaryData?.usr_cli_cod}
+                                 errorMessage={this.state.usr_cli_cod}
                                  onChange={this.handleChange}
-                                 fullWidth
+                                 required
                               />
                            </Col>
                            <Col className="mt-3" xs={12} sm={4}>
@@ -111,21 +94,23 @@ export class UserFormBuilder extends EditCreateForm {
                                  label="ID Externo"
                                  type="text"
                                  maxLength="10"
-                                 errorMessage={this.state.usr_externalid}
+                                 validated={this.state.validated}
                                  defaultValue={this.state.primaryData?.usr_externalid}
+                                 errorMessage={this.state.usr_externalid}
                                  onChange={this.handleChange}
-                                 fullWidth
                               />
                            </Col>
                            <Col className="mt-3" xs={12} sm={4}>
                               <ListUserStatusControlled
-                                 label="Status do Usuário"
+
                                  id="usr_sus_cod"
                                  name="usr_sus_cod"
-                                 required
+                                 validated={this.state.validated}
+                                 value={this.state.primaryData.usr_sus_cod ? this.state.primaryData.usr_sus_cod : ""}
                                  errorMessage={this.state.usr_sus_cod}
                                  onChange={this.handleSelect}
-                                 value={this.state.primaryData.usr_sus_cod ? this.state.primaryData.usr_sus_cod : null} />
+                                 required
+                              />
                            </Col>
                         </Row>
 

@@ -62,7 +62,6 @@ export class TeamFormBuilder extends EditCreateForm {
                                  onFalse="Inativo"
                                  onTrue="Ativo"
                                  name="tea_active"
-                                 register={true}
                                  validated={this.state.validated}
                                  value={this.state.primaryData?.tea_active}
                                  onChange={this.handleSelect}
