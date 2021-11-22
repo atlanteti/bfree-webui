@@ -201,7 +201,7 @@ export const TableRow = styled.tr`
    }
    td:first-child {
       color: #000;
-      width: 15%;
+      max-width: 15%;
    }
    td {
       color: #546E7A
@@ -262,7 +262,7 @@ export const TableCell = styled.td`
       overflow: ${props => props.Elipse && 'hidden'};
       text-overflow: ${props => props.Elipse && 'ellipsis'};
       white-space: ${props => props.Elipse && 'nowrap'};
-      max-width: ${props => props.Elipse && '250px !important'};
+      max-width: ${props => props.Elipse && '170px !important'};
    }
 `
 export const NumberCell = styled(TableCell)`
