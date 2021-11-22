@@ -257,6 +257,13 @@ export const TableCell = styled.td`
    border: 1px solid #dee2e6;
 
    padding: 1.1rem 0.8rem;
+
+   &:first-child{
+      overflow: ${props => props.Elipse && 'hidden'};
+      text-overflow: ${props => props.Elipse && 'ellipsis'};
+      white-space: ${props => props.Elipse && 'nowrap'};
+      max-width: ${props => props.Elipse && '250px !important'};
+   }
 `
 export const NumberCell = styled(TableCell)`
    text-align: left;
@@ -267,13 +274,6 @@ export const TextCell = styled(TableCell)`
    text-align: left;
    font-weight: ${props => props.fontTotal ? 'bold' : '400'};
    color: ${props => props.fontTotal ? '#0203AD !important' : 'default'};
-   &:first-child{
-      display: ${props => props.Elipse && 'block'};
-      overflow: ${props => props.Elipse && 'hidden'};
-      text-overflow: ${props => props.Elipse && 'ellipsis'};
-      white-space: ${props => props.Elipse && 'nowrap'};
-      width: ${props => props.Elipse && '250px !important'};
-   }
    `
 export const ActionCell = styled(TableCell)`
    text-align: center;
