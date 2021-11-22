@@ -128,7 +128,7 @@ export default class ListarDemandas extends ListarPagina {
    }
    createRecord(demanda) {
       return <TableRow key={demanda.dem_cod}>
-         <TextCell data-title="Título" className="text">{demanda.dem_title}</TextCell>
+         <TextCell data-title="Título" className="text" Elipse>{demanda.dem_title}</TextCell>
          <TextCell data-title="E-mail de Contato" className="text elipses">{demanda.dem_contact_email}</TextCell>
          <TextCell data-title="Usuário" className="text elipses">{demanda.user.usr_name}</TextCell>
          <TextCell data-title="Status" className="text">{demanda.statusDemand.sdm_name}</TextCell>
