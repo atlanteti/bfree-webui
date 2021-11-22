@@ -64,7 +64,7 @@ export class UserFormBuilder extends EditCreateForm {
                               <InputTextField
                                  id="usr_email"
                                  label="Email"
-                                 type="email"
+                                 type="text"
                                  maxLength="45"
                                  validated={this.state.validated}
                                  defaultValue={this.state.primaryData?.usr_email}
