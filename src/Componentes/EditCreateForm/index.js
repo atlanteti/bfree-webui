@@ -107,6 +107,9 @@ export class EditCreateForm extends Component {
             )
          }
          else {
+            this.setState({
+               validated: false
+            })
             this.props.showAlert(data.meta);
          }
       } catch (error) {
