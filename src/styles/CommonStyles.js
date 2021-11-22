@@ -201,7 +201,7 @@ export const TableRow = styled.tr`
    }
    td:first-child {
       color: #000;
-      max-width: 20%;
+      width: 15%;
    }
    td {
       color: #546E7A
