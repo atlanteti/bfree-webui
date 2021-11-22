@@ -74,7 +74,7 @@ export default class ListarJornada extends ListarPagina {
    createRecord(jornada) {
       return <TableRow key={jornada.jny_cod}>
          <TextCell data-title="Nome" Elipse>{jornada.jny_name}</TextCell>
-         <TextCell data-title="Empresa" className="text">{jornada.company.cpn_name}</TextCell>
+         <TextCell data-title="Empresa" className="text elipses">{jornada.company.cpn_name}</TextCell>
          <ActionCell data-title="Ações">
             <Button variant="transparent" href={`/editar/jornadas/${jornada.jny_cod}/alterar`}><EditIcon /></Button>
             <Button variant="transparent" onClick={() => {
