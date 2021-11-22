@@ -140,13 +140,6 @@ export const Table = styled.table`
        vertical-align: inherit;
     }
    
-   .elipses {
-      white-space: nowrap;
-      max-width: 170px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-   }
-    
    /* responsividade da tabela */
    @media all and (max-width: 767px) {
       border: none;
@@ -258,12 +251,10 @@ export const TableCell = styled.td`
 
    padding: 1.1rem 0.8rem;
 
-   &:first-child{
-      overflow: ${props => props.Elipse && 'hidden'};
-      text-overflow: ${props => props.Elipse && 'ellipsis'};
-      white-space: ${props => props.Elipse && 'nowrap'};
-      max-width: ${props => props.Elipse && '170px !important'};
-   }
+   overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+   max-width: 170px !important;
 `
 export const NumberCell = styled(TableCell)`
    text-align: left;
