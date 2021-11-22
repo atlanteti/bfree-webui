@@ -191,10 +191,13 @@ export const TableRow = styled.tr`
    td:last-child {
       width: 1%;
       white-space: nowrap;
+      
+      @media all and (max-width: 767px){
+         width: 20%;
+      }
    }
    td:first-child {
       color: #000;
-      max-width: 15%;
    }
    td {
       color: #546E7A
@@ -254,7 +257,7 @@ export const TableCell = styled.td`
    overflow: hidden;
    text-overflow: ellipsis;
    white-space: nowrap;
-   max-width: 170px !important;
+   max-width: 170px;
 `
 export const NumberCell = styled(TableCell)`
    text-align: left;
