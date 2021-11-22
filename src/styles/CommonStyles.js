@@ -140,13 +140,6 @@ export const Table = styled.table`
        vertical-align: inherit;
     }
    
-   .elipses {
-      white-space: nowrap;
-      max-width: 170px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-   }
-    
    /* responsividade da tabela */
    @media all and (max-width: 767px) {
       border: none;
@@ -201,7 +194,7 @@ export const TableRow = styled.tr`
    }
    td:first-child {
       color: #000;
-      width: 20%;
+      max-width: 15%;
    }
    td {
       color: #546E7A
@@ -257,6 +250,11 @@ export const TableCell = styled.td`
    border: 1px solid #dee2e6;
 
    padding: 1.1rem 0.8rem;
+
+   overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+   max-width: 170px !important;
 `
 export const NumberCell = styled(TableCell)`
    text-align: left;
@@ -267,13 +265,6 @@ export const TextCell = styled(TableCell)`
    text-align: left;
    font-weight: ${props => props.fontTotal ? 'bold' : '400'};
    color: ${props => props.fontTotal ? '#0203AD !important' : 'default'};
-   &:first-child{
-      display: ${props => props.Elipse && 'block'};
-      overflow: ${props => props.Elipse && 'hidden'};
-      text-overflow: ${props => props.Elipse && 'ellipsis'};
-      white-space: ${props => props.Elipse && 'nowrap'};
-      width: ${props => props.Elipse && '250px !important'};
-   }
    `
 export const ActionCell = styled(TableCell)`
    text-align: center;

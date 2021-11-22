@@ -128,11 +128,11 @@ export default class ListarDemandas extends ListarPagina {
    }
    createRecord(demanda) {
       return <TableRow key={demanda.dem_cod}>
-         <TextCell data-title="Título" className="text">{demanda.dem_title}</TextCell>
-         <TextCell data-title="E-mail de Contato" className="text elipses">{demanda.dem_contact_email}</TextCell>
-         <TextCell data-title="Usuário" className="text elipses">{demanda.user.usr_name}</TextCell>
-         <TextCell data-title="Status" className="text">{demanda.statusDemand.sdm_name}</TextCell>
-         <TextCell data-title="Tipo da Demanda" className="text">{demanda.typeDemand.tdm_name}</TextCell>
+         <TextCell data-title="Título">{demanda.dem_title}</TextCell>
+         <TextCell data-title="E-mail de Contato">{demanda.dem_contact_email}</TextCell>
+         <TextCell data-title="Usuário">{demanda.user.usr_name}</TextCell>
+         <TextCell data-title="Status">{demanda.statusDemand.sdm_name}</TextCell>
+         <TextCell data-title="Tipo da Demanda">{demanda.typeDemand.tdm_name}</TextCell>
          <ActionCell data-title="Ações">
             <Button variant="transparent" href={`/editar/demandas/${demanda.dem_cod}/alterar`}><EditIcon /></Button>
             <Restricted>
