@@ -86,9 +86,9 @@ export default class ListarTime extends ListarPagina {
 
    createRecord(time) {
       return <TableRow key={time.tea_cod}>
-         <TextCell data-title="Nome" Elipse>{time.tea_name}</TextCell>
-         <TextCell data-title="Empresa" className="text elipses">{time.company.cpn_name ? time.company.cpn_name : <NoDataComp/>}</TextCell>
-         <TextCell data-title="Status" className="text">
+         <TextCell data-title="Nome">{time.tea_name}</TextCell>
+         <TextCell data-title="Empresa">{time.company.cpn_name ? time.company.cpn_name : <NoDataComp/>}</TextCell>
+         <TextCell data-title="Status">
             {time.tea_active ? <ActiveStatusBadge /> : <InactiveStatusBadge />}
          </TextCell>
          <TextCell data-title="Ações">

@@ -95,9 +95,9 @@ export default class ListarBadge extends ListarPagina {
 
    createRecord(badge) {
       return <TableRow key={badge.bdg_cod}>
-         <TextCell data-title="Nome" Elipse>{badge.bdg_name}</TextCell>
-         <TextCell data-title="Jornada" className="elipses">{badge.journey.jny_name ? badge.journey.jny_name : <NoDataComp />}</TextCell>{/*Waiting for api fix*/}
-         <TextCell data-title="Empresa" className="elipses">{badge.company.cpn_name ? badge.company.cpn_name : <NoDataComp />}</TextCell>
+         <TextCell data-title="Nome">{badge.bdg_name}</TextCell>
+         <TextCell data-title="Jornada">{badge.journey.jny_name ? badge.journey.jny_name : <NoDataComp />}</TextCell>{/*Waiting for api fix*/}
+         <TextCell data-title="Empresa">{badge.company.cpn_name ? badge.company.cpn_name : <NoDataComp />}</TextCell>
          <TextCell data-title="Mentor">
             <Icon>{badge.bdg_mentor ? <GreenCheck /> : <NoDataComp />}</Icon>
          </TextCell>
