@@ -5,7 +5,7 @@ import { request } from '../../Services/api';
 import PropTypes from 'prop-types'
 import { CustomAlert } from '../CustomAlert';
 import { Redirect } from 'react-router-dom';
-import { BackGroundForm, BtnBlue, CustomMenuCol, Title } from '../../styles/CommonStyles';
+import { BackGroundForm, BtnBlue, BtnPrimary, CustomMenuCol, Title } from '../../styles/CommonStyles';
 import { CustomMenu } from '../CustomMenu';
 import { InputTextField } from '../FormFields';
 export default class MultiSelectForm extends Component {
@@ -125,9 +125,9 @@ export default class MultiSelectForm extends Component {
                      </Col>
                   </Row>
                   <Row>
-                     <Col className="mt-4" xs={12} sm={2} md={{offset: 4}}>
+                     <Col className="mt-5" xs={12} sm={2} md={{offset: 4}}>
                         <BtnBlue type="submit" variant="dark">Editar</BtnBlue>
-                        <Button variant="warning" href="/usuarios" className="ml-5">Cancelar</Button>
+                        <BtnPrimary variant="light" href="/usuarios" className="ml-5">Cancelar</BtnPrimary>
                      </Col>
                   </Row>
                   </BackGroundForm>

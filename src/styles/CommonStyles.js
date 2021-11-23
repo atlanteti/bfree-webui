@@ -98,6 +98,13 @@ export const BtnBlue = styled(Button)`
    width: 120px !important;
 `
 
+export const BtnPrimary = styled(Button)`
+   width: 120px !important;
+   border: 1px solid #0203ad;
+   color: #0203ad;
+   background: none;
+`
+
 export const Input = styled.input`
 `
 
