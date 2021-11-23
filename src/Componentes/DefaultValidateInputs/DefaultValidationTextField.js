@@ -1,6 +1,6 @@
 import React from 'react';
 import { ValidationTextField } from '../FormFields/index';
-function preventNonNumericalInput(event) {
+function preventLeadingWhitespace(event) {
    event = event || window.event;
    var charCode = (typeof event.which == "undefined") ? event.keyCode : event.which;
    var charStr = String.fromCharCode(charCode);
@@ -8,6 +8,7 @@ function preventNonNumericalInput(event) {
    if (charStr.match(/[\s]/) && event.target.selectionStart === 0)
       event.preventDefault();
 }
+
 export function DefaultValidationTextField(props) {
    let error = false
    if (props.validated && props.required) {
@@ -20,7 +21,7 @@ export function DefaultValidationTextField(props) {
    }
    return <ValidationTextField
       fullWidth
-      onKeyPress={preventNonNumericalInput}
+      onKeyPress={preventLeadingWhitespace}
       InputLabelProps={{
          shrink: true,
          required: false
