@@ -7,7 +7,7 @@ export function PhoneInput(props) {
       formatChars={{ "x": '[0-9]' }}
       disabled={props.disabled}
       maskChar=" "
-      required
+      required={props.required}
       onChange={props.onChange}
    >
       {() =>
@@ -17,7 +17,7 @@ export function PhoneInput(props) {
             disabled={props.disabled}
             label="Telefone"
             type="text"
-            required
+            required={props.required}
 
          />}
    </InputMask>
