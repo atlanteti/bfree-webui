@@ -165,16 +165,27 @@ export default class TiposDeMentoria extends Component {
                                  />
                               </Col>
                               <Col key="selector-1">
-                                 <Form.Group>
-                                    <Form.Label>Tipo de mentoria</Form.Label>
-                                    <Select
-                                       styles={{ option: styles => ({ minHeight: 50, ...styles }) }}
-                                       controlId="test"
-                                       onChange={(event) => { this.handleChange({ index: mentor.umt_cod, ...event }) }}
-                                       name="Tipos de mentoria"
-                                       options={this.state.tiposDeMentoria}
-                                       defaultValue={{ value: mentor.typeMentor?.tmt_cod, label: mentor.typeMentor?.tmt_name }} />
-                                 </Form.Group>
+                                 <InputTextField
+                                    label="Tipo de mentoria"
+                                    name="test"
+                                    select
+                                    defaultValue={{ value: mentor.typeMentor?.tmt_cod, label: mentor.typeMentor?.tmt_name }}
+                                    onChange={(event) => { this.handleChange({ index: mentor.umt_cod, ...event }) }}
+                                    InputLabel={{
+                                       shirk: true
+                                    }}
+                                 >
+                                    {this.state.tiposDeMentoria?.map((type) => {
+                                       if(type.label === ''){
+                                          return (
+                                             <MenuItem value={null}><NoDataComp /></MenuItem>
+                                          )
+                                       }
+                                       return (
+                                          <MenuItem value={type.value}>{type.label}</MenuItem>
+                                       )
+                                    })}
+                                 </InputTextField>
                               </Col>
                               <Col>
                                  <Form.Group>
