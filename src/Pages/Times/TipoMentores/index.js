@@ -2,14 +2,16 @@ import { Button, Col, Form, Row } from "react-bootstrap";
 import { request } from "../../../Services/api";
 import { Component } from "react";
 import { Redirect } from "react-router-dom";
-import { CustomMenuCol, Title } from "../../../styles/CommonStyles";
+import { BackGroundForm, CustomMenuCol, Title } from "../../../styles/CommonStyles";
 import { CustomMenu } from "../../../Componentes/CustomMenu";
-import Select from 'react-select'
+// import Select from 'react-select'
 import { CustomAlert } from "../../../Componentes/CustomAlert";
 import { ButtonRow } from "../../../Componentes/ButtonRow";
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress, FormControl, InputLabel, MenuItem, Select } from "@material-ui/core";
 import { CheckBox } from "../../../Componentes/CheckBox";
 import { Helmet } from "react-helmet";
+import { InputTextField } from "../../../Componentes/FormFields";
+import NoDataComp from "../../../Componentes/NoDataComp";
 export default class TiposDeMentoria extends Component {
    constructor(props) {
       super(props);
@@ -121,6 +123,7 @@ export default class TiposDeMentoria extends Component {
       })
    }
    render() {
+      console.log(this.state.tiposDeMentoria)
       if (this.state.redirect) {
          return <Redirect to="/times" />
       }
@@ -129,20 +132,21 @@ export default class TiposDeMentoria extends Component {
          <CustomMenuCol md={2}><CustomMenu /></CustomMenuCol>
          <Col
             sm={{ offset: 2, span: 10 }}// Temporary until styled components
-            md={{ offset: 3, span: 9 }}
-            lg={{ offset: 3, span: 9 }}>
+            md={{ offset: 1, span: 10 }}
+            lg={{ offset: 2, span: 10 }}>
             <Title>Tipos de Mentoria</Title>
          </Col>
          <Col
             sm={{ offset: 2, span: 10 }}// Temporary until styled components
-            md={{ offset: 3, span: 9 }}
-            lg={{ offset: 3, span: 9 }}
-            style={{ marginTop: 50 }}
+            md={{ offset: 1, span: 10 }}
+            lg={{ offset: 2, span: 10 }}
+            style={{ marginTop: 30, marginBottom: 10 }}
          >
             <CustomAlert
                showAlertCallback={this.getAlertCallback.bind(this)}
                redirectCallback={this.redirect.bind(this)} />
             <Form onSubmit={this.handleSubmit.bind(this)}>
+               <BackGroundForm xs={1} className={'mb-2'} noGutters>
                {this.state.mentores === undefined ?
                   <Row>
                      <Col md={{ offset: 5 }}><CircularProgress /></Col>
@@ -152,21 +156,19 @@ export default class TiposDeMentoria extends Component {
                         return (
                            <Row xs={2} sm={3}>
                               <Col>
-                                 <Form.Group>
-                                    <Form.Label>Nome do mentor</Form.Label>
-                                    <Form.Control
-                                       type="text"
-                                       value={mentor.user.usr_name}
-                                       disabled
-                                       maxLength="45"
-                                       required />
-                                 </Form.Group>
+                                 <InputTextField 
+                                    label="Nome do mentor"
+                                    type="text"
+                                    value={mentor.user.usr_name}
+                                    disabled
+                                    maxLength="45"
+                                 />
                               </Col>
                               <Col key="selector-1">
                                  <Form.Group>
                                     <Form.Label>Tipo de mentoria</Form.Label>
                                     <Select
-                                       styles={{ option: styles => ({ minHeight: 40, ...styles }) }}
+                                       styles={{ option: styles => ({ minHeight: 50, ...styles }) }}
                                        controlId="test"
                                        onChange={(event) => { this.handleChange({ index: mentor.umt_cod, ...event }) }}
                                        name="Tipos de mentoria"
@@ -196,6 +198,7 @@ export default class TiposDeMentoria extends Component {
                         cancelButton={<Button variant="warning" href="/times">Cancelar</Button>}
                         confirmButton={<Button type="submit" variant="dark">Editar</Button>} />
                   </>)}
+               </BackGroundForm>
             </Form>
          </Col>
       </>
