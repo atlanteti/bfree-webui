@@ -16,6 +16,13 @@ export default class MultiSelectForm extends Component {
          responseAlertShow: null,
          redirect: false
       };
+      this.customStyles = {
+         control: (base) => ({
+           ...base,
+           height: 55,
+           minHeight: 55
+         })
+       };
    }
    getAlertCallback(func) {
       this.setState({
@@ -105,16 +112,18 @@ export default class MultiSelectForm extends Component {
                         />
                      </Col>
                   </Row>
-                  <Col key={this.state.optionList}>
-                     <Form.Label>{this.props.label}</Form.Label>
-                     <Select
-                        value={this.state.selected}
-                        isMulti
-                        placeholder={this.props.label}
-                        onChange={this.handleChange.bind(this)}
-                        name={this.props.name} //"selectBadges"
-                        options={this.state.optionList} />
-                  </Col>
+                  <Row>
+                     <Col key={this.state.optionList} xs={12} sm={5} md={6} className="mt-5">
+                        <Select
+                           value={this.state.selected}
+                           isMulti
+                           placeholder={this.props.label}
+                           onChange={this.handleChange.bind(this)}
+                           name={this.props.name}
+                           options={this.state.optionList} 
+                           styles={this.customStyles}/>
+                     </Col>
+                  </Row>
                   <Row>
                      <Col className="mt-4" xs={12} sm={2} md={{offset: 4}}>
                         <BtnBlue type="submit" variant="dark">Editar</BtnBlue>
