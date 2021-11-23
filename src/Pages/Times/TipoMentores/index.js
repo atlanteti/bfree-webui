@@ -189,7 +189,7 @@ export default class TiposDeMentoria extends Component {
                                  <BooleanField Label="Status"
                                     onTrue="Ativo"
                                     onFalse="Inativo"
-                                    name="umt_active"
+                                    name="umt_inactive"
                                     id={"CheckboxFor" + mentor.umt_cod}
                                     onChange={(event) => { this.handleCheck(event, mentor.umt_cod)}}
                                     defaultValue={mentor.umt_inactive}
