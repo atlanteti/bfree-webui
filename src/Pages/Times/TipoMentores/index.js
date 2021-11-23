@@ -99,13 +99,13 @@ export default class TiposDeMentoria extends Component {
          }
       }))
    }
-   handleCheck(event) {
+   handleCheck(event, index) {
       this.setState((state) => ({
          responseForm: {
             ...state.responseForm,
-            [event.index]: {
-               ...state.responseForm[event.index],
-               "umt_active": event.target.checked
+            [index]: {
+               ...state.responseForm[index],
+               "umt_inactive": event.target.value
             }
          }
       }))
@@ -191,23 +191,9 @@ export default class TiposDeMentoria extends Component {
                                     onFalse="Inativo"
                                     name="umt_active"
                                     id={"CheckboxFor" + mentor.umt_cod}
-                                    onChange={(event) => { this.handleChange({index: mentor.umt_cod, ...event })}}
-                                    defaultValue={mentor.umt_active}
+                                    onChange={(event) => { this.handleCheck(event, mentor.umt_cod)}}
+                                    defaultValue={mentor.umt_inactive}
                                  />
-                                 {/* <Form.Group>
-                                    <Form.Label>Inativo</Form.Label>
-                                    <CheckBox
-                                       name="umt_active"
-                                       onChange={
-                                          (event) => {
-                                             this.handleCheck({ index: mentor.umt_cod, ...event })
-                                          }
-                                       }
-                                       checked={this.state.responseForm[mentor.umt_cod]?.umt_active}
-                                       id={"CheckboxFor" + mentor.umt_cod}
-                                       defaultValue={mentor.umt_active}
-                                    />
-                                 </Form.Group> */}
                               </Col>
                            </Row>);
                      })}
