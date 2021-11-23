@@ -4,13 +4,12 @@ import { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { BackGroundForm, CustomMenuCol, Title } from "../../../styles/CommonStyles";
 import { CustomMenu } from "../../../Componentes/CustomMenu";
-// import Select from 'react-select'
 import { CustomAlert } from "../../../Componentes/CustomAlert";
 import { ButtonRow } from "../../../Componentes/ButtonRow";
-import { CircularProgress, FormControl, InputLabel, MenuItem, Select } from "@material-ui/core";
+import { CircularProgress, MenuItem } from "@material-ui/core";
 import { CheckBox } from "../../../Componentes/CheckBox";
 import { Helmet } from "react-helmet";
-import { InputTextField } from "../../../Componentes/FormFields";
+import { InputTextField, BooleanField } from "../../../Componentes/FormFields";
 import NoDataComp from "../../../Componentes/NoDataComp";
 export default class TiposDeMentoria extends Component {
    constructor(props) {
@@ -89,13 +88,13 @@ export default class TiposDeMentoria extends Component {
       this.showAlert(data)
    }
 
-   handleChange(event) {
+   handleChange(event, index) {
       this.setState((state) => ({
          responseForm: {
             ...state.responseForm,
-            [event.index]: {
-               ...state.responseForm[event.index],
-               "umt_tmt_cod": event.value
+            [index]: {
+               ...state.responseForm[index],
+               "umt_tmt_cod": event.target.value
             }
          }
       }))
@@ -123,7 +122,6 @@ export default class TiposDeMentoria extends Component {
       })
    }
    render() {
-      console.log(this.state.tiposDeMentoria)
       if (this.state.redirect) {
          return <Redirect to="/times" />
       }
@@ -154,7 +152,7 @@ export default class TiposDeMentoria extends Component {
                   (<>
                      {this.state.mentores.map(mentor => {
                         return (
-                           <Row xs={2} sm={3}>
+                           <Row xs={2} sm={3} className="mt-5">
                               <Col>
                                  <InputTextField 
                                     label="Nome do mentor"
@@ -169,8 +167,8 @@ export default class TiposDeMentoria extends Component {
                                     label="Tipo de mentoria"
                                     name="test"
                                     select
-                                    defaultValue={{ value: mentor.typeMentor?.tmt_cod, label: mentor.typeMentor?.tmt_name }}
-                                    onChange={(event) => { this.handleChange({ index: mentor.umt_cod, ...event }) }}
+                                    defaultValue={mentor.typeMentor?.tmt_cod}
+                                    onChange={(event) => { this.handleChange(event, mentor.umt_cod)}}
                                     InputLabel={{
                                        shirk: true
                                     }}
@@ -188,7 +186,15 @@ export default class TiposDeMentoria extends Component {
                                  </InputTextField>
                               </Col>
                               <Col>
-                                 <Form.Group>
+                                 <BooleanField Label="Status"
+                                    onTrue="Ativo"
+                                    onFalse="Inativo"
+                                    name="umt_active"
+                                    id={"CheckboxFor" + mentor.umt_cod}
+                                    onChange={(event) => { this.handleChange({index: mentor.umt_cod, ...event })}}
+                                    defaultValue={mentor.umt_active}
+                                 />
+                                 {/* <Form.Group>
                                     <Form.Label>Inativo</Form.Label>
                                     <CheckBox
                                        name="umt_active"
@@ -201,7 +207,7 @@ export default class TiposDeMentoria extends Component {
                                        id={"CheckboxFor" + mentor.umt_cod}
                                        defaultValue={mentor.umt_active}
                                     />
-                                 </Form.Group>
+                                 </Form.Group> */}
                               </Col>
                            </Row>);
                      })}
