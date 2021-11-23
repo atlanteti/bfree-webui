@@ -2,7 +2,7 @@ import { Button, Col, Form, Row } from "react-bootstrap";
 import { request } from "../../../Services/api";
 import { Component } from "react";
 import { Redirect } from "react-router-dom";
-import { BackGroundForm, CustomMenuCol, Title } from "../../../styles/CommonStyles";
+import { BackGroundForm, BtnBlue, BtnPrimary, CustomMenuCol, Title } from "../../../styles/CommonStyles";
 import { CustomMenu } from "../../../Componentes/CustomMenu";
 import { CustomAlert } from "../../../Componentes/CustomAlert";
 import { ButtonRow } from "../../../Componentes/ButtonRow";
@@ -197,9 +197,12 @@ export default class TiposDeMentoria extends Component {
                               </Col>
                            </Row>);
                      })}
-                     <ButtonRow
-                        cancelButton={<Button variant="warning" href="/times">Cancelar</Button>}
-                        confirmButton={<Button type="submit" variant="dark">Editar</Button>} />
+                     <Row>
+                        <Col className="mt-5" xs={12} sm={2} md={{offset: 4}}>
+                           <BtnBlue type="submit" variant="dark">Editar</BtnBlue>
+                           <BtnPrimary variant="light" href="/times" className="ml-5">Cancelar</BtnPrimary>
+                        </Col>
+                     </Row>
                   </>)}
                </BackGroundForm>
             </Form>
