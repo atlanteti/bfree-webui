@@ -153,7 +153,7 @@ export default class TiposDeMentoria extends Component {
                      {this.state.mentores.map(mentor => {
                         return (
                            <Row xs={2} sm={3} className="mt-5">
-                              <Col>
+                              <Col className="mt-3">
                                  <InputTextField 
                                     label="Nome do mentor"
                                     type="text"
@@ -162,7 +162,7 @@ export default class TiposDeMentoria extends Component {
                                     maxLength="45"
                                  />
                               </Col>
-                              <Col key="selector-1">
+                              <Col key="selector-1" className="mt-3">
                                  <InputTextField
                                     label="Tipo de mentoria"
                                     name="test"
@@ -185,7 +185,7 @@ export default class TiposDeMentoria extends Component {
                                     })}
                                  </InputTextField>
                               </Col>
-                              <Col>
+                              <Col className="mt-3">
                                  <BooleanField Label="Status"
                                     onTrue="Ativo"
                                     onFalse="Inativo"
@@ -198,7 +198,12 @@ export default class TiposDeMentoria extends Component {
                            </Row>);
                      })}
                      <Row>
-                        <Col className="mt-5" xs={12} sm={2} md={{offset: 4}}>
+                        <Col className="mt-5" 
+                           style={{
+                              display: 'flex',
+                              justifyContent: 'center'
+                           }}
+                        >
                            <BtnBlue type="submit" variant="dark">Editar</BtnBlue>
                            <BtnPrimary variant="light" href="/times" className="ml-5">Cancelar</BtnPrimary>
                         </Col>
