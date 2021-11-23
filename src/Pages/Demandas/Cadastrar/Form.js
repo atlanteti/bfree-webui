@@ -83,7 +83,7 @@ export class DemandFormBuilder extends EditCreateForm {
                                  defaultValue={this.state.primaryData?.dem_contact_phone}
                                  errorMessage={this.state.dem_contact_phone}
                                  onChange={this.context.admin ? this.handleChange : null}
-                                 required />
+                              />
                            </Col>
                         </Row>
                         <Row>
