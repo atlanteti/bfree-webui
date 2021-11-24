@@ -205,7 +205,9 @@ export default class TiposDeMentoria extends Component {
                            }}
                         >
                            <BtnBlue type="submit" variant="dark">Editar</BtnBlue>
-                           <BtnPrimary variant="light" href="/times" className="ml-5">Cancelar</BtnPrimary>
+                           <BtnPrimary style={{
+                              marginLeft: 25
+                           }} variant="light" href="/times">Cancelar</BtnPrimary>
                         </Col>
                      </Row>
                   </>)}
