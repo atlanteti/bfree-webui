@@ -138,13 +138,13 @@ export default class TiposDeMentoria extends Component {
             sm={{ offset: 2, span: 10 }}// Temporary until styled components
             md={{ offset: 1, span: 10 }}
             lg={{ offset: 2, span: 10 }}
-            style={{ marginTop: 30, marginBottom: 10 }}
+            style={{ marginTop: 30, paddingBottom: 46 }}
          >
             <CustomAlert
                showAlertCallback={this.getAlertCallback.bind(this)}
                redirectCallback={this.redirect.bind(this)} />
             <Form onSubmit={this.handleSubmit.bind(this)}>
-               <BackGroundForm xs={1} className={'mb-2'} noGutters>
+               <BackGroundForm xs={1} noGutters>
                {this.state.mentores === undefined ?
                   <Row>
                      <Col md={{ offset: 5 }}><CircularProgress /></Col>
