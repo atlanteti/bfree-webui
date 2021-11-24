@@ -152,19 +152,19 @@ export default class TiposDeMentoria extends Component {
                   (<>
                      {this.state.mentores.map(mentor => {
                         return (
-                           <Row xs={2} sm={3} className="mt-5">
-                              <Col className="mt-3">
+                           <Row xs={2} sm={3} className="mt-2">
+                              <Col className="mt-3" xs={12} sm={4} md={5}>
                                  <InputTextField 
-                                    label="Nome do mentor"
+                                    label="Nome do Mentor"
                                     type="text"
                                     value={mentor.user.usr_name}
                                     disabled
                                     maxLength="45"
                                  />
                               </Col>
-                              <Col key="selector-1" className="mt-3">
+                              <Col key="selector-1" className="mt-3" xs={12} sm={4} md={5}>
                                  <InputTextField
-                                    label="Tipo de mentoria"
+                                    label="Tipo de Mentoria"
                                     name="test"
                                     select
                                     defaultValue={mentor.typeMentor?.tmt_cod}
@@ -185,7 +185,7 @@ export default class TiposDeMentoria extends Component {
                                     })}
                                  </InputTextField>
                               </Col>
-                              <Col className="mt-3">
+                              <Col className="mt-3" xs={12} sm={4} md={2}>
                                  <BooleanField Label="Status"
                                     onTrue="Ativo"
                                     onFalse="Inativo"
