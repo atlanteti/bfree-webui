@@ -1,132 +1,62 @@
-// install (please make sure versions match peerDependencies)
-// yarn add @nivo/core @nivo/pie
-import { ResponsivePie } from '@nivo/pie'
-
-// make sure parent container have a defined height when using
-// responsive component, otherwise height will be 0 and
-// no chart will be rendered.
-// website examples showcase many properties,
-// you'll often use just a few of them.
-import data from "./data.json";
+import moment from 'moment';
+import { useEffect, useState } from 'react';
+import { Col } from 'react-bootstrap';
+import { CustomMenu } from "../../Componentes/CustomMenu/index";
+import { MyResponsiveBar } from '../../Componentes/Graph';
+import { request } from '../../Services/api';
+import { CustomMenuCol } from '../../styles/CommonStyles';
 
 export function Resultados(){
-   return (
-      <div style={{height: 400}}>
-         <MyResponsivePie data={data} />
-      </div>
+    const [headerData, setHeaderData] = useState(null);
+    const [populateNumbers, setPopulateNumbers] = useState(null);
+    const graph = []
+    const obj = {}
+
+    async function fetchData() {
+        let data = await request({
+            method: 'get',
+            endpoint: 'demands/report-billing',
+            params: {
+                dataInicial: "2021-11-01",
+                dataFinal: "2021-11-29",
+             }
+        }).then((data) => {
+            let bodyData = data.data.splice(1)
+            setHeaderData(data.data[0].splice(1))
+            const numbers = bodyData.map(line => line.slice(1))
+            const numbersTransposed = numbers[0].map((_, colIndex) => numbers.map(row => row[colIndex]))
+            const reducedSum = numbersTransposed.map(
+                line => line.reduce(
+                    (partial_sum, accumulator) => Number(partial_sum) + Number(accumulator), 0))
+            const lastLine = ["Total"].concat(reducedSum)
+            setPopulateNumbers(reducedSum)
+            bodyData = bodyData.concat([lastLine])
+            data.data = bodyData.map(
+                line => line.map(
+                    (lineData, keyIndex) => { return [data.data[0][keyIndex], lineData] }))
+            return data
+        })
+        return data
+    }
+
+    if(populateNumbers?.length){
+        obj['month'] = moment(new Date()).format('MM/YY')
+        for(let i = 0; i < headerData?.length; i ++){
+            obj[headerData[i]] = populateNumbers[i]
+        }
+        graph.push(obj)
+    }
+
+    useEffect(() => {
+        fetchData()
+    }, [])
+    
+    return (
+        <Col>
+            <CustomMenuCol lg={2}><CustomMenu /></CustomMenuCol>
+            <Col style={{height: 400}} md={{offset: 2, span: 9}}>
+                    <MyResponsiveBar data={graph} />
+            </Col>
+        </Col>
    )
 }
-
-const MyResponsivePie = ({ data /* see data tab */ }) => (
-    <ResponsivePie
-        data={data}
-        margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
-        innerRadius={0.5}
-        padAngle={0.7}
-        cornerRadius={3}
-        activeOuterRadiusOffset={8}
-        borderWidth={1}
-        borderColor={{ from: 'color', modifiers: [ [ 'darker', 0.2 ] ] }}
-        arcLinkLabelsSkipAngle={10}
-        arcLinkLabelsTextColor="#333333"
-        arcLinkLabelsThickness={2}
-        arcLinkLabelsColor={{ from: 'color' }}
-        arcLabelsSkipAngle={10}
-        arcLabelsTextColor={{ from: 'color', modifiers: [ [ 'darker', 2 ] ] }}
-        defs={[
-            {
-                id: 'dots',
-                type: 'patternDots',
-                background: 'inherit',
-                color: 'rgba(255, 255, 255, 0.3)',
-                size: 4,
-                padding: 1,
-                stagger: true
-            },
-            {
-                id: 'lines',
-                type: 'patternLines',
-                background: 'inherit',
-                color: 'rgba(255, 255, 255, 0.3)',
-                rotation: -45,
-                lineWidth: 6,
-                spacing: 10
-            }
-        ]}
-        fill={[
-            {
-                match: {
-                    id: 'ruby'
-                },
-                id: 'dots'
-            },
-            {
-                match: {
-                    id: 'c'
-                },
-                id: 'dots'
-            },
-            {
-                match: {
-                    id: 'go'
-                },
-                id: 'dots'
-            },
-            {
-                match: {
-                    id: 'python'
-                },
-                id: 'dots'
-            },
-            {
-                match: {
-                    id: 'scala'
-                },
-                id: 'lines'
-            },
-            {
-                match: {
-                    id: 'lisp'
-                },
-                id: 'lines'
-            },
-            {
-                match: {
-                    id: 'elixir'
-                },
-                id: 'lines'
-            },
-            {
-                match: {
-                    id: 'javascript'
-                },
-                id: 'lines'
-            }
-        ]}
-        legends={[
-            {
-                anchor: 'bottom',
-                direction: 'row',
-                justify: false,
-                translateX: 0,
-                translateY: 56,
-                itemsSpacing: 0,
-                itemWidth: 100,
-                itemHeight: 18,
-                itemTextColor: '#999',
-                itemDirection: 'left-to-right',
-                itemOpacity: 1,
-                symbolSize: 18,
-                symbolShape: 'circle',
-                effects: [
-                    {
-                        on: 'hover',
-                        style: {
-                            itemTextColor: '#000'
-                        }
-                    }
-                ]
-            }
-        ]}
-    />
-)

@@ -1,32 +1,17 @@
 [
-   {
-     "id": "python",
-     "label": "python",
-     "value": 572,
-     "color": "hsl(23, 70%, 50%)"
-   },
-   {
-     "id": "css",
-     "label": "css",
-     "value": 24,
-     "color": "hsl(295, 70%, 50%)"
-   },
-   {
-     "id": "haskell",
-     "label": "haskell",
-     "value": 293,
-     "color": "hsl(152, 70%, 50%)"
-   },
-   {
-     "id": "stylus",
-     "label": "stylus",
-     "value": 385,
-     "color": "hsl(172, 70%, 50%)"
-   },
-   {
-     "id": "c",
-     "label": "c",
-     "value": 135,
-     "color": "hsl(343, 70%, 50%)"
-   }
- ]
+  {
+    "country": "AD",
+    "hot dog": 169,
+    "hot dogColor": "hsl(59, 70%, 50%)",
+    "burger": 18,
+    "burgerColor": "hsl(108, 70%, 50%)",
+    "sandwich": 68,
+    "sandwichColor": "hsl(103, 70%, 50%)",
+    "kebab": 50,
+    "kebabColor": "hsl(55, 70%, 50%)",
+    "fries": 157,
+    "friesColor": "hsl(336, 70%, 50%)",
+    "donut": 25,
+    "donutColor": "hsl(227, 70%, 50%)"
+  }
+]
