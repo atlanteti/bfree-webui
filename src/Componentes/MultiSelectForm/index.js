@@ -10,6 +10,7 @@ import { CustomMenu } from '../CustomMenu';
 import { InputTextField } from '../FormFields';
 import { ButtonRow } from '../ButtonRow';
 import { IoChevronBackCircleSharp } from 'react-icons/io5';
+import { Helmet } from 'react-helmet';
 export default class MultiSelectForm extends Component {
    constructor(props) {
       super(props);
@@ -83,7 +84,7 @@ export default class MultiSelectForm extends Component {
          return <Redirect to="/usuarios" />
       }
       return <>
-            {/* <CustomMenuCol md={2}></CustomMenuCol> */}
+            <Helmet title={`${this.props.pageTitle} do Usuário`} />
             <CustomMenu />
             <Col>
                <Col                   
