@@ -5,7 +5,7 @@ export default function UsuarioTipoDemanda(props) {
    return <UsuarioTipoDemandaForm
       userId={props.match.params.userId}
       populateListEndpoint="types-demand/listar-user-type-demand"
-      label="Tipos de Demanda:"
+      label="Tipos de Demanda"
       name="selectDemandTypes"
       userName={props.match.params.userName}
       pageTitle="Tipos de Demanda" />

@@ -5,7 +5,7 @@ export default function UsuarioBadges(props) {
    return <UsuarioBadgesForm
       userId={props.match.params.userId}
       populateListEndpoint="badges/listar-user-badges"
-      label="Badges: "
+      label="Badges"
       name="selectBadges"
       userName={props.match.params.userName}
       pageTitle="Badges" />
