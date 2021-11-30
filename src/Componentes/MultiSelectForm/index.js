@@ -113,7 +113,7 @@ export default class MultiSelectForm extends Component {
                            </Col>
                            <Col className="mt-3" xs={12} sm={5} md={6}>
                               <InputTextField
-                                 label="Nome do usuário"
+                                 label="Nome do Usuário"
                                  type="text"
                                  value={this.props.userName}
                                  disabled
