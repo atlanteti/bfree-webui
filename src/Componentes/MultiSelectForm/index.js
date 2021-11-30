@@ -8,6 +8,8 @@ import { Redirect } from 'react-router-dom';
 import { BackGroundForm, BtnBlue, BtnPrimary, CustomMenuCol, Title } from '../../styles/CommonStyles';
 import { CustomMenu } from '../CustomMenu';
 import { InputTextField } from '../FormFields';
+import { ButtonRow } from '../ButtonRow';
+import { IoChevronBackCircleSharp } from 'react-icons/io5';
 export default class MultiSelectForm extends Component {
    constructor(props) {
       super(props);
@@ -89,13 +91,14 @@ export default class MultiSelectForm extends Component {
                   md={{ offset: 1, span: 10 }}
                   lg={{ offset: 2, span: 10 }}
                >
-                  <Col className="mb-3">
-                     <CustomAlert
-                        showAlertCallback={this.getAlertCallback.bind(this)}
-                        redirectCallback={this.redirect.bind(this)} 
-                     />
-                     <Title>{this.props.pageTitle} do Usuário</Title>
-                  </Col>
+                  <CustomAlert
+                     showAlertCallback={this.getAlertCallback.bind(this)}
+                     redirectCallback={this.redirect.bind(this)} 
+                  />
+                  <ButtonRow
+                     cancelButton={<Button variant="light" href="/usuarios"><IoChevronBackCircleSharp size={30} color="#BFCADD" /></Button>}
+                     titlePage={<Title>{this.props.pageTitle} do Usuário</Title>}
+                  />
                   <Form onSubmit={this.handleSubmit.bind(this)}>
                      <BackGroundForm xs={1} className={'mb-2'} noGutters>
                         <Row>
