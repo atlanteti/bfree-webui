@@ -12,16 +12,18 @@ import { IoChevronBackCircleSharp } from "react-icons/io5"
 import TextField from '@mui/material/TextField'
 import InputMask from "react-input-mask"
 import { PhoneInput } from '../../../Componentes/PhoneInput'
-
+import * as yup from 'yup'
 export default function UserForm(props) {
    return <UserFormBuilder insertDataEndpoint="usuarios/cadastrar"
       requestDataEndpoint="usuarios/procurar/"
       editDataEndpoint="usuarios/alterar/"
       {...props} />
 }
-
 export class UserFormBuilder extends EditCreateForm {
    render() {
+      let emailValidator = yup.object().shape({
+         email: yup.string().email().required()
+      })
       return (
          <>
             {this.state.loading && this.paramRoute !== 'inserir'
@@ -64,11 +66,12 @@ export class UserFormBuilder extends EditCreateForm {
                               <InputTextField
                                  id="usr_email"
                                  label="Email"
-                                 type="text"
+                                 type="email"
                                  maxLength="45"
                                  validated={this.state.validated}
                                  defaultValue={this.state.primaryData?.usr_email}
                                  errorMessage={this.state.usr_email}
+                                 valid={emailValidator.isValid({ email: this.state.primaryData.usr_email })}
                                  onChange={this.handleChange}
                                  required
                               />
