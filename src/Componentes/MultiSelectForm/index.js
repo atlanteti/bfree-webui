@@ -8,6 +8,9 @@ import { Redirect } from 'react-router-dom';
 import { BackGroundForm, BtnBlue, BtnPrimary, CustomMenuCol, Title } from '../../styles/CommonStyles';
 import { CustomMenu } from '../CustomMenu';
 import { InputTextField } from '../FormFields';
+import { ButtonRow } from '../ButtonRow';
+import { IoChevronBackCircleSharp } from 'react-icons/io5';
+import { Helmet } from 'react-helmet';
 export default class MultiSelectForm extends Component {
    constructor(props) {
       super(props);
@@ -81,57 +84,68 @@ export default class MultiSelectForm extends Component {
          return <Redirect to="/usuarios" />
       }
       return <>
-            <CustomMenuCol md={2}><CustomMenu /></CustomMenuCol>
-            <Col                   
-                  sm={{ offset: 2, span: 8 }}// Temporary until styled components
+            <Helmet title={`${this.props.pageTitle} do Usuário`} />
+            <CustomMenu />
+            <Col>
+               <Col                   
+                  sm={{ offset: 1, span: 10 }}// Temporary until styled components
                   md={{ offset: 1, span: 10 }}
-                  lg={{ offset: 2, span: 10 }}>
-               <Col className="mb-3">
+                  lg={{ offset: 2, span: 10 }}
+               >
                   <CustomAlert
                      showAlertCallback={this.getAlertCallback.bind(this)}
-                     redirectCallback={this.redirect.bind(this)} />
-                  <Title>{this.props.pageTitle} do Usuário</Title>
+                     redirectCallback={this.redirect.bind(this)} 
+                  />
+                  <ButtonRow
+                     cancelButton={<Button variant="light" href="/usuarios"><IoChevronBackCircleSharp size={30} color="#BFCADD" /></Button>}
+                     titlePage={<Title>{this.props.pageTitle} do Usuário</Title>}
+                  />
+                  <Form onSubmit={this.handleSubmit.bind(this)}>
+                     <BackGroundForm xs={1} className={'mb-2'} noGutters>
+                        <Row>
+                           <Col className="mt-3" xs={12} sm={5} md={6}>
+                              <InputTextField
+                                 label="ID Eduzz"
+                                 type="text"
+                                 value={this.props.userId}
+                                 disabled
+                              />
+                           </Col>
+                           <Col className="mt-3" xs={12} sm={5} md={6}>
+                              <InputTextField
+                                 label="Nome do Usuário"
+                                 type="text"
+                                 value={this.props.userName}
+                                 disabled
+                              />
+                           </Col>
+                        </Row>
+                        <Row>
+                           <Col key={this.state.optionList} xs={12} sm={5} md={6} className="mt-5">
+                              <Select
+                                 value={this.state.selected}
+                                 isMulti
+                                 placeholder={this.props.label}
+                                 onChange={this.handleChange.bind(this)}
+                                 name={this.props.name}
+                                 options={this.state.optionList} 
+                                 styles={this.customStyles}/>
+                           </Col>
+                        </Row>
+                        <Row>
+                           <Col className="mt-5" 
+                              style={{
+                                 display: 'flex',
+                                 justifyContent: 'center'
+                              }}
+                           >
+                              <BtnBlue type="submit" variant="dark">Editar</BtnBlue>
+                              <BtnPrimary variant="light" href="/usuarios" className="ml-5">Cancelar</BtnPrimary>
+                           </Col>
+                        </Row>
+                     </BackGroundForm>
+                  </Form>
                </Col>
-               <Form onSubmit={this.handleSubmit.bind(this)}>
-                  <BackGroundForm xs={1} className={'mb-2'} noGutters>
-                  <Row>
-                     <Col className="mt-3" xs={12} sm={5} md={6}>
-                        <InputTextField
-                           label="ID Eduzz"
-                           type="text"
-                           value={this.props.userId}
-                           disabled
-                        />
-                     </Col>
-                     <Col className="mt-3" xs={12} sm={5} md={6}>
-                        <InputTextField
-                           label="Nome do usuário"
-                           type="text"
-                           value={this.props.userName}
-                           disabled
-                        />
-                     </Col>
-                  </Row>
-                  <Row>
-                     <Col key={this.state.optionList} xs={12} sm={5} md={6} className="mt-5">
-                        <Select
-                           value={this.state.selected}
-                           isMulti
-                           placeholder={this.props.label}
-                           onChange={this.handleChange.bind(this)}
-                           name={this.props.name}
-                           options={this.state.optionList} 
-                           styles={this.customStyles}/>
-                     </Col>
-                  </Row>
-                  <Row>
-                     <Col className="mt-5" xs={12} sm={2} md={{offset: 4}}>
-                        <BtnBlue type="submit" variant="dark">Editar</BtnBlue>
-                        <BtnPrimary variant="light" href="/usuarios" className="ml-5">Cancelar</BtnPrimary>
-                     </Col>
-                  </Row>
-                  </BackGroundForm>
-               </Form>
             </Col>
          </>
    }
