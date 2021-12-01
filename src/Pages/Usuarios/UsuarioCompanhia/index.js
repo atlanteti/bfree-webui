@@ -5,7 +5,7 @@ export default function UsuarioCompanies(props) {
    return <UsuarioCompaniesForm
       userId={props.match.params.userId}
       populateListEndpoint="companies/listar-user-company"
-      label="Empresas: "
+      label="Empresas"
       name="selectCompanies"
       userName={props.match.params.userName}
       pageTitle="Empresas" />
