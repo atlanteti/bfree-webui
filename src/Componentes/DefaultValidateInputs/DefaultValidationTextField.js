@@ -12,15 +12,23 @@ function preventLeadingWhitespace(event) {
 export function DefaultValidationTextField(props) {
    let error = false
    let [valid, setValid] = useState()
+   let [HelperMessage, setMessage] = useState()
    useEffect(() => {
       if (props.valid) {
          props.valid.then((valid) => {
-            setValid(valid)
+            setValid(!!valid)
+            setMessage("")
+         }).catch((error) => {
+            setValid(false)
+            if (props.errorMessage) {
+               setMessage(props.errorMessage)
+            }
+            setMessage(error.message)
          })
       }
    })
    if (props.validated && props.required) {
-      if (props.errorMessage !== undefined) {
+      if (HelperMessage !== undefined) {
          error = true
       }
       else if (props.defaultValue == "" || props.defaultValue == null) {
@@ -44,8 +52,8 @@ export function DefaultValidationTextField(props) {
       error={error}
 
       helperText={props.required ?
-         (props.errorMessage ? props.errorMessage : "Campo Obrigatório")
-         : props.errorMessage}
+         (HelperMessage ? HelperMessage : "Campo Obrigatório")
+         : HelperMessage}
       {...props} />;
 
 
