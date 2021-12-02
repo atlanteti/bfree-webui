@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ValidationTextField } from '../FormFields/index';
 function preventLeadingWhitespace(event) {
    event = event || window.event;
@@ -11,12 +11,23 @@ function preventLeadingWhitespace(event) {
 
 export function DefaultValidationTextField(props) {
    let error = false
+   let [valid, setValid] = useState()
+   useEffect(() => {
+      if (props.valid) {
+         props.valid.then((valid) => {
+            setValid(valid)
+         })
+      }
+   })
    if (props.validated && props.required) {
       if (props.errorMessage !== undefined) {
          error = true
       }
       else if (props.defaultValue == "" || props.defaultValue == null) {
          error = true
+      }
+      if (valid !== undefined) {
+         error = !valid
       }
    }
    return <ValidationTextField
