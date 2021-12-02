@@ -2,7 +2,7 @@ import InputMask from "react-input-mask"
 import { DefaultValidationTextField } from "../DefaultValidateInputs/DefaultValidationTextField"
 export function PhoneInput(props) {
    let mask = "(xx) xxxx-xxxxx"
-   if (props.defaultValue !== undefined) {
+   if (props.defaultValue != undefined) {
       const emptySpaces = props.defaultValue.match(/ /g || [])
       if (emptySpaces !== null && emptySpaces.length === 1 && props.defaultValue.length === 15) {
          mask = "(xx) xxxxx-xxxx"
