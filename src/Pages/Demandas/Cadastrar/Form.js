@@ -16,6 +16,7 @@ import ListTypeDemand from '../../../Componentes/ListTypeDemand'
 import ListUsers from '../../../Componentes/ListUsers'
 import { PhoneInput } from '../../../Componentes/PhoneInput'
 import ContextLogin from '../../../Context/ContextLogin'
+import yup from '../../../Services/validations'
 import {
    BackGroundForm, BtnBlue, MainTable, TableData,
    TableHeader, TextCell, TitleRegister
@@ -31,6 +32,9 @@ export default function DemandForm(props) {
 export class DemandFormBuilder extends EditCreateForm {
    render() {
       const disableField = !(this.context.admin && this.paramRoute === 'inserir')
+      const emailValidator = yup.object().shape({
+         email: yup.string().email().required()
+      })
       return (
          <>
             {this.state.loading && this.paramRoute !== 'inserir'
@@ -71,6 +75,9 @@ export class DemandFormBuilder extends EditCreateForm {
                                  validated={this.state.validated}
                                  defaultValue={this.state.primaryData?.dem_contact_email}
                                  errorMessage={this.state.dem_contact_email}
+                                 valid={emailValidator.validate({
+                                    email: this.state.primaryData.dem_contact_email
+                                 })}
                                  onChange={this.context.admin ? this.handleChange : null}
                                  required
                               />
