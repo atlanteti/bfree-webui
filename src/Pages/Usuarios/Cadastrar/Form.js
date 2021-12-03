@@ -21,8 +21,14 @@ export default function UserForm(props) {
 }
 export class UserFormBuilder extends EditCreateForm {
    render() {
-      let emailValidator = yup.object().shape({
+      const emailValidator = yup.object().shape({
          email: yup.string().email().required()
+      })
+      const PhoneValidator = yup.object().shape({
+         phone: yup.string()
+            .trim()
+            .min(14, "Deve estar no formato (99) 9999-9999 ou (99) 99999-9999")
+            .required()
       })
       return (
          <>
@@ -59,6 +65,9 @@ export class UserFormBuilder extends EditCreateForm {
                                  validated={this.state.validated}
                                  defaultValue={this.state.primaryData?.usr_phone}
                                  errorMessage={this.state.usr_phone}
+                                 valid={PhoneValidator.validate({
+                                    phone: this.state.primaryData.usr_phone
+                                 })}
                                  onChange={this.handleChange}
                                  required />
                            </Col>

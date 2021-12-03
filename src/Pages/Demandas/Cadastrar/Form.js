@@ -35,6 +35,11 @@ export class DemandFormBuilder extends EditCreateForm {
       const emailValidator = yup.object().shape({
          email: yup.string().email().required()
       })
+      const PhoneValidator = yup.object().shape({
+         phone: yup.string()
+            .trim()
+            .min(14, "Deve estar no formato (99) 9999-9999 ou (99) 99999-9999")
+      })
       return (
          <>
             {this.state.loading && this.paramRoute !== 'inserir'
@@ -89,6 +94,9 @@ export class DemandFormBuilder extends EditCreateForm {
                                  validated={this.state.validated}
                                  defaultValue={this.state.primaryData?.dem_contact_phone}
                                  errorMessage={this.state.dem_contact_phone}
+                                 valid={PhoneValidator.validate({
+                                    phone: this.state.primaryData.dem_contact_phone
+                                 })}
                                  onChange={this.context.admin ? this.handleChange : null}
                               />
                            </Col>
