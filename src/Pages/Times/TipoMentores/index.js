@@ -11,6 +11,7 @@ import { CheckBox } from "../../../Componentes/CheckBox";
 import { Helmet } from "react-helmet";
 import { InputTextField, BooleanField } from "../../../Componentes/FormFields";
 import NoDataComp from "../../../Componentes/NoDataComp";
+import { IoChevronBackCircleSharp } from "react-icons/io5";
 export default class TiposDeMentoria extends Component {
    constructor(props) {
       super(props);
@@ -129,7 +130,6 @@ export default class TiposDeMentoria extends Component {
          <Helmet title={`Tipos de Mentoria`} />
          <CustomMenuCol md={2}><CustomMenu /></CustomMenuCol>
          <Col>
-            <Title>Tipos de Mentoria</Title>
             <Col
                sm={{ offset: 1, span: 10 }}// Temporary until styled components
                md={{ offset: 1, span: 10 }}
@@ -138,6 +138,10 @@ export default class TiposDeMentoria extends Component {
                <CustomAlert
                   showAlertCallback={this.getAlertCallback.bind(this)}
                   redirectCallback={this.redirect.bind(this)}
+               />
+               <ButtonRow
+                  cancelButton={<Button variant="light" href="/times"><IoChevronBackCircleSharp size={30} color="#BFCADD" /></Button>}
+                  titlePage={<Title>Tipos de Mentoria</Title>}
                />
                <Form onSubmit={this.handleSubmit.bind(this)}>
                   <BackGroundForm xs={1} noGutters>
