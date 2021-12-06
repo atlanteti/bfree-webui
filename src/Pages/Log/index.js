@@ -221,7 +221,7 @@ class Log extends Component {
                                                 </Card.Title>
                                                 <Card.Subtitle className="mb-3 text-muted">{log.user.usr_name} - {displayDate(log.log_dtcreation)}</Card.Subtitle>
                                                 <Accordion.Collapse eventKey="0">
-                                                   <Card.Body style={{ padding: 0 }}><Table>
+                                                   <Card.Body style={{ padding: 0, overflowX: "scroll" }}><Table>
                                                       <TableHeader>
                                                          <TableRow>
                                                             <TextHeaderCell>Campo</TextHeaderCell>
