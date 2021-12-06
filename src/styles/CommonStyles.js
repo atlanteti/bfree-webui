@@ -78,6 +78,24 @@ export const MainContainer = styled.div`
       color: #000;
    }
 
+   //estilização do scroll da tabela de logs
+   .addScroll {
+      ::-webkit-scrollbar {
+         width: 6px;
+         height: 10px;
+      }
+      ::-webkit-scrollbar-track {
+         background: #fff;       
+      }
+      ::-webkit-scrollbar-thumb {
+         background-color: rgba(0,0,0,0.1);   
+         border-radius: 20px;      
+      }
+      //estilização para firefox
+      scrollbar-width: thin;
+      scrollbar-color: rgba(0,0,0,0.1) #fff;
+   }
+
    @media (min-width: 767px){
       .positionButtonsFixed {
          margin-top: 8px;
