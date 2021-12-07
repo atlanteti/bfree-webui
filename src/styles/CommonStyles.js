@@ -351,3 +351,10 @@ export const ExportContainer = styled.span`
    color: #546E7A;
    cursor: pointer;
 `
+
+export const UploadContainer = styled(Col)`
+   @media all and (max-width: 766px) {
+      display: flex;
+      justify-content: center;
+   }
+`

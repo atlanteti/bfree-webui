@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
+import { UploadContainer } from '../../styles/CommonStyles';
 import { InputTextField } from '../FormFields';
 export default function CustomFileInputField(props) {
    const inputRef = useRef(null);
@@ -13,14 +14,14 @@ export default function CustomFileInputField(props) {
 
    }
    return <Container fluid>
-      <Col>
+      <UploadContainer>
          <Row>
-            <input
-               ref={inputRef}
-               onChange={handleDisplayFileDetails}
-               className="d-none"
-               type="file" />
-            <Col>
+            <Col md={8} sm={6}>
+               <input
+                  ref={inputRef}
+                  onChange={handleDisplayFileDetails}
+                  className="d-none"
+                  type="file" />
                <InputTextField
                   fullWidth
                   onClick={handleUpload}
@@ -31,13 +32,13 @@ export default function CustomFileInputField(props) {
                   helperText="Número máximo de linhas: 500">
                </InputTextField>
             </Col>
-            <Col style={{
+            <UploadContainer md={3} sm={6} style={{
                alignSelf: "center",
                marginBottom: "22px"
-            }} xs={3}>
+            }}>
                <Button style={{ whiteSpace: "nowrap" }} variant="register" onClick={handleUpload} >SELECIONAR ARQUIVO</Button>
-            </Col>
+            </UploadContainer>
          </Row>
-      </Col>
+      </UploadContainer>
    </Container>
 }
