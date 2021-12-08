@@ -93,6 +93,7 @@ export function Resultados() {
                                     placeholderText="dd/mm/aaaa"
                                     dateFormat="dd/MM/yyyy"
                                     selected={initialDate}
+                                    minDate={new Date(moment().startOf('month').subtract(12, 'month').calendar())}
                                     onChange={(dateSelect) => changeDate(dateSelect, "initialDate")}
                                     customInput={
                                        <ValidationTextField
