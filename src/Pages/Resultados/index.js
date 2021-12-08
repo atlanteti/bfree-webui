@@ -11,6 +11,9 @@ import { CustomMenuCol, SearchBarBorder, BtnBlue, DataSearchTitle } from '../../
 export function Resultados() {
    const [headerData, setHeaderData] = useState(null);
    const [populateNumbers, setPopulateNumbers] = useState(null);
+   const [initialDate, setInitialDate] = useState(new Date(moment().subtract(4, 'month').calendar()));
+   const [finalDate, setFinalDate] = useState(new Date);
+
    const graph = []
    const populateObject = {}
 
@@ -64,7 +67,7 @@ export function Resultados() {
                                  <DatePicker
                                     placeholderText="dd/mm/aaaa"
                                     dateFormat="dd/MM/yyyy"
-                                    // selected={this.state.initialDate}
+                                    selected={initialDate}
                                     onChange={(dateSelect) => this.changeDate(dateSelect, "initialDate")}
                                     customInput={
                                        <ValidationTextField
@@ -79,8 +82,8 @@ export function Resultados() {
                                  <DatePicker
                                     placeholderText="dd/mm/aaaa"
                                     dateFormat="dd/MM/yyyy"
-                                    // selected={this.state.finalDate}
-                                    // maxDate={this.state.finalDate}
+                                    selected={finalDate}
+                                    maxDate={finalDate}
                                     onChange={(dateSelect) => this.changeDate(dateSelect, "finalDate")}
                                     customInput={
                                        <ValidationTextField
