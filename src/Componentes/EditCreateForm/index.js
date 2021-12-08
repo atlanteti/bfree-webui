@@ -29,7 +29,7 @@ export class EditCreateForm extends Component {
             });
             this.setState({
                primaryData: data.data,
-               dateAction: data.data.dem_dtaction ? new Date(data.data.dem_dtaction) : null,
+               // dateAction: data.data.dem_dtaction ? new Date(data.data.dem_dtaction) : null,
                loading: false,
             });
          } catch (error) {
