@@ -7,27 +7,24 @@ import { MyResponsiveBar } from '../../Componentes/Graph';
 import { request } from '../../Services/api';
 import DatePicker from "react-datepicker";
 import { CustomMenuCol, SearchBarBorder, BtnBlue, DataSearchTitle } from '../../styles/CommonStyles';
+import ResultadoSearchBar from './ResultadoSearchBar';
 
 export function Resultados() {
    const [headerData, setHeaderData] = useState(null);
    const [populateNumbers, setPopulateNumbers] = useState(null);
    const [initialDate, setInitialDate] = useState(new Date(moment().subtract(4, 'month').calendar()));
    const [finalDate, setFinalDate] = useState(new Date);
-   let filter = {
-      initialDate: new Date(moment().subtract(4, 'month').calendar()),
-      finalDate: new Date
-   }
-
    const graph = []
    const populateObject = {}
 
    async function fetchData() {
+      console.log(initialDate, 1)
       let data = await request({
          method: 'get',
          endpoint: 'demands/report-billing',
          params: {
-            dataInicial: moment(filter.initialDate).format('yyyy-MM-DD'),
-            dataFinal: moment(filter.finalDate).format('yyyy-MM-DD'),
+            dataInicial: moment(initialDate).format('yyyy-MM-DD'),
+            dataFinal: moment(finalDate).format('yyyy-MM-DD'),
          }
       }).then((data) => {
          let bodyData = data.data.splice(1)
@@ -49,10 +46,6 @@ export function Resultados() {
    }
 
    function changeDate(date, id) {
-      filter = {
-         ...filter,
-         [id]: date ? moment(date).format('yyyy-MM-DD') : null
-      }
       if (id === "initialDate") {
          setInitialDate(date)
       } else {
@@ -82,57 +75,12 @@ export function Resultados() {
          <CustomMenuCol lg={2}><CustomMenu /></CustomMenuCol>
          <Col>
             <Col md={{ offset: 2, span: 10 }}>
-               <SearchBarBorder>
-                  <Form onSubmit={handleSubmit}>
-                     <Row>
-                        <Col xs={12} md={9} sm={7}>
-                           <DataSearchTitle>Pesquisar por período</DataSearchTitle>
-                           <Row>
-                              <Col className="mt-2">
-                                 <DatePicker
-                                    placeholderText="dd/mm/aaaa"
-                                    dateFormat="dd/MM/yyyy"
-                                    selected={initialDate}
-                                    minDate={new Date(moment().startOf('month').subtract(12, 'month').calendar())}
-                                    onChange={(dateSelect) => changeDate(dateSelect, "initialDate")}
-                                    customInput={
-                                       <ValidationTextField
-                                          label="Data Inicial"
-                                          type="text"
-                                          fullWidth
-                                       />
-                                    }
-                                 />
-                              </Col>
-                              <Col className="mt-2">
-                                 <DatePicker
-                                    placeholderText="dd/mm/aaaa"
-                                    dateFormat="dd/MM/yyyy"
-                                    selected={finalDate}
-                                    maxDate={new Date()}
-                                    onChange={(dateSelect) => changeDate(dateSelect, "finalDate")}
-                                    customInput={
-                                       <ValidationTextField
-                                          label="Data Final"
-                                          type="text"
-                                          fullWidth
-                                       />
-                                    }
-                                 />
-                              </Col>
-                           </Row>
-                        </Col>
-                        <Col className="mt-3" xs={12} md={2} sm={5}>
-                           <p style={{ color: 'transparent' }}>.</p>
-                           <Row>
-                              <Col>
-                                 <BtnBlue type="submit" variant="dark">Buscar</BtnBlue>
-                              </Col>
-                           </Row>
-                        </Col>
-                     </Row>
-                  </Form>
-               </SearchBarBorder>
+               <ResultadoSearchBar
+                  onChange={changeDate}
+                  initialDate={initialDate}
+                  finalDate={finalDate}
+                  handleSubmit={handleSubmit}
+               />
                <Col style={{ height: 400 }}>
                   <MyResponsiveBar data={graph} />
                </Col>
