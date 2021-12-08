@@ -13,6 +13,10 @@ export function Resultados() {
    const [populateNumbers, setPopulateNumbers] = useState(null);
    const [initialDate, setInitialDate] = useState(new Date(moment().subtract(4, 'month').calendar()));
    const [finalDate, setFinalDate] = useState(new Date);
+   let filter = {
+      initialDate: new Date(moment().subtract(4, 'month').calendar()),
+      finalDate: new Date
+   }
 
    const graph = []
    const populateObject = {}
@@ -38,6 +42,18 @@ export function Resultados() {
          return data
       })
       return data
+   }
+
+   function changeDate(date, id) {
+      filter = {
+         ...filter,
+         [id]: date ? moment(date).format('yyyy-MM-DD') : null
+      }
+      if (id === "initialDate") {
+         setInitialDate(date)
+      } else {
+         setFinalDate(date)
+      }
    }
 
    if (populateNumbers?.length) {
@@ -68,7 +84,7 @@ export function Resultados() {
                                     placeholderText="dd/mm/aaaa"
                                     dateFormat="dd/MM/yyyy"
                                     selected={initialDate}
-                                    onChange={(dateSelect) => this.changeDate(dateSelect, "initialDate")}
+                                    onChange={(dateSelect) => changeDate(dateSelect, "initialDate")}
                                     customInput={
                                        <ValidationTextField
                                           label="Data Inicial"
@@ -83,8 +99,8 @@ export function Resultados() {
                                     placeholderText="dd/mm/aaaa"
                                     dateFormat="dd/MM/yyyy"
                                     selected={finalDate}
-                                    maxDate={finalDate}
-                                    onChange={(dateSelect) => this.changeDate(dateSelect, "finalDate")}
+                                    maxDate={new Date()}
+                                    onChange={(dateSelect) => changeDate(dateSelect, "finalDate")}
                                     customInput={
                                        <ValidationTextField
                                           label="Data Final"
