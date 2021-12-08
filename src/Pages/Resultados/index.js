@@ -25,6 +25,10 @@ export function Resultados() {
       let data = await request({
          method: 'get',
          endpoint: 'demands/report-billing',
+         params: {
+            dataInicial: moment(filter.initialDate).format('yyyy-MM-DD'),
+            dataFinal: moment(filter.finalDate).format('yyyy-MM-DD'),
+         }
       }).then((data) => {
          let bodyData = data.data.splice(1)
          setHeaderData(data.data[0].splice(1))
@@ -56,6 +60,11 @@ export function Resultados() {
       }
    }
 
+   function handleSubmit(event) {
+      event.preventDefault()
+      fetchData()
+   }
+
    if (populateNumbers?.length) {
       populateObject['month'] = moment(new Date()).format('MM/YY')
       for (let i = 0; i < headerData?.length; i++) {
@@ -74,7 +83,7 @@ export function Resultados() {
          <Col>
             <Col md={{ offset: 2, span: 10 }}>
                <SearchBarBorder>
-                  <Form onSubmit={() => console.log("a")}>
+                  <Form onSubmit={handleSubmit}>
                      <Row>
                         <Col xs={12} md={9} sm={7}>
                            <DataSearchTitle>Pesquisar por período</DataSearchTitle>
