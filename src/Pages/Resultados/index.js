@@ -57,7 +57,7 @@ export function Resultados() {
                <SearchBarBorder>
                   <Form onSubmit={() => console.log("a")}>
                      <Row>
-                        <Col xs={12} md={7} sm={7}>
+                        <Col xs={12} md={9} sm={7}>
                            <DataSearchTitle>Pesquisar por período</DataSearchTitle>
                            <Row>
                               <Col className="mt-2">
