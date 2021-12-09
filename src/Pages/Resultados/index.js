@@ -4,10 +4,18 @@ import { Col } from 'react-bootstrap';
 import { CustomMenu } from "../../Componentes/CustomMenu/index";
 import { MyResponsiveBar } from '../../Componentes/Graph';
 import { request } from '../../Services/api';
-import { CustomMenuCol } from '../../styles/CommonStyles';
+import {
+   CustomMenuCol,
+   MainTable,
+   TableHeader,
+   TableRow,
+   TextHeaderCell
+} from '../../styles/CommonStyles';
 import ResultadoSearchBar from './ResultadoSearchBar';
 
 export function Resultados() {
+   const [headerData, setHeaderData] = useState([])
+   const [dat, setData] = useState({})
    const [initialDate, setInitialDate] = useState(new Date(moment().subtract(4, 'month').calendar()));
    const [finalDate, setFinalDate] = useState(new Date);
    const [graph, setGraph] = useState([])
@@ -22,12 +30,28 @@ export function Resultados() {
             // dataInicial: moment(initialDate).format('yyyy-MM-DD'),
             // dataFinal: moment(finalDate).format('yyyy-MM-DD'),
          }
+      }).then((data) => {
+         if (data.meta.status === 100) {
+            setGraph(data.data['taxaDeSucesso'])
+            setData(data.data)
+         }
+         // estrutura de codigo criada para preencher a tabela de indicadores de performance
+         let init = moment(initialDate).format('MM');
+         const final = moment(finalDate).format('MM');
+         const populateHeader = []
+         populateHeader.push("")
+         for (init; init < final; init++) {
+            populateHeader.push(Number(init).toString() + "/" + moment().format('YY'))
+         }
+         setHeaderData(populateHeader)
+         const populateData = []
+         const bodyData = Object.keys(data.data).map((response) => {
+            populateData.push([response, data.data[response]])
+         })
       })
-      console.log(data.data)
-      if (data.meta.status === 100) {
-         setGraph(data.data['taxaDeSucesso'])
-      }
    }
+
+
 
    function changeDate(date, id) {
       if (id === "initialDate") {
@@ -57,6 +81,19 @@ export function Resultados() {
                   finalDate={finalDate}
                   handleSubmit={handleSubmit}
                />
+               <MainTable>
+                  <TableHeader>
+                     <TableRow>
+                        {headerData?.map((column) => {
+                           return (
+                              <TextHeaderCell scope="col" key={column}>
+                                 {column}
+                              </TextHeaderCell>
+                           )
+                        })}
+                     </TableRow>
+                  </TableHeader>
+               </MainTable>
                <Col style={{ height: 400 }}>
                   <MyResponsiveBar data={graph} />
                </Col>
