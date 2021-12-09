@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
-import Helmet from 'react-helmet'
-
-import { Redirect } from 'react-router-dom'
 import { Col } from 'react-bootstrap'
-import { CustomMenu } from '../../../Componentes/CustomMenu'
+import Helmet from 'react-helmet'
+import { Redirect } from 'react-router-dom'
 import { CustomAlert } from '../../../Componentes/CustomAlert'
-import UserForm from './Form'
-import { Title } from '../../../styles/CommonStyles'
+import { CustomMenu } from '../../../Componentes/CustomMenu'
+import { UserForm } from './Form'
+
 export default class CadastrarUsuario extends Component {
    constructor(props) {
       super(props)
