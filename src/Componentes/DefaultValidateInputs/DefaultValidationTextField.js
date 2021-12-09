@@ -23,7 +23,8 @@ export function DefaultValidationTextField(props) {
             if (props.errorMessage) {
                setMessage(props.errorMessage)
             }
-            setMessage(error.message)
+            else
+               setMessage(error.message)
          })
       }
    })
