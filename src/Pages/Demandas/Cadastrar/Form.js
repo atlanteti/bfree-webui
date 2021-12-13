@@ -1,289 +1,248 @@
-import React from 'react'
-import { Form, Col, Row, Button, Table } from 'react-bootstrap'
-import { DateField, DateFieldStatus } from '../../../Componentes/DateField'
-import { ButtonRow } from '../../../Componentes/ButtonRow'
-import { EditCreateForm } from '../../../Componentes/EditCreateForm/index'
-import { NumberField, InputTextField, ValidationTextField } from '../../../Componentes/FormFields'
-import ListTypeDemand from '../../../Componentes/ListTypeDemand'
-import ListStatusDemands from '../../../Componentes/ListStatusDemands'
-import ListUsers from '../../../Componentes/ListUsers'
-import CircularProgress from '@material-ui/core/CircularProgress'
-import ContextLogin from '../../../Context/ContextLogin'
-import DatePicker from "react-datepicker";
-import Restricted from '../../../Context/AccessPermission'
-import {
-   BackGroundForm, BtnBlue, MainTable, TableData,
-   TableHeader, TextCell, TextHeaderCell, TitleRegister, NumberHeaderCell
-} from '../../../styles/CommonStyles'
-import { StatusAccordionHeader, TableRowStatus, TextHeaderStatus } from "./styles.js"
-import { IoChevronBackCircleSharp } from "react-icons/io5"
-import InputMask from "react-input-mask"
-import { Accordion } from '@mui/material'
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import { MdOutlineExpandMore } from 'react-icons/md'
-export default function DemandForm(props) {
-   return <DemandFormBuilder insertDataEndpoint="demands/cadastrar"
-      requestDataEndpoint="demands/procurar/"
-      editDataEndpoint="demands/alterar/"
-      {...props} />
-}
-
-export class DemandFormBuilder extends EditCreateForm {
-   render() {
-      const disableField = !(this.context.admin && this.paramRoute === 'inserir')
-      return (
-         <>
-            {this.state.loading && this.paramRoute !== 'inserir'
-               ?
-               <Row>
-                  <Col md={{ offset: 6 }}><CircularProgress /></Col>
-               </Row>
-               :
-               (
-                  <Form onSubmit={this.handleSubmit} validated={this.state.validated} noValidate>
-                     <ButtonRow
-                        cancelButton={<Button variant="light" onClick={this.redirectCallback}><IoChevronBackCircleSharp size={30} color="#BFCADD" /></Button>}
-                        titlePage={<TitleRegister>{this.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'} Demanda</TitleRegister>}
-                     />
-                     <BackGroundForm xs={1} className={'mb-2'} noGutters>
-                        <Row>
-                           <Col className="mt-3" xs={12} sm={4}>
-                              <InputTextField
-                                 id="dem_title"
-                                 label="Titulo"
-                                 type="text"
-                                 maxLength="500"
-                                 required
-                                 errorMessage={this.state.dem_title}
-                                 defaultValue={this.state.primaryData?.dem_title}
-                                 disabled={disableField}
-                                 onChange={this.context.admin ? this.handleChange : null}
-                                 fullWidth
-                              />
-                           </Col>
-                           <Col className="mt-3" xs={12} sm={4}>
-                              <InputTextField
-                                 id="dem_contact_email"
-                                 label="Email"
-                                 type="email"
-                                 maxLength="255"
-                                 required
-                                 errorMessage={this.state.dem_contact_email}
-                                 defaultValue={this.state.primaryData?.dem_contact_email}
-                                 disabled={disableField}
-                                 onChange={this.context.admin ? this.handleChange : null}
-                                 fullWidth
-                              />
-                           </Col>
-                           <Col className="mt-3" xs={12} sm={4}>
-                              <InputMask
-                                 mask="(xx) xxxxx-xxxx"
-                                 value={this.state.primaryData?.dem_contact_phone}
-                                 disabled={disableField}
-                                 formatChars={{ "x": '[0-9]' }}
-                                 maskChar=" "
-                                 onChange={this.context.admin ? this.handleChange : null}
-                              >
-                                 {() =>
-                                    <ValidationTextField
-                                       id="dem_contact_phone"
-                                       label="Telefone"
-                                       type="text"
-                                       disabled={disableField}
-                                       fullWidth
-                                       InputLabelProps={{
-                                          shrink: true,
-                                          required: false
-                                       }}
-                                    />}
-                              </InputMask>
-                           </Col>
-                        </Row>
-                        <Row>
-                           <Col className="mt-3" >
-                              <InputTextField
-                                 id="dem_desc"
-                                 errorMessage={this.state.dem_desc}
-                                 label="Descrição"
-                                 type="textarea"
-                                 maxLength="500"
-                                 required
-                                 multiline
-                                 rows={4}
-                                 defaultValue={this.state.primaryData?.dem_desc}
-                                 onChange={this.handleChange}
-                                 fullWidth
-                              />
-                           </Col>
-                        </Row>
-                        <Row>
-                           <Col className="mt-3">
-                              <InputTextField
-                                 id="dem_comments"
-                                 label="Observações"
-                                 type="textarea"
-                                 required
-                                 errorMessage={this.state.dem_comments}
-                                 maxLength="500"
-                                 multiline
-                                 rows={4}
-                                 disabled={disableField}
-                                 defaultValue={this.state.primaryData?.dem_comments}
-                                 onChange={this.context.admin ? this.handleChange : null}
-                                 fullWidth
-                              />
-                           </Col>
-                        </Row>
-                        <Row>
-                           <Col className="mt-3" xs={12} sm={4}>
-                              <ListUsers
-                                 defaultValue={this.props.primaryId}
-                                 errorMessage={this.state.dem_usr_cod}
-                                 name="dem_usr_cod"
-                                 defaultUser={this.state.primaryData.dem_usr_cod}
-                                 disabled={disableField}
-                                 onChange={this.context.admin ? this.handleSelect : null}
-                                 required
-                              />
-                           </Col>
-                           <Col className="mt-3" xs={12} sm={4}>
-                              <ListStatusDemands
-                                 ref={this.myRef}
-                                 defaultValue={this.props.primaryId}
-                                 errorMessage={this.state.dem_sdm_cod}
-                                 name="dem_sdm_cod"
-                                 onChange={this.handleSelect}
-                                 defaultStatusDemand={this.state.primaryData.dem_sdm_cod}
-                                 required
-                              />
-                           </Col>
-                           <Col className="mt-3" xs={12} sm={4}>
-                              <ListTypeDemand
-                                 defaultValue={this.props.primaryId}
-                                 errorMessage={this.state.dem_tdm_cod}
-                                 name="dem_tdm_cod"
-                                 defaultTypeDemand={this.state.primaryData.dem_tdm_cod}
-                                 disabled={disableField}
-                                 onChange={this.context.admin ? this.handleSelect : null}
-                                 required
-                              />
-                           </Col>
-                        </Row>
-                        <Row>
-                           <Col className="mt-3" xs={12} sm={6} >
-                              <DatePicker
-                                 controlId="dem_dtaction"
-                                 placeholderText="dd/mm/aaaa"
-                                 dateFormat="dd/MM/yyyy"
-                                 maxDate={new Date()}
-                                 disabled={!this.context.admin
-                                    &&
-                                    (this.state.primaryData.dem_sdm_cod !== 2 && this.state.primaryData.dem_sdm_cod !== 5)} // caso mude a ordem dos status, isso precisa ser refatorado
-                                 selected={this.state.dateAction}
-                                 onChange={(dateSelect) => this.handleDate(dateSelect, "dem_dtaction")}
-                                 customInput={
-                                    <ValidationTextField
-                                       label="Data de Ação"
-                                       type="text"
-                                       errorMessage={this.state.dem_tdm_cod}
-                                       InputLabelProps={{
-                                          shrink: true,
-                                          required: false,
-                                       }}
-                                       error={!!this.state.dem_tdm_cod}
-                                       helperText={this.props.paramRoute !== 'inserir' && this.state.primaryData.dem_sdm_cod > 1 ?
-                                          (this.state.dem_tdm_cod ? this.state.dem_tdm_cod : "Campo Obrigatório")
-                                          : this.state.dem_tdm_cod}
-                                    />
-                                 }
-                              />
-                           </Col>
-                        </Row>
-                        {this.props.paramRoute === 'inserir'
-                           ? ''
-                           :
-                           <Row className="mt-6">
-                              <Col md={{ offset: 1 }} xs={12} sm={5}>
-                                 <DateField
-                                    controlId="dem_dtcreation"
-                                    Label="Data de criação:"
-                                    date={this.state.primaryData?.dem_dtcreation} />
-                              </Col>
-                              {this.state.primaryData?.dem_dtupdate === null
-                                 ? ''
-                                 : <Col xs={12} sm={5}>
-                                    <DateField
-                                       controlId="dem_dtupdate"
-                                       Label="Data de atualização:"
-                                       date={this.state.primaryData?.dem_dtupdate} />
-                                 </Col>
-                              }
-                           </Row>
-                        }
-                        <Row style={{ marginTop: 25, marginBottom: 31 }}>
-                           <Col md={{ offset: 5 }}>
-                              <BtnBlue variant="dark" type="submit">Salvar</BtnBlue>
-                           </Col>
-                        </Row>
-                        {this.paramRoute !== "inserir" ?
-                           <Accordion>
-                              <AccordionSummary
-                                 expandIcon={<MdOutlineExpandMore />}
-                                 aria-controls="panel1a-content"
-                                 id="panel1a-header"
-                              >
-                                 <StatusAccordionHeader>Histórico de Alterações de Status:</StatusAccordionHeader>
-                              </AccordionSummary>
-                              <AccordionDetails>
-                                 <Row noGutters>
-                                    <MainTable className={"table-borderless"}>
-                                       <TableHeader>
-                                          <TextHeaderStatus>
-                                             Status:
-                                          </TextHeaderStatus>
-                                          <TextHeaderStatus>
-                                             Data de Alteração:
-                                          </TextHeaderStatus>
-                                          <TextHeaderStatus>
-                                             Data de Ação:
-                                          </TextHeaderStatus>
-                                       </TableHeader>
-                                       <TableData>
-                                          {this.state.primaryData?.demandStatusHistories.map(
-                                             (entry) => {
-                                                return <TableRowStatus>
-                                                   <TextCell data-title="Status:">
-                                                      {entry.statusDemand.sdm_name}
-                                                   </TextCell>
-                                                   <TextCell data-title="Data de alteração:">
-                                                      <DateFieldStatus
-                                                         controlId="dsh_dtcreation"
-                                                         Label=""
-                                                         date={entry.dsh_dtcreation} />
-                                                   </TextCell>
-                                                   <TextCell data-title="Data de ação:">
-                                                      <DateFieldStatus
-                                                         controlId="dsh_dtaction"
-                                                         Label=""
-                                                         noHour={true}
-                                                         date={entry.dsh_dtaction} />
-                                                   </TextCell>
-                                                </TableRowStatus>
-                                             })}
-                                       </TableData>
-                                    </MainTable>
-                                 </Row>
-                              </AccordionDetails>
-                           </Accordion>
-
-                           : null}
-                     </BackGroundForm>
-                  </Form>
-               )
-            }
-         </>
-      )
+import { Form, Formik } from 'formik';
+import React, { useContext, useEffect, useState } from 'react';
+import { useScroll } from '../../../Hooks';
+import { Button, Col, Row } from 'react-bootstrap';
+import { IoChevronBackCircleSharp } from 'react-icons/io5';
+import { ButtonRow } from '../../../Componentes/ButtonRow';
+import { DatePickerField } from '../../../Componentes/FormikComponents/DatePickerField';
+import { DefaultValidationTextField } from '../../../Componentes/FormikComponents/DefaultValidationTextField';
+import { ListStatusDemands } from '../../../Componentes/FormikComponents/ListStatusDemands';
+import { ListTypeDemand } from '../../../Componentes/FormikComponents/ListTypeDemand';
+import { ListUsers } from '../../../Componentes/FormikComponents/ListUsers';
+import { PhoneInput } from '../../../Componentes/FormikComponents/PhoneInput';
+import { StatusHistory } from "../../../Componentes/FormikComponents/StatusHistory";
+import { Timestamps } from '../../../Componentes/FormikComponents/Timestamps';
+import ContextLogin from '../../../Context/ContextLogin';
+import { request } from '../../../Services/api';
+import yup from "../../../Services/validations";
+import { BackGroundForm, BtnBlue, TitleRegister } from '../../../styles/CommonStyles';
+export const DemandForm = (props) => {
+   const [primaryData, setPrimaryData] = useState()
+   const contextAdmin = useContext(ContextLogin)
+   const disableFields = (contextAdmin.admin && props.paramRoute !== "inserir")
+   const [pageTop, scrollToTop] = useScroll()
+   const [fields, setFields] = useState(
+      {
+         dem_title: "",
+         dem_contact_email: "",
+         dem_contact_phone: "",
+         dem_desc: "",
+         dem_comments: "",
+         dem_usr_cod: "",
+         dem_sdm_cod: "",
+         dem_tdm_cod: "",
+         dem_dtaction: "",
+      }
+   )
+   let method = "post"
+   let postEndpoint = "demands/cadastrar"
+   if (props.paramRoute !== "inserir") {
+      postEndpoint = "demands/alterar/" + props.primaryId
+      method = "put"
    }
-}
-DemandFormBuilder.contextType = ContextLogin
+   useEffect(() => {
+      const requestData = async () => {
+         try {
+            const data = await request({
+               method: "get",
+               endpoint: "demands/procurar/" + props.primaryId,
+            });
+            setPrimaryData(data.data)
+            let tempFields = {}
+            for (const key of Object.keys(fields)) {
+               if (data.data[key] !== null) {
+                  if (key === "dem_dtaction") {
+                     tempFields[key] = new Date(data.data[key])
+                  }
+                  else {
+                     tempFields[key] = data.data[key]
+                  }
+               }
+               else {
+                  tempFields[key] = ""
+               }
+            }
+            setFields(tempFields)
+         } catch (error) {
+            console.log(error);
+         }
+      }
+      if (props.paramRoute !== "inserir") {
+         requestData();
+      }
+   }, [props])
+   return (
+      <div>
+         <ButtonRow
+            cancelButton={<Button variant="light" onClick={props.redirectCallback}><IoChevronBackCircleSharp size={30} color="#BFCADD" /></Button>}
+            titlePage={<TitleRegister ref={pageTop}>{props.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'} Demanda</TitleRegister>}
+         />
+         <BackGroundForm xs={1} className={'mb-2'} noGutters>
+            <Formik
+               htmlFor="mainForm"
+               initialValues={fields}
+               validationSchema={yup.object({
+                  placeholder: yup.string(),
+                  dem_title: yup.string().max(500).required(),
+                  dem_contact_email: yup.string().email().max(255).required(),
+                  dem_contact_phone: yup.string()
+                     .test('valid-phone', "Deve estar no formato (99) 9999-9999 ou (99) 99999-9999",
+                        (value, context) => {
+                           if (value !== undefined) {
+                              return (!!value.match(/\d{10,11}/) ||
+                                 value.trim().length >= 14 ||
+                                 !!value.match(/\(\s{2}\)\s{5,6}-\s{4,5}/))
+                           }
+                           return true
+                        }),
+                  dem_desc: yup.string().max(500).required(),
+                  dem_comments: yup.string().max(500).required(),
+                  dem_usr_cod: yup.number().required(),
+                  dem_sdm_cod: yup.number().required(),
+                  dem_tdm_cod: yup.number().required(),
+                  dem_dtaction: yup.date()
+                     .when("dem_sdm_cod", {
+                        is: (demandStatus) => (demandStatus > 1 && demandStatus < 5),
+                        then: yup.date()
+                           .required()
+                           .nullable()
+                           .transform((curr, orig) => orig === '' ? null : curr),
+                        otherwise: yup.date()
+                           .nullable()
+                           .transform((curr, orig) => orig === '' ? null : curr)
+                     }),
+               })}
+               onSubmit={
+                  async (values, { setSubmitting, setFieldError }) => {
+                     const data = await request({
+                        method: method,
+                        endpoint: postEndpoint,
+                        data: values,
+                     });
+                     if (data.meta.status == 100) {
+                        props.showAlert(data.meta)
+                     }
+                     else if (data.meta.status == 212) {
+                        props.showAlert(data.meta)
+                     }
+                     if (data.meta.status == 422) {
+                        setFieldError(data.data[0].field.toLowerCase(), data.data[0].message)
+                     }
+                     else {
+                        console.log("Uncaught exception")
+                     }
+                     setSubmitting(false);
+                  }
+               }
+               enableReinitialize
+            >{({ setFieldValue, handleChange, submitForm }) => (
+               <Form id="mainForm">
+                  <Row>
+                     <Col className="mt-3" xs={12} sm={4}>
+                        <DefaultValidationTextField
+                           label="Titulo"
+                           name="dem_title"
+                           type="text"
+                           maxLength="500"
+                           disabled={disableFields} />
+                     </Col>
+                     <Col className="mt-3" xs={12} sm={4}>
+                        <DefaultValidationTextField
+                           label="Email"
+                           name="dem_contact_email"
+                           type="text"
+                           maxLength="255"
+                           disabled={disableFields} />
+                     </Col>
+                     <Col className="mt-3" xs={12} sm={4}>
+                        <PhoneInput
+                           label="Telefone"
+                           name="dem_contact_phone"
+                           type="text"
+                           maxLength="15"
+                           disabled={disableFields} />
+                     </Col>
+                  </Row>
+                  <Row>
+                     <Col className="mt-3" >
+                        <DefaultValidationTextField
+                           label="Descrição"
+                           name="dem_desc"
+                           type="text"
+                           maxLength="500"
+                           multiline
+                           rows={4}
+                        />
+                     </Col>
+                  </Row>
+                  <Row>
+                     <Col className="mt-3">
+                        <DefaultValidationTextField
+                           label="Observações"
+                           name="dem_comments"
+                           type="text"
+                           maxLength="500"
+                           multiline
+                           rows={4}
+                           disabled={disableFields}
+                        />
+                     </Col>
+                  </Row>
+                  <Row>
+                     <Col className="mt-3" xs={12} sm={4}>
+                        <ListUsers
+                           label="Usuário"
+                           name="dem_usr_cod"
+                           disabled={disableFields}
+                        />
+                     </Col>
+                     <Col className="mt-3" xs={12} sm={4}>
+                        <ListStatusDemands
+                           label="Status da Demanda"
+                           name="dem_sdm_cod"
+                           onChange={(event) => {
+                              if (primaryData && primaryData.demandStatusHistories.length >= 1) {
+                                 let matches = primaryData.demandStatusHistories.filter((v) => event.target.value == v.dsh_sdm_cod)
+                                 if (matches.length >= 1) {
+                                    setFieldValue("dem_dtaction", new Date(matches[0].dsh_dtaction))
+                                 } else {
+                                    setFieldValue("dem_dtaction", "")
+                                 }
+                              }
+                              handleChange(event)
+                           }}
+                        />
+                     </Col>
+                     <Col className="mt-3" xs={12} sm={4}>
+                        <ListTypeDemand
+                           label="Tipo de Demanda"
+                           name="dem_tdm_cod"
+                           disabled={disableFields}
+                        />
+                     </Col>
+                  </Row>
+                  <Row>
+                     <Col className="mt-3" xs={12} sm={6} >
+                        <DatePickerField
+                           label="Data de Ação"
+                           name="dem_dtaction" />
+                     </Col>
+                  </Row>
+                  {(props.paramRoute !== "inserir" && primaryData) ?
+                     <Timestamps
+                        primaryData={primaryData}
+                        fieldSuffix="dem_" /> : null}
+                  <Row style={{ marginTop: 25, marginBottom: 31 }}>
+                     <Col md={{ offset: 5 }}>
+                        <BtnBlue variant="dark" type="submit" onClick={scrollToTop}>Salvar</BtnBlue>
+                     </Col>
+                  </Row>
+               </Form>
+            )}
+            </Formik>
+            {props.paramRoute !== "inserir" ? <StatusHistory primaryData={primaryData} /> : null}
+         </BackGroundForm>
+      </div>
+
+   );
+};

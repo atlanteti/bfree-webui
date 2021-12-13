@@ -78,6 +78,24 @@ export const MainContainer = styled.div`
       color: #000;
    }
 
+   //estilização do scroll da tabela de logs
+   .addScroll {
+      ::-webkit-scrollbar {
+         width: 6px;
+         height: 10px;
+      }
+      ::-webkit-scrollbar-track {
+         background: #fff;       
+      }
+      ::-webkit-scrollbar-thumb {
+         background-color: rgba(0,0,0,0.1);   
+         border-radius: 20px;      
+      }
+      //estilização para firefox
+      scrollbar-width: thin;
+      scrollbar-color: rgba(0,0,0,0.1) #fff;
+   }
+
    @media (min-width: 767px){
       .positionButtonsFixed {
          margin-top: 8px;
@@ -96,6 +114,13 @@ export const MainContainer = styled.div`
 
 export const BtnBlue = styled(Button)`
    width: 120px !important;
+`
+
+export const BtnPrimary = styled(Button)`
+   width: 120px !important;
+   border: 1px solid #0203ad;
+   color: #0203ad;
+   background: none;
 `
 
 export const Input = styled.input`
@@ -140,14 +165,6 @@ export const Table = styled.table`
        vertical-align: inherit;
     }
    
-   .elipses {
-      white-space: nowrap;
-      display: block;
-      width: 170px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-   }
-    
    /* responsividade da tabela */
    @media all and (max-width: 767px) {
       border: none;
@@ -199,10 +216,13 @@ export const TableRow = styled.tr`
    td:last-child {
       width: 1%;
       white-space: nowrap;
+      
+      @media all and (max-width: 767px){
+         width: 20%;
+      }
    }
    td:first-child {
       color: #000;
-      width: 20%;
    }
    td {
       color: #546E7A
@@ -258,6 +278,11 @@ export const TableCell = styled.td`
    border: 1px solid #dee2e6;
 
    padding: 1.1rem 0.8rem;
+
+   overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+   max-width: 170px;
 `
 export const NumberCell = styled(TableCell)`
    text-align: left;
@@ -268,13 +293,6 @@ export const TextCell = styled(TableCell)`
    text-align: left;
    font-weight: ${props => props.fontTotal ? 'bold' : '400'};
    color: ${props => props.fontTotal ? '#0203AD !important' : 'default'};
-   &:first-child{
-      display: ${props => props.Elipse && 'block'};
-      overflow: ${props => props.Elipse && 'hidden'};
-      text-overflow: ${props => props.Elipse && 'ellipsis'};
-      white-space: ${props => props.Elipse && 'nowrap'};
-      width: ${props => props.Elipse && '250px !important'};
-   }
    `
 export const ActionCell = styled(TableCell)`
    text-align: center;
@@ -350,4 +368,11 @@ export const ExportContainer = styled.span`
    align-items: center;
    color: #546E7A;
    cursor: pointer;
+`
+
+export const UploadContainer = styled(Col)`
+   @media all and (max-width: 766px) {
+      display: flex;
+      justify-content: center;
+   }
 `

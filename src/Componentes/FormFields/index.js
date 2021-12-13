@@ -7,6 +7,7 @@ import { MenuItem, TextField } from '@mui/material';
 import { alpha, styled } from '@mui/material/styles';
 import NoDataComp from '../NoDataComp'
 import { DefaultValidationTextField } from '../DefaultValidateInputs/DefaultValidationTextField'
+import { DefaultValidateSelectField } from '../DefaultValidateInputs/DefaultValidateSelectField'
 
 export const ValidationTextField = styled(TextField)({
    '& label': {
@@ -115,25 +116,15 @@ SelectField.propTypes =
    hasNull: PropTypes.bool.isRequired
 }
 export function BooleanField(props) {
-   return <ValidationTextField
-      id={props.id}
-      select
-      fullWidth
-      name={props.name}
-      label={props.Label}
-      required={props.required}
+   return <DefaultValidateSelectField
+      {...props}
       value={props.value}
-      onChange={props.onChange}
-      InputLabelProps={{
-         shrink: true,
-         required: false
-      }}
-      helperText={props.required ? <RequiredField>Campo obrigatório</RequiredField> : null}
-   >
-      {!props.register && <MenuItem value={null}><NoDataComp /></MenuItem>}
-      <MenuItem value={false}>{props.onFalse}</MenuItem>
-      <MenuItem value={true}>{props.onTrue}</MenuItem>
-   </ValidationTextField>
+      label={props.Label}>
+
+      <MenuItem value={"false"}>{props.onFalse}</MenuItem>
+      <MenuItem value={"true"}>{props.onTrue}</MenuItem>
+
+   </DefaultValidateSelectField>
 }
 
 BooleanField.propTypes = {

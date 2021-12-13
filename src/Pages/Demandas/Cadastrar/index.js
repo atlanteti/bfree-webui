@@ -5,7 +5,7 @@ import { Redirect } from 'react-router-dom'
 import { Col } from 'react-bootstrap'
 import { CustomMenu } from '../../../Componentes/CustomMenu'
 import { CustomAlert } from '../../../Componentes/CustomAlert'
-import DemandForm from './Form'
+import { DemandForm } from './Form'
 import { Title } from '../../../styles/CommonStyles'
 
 export default class CadastrarDemanda extends Component {

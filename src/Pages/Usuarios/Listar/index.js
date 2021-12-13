@@ -129,8 +129,8 @@ export default class ListarUsuario extends ListarPagina {
    createRecord(usuario) {
       return <TableRow key={usuario.usr_cod}>
          <NumberCell data-title="ID Eduzz">{usuario.usr_cli_cod}</NumberCell>
-         <TextCell data-title="ID Externo" className="text">{usuario.usr_externalid ? usuario.usr_externalid : <NoDataComp />}</TextCell>
-         <TextCell data-title="Nome" className="elipses">{usuario.usr_name}</TextCell>
+         <TextCell data-title="ID Externo">{usuario.usr_externalid ? usuario.usr_externalid : <NoDataComp />}</TextCell>
+         <TextCell data-title="Nome">{usuario.usr_name}</TextCell>
          <TextCell data-title="Telefone">{usuario.usr_phone ? usuario.usr_phone : <NoDataComp />}</TextCell>
          <TextCell data-title="Status">{usuario.statusUser.sus_name ? <StatusBadgePropped active={usuario.statusUser.sus_name === "ATIVO"} /> : <NoDataComp />}</TextCell>
          <ActionCell data-title="Ações">

@@ -39,32 +39,32 @@ export class TeamFormBuilder extends EditCreateForm {
                                  id="tea_name"
                                  label="Nome"
                                  type="text"
-                                 defaultValue={this.state.primaryData?.tea_name}
-                                 onChange={this.handleChange}
-                                 fullWidth
-                                 required
-                                 errorMessage={this.state.tea_name}
                                  maxLength="45"
+                                 validated={this.state.validated}
+                                 defaultValue={this.state.primaryData?.tea_name}
+                                 errorMessage={this.state.tea_name}
+                                 onChange={this.handleChange}
+                                 required
                               />
                            </Col>
                            <Col className="mt-3" xs={12} sm={3}>
                               <ListCompanies
-                                 defaultValue={this.props.primaryId}
                                  name="tea_cpn_cod"
-                                 onChange={this.handleSelect}
-                                 controlId="tea_cpn_cod"
+                                 validated={this.state.validated}
+                                 defaultCompany={this.state.primaryData.tea_cpn_cod ? this.state.primaryData.tea_cpn_cod : null}
                                  errorMessage={this.state.tea_cpn_cod}
-                                 defaultCompany={this.state.primaryData.tea_cpn_cod ? this.state.primaryData.tea_cpn_cod : null} />
+                                 onChange={this.handleSelect}
+                              />
                            </Col>
                            <Col className="mt-3" xs={12} sm={3}>
-                              <BooleanField Label="Status"
+                              <BooleanField
+                                 Label="Status"
                                  onFalse="Inativo"
                                  onTrue="Ativo"
-                                 controlId="tea_active"
                                  name="tea_active"
-                                 onChange={this.handleSelect}
-                                 register={true}
+                                 validated={this.state.validated}
                                  value={this.state.primaryData?.tea_active}
+                                 onChange={this.handleSelect}
                                  required />
                            </Col>
                            <Col className="mt-4" xs={10} sm={3}>

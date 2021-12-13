@@ -5,7 +5,7 @@ export default function UsuarioJornadas(props) {
    return <UsuarioTimesForm
       userId={props.match.params.userId}
       populateListEndpoint="teams/listar-team-members"
-      label="Times: "
+      label="Times"
       name="selectTimes"
       userName={props.match.params.userName}
       pageTitle="Times" />

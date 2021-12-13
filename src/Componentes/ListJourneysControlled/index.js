@@ -1,11 +1,10 @@
-import { Form } from 'react-bootstrap';
-import { React, Component } from 'react';
+import React, { Component } from 'react';
 import { request } from '../../Services/api';
-import { SelectValidateStyle, RequiredField } from '../../styles/CommonStyles';
+import { RequiredField } from '../../styles/CommonStyles';
 import { TextField, MenuItem, ListSubheader } from '@mui/material';
 import { ValidationTextField } from '../FormFields';
 import NoDataComp from '../NoDataComp';
-
+import { DefaultValidateSelectField } from '../DefaultValidateInputs/DefaultValidateSelectField';
 
 export default class ListJourneysControlled extends Component {
    constructor(props) {
@@ -28,7 +27,6 @@ export default class ListJourneysControlled extends Component {
    componentDidMount() {
       this.getJourneys();
    }
-
    onChange(event) {
       if (event.target.value !== null) {
          const jny_cpn_cod = this.state.journeys.filter((journey) => { return journey.jny_cod == event.target.value; })[0].jny_cpn_cod;
@@ -44,21 +42,10 @@ export default class ListJourneysControlled extends Component {
       }
    }
    render() {
-      return <ValidationTextField
-         id={this.props.id}
-         select
-         fullWidth
-         name={this.props.name}
-         disabled={this.props.disabled}
-         label="Jornada"
-         value={this.props.value}
+      return <DefaultValidateSelectField
+         {...this.props}
          onChange={this.onChange.bind(this)}
-         InputLabelProps={{
-            shrink: true,
-         }}
-         helperText={this.props.required ? <RequiredField>Campo obrigatório</RequiredField> : null}
-      >
-         <MenuItem value={null}><NoDataComp /></MenuItem>
+         label="Jornada">
          {this.state.journeys?.map(journey => {
             return (
                <MenuItem
@@ -68,6 +55,6 @@ export default class ListJourneysControlled extends Component {
                   {journey.jny_name}
                </MenuItem>);
          })}
-      </ValidationTextField>
+      </DefaultValidateSelectField>
    }
 }

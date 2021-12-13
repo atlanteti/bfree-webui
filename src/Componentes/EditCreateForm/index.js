@@ -76,6 +76,12 @@ export class EditCreateForm extends Component {
          validated: true
       })
       if (!e.target.checkValidity()) {
+         this.props.showAlert(
+            {
+               responseType: "WARNING",
+               message: "Alguns campos não foram preenchidos corretamente"
+            }
+         )
          return
       }
       let data = null;
@@ -93,8 +99,17 @@ export class EditCreateForm extends Component {
                   [datum.field.toLowerCase()]: datum.message
                })
             })
+            this.props.showAlert(
+               {
+                  responseType: "WARNING",
+                  message: "Alguns campos não foram preenchidos corretamente"
+               }
+            )
          }
          else {
+            this.setState({
+               validated: false
+            })
             this.props.showAlert(data.meta);
          }
       } catch (error) {
@@ -126,14 +141,14 @@ export class EditCreateForm extends Component {
    };
    handleSelect = (e) => {
       if (e.target.value !== null && e.target.name === "dem_sdm_cod") {
-         const filterDtAction = this.state.primaryData.demandStatusHistories != null && 
-         this.state.primaryData.demandStatusHistories.filter(dtAction => 
-            dtAction.dsh_sdm_cod === e.target.value
-         )
+         const filterDtAction = this.state.primaryData.demandStatusHistories != null &&
+            this.state.primaryData.demandStatusHistories.filter(dtAction =>
+               dtAction.dsh_sdm_cod === e.target.value
+            )
          const ref = this.myRef.current;
          this.setState((state, props) => ({
             primaryData: {
-               ...state.primaryData, 
+               ...state.primaryData,
                dem_dtaction: filterDtAction.length > 0 ? new Date(filterDtAction[0].dsh_dtaction) : null
             },
             dateAction: filterDtAction.length > 0 ? new Date(filterDtAction[0].dsh_dtaction) : null,

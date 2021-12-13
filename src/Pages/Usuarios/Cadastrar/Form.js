@@ -1,165 +1,177 @@
-import React from 'react'
-import { Form, Col, Row, Button } from 'react-bootstrap'
-import { SelectField, NumberField, PhoneField, InputTextField, ValidationTextField } from '../../../Componentes/FormFields'
-import { DateField } from '../../../Componentes/DateField'
-import { ButtonRow } from '../../../Componentes/ButtonRow'
-import { EditCreateForm } from '../../../Componentes/EditCreateForm/index'
-import ListCompanies from '../../../Componentes/ListCompanies'
-import ListUserStatusControlled from '../../../Componentes/ListUserStatus'
-import CircularProgress from '@material-ui/core/CircularProgress'
-import { BackGroundForm, BtnBlue, TitleRegister } from '../../../styles/CommonStyles'
-import { IoChevronBackCircleSharp } from "react-icons/io5"
-import TextField from '@mui/material/TextField'
-import InputMask from "react-input-mask"
-
-export default function UserForm(props) {
-   return <UserFormBuilder insertDataEndpoint="usuarios/cadastrar"
-      requestDataEndpoint="usuarios/procurar/"
-      editDataEndpoint="usuarios/alterar/"
-      {...props} />
-}
-
-export class UserFormBuilder extends EditCreateForm {
-   render() {
-      return (
-         <>
-            {this.state.loading && this.paramRoute !== 'inserir'
-               ?
-               <Row>
-                  <Col md={{ offset: 6 }}><CircularProgress /></Col>
-               </Row>
-               :
-               (
-                  <Form onSubmit={this.handleSubmit} validated={this.state.validated} noValidate>
-                     <ButtonRow
-                        cancelButton={<Button variant="light" onClick={this.redirectCallback}><IoChevronBackCircleSharp size={30} color="#BFCADD" /></Button>}
-                        titlePage={<TitleRegister>{this.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'} Usuário</TitleRegister>}
-                     />
-                     <BackGroundForm xs={1} className={'mb-2'} noGutters>
-                        <Row>
-                           <Col className="mt-3" xs={12} sm={4}>
-                              <InputTextField
-                                 id="usr_name"
-                                 label="Nome"
-                                 type="text"
-                                 maxLength="200"
-                                 defaultValue={this.state.primaryData?.usr_name}
-                                 onChange={this.handleChange}
-                                 fullWidth
-                                 required
-                                 errorMessage={this.state.usr_name}
-                              />
-                           </Col>
-                           <Col className="mt-3" xs={12} sm={4}>
-                              <InputMask
-                                 mask="(xx) xxxxx-xxxx"
-                                 value={this.state.primaryData?.usr_phone}
-                                 formatChars={{ "x": '[0-9]' }}
-                                 disabled={false}
-                                 maskChar=" "
-                                 required
-                                 onChange={this.handleChange}
-                              >
-                                 {() =>
-                                    <ValidationTextField
-                                       id="usr_phone"
-                                       label="Telefone"
-                                       type="text"
-                                       required
-                                       errorMessage={this.state.usr_phone}
-                                       onChange={this.handleChange}
-                                       fullWidth
-                                       InputLabelProps={{
-                                          shrink: true,
-                                          required: false
-                                       }}
-                                       helperText="Campo Obrigatório"
-                                    />}
-                              </InputMask>
-                           </Col>
-                           <Col className="mt-3" xs={12} sm={4}>
-                              <InputTextField
-                                 id="usr_email"
-                                 label="Email"
-                                 type="email"
-                                 maxLength="45"
-                                 defaultValue={this.state.primaryData?.usr_email}
-                                 onChange={this.handleChange}
-                                 fullWidth
-                                 required
-                                 errorMessage={this.state.usr_email}
-                              />
-                           </Col>
-                        </Row>
-                        <Row>
-                           <Col className="mt-3" xs={12} sm={4}>
-                              <NumberField
-                                 id="usr_cli_cod"
-                                 label="ID Eduzz"
-                                 type="text"
-                                 maxLength="10"
-                                 required
-                                 errorMessage={this.state.usr_cli_cod}
-                                 defaultValue={this.state.primaryData?.usr_cli_cod}
-                                 onChange={this.handleChange}
-                                 fullWidth
-                              />
-                           </Col>
-                           <Col className="mt-3" xs={12} sm={4}>
-                              <InputTextField
-                                 id="usr_externalid"
-                                 label="ID Externo"
-                                 type="text"
-                                 maxLength="10"
-                                 errorMessage={this.state.usr_externalid}
-                                 defaultValue={this.state.primaryData?.usr_externalid}
-                                 onChange={this.handleChange}
-                                 fullWidth
-                              />
-                           </Col>
-                           <Col className="mt-3" xs={12} sm={4}>
-                              <ListUserStatusControlled
-                                 label="Status do Usuário"
-                                 id="usr_sus_cod"
-                                 name="usr_sus_cod"
-                                 required
-                                 errorMessage={this.state.usr_sus_cod}
-                                 onChange={this.handleSelect}
-                                 value={this.state.primaryData.usr_sus_cod ? this.state.primaryData.usr_sus_cod : null} />
-                           </Col>
-                        </Row>
-
-                        {this.props.paramRoute === 'inserir'
-                           ? ''
-                           :
-                           <Row className="mt-4">
-                              <Col md={{ offset: 1 }} xs={12} sm={5}>
-                                 <DateField
-                                    controlId="usr_dtcreation"
-                                    Label="Data de criação:"
-                                    date={this.state.primaryData?.usr_dtcreation} />
-                              </Col>
-                              {this.state.primaryData?.usr_dtupdate === null
-                                 ? ''
-                                 : <Col xs={12} sm={5}>
-                                    <DateField
-                                       controlId="usr_dtcreation"
-                                       Label="Data de atualização:"
-                                       date={this.state.primaryData?.usr_dtupdate} />
-                                 </Col>
-                              }
-                           </Row>
-                        }
-                        <Row>
-                           <Col className="mt-3" md={{ offset: 5 }}>
-                              <BtnBlue variant="dark" type="submit">Salvar</BtnBlue>
-                           </Col>
-                        </Row>
-                     </BackGroundForm>
-                  </Form>
-               )
-            }
-         </>
-      )
+import { Form, Formik } from 'formik';
+import React, { useState, useEffect } from 'react';
+import { useScroll } from "../../../Hooks"
+import { Button, Col, Row } from 'react-bootstrap';
+import { ListUserStatus } from '../../../Componentes/FormikComponents/ListUserStatus';
+import { PhoneInput } from "../../../Componentes/FormikComponents/PhoneInput";
+import { request } from '../../../Services/api';
+import yup from "../../../Services/validations";
+import { BackGroundForm, BtnBlue, TitleRegister } from '../../../styles/CommonStyles';
+import { DefaultValidationTextField, preventNonNumericalInput } from '../../../Componentes/FormikComponents/DefaultValidationTextField';
+import { Timestamps } from '../../../Componentes/FormikComponents/Timestamps';
+import { ButtonRow } from '../../../Componentes/ButtonRow';
+import { IoChevronBackCircleSharp } from 'react-icons/io5';
+export const UserForm = (props) => {
+   const [primaryData, setPrimaryData] = useState()
+   const [fields, setFields] = useState(
+      {
+         usr_name: "",
+         usr_phone: "",
+         usr_email: "",
+         usr_cli_cod: "",
+         usr_externalid: "",
+         usr_sus_cod: "",
+      }
+   )
+   const [pageTop, scrollToTop] = useScroll()
+   let method = "post"
+   const entryRequestEndpoint = "usuarios/procurar/";
+   let postEndpoint = "usuarios/cadastrar"
+   if (props.paramRoute !== "inserir") {
+      postEndpoint = "usuarios/alterar/" + props.primaryId
+      method = "put"
    }
-}
+   useEffect(() => {
+      const requestData = async () => {
+         try {
+            const data = await request({
+               method: "get",
+               endpoint: entryRequestEndpoint + props.primaryId,
+            });
+            setPrimaryData(data.data)
+            let tempFields = {}
+            for (const key of Object.keys(fields)) {
+               if (data.data[key] !== null) {
+                  tempFields[key] = data.data[key]
+               }
+               else {
+                  tempFields[key] = ""
+               }
+            }
+            setFields(tempFields)
+         } catch (error) {
+            console.log(error);
+         }
+      }
+      if (props.paramRoute !== "inserir") {
+         requestData();
+      }
+   }, [props])
+   return (
+      <React.Fragment>
+         <ButtonRow
+            cancelButton={<Button variant="light" onClick={props.redirectCallback}><IoChevronBackCircleSharp size={30} color="#BFCADD" /></Button>}
+            titlePage={<TitleRegister ref={pageTop}>{props.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'} Usuário</TitleRegister>}
+         />
+         <BackGroundForm xs={1} className={'mb-2'} noGutters>
+            <Formik
+               htmlFor="mainForm"
+               initialValues={fields}
+               validationSchema={yup.object({
+                  usr_name: yup.string().max(200).required(),
+                  usr_phone: yup.string().required()
+                     .test('valid-phone', "Deve estar no formato (99) 9999-9999 ou (99) 99999-9999",
+                        (value, context) => {
+                           if (value !== undefined) {
+                              return (!!value.match(/\d{10,11}/) ||
+                                 value.trim().length >= 14)
+                           }
+                           return true
+                        }),
+                  usr_email: yup.string().email().required(),
+                  usr_cli_cod: yup.string().max(10).required(),
+                  usr_externalid: yup.string().max(10),
+                  usr_sus_cod: yup.number().required(),
+               })}
+               onSubmit={
+                  async (values, { setSubmitting, setFieldError }) => {
+                     const data = await request({
+                        method: method,
+                        endpoint: postEndpoint,
+                        data: values,
+                     });
+                     if (data.meta.status == 100) {
+                        props.showAlert(data.meta)
+                     }
+                     else if (data.meta.status == 212) {
+                        props.showAlert(data.meta)
+                     }
+                     if (data.meta.status == 422) {
+                        setFieldError(data.data[0].field.toLowerCase(), data.data[0].message)
+                        props.showAlert(
+                           {
+                              responseType: "WARNING",
+                              message: "Alguns campos não foram preenchidos corretamente"
+                           }
+                        )
+                     }
+                     else {
+                        console.log("Uncaught exception")
+                     }
+                     setSubmitting(false);
+                  }
+               }
+               enableReinitialize
+            >{({ setFieldValue, handleChange, submitForm }) => (
+               <Form id="mainForm">
+                  <Row>
+                     <Col className="mt-3" xs={12} sm={4}>
+                        <DefaultValidationTextField
+                           label="Nome"
+                           name="usr_name"
+                           type="text"
+                           maxLength="200" />
+                     </Col>
+                     <Col className="mt-3" xs={12} sm={4}>
+                        <PhoneInput
+                           label="Telefone"
+                           name="usr_phone"
+                           type="text"
+                           maxLength="15" />
+                     </Col>
+                     <Col className="mt-3" xs={12} sm={4}>
+                        <DefaultValidationTextField
+                           label="Email"
+                           name="usr_email"
+                           type="text"
+                           maxLength="45" />
+                     </Col>
+                  </Row>
+                  <Row>
+                     <Col className="mt-3" xs={12} sm={4}>
+                        <DefaultValidationTextField
+                           onKeyPress={preventNonNumericalInput}
+                           label="ID Eduzz"
+                           name="usr_cli_cod"
+                           type="text"
+                           maxLength="10" />
+                     </Col>
+                     <Col className="mt-3" xs={12} sm={4}>
+                        <DefaultValidationTextField
+                           label="ID Externo"
+                           name="usr_externalid"
+                           type="text"
+                           maxLength="10" />
+                     </Col>
+                     <Col className="mt-3" xs={12} sm={4}>
+                        <ListUserStatus
+                           label="Status do Usuário"
+                           name="usr_sus_cod" />
+                     </Col>
+                  </Row>
+                  {(props.paramRoute !== "inserir" && primaryData) ?
+                     <Timestamps
+                        primaryData={primaryData}
+                        fieldSuffix="usr_" /> : null}
+                  <Row>
+                     <Col className="mt-3" md={{ offset: 5 }}>
+                        <BtnBlue variant="dark" type="submit" onClick={scrollToTop}>Salvar</BtnBlue>
+                     </Col>
+                  </Row>
+               </Form>
+            )}
+            </Formik>
+         </BackGroundForm>
+      </React.Fragment>
+   );
+};

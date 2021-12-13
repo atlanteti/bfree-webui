@@ -7,15 +7,14 @@ import { TextField, MenuItem } from '@mui/material';
 import { ValidationTextField } from '../FormFields';
 import ContextLogin from "../../Context/ContextLogin";
 import NoDataComp from '../NoDataComp';
+import { DefaultValidateSelectField } from '../DefaultValidateInputs/DefaultValidateSelectField';
+
 export default class ListUsers extends Component {
    constructor(props) {
       super(props);
       this.state = {
          users: [],
       };
-      if (this.props.getSetCallback) {
-         this.props.getSetCallback(this.select.bind(this))
-      }
    }
 
    async getUsers() {
@@ -32,39 +31,11 @@ export default class ListUsers extends Component {
       this.getUsers();
    }
 
-   onChange(e) {
-      this.props.onChange(e)
-   }
-
-   select(typeUserCode) {
-      this.setState({ selectedValue: typeUserCode })
-      this.props.onChange({
-         target: {
-            id: this.props.id,
-            value: String(typeUserCode),
-            selected: true
-         }
-      })
-   }
-
    render() {
-      return <ValidationTextField
-         id={this.props.id}
-         select
-         fullWidth
-         name={this.props.name}
-         label="Usuário"
-         required={this.props.required}
+      return <DefaultValidateSelectField
+         {...this.props}
          value={this.props.defaultUser}
-         disabled={this.props.disabled}
-         onChange={this.onChange.bind(this)}
-         InputLabelProps={{
-            shrink: true,
-            required: false
-         }}
-         helperText={this.props.required ? <RequiredField>Campo obrigatório</RequiredField> : null}
-      >
-         <MenuItem value={null}><NoDataComp /></MenuItem>
+         label="Usuário">
          {this.state.users?.map(user => {
             return (
                <MenuItem
@@ -74,14 +45,12 @@ export default class ListUsers extends Component {
                   {user.usr_name}
                </MenuItem>);
          })}
-      </ValidationTextField>
+      </DefaultValidateSelectField>
    }
 }
 
 ListUsers.propTypes = {
-   getSetCallback: PropTypes.func,
    defaultUser: PropTypes.number,
-   id: PropTypes.number.isRequired,
    onChange: PropTypes.func.isRequired,
    required: PropTypes.bool,
    disabled: PropTypes.bool

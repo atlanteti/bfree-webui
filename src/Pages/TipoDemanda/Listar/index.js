@@ -70,7 +70,7 @@ export default class ListarTipoDemanda extends ListarPagina {
    createRecord(tDemand) {
       return <TableRow key={tDemand.tdm_cod}>
          <TextCell data-title="Nome">{tDemand.tdm_name}</TextCell>
-         <TextCell data-title="Empresa" className="text">{tDemand.company.cpn_name}</TextCell>
+         <TextCell data-title="Empresa">{tDemand.company.cpn_name}</TextCell>
          <ActionCell data-title="Ações">
             <Button variant="transparent" href={`/editar/tipodemanda/${tDemand.tdm_cod}/alterar`}><EditIcon /></Button>
             <Button variant="transparent" onClick={() => {

@@ -1,10 +1,7 @@
-import { Form } from 'react-bootstrap';
 import { React, Component } from 'react';
 import { request } from '../../Services/api';
 import PropTypes from 'prop-types'
-import { RequiredField, SelectValidateStyle } from '../../styles/CommonStyles';
-import { TextField, MenuItem } from '@mui/material';
-import NoDataComp from '../NoDataComp';
+import { MenuItem } from '@mui/material';
 import { DefaultValidateSelectField } from '../DefaultValidateInputs/DefaultValidateSelectField';
 
 export default class ListCompanies extends Component {
@@ -13,9 +10,6 @@ export default class ListCompanies extends Component {
       this.state = {
          companies: [],
       };
-      if (this.props.getSetCallback) {
-         this.props.getSetCallback(this.select.bind(this))
-      }
    }
 
    async getCompanies() {
@@ -36,23 +30,12 @@ export default class ListCompanies extends Component {
       this.props.onChange(e)
    }
 
-   select(companyCode) {
-      this.setState({ selectedValue: companyCode })
-      this.props.onChange({
-         target: {
-            id: this.props.id,
-            value: String(companyCode),
-            selected: true
-         }
-      })
-   }
 
    render() {
       return <DefaultValidateSelectField
          {...this.props}
          value={this.props.defaultCompany}
          label="Empresa">
-         <MenuItem value={""}><NoDataComp /></MenuItem>
          {this.state.companies?.map(company => {
             return (
                <MenuItem

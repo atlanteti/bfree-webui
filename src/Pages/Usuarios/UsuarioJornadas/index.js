@@ -5,7 +5,7 @@ export default function UsuarioJornadas(props) {
    return <UsuarioJornadasForm
       userId={props.match.params.userId}
       populateListEndpoint="journeys/listar-user-journey"
-      label="Jornadas: "
+      label="Jornadas"
       name="selectJourneys"
       userName={props.match.params.userName}
       pageTitle="Jornadas" />

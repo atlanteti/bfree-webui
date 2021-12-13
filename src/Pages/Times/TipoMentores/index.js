@@ -2,14 +2,16 @@ import { Button, Col, Form, Row } from "react-bootstrap";
 import { request } from "../../../Services/api";
 import { Component } from "react";
 import { Redirect } from "react-router-dom";
-import { CustomMenuCol, Title } from "../../../styles/CommonStyles";
+import { BackGroundForm, BtnBlue, BtnPrimary, CustomMenuCol, Title } from "../../../styles/CommonStyles";
 import { CustomMenu } from "../../../Componentes/CustomMenu";
-import Select from 'react-select'
 import { CustomAlert } from "../../../Componentes/CustomAlert";
 import { ButtonRow } from "../../../Componentes/ButtonRow";
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress, MenuItem } from "@material-ui/core";
 import { CheckBox } from "../../../Componentes/CheckBox";
 import { Helmet } from "react-helmet";
+import { InputTextField, BooleanField } from "../../../Componentes/FormFields";
+import NoDataComp from "../../../Componentes/NoDataComp";
+import { IoChevronBackCircleSharp } from "react-icons/io5";
 export default class TiposDeMentoria extends Component {
    constructor(props) {
       super(props);
@@ -87,24 +89,24 @@ export default class TiposDeMentoria extends Component {
       this.showAlert(data)
    }
 
-   handleChange(event) {
+   handleChange(event, index) {
       this.setState((state) => ({
          responseForm: {
             ...state.responseForm,
-            [event.index]: {
-               ...state.responseForm[event.index],
-               "umt_tmt_cod": event.value
+            [index]: {
+               ...state.responseForm[index],
+               "umt_tmt_cod": event.target.value
             }
          }
       }))
    }
-   handleCheck(event) {
+   handleCheck(event, index) {
       this.setState((state) => ({
          responseForm: {
             ...state.responseForm,
-            [event.index]: {
-               ...state.responseForm[event.index],
-               "umt_active": event.target.checked
+            [index]: {
+               ...state.responseForm[index],
+               "umt_inactive": event.target.value
             }
          }
       }))
@@ -127,76 +129,91 @@ export default class TiposDeMentoria extends Component {
       return <>
          <Helmet title={`Tipos de Mentoria`} />
          <CustomMenuCol md={2}><CustomMenu /></CustomMenuCol>
-         <Col
-            sm={{ offset: 2, span: 10 }}// Temporary until styled components
-            md={{ offset: 3, span: 9 }}
-            lg={{ offset: 3, span: 9 }}>
-            <Title>Tipos de Mentoria</Title>
-         </Col>
-         <Col
-            sm={{ offset: 2, span: 10 }}// Temporary until styled components
-            md={{ offset: 3, span: 9 }}
-            lg={{ offset: 3, span: 9 }}
-            style={{ marginTop: 50 }}
-         >
-            <CustomAlert
-               showAlertCallback={this.getAlertCallback.bind(this)}
-               redirectCallback={this.redirect.bind(this)} />
-            <Form onSubmit={this.handleSubmit.bind(this)}>
-               {this.state.mentores === undefined ?
-                  <Row>
-                     <Col md={{ offset: 5 }}><CircularProgress /></Col>
-                  </Row> :
-                  (<>
-                     {this.state.mentores.map(mentor => {
-                        return (
-                           <Row xs={2} sm={3}>
-                              <Col>
-                                 <Form.Group>
-                                    <Form.Label>Nome do mentor</Form.Label>
-                                    <Form.Control
-                                       type="text"
-                                       value={mentor.user.usr_name}
-                                       disabled
-                                       maxLength="45"
-                                       required />
-                                 </Form.Group>
+         <Col>
+            <Col
+               sm={{ offset: 1, span: 10 }}// Temporary until styled components
+               md={{ offset: 1, span: 10 }}
+               lg={{ offset: 2, span: 10 }}
+            >
+               <CustomAlert
+                  showAlertCallback={this.getAlertCallback.bind(this)}
+                  redirectCallback={this.redirect.bind(this)}
+               />
+               <ButtonRow
+                  cancelButton={<Button variant="light" href="/times"><IoChevronBackCircleSharp size={30} color="#BFCADD" /></Button>}
+                  titlePage={<Title>Tipos de Mentoria</Title>}
+               />
+               <Form onSubmit={this.handleSubmit.bind(this)}>
+                  <BackGroundForm xs={1} noGutters>
+                     {this.state.mentores === undefined ?
+                        <Row>
+                           <Col md={{ offset: 5 }}><CircularProgress /></Col>
+                        </Row> :
+                        (<>
+                           {this.state.mentores.map(mentor => {
+                              return (
+                                 <Row xs={2} sm={3} className="mt-2">
+                                    <Col className="mt-3" xs={12} sm={4} md={5}>
+                                       <InputTextField
+                                          label="Nome do Mentor"
+                                          type="text"
+                                          value={mentor.user.usr_name}
+                                          disabled
+                                          maxLength="45"
+                                       />
+                                    </Col>
+                                    <Col key="selector-1" className="mt-3" xs={12} sm={4} md={5}>
+                                       <InputTextField
+                                          label="Tipo de Mentoria"
+                                          name="test"
+                                          select
+                                          defaultValue={mentor.typeMentor?.tmt_cod}
+                                          onChange={(event) => { this.handleChange(event, mentor.umt_cod) }}
+                                          InputLabel={{
+                                             shirk: true
+                                          }}
+                                       >
+                                          {this.state.tiposDeMentoria?.map((type) => {
+                                             if (type.label === '') {
+                                                return (
+                                                   <MenuItem value={null}><NoDataComp /></MenuItem>
+                                                )
+                                             }
+                                             return (
+                                                <MenuItem value={type.value}>{type.label}</MenuItem>
+                                             )
+                                          })}
+                                       </InputTextField>
+                                    </Col>
+                                    <Col className="mt-3" xs={12} sm={4} md={2}>
+                                       <BooleanField Label="Status"
+                                          onTrue="Ativo"
+                                          onFalse="Inativo"
+                                          name="umt_inactive"
+                                          id={"CheckboxFor" + mentor.umt_cod}
+                                          onChange={(event) => { this.handleCheck(event, mentor.umt_cod) }}
+                                          defaultValue={mentor.umt_inactive}
+                                       />
+                                    </Col>
+                                 </Row>);
+                           })}
+                           <Row>
+                              <Col className="mt-5"
+                                 style={{
+                                    display: 'flex',
+                                    justifyContent: 'center'
+                                 }}
+                              >
+                                 <BtnBlue type="submit" variant="dark">Editar</BtnBlue>
+                                 <BtnPrimary style={{
+                                    marginLeft: 25
+                                 }} variant="light" href="/times">Cancelar</BtnPrimary>
                               </Col>
-                              <Col key="selector-1">
-                                 <Form.Group>
-                                    <Form.Label>Tipo de mentoria</Form.Label>
-                                    <Select
-                                       styles={{ option: styles => ({ minHeight: 40, ...styles }) }}
-                                       controlId="test"
-                                       onChange={(event) => { this.handleChange({ index: mentor.umt_cod, ...event }) }}
-                                       name="Tipos de mentoria"
-                                       options={this.state.tiposDeMentoria}
-                                       defaultValue={{ value: mentor.typeMentor?.tmt_cod, label: mentor.typeMentor?.tmt_name }} />
-                                 </Form.Group>
-                              </Col>
-                              <Col>
-                                 <Form.Group>
-                                    <Form.Label>Inativo</Form.Label>
-                                    <CheckBox
-                                       name="umt_active"
-                                       onChange={
-                                          (event) => {
-                                             this.handleCheck({ index: mentor.umt_cod, ...event })
-                                          }
-                                       }
-                                       checked={this.state.responseForm[mentor.umt_cod]?.umt_active}
-                                       id={"CheckboxFor" + mentor.umt_cod}
-                                       defaultValue={mentor.umt_active}
-                                    />
-                                 </Form.Group>
-                              </Col>
-                           </Row>);
-                     })}
-                     <ButtonRow
-                        cancelButton={<Button variant="warning" href="/times">Cancelar</Button>}
-                        confirmButton={<Button type="submit" variant="dark">Editar</Button>} />
-                  </>)}
-            </Form>
+                           </Row>
+                        </>)}
+                  </BackGroundForm>
+               </Form>
+            </Col>
          </Col>
       </>
    }
