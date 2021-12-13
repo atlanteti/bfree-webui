@@ -7,16 +7,19 @@ import { request } from '../../Services/api';
 import {
    CustomMenuCol,
    MainTable,
+   ReportTableData,
    TableHeader,
    TableRow,
+   TextCell,
    TextHeaderCell
 } from '../../styles/CommonStyles';
 import ResultadoSearchBar from './ResultadoSearchBar';
 
 export function Resultados() {
    const [headerData, setHeaderData] = useState([])
-   const [dat, setData] = useState({})
-   const [initialDate, setInitialDate] = useState(new Date(moment().subtract(4, 'month').calendar()));
+   const [dat, setData] = useState([])
+   const [bodyData, setBodyData] = useState([])
+   const [initialDate, setInitialDate] = useState(new Date(moment().subtract(3, 'month').calendar()));
    const [finalDate, setFinalDate] = useState(new Date);
    const [graph, setGraph] = useState([])
 
@@ -33,7 +36,6 @@ export function Resultados() {
       }).then((data) => {
          if (data.meta.status === 100) {
             setGraph(data.data['taxaDeSucesso'])
-            setData(data.data)
          }
          // estrutura de codigo criada para preencher a tabela de indicadores de performance
          let init = moment(initialDate).format('MM');
@@ -44,15 +46,31 @@ export function Resultados() {
             populateHeader.push(Number(init).toString() + "/" + moment().format('YY'))
          }
          setHeaderData(populateHeader)
+         // transformando os dados em um array para utilização na tabela
          const populateData = []
-         const bodyData = Object.keys(data.data).map((response) => {
+         const populate = Object.keys(data.data).map((response) => {
             populateData.push([response, data.data[response]])
          })
+         setData(populateData)
+         const populateBody = []
+         populateData.map((response) => {
+            if (response[1].length === 0) {
+               return populateBody.push([response[0], null])
+            } else {
+               //percorre um array caso tenha mais de uma unidade, para nao ser repetido o nome do item na tabela de exibição
+               if (response[1].length > 1) {
+                  const arrayItems = [response[0]]
+                  response[1].map((value) => arrayItems.push(value['quantidade']))
+                  return populateBody.push(arrayItems)
+               }
+               return response[1].map((a) => populateBody.push([response[0], a['quantidade']]))
+            }
+         })
+         setBodyData(populateBody)
       })
    }
-
-
-
+   bodyData.map(item => console.log(item))
+   // quando voltar segunda, tentar fazer funcionar a tabela
    function changeDate(date, id) {
       if (id === "initialDate") {
          setInitialDate(date)
@@ -93,6 +111,16 @@ export function Resultados() {
                         })}
                      </TableRow>
                   </TableHeader>
+                  <ReportTableData>
+                     {bodyData?.map((data) => {
+                        return (
+                           <TableRow>{data.map(result => {
+                              return <TextCell Elipse>{result}</TextCell>
+                           })}
+                           </TableRow>
+                        )
+                     })}
+                  </ReportTableData>
                </MainTable>
                <Col style={{ height: 400 }}>
                   <MyResponsiveBar data={graph} />
