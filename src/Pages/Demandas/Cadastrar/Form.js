@@ -54,6 +54,9 @@ export const DemandForm = (props) => {
                   if (key === "dem_dtaction") {
                      tempFields[key] = new Date(data.data[key])
                   }
+                  else if (key.includes("phone")) {
+                     tempFields[key] = data.data[key].replace(/[^\d]g/, "")
+                  }
                   else {
                      tempFields[key] = data.data[key]
                   }

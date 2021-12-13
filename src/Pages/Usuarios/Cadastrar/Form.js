@@ -42,7 +42,12 @@ export const UserForm = (props) => {
             let tempFields = {}
             for (const key of Object.keys(fields)) {
                if (data.data[key] !== null) {
-                  tempFields[key] = data.data[key]
+                  if (key.includes("phone")) {
+                     tempFields[key] = data.data[key].replace(/[^\d]g/, "")
+                  }
+                  else {
+                     tempFields[key] = data.data[key]
+                  }
                }
                else {
                   tempFields[key] = ""
