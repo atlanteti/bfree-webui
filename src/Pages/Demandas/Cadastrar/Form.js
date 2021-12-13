@@ -114,6 +114,11 @@ export const DemandForm = (props) => {
                })}
                onSubmit={
                   async (values, { setSubmitting, setFieldError }) => {
+                     Object.keys(values).forEach((key) => {
+                        if (key && key.includes("phone")) {
+                           values[key] = values[key].replaceAll(/[^\d]/g, "")
+                        }
+                     })
                      const data = await request({
                         method: method,
                         endpoint: postEndpoint,
