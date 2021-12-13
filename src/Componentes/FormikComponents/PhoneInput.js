@@ -7,7 +7,7 @@ export function PhoneInput(props) {
    const [field, meta] = useField(props);
    return <InputMask
       id={field.name}
-      mask={field.value.length < 15 ? "(99) 9999-99999" : "(99) 99999-9999"}
+      mask={(field.value.match(/\d/g) || []).length < 11 ? "(99) 9999-99999" : "(99) 99999-9999"}
       maskChar=""
       value={field.value}
       onChange={field.onChange}
