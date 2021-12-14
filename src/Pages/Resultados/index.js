@@ -52,7 +52,7 @@ export function Resultados() {
             //a taxa de sucesso é a única que tem um elemento com o nome diferente, por isso o IF
             if (response[0] === "taxaDeSucesso") {
                if (response[1].length > 1) {
-                  const arrayItems = [response[0]]
+                  const arrayItems = [response[0].toUpperCase()]
                   response[1].map((value) => arrayItems.push(value['porcentagem']))
                   return populateBody.push(arrayItems)
                }
@@ -60,11 +60,11 @@ export function Resultados() {
             }
             // estrutura criada para agrupar os valores retornados do back em um unico array por indice
             if (response[1].length > 1) {
-               const arrayItems = [response[0]]
+               const arrayItems = [response[0].toUpperCase()]
                response[1].map((value) => arrayItems.push(value['quantidade']))
                return populateBody.push(arrayItems)
             }
-            return response[1].map((a) => populateBody.push([response[0].toUpperCase(), a['quantidade']]))
+            return response[1].map((value) => populateBody.push([response[0].toUpperCase(), value['quantidade']]))
          })
          setBodyData(populateBody)
       })
