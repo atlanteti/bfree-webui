@@ -118,8 +118,8 @@ export function Resultados() {
                   <ReportTableData>
                      {bodyData?.map((data) => {
                         return (
-                           <TableRow>{data.map(result => {
-                              return <TextCell data-title={result} Elipse>{result}</TextCell>
+                           <TableRow>{data.map((result, index) => {
+                              return <TextCell data-title={headerData[index]} Elipse>{result}</TextCell>
                            })}
                            </TableRow>
                         )
