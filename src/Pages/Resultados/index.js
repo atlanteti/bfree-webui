@@ -41,7 +41,6 @@ export function Resultados() {
          })
          const populateHeader = []
          const header = []
-         // coletando as datas 
          header.push(populateData[0])
          populateHeader.push("")
          // preenchendo um array com as datas para serem exibidas na tabela
@@ -49,20 +48,27 @@ export function Resultados() {
          setHeaderData(populateHeader)
          const populateBody = []
          populateData.map((response) => {
-            //a taxa de sucesso é a única que tem um elemento com o nome diferente, por isso o IF
+            //a taxa de sucesso é a única que tem o objeto de valor com o nome diferente, por isso o IF
             if (response[0] === "taxaDeSucesso") {
                if (response[1].length > 1) {
-                  const arrayItems = [response[0].toUpperCase()]
+                  const arrayItems = ['TAXA DE SUCESSO']
                   response[1].map((value) => arrayItems.push(value['porcentagem']))
                   return populateBody.push(arrayItems)
                }
-               return populateBody.push([response[0].toUpperCase(), response[1][0]['porcentagem']])
+               return populateBody.push(['TAXA DE SUCESSO', response[1][0]['porcentagem']])
             }
             // estrutura criada para agrupar os valores retornados do back em um unico array por indice
+            const arrayItems = [response[0].toUpperCase()]
+            if (arrayItems[0] === "USUARIOPREVENDA") {
+               arrayItems.shift()
+               arrayItems.push('USUÁRIO (PRÉ-VENDA)')
+            }
             if (response[1].length > 1) {
-               const arrayItems = [response[0].toUpperCase()]
                response[1].map((value) => arrayItems.push(value['quantidade']))
                return populateBody.push(arrayItems)
+            }
+            if (response[0].toUpperCase() === "USUARIOPREVENDA") {
+               return response[1].map((value) => populateBody.push(['USUÁRIO (PRÉ-VENDA)', value['quantidade']]))
             }
             return response[1].map((value) => populateBody.push([response[0].toUpperCase(), value['quantidade']]))
          })
@@ -97,7 +103,7 @@ export function Resultados() {
                   finalDate={finalDate}
                   handleSubmit={handleSubmit}
                />
-               <MainTable>
+               <MainTable className="table-borderless">
                   <TableHeader>
                      <TableRow>
                         {headerData?.map((column) => {
@@ -113,7 +119,7 @@ export function Resultados() {
                      {bodyData?.map((data) => {
                         return (
                            <TableRow>{data.map(result => {
-                              return <TextCell Elipse>{result}</TextCell>
+                              return <TextCell data-title={result} Elipse>{result}</TextCell>
                            })}
                            </TableRow>
                         )
