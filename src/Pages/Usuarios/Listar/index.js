@@ -131,10 +131,15 @@ export default class ListarUsuario extends ListarPagina {
          <NumberCell data-title="ID Eduzz">{usuario.usr_cli_cod}</NumberCell>
          <TextCell data-title="ID Externo">{usuario.usr_externalid ? usuario.usr_externalid : <NoDataComp />}</TextCell>
          <TextCell data-title="Nome">{usuario.usr_name}</TextCell>
-         <TextCell data-title="Telefone">{usuario.usr_phone ? usuario.usr_phone : <NoDataComp />}</TextCell>
+         <TextCell data-title="Telefone">{usuario.usr_phone ?
+            this.FormatPhone(usuario) :
+            <NoDataComp />}</TextCell>
          <TextCell data-title="Status">{usuario.statusUser.sus_name ? <StatusBadgePropped active={usuario.statusUser.sus_name === "ATIVO"} /> : <NoDataComp />}</TextCell>
          <ActionCell data-title="Ações">
-            <Button variant="transparent" href={`/editar/usuarios/${usuario.usr_cod}/alterar`}><EditIcon /></Button>
+            <Link to={`/editar/usuarios/${usuario.usr_cod}/alterar`}>
+               <Button variant="transparent"><EditIcon />
+               </Button>
+            </Link>
             <Button variant="transparent" onClick={() => {
                this.setState({
                   deletionId: usuario.usr_cod,
@@ -152,5 +157,9 @@ export default class ListarUsuario extends ListarPagina {
             }} variant="transparent">...</Button>
          </ActionCell>
       </TableRow>
+   }
+
+   FormatPhone(usuario) {
+      return usuario.usr_phone.replaceAll(/[^\d]/g, "").replace(/(\d{2})(\d{4,5})(\d{4})/, "($1) $2-$3")
    }
 };

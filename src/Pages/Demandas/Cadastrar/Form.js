@@ -54,6 +54,9 @@ export const DemandForm = (props) => {
                   if (key === "dem_dtaction") {
                      tempFields[key] = new Date(data.data[key])
                   }
+                  else if (key.includes("phone")) {
+                     tempFields[key] = data.data[key].replace(/[^\d]g/, "")
+                  }
                   else {
                      tempFields[key] = data.data[key]
                   }
@@ -71,6 +74,53 @@ export const DemandForm = (props) => {
          requestData();
       }
    }, [props])
+   let validationSchema = yup.object({
+      dem_title: yup.string().max(500).required(),                   //Disabled in edit
+      dem_contact_email: yup.string().email().max(255).required(),   //Disabled in edit
+      dem_contact_phone: yup.string()                                //Disabled in edit
+         .test('valid-phone', "Deve estar no formato (99) 9999-9999 ou (99) 99999-9999",
+            (value, context) => {
+               if (value !== undefined) {
+                  return (!!value.match(/\d{10,11}/) ||
+                     value.trim().length >= 14 ||
+                     !!value.match(/\(\s{2}\)\s{5,6}-\s{4,5}/));
+               }
+               return true;
+            }),
+      dem_desc: yup.string().max(500).required(),
+      dem_comments: yup.string().max(500).required(),                 //Disabled in edit
+      dem_usr_cod: yup.number().required(),                           //Disabled in edit
+      dem_sdm_cod: yup.number().required(),
+      dem_tdm_cod: yup.number().required(),                            //Disabled in edit
+      dem_dtaction: yup.date()
+         .when("dem_sdm_cod", {
+            is: (demandStatus) => (demandStatus > 1 && demandStatus < 5),
+            then: yup.date()
+               .required()
+               .nullable()
+               .transform((curr, orig) => orig === '' ? null : curr),
+            otherwise: yup.date()
+               .nullable()
+               .transform((curr, orig) => orig === '' ? null : curr)
+         }),
+   });
+   if (props.paramRoute !== "inserir") {
+      validationSchema = yup.object({
+         dem_desc: yup.string().max(500).required(),
+         dem_sdm_cod: yup.number().required(),
+         dem_dtaction: yup.date()
+            .when("dem_sdm_cod", {
+               is: (demandStatus) => (demandStatus > 1 && demandStatus < 5),
+               then: yup.date()
+                  .required()
+                  .nullable()
+                  .transform((curr, orig) => orig === '' ? null : curr),
+               otherwise: yup.date()
+                  .nullable()
+                  .transform((curr, orig) => orig === '' ? null : curr)
+            }),
+      });
+   }
    return (
       <div>
          <ButtonRow
@@ -81,39 +131,14 @@ export const DemandForm = (props) => {
             <Formik
                htmlFor="mainForm"
                initialValues={fields}
-               validationSchema={yup.object({
-                  placeholder: yup.string(),
-                  dem_title: yup.string().max(500).required(),
-                  dem_contact_email: yup.string().email().max(255).required(),
-                  dem_contact_phone: yup.string()
-                     .test('valid-phone', "Deve estar no formato (99) 9999-9999 ou (99) 99999-9999",
-                        (value, context) => {
-                           if (value !== undefined) {
-                              return (!!value.match(/\d{10,11}/) ||
-                                 value.trim().length >= 14 ||
-                                 !!value.match(/\(\s{2}\)\s{5,6}-\s{4,5}/))
-                           }
-                           return true
-                        }),
-                  dem_desc: yup.string().max(500).required(),
-                  dem_comments: yup.string().max(500).required(),
-                  dem_usr_cod: yup.number().required(),
-                  dem_sdm_cod: yup.number().required(),
-                  dem_tdm_cod: yup.number().required(),
-                  dem_dtaction: yup.date()
-                     .when("dem_sdm_cod", {
-                        is: (demandStatus) => (demandStatus > 1 && demandStatus < 5),
-                        then: yup.date()
-                           .required()
-                           .nullable()
-                           .transform((curr, orig) => orig === '' ? null : curr),
-                        otherwise: yup.date()
-                           .nullable()
-                           .transform((curr, orig) => orig === '' ? null : curr)
-                     }),
-               })}
+               validationSchema={validationSchema}
                onSubmit={
                   async (values, { setSubmitting, setFieldError }) => {
+                     Object.keys(values).forEach((key) => {
+                        if (key && key.includes("phone")) {
+                           values[key] = values[key].replaceAll(/[^\d]/g, "")
+                        }
+                     })
                      const data = await request({
                         method: method,
                         endpoint: postEndpoint,

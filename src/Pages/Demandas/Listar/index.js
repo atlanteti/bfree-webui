@@ -15,6 +15,7 @@ import { ReactComponent as DeleteIcon } from '../../../Assets/Icons/icon_delete.
 import { MdUndo } from 'react-icons/md'
 import IconOverlayMessage from '../../../Componentes/IconOverlayMessage'
 import ExclusionModal from '../../../Componentes/ExclusionModal'
+import { Link } from 'react-router-dom'
 
 export default class ListarDemandas extends ListarPagina {
    async deleteRecord(id) {
@@ -134,7 +135,10 @@ export default class ListarDemandas extends ListarPagina {
          <TextCell data-title="Status">{demanda.statusDemand.sdm_name}</TextCell>
          <TextCell data-title="Tipo da Demanda">{demanda.typeDemand.tdm_name}</TextCell>
          <ActionCell data-title="Ações">
-            <Button variant="transparent" href={`/editar/demandas/${demanda.dem_cod}/alterar`}><EditIcon /></Button>
+            <Link to={`/editar/demandas/${demanda.dem_cod}/alterar`}>
+               <Button variant="transparent"><EditIcon />
+               </Button>
+            </Link>
             <Restricted>
                {demanda.statusDemand.sdm_cod == 1 ?
                   <IconOverlayMessage

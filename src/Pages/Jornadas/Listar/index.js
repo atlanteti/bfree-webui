@@ -14,6 +14,7 @@ import { React } from 'react'
 import { JourneySearchBar } from './JourneySearchBar'
 import { ReactComponent as EditIcon } from '../../../Assets/Icons/icon_editar.svg'
 import { ReactComponent as DeleteIcon } from '../../../Assets/Icons/icon_delete.svg'
+import { Link } from 'react-router-dom'
 export default class ListarJornada extends ListarPagina {
    async deleteRecord(id) {
       const data = await request({
@@ -76,7 +77,10 @@ export default class ListarJornada extends ListarPagina {
          <TextCell data-title="Nome">{jornada.jny_name}</TextCell>
          <TextCell data-title="Empresa">{jornada.company.cpn_name}</TextCell>
          <ActionCell data-title="Ações">
-            <Button variant="transparent" href={`/editar/jornadas/${jornada.jny_cod}/alterar`}><EditIcon /></Button>
+            <Link to={`/editar/jornadas/${jornada.jny_cod}/alterar`}>
+               <Button variant="transparent"><EditIcon />
+               </Button>
+            </Link>
             <Button variant="transparent" onClick={() => {
                this.setState({
                   deletionId: jornada.jny_cod,

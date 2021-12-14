@@ -6,7 +6,7 @@ import { TermosCompromisso } from "../Pages/Termos";
 
 export default function AppRoutes() {
    return (
-      <Router>
+      <Router basename={process.env.PUBLIC_URL}>
          <Route exact path="/" component={App} />
          <Route path="/termos" component={TermosCompromisso} />
       </Router>

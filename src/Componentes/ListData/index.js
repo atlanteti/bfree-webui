@@ -14,6 +14,7 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import Restricted from '../../Context/AccessPermission'
 import { request } from "../../Services/api";
 import moment from 'moment';
+import { Link } from 'react-router-dom'
 
 
 export default class ListarPagina extends Component {
@@ -121,7 +122,6 @@ export default class ListarPagina extends Component {
    showAlert(data) {
       this.state.responseAlertShow(data)
       this.updateListing()
-      window.scroll(0, 0)
    }
 
    subscribe(func) {
@@ -272,7 +272,15 @@ export function PageHeaderCustomComponent(props) {
             <Title>{props.Title}</Title>
          </Col>
          <RightAlignText>
-            <Col><Restricted><Button variant="register" href={props.href}>+ CADASTRAR {props.Title.toUpperCase()}</Button></Restricted></Col>
+            <Col>
+               <Restricted>
+                  <Link to={props.href}>
+                     <Button variant="register">
+                        + CADASTRAR {props.Title.toUpperCase()}
+                     </Button>
+                  </Link>
+               </Restricted>
+            </Col>
          </RightAlignText>
       </RowTopMargin>
    </HeaderContainer>

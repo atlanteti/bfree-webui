@@ -16,6 +16,7 @@ import { ReactComponent as EditIcon } from '../../../Assets/Icons/icon_editar.sv
 import { ReactComponent as DeleteIcon } from '../../../Assets/Icons/icon_delete.svg'
 import { ReactComponent as GreenCheck } from "../../../Assets/Icons/icon_check.svg"
 import NoDataComp from '../../../Componentes/NoDataComp'
+import { Link } from 'react-router-dom'
 export default class ListarBadge extends ListarPagina {
    async deleteRecord(id) {
       const data = await request({
@@ -102,7 +103,10 @@ export default class ListarBadge extends ListarPagina {
             <Icon>{badge.bdg_mentor ? <GreenCheck /> : <NoDataComp />}</Icon>
          </TextCell>
          <ActionCell data-title="Ações">
-            <Button variant="transparent" href={`/editar/badges/${badge.bdg_cod}/alterar`}><EditIcon /></Button>
+            <Link to={`/editar/badges/${badge.bdg_cod}/alterar`}>
+               <Button variant="transparent"><EditIcon />
+               </Button>
+            </Link>
             <Button variant="transparent" onClick={() => {
                this.setState({
                   deletionId: badge.bdg_cod,

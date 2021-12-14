@@ -35,7 +35,7 @@ import { Resultados } from "../Pages/Resultados";
 
 export default function AuthRoutes() {
    return (
-      <Router>
+      <Router basename={process.env.PUBLIC_URL}>
          <Switch>
             {/* rotas de usuarios */}
             <Route path="/usuarios" component={ListarUsuarios} />
