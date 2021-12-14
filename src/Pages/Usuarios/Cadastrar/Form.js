@@ -42,7 +42,12 @@ export const UserForm = (props) => {
             let tempFields = {}
             for (const key of Object.keys(fields)) {
                if (data.data[key] !== null) {
-                  tempFields[key] = data.data[key]
+                  if (key.includes("phone")) {
+                     tempFields[key] = data.data[key].replace(/[^\d]g/, "")
+                  }
+                  else {
+                     tempFields[key] = data.data[key]
+                  }
                }
                else {
                   tempFields[key] = ""
@@ -85,6 +90,11 @@ export const UserForm = (props) => {
                })}
                onSubmit={
                   async (values, { setSubmitting, setFieldError }) => {
+                     Object.keys(values).forEach((key) => {
+                        if (key && key.includes("phone")) {
+                           values[key] = values[key].replaceAll(/[^\d]/g, "")
+                        }
+                     })
                      const data = await request({
                         method: method,
                         endpoint: postEndpoint,

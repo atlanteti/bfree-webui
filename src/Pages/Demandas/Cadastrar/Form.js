@@ -54,6 +54,9 @@ export const DemandForm = (props) => {
                   if (key === "dem_dtaction") {
                      tempFields[key] = new Date(data.data[key])
                   }
+                  else if (key.includes("phone")) {
+                     tempFields[key] = data.data[key].replace(/[^\d]g/, "")
+                  }
                   else {
                      tempFields[key] = data.data[key]
                   }
@@ -131,6 +134,11 @@ export const DemandForm = (props) => {
                validationSchema={validationSchema}
                onSubmit={
                   async (values, { setSubmitting, setFieldError }) => {
+                     Object.keys(values).forEach((key) => {
+                        if (key && key.includes("phone")) {
+                           values[key] = values[key].replaceAll(/[^\d]/g, "")
+                        }
+                     })
                      const data = await request({
                         method: method,
                         endpoint: postEndpoint,
