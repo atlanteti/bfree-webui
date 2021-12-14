@@ -136,7 +136,10 @@ export default class ListarUsuario extends ListarPagina {
             <NoDataComp />}</TextCell>
          <TextCell data-title="Status">{usuario.statusUser.sus_name ? <StatusBadgePropped active={usuario.statusUser.sus_name === "ATIVO"} /> : <NoDataComp />}</TextCell>
          <ActionCell data-title="Ações">
-            <Button variant="transparent" href={`/editar/usuarios/${usuario.usr_cod}/alterar`}><EditIcon /></Button>
+            <Link to={`/editar/usuarios/${usuario.usr_cod}/alterar`}>
+               <Button variant="transparent"><EditIcon />
+               </Button>
+            </Link>
             <Button variant="transparent" onClick={() => {
                this.setState({
                   deletionId: usuario.usr_cod,

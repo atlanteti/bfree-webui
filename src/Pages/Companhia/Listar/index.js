@@ -10,6 +10,7 @@ import React from 'react'
 import { CompanySearchBar } from './CompanySearchBar'
 import { ReactComponent as EditIcon } from '../../../Assets/Icons/icon_editar.svg'
 import { ReactComponent as DeleteIcon } from '../../../Assets/Icons/icon_delete.svg'
+import { Link } from 'react-router-dom'
 export default class ListarCompanhia extends ListarPagina {
    async deleteRecord(id) {
       const data = await request({
@@ -71,7 +72,10 @@ export default class ListarCompanhia extends ListarPagina {
          <NumberCell data-title="ID Eduzz">{companhia.cpn_cli_cod}</NumberCell>
          <TextCell data-title="Nome">{companhia.cpn_name}</TextCell>
          <ActionCell data-title="Ações">
-            <Button variant="transparent" href={`/editar/companhia/${companhia.cpn_cod}/alterar`}><EditIcon /></Button>
+            <Link to={`/editar/companhia/${companhia.cpn_cod}/alterar`}>
+               <Button variant="transparent"><EditIcon />
+               </Button>
+            </Link>
             <Button variant="transparent" onClick={() => {
                this.setState({
                   deletionId: companhia.cpn_cod,

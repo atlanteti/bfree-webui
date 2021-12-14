@@ -16,6 +16,7 @@ import { ReactComponent as DeleteIcon } from '../../../Assets/Icons/icon_delete.
 import { ReactComponent as TeamIcon } from '../../../Assets/Icons/icon_mentores.svg'
 import { ActiveStatusBadge, InactiveStatusBadge } from '../../../Componentes/StatusBadges'
 import NoDataComp from '../../../Componentes/NoDataComp'
+import { Link } from 'react-router-dom'
 export default class ListarTime extends ListarPagina {
    async deleteRecord(id) {
       const data = await request({
@@ -87,12 +88,14 @@ export default class ListarTime extends ListarPagina {
    createRecord(time) {
       return <TableRow key={time.tea_cod}>
          <TextCell data-title="Nome">{time.tea_name}</TextCell>
-         <TextCell data-title="Empresa">{time.company.cpn_name ? time.company.cpn_name : <NoDataComp/>}</TextCell>
+         <TextCell data-title="Empresa">{time.company.cpn_name ? time.company.cpn_name : <NoDataComp />}</TextCell>
          <TextCell data-title="Status">
             {time.tea_active ? <ActiveStatusBadge /> : <InactiveStatusBadge />}
          </TextCell>
          <TextCell data-title="Ações">
-            <Button variant="transparent" href={`/editar/times/${time.tea_cod}/alterar`}><EditIcon /></Button>
+            <Link to={`/editar/times/${time.tea_cod}/alterar`}>
+               <Button variant="transparent"><EditIcon /></Button>
+            </Link>
             <Button variant="transparent" onClick={() => {
                this.setState({
                   deletionId: time.tea_cod,
@@ -103,7 +106,11 @@ export default class ListarTime extends ListarPagina {
             {!time.qtd_team_mentors ?
                null
                :
-               <Button disabled={!time.qtd_team_mentors} variant="transparent" href={`/tipo-mentores/${time.tea_cod}`}><TeamIcon /></Button>}
+               <Link to={`/tipo-mentores/${time.tea_cod}`}>
+                  <Button disabled={!time.qtd_team_mentors} variant="transparent"><TeamIcon />
+                  </Button>
+               </Link>
+            }
          </TextCell>
       </TableRow >
    }
