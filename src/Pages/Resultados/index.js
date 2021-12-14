@@ -24,11 +24,11 @@ export function Resultados() {
    const [graph, setGraph] = useState([])
 
    async function fetchData() {
-      let data = await request({
+      await request({
          method: 'get',
          endpoint: 'demands/list-graphic',
          params: {
-            dataInicial: "2021-11-01",
+            dataInicial: "2021-10-01",
             dataFinal: "2021-12-30"
             // dataInicial: moment(initialDate).format('yyyy-MM-DD'),
             // dataFinal: moment(finalDate).format('yyyy-MM-DD'),
@@ -54,23 +54,15 @@ export function Resultados() {
          setData(populateData)
          const populateBody = []
          populateData.map((response) => {
-            if (response[1].length === 0) {
-               return populateBody.push([response[0], null])
-            } else {
-               //percorre um array caso tenha mais de uma unidade, para nao ser repetido o nome do item na tabela de exibição
-               if (response[1].length > 1) {
-                  const arrayItems = [response[0]]
-                  response[1].map((value) => arrayItems.push(value['quantidade']))
-                  return populateBody.push(arrayItems)
-               }
-               return response[1].map((a) => populateBody.push([response[0], a['quantidade']]))
+            //a taxa de sucesso é a única que tem um elemento com o nome diferente, por isso o IF
+            if (response[0] === "taxaDeSucesso") {
+               return populateBody.push([response[0].toUpperCase(), response[1][0]['porcentagem']])
             }
+            return response[1].map((a) => populateBody.push([response[0].toUpperCase(), a['quantidade']]))
          })
          setBodyData(populateBody)
       })
    }
-   bodyData.map(item => console.log(item))
-   // quando voltar segunda, tentar fazer funcionar a tabela
    function changeDate(date, id) {
       if (id === "initialDate") {
          setInitialDate(date)
