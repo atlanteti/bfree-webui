@@ -21,7 +21,6 @@ import { ReactComponent as RelatoriosIcon } from "../../Assets/Icons/icon_relato
 import { ReactComponent as UploadsIcon } from "../../Assets/Icons/icon_uploads.svg"
 import { ReactComponent as LogsIcon } from "../../Assets/Icons/icon_logs.svg"
 import { ReactComponent as SairIcon } from "../../Assets/Icons/icon_sair.svg"
-import TopBar from '../TopBar'
 
 
 export const CustomMenu = () => {
