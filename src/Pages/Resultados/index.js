@@ -95,7 +95,7 @@ export function Resultados() {
    return (
       <>
          <CustomMenuCol lg={2}><CustomMenu /></CustomMenuCol>
-         <Col>
+         <Col style={{ paddingBottom: 30 }}>
             <Col md={{ offset: 2, span: 10 }}>
                <ResultadoSearchBar
                   onChange={changeDate}
@@ -126,7 +126,7 @@ export function Resultados() {
                      })}
                   </ReportTableData>
                </MainTable>
-               <Col style={{ height: 400 }}>
+               <Col style={{ height: 400, background: "#fff" }}>
                   <MyResponsiveBar data={graph} />
                </Col>
             </Col>
