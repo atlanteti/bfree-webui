@@ -34,21 +34,19 @@ export function Resultados() {
          if (data.meta.status === 100) {
             setGraph(data.data['taxaDeSucesso'])
          }
-         console.log(data.data)
-         // estrutura de codigo criada para preencher a tabela de indicadores de performance
-         let init = moment(initialDate).format('MM');
-         const final = moment(finalDate).format('MM');
-         const populateHeader = []
-         populateHeader.push("")
-         for (init; init <= final; init++) {
-            populateHeader.push(Number(init).toString() + "/" + moment().format('YY'))
-         }
-         setHeaderData(populateHeader)
          // transformando os dados em um array para utilização na tabela
          const populateData = []
-         const populate = Object.keys(data.data).map((response) => {
+         Object.keys(data.data).map((response) => {
             populateData.push([response, data.data[response]])
          })
+         const populateHeader = []
+         const header = []
+         // coletando as datas 
+         header.push(populateData[0])
+         populateHeader.push("")
+         // preenchendo um array com as datas para serem exibidas na tabela
+         header[0][1].map(result => populateHeader.push(result['mes']))
+         setHeaderData(populateHeader)
          const populateBody = []
          populateData.map((response) => {
             //a taxa de sucesso é a única que tem um elemento com o nome diferente, por isso o IF
