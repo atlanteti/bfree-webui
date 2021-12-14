@@ -17,9 +17,8 @@ import ResultadoSearchBar from './ResultadoSearchBar';
 
 export function Resultados() {
    const [headerData, setHeaderData] = useState([])
-   const [dat, setData] = useState([])
    const [bodyData, setBodyData] = useState([])
-   const [initialDate, setInitialDate] = useState(new Date(moment().subtract(3, 'month').calendar()));
+   const [initialDate, setInitialDate] = useState(new Date(moment().startOf('month').subtract(2, 'month').calendar()));
    const [finalDate, setFinalDate] = useState(new Date);
    const [graph, setGraph] = useState([])
 
@@ -28,21 +27,20 @@ export function Resultados() {
          method: 'get',
          endpoint: 'demands/list-graphic',
          params: {
-            dataInicial: "2021-10-01",
-            dataFinal: "2021-12-30"
-            // dataInicial: moment(initialDate).format('yyyy-MM-DD'),
-            // dataFinal: moment(finalDate).format('yyyy-MM-DD'),
+            dataInicial: moment(initialDate).format('yyyy-MM-DD'),
+            dataFinal: moment(finalDate).format('yyyy-MM-DD'),
          }
       }).then((data) => {
          if (data.meta.status === 100) {
             setGraph(data.data['taxaDeSucesso'])
          }
+         console.log(data.data)
          // estrutura de codigo criada para preencher a tabela de indicadores de performance
          let init = moment(initialDate).format('MM');
          const final = moment(finalDate).format('MM');
          const populateHeader = []
          populateHeader.push("")
-         for (init; init < final; init++) {
+         for (init; init <= final; init++) {
             populateHeader.push(Number(init).toString() + "/" + moment().format('YY'))
          }
          setHeaderData(populateHeader)
@@ -51,12 +49,22 @@ export function Resultados() {
          const populate = Object.keys(data.data).map((response) => {
             populateData.push([response, data.data[response]])
          })
-         setData(populateData)
          const populateBody = []
          populateData.map((response) => {
             //a taxa de sucesso é a única que tem um elemento com o nome diferente, por isso o IF
             if (response[0] === "taxaDeSucesso") {
+               if (response[1].length > 1) {
+                  const arrayItems = [response[0]]
+                  response[1].map((value) => arrayItems.push(value['porcentagem']))
+                  return populateBody.push(arrayItems)
+               }
                return populateBody.push([response[0].toUpperCase(), response[1][0]['porcentagem']])
+            }
+            // estrutura criada para agrupar os valores retornados do back em um unico array por indice
+            if (response[1].length > 1) {
+               const arrayItems = [response[0]]
+               response[1].map((value) => arrayItems.push(value['quantidade']))
+               return populateBody.push(arrayItems)
             }
             return response[1].map((a) => populateBody.push([response[0].toUpperCase(), a['quantidade']]))
          })
