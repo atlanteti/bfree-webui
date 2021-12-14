@@ -19,7 +19,7 @@ import {
 import ResultadoSearchBar from './ResultadoSearchBar';
 import { ButtonRow } from "../../Componentes/ButtonRow";
 
-export function Resultados() {
+export function RelatorioGerencial() {
    const [headerData, setHeaderData] = useState([])
    const [bodyData, setBodyData] = useState([])
    const [initialDate, setInitialDate] = useState(new Date(moment().startOf('month').subtract(2, 'month').calendar()));
@@ -98,13 +98,13 @@ export function Resultados() {
 
    return (
       <>
-         <Helmet title="Indicadores de Performance" />
+         <Helmet title="Relatório Gerencial" />
          <CustomMenuCol lg={2}><CustomMenu /></CustomMenuCol>
          <Col style={{ paddingBottom: 30 }}>
             <Col md={{ offset: 2, span: 10 }}>
                <ButtonRow
                   cancelButton={<Button variant="light" href="/demandas"><IoChevronBackCircleSharp size={30} color="#BFCADD" /></Button>}
-                  titlePage={<Title>Indicadores de Performance</Title>}
+                  titlePage={<Title>Relatório Gerencial</Title>}
                />
                <ResultadoSearchBar
                   onChange={changeDate}
