@@ -10,6 +10,7 @@ import { React } from 'react'
 import { TDemandSearchBar } from './TDemandSearchBar'
 import { ReactComponent as EditIcon } from '../../../Assets/Icons/icon_editar.svg'
 import { ReactComponent as DeleteIcon } from '../../../Assets/Icons/icon_delete.svg'
+import { Link } from 'react-router-dom'
 export default class ListarTipoDemanda extends ListarPagina {
    async deleteRecord(id) {
       const data = await request({
@@ -72,7 +73,10 @@ export default class ListarTipoDemanda extends ListarPagina {
          <TextCell data-title="Nome">{tDemand.tdm_name}</TextCell>
          <TextCell data-title="Empresa">{tDemand.company.cpn_name}</TextCell>
          <ActionCell data-title="Ações">
-            <Button variant="transparent" href={`/editar/tipodemanda/${tDemand.tdm_cod}/alterar`}><EditIcon /></Button>
+            <Link to={`/editar/tipodemanda/${tDemand.tdm_cod}/alterar`}>
+               <Button variant="transparent"><EditIcon />
+               </Button>
+            </Link>
             <Button variant="transparent" onClick={() => {
                this.setState({
                   deletionId: tDemand.tdm_cod,

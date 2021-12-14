@@ -1,7 +1,7 @@
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { request } from "../../../Services/api";
 import { Component } from "react";
-import { Redirect } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { BackGroundForm, BtnBlue, BtnPrimary, CustomMenuCol, Title } from "../../../styles/CommonStyles";
 import { CustomMenu } from "../../../Componentes/CustomMenu";
 import { CustomAlert } from "../../../Componentes/CustomAlert";
@@ -140,7 +140,10 @@ export default class TiposDeMentoria extends Component {
                   redirectCallback={this.redirect.bind(this)}
                />
                <ButtonRow
-                  cancelButton={<Button variant="light" href="/times"><IoChevronBackCircleSharp size={30} color="#BFCADD" /></Button>}
+                  cancelButton={
+                     <Link to="/times">
+                        <Button variant="light"><IoChevronBackCircleSharp size={30} color="#BFCADD" /></Button>
+                     </Link>}
                   titlePage={<Title>Tipos de Mentoria</Title>}
                />
                <Form onSubmit={this.handleSubmit.bind(this)}>
@@ -205,9 +208,11 @@ export default class TiposDeMentoria extends Component {
                                  }}
                               >
                                  <BtnBlue type="submit" variant="dark">Editar</BtnBlue>
-                                 <BtnPrimary style={{
-                                    marginLeft: 25
-                                 }} variant="light" href="/times">Cancelar</BtnPrimary>
+                                 <Link to="/times">
+                                    <BtnPrimary style={{
+                                       marginLeft: 25
+                                    }} variant="light">Cancelar</BtnPrimary>
+                                 </Link>
                               </Col>
                            </Row>
                         </>)}

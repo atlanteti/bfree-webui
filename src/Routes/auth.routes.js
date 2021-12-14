@@ -34,7 +34,7 @@ import Editar from "../Pages/Editar";
 
 export default function AuthRoutes() {
    return (
-      <Router>
+      <Router basename={process.env.PUBLIC_URL}>
          <Switch>
             {/* rotas de usuarios */}
             <Route path="/usuarios" component={ListarUsuarios} />
