@@ -1,6 +1,8 @@
 import moment from 'moment';
 import { useEffect, useState } from 'react';
-import { Col } from 'react-bootstrap';
+import { Button, Col } from 'react-bootstrap';
+import { Helmet } from 'react-helmet';
+import { IoChevronBackCircleSharp } from 'react-icons/io5';
 import { CustomMenu } from "../../Componentes/CustomMenu/index";
 import { MyResponsiveBar } from '../../Componentes/Graph';
 import { request } from '../../Services/api';
@@ -11,9 +13,11 @@ import {
    TableHeader,
    TableRow,
    TextCell,
-   TextHeaderCell
+   TextHeaderCell,
+   Title,
 } from '../../styles/CommonStyles';
 import ResultadoSearchBar from './ResultadoSearchBar';
+import { ButtonRow } from "../../Componentes/ButtonRow";
 
 export function Resultados() {
    const [headerData, setHeaderData] = useState([])
@@ -94,9 +98,14 @@ export function Resultados() {
 
    return (
       <>
+         <Helmet title="Indicadores de Performance" />
          <CustomMenuCol lg={2}><CustomMenu /></CustomMenuCol>
          <Col style={{ paddingBottom: 30 }}>
             <Col md={{ offset: 2, span: 10 }}>
+               <ButtonRow
+                  cancelButton={<Button variant="light" href="/demandas"><IoChevronBackCircleSharp size={30} color="#BFCADD" /></Button>}
+                  titlePage={<Title>Indicadores de Performance</Title>}
+               />
                <ResultadoSearchBar
                   onChange={changeDate}
                   initialDate={initialDate}
