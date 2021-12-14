@@ -8,7 +8,7 @@ import './styles.css'
 import { CustomMenuCol, TopBarContainerMenu } from '../../styles/CommonStyles'
 import { Cookies } from "react-cookie";
 import ContextLogin from '../../Context/ContextLogin'
-import { IoChevronForwardOutline } from "react-icons/io5"
+import { IoChevronForwardOutline, IoStatsChartSharp } from "react-icons/io5"
 
 import { ReactComponent as EmpresaIcon } from "../../Assets/Icons/icon_empresa.svg"
 import { ReactComponent as JornadaIcon } from "../../Assets/Icons/icon_jornada.svg"
@@ -126,6 +126,11 @@ function newFunction(admin) {
          title: <span className="title-arrow">Relatórios <IoChevronForwardOutline size={17} /></span>,
          itemId: '/relatorios',
          elemBefore: () => <RelatoriosIcon />
+      },
+      {
+         title: <span className="title-arrow">Relatório Gerencial <IoChevronForwardOutline size={17} /></span>,
+         itemId: '/relatoriogerencial',
+         elemBefore: () => <IoStatsChartSharp size={23} />
       },
       {
          title: <span className="title-arrow">Uploads <IoChevronForwardOutline size={17} /></span>,

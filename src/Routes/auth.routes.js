@@ -46,7 +46,7 @@ export default function AuthRoutes() {
             <Route path="/usuario-times/:userId/:userName" component={UsuarioTimes} />
 
             {/* rotas de indicadores */}
-            <Route path="/indicadores" component={Resultados} />
+            <Route path="/relatoriogerencial" component={Resultados} />
             {/* rotas de empresas */}
             <Route path="/companhia" component={ListarCompanhia} />
 
