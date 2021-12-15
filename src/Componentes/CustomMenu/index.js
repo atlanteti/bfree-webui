@@ -8,7 +8,7 @@ import './styles.css'
 import { CustomMenuCol, TopBarContainerMenu } from '../../styles/CommonStyles'
 import { Cookies } from "react-cookie";
 import ContextLogin from '../../Context/ContextLogin'
-import { IoChevronForwardOutline } from "react-icons/io5"
+import { IoChevronForwardOutline, IoStatsChartSharp } from "react-icons/io5"
 
 import { ReactComponent as EmpresaIcon } from "../../Assets/Icons/icon_empresa.svg"
 import { ReactComponent as JornadaIcon } from "../../Assets/Icons/icon_jornada.svg"
@@ -21,7 +21,6 @@ import { ReactComponent as RelatoriosIcon } from "../../Assets/Icons/icon_relato
 import { ReactComponent as UploadsIcon } from "../../Assets/Icons/icon_uploads.svg"
 import { ReactComponent as LogsIcon } from "../../Assets/Icons/icon_logs.svg"
 import { ReactComponent as SairIcon } from "../../Assets/Icons/icon_sair.svg"
-import TopBar from '../TopBar'
 
 
 export const CustomMenu = () => {
@@ -126,6 +125,11 @@ function newFunction(admin) {
          title: <span className="title-arrow">Relatórios <IoChevronForwardOutline size={17} /></span>,
          itemId: '/relatorios',
          elemBefore: () => <RelatoriosIcon />
+      },
+      {
+         title: <span className="title-arrow">Relatório Gerencial <IoChevronForwardOutline size={17} /></span>,
+         itemId: '/relatoriogerencial',
+         elemBefore: () => <IoStatsChartSharp size={23} />
       },
       {
          title: <span className="title-arrow">Uploads <IoChevronForwardOutline size={17} /></span>,

@@ -222,7 +222,7 @@ export default class ListarRelatorio extends ListarPagina {
                         <Row>
                            <Restricted>
                               <ExportContainer onClick={(event) => this.requestExportData(event, "export-billing", "Relatorio")}>
-                                 <AiOutlineUpload size={23} className="mr-2"/> EXPORTAR EXCEL
+                                 <AiOutlineUpload size={23} className="mr-2" /> EXPORTAR EXCEL
                               </ExportContainer>
                            </Restricted>
                         </Row>
