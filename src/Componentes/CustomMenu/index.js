@@ -77,7 +77,7 @@ export const CustomMenu = () => {
                   onSelect={() => {
                      cookie.remove('auth', { path: "/" })
                      cookie.remove('hasJourney', { path: "/" })
-                     window.Eduzz.Accounts.logout({ env: "staging", redirectTo: window.location.origin })
+                     window.Eduzz.Accounts.logout({ env: "staging", redirectTo: window.location.origin + process.env.PUBLIC_URL })
                   }}
                />
             </div>
