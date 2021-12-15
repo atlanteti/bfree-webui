@@ -31,7 +31,9 @@ export class CustomAlert extends React.Component {
       }
       this.setState({ showAlert: true })
       this.setContent(message, statusMsg)
-      this.myRef.current.scrollIntoView()
+      if (this.myRef.current) {
+         this.myRef.current.scrollIntoView()
+      }
       if (statusMsg === "success") {
          window.setTimeout(() => {
             this.props.redirectCallback()
