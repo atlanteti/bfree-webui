@@ -31,7 +31,7 @@ import UploadSheet from "../Pages/UploadSheet";
 
 import ListarRelatorio from "../Pages/Relatorio/Listar";
 import Editar from "../Pages/Editar";
-import { RelatorioGerencial } from "../Pages/Resultados";
+import { RelatorioGerencial } from "../Pages/RelatorioGerencial";
 
 export default function AuthRoutes() {
    return (
