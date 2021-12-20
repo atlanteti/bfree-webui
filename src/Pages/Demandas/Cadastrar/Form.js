@@ -136,7 +136,11 @@ export const DemandForm = (props) => {
                   async (values, { setSubmitting, setFieldError }) => {
                      Object.keys(values).forEach((key) => {
                         if (key && key.includes("phone")) {
-                           values[key] = values[key].replaceAll(/[^\d]/g, "")
+                           try {
+                              values[key] = values[key].replaceAll(/[^\d]/g, "")
+                           } catch (error) {
+                              console.log(error) //TODO use error logging api
+                           }
                         }
                      })
                      const data = await request({
@@ -150,11 +154,11 @@ export const DemandForm = (props) => {
                      else if (data.meta.status == 212) {
                         props.showAlert(data.meta)
                      }
-                     if (data.meta.status == 422) {
+                     else if (data.meta.status == 422) {
                         setFieldError(data.data[0].field.toLowerCase(), data.data[0].message)
                      }
                      else {
-                        console.log("Uncaught exception")
+                        console.log("Uncaught status", data)
                      }
                      setSubmitting(false);
                   }
