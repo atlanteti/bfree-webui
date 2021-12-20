@@ -22,6 +22,7 @@ export const DatePickerField = ({ ...props }) => {
             {...props}
             selected={(val && formattedVal) || null}
             fullWidth={false}
+            id={field.name}
             label={props.label} />} />
    );
 };
