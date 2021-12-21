@@ -125,6 +125,79 @@ export const request = async ({ method,
          }
       )
    } else if (
+      method == "get" &&
+      endpoint == 'demands/procurar/15443'
+   ) {
+      return Promise.resolve(
+         {
+            "dem_cod": 15443,
+            "dem_title": "teste",
+            "dem_contact_email": "a123@a.com",
+            "dem_desc": "a",
+            "dem_contact_phone": "",
+            "dem_comments": "a",
+            "dem_dtcreation": "2021-12-17T09:35:06",
+            "dem_dtupdate": null,
+            "dem_dtaction": "2021-12-17T00:00:00",
+            "dem_usr_cod": 160,
+            "dem_sdm_cod": 1,
+            "dem_tdm_cod": 37,
+            "dem_upf_cod": null,
+            "user": {
+               "usr_cod": 160,
+               "usr_cli_cod": 22220,
+               "usr_externalid": "",
+               "usr_name": "LEONARDO NUNES",
+               "usr_email": null,
+               "usr_phone": null,
+               "usr_sus_cod": null,
+               "usr_dtcreation": null,
+               "usr_dtupdate": null,
+               "statusUser": null,
+               "usersCompanies": null,
+               "userJourneys": null,
+               "userBadges": null,
+               "userTypeDemands": null,
+               "teamMembers": null,
+               "teamMentors": null
+            },
+            "statusDemand": {
+               "sdm_cod": 1,
+               "sdm_name": "EM ABERTO",
+               "sdm_dtcreation": null,
+               "sdm_dtupdate": null
+            },
+            "typeDemand": {
+               "tdm_cod": 37,
+               "tdm_name": "TIPO DE DEMANDA 12",
+               "tdm_cpn_cod": 24,
+               "tdm_dtcreation": null,
+               "tdm_dtupdate": null,
+               "company": null,
+               "userTypeDemands": null
+            },
+            "uploadedFile": null,
+            "demandStatusHistories": [
+               {
+                  "dsh_cod": 15583,
+                  "dsh_usr_cod": 120,
+                  "dsh_dem_cod": 15443,
+                  "dsh_sdm_cod": 1,
+                  "dsh_dtcreation": "2021-12-17T09:35:06",
+                  "dsh_dtaction": "2021-12-17T00:00:00",
+                  "usuario": null,
+                  "statusDemand": {
+                     "sdm_cod": 1,
+                     "sdm_name": "EM ABERTO",
+                     "sdm_dtcreation": "2021-07-08T15:48:53",
+                     "sdm_dtupdate": "2021-09-14T09:10:49"
+                  },
+                  "demand": null
+               }
+            ]
+         }
+      )
+   } else if (
       method == "post"
    ) {
       return Promise.resolve(

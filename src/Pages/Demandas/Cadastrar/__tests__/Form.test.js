@@ -15,8 +15,8 @@ beforeAll(() => {
 })
 
 describe("DemandForm", () => {
+   const alertMock = jest.fn()
    it("can be filled with valid data for status de demanda = Em aberto", async () => {
-      const alertMock = jest.fn()
       render(<DemandForm paramRoute={"inserir"}
          primaryId={null}
          redirectCallback={() => { }}
@@ -41,5 +41,11 @@ describe("DemandForm", () => {
       //If the form is valid, then check if page scrolled to the top and showed the success message
       expect(alertMock).toHaveBeenCalled()
 
+   })
+   it("can edit an existing demand and use the autofill", async () => {
+      render(<DemandForm paramRoute={"alterar"}
+         primaryId={15443}
+         redirectCallback={() => { }}
+         showAlert={alertMock} />)
    })
 })
