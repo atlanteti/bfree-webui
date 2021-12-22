@@ -1,8 +1,8 @@
-import { MainContainer, MainRow, Title, BackGroundForm } from "../../styles/CommonStyles";
+import { MainContainer, MainRow, BackGroundForm } from "../../styles/CommonStyles";
 import { CustomMenu } from "../../Componentes/CustomMenu";
 import { Form, Col, Row } from "react-bootstrap";
 import { HourComponent } from "../../Componentes/HourComponent";
-
+import { Title, SubTitle } from "./styles.js"
 export function Horario() {
    return (
       <MainContainer>
@@ -18,8 +18,8 @@ export function Horario() {
                >
                   <Form>
                      <BackGroundForm xs={1} className={'mb-2'} noGutters>
-                        <h2>Vamos configurar sua agenda?</h2>
-                        <p>Defina os dias da semana e horários que você pode atender</p>
+                        <Title>Vamos configurar sua agenda?</Title>
+                        <SubTitle>Defina os dias da semana e horários que você pode atender</SubTitle>
                         <Row style={{ alignItems: 'center', justifyContent: 'center', paddingTop: 20 }}>
                            <p>SEG</p>
                            <Col xs={12} sm={4}>
