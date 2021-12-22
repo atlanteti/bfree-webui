@@ -31,6 +31,7 @@ import UploadSheet from "../Pages/UploadSheet";
 
 import ListarRelatorio from "../Pages/Relatorio/Listar";
 import Editar from "../Pages/Editar";
+import { Horario } from "../Pages/Horarios";
 
 export default function AuthRoutes() {
    return (
@@ -44,6 +45,8 @@ export default function AuthRoutes() {
             <Route path="/usuario-tipodemanda/:userId/:userName" component={UsuarioTipoDemanda} />
             <Route path="/usuario-times/:userId/:userName" component={UsuarioTimes} />
 
+            {/* rotas de horario */}
+            <Route path="/horario" component={Horario} />
             {/* rotas de empresas */}
             <Route path="/companhia" component={ListarCompanhia} />
 
