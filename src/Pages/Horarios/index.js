@@ -1,11 +1,24 @@
+import { useState } from "react"
 import { MainContainer, MainRow, BackGroundForm, BtnBlue } from "../../styles/CommonStyles";
 import { CustomMenu } from "../../Componentes/CustomMenu";
 import { Form, Col } from "react-bootstrap";
-import { SetHour } from "../../Componentes/HourComponent";
+import { HourComponent } from "../../Componentes/HourComponent";
 import { Title, SubTitle } from "./styles.js"
+
 export function Horario() {
-   function handleChange(e) {
-      console.log(e)
+   const [days, setDays] = useState([])
+   function handleChange(event, index) {
+      setDays({
+         ...days, [index]: {
+            ...days[index],
+            [event.target.name]: event.target.value
+         }
+      })
+   }
+
+   function handleSubmit(event) {
+      event.preventDefault()
+      console.log(days)
    }
    return (
       <MainContainer>
@@ -18,39 +31,39 @@ export function Horario() {
                   lg={{ offset: 2, span: 10 }}
                   style={{ paddingTop: 20, textAlign: 'center' }}
                >
-                  <Form>
+                  <Form onSubmit={handleSubmit}>
                      <BackGroundForm xs={1} className={'mb-2'} noGutters>
                         <Title>Vamos configurar sua agenda?</Title>
                         <SubTitle>Defina os dias da semana e horários que você pode atender</SubTitle>
-                        <SetHour
+                        <HourComponent
                            dayOfWeek="SEG"
                            initialId="col_init_hour"
                            finalId="col_end_hour"
-                           onChange={handleChange}
+                           onChange={(event) => handleChange(event, 1)}
                         />
-                        <SetHour
+                        <HourComponent
                            dayOfWeek="TER"
                            initialId="col_init_hour"
                            finalId="col_end_hour"
-                           onChange={handleChange}
+                           onChange={(event) => handleChange(event, 2)}
                         />
-                        <SetHour
+                        <HourComponent
                            dayOfWeek="QUA"
                            initialId="col_init_hour"
                            finalId="col_end_hour"
-                           onChange={handleChange}
+                           onChange={(event) => handleChange(event, 3)}
                         />
-                        <SetHour
+                        <HourComponent
                            dayOfWeek="QUI"
                            initialId="col_init_hour"
                            finalId="col_end_hour"
-                           onChange={handleChange}
+                           onChange={(event) => handleChange(event, 4)}
                         />
-                        <SetHour
+                        <HourComponent
                            dayOfWeek="SEX"
                            initialId="col_init_hour"
                            finalId="col_end_hour"
-                           onChange={handleChange}
+                           onChange={(event) => handleChange(event, 5)}
                         />
                         <Col className="mt-4">
                            <BtnBlue variant="dark" type="submit">Salvar</BtnBlue>

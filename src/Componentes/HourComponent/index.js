@@ -2,10 +2,10 @@ import { MenuItem } from "@mui/material";
 import { Row, Col } from "react-bootstrap";
 import { ValidationTextField } from "../FormFields";
 
-export function HourComponent(props) {
-   console.log(props)
+export function SetHour(props) {
    return (
       <ValidationTextField
+         id={props.id}
          select
          fullWidth
          onChange={props.onChange}
@@ -31,19 +31,19 @@ export function HourComponent(props) {
    )
 }
 
-export function SetHour(props) {
+export function HourComponent(props) {
    return <Row style={{ alignItems: 'center', justifyContent: 'center', paddingTop: 20 }}>
       <p>{props.dayOfWeek}</p>
       <Col xs={12} sm={4} lg={2}>
-         <HourComponent
+         <SetHour
             label="Inicial"
             name={props.initialId}
             onChange={props.onChange}
          />
       </Col>
-      <p>:</p>
+      <p>-</p>
       <Col xs={12} sm={4} lg={2}>
-         <HourComponent
+         <SetHour
             label="Final"
             name={props.finalId}
             onChange={props.onChange}
