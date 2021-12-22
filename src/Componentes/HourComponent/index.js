@@ -3,14 +3,12 @@ import { Row, Col } from "react-bootstrap";
 import { ValidationTextField } from "../FormFields";
 
 export function HourComponent(props) {
-   function handleChange(e) {
-      console.log(e)
-   }
+   console.log(props)
    return (
       <ValidationTextField
          select
          fullWidth
-         onChange={handleChange}
+         onChange={props.onChange}
          name={props.name}
          label={props.label}
          InputLabelProps={{
@@ -40,6 +38,7 @@ export function SetHour(props) {
          <HourComponent
             label="Inicial"
             name={props.initialId}
+            onChange={props.onChange}
          />
       </Col>
       <p>:</p>
@@ -47,6 +46,7 @@ export function SetHour(props) {
          <HourComponent
             label="Final"
             name={props.finalId}
+            onChange={props.onChange}
          />
       </Col>
    </Row>
