@@ -34,7 +34,12 @@ export function Horario() {
    }
    function addNewRow(currentArray, setArray) {
       let cDivs = [...currentArray];
-      cDivs.push(['newDiv'])
+      cDivs.push('newDiv')
+      setArray(cDivs)
+   }
+   function removeRow(currentArray, setArray) {
+      let cDivs = [...currentArray];
+      cDivs.pop()
       setArray(cDivs)
    }
    function handleSubmit(event) {
@@ -63,6 +68,8 @@ export function Horario() {
                                  finalId="cal_end"
                                  onChange={(event) => handleChange(event, 1)}
                                  onDuplicate={() => addNewRow(seg, setSeg)}
+                                 removeDuplicate={() => removeRow(seg, setSeg)}
+                                 showRemoveButton={seg.length}
                               />
                            </Col>
                         })}
@@ -74,6 +81,8 @@ export function Horario() {
                                  finalId="cal_end"
                                  onChange={(event) => handleChange(event, 2)}
                                  onDuplicate={() => addNewRow(ter, setTer)}
+                                 removeDuplicate={() => removeRow(ter, setTer)}
+                                 showRemoveButton={ter.length}
                               />
                            </Col>
                         })}
@@ -85,6 +94,8 @@ export function Horario() {
                                  finalId="cal_end"
                                  onChange={(event) => handleChange(event, 3)}
                                  onDuplicate={() => addNewRow(qua, setQua)}
+                                 removeDuplicate={() => removeRow(qua, setQua)}
+                                 showRemoveButton={qua.length}
                               />
                            </Col>
                         })}
@@ -96,6 +107,8 @@ export function Horario() {
                                  finalId="cal_end"
                                  onChange={(event) => handleChange(event, 4)}
                                  onDuplicate={() => addNewRow(qui, setQui)}
+                                 removeDuplicate={() => removeRow(qui, setQui)}
+                                 showRemoveButton={qui.length}
                               />
                            </Col>
                         })}
@@ -107,6 +120,8 @@ export function Horario() {
                                  finalId="cal_end"
                                  onChange={(event) => handleChange(event, 5)}
                                  onDuplicate={() => addNewRow(sex, setSex)}
+                                 removeDuplicate={() => removeRow(sex, setSex)}
+                                 showRemoveButton={sex.length}
                               />
                            </Col>
                         })}

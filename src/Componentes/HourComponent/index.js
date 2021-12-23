@@ -1,7 +1,7 @@
 import { MenuItem } from "@mui/material";
 import { Row, Col } from "react-bootstrap";
 import { ValidationTextField } from "../FormFields";
-import { IoAddCircleOutline } from "react-icons/io5"
+import { IoAddCircleOutline, IoRemoveCircleOutline } from "react-icons/io5"
 
 export function SetHour(props) {
    return (
@@ -52,8 +52,11 @@ export function HourComponent(props) {
             onChange={props.onChange}
          />
       </Col>
-      <Col xs={12} sm={1} lg={1} style={{ cursor: 'pointer' }} onClick={props.onDuplicate}>
-         <IoAddCircleOutline size={25} color="rgba(0,0,0,0.5)" />
+      <Col xs={12} sm={1} lg={1} style={{ cursor: 'pointer' }}>
+         <Row>
+            {props.showRemoveButton > 1 && <IoRemoveCircleOutline size={25} color="rgba(0,0,0,0.5)" onClick={props.removeDuplicate} />}
+            <IoAddCircleOutline size={25} color="rgba(0,0,0,0.5)" onClick={props.onDuplicate} />
+         </Row>
       </Col>
    </Row>
 }
