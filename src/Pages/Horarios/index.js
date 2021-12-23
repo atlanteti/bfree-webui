@@ -7,6 +7,7 @@ import { Title, SubTitle } from "./styles.js"
 
 export function Horario() {
    const [days, setDays] = useState([])
+   const [populate, setPopulate] = useState([])
    const [seg, setSeg] = useState(['div1'])
    const [ter, setTer] = useState(['div1'])
    const [qua, setQua] = useState(['div1'])
@@ -21,6 +22,15 @@ export function Horario() {
             [event.target.name]: event.target.value
          }
       })
+      if (event.target.name === "cal_end") {
+         setPopulate([
+            ...populate, {
+               ...days[index],
+               "cal_day_of_week": index,
+               [event.target.name]: event.target.value
+            }
+         ])
+      }
    }
    function addNewRow(currentArray, setArray) {
       let cDivs = [...currentArray];
@@ -36,7 +46,7 @@ export function Horario() {
             <CustomMenu />
             <Col>
                <Col
-                  sm={{ offset: 1, span: 10 }}// Temporary until styled components
+                  sm={{ offset: 1, span: 10 }}
                   md={{ offset: 1, span: 10 }}
                   lg={{ offset: 2, span: 10 }}
                   style={{ paddingTop: 20, textAlign: 'center' }}
