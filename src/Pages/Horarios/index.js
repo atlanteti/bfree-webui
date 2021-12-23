@@ -7,18 +7,28 @@ import { Title, SubTitle } from "./styles.js"
 
 export function Horario() {
    const [days, setDays] = useState([])
+   const [seg, setSeg] = useState(['div1'])
+   const [ter, setTer] = useState(['div1'])
+   const [qua, setQua] = useState(['div1'])
+   const [qui, setQui] = useState(['div1'])
+   const [sex, setSex] = useState(['div1']) // depois ver uma forma de tentar deixar tudo em um só array, como leo quer de imediato, segue assim por enquanto
+
    function handleChange(event, index) {
       setDays({
          ...days, [index]: {
             ...days[index],
+            "cal_day_of_week": index,
             [event.target.name]: event.target.value
          }
       })
    }
-
+   function addNewRow(currentArray, setArray) {
+      let cDivs = [...currentArray];
+      cDivs.push(['newDiv'])
+      setArray(cDivs)
+   }
    function handleSubmit(event) {
       event.preventDefault()
-      console.log(days)
    }
    return (
       <MainContainer>
@@ -35,36 +45,61 @@ export function Horario() {
                      <BackGroundForm xs={1} className={'mb-2'} noGutters>
                         <Title>Vamos configurar sua agenda?</Title>
                         <SubTitle>Defina os dias da semana e horários que você pode atender</SubTitle>
-                        <HourComponent
-                           dayOfWeek="SEG"
-                           initialId="col_init_hour"
-                           finalId="col_end_hour"
-                           onChange={(event) => handleChange(event, 1)}
-                        />
-                        <HourComponent
-                           dayOfWeek="TER"
-                           initialId="col_init_hour"
-                           finalId="col_end_hour"
-                           onChange={(event) => handleChange(event, 2)}
-                        />
-                        <HourComponent
-                           dayOfWeek="QUA"
-                           initialId="col_init_hour"
-                           finalId="col_end_hour"
-                           onChange={(event) => handleChange(event, 3)}
-                        />
-                        <HourComponent
-                           dayOfWeek="QUI"
-                           initialId="col_init_hour"
-                           finalId="col_end_hour"
-                           onChange={(event) => handleChange(event, 4)}
-                        />
-                        <HourComponent
-                           dayOfWeek="SEX"
-                           initialId="col_init_hour"
-                           finalId="col_end_hour"
-                           onChange={(event) => handleChange(event, 5)}
-                        />
+                        {seg?.map((cdiv, i) => {
+                           return <Col className="expense-block" key={cdiv} id={`expense-block-${i}`} data-block={i}>
+                              <HourComponent
+                                 dayOfWeek="SEG"
+                                 initialId="cal_start"
+                                 finalId="cal_end"
+                                 onChange={(event) => handleChange(event, 1)}
+                                 onDuplicate={() => addNewRow(seg, setSeg)}
+                              />
+                           </Col>
+                        })}
+                        {ter?.map((cdiv, i) => {
+                           return <Col className="expense-block" key={cdiv} id={`expense-block-${i}`} data-block={i}>
+                              <HourComponent
+                                 dayOfWeek="TER"
+                                 initialId="cal_start"
+                                 finalId="cal_end"
+                                 onChange={(event) => handleChange(event, 2)}
+                                 onDuplicate={() => addNewRow(ter, setTer)}
+                              />
+                           </Col>
+                        })}
+                        {qua?.map((cdiv, i) => {
+                           return <Col className="expense-block" key={cdiv} id={`expense-block-${i}`} data-block={i}>
+                              <HourComponent
+                                 dayOfWeek="QUA"
+                                 initialId="cal_start"
+                                 finalId="cal_end"
+                                 onChange={(event) => handleChange(event, 3)}
+                                 onDuplicate={() => addNewRow(qua, setQua)}
+                              />
+                           </Col>
+                        })}
+                        {qui?.map((cdiv, i) => {
+                           return <Col className="expense-block" key={cdiv} id={`expense-block-${i}`} data-block={i}>
+                              <HourComponent
+                                 dayOfWeek="QUI"
+                                 initialId="cal_start"
+                                 finalId="cal_end"
+                                 onChange={(event) => handleChange(event, 4)}
+                                 onDuplicate={() => addNewRow(qui, setQui)}
+                              />
+                           </Col>
+                        })}
+                        {sex?.map((cdiv, i) => {
+                           return <Col className="expense-block" key={cdiv} id={`expense-block-${i}`} data-block={i}>
+                              <HourComponent
+                                 dayOfWeek="SEX"
+                                 initialId="cal_start"
+                                 finalId="cal_end"
+                                 onChange={(event) => handleChange(event, 5)}
+                                 onDuplicate={() => addNewRow(sex, setSex)}
+                              />
+                           </Col>
+                        })}
                         <Col className="mt-4">
                            <BtnBlue variant="dark" type="submit">Salvar</BtnBlue>
                         </Col>
