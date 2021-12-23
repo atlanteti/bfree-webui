@@ -3,7 +3,7 @@ import { MainContainer, MainRow, BackGroundForm, BtnBlue } from "../../styles/Co
 import { CustomMenu } from "../../Componentes/CustomMenu";
 import { Form, Col } from "react-bootstrap";
 import { HourComponent } from "../../Componentes/HourComponent";
-import { Title, SubTitle } from "./styles.js"
+import { Title, SubTitle, AlertText } from "./styles.js"
 
 export function Horario() {
    const [days, setDays] = useState([])
@@ -60,6 +60,7 @@ export function Horario() {
                      <BackGroundForm xs={1} className={'mb-2'} noGutters>
                         <Title>Vamos configurar sua agenda?</Title>
                         <SubTitle>Defina os dias da semana e horários que você pode atender</SubTitle>
+                        <AlertText>Não adicione intervalos que entrem em conflito, ex: 10:00 -- 12:00 E 09:00 -- 11:00 do mesmo dia</AlertText>
                         {seg?.map((cdiv, i) => {
                            return <Col className="expense-block" key={cdiv} id={`expense-block-${i}`} data-block={i}>
                               <HourComponent

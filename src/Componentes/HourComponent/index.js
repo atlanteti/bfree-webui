@@ -54,8 +54,8 @@ export function HourComponent(props) {
       </Col>
       <Col xs={12} sm={1} lg={1} style={{ cursor: 'pointer' }}>
          <Row>
-            {props.showRemoveButton > 1 && <IoRemoveCircleOutline size={25} color="rgba(0,0,0,0.5)" onClick={props.removeDuplicate} />}
             <IoAddCircleOutline size={25} color="rgba(0,0,0,0.5)" onClick={props.onDuplicate} />
+            {props.showRemoveButton > 1 && <IoRemoveCircleOutline size={25} color="rgba(0,0,0,0.5)" onClick={props.removeDuplicate} />}
          </Row>
       </Col>
    </Row>

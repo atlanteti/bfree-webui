@@ -11,3 +11,10 @@ export const SubTitle = styled.p`
    color: rgba(0,0,0,0.5);
    font-weight: 500;
 `
+
+export const AlertText = styled.p`
+   margin-top: 0.5rem;
+   font-size: 0.8rem;
+   font-style: italic;
+   font-weight: 500;
+`
