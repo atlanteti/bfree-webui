@@ -17,17 +17,17 @@ export function SetHour(props) {
             required: false
          }}
       >
-         <MenuItem value={"08:00"}>08:00</MenuItem>
-         <MenuItem value={"09:00"}>09:00</MenuItem>
-         <MenuItem value={"10:00"}>10:00</MenuItem>
-         <MenuItem value={"11:00"}>11:00</MenuItem>
-         <MenuItem value={"12:00"}>12:00</MenuItem>
-         <MenuItem value={"13:00"}>13:00</MenuItem>
-         <MenuItem value={"14:00"}>14:00</MenuItem>
-         <MenuItem value={"15:00"}>15:00</MenuItem>
-         <MenuItem value={"16:00"}>16:00</MenuItem>
-         <MenuItem value={"17:00"}>17:00</MenuItem>
-         <MenuItem value={"18:00"}>18:00</MenuItem>
+         <MenuItem value={"08:00:00"}>08:00</MenuItem>
+         <MenuItem value={"09:00:00"}>09:00</MenuItem>
+         <MenuItem value={"10:00:00"}>10:00</MenuItem>
+         <MenuItem value={"11:00:00"}>11:00</MenuItem>
+         <MenuItem value={"12:00:00"}>12:00</MenuItem>
+         <MenuItem value={"13:00:00"}>13:00</MenuItem>
+         <MenuItem value={"14:00:00"}>14:00</MenuItem>
+         <MenuItem value={"15:00:00"}>15:00</MenuItem>
+         <MenuItem value={"16:00:00"}>16:00</MenuItem>
+         <MenuItem value={"17:00:00"}>17:00</MenuItem>
+         <MenuItem value={"18:00:00"}>18:00</MenuItem>
       </ValidationTextField>
    )
 }

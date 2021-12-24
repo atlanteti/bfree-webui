@@ -4,6 +4,7 @@ import { CustomMenu } from "../../Componentes/CustomMenu";
 import { Form, Col } from "react-bootstrap";
 import { HourComponent } from "../../Componentes/HourComponent";
 import { Title, SubTitle, AlertText } from "./styles.js"
+import { request } from "../../Services/api";
 
 export function Horario() {
    const [days, setDays] = useState([])
@@ -15,17 +16,17 @@ export function Horario() {
    const [sex, setSex] = useState(['div1']) // depois ver uma forma de tentar deixar tudo em um só array, como leo quer de imediato, segue assim por enquanto
 
    function handleChange(event, index) {
-      setDays({
-         ...days, [index]: {
-            ...days[index],
+      setPopulate({
+         ...populate, [index]: {
+            ...populate[index],
             "cal_day_of_week": index,
             [event.target.name]: event.target.value
          }
       })
       if (event.target.name === "cal_end") {
-         setPopulate([
-            ...populate, {
-               ...days[index],
+         setDays([
+            ...days, {
+               ...populate[index],
                "cal_day_of_week": index,
                [event.target.name]: event.target.value
             }
@@ -42,8 +43,17 @@ export function Horario() {
       cDivs.pop()
       setArray(cDivs)
    }
-   function handleSubmit(event) {
+   async function handleSubmit(event) {
       event.preventDefault()
+      console.log(populate)
+      console.log(days)
+      const data = await request({
+         method: "post",
+         endpoint: "calendar/save",
+         data: {
+            availableDates: days
+         },
+      })
    }
    return (
       <MainContainer>
