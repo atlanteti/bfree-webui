@@ -6,11 +6,13 @@ import { HourComponent } from "../../Componentes/HourComponent";
 import { Title, SubTitle, AlertText } from "./styles.js"
 import { request } from "../../Services/api";
 import { CircularProgress } from '@mui/material'
+import { Redirect } from "react-router-dom";
 
 export function Horario() {
    const [days, setDays] = useState([])
    const [populate, setPopulate] = useState([])
    const [loadingData, setLoadingData] = useState(true);
+   const [redirect, setRedirect] = useState(false);
    const [seg, setSeg] = useState(['div1'])
    const [ter, setTer] = useState(['div2'])
    const [qua, setQua] = useState(['div3'])
@@ -58,13 +60,16 @@ export function Horario() {
    }
    async function handleSubmit(event) {
       event.preventDefault()
-      await request({
+      const data = await request({
          method: "post",
          endpoint: "calendar/save",
          data: {
             availableDates: days
          },
       })
+      if (data.meta.status === 100) {
+         setRedirect(true)
+      }
    }
    async function getData() {
       await request({
@@ -116,9 +121,14 @@ export function Horario() {
          setLoadingData(false)
       })
    }
+
    useEffect(() => {
       getData()
    }, [])
+
+   if (redirect) {
+      return <Redirect to="/demandas" />
+   }
    return (
       // lembrar de criar uma mensagem de aviso para quando dê certo o envio
       <MainContainer>
