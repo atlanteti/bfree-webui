@@ -34,36 +34,32 @@ export function SetHour(props) {
 }
 
 export const HourComponent = (props) => {
-   return props.data?.map((cdiv, index) => {
-      return <Col className="expense-block" key={cdiv} id={`expense-block-${index}`} data-block={index}>
-         <Row style={{ alignItems: 'center', justifyContent: 'center', paddingTop: 20 }}>
-            <Col xs={12} sm={1} lg={1}>
-               <p style={{ marginRight: 0 }}>{props.dayOfWeek}</p>
-            </Col>
-            <Col xs={12} sm={4} lg={2}>
-               <SetHour
-                  label="Inicial"
-                  name="cal_start"
-                  onChange={props.onChange}
-                  defaultValue={props.data[index].cal_start}
-               />
-            </Col>
-            <p>-</p>
-            <Col xs={12} sm={4} lg={2}>
-               <SetHour
-                  label="Final"
-                  name="cal_end"
-                  onChange={props.onChange}
-                  defaultValue={props.data[index].cal_end}
-               />
-            </Col>
-            <Col xs={12} sm={1} lg={1} style={{ cursor: 'pointer' }}>
-               <Row>
-                  <IoAddCircleOutline size={25} color="rgba(0,0,0,0.5)" onClick={props.onDuplicate} />
-                  {props.showRemoveButton > 1 && <IoRemoveCircleOutline size={25} color="rgba(0,0,0,0.5)" onClick={props.removeDuplicate} />}
-               </Row>
-            </Col>
+   return <Row style={{ alignItems: 'center', justifyContent: 'center', paddingTop: 20 }}>
+      <Col xs={12} sm={1} lg={1}>
+         <p style={{ marginRight: 0 }}>{props.dayOfWeek}</p>
+      </Col>
+      <Col xs={12} sm={4} lg={2}>
+         <SetHour
+            label="Inicial"
+            name="cal_start"
+            onChange={props.onChange}
+            defaultValue={props.startHour}
+         />
+      </Col>
+      <p>-</p>
+      <Col xs={12} sm={4} lg={2}>
+         <SetHour
+            label="Final"
+            name="cal_end"
+            onChange={props.onChange}
+            defaultValue={props.endHour}
+         />
+      </Col>
+      <Col xs={12} sm={1} lg={1} style={{ cursor: 'pointer' }}>
+         <Row>
+            <IoAddCircleOutline size={25} color="rgba(0,0,0,0.5)" onClick={props.onDuplicate} />
+            {props.showRemoveButton > 1 && <IoRemoveCircleOutline size={25} color="rgba(0,0,0,0.5)" onClick={props.removeDuplicate} />}
          </Row>
       </Col>
-   })
+   </Row>
 }
