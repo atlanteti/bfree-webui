@@ -35,9 +35,16 @@ export function Horario() {
             var filtered = days.filter(function (value) {
                return value.cal_cod !== currentItem.cal_cod;
             });
+            setDays([
+               ...filtered, {
+                  ...populate[index],
+                  "cal_day_of_week": index,
+                  [event.target.name]: event.target.value
+               }
+            ])
          }
          setDays([
-            ...filtered, {
+            ...days, {
                ...populate[index],
                "cal_day_of_week": index,
                [event.target.name]: event.target.value
