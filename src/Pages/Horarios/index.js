@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { MainContainer, MainRow, BackGroundForm, BtnBlue } from "../../styles/CommonStyles";
 import { CustomMenu } from "../../Componentes/CustomMenu";
-import { Form, Col, Row } from "react-bootstrap";
+import { Form, Col, Row, Alert } from "react-bootstrap";
 import { HourComponent } from "../../Componentes/HourComponent";
 import { Title, SubTitle, AlertText } from "./styles.js"
 import { request } from "../../Services/api";
@@ -10,6 +10,9 @@ import { Redirect } from "react-router-dom";
 
 export function Horario() {
    const [days, setDays] = useState([])
+   const [message, setMessage] = useState(true)
+   const [status, setStatus] = useState("warning")
+   const [showAlert, setShowAlert] = useState(false);
    const [populate, setPopulate] = useState([])
    const [loadingData, setLoadingData] = useState(true);
    const [redirect, setRedirect] = useState(false);
@@ -68,8 +71,15 @@ export function Horario() {
          },
       })
       if (data.meta.status === 100) {
-         setRedirect(true)
+         setMessage(data.meta.message)
+         setStatus('success')
+         setTimeout(() => {
+            setRedirect(true)
+         }, 800);
+      } else {
+         setMessage(data.meta.message)
       }
+      setShowAlert(true)
    }
    async function getData() {
       await request({
@@ -115,7 +125,7 @@ export function Horario() {
                   sex.shift()
                }
                populateSex.push(result)
-               setTer(populateSex)
+               setSex(populateSex)
             }
          })
          setLoadingData(false)
@@ -141,6 +151,11 @@ export function Horario() {
                   lg={{ offset: 2, span: 10 }}
                   style={{ paddingTop: 20, textAlign: 'center' }}
                >
+                  {showAlert &&
+                     <Alert variant={status} onClose={() => setShowAlert(false)} dismissible>
+                        {message}
+                     </Alert>
+                  }
                   <Form onSubmit={handleSubmit}>
                      <BackGroundForm xs={1} className={'mb-2'} noGutters>
                         <Title>Vamos configurar sua agenda?</Title>
