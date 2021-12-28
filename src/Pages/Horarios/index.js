@@ -10,7 +10,7 @@ import { Redirect } from "react-router-dom";
 
 export function Horario() {
    const [days, setDays] = useState([])
-   const [message, setMessage] = useState(true)
+   const [message, setMessage] = useState(null)
    const [status, setStatus] = useState("warning")
    const [showAlert, setShowAlert] = useState(false);
    const [populate, setPopulate] = useState([])
@@ -79,7 +79,7 @@ export function Horario() {
          setMessage(data.meta.message)
          setStatus('success')
          setTimeout(() => {
-            // setRedirect(true)
+            setRedirect(true)
          }, 800);
       } else {
          setMessage(data.meta.message)
