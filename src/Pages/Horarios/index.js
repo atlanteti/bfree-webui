@@ -23,7 +23,6 @@ export function Horario() {
    const [sex, setSex] = useState(['div5']) // depois ver uma forma de tentar deixar tudo em um só array, como leo quer de imediato, segue assim por enquanto
 
    function handleChange(event, index, currentItem) {
-      console.log(currentItem)
       setPopulate({
          ...populate, [index]: {
             ...populate[index],
@@ -37,7 +36,6 @@ export function Horario() {
                return value.cal_cod !== currentItem.cal_cod;
             });
          }
-         console.log(filtered)
          setDays([
             ...filtered, {
                ...populate[index],
@@ -69,8 +67,6 @@ export function Horario() {
       }
    }
    async function handleSubmit(event) {
-      console.log(days)
-      console.log(populate)
       event.preventDefault()
       const data = await request({
          method: "post",
