@@ -2,6 +2,7 @@ import { MenuItem } from "@mui/material";
 import { Row, Col } from "react-bootstrap";
 import { ValidationTextField } from "../FormFields";
 import { IoAddCircleOutline, IoRemoveCircleOutline } from "react-icons/io5"
+import NoDataComp from "../NoDataComp";
 
 export function SetHour(props) {
    return (
@@ -18,6 +19,7 @@ export function SetHour(props) {
             required: false
          }}
       >
+         <MenuItem value={null}><NoDataComp /></MenuItem>
          <MenuItem value={"08:00:00"}>08:00</MenuItem>
          <MenuItem value={"09:00:00"}>09:00</MenuItem>
          <MenuItem value={"10:00:00"}>10:00</MenuItem>
