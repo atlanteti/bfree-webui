@@ -22,7 +22,8 @@ export function Horario() {
    const [qui, setQui] = useState(['div4'])
    const [sex, setSex] = useState(['div5']) // depois ver uma forma de tentar deixar tudo em um só array, como leo quer de imediato, segue assim por enquanto
 
-   function handleChange(event, index) {
+   function handleChange(event, index, currentItem) {
+      console.log(currentItem)
       setPopulate({
          ...populate, [index]: {
             ...populate[index],
@@ -31,8 +32,14 @@ export function Horario() {
          }
       })
       if (event.target.name === "cal_end") {
+         if (currentItem.cal_cod) {
+            var filtered = days.filter(function (value) {
+               return value.cal_cod !== currentItem.cal_cod;
+            });
+         }
+         console.log(filtered)
          setDays([
-            ...days, {
+            ...filtered, {
                ...populate[index],
                "cal_day_of_week": index,
                [event.target.name]: event.target.value
@@ -62,6 +69,8 @@ export function Horario() {
       }
    }
    async function handleSubmit(event) {
+      console.log(days)
+      console.log(populate)
       event.preventDefault()
       const data = await request({
          method: "post",
@@ -74,7 +83,7 @@ export function Horario() {
          setMessage(data.meta.message)
          setStatus('success')
          setTimeout(() => {
-            setRedirect(true)
+            // setRedirect(true)
          }, 800);
       } else {
          setMessage(data.meta.message)
@@ -171,7 +180,7 @@ export function Horario() {
                                     <HourComponent
                                        dayOfWeek="SEG"
                                        data={seg}
-                                       onChange={(event) => handleChange(event, 1)}
+                                       onChange={(event) => handleChange(event, 1, currentDiv)}
                                        onDuplicate={() => addNewRow(seg, setSeg)}
                                        removeDuplicate={() => removeRow(seg, setSeg, currentDiv)}
                                        startHour={seg[index].cal_start}

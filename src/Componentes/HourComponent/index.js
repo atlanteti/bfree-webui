@@ -10,7 +10,7 @@ export function SetHour(props) {
          id={props.id}
          select
          fullWidth
-         value={props.defaultValue}
+         defaultValue={props.defaultValue}
          onChange={props.onChange}
          name={props.name}
          label={props.label}
