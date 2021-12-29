@@ -10,10 +10,10 @@ import { Redirect } from "react-router-dom";
 
 export function Horario() {
    const [days, setDays] = useState([])
+   const [populate, setPopulate] = useState([])
    const [message, setMessage] = useState(null)
    const [status, setStatus] = useState("warning")
    const [showAlert, setShowAlert] = useState(false);
-   const [populate, setPopulate] = useState([])
    const [loadingData, setLoadingData] = useState(true);
    const [redirect, setRedirect] = useState(false);
    const [seg, setSeg] = useState(['div1'])
@@ -32,10 +32,11 @@ export function Horario() {
       })
       if (event.target.name === "cal_end") {
          if (currentItem.cal_cod) {
+            // é chamado quando esta sendo editado algum horario ja existente
             var filtered = days.filter(function (value) {
                return value.cal_cod !== currentItem.cal_cod;
             });
-            setDays([
+            return setDays([
                ...filtered, {
                   ...populate[index],
                   "cal_day_of_week": index,
@@ -57,7 +58,7 @@ export function Horario() {
       cDivs.push('newDiv')
       setArray(cDivs)
    }
-   function removeRow(currentArray, setArray, currentItem) {
+   function removeRow(currentArray, currentItem, setArray) {
       let cDivs = [...currentArray];
       var filtered = days.filter(function (value) {
          return value.cal_cod !== currentItem.cal_cod;
@@ -75,11 +76,14 @@ export function Horario() {
    }
    async function handleSubmit(event) {
       event.preventDefault()
+      var filteredDays = days.filter(function (value) {
+         return value.cal_start !== null;
+      });
       const data = await request({
          method: "post",
          endpoint: "calendar/save",
          data: {
-            availableDates: days
+            availableDates: filteredDays
          },
       })
       if (data.meta.status === 100) {
@@ -152,7 +156,6 @@ export function Horario() {
       return <Redirect to="/demandas" />
    }
    return (
-      // lembrar de criar uma mensagem de aviso para quando dê certo o envio
       <MainContainer>
          <MainRow>
             <CustomMenu />
@@ -178,76 +181,51 @@ export function Horario() {
                               <Col><CircularProgress /></Col>
                            </Row> :
                            <>
-                              {seg?.map((currentDiv, index) => {
-                                 return <Col className="expense-block" key={currentDiv} id={`expense-block-${index}`} data-block={index}>
-                                    <HourComponent
-                                       dayOfWeek="SEG"
-                                       data={seg}
-                                       onChange={(event) => handleChange(event, 1, currentDiv)}
-                                       onDuplicate={() => addNewRow(seg, setSeg)}
-                                       removeDuplicate={() => removeRow(seg, setSeg, currentDiv)}
-                                       startHour={seg[index].cal_start}
-                                       endHour={seg[index].cal_end}
-                                       showRemoveButton={seg.length}
-                                    />
-                                 </Col>
-                              })}
-                              {ter?.map((currentDiv, index) => {
-                                 return <Col className="expense-block" key={currentDiv} id={`expense-block-${index}`} data-block={index}>
-                                    <HourComponent
-                                       dayOfWeek="TER"
-                                       data={ter}
-                                       onChange={(event) => handleChange(event, 2)}
-                                       onDuplicate={() => addNewRow(ter, setTer)}
-                                       removeDuplicate={() => removeRow(ter, setTer, currentDiv)}
-                                       startHour={ter[index].cal_start}
-                                       endHour={ter[index].cal_end}
-                                       showRemoveButton={ter.length}
-                                    />
-                                 </Col>
-                              })}
-                              {qua?.map((currentDiv, index) => {
-                                 return <Col className="expense-block" key={currentDiv} id={`expense-block-${index}`} data-block={index}>
-                                    <HourComponent
-                                       dayOfWeek="QUA"
-                                       data={qua}
-                                       onChange={(event) => handleChange(event, 3)}
-                                       onDuplicate={() => addNewRow(qua, setQua)}
-                                       removeDuplicate={() => removeRow(qua, setQua, currentDiv)}
-                                       startHour={qua[index].cal_start}
-                                       endHour={qua[index].cal_end}
-                                       showRemoveButton={qua.length}
-                                    />
-                                 </Col>
-                              })}
-                              {qui?.map((currentDiv, index) => {
-                                 return <Col className="expense-block" key={currentDiv} id={`expense-block-${index}`} data-block={index}>
-                                    <HourComponent
-                                       dayOfWeek="QUI"
-                                       data={qui}
-                                       onChange={(event) => handleChange(event, 4)}
-                                       onDuplicate={() => addNewRow(qui, setQui)}
-                                       removeDuplicate={() => removeRow(qui, setQui, currentDiv)}
-                                       startHour={qui[index].cal_start}
-                                       endHour={qui[index].cal_end}
-                                       showRemoveButton={qui.length}
-                                    />
-                                 </Col>
-                              })}
-                              {sex?.map((currentDiv, index) => {
-                                 return <Col className="expense-block" key={currentDiv} id={`expense-block-${index}`} data-block={index}>
-                                    <HourComponent
-                                       dayOfWeek="SEX"
-                                       data={sex}
-                                       onChange={(event) => handleChange(event, 5)}
-                                       onDuplicate={() => addNewRow(sex, setSex)}
-                                       removeDuplicate={() => removeRow(sex, setSex, currentDiv)}
-                                       startHour={sex[index].cal_start}
-                                       endHour={sex[index].cal_end}
-                                       showRemoveButton={sex.length}
-                                    />
-                                 </Col>
-                              })}
+                              <HourComponent
+                                 dayOfWeek="SEG"
+                                 indexWeek={1}
+                                 data={seg}
+                                 onChange={handleChange}
+                                 onDuplicate={() => addNewRow(seg, setSeg)}
+                                 removeDuplicate={removeRow}
+                                 changeState={setSeg}
+                              />
+                              <HourComponent
+                                 dayOfWeek="TER"
+                                 indexWeek={2}
+                                 data={ter}
+                                 onChange={handleChange}
+                                 onDuplicate={() => addNewRow(ter, setTer)}
+                                 removeDuplicate={removeRow}
+                                 changeState={setTer}
+                              />
+                              <HourComponent
+                                 dayOfWeek="QUA"
+                                 data={qua}
+                                 indexWeek={3}
+                                 onChange={handleChange}
+                                 onDuplicate={() => addNewRow(qua, setQua)}
+                                 removeDuplicate={removeRow}
+                                 changeState={setQua}
+                              />
+                              <HourComponent
+                                 dayOfWeek="QUI"
+                                 indexWeek={4}
+                                 data={qui}
+                                 onChange={handleChange}
+                                 onDuplicate={() => addNewRow(qui, setQui)}
+                                 removeDuplicate={removeRow}
+                                 changeState={setQui}
+                              />
+                              <HourComponent
+                                 dayOfWeek="SEX"
+                                 indexWeek={5}
+                                 data={sex}
+                                 onChange={handleChange}
+                                 onDuplicate={() => addNewRow(sex, setSex)}
+                                 removeDuplicate={removeRow}
+                                 changeState={setSex}
+                              />
                               <Col className="mt-4">
                                  <BtnBlue variant="dark" type="submit">Salvar</BtnBlue>
                               </Col>
