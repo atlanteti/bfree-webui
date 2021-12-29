@@ -60,7 +60,6 @@ export function Horario() {
    }
    function removeRow(currentArray, currentItem, setArray) {
       let cDivs = [...currentArray];
-      console.log(currentItem.cal_cod)
       // os filtros são usados para remover o item exato que esta sendo excluido
       var filtered = days.filter(function (value) {
          return value.cal_cod !== currentItem.cal_cod;
@@ -83,26 +82,26 @@ export function Horario() {
    }
    async function handleSubmit(event) {
       event.preventDefault()
-      // var filteredDays = days.filter(function (value) {
-      //    return value.cal_start !== null;
-      // });
-      // const data = await request({
-      //    method: "post",
-      //    endpoint: "calendar/save",
-      //    data: {
-      //       availableDates: filteredDays
-      //    },
-      // })
-      // if (data.meta.status === 100) {
-      //    setMessage(data.meta.message)
-      //    setStatus('success')
-      //    setTimeout(() => {
-      //       setRedirect(true)
-      //    }, 800);
-      // } else {
-      //    setMessage(data.meta.message)
-      // }
-      // setShowAlert(true)
+      var filteredDays = days.filter(function (value) {
+         return value.cal_start !== null;
+      });
+      const data = await request({
+         method: "post",
+         endpoint: "calendar/save",
+         data: {
+            availableDates: filteredDays
+         },
+      })
+      if (data.meta.status === 100) {
+         setMessage(data.meta.message)
+         setStatus('success')
+         setTimeout(() => {
+            setRedirect(true)
+         }, 800);
+      } else {
+         setMessage(data.meta.message)
+      }
+      setShowAlert(true)
    }
    async function getData() {
       await request({
