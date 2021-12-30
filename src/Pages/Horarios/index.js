@@ -60,6 +60,7 @@ export function Horario() {
    }
    function removeRow(currentArray, currentItem, setArray) {
       let cDivs = [...currentArray];
+      // os filtros são usados para remover o item exato que esta sendo excluido
       var filtered = days.filter(function (value) {
          return value.cal_cod !== currentItem.cal_cod;
       });
@@ -67,12 +68,17 @@ export function Horario() {
       var filteredCurrentArray = cDivs.filter(function (value) {
          return value.cal_cod !== currentItem.cal_cod;
       });
-      if (filteredCurrentArray.length === 0) {
+      if (filteredCurrentArray.length === 0 || currentItem.cal_cod === undefined) {
          cDivs.pop()
          setArray(cDivs)
       } else {
          setArray(filteredCurrentArray)
+         setLoadingData(true)
       }
+      // por algum motivo não ta atualizando o estado 
+      setTimeout(() => {
+         setLoadingData(false)
+      }, 50);
    }
    async function handleSubmit(event) {
       event.preventDefault()
@@ -105,43 +111,45 @@ export function Horario() {
          setLoadingData(true)
          setDays(data.data)
          const populateBody = data.data
-         // ver um jeito de reduzir a quantidade de codigos repetido
+         // verificação para preencher quando já tem horarios selecionado
          populateBody?.map((result) => {
+            let populateDay = []
             if (result['cal_day_of_week'] === 1) {
-               const populateSeg = seg
+               populateDay = seg
+               // quando tem horario selecionado, remove o primeiro item, que é o sem valor
                if (seg[0] === "div1") {
                   seg.shift()
                }
-               populateSeg.push(result)
-               setSeg(populateSeg)
+               populateDay.push(result)
+               setSeg(populateDay)
             } else if (result['cal_day_of_week'] === 2) {
-               const populateTer = ter
+               populateDay = ter
                if (ter[0] === "div2") {
                   ter.shift()
                }
-               populateTer.push(result)
-               setTer(populateTer)
+               populateDay.push(result)
+               setTer(populateDay)
             } else if (result['cal_day_of_week'] === 3) {
-               const populateQua = qua
+               populateDay = qua
                if (qua[0] === "div3") {
                   qua.shift()
                }
-               populateQua.push(result)
-               setQua(populateQua)
+               populateDay.push(result)
+               setQua(populateDay)
             } else if (result['cal_day_of_week'] === 4) {
-               const populateQui = qui
+               populateDay = qui
                if (qui[0] === "div4") {
                   qui.shift()
                }
-               populateQui.push(result)
-               setQui(populateQui)
+               populateDay.push(result)
+               setQui(populateDay)
             } else if (result['cal_day_of_week'] === 5) {
-               const populateSex = sex
+               populateDay = sex
                if (sex[0] === "div5") {
                   sex.shift()
                }
-               populateSex.push(result)
-               setSex(populateSex)
+               populateDay.push(result)
+               setSex(populateDay)
             }
          })
          setLoadingData(false)
