@@ -30,7 +30,79 @@ export const CustomMenu = () => {
    const history = useHistory()
    const location = useLocation()
    const [isSidebarOpen, setIsSidebarOpen] = useState(false)
-   const { admin } = useContext(ContextLogin)
+   const { admin, userRoles } = useContext(ContextLogin)
+   function generateLinks(admin) {
+      const complete = [
+         {
+            title: <span className="title-arrow">Empresas <IoChevronForwardOutline size={17} /></span>,
+            itemId: '/companhia',
+            elemBefore: () => <EmpresaIcon />
+         },
+         {
+            title: <span className="title-arrow">Jornadas <IoChevronForwardOutline size={17} /></span>,
+            itemId: '/jornadas',
+            elemBefore: () => <JornadaIcon />
+         },
+         {
+            title: <span className="title-arrow">Tipos de Demanda  <IoChevronForwardOutline size={19} /></span>,
+            itemId: '/tipodemanda',
+            elemBefore: () => <TiposDemandasIcon />
+         },
+         {
+            title: <span className="title-arrow">Badges <IoChevronForwardOutline size={17} /></span>,
+            itemId: '/badges',
+            elemBefore: () => <BagdeIcon />
+         },
+         {
+            title: <span className="title-arrow">Times <IoChevronForwardOutline size={17} /></span>,
+            itemId: '/times',
+            elemBefore: () => <TimeIcon />
+         },
+         {
+            title: <span className="title-arrow">Usuários <IoChevronForwardOutline size={17} /></span>,
+            itemId: '/usuarios',
+            elemBefore: () => <UsuariosIcon />
+         },
+         {
+            title: <span className="title-arrow">Demandas <IoChevronForwardOutline size={17} /></span>,
+            itemId: '/demandas',
+            elemBefore: () => <DemandasIcon />
+         },
+         {
+            title: <span className="title-arrow">Horários <IoChevronForwardOutline size={17} /></span>,
+            itemId: '/horario',
+            elemBefore: () => <IoCalendarOutline />
+         },
+         {
+            title: <span className="title-arrow">Relatórios <IoChevronForwardOutline size={17} /></span>,
+            itemId: '/relatorios',
+            elemBefore: () => <RelatoriosIcon />
+         },
+         {
+            title: <span className="title-arrow">Uploads <IoChevronForwardOutline size={17} /></span>,
+            itemId: '/upload',
+            elemBefore: () => <UploadsIcon />
+         },
+         {
+            title: <span className="title-arrow">Logs <IoChevronForwardOutline size={17} /></span>,
+            itemId: '/log',
+            elemBefore: () => <LogsIcon />
+         },
+      ]
+      let filteredForUser = complete.filter(conditionalForPermissionAccess)
+      return filteredForUser
+
+      function conditionalForPermissionAccess(line) {
+         if (userRoles == null)
+            return false
+         if (userRoles.length == 0)
+            return line.itemId !== "/horario"
+         else if (userRoles.includes("CONSULTOR"))
+            return ["/demandas", "/relatorios", "/horario"].includes(line.itemId)
+         else
+            return ["/demandas", "/relatorios"].includes(line.itemId)
+      }
+   }
    return (
       <React.Fragment>
          {/* Sidebar Overlay */}
@@ -62,7 +134,7 @@ export const CustomMenu = () => {
                onSelect={({ itemId }) => {
                   history.push(itemId)
                }}
-               items={newFunction(admin)}
+               items={generateLinks(admin)}
             />
 
             <div className="absolute bottom-0 w-full">
@@ -85,70 +157,5 @@ export const CustomMenu = () => {
       </React.Fragment>
    )
 }
-function newFunction(admin) {
-   const complete = [
-      {
-         title: <span className="title-arrow">Empresas <IoChevronForwardOutline size={17} /></span>,
-         itemId: '/companhia',
-         elemBefore: () => <EmpresaIcon />
-      },
-      {
-         title: <span className="title-arrow">Jornadas <IoChevronForwardOutline size={17} /></span>,
-         itemId: '/jornadas',
-         elemBefore: () => <JornadaIcon />
-      },
-      {
-         title: <span className="title-arrow">Tipos de Demanda  <IoChevronForwardOutline size={19} /></span>,
-         itemId: '/tipodemanda',
-         elemBefore: () => <TiposDemandasIcon />
-      },
-      {
-         title: <span className="title-arrow">Badges <IoChevronForwardOutline size={17} /></span>,
-         itemId: '/badges',
-         elemBefore: () => <BagdeIcon />
-      },
-      {
-         title: <span className="title-arrow">Times <IoChevronForwardOutline size={17} /></span>,
-         itemId: '/times',
-         elemBefore: () => <TimeIcon />
-      },
-      {
-         title: <span className="title-arrow">Usuários <IoChevronForwardOutline size={17} /></span>,
-         itemId: '/usuarios',
-         elemBefore: () => <UsuariosIcon />
-      },
-      {
-         title: <span className="title-arrow">Demandas <IoChevronForwardOutline size={17} /></span>,
-         itemId: '/demandas',
-         elemBefore: () => <DemandasIcon />
-      },
-      {
-         title: <span className="title-arrow">Horários <IoChevronForwardOutline size={17} /></span>,
-         itemId: '/horario',
-         elemBefore: () => <IoCalendarOutline />
-      },
-      {
-         title: <span className="title-arrow">Relatórios <IoChevronForwardOutline size={17} /></span>,
-         itemId: '/relatorios',
-         elemBefore: () => <RelatoriosIcon />
-      },
-      {
-         title: <span className="title-arrow">Uploads <IoChevronForwardOutline size={17} /></span>,
-         itemId: '/upload',
-         elemBefore: () => <UploadsIcon />
-      },
-      {
-         title: <span className="title-arrow">Logs <IoChevronForwardOutline size={17} /></span>,
-         itemId: '/log',
-         elemBefore: () => <LogsIcon />
-      },
-   ]
-   let filteredForUser = complete.filter(conditionalForPermissionAccess)
-   if (!admin) { return filteredForUser }
-   return complete
 
-   function conditionalForPermissionAccess(line) {
-      { return line.itemId == "/demandas" || line.itemId == "/relatorios" }
-   }
-}
 
