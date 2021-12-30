@@ -90,13 +90,15 @@ export const CustomMenu = () => {
          },
       ]
       let filteredForUser = complete.filter(conditionalForPermissionAccess)
-      if (!admin) { return filteredForUser }
-      return complete
+      return filteredForUser
 
       function conditionalForPermissionAccess(line) {
-         if (userRoles.includes("CONSULTOR")) {
+         if (userRoles == null)
+            return false
+         if (userRoles.length == 0)
+            return line.itemId !== "/horario"
+         else if (userRoles.includes("CONSULTOR"))
             return ["/demandas", "/relatorios", "/horario"].includes(line.itemId)
-         }
          else
             return ["/demandas", "/relatorios"].includes(line.itemId)
       }
@@ -132,7 +134,7 @@ export const CustomMenu = () => {
                onSelect={({ itemId }) => {
                   history.push(itemId)
                }}
-               items={generateLinks(admin, userRoles)}
+               items={generateLinks(admin)}
             />
 
             <div className="absolute bottom-0 w-full">
