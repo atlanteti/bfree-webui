@@ -11,16 +11,19 @@ export const AuthProvider = ({ children }) => {
    const [auth, setAuth] = useState(null);
    const [admin, setAdmin] = useState(null);
    const [user, setUser] = useState(null);
+   const [userRoles, setUserRoles] = useState(null);
    const [verifyUser, setVerifyUser] = useState(null);
 
    useEffect(() => {
       async function loadStoraged() {
-         const storagedUser = await cookie.get("auth");
+         const storedUser = await cookie.get("auth");
          const storedPermission = await cookie.get("admin")
          const storedSelect = await cookie.get("user")
-         if (storagedUser) {
-            setAuth(storagedUser);
-            setUser(storedSelect)
+         const storedRoles = await cookie.get("userType")
+         if (storedUser) {
+            setAuth(storedUser);
+            setUser(storedSelect);
+            setUserRoles(storedRoles)
          }
          if (storedPermission !== undefined) {
             setAdmin(storedPermission === "true") // Tratamento para converter de string para booleano
@@ -37,31 +40,35 @@ export const AuthProvider = ({ children }) => {
             endpoint: `auth/login?token=${token}`,
          })
          setVerifyUser(data.meta.status)
+         const isTheUserAdmin = data.meta.journeys.length === 0
          if (data.meta.status === 100) {
             cookie.set('auth', data.data.token, { path: "/" })
-            cookie.set('admin', !data.meta.hasJourney, { path: "/" })
+            cookie.set('admin', isTheUserAdmin, { path: "/" })
             cookie.set('user', decodeToken(data.data.token)["ID Bfree"], { path: "/" })
+            cookie.set('userType', data.meta.journeys, { path: "/" })
             setAuth(data.data.token)
-            setAdmin(!data.meta.hasJourney)
+            setAdmin(isTheUserAdmin)
             setUser(decodeToken(data.data.token)["ID Bfree"], { path: "/" })
-         } else if(data.meta.status === 215) {
+            setUserRoles(data.meta.journeys)
+         } else if (data.meta.status === 215) {
             cookie.set('term', data.meta.token, { path: "/" })
-            setAdmin(!data.meta.hasJourney)
+            setAdmin(isTheUserAdmin)
          }
       } catch (error) {
          console.log(error)
       }
    }
    return (
-      <ContextLogin.Provider value={{ 
-         signed: Boolean(auth), 
-         getToken, 
-         admin: admin, 
-         user, 
+      <ContextLogin.Provider value={{
+         signed: Boolean(auth),
+         getToken,
+         admin: admin,
+         userRoles: userRoles,
+         user,
          verifyUser,
-         setVerifyUser, 
-         setUser, 
-         setAuth 
+         setVerifyUser,
+         setUser,
+         setAuth
       }}>
          {children}
       </ContextLogin.Provider>
