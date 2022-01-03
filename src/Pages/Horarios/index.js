@@ -23,6 +23,7 @@ export function Horario() {
    const [sex, setSex] = useState(['div5']) // depois ver uma forma de tentar deixar tudo em um só array, como leo quer de imediato, segue assim por enquanto
 
    function handleChange(event, index, currentItem) {
+      //TODO tentar resolver o caso de quando editar o primeiro e o segundo, nao salvar o primeiro
       setPopulate({
          ...populate, [index]: {
             ...populate[index],
@@ -30,19 +31,31 @@ export function Horario() {
             [event.target.name]: event.target.value
          }
       })
-      if (event.target.name === "cal_end") {
-         if (currentItem.cal_cod) {
-            // é chamado quando esta sendo editado algum horario ja existente
-            var filtered = days.filter(function (value) {
-               return value.cal_cod !== currentItem.cal_cod;
-            });
+      if (currentItem.cal_start === null && currentItem.cal_end !== null) {
+         if (event.target.name === "cal_start") {
             return setDays([
-               ...filtered, {
+               ...days, {
                   ...populate[index],
                   "cal_day_of_week": index,
-                  [event.target.name]: event.target.value
+                  [event.target.name]: event.target.value,
+                  "cal_end": currentItem.cal_end
                }
             ])
+         }
+      }
+      if (event.target.name === "cal_end") {
+         if (currentItem.cal_cod === undefined) {
+            if (populate[index].cal_end !== undefined) {
+               return days[days.length - 1].cal_end = event.target.value
+            } else {
+               return setDays([
+                  ...days, {
+                     ...populate[index],
+                     "cal_day_of_week": index,
+                     [event.target.name]: event.target.value
+                  }
+               ])
+            }
          }
          setDays([
             ...days, {
@@ -52,12 +65,42 @@ export function Horario() {
             }
          ])
       }
+      if (currentItem.cal_cod) {
+         var filtered = days.filter(function (value) {
+            return value.cal_cod !== currentItem.cal_cod;
+         });
+         if (event.target.name === "cal_end") {
+            currentItem.cal_end = event.target.value
+            // é chamado quando esta sendo editado algum horario ja existente
+            return setDays([
+               ...filtered, {
+                  ...populate[index],
+                  "cal_day_of_week": index,
+                  [event.target.name]: event.target.value,
+                  "cal_cod": currentItem.cal_cod,
+                  "cal_start": currentItem.cal_start
+               }
+            ])
+         } else {
+            currentItem.cal_start = event.target.value
+            return setDays([
+               ...filtered, {
+                  ...populate[index],
+                  "cal_day_of_week": index,
+                  "cal_start": currentItem.cal_start,
+                  "cal_cod": currentItem.cal_cod,
+                  "cal_end": currentItem.cal_end
+               }
+            ])
+         }
+      }
    }
    function addNewRow(currentArray, setArray) {
       let cDivs = [...currentArray];
-      cDivs.push('newDiv')
+      cDivs.push({ "cal_start": null, "cal_end": null })
       setArray(cDivs)
    }
+   // verificar pq ta excluindo todos os items
    function removeRow(currentArray, currentItem, setArray) {
       let cDivs = [...currentArray];
       // os filtros são usados para remover o item exato que esta sendo excluido
@@ -83,7 +126,7 @@ export function Horario() {
    async function handleSubmit(event) {
       event.preventDefault()
       var filteredDays = days.filter(function (value) {
-         return value.cal_start !== null;
+         return value.cal_start !== undefined;
       });
       const data = await request({
          method: "post",
