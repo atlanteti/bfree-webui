@@ -19,7 +19,7 @@ export function SetHour(props) {
             required: false
          }}
       >
-         <MenuItem value={null}><NoDataComp /></MenuItem>
+         <MenuItem value={undefined}><NoDataComp /></MenuItem>
          <MenuItem value={"08:00:00"}>08:00</MenuItem>
          <MenuItem value={"09:00:00"}>09:00</MenuItem>
          <MenuItem value={"10:00:00"}>10:00</MenuItem>
