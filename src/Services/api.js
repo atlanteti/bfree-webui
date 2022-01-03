@@ -33,13 +33,13 @@ export const request = async ({
 
    try {
       result = await axios(config)
-      if (result.data.meta.token !== token && 
+      if (result.data.meta.token !== token &&
          window.location.pathname !== "/termos" &&
          window.location.pathname !== "/") {
          cookieGetter.set("auth", result.data.meta.token, { path: "/" })
       }
-      cookieGetter.set("admin", !result.data.meta.hasJourney, { path: "/" })
-
+      cookieGetter.set("admin", result.data.meta.journeys.length === 0, { path: "/" })
+      cookieGetter.set("userType", result.data.meta.journeys)
       if (result.data.meta.status === 422) {
          let Alert = () => {
             return <Row sm={1}>
@@ -50,13 +50,13 @@ export const request = async ({
          }
          result.data.meta.message = <Alert />
       }
-      if(result.data.meta.status === 201 || result.data.meta.status === 202){
+      if (result.data.meta.status === 201 || result.data.meta.status === 202) {
          window.Eduzz.Accounts.logout({ env: "staging", redirectTo: window.location.origin })
          return
       } else if (result.data.meta.status === 204) {
          window.location.replace("/demandas")
       }
-      
+
       return result.data
    } catch (error) {
       try {
