@@ -7,6 +7,7 @@ import { Title, SubTitle, AlertText } from "./styles.js"
 import { request } from "../../Services/api";
 import { CircularProgress } from '@mui/material'
 import { Redirect } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 export function Horario() {
    const [days, setDays] = useState([])
@@ -206,6 +207,7 @@ export function Horario() {
    }
    return (
       <MainContainer>
+         <Helmet title="Cadastro de Horário" />
          <MainRow>
             <CustomMenu />
             <Col>
