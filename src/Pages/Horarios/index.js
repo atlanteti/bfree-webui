@@ -23,7 +23,6 @@ export function Horario() {
    const [sex, setSex] = useState(['div5']) // depois ver uma forma de tentar deixar tudo em um só array, como leo quer de imediato, segue assim por enquanto
 
    function handleChange(event, index, currentItem) {
-      //TODO tentar resolver o caso de quando editar o primeiro e o segundo, nao salvar o primeiro
       setPopulate({
          ...populate, [index]: {
             ...populate[index],
@@ -100,7 +99,6 @@ export function Horario() {
       cDivs.push({ "cal_start": null, "cal_end": null })
       setArray(cDivs)
    }
-   // verificar pq ta excluindo todos os items
    function removeRow(currentArray, currentItem, setArray) {
       let cDivs = [...currentArray];
       // os filtros são usados para remover o item exato que esta sendo excluido
