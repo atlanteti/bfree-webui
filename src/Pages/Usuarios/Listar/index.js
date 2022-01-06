@@ -74,13 +74,6 @@ export default class ListarUsuario extends ListarPagina {
          </TextHeaderCell>
          <TextHeaderCell scope="col">
             <SortColumn
-               label="ID Externo"
-               attribute="usr_externalid"
-               sortCallback={props.sortCallback}
-               receiver={props.subscribe}
-               wipeAll={props.wipeAll} /></TextHeaderCell>
-         <TextHeaderCell scope="col">
-            <SortColumn
                label="Nome"
                attribute="usr_name"
                sortCallback={props.sortCallback}
@@ -92,6 +85,13 @@ export default class ListarUsuario extends ListarPagina {
             sortCallback={props.sortCallback}
             receiver={props.subscribe}
             wipeAll={props.wipeAll} /></TextHeaderCell>
+         <TextHeaderCell scope="col">
+            <SortColumn
+               label="E-mail"
+               attribute="usr_email"
+               sortCallback={props.sortCallback}
+               receiver={props.subscribe}
+               wipeAll={props.wipeAll} /></TextHeaderCell>
          <TextHeaderCell scope="col">
             <SortColumn
                label="Status"
@@ -129,11 +129,12 @@ export default class ListarUsuario extends ListarPagina {
    createRecord(usuario) {
       return <TableRow key={usuario.usr_cod}>
          <NumberCell data-title="ID Eduzz">{usuario.usr_cli_cod}</NumberCell>
-         <TextCell data-title="ID Externo">{usuario.usr_externalid ? usuario.usr_externalid : <NoDataComp />}</TextCell>
          <TextCell data-title="Nome">{usuario.usr_name}</TextCell>
          <TextCell data-title="Telefone">{usuario.usr_phone ?
             this.FormatPhone(usuario) :
-            <NoDataComp />}</TextCell>
+            <NoDataComp />}
+         </TextCell>
+         <TextCell data-title="E-mail">{usuario.usr_email}</TextCell>
          <TextCell data-title="Status">{usuario.statusUser.sus_name ? <StatusBadgePropped active={usuario.statusUser.sus_name === "ATIVO"} /> : <NoDataComp />}</TextCell>
          <ActionCell data-title="Ações">
             <Link to={`/editar/usuarios/${usuario.usr_cod}/alterar`}>
