@@ -11,14 +11,6 @@ export class UserSearchBar extends SearchBar {
          <Row xs={1} className={'mb-2'} noGutters>
             <Form onSubmit={this.handleSubmit}>
                <Row>
-                  <Col className="mt-2" xs={12} sm={4} md={3}>
-                     <InputTextField label="ID"
-                        id="usr_cli_cod"
-                        onChange={this.onChange}
-                        type="text"
-                        fullWidth
-                        placeholder="Insira o ID do usuário" />
-                  </Col>
                   <Col className="mt-2" xs={12} sm={4}>
                      <InputTextField label="Nome do Usuário"
                         id="name"
@@ -26,6 +18,16 @@ export class UserSearchBar extends SearchBar {
                         type="text"
                         fullWidth
                         placeholder="Insira o nome do usuário" />
+                  </Col>
+                  <Col className="mt-2" xs={12} sm={4} md={3}>
+                     <InputTextField
+                        label="E-mail do Usuário"
+                        id="usr_email"
+                        onChange={this.onChange}
+                        type="text"
+                        fullWidth
+                        placeholder="Insira o e-mail do usuário"
+                     />
                   </Col>
                   <Col className="mt-2" xs={12} sm={4} md={3}>
                      <ListUserStatusControlled
