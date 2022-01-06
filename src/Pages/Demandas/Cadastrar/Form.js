@@ -18,8 +18,8 @@ import yup from "../../../Services/validations";
 import { BackGroundForm, BtnBlue, TitleRegister } from '../../../styles/CommonStyles';
 export const DemandForm = (props) => {
    const [primaryData, setPrimaryData] = useState()
-   const contextAdmin = useContext(ContextLogin)
-   const disableFields = (contextAdmin.admin && props.paramRoute !== "inserir")
+   const { admin, userRoles } = useContext(ContextLogin)
+   const disableFields = ((admin || userRoles?.length > 0) && props.paramRoute !== "inserir")
    const [pageTop, scrollToTop] = useScroll()
    const [fields, setFields] = useState(
       {
