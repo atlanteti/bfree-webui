@@ -1,5 +1,5 @@
 import { Form, Formik } from 'formik';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useScroll } from '../../../Hooks';
 import { Button, Col, Row } from 'react-bootstrap';
 import { IoChevronBackCircleSharp } from 'react-icons/io5';
@@ -12,14 +12,12 @@ import { ListUsers } from '../../../Componentes/FormikComponents/ListUsers';
 import { PhoneInput } from '../../../Componentes/FormikComponents/PhoneInput';
 import { StatusHistory } from "../../../Componentes/FormikComponents/StatusHistory";
 import { Timestamps } from '../../../Componentes/FormikComponents/Timestamps';
-import ContextLogin from '../../../Context/ContextLogin';
 import { request } from '../../../Services/api';
 import yup from "../../../Services/validations";
 import { BackGroundForm, BtnBlue, TitleRegister } from '../../../styles/CommonStyles';
 export const DemandForm = (props) => {
    const [primaryData, setPrimaryData] = useState()
-   const { admin, userRoles } = useContext(ContextLogin)
-   const disableFields = ((admin || userRoles?.length > 0) && props.paramRoute !== "inserir")
+   const disableFields = (props.paramRoute !== "inserir")
    const [pageTop, scrollToTop] = useScroll()
    const [fields, setFields] = useState(
       {
