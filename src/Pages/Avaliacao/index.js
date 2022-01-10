@@ -3,6 +3,7 @@ import { Col } from "react-bootstrap";
 import { BackGroundForm, BtnBlue } from "../../styles/CommonStyles";
 import { Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from '@mui/material';
 import { useLocation } from "react-router-dom";
+import { request } from "../../Services/api";
 
 export function Avalicacao() {
    const [value, setValue] = useState(null);
@@ -18,6 +19,13 @@ export function Avalicacao() {
    const handleChange = (event) => {
       setValue(event.target.value);
    };
+
+   const handleSubmit = async (event) => {
+      const data = await request({
+         method: 'post',
+         endpoint: ''
+      })
+   }
 
    return (
       <Col md={{ span: 8, offset: 2 }}>
@@ -43,7 +51,7 @@ export function Avalicacao() {
                   </Col>
                </RadioGroup>
                <Col className="d-flex justify-content-center mt-3">
-                  <BtnBlue type="submit" variant="dark">Enviar</BtnBlue>
+                  <BtnBlue type="submit" variant="dark" onClick={() => handleSubmit()}>Enviar</BtnBlue>
                </Col>
             </FormControl>
          </BackGroundForm>
