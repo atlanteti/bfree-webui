@@ -1,10 +1,19 @@
 import { useState } from "react";
 import { Col } from "react-bootstrap";
-import { BackGroundForm } from "../../styles/CommonStyles";
+import { BackGroundForm, BtnBlue } from "../../styles/CommonStyles";
 import { Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from '@mui/material';
+import { useLocation } from "react-router-dom";
 
 export function Avalicacao() {
    const [value, setValue] = useState(null);
+
+   let query = new URLSearchParams(useLocation().search);
+   console.log(query.get(''))
+
+   function getToken() {
+      const token = query.get("/");
+      return token;
+   }
 
    const handleChange = (event) => {
       setValue(event.target.value);
@@ -33,6 +42,9 @@ export function Avalicacao() {
                      <FormControlLabel labelPlacement="top" value={5} control={<Radio />} label="5" />
                   </Col>
                </RadioGroup>
+               <Col className="d-flex justify-content-center mt-3">
+                  <BtnBlue type="submit" variant="dark">Enviar</BtnBlue>
+               </Col>
             </FormControl>
          </BackGroundForm>
       </Col>
