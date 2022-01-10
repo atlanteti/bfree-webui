@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Col } from "react-bootstrap";
 import { BackGroundForm, BtnBlue } from "../../styles/CommonStyles";
 import { Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from '@mui/material';
@@ -9,13 +9,23 @@ export function Avalicacao() {
    const [value, setValue] = useState(null);
 
    let query = new URLSearchParams(useLocation().search);
-   console.log(query.get(''))
 
    function getToken() {
       const token = query.get("/");
       return token;
    }
 
+   async function validateToken() {
+      try {
+         const data = await request({
+            method: "get",
+            endpoint: "",
+            headers: { token: getToken() }
+         })
+      } catch (e) {
+         console.log(e);
+      }
+   }
    const handleChange = (event) => {
       setValue(event.target.value);
    };
@@ -26,6 +36,10 @@ export function Avalicacao() {
          endpoint: ''
       })
    }
+
+   useEffect(() => {
+      validateToken()
+   }, [])
 
    return (
       <Col md={{ span: 8, offset: 2 }}>
