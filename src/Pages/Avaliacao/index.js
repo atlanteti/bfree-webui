@@ -30,7 +30,7 @@ export function Avalicacao() {
       setValue(event.target.value);
    };
 
-   const handleSubmit = async (event) => {
+   const handleSubmit = async () => {
       const data = await request({
          method: 'post',
          endpoint: ''
@@ -42,7 +42,7 @@ export function Avalicacao() {
    }, [])
 
    return (
-      <Col md={{ span: 8, offset: 2 }}>
+      <Col md={{ span: 6, offset: 3 }}>
          <BackGroundForm className="d-flex justify-content-center mt-6">
             <FormControl component="fieldset">
                <FormLabel component="legend">
