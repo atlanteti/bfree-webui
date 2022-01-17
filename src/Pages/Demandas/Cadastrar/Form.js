@@ -4,7 +4,7 @@ import { useScroll } from '../../../Hooks';
 import { Button, Col, Row } from 'react-bootstrap';
 import { IoChevronBackCircleSharp } from 'react-icons/io5';
 import { ButtonRow } from '../../../Componentes/ButtonRow';
-import { DatePickerField } from '../../../Componentes/FormikComponents/DatePickerField';
+import { DatePickerField, MeetingDatePickerField } from '../../../Componentes/FormikComponents/DatePickerField';
 import { DefaultValidationTextField } from '../../../Componentes/FormikComponents/DefaultValidationTextField';
 import { ListStatusDemands } from '../../../Componentes/FormikComponents/ListStatusDemands';
 import { ListTypeDemand } from '../../../Componentes/FormikComponents/ListTypeDemand';
@@ -14,11 +14,17 @@ import { StatusHistory } from "../../../Componentes/FormikComponents/StatusHisto
 import { Timestamps } from '../../../Componentes/FormikComponents/Timestamps';
 import { request } from '../../../Services/api';
 import yup from "../../../Services/validations";
-import { BackGroundForm, BtnBlue, TitleRegister } from '../../../styles/CommonStyles';
+import { BackGroundForm, BtnBlue, MainTable, TableData, TableHeader, TableRow, TextCell, TextHeaderCell, TitleRegister } from '../../../styles/CommonStyles';
+import { Table } from '@material-ui/core';
+import InputMask from "react-input-mask";
+import { TextHeaderStatus } from './styles';
+import moment from 'moment';
 export const DemandForm = (props) => {
    const [primaryData, setPrimaryData] = useState()
    const disableFields = (props.paramRoute !== "inserir")
    const [pageTop, scrollToTop] = useScroll()
+   const [freeTime, setFreeTime] = useState()
+   const [contacts, setContacts] = useState()
    const [fields, setFields] = useState(
       {
          dem_title: "",
@@ -30,6 +36,8 @@ export const DemandForm = (props) => {
          dem_sdm_cod: "",
          dem_tdm_cod: "",
          dem_dtaction: "",
+         dem_dtmeet: "",
+         dem_hourmeet: ""
       }
    )
    let method = "post"
@@ -117,6 +125,14 @@ export const DemandForm = (props) => {
                   .nullable()
                   .transform((curr, orig) => orig === '' ? null : curr)
             }),
+         dem_dtmeet: yup.date()
+            .when("dem_sdm_cod", {
+               is: (demandStatus) => (demandStatus > 1),
+               then: yup.date()
+                  .required().nullable()
+                  .transform((curr, orig) => orig === '' ? null : curr)
+            }),
+         dem_hourmeet: yup.string()
       });
    }
    return (
@@ -158,7 +174,7 @@ export const DemandForm = (props) => {
                   }
                }
                enableReinitialize
-            >{({ setFieldValue, handleChange, submitForm }) => (
+            >{({ setFieldValue, handleChange, submitForm, values }) => (
                <Form id="mainForm">
                   <Row>
                      <Col className="mt-3" xs={12} sm={4}>
@@ -245,12 +261,108 @@ export const DemandForm = (props) => {
                      </Col>
                   </Row>
                   <Row>
-                     <Col className="mt-3" xs={12} sm={6} >
+                     <Col className="mt-3" xs={6} sm={3} >
                         <DatePickerField
                            label="Data de Ação"
                            name="dem_dtaction" />
                      </Col>
+                     {values.dem_sdm_cod > 1 ?
+                        <Col className="mt-3" xs={6} sm={6} >
+                           <MeetingDatePickerField
+                              label="Data da Reunião"
+                              name="dem_dtmeet"
+                              onChange={async value => {
+                                 console.log(moment(value).format("YYYY-MM-DD"))
+                                 setFieldValue("dem_dtmeet", value);
+                                 const data = await request({
+                                    method: "get",
+                                    endpoint: "/calendar/get-free-time",
+                                    params: {
+                                       meetingDay: moment(value).format("YYYY-MM-DD")
+                                    }
+                                 });
+                                 setFreeTime(data.data)
+                              }} />
+                        </Col> : null
+                     }
                   </Row>
+                  {freeTime && values.dem_sdm_cod > 1 ?
+                     <><Row>
+                        <Col xs={12}>
+                           <MainTable>
+                              <TableHeader>
+                                 <TextHeaderCell>Horários disponíveis para {moment(values.dem_dtmeet).format("DD/MM/YYYY")}</TextHeaderCell>
+                              </TableHeader>
+                              <TableData>
+                                 {freeTime?.map((interval) => {
+                                    return <TableRow>
+                                       <TextCell>{interval.cal_start}-{interval.cal_end}</TextCell>
+                                    </TableRow>
+                                 })}
+                              </TableData>
+                           </MainTable>
+                        </Col>
+                     </Row>
+                        <Row>
+                           <Col xs={6}>
+                              <InputMask
+                                 id="dem_hourmeet"
+                                 mask={"99:99"}
+                                 maskChar=""
+                                 onChange={(event) => {
+                                    setFieldValue("dem_hourmeet", event.target.value)
+                                 }}
+                              >
+                                 {() => <DefaultValidationTextField
+                                    label="Hora da Reunião"
+                                    name="dem_hourmeet"
+                                    type="text"
+                                    maxLength="6" />}
+                              </InputMask>
+                           </Col>
+                           <Col xs={6}>
+                              <Button variant="dark"
+                                 disabled={values.dem_hourmeet?.length != "5"}
+                                 onClick={async () => {
+                                    const day = moment(values.dem_dtmeet).format("YYYY-MM-DD")
+                                    const startHour = values.dem_hourmeet
+                                    const endHour = addTwoHours(values.dem_hourmeet)
+                                    const dateStart = `${day}T${startHour}`
+                                    const dateEnd = `${day}T${endHour}`
+                                    const data = await request({
+                                       method: "post",
+                                       endpoint: "meetings/save",
+                                       data: {
+                                          "mee_dem_cod": props.primaryId,
+                                          "mee_start": dateStart,
+                                          "mee_end": dateEnd
+                                       }
+                                    })
+                                    if (data.meta.status !== 100) {
+                                       props.showAlert(data.meta)
+                                    }
+                                    else {
+                                       setContacts({
+                                          consult: data.data.usuario.usr_email,
+                                          client: data.data.demand.dem_contact_email,
+                                          time: moment(data.data.mee_start).format("DD/MM/YYYY - HH:MM")
+                                       })
+                                    }
+                                 }}>
+                                 {values.dem_hourmeet?.length == "5" ?
+                                    `Marcar Reunião De ${values.dem_hourmeet} a ${addTwoHours(values.dem_hourmeet)}` : "Escolha um horário"}</Button>
+                           </Col>
+                        </Row>
+                        {contacts ?
+                           <Row>
+                              <Col>
+                                 Reunião marcada! Crie o evento e convide {contacts.consult} e {contacts.client} para a reunião de {contacts.time}
+                              </Col>
+                           </Row>
+                           : null}
+                     </>
+                     : null
+                  }
                   {(props.paramRoute !== "inserir" && primaryData) ?
                      <Timestamps
                         primaryData={primaryData}
@@ -269,3 +381,12 @@ export const DemandForm = (props) => {
 
    );
 };
+
+function addTwoHours(hour) {
+   const newHour = (parseInt(hour.split(":")[0]) + 2) % 24
+   const oldMinute = hour.split(":")[1]
+   if (newHour < 10)
+      return `0${newHour}:${oldMinute}`
+   else
+      return `${newHour}:${oldMinute}`
+}
