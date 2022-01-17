@@ -71,7 +71,7 @@ export const CustomMenu = () => {
          {
             title: <span className="title-arrow">Horários <IoChevronForwardOutline size={17} /></span>,
             itemId: '/horario',
-            elemBefore: () => <IoCalendarOutline />
+            elemBefore: () => <IoCalendarOutline size={27} />
          },
          {
             title: <span className="title-arrow">Relatórios <IoChevronForwardOutline size={17} /></span>,
