@@ -43,27 +43,18 @@ export function Horario() {
             ])
          }
       }
-      if (event.target.name === "cal_end") {
-         if (currentItem.cal_cod === undefined) {
-            if (populate[index].cal_end !== undefined) {
-               return days[days.length - 1].cal_end = event.target.value
-            } else {
-               return setDays([
-                  ...days, {
-                     ...populate[index],
-                     "cal_day_of_week": index,
-                     [event.target.name]: event.target.value
-                  }
-               ])
-            }
+      if (event.target.name === "cal_end" && currentItem.cal_cod === undefined) {
+         if (populate[index].cal_end !== days[days.length - 1].cal_end) {
+            return days[days.length - 1].cal_end = event.target.value
+         } else {
+            return setDays([
+               ...days, {
+                  ...populate[index],
+                  "cal_day_of_week": index,
+                  [event.target.name]: event.target.value
+               }
+            ])
          }
-         setDays([
-            ...days, {
-               ...populate[index],
-               "cal_day_of_week": index,
-               [event.target.name]: event.target.value
-            }
-         ])
       }
       if (currentItem.cal_cod) {
          var filtered = days.filter(function (value) {
@@ -138,7 +129,7 @@ export function Horario() {
          setMessage(data.meta.message)
          setStatus('success')
          setTimeout(() => {
-            setRedirect(true)
+            // setRedirect(true)
          }, 800);
       } else {
          setMessage(data.meta.message)
