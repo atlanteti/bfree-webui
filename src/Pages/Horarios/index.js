@@ -14,8 +14,8 @@ export function Horario() {
    const [populate, setPopulate] = useState([])
    const [message, setMessage] = useState(null)
    const [status, setStatus] = useState("warning")
-   const [showAlert, setShowAlert] = useState(false);
-   const [loadingData, setLoadingData] = useState(true);
+   const [showAlert, setShowAlert] = useState(false)
+   const [loadingData, setLoadingData] = useState(true)
    const [seg, setSeg] = useState(['div1'])
    const [ter, setTer] = useState(['div2'])
    const [qua, setQua] = useState(['div3'])
@@ -262,7 +262,7 @@ export function Horario() {
                                  changeState={setSex}
                               />
                               <Col className="mt-4">
-                                 <BtnBlue variant="dark" type="submit">Salvar</BtnBlue>
+                                 <BtnBlue variant="dark" type="submit" onClick={() => window.scrollTo(0, 0)}>Salvar</BtnBlue>
                               </Col>
                            </>}
                      </BackGroundForm>
