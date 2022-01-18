@@ -4,9 +4,11 @@ import { BackGroundForm, BtnBlue } from "../../styles/CommonStyles";
 import { Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from '@mui/material';
 import { useLocation } from "react-router-dom";
 import { request } from "../../Services/api";
+import moment from "moment"
 
 export function Avalicacao() {
    const [value, setValue] = useState(null);
+   const [currentDate, setCurrentDate] = useState(null)
 
    let query = new URLSearchParams(useLocation().search);
 
@@ -27,10 +29,12 @@ export function Avalicacao() {
       }
    }
    const handleChange = (event) => {
+      setCurrentDate(moment(new Date()).format('YYYY-MM-DD, HH:mm'))
       setValue(event.target.value);
    };
 
    const handleSubmit = async () => {
+      console.log(currentDate)
       const data = await request({
          method: 'post',
          endpoint: ''
