@@ -31,6 +31,8 @@ export function SetHour(props) {
          <MenuItem value={"16:00:00"}>16:00</MenuItem>
          <MenuItem value={"17:00:00"}>17:00</MenuItem>
          <MenuItem value={"18:00:00"}>18:00</MenuItem>
+         <MenuItem value={"19:00:00"}>19:00</MenuItem>
+         <MenuItem value={"20:00:00"}>20:00</MenuItem>
       </ValidationTextField>
    )
 }
