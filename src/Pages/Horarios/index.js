@@ -16,7 +16,6 @@ export function Horario() {
    const [status, setStatus] = useState("warning")
    const [showAlert, setShowAlert] = useState(false);
    const [loadingData, setLoadingData] = useState(true);
-   const [redirect, setRedirect] = useState(false);
    const [seg, setSeg] = useState(['div1'])
    const [ter, setTer] = useState(['div2'])
    const [qua, setQua] = useState(['div3'])
@@ -128,9 +127,6 @@ export function Horario() {
       if (data.meta.status === 100) {
          setMessage(data.meta.message)
          setStatus('success')
-         setTimeout(() => {
-            // setRedirect(true)
-         }, 800);
       } else {
          setMessage(data.meta.message)
       }
@@ -193,9 +189,6 @@ export function Horario() {
       getData()
    }, [])
 
-   if (redirect) {
-      return <Redirect to="/demandas" />
-   }
    return (
       <MainContainer>
          <Helmet title="Cadastro de Horário" />
