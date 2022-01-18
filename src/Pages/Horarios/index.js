@@ -43,17 +43,28 @@ export function Horario() {
          }
       }
       if (event.target.name === "cal_end" && currentItem.cal_cod === undefined) {
-         if (populate[index].cal_end !== days[days.length - 1].cal_end) {
-            return days[days.length - 1].cal_end = event.target.value
-         } else {
-            return setDays([
-               ...days, {
-                  ...populate[index],
-                  "cal_day_of_week": index,
-                  [event.target.name]: event.target.value
+         // tratamento para a criação de novos horarios para o mesmo dia
+         if (populate[index].cal_day_of_week === days[days.length - 1].cal_day_of_week) {
+            if (populate[index].cal_end === days[days.length - 1].cal_end) {
+               if (populate[index].cal_start !== days[days.length - 1].cal_start) {
+                  return setDays([
+                     ...days, {
+                        ...populate[index],
+                        "cal_day_of_week": index,
+                        [event.target.name]: event.target.value
+                     }
+                  ])
                }
-            ])
+               return days[days.length - 1].cal_end = event.target.value
+            }
          }
+         setDays([
+            ...days, {
+               ...populate[index],
+               "cal_day_of_week": index,
+               [event.target.name]: event.target.value
+            }
+         ])
       }
       if (currentItem.cal_cod) {
          var filtered = days.filter(function (value) {
