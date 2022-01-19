@@ -140,7 +140,7 @@ export const CustomMenu = () => {
                items={generateLinks(admin)}
             />
 
-            <div className="absolute bottom-0 w-full">
+            <div className="absolute w-full" style={{ marginTop: 10 }}>
                <Navigation
                   activeItemId={location.pathname}
                   items={[
