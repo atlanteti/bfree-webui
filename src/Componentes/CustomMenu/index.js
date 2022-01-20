@@ -5,7 +5,7 @@ import Icon from 'awesome-react-icons'
 import React, { useContext, useState } from 'react'
 import 'react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css'
 import './styles.css'
-import { CustomMenuCol, TopBarContainerMenu } from '../../styles/CommonStyles'
+import { CustomMenuCol, LastItemMenu, TopBarContainerMenu } from '../../styles/CommonStyles'
 import { Cookies } from "react-cookie";
 import ContextLogin from '../../Context/ContextLogin'
 import { IoChevronForwardOutline, IoStatsChartSharp, IoCalendarOutline } from "react-icons/io5"
@@ -106,12 +106,13 @@ export const CustomMenu = () => {
             return ["/demandas", "/relatorios"].includes(line.itemId)
       }
    }
+   console.log(window.screen.width)
    return (
       <React.Fragment>
          {/* Sidebar Overlay */}
          <div
             onClick={() => setIsSidebarOpen(false)}
-            className={`fixed border-l-0 inset-0 z-17 block transition-opacity bg-white opacity-50 lg:hidden ${isSidebarOpen ? 'block' : 'hidden'
+            className={`fixed inset-0 z-20 block transition-opacity opacity-50 lg:hidden ${isSidebarOpen ? "block" : "hidden"
                }`}
          />
          <div className="btn-position">
@@ -125,7 +126,7 @@ export const CustomMenu = () => {
          </div>
          {/* Sidebar */}
          <CustomMenuCol xs={6} sm={3} md={3} lg={2}
-            className={`fixed inset-y-0 border-l-0 left-0 z-30 overflow-y-auto transition duration-300 ease-out transform translate-x-0 bg-white lg:translate-x-0 lg:static lg:inset-0 ${isSidebarOpen ? 'ease-out translate-x-0' : 'ease-in -translate-x-full'
+            className={`fixed inset-y-0 border-l-0 left-0 z-30 overflow-y-auto transition duration-300 ease-out transform translate-x-0 bg-white lg:translate-x-0 lg:static lg:inset-0 ${isSidebarOpen ? "ease-out translate-x-0" : "ease-in -translate-x-full"
                }`}
          >
             {/* https://github.com/abhijithvijayan/react-minimal-side-navigation */}
@@ -140,7 +141,7 @@ export const CustomMenu = () => {
                items={generateLinks(admin)}
             />
 
-            <div className={admin ? "absolute w-full" : "absolute bottom-0 w-full"} style={{ marginTop: 10 }}>
+            <LastItemMenu className={admin ? "absolute w-full" : "absolute bottom-0 w-full"}>
                <Navigation
                   activeItemId={location.pathname}
                   items={[
@@ -155,7 +156,7 @@ export const CustomMenu = () => {
                      window.Eduzz.Accounts.logout({ env: "staging", redirectTo: window.location.origin + process.env.PUBLIC_URL })
                   }}
                />
-            </div>
+            </LastItemMenu>
          </CustomMenuCol>
       </React.Fragment>
    )
