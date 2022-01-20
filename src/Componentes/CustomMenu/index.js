@@ -106,7 +106,6 @@ export const CustomMenu = () => {
             return ["/demandas", "/relatorios"].includes(line.itemId)
       }
    }
-   console.log(window.screen.width)
    return (
       <React.Fragment>
          {/* Sidebar Overlay */}
