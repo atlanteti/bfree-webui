@@ -35,7 +35,9 @@ export const request = async ({
       result = await axios(config)
       if (result.data.meta.token !== token &&
          window.location.pathname !== "/termos" &&
-         window.location.pathname !== "/") {
+         window.location.pathname !== "/" &&
+         window.location.pathname !== "/avaliacao"
+      ) {
          cookieGetter.set("auth", result.data.meta.token, { path: "/" })
       }
       cookieGetter.set("admin", result.data.meta.journeys.length === 0, { path: "/" })

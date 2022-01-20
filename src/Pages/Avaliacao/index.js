@@ -1,52 +1,63 @@
-import { useEffect, useState } from "react";
-import { Col } from "react-bootstrap";
+import { useState } from "react";
+import { Alert, Col } from "react-bootstrap";
 import { BackGroundForm, BtnBlue } from "../../styles/CommonStyles";
 import { Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from '@mui/material';
 import { useLocation } from "react-router-dom";
-import { request } from "../../Services/api";
-import moment from "moment"
+import axios from "axios";
+import { baseEndpoint } from "../../Services/config";
 
-export function Avalicacao() {
-   const [value, setValue] = useState(null);
-   const [currentDate, setCurrentDate] = useState(null)
+export function Avaliacao() {
+   const [avaliation, setAvaliation] = useState(null);
+   const [showAlert, setShowAlert] = useState(false);
+   const [status, setStatus] = useState("warning");
+   const [message, setMessage] = useState(null);
 
    let query = new URLSearchParams(useLocation().search);
 
    function getToken() {
-      const token = query.get("/");
+      const token = query.get("token");
       return token;
    }
 
-   async function validateToken() {
-      try {
-         const data = await request({
-            method: "get",
-            endpoint: "",
-            headers: { token: getToken() }
-         })
-      } catch (e) {
-         console.log(e);
-      }
-   }
    const handleChange = (event) => {
-      setCurrentDate(moment(new Date()).format('YYYY-MM-DD, HH:mm'))
-      setValue(event.target.value);
+      setAvaliation(event.target.value);
    };
 
-   const handleSubmit = async () => {
-      console.log(currentDate)
-      const data = await request({
-         method: 'post',
-         endpoint: ''
-      })
+   async function handleSubmit() {
+      try {
+         const { data } = await axios({
+            method: 'post',
+            url: `http://${baseEndpoint}/meetings/confirm`,
+            data: {
+               token: getToken(),
+               rate: avaliation,
+            }
+         })
+         if (data.meta.status === 100) {
+            setStatus('success')
+            setMessage("Sua avaliação foi enviada, obrigado!")
+         } else {
+            setStatus('warning')
+            setMessage(data.meta.message)
+         }
+         setShowAlert(true)
+      } catch (error) {
+         console.log(error)
+      }
    }
-
-   useEffect(() => {
-      validateToken()
-   }, [])
 
    return (
       <Col md={{ span: 6, offset: 3 }}>
+         {showAlert &&
+            <Alert
+               variant={status}
+               onClose={() => setShowAlert(false)}
+               dismissible
+               className="mt-6 d-flex justify-content-center"
+            >
+               {message}
+            </Alert>
+         }
          <BackGroundForm className="d-flex justify-content-center mt-6">
             <FormControl component="fieldset">
                <FormLabel component="legend">
@@ -56,8 +67,8 @@ export function Avalicacao() {
                   row
                   aria-label="gender"
                   id="avaliation"
-                  name="cal_avaliation"
-                  value={value}
+                  name="avaliation"
+                  value={avaliation}
                   onChange={handleChange}
                >
                   <Col className="d-flex justify-content-center mt-3">
