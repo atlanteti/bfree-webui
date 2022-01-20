@@ -14,9 +14,8 @@ export function Horario() {
    const [populate, setPopulate] = useState([])
    const [message, setMessage] = useState(null)
    const [status, setStatus] = useState("warning")
-   const [showAlert, setShowAlert] = useState(false);
-   const [loadingData, setLoadingData] = useState(true);
-   const [redirect, setRedirect] = useState(false);
+   const [showAlert, setShowAlert] = useState(false)
+   const [loadingData, setLoadingData] = useState(true)
    const [seg, setSeg] = useState(['div1'])
    const [ter, setTer] = useState(['div2'])
    const [qua, setQua] = useState(['div3'])
@@ -43,18 +42,20 @@ export function Horario() {
             ])
          }
       }
-      if (event.target.name === "cal_end") {
-         if (currentItem.cal_cod === undefined) {
-            if (populate[index].cal_end !== undefined) {
+      if (event.target.name === "cal_end" && currentItem.cal_cod === undefined) {
+         // tratamento para a criação de novos horarios para o mesmo dia
+         if (populate[index].cal_day_of_week === days[days.length - 1].cal_day_of_week) {
+            if (populate[index].cal_end === days[days.length - 1].cal_end) {
+               if (populate[index].cal_start !== days[days.length - 1].cal_start) {
+                  return setDays([
+                     ...days, {
+                        ...populate[index],
+                        "cal_day_of_week": index,
+                        [event.target.name]: event.target.value
+                     }
+                  ])
+               }
                return days[days.length - 1].cal_end = event.target.value
-            } else {
-               return setDays([
-                  ...days, {
-                     ...populate[index],
-                     "cal_day_of_week": index,
-                     [event.target.name]: event.target.value
-                  }
-               ])
             }
          }
          setDays([
@@ -137,9 +138,6 @@ export function Horario() {
       if (data.meta.status === 100) {
          setMessage(data.meta.message)
          setStatus('success')
-         setTimeout(() => {
-            setRedirect(true)
-         }, 800);
       } else {
          setMessage(data.meta.message)
       }
@@ -202,9 +200,6 @@ export function Horario() {
       getData()
    }, [])
 
-   if (redirect) {
-      return <Redirect to="/demandas" />
-   }
    return (
       <MainContainer>
          <Helmet title="Cadastro de Horário" />
@@ -278,7 +273,7 @@ export function Horario() {
                                  changeState={setSex}
                               />
                               <Col className="mt-4">
-                                 <BtnBlue variant="dark" type="submit">Salvar</BtnBlue>
+                                 <BtnBlue variant="dark" type="submit" onClick={() => window.scrollTo(0, 0)}>Salvar</BtnBlue>
                               </Col>
                            </>}
                      </BackGroundForm>
