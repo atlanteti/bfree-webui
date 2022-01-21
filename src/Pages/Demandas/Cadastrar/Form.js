@@ -347,7 +347,7 @@ export const DemandForm = (props) => {
                            </Col>
                            <Col xs={6}>
                               <Button variant="dark"
-                                 disabled={values.dem_hourmeet?.length != "5"}
+                                 disabled={values.dem_hourmeet?.length != "5" || freeTime.length == 0}
                                  onClick={async () => {
                                     const day = moment(values.dem_dtmeet).format("YYYY-MM-DD")
                                     const startHour = values.dem_hourmeet
