@@ -77,9 +77,9 @@ export const CustomMenu = () => {
             elemBefore: () => <RelatoriosIcon />
          },
          {
-            title: <span className="title-arrow">Relatório Gerencial <IoChevronForwardOutline size={17} /></span>,
+            title: <span className="title-arrow">Gerencial <IoChevronForwardOutline size={17} /></span>,
             itemId: '/relatoriogerencial',
-            elemBefore: () => <IoStatsChartSharp size={23} />
+            elemBefore: () => <IoStatsChartSharp size={26} />
          },
          {
             title: <span className="title-arrow">Uploads <IoChevronForwardOutline size={17} /></span>,
@@ -145,7 +145,7 @@ export const CustomMenu = () => {
                   activeItemId={location.pathname}
                   items={[
                      {
-                        title: "Sair",
+                        title: <span className="ml-1">Sair</span>,
                         elemBefore: () => <SairIcon />
                      }
                   ]}
