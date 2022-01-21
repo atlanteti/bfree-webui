@@ -353,6 +353,12 @@ export const TopBarContainer = styled(Col)`
 export const TopBarContainerMenu = styled(TopBarContainer)`
    `
 
+export const LastItemMenu = styled.div`
+   margin-top: 10px;    
+   @media (min-width: 1400px) {
+      bottom: 0;
+   }
+`
 export const DataSearchTitle = styled.p`
    color:#3E516E;
    font-size: 0.8rem;
