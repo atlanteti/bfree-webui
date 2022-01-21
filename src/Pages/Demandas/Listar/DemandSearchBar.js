@@ -1,4 +1,4 @@
-import { Row, Form, Col, Button } from 'react-bootstrap';
+import { Row, Form, Col } from 'react-bootstrap';
 import { React } from 'react';
 import { BtnBlue, ExportContainer, SearchBarBorder } from '../../../styles/CommonStyles';
 import SearchBar from '../../../Componentes/SearchBar/index';
@@ -62,7 +62,7 @@ export class DemandSearchBar extends SearchBar {
                      <ExportContainer onClick={(event) => this.requestExportData(event, "export-file", "Demandas")}>
                         <AiOutlineUpload size={23} className="mr-2" /> EXPORTAR EXCEL
                      </ExportContainer>
-                     <ExportContainer>
+                     <ExportContainer onClick={(event) => this.requestSchedule(event)}>
                         <RiFileList3Line size={23} className="ml-4" /> GERAR LISTA SEMANAL
                      </ExportContainer>
                   </Restricted>

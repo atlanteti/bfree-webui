@@ -45,6 +45,7 @@ export default class ListarDemandas extends ListarPagina {
       return <DemandSearchBar
          filterData={props.filterData}
          exportData={props.exportData}
+         listSchedule={props.listSchedule}
       />
    }
 
