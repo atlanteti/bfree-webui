@@ -312,11 +312,16 @@ export const DemandForm = (props) => {
                                  <TextHeaderCell>Horários disponíveis para {moment(values.dem_dtmeet).format("DD/MM/YYYY")}</TextHeaderCell>
                               </TableHeader>
                               <TableData>
-                                 {freeTime?.map((interval) => {
+                                 {freeTime.length > 0 ? freeTime.map((interval) => {
                                     return <TableRow>
                                        <TextCell>{interval.cal_start}-{interval.cal_end}</TextCell>
                                     </TableRow>
-                                 })}
+                                 }) :
+                                    <TableRow>
+                                       <TextCell>
+                                          Nenhum horário disponível
+                                       </TextCell>
+                                    </TableRow>}
                               </TableData>
                            </MainTable>
                         </Col>
@@ -327,6 +332,7 @@ export const DemandForm = (props) => {
                                  id="dem_hourmeet"
                                  mask={"99:99"}
                                  maskChar=""
+                                 disabled={freeTime.length == 0}
                                  onChange={(event) => {
                                     setFieldValue("dem_hourmeet", event.target.value)
                                  }}
@@ -334,6 +340,7 @@ export const DemandForm = (props) => {
                                  {() => <DefaultValidationTextField
                                     label="Hora da Reunião"
                                     name="dem_hourmeet"
+                                    disabled={freeTime.length == 0}
                                     type="text"
                                     maxLength="6" />}
                               </InputMask>
