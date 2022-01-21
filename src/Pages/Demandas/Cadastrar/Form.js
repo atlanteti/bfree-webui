@@ -12,6 +12,7 @@ import { ListUsers } from '../../../Componentes/FormikComponents/ListUsers';
 import { PhoneInput } from '../../../Componentes/FormikComponents/PhoneInput';
 import { StatusHistory } from "../../../Componentes/FormikComponents/StatusHistory";
 import { Timestamps } from '../../../Componentes/FormikComponents/Timestamps';
+import MeetingCard from "../../../Componentes/MeetingCard"
 import { request } from '../../../Services/api';
 import yup from "../../../Services/validations";
 import { BackGroundForm, BtnBlue, MainTable, TableData, TableHeader, TableRow, TextCell, TextHeaderCell, TitleRegister } from '../../../styles/CommonStyles';
@@ -25,6 +26,7 @@ export const DemandForm = (props) => {
    const [pageTop, scrollToTop] = useScroll()
    const [freeTime, setFreeTime] = useState()
    const [contacts, setContacts] = useState()
+   const [meetingDataRequest, setMeetingData] = useState()
    const [fields, setFields] = useState(
       {
          dem_title: "",
@@ -47,18 +49,35 @@ export const DemandForm = (props) => {
       method = "put"
    }
    useEffect(() => {
+      let tempFields = {}
       const requestData = async () => {
          try {
             const data = await request({
                method: "get",
                endpoint: "demands/procurar/" + props.primaryId,
             });
+            if (data.data.meeting) {
+               const meetingData = await request({
+                  method: "get",
+                  endpoint: "meetings/find/" + data.data.meeting.mee_cod,
+               })
+               data.data["dem_dtmeet"] = meetingData.data.mee_start
+               setMeetingData({
+                  date: moment(meetingData.data.mee_start).format("DD/MM/YYYY"),
+                  start: moment(meetingData.data.mee_start).format("HH:MM"),
+                  end: moment(meetingData.data.mee_end).format("HH:MM"),
+                  client: meetingData.data.demand.dem_contact_email,
+                  consultant: meetingData.data.usuario.usr_email
+               })
+            }
             setPrimaryData(data.data)
-            let tempFields = {}
             for (const key of Object.keys(fields)) {
                if (data.data[key] !== null) {
                   if (key === "dem_dtaction") {
                      tempFields[key] = new Date(data.data[key])
+                  }
+                  else if (key === "dem_dtmeet") {
+                     if (data.data[key]) tempFields[key] = new Date(data.data[key])
                   }
                   else if (key.includes("phone")) {
                      tempFields[key] = data.data[key].replace(/[^\d]g/, "")
@@ -272,11 +291,10 @@ export const DemandForm = (props) => {
                               label="Data da Reunião"
                               name="dem_dtmeet"
                               onChange={async value => {
-                                 console.log(moment(value).format("YYYY-MM-DD"))
                                  setFieldValue("dem_dtmeet", value);
                                  const data = await request({
                                     method: "get",
-                                    endpoint: "/calendar/get-free-time",
+                                    endpoint: "calendar/get-free-time",
                                     params: {
                                        meetingDay: moment(value).format("YYYY-MM-DD")
                                     }
@@ -294,11 +312,16 @@ export const DemandForm = (props) => {
                                  <TextHeaderCell>Horários disponíveis para {moment(values.dem_dtmeet).format("DD/MM/YYYY")}</TextHeaderCell>
                               </TableHeader>
                               <TableData>
-                                 {freeTime?.map((interval) => {
+                                 {freeTime.length > 0 ? freeTime.map((interval) => {
                                     return <TableRow>
                                        <TextCell>{interval.cal_start}-{interval.cal_end}</TextCell>
                                     </TableRow>
-                                 })}
+                                 }) :
+                                    <TableRow>
+                                       <TextCell>
+                                          Nenhum horário disponível
+                                       </TextCell>
+                                    </TableRow>}
                               </TableData>
                            </MainTable>
                         </Col>
@@ -309,6 +332,7 @@ export const DemandForm = (props) => {
                                  id="dem_hourmeet"
                                  mask={"99:99"}
                                  maskChar=""
+                                 disabled={freeTime.length == 0}
                                  onChange={(event) => {
                                     setFieldValue("dem_hourmeet", event.target.value)
                                  }}
@@ -316,23 +340,29 @@ export const DemandForm = (props) => {
                                  {() => <DefaultValidationTextField
                                     label="Hora da Reunião"
                                     name="dem_hourmeet"
+                                    disabled={freeTime.length == 0}
                                     type="text"
                                     maxLength="6" />}
                               </InputMask>
                            </Col>
                            <Col xs={6}>
                               <Button variant="dark"
-                                 disabled={values.dem_hourmeet?.length != "5"}
+                                 disabled={values.dem_hourmeet?.length != "5" || freeTime.length == 0}
                                  onClick={async () => {
                                     const day = moment(values.dem_dtmeet).format("YYYY-MM-DD")
                                     const startHour = values.dem_hourmeet
                                     const endHour = addTwoHours(values.dem_hourmeet)
                                     const dateStart = `${day}T${startHour}`
                                     const dateEnd = `${day}T${endHour}`
+                                    let meetingCode = -1;
+                                    if (meetingDataRequest) {
+                                       meetingCode = primaryData.meeting.mee_cod
+                                    }
                                     const data = await request({
                                        method: "post",
                                        endpoint: "meetings/save",
                                        data: {
+                                          "mee_cod": meetingCode,
                                           "mee_dem_cod": props.primaryId,
                                           "mee_start": dateStart,
                                           "mee_end": dateEnd
@@ -364,9 +394,14 @@ export const DemandForm = (props) => {
                      : null
                   }
                   {(props.paramRoute !== "inserir" && primaryData) ?
-                     <Timestamps
-                        primaryData={primaryData}
-                        fieldSuffix="dem_" /> : null}
+                     <>
+                        <Timestamps
+                           primaryData={primaryData}
+                           fieldSuffix="dem_" />
+                        {meetingDataRequest ?
+                           <MeetingCard meetingData={meetingDataRequest} /> : null}
+                     </>
+                     : null}
                   <Row style={{ marginTop: 25, marginBottom: 31 }}>
                      <Col md={{ offset: 5 }}>
                         <BtnBlue variant="dark" type="submit" onClick={scrollToTop}>Salvar</BtnBlue>
