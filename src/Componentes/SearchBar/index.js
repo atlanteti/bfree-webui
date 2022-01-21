@@ -37,5 +37,11 @@ export default class SearchBar extends Component {
       let data = this.props.exportData({ extraParams: this.state.formData, endpointExport, nameFile })
       return
    }
+
+   requestSchedule(event) {
+      event.preventDefault()
+      let data = this.props.listSchedule()
+      return
+   }
 }
 

@@ -39,6 +39,7 @@ export default class ListarPagina extends Component {
       this.closeModal = this.closeModal.bind(this)
       this.fetchAndSetData = this.fetchAndSetData.bind(this)
       this.searchData = this.searchData.bind(this)
+      this.listSchedule = this.listSchedule.bind(this)
       this.columnSortArray = []
    }
    async searchData({ extraParams }) {
@@ -107,6 +108,14 @@ export default class ListarPagina extends Component {
             })
          }
       })
+   }
+
+   async listSchedule() {
+      const data = await request({
+         method: 'post',
+         endpoint: `meetings/create-list-of-week`,
+      })
+      this.state.responseAlertShow(data.meta)
    }
 
    getAlertCallback(func) { // Investigar se isso precisa ser um estado
@@ -207,7 +216,9 @@ export default class ListarPagina extends Component {
                      </Row>
                      <this.SearchBarCustom
                         filterData={this.searchData}
-                        exportData={this.searchExportData} />
+                        exportData={this.searchExportData}
+                        listSchedule={this.listSchedule}
+                     />
                      <Row noGutters>
                         <MainTable noData={this.state.noData} className={"table-borderless"}
                            style={{ marginBottom: 0 }}>
