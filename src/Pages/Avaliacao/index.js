@@ -5,6 +5,7 @@ import { Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from '@mu
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { baseEndpoint } from "../../Services/config";
+import { Helmet } from "react-helmet";
 
 export function Avaliacao() {
    const [avaliation, setAvaliation] = useState(null);
@@ -48,6 +49,7 @@ export function Avaliacao() {
 
    return (
       <Col md={{ span: 6, offset: 3 }}>
+         <Helmet title="Avaliar Atendimento" />
          {showAlert &&
             <Alert
                variant={status}
