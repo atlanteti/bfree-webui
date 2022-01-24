@@ -13,6 +13,7 @@ export const AuthProvider = ({ children }) => {
    const [user, setUser] = useState(null);
    const [userRoles, setUserRoles] = useState(null);
    const [verifyUser, setVerifyUser] = useState(null);
+   const [userEmail, setUserEmail] = useState(null);
 
    useEffect(() => {
       async function loadStoraged() {
@@ -20,10 +21,13 @@ export const AuthProvider = ({ children }) => {
          const storedPermission = await cookie.get("admin")
          const storedSelect = await cookie.get("user")
          const storedRoles = await cookie.get("userType")
+         const storedEmail = await cookie.get("userShow")
+
          if (storedUser) {
             setAuth(storedUser);
             setUser(storedSelect);
             setUserRoles(storedRoles)
+            setUserEmail(atob(storedEmail))
          }
          if (storedPermission !== undefined) {
             setAdmin(storedPermission === "true") // Tratamento para converter de string para booleano
@@ -46,10 +50,12 @@ export const AuthProvider = ({ children }) => {
             cookie.set('admin', isTheUserAdmin, { path: "/" })
             cookie.set('user', decodeToken(data.data.token)["ID Bfree"], { path: "/" })
             cookie.set('userType', data.meta.journeys, { path: "/" })
+            cookie.set('userShow', btoa(data.data.email), { path: "/" })
             setAuth(data.data.token)
             setAdmin(isTheUserAdmin)
             setUser(decodeToken(data.data.token)["ID Bfree"], { path: "/" })
             setUserRoles(data.meta.journeys)
+            setUserEmail(data.data.email)
          } else if (data.meta.status === 215) {
             cookie.set('term', data.meta.token, { path: "/" })
             setAdmin(isTheUserAdmin)
@@ -65,6 +71,7 @@ export const AuthProvider = ({ children }) => {
          admin: admin,
          userRoles: userRoles,
          user,
+         userEmail,
          verifyUser,
          setVerifyUser,
          setUser,

@@ -343,6 +343,7 @@ export const TopBarContainer = styled(Col)`
    box-shadow: rgba(33, 35, 38, 0.2) 0px 10px 10px -10px;
    color: #0509EE;
    display: flex;
+   justify-content: space-between;
    font-size: 1.5rem;
    align-items: center;
    
