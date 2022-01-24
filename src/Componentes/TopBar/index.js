@@ -1,4 +1,5 @@
 import { useContext } from "react"
+import { Col } from "react-bootstrap"
 import ContextLogin from "../../Context/ContextLogin";
 import { TopBarContainer } from '../../styles/CommonStyles';
 
@@ -8,10 +9,10 @@ export default function TopBar() {
    return (
       <TopBarContainer>
          <div>
-            <span>{" "}</span><strong>B</strong>free
+            <strong>B</strong>free
          </div>
-         <div>
-            {signed && <p>usuário: {userEmail}</p>}
+         <div className="topbar-user">
+            {signed && <p>Usuário: {userEmail}</p>}
          </div>
       </TopBarContainer>
    );

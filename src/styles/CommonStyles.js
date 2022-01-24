@@ -346,11 +346,23 @@ export const TopBarContainer = styled(Col)`
    justify-content: space-between;
    font-size: 1.5rem;
    align-items: center;
-   
-   span{
-      margin-right: 2rem;
+   padding: 0 2rem;
+
+   @media (max-width: 766px) {
+      padding: 0 1rem;
    }
-   `
+
+   .topbar-user{
+      margin-right: 1rem ;
+      @media (min-width: 766px) {
+         font-size: 1rem;
+      }
+      @media (max-width: 767px) {
+         font-size: 0.8rem
+      }
+      color: #546E7A;
+   }
+`
 export const TopBarContainerMenu = styled(TopBarContainer)`
    `
 
