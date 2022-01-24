@@ -343,13 +343,26 @@ export const TopBarContainer = styled(Col)`
    box-shadow: rgba(33, 35, 38, 0.2) 0px 10px 10px -10px;
    color: #0509EE;
    display: flex;
+   justify-content: space-between;
    font-size: 1.5rem;
    align-items: center;
-   
-   span{
-      margin-right: 2rem;
+   padding: 0 2rem;
+
+   @media (max-width: 766px) {
+      padding: 0 1rem;
    }
-   `
+
+   .topbar-user{
+      margin-right: 1rem ;
+      @media (min-width: 766px) {
+         font-size: 1rem;
+      }
+      @media (max-width: 767px) {
+         font-size: 0.8rem
+      }
+      color: #546E7A;
+   }
+`
 export const TopBarContainerMenu = styled(TopBarContainer)`
    margin-bottom: 2rem;
 `

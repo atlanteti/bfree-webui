@@ -130,7 +130,9 @@ export const CustomMenu = () => {
          >
             {/* https://github.com/abhijithvijayan/react-minimal-side-navigation */}
             <TopBarContainerMenu>
-               <span>{" "}</span><strong>B</strong>free
+               <div>
+                  <strong>B</strong>free
+               </div>
             </TopBarContainerMenu>
             <Navigation
                activeItemId={location.pathname.replace("/cadastrar", "").replace("/inserir", "")}
