@@ -56,7 +56,7 @@ export const request = async ({
          window.Eduzz.Accounts.logout({ env: "staging", redirectTo: window.location.origin })
          return
       } else if (result.data.meta.status === 204) {
-         window.location.replace("/demandas")
+         window.location.replace(process.env.PUBLIC_URL + "/demandas")
       }
 
       return result.data
