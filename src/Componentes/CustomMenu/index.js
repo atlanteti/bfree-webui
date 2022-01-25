@@ -8,7 +8,7 @@ import './styles.css'
 import { CustomMenuCol, LastItemMenu, TopBarContainerMenu } from '../../styles/CommonStyles'
 import { Cookies } from "react-cookie";
 import ContextLogin from '../../Context/ContextLogin'
-import { IoChevronForwardOutline, IoStatsChartSharp, IoCalendarOutline } from "react-icons/io5"
+import { IoChevronForwardOutline } from "react-icons/io5"
 import { ReactComponent as EmpresaIcon } from "../../Assets/Icons/icon_empresa.svg"
 import { ReactComponent as JornadaIcon } from "../../Assets/Icons/icon_jornada.svg"
 import { ReactComponent as DemandasIcon } from "../../Assets/Icons/icon_demanda.svg"
@@ -19,6 +19,8 @@ import { ReactComponent as UsuariosIcon } from "../../Assets/Icons/icon_usuarios
 import { ReactComponent as RelatoriosIcon } from "../../Assets/Icons/icon_relatorios.svg"
 import { ReactComponent as UploadsIcon } from "../../Assets/Icons/icon_uploads.svg"
 import { ReactComponent as LogsIcon } from "../../Assets/Icons/icon_logs.svg"
+import { ReactComponent as GerencialIcon } from "../../Assets/Icons/icon_gerencial.svg"
+import { ReactComponent as CalendariolIcon } from "../../Assets/Icons/icon_calendario.svg"
 import { ReactComponent as SairIcon } from "../../Assets/Icons/icon_sair.svg"
 
 
@@ -69,7 +71,7 @@ export const CustomMenu = () => {
          {
             title: <span className="title-arrow">Horários <IoChevronForwardOutline size={17} /></span>,
             itemId: '/horario',
-            elemBefore: () => <IoCalendarOutline size={27} />
+            elemBefore: () => <CalendariolIcon />
          },
          {
             title: <span className="title-arrow">Relatórios <IoChevronForwardOutline size={17} /></span>,
@@ -79,7 +81,7 @@ export const CustomMenu = () => {
          {
             title: <span className="title-arrow">Gerencial <IoChevronForwardOutline size={17} /></span>,
             itemId: '/relatoriogerencial',
-            elemBefore: () => <IoStatsChartSharp size={26} />
+            elemBefore: () => <GerencialIcon />
          },
          {
             title: <span className="title-arrow">Uploads <IoChevronForwardOutline size={17} /></span>,
@@ -147,7 +149,7 @@ export const CustomMenu = () => {
                   activeItemId={location.pathname}
                   items={[
                      {
-                        title: <span className="ml-1">Sair</span>,
+                        title: <span>Sair</span>,
                         elemBefore: () => <SairIcon />
                      }
                   ]}
