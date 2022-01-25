@@ -127,7 +127,7 @@ export const CustomMenu = () => {
          </div>
          {/* Sidebar */}
          <CustomMenuCol xs={6} sm={3} md={3} lg={2}
-            className={`fixed inset-y-0 border-l-0 left-0 z-30 overflow-y-auto transition duration-300 ease-out transform translate-x-0 bg-white lg:translate-x-0 lg:static lg:inset-0 ${isSidebarOpen ? "ease-out translate-x-0" : "ease-in -translate-x-full"
+            className={`fixed styleScroll inset-y-0 border-l-0 left-0 z-30 overflow-y-auto transition duration-300 ease-out transform translate-x-0 bg-white lg:translate-x-0 lg:static lg:inset-0 ${isSidebarOpen ? "ease-out translate-x-0" : "ease-in -translate-x-full"
                }`}
          >
             {/* https://github.com/abhijithvijayan/react-minimal-side-navigation */}

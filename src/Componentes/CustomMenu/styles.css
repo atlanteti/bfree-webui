@@ -39,3 +39,20 @@ span > span {
 .side-navigation-panel-select-option-selected > span > span:hover {
    color:#fff !important
 }
+
+::-webkit-scrollbar {
+   width: 6px;
+   height: 10px;
+}
+::-webkit-scrollbar-track {
+   background: #fff;       
+}
+::-webkit-scrollbar-thumb {
+   background-color: rgba(0,0,0,0.1);   
+   border-radius: 20px;      
+}
+.styleScroll {
+   /*estilização para firefox*/
+   scrollbar-width: thin;
+   scrollbar-color: rgba(0,0,0,0.1) #fff;
+}
