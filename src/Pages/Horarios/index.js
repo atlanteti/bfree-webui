@@ -44,18 +44,20 @@ export function Horario() {
       }
       if (event.target.name === "cal_end" && currentItem.cal_cod === undefined) {
          // tratamento para a criação de novos horarios para o mesmo dia
-         if (populate[index].cal_day_of_week === days[days.length - 1].cal_day_of_week) {
-            if (populate[index].cal_end === days[days.length - 1].cal_end) {
-               if (populate[index].cal_start !== days[days.length - 1].cal_start) {
-                  return setDays([
-                     ...days, {
-                        ...populate[index],
-                        "cal_day_of_week": index,
-                        [event.target.name]: event.target.value
-                     }
-                  ])
+         if (days[days.length - 1] !== undefined) {
+            if (populate[index].cal_day_of_week === days[days.length - 1].cal_day_of_week) {
+               if (populate[index].cal_end === days[days.length - 1].cal_end) {
+                  if (populate[index].cal_start !== days[days.length - 1].cal_start) {
+                     return setDays([
+                        ...days, {
+                           ...populate[index],
+                           "cal_day_of_week": index,
+                           [event.target.name]: event.target.value
+                        }
+                     ])
+                  }
+                  return days[days.length - 1].cal_end = event.target.value
                }
-               return days[days.length - 1].cal_end = event.target.value
             }
          }
          setDays([
