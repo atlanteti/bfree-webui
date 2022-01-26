@@ -58,6 +58,8 @@ export const AuthProvider = ({ children }) => {
             setUserEmail(data.data.email)
          } else if (data.meta.status === 215) {
             cookie.set('term', data.meta.token, { path: "/" })
+            cookie.set('userType', data.meta.journeys, { path: "/" })
+            setUserRoles(data.meta.journeys)
             setAdmin(isTheUserAdmin)
          }
       } catch (error) {
