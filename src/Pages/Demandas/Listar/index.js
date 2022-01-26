@@ -71,7 +71,7 @@ export default class ListarDemandas extends ListarPagina {
          <TextHeaderCell>
             <SortColumn
                label="Hora da Reunião"
-               attribute="dem_contact_email"
+               attribute="dem_dtmeeting"
                sortCallback={props.sortCallback}
                receiver={props.subscribe}
                wipeAll={props.wipeAll} />
