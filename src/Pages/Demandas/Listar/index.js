@@ -16,6 +16,7 @@ import { MdUndo } from 'react-icons/md'
 import IconOverlayMessage from '../../../Componentes/IconOverlayMessage'
 import ExclusionModal from '../../../Componentes/ExclusionModal'
 import { Link } from 'react-router-dom'
+import moment from 'moment'
 
 export default class ListarDemandas extends ListarPagina {
    async deleteRecord(id) {
@@ -69,7 +70,7 @@ export default class ListarDemandas extends ListarPagina {
          </TextHeaderCell>
          <TextHeaderCell>
             <SortColumn
-               label="E-mail de Contato"
+               label="Hora da Reunião"
                attribute="dem_contact_email"
                sortCallback={props.sortCallback}
                receiver={props.subscribe}
@@ -131,7 +132,10 @@ export default class ListarDemandas extends ListarPagina {
    createRecord(demanda) {
       return <TableRow key={demanda.dem_cod}>
          <TextCell data-title="Título">{demanda.dem_title}</TextCell>
-         <TextCell data-title="E-mail de Contato">{demanda.dem_contact_email}</TextCell>
+         {demanda.meeting !== null ?
+            <TextCell data-title="Hora da Reunião">{moment(demanda.meeting.mee_start).format("HH:mm")}</TextCell>
+            : <TextCell data-title="Hora da Reunião">-</TextCell>
+         }
          <TextCell data-title="Usuário">{demanda.user.usr_name}</TextCell>
          <TextCell data-title="Status">{demanda.statusDemand.sdm_name}</TextCell>
          <TextCell data-title="Tipo da Demanda">{demanda.typeDemand.tdm_name}</TextCell>
