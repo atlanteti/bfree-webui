@@ -118,7 +118,7 @@ export const DemandForm = (props) => {
       dem_tdm_cod: yup.number().required(),                            //Disabled in edit
       dem_dtaction: yup.date()
          .when("dem_sdm_cod", {
-            is: (demandStatus) => (demandStatus > 1 && demandStatus < 5),
+            is: (demandStatus) => (demandStatus > 1),
             then: yup.date()
                .required()
                .nullable()
@@ -134,7 +134,7 @@ export const DemandForm = (props) => {
          dem_sdm_cod: yup.number().required(),
          dem_dtaction: yup.date()
             .when("dem_sdm_cod", {
-               is: (demandStatus) => (demandStatus > 1 && demandStatus < 5),
+               is: (demandStatus) => (demandStatus > 1),
                then: yup.date()
                   .required()
                   .nullable()
@@ -145,7 +145,7 @@ export const DemandForm = (props) => {
             }),
          dem_dtmeet: yup.date()
             .when("dem_sdm_cod", {
-               is: (demandStatus) => (demandStatus > 1),
+               is: (demandStatus) => (demandStatus > 1 && demandStatus < 5),
                then: yup.date()
                   .required().nullable()
                   .transform((curr, orig) => orig === '' ? null : curr)
@@ -284,7 +284,7 @@ export const DemandForm = (props) => {
                            label="Data de Ação"
                            name="dem_dtaction" />
                      </Col>
-                     {values.dem_sdm_cod > 1 ?
+                     {values.dem_sdm_cod !== 1 && values.dem_sdm_cod !== 5 ?
                         <Col className="mt-3" xs={6} sm={6} >
                            <MeetingDatePickerField
                               label="Data da Reunião"
