@@ -64,8 +64,8 @@ export const DemandForm = (props) => {
                data.data["dem_dtmeet"] = meetingData.data.mee_start
                setMeetingData({
                   date: moment(meetingData.data.mee_start).format("DD/MM/YYYY"),
-                  start: moment(meetingData.data.mee_start).format("HH:MM"),
-                  end: moment(meetingData.data.mee_end).format("HH:MM"),
+                  start: moment(meetingData.data.mee_start).format("HH:mm"),
+                  end: moment(meetingData.data.mee_end).format("HH:mm"),
                   client: meetingData.data.demand.dem_contact_email,
                   consultant: meetingData.data.usuario.usr_email
                })
@@ -375,7 +375,7 @@ export const DemandForm = (props) => {
                                        setContacts({
                                           consult: data.data.usuario.usr_email,
                                           client: data.data.demand.dem_contact_email,
-                                          time: moment(data.data.mee_start).format("DD/MM/YYYY - HH:MM")
+                                          time: moment(data.data.mee_start).format("DD/MM/YYYY - HH:mm")
                                        })
                                     }
                                  }}>
