@@ -16,9 +16,7 @@ import MeetingCard from "../../../Componentes/MeetingCard"
 import { request } from '../../../Services/api';
 import yup from "../../../Services/validations";
 import { BackGroundForm, BtnBlue, MainTable, TableData, TableHeader, TableRow, TextCell, TextHeaderCell, TitleRegister } from '../../../styles/CommonStyles';
-import { Table } from '@material-ui/core';
 import InputMask from "react-input-mask";
-import { TextHeaderStatus } from './styles';
 import moment from 'moment';
 export const DemandForm = (props) => {
    const [primaryData, setPrimaryData] = useState()
@@ -26,6 +24,7 @@ export const DemandForm = (props) => {
    const [pageTop, scrollToTop] = useScroll()
    const [freeTime, setFreeTime] = useState()
    const [contacts, setContacts] = useState()
+   const [disableMeeting, setDisableMeeting] = useState(false);
    const [meetingDataRequest, setMeetingData] = useState()
    const [fields, setFields] = useState(
       {
@@ -290,6 +289,7 @@ export const DemandForm = (props) => {
                            <MeetingDatePickerField
                               label="Data da Reunião"
                               name="dem_dtmeet"
+                              disabled={disableMeeting}
                               onChange={async value => {
                                  setFieldValue("dem_dtmeet", value);
                                  const data = await request({
@@ -377,6 +377,7 @@ export const DemandForm = (props) => {
                                           client: data.data.demand.dem_contact_email,
                                           time: moment(data.data.mee_start).format("DD/MM/YYYY - HH:mm")
                                        })
+                                       setDisableMeeting(true)
                                     }
                                  }}>
                                  {values.dem_hourmeet?.length == "5" ?
@@ -398,8 +399,13 @@ export const DemandForm = (props) => {
                         <Timestamps
                            primaryData={primaryData}
                            fieldSuffix="dem_" />
-                        {meetingDataRequest ?
-                           <MeetingCard meetingData={meetingDataRequest} /> : null}
+                        {meetingDataRequest ? (
+                           <>
+                              {setDisableMeeting(true)}
+                              <MeetingCard meetingData={meetingDataRequest} />
+                           </>
+                        )
+                           : null}
                      </>
                      : null}
                   <Row style={{ marginTop: 25, marginBottom: 31 }}>
