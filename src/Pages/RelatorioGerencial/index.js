@@ -107,7 +107,6 @@ export function RelatorioGerencial() {
          <Col style={{ paddingBottom: 30 }}>
             <Col md={{ offset: 2, span: 10 }}>
                <ButtonRow
-                  cancelButton={<Button variant="light" href="/demandas"><IoChevronBackCircleSharp size={30} color="#BFCADD" /></Button>}
                   titlePage={<Title>Relatório Gerencial</Title>}
                />
                <ResultadoSearchBar
