@@ -70,7 +70,7 @@ export default class ListarDemandas extends ListarPagina {
          </TextHeaderCell>
          <TextHeaderCell>
             <SortColumn
-               label="Hora da Reunião"
+               label="Reunião"
                attribute="dem_dtmeeting"
                sortCallback={props.sortCallback}
                receiver={props.subscribe}
@@ -133,8 +133,8 @@ export default class ListarDemandas extends ListarPagina {
       return <TableRow key={demanda.dem_cod}>
          <TextCell data-title="Título">{demanda.dem_title}</TextCell>
          {demanda.meeting !== null ?
-            <TextCell data-title="Hora da Reunião">{moment(demanda.meeting.mee_start).format("HH:mm")}</TextCell>
-            : <TextCell data-title="Hora da Reunião">-</TextCell>
+            <TextCell data-title="Reunião">{moment(demanda.meeting.mee_start).format("DD/MM - HH:mm")}</TextCell>
+            : <TextCell data-title="Reunião">-</TextCell>
          }
          <TextCell data-title="Usuário">{demanda.user.usr_name}</TextCell>
          <TextCell data-title="Status">{demanda.statusDemand.sdm_name}</TextCell>
