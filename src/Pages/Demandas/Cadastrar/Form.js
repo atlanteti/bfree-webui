@@ -399,8 +399,13 @@ export const DemandForm = (props) => {
                         <Timestamps
                            primaryData={primaryData}
                            fieldSuffix="dem_" />
-                        {meetingDataRequest ?
-                           <MeetingCard meetingData={meetingDataRequest} /> : null}
+                        {meetingDataRequest ? (
+                           <>
+                              {setDisableMeeting(true)}
+                              <MeetingCard meetingData={meetingDataRequest} />
+                           </>
+                        )
+                           : null}
                      </>
                      : null}
                   <Row style={{ marginTop: 25, marginBottom: 31 }}>
