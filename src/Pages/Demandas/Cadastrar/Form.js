@@ -291,7 +291,7 @@ export const DemandForm = (props) => {
                               label="Data da Reunião"
                               name="dem_dtmeet"
                               disabled={userRoles?.includes("CONSULTOR")}
-                              onChange={async value => {
+                              onChange={!userRoles?.includes("CONSULTOR") && (async value => {
                                  setFieldValue("dem_dtmeet", value);
                                  const data = await request({
                                     method: "get",
@@ -301,7 +301,7 @@ export const DemandForm = (props) => {
                                     }
                                  });
                                  setFreeTime(data.data)
-                              }} />
+                              })} />
                         </Col> : null
                      }
                   </Row>
