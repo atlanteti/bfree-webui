@@ -1,5 +1,5 @@
 import { Form, Formik } from 'formik';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useScroll } from '../../../Hooks';
 import { Button, Col, Row } from 'react-bootstrap';
 import { IoChevronBackCircleSharp } from 'react-icons/io5';
@@ -17,14 +17,15 @@ import { request } from '../../../Services/api';
 import yup from "../../../Services/validations";
 import { BackGroundForm, BtnBlue, MainTable, TableData, TableHeader, TableRow, TextCell, TextHeaderCell, TitleRegister } from '../../../styles/CommonStyles';
 import InputMask from "react-input-mask";
+import ContextLogin from "../../../Context/ContextLogin"
 import moment from 'moment';
 export const DemandForm = (props) => {
+   const { userRoles } = useContext(ContextLogin)
    const [primaryData, setPrimaryData] = useState()
    const disableFields = (props.paramRoute !== "inserir")
    const [pageTop, scrollToTop] = useScroll()
    const [freeTime, setFreeTime] = useState()
    const [contacts, setContacts] = useState()
-   const [disableMeeting, setDisableMeeting] = useState(false);
    const [meetingDataRequest, setMeetingData] = useState()
    const [fields, setFields] = useState(
       {
@@ -289,8 +290,8 @@ export const DemandForm = (props) => {
                            <MeetingDatePickerField
                               label="Data da Reunião"
                               name="dem_dtmeet"
-                              disabled={disableMeeting}
-                              onChange={async value => {
+                              disabled={userRoles?.includes("CONSULTOR") || values.dem_sdm_cod > 2}
+                              onChange={!userRoles?.includes("CONSULTOR") && (async value => {
                                  setFieldValue("dem_dtmeet", value);
                                  const data = await request({
                                     method: "get",
@@ -300,7 +301,7 @@ export const DemandForm = (props) => {
                                     }
                                  });
                                  setFreeTime(data.data)
-                              }} />
+                              })} />
                         </Col> : null
                      }
                   </Row>
@@ -377,7 +378,6 @@ export const DemandForm = (props) => {
                                           client: data.data.demand.dem_contact_email,
                                           time: moment(data.data.mee_start).format("DD/MM/YYYY - HH:mm")
                                        })
-                                       setDisableMeeting(true)
                                     }
                                  }}>
                                  {values.dem_hourmeet?.length == "5" ?
@@ -399,12 +399,8 @@ export const DemandForm = (props) => {
                         <Timestamps
                            primaryData={primaryData}
                            fieldSuffix="dem_" />
-                        {meetingDataRequest ? (
-                           <>
-                              {setDisableMeeting(true)}
-                              <MeetingCard meetingData={meetingDataRequest} />
-                           </>
-                        )
+                        {meetingDataRequest ?
+                           <MeetingCard meetingData={meetingDataRequest} />
                            : null}
                      </>
                      : null}
