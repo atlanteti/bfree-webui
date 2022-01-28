@@ -1,5 +1,4 @@
 import { Button, Modal } from 'react-bootstrap'
-// import SearchBar from '../../../Componentes/SearchBar'
 import { request } from '../../../Services/api'
 import ListarPagina, { PageHeaderCustomComponent } from '../../../Componentes/ListData'
 import {
@@ -12,11 +11,13 @@ import { DemandSearchBar } from './DemandSearchBar'
 import Restricted from '../../../Context/AccessPermission'
 import { ReactComponent as EditIcon } from '../../../Assets/Icons/icon_editar.svg'
 import { ReactComponent as DeleteIcon } from '../../../Assets/Icons/icon_delete.svg'
+import { ReactComponent as GreenCheck } from "../../../Assets/Icons/icon_check.svg"
 import { MdUndo } from 'react-icons/md'
 import IconOverlayMessage from '../../../Componentes/IconOverlayMessage'
 import ExclusionModal from '../../../Componentes/ExclusionModal'
 import { Link } from 'react-router-dom'
 import moment from 'moment'
+import NoDataComp from '../../../Componentes/NoDataComp'
 
 export default class ListarDemandas extends ListarPagina {
    async deleteRecord(id) {
@@ -92,7 +93,14 @@ export default class ListarDemandas extends ListarPagina {
                receiver={props.subscribe}
                wipeAll={props.wipeAll} />
          </TextHeaderCell>
-
+         <TextHeaderCell scope="col">
+            <SortColumn
+               label="Avaliada"
+               attribute="dem_meeting_has_been_confirmed"
+               sortCallback={props.sortCallback}
+               receiver={props.subscribe}
+               wipeAll={props.wipeAll} />
+         </TextHeaderCell>
          <TextHeaderCell scope="col">
             <SortColumn
                label="Tipo da Demanda"
@@ -138,6 +146,7 @@ export default class ListarDemandas extends ListarPagina {
          }
          <TextCell data-title="Usuário">{demanda.user.usr_name}</TextCell>
          <TextCell data-title="Status">{demanda.statusDemand.sdm_name}</TextCell>
+         <TextCell data-title="Avaliada">{demanda.dem_meeting_has_been_confirmed ? <GreenCheck /> : <NoDataComp />}</TextCell>
          <TextCell data-title="Tipo da Demanda">{demanda.typeDemand.tdm_name}</TextCell>
          <ActionCell data-title="Ações">
             <Link to={`/editar/demandas/${demanda.dem_cod}/alterar`}>
