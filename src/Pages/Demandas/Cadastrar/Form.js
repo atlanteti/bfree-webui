@@ -290,7 +290,7 @@ export const DemandForm = (props) => {
                            <MeetingDatePickerField
                               label="Data da Reunião"
                               name="dem_dtmeet"
-                              disabled={userRoles?.includes("CONSULTOR")}
+                              disabled={userRoles?.includes("CONSULTOR") || values.dem_sdm_cod > 2}
                               onChange={!userRoles?.includes("CONSULTOR") && (async value => {
                                  setFieldValue("dem_dtmeet", value);
                                  const data = await request({
