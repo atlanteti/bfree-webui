@@ -286,7 +286,7 @@ export const DemandForm = (props) => {
                            name="dem_dtaction" />
                      </Col>
                      {values.dem_sdm_cod !== 1 && values.dem_sdm_cod !== 5 ?
-                        <Col className="mt-3" xs={6} sm={6} >
+                        <Col className="mt-3" xs={6} sm={3} >
                            <MeetingDatePickerField
                               label="Data da Reunião"
                               name="dem_dtmeet"
@@ -304,6 +304,14 @@ export const DemandForm = (props) => {
                               })} />
                         </Col> : null
                      }
+                  </Row>
+                  <Row className="d-flex justify-content-center mt-3 mb-3">
+                     <Col className="mt-3" xs={6} sm={4}>
+                        <Button variant="secondary">Transferir Demanda</Button>
+                     </Col>
+                     <Col className="mt-3" xs={6} sm={3}>
+                        <Button variant="warning">Não compareceu</Button>
+                     </Col>
                   </Row>
                   {freeTime && values.dem_sdm_cod > 1 ?
                      <><Row>
