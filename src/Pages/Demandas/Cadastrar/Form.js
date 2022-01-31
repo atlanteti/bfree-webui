@@ -27,6 +27,7 @@ export const DemandForm = (props) => {
    const [freeTime, setFreeTime] = useState()
    const [contacts, setContacts] = useState()
    const [meetingDataRequest, setMeetingData] = useState()
+   const disableDateMeeting = userRoles?.length !== 2 && userRoles?.includes("CONSULTOR")
    const [fields, setFields] = useState(
       {
          dem_title: "",
@@ -294,8 +295,8 @@ export const DemandForm = (props) => {
                            <MeetingDatePickerField
                               label="Data da Reunião"
                               name="dem_dtmeet"
-                              disabled={userRoles?.includes("CONSULTOR") || values.dem_sdm_cod > 2}
-                              onChange={!userRoles?.includes("CONSULTOR") && (async value => {
+                              disabled={disableDateMeeting || values.dem_sdm_cod > 2}
+                              onChange={!disableDateMeeting && (async value => {
                                  setFieldValue("dem_dtmeet", value);
                                  if (values.dem_sdm_cod === 2 && values.dem_dtaction !== '') {
                                     setFieldValue("dem_dtaction", new Date())
