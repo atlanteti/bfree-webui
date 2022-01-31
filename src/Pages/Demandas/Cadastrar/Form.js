@@ -27,7 +27,7 @@ export const DemandForm = (props) => {
    const [freeTime, setFreeTime] = useState()
    const [contacts, setContacts] = useState()
    const [meetingDataRequest, setMeetingData] = useState()
-   const verifyStatus = userRoles?.length !== 2 && userRoles?.includes("CONSULTOR")
+   const disableDateMeeting = userRoles?.length !== 2 && userRoles?.includes("CONSULTOR")
    const [fields, setFields] = useState(
       {
          dem_title: "",
@@ -291,8 +291,8 @@ export const DemandForm = (props) => {
                            <MeetingDatePickerField
                               label="Data da Reunião"
                               name="dem_dtmeet"
-                              disabled={verifyStatus || values.dem_sdm_cod > 2}
-                              onChange={!verifyStatus && (async value => {
+                              disabled={disableDateMeeting || values.dem_sdm_cod > 2}
+                              onChange={!disableDateMeeting && (async value => {
                                  setFieldValue("dem_dtmeet", value);
                                  const data = await request({
                                     method: "get",
