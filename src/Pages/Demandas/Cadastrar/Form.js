@@ -297,6 +297,9 @@ export const DemandForm = (props) => {
                               disabled={userRoles?.includes("CONSULTOR") || values.dem_sdm_cod > 2}
                               onChange={!userRoles?.includes("CONSULTOR") && (async value => {
                                  setFieldValue("dem_dtmeet", value);
+                                 if (values.dem_sdm_cod === 2 && values.dem_dtaction !== '') {
+                                    setFieldValue("dem_dtaction", new Date())
+                                 }
                                  const data = await request({
                                     method: "get",
                                     endpoint: "calendar/get-free-time",
