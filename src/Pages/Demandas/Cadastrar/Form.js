@@ -294,7 +294,7 @@ export const DemandForm = (props) => {
                            name="dem_dtaction" />
                      </Col>
                      {values.dem_sdm_cod !== 1 && values.dem_sdm_cod !== 5 ?
-                        <Col className="mt-3" xs={6} sm={3} >
+                        <Col className="mt-3" xs={6} sm={6} >
                            <MeetingDatePickerField
                               label="Data da Reunião"
                               name="dem_dtmeet"
@@ -327,6 +327,7 @@ export const DemandForm = (props) => {
                         </Col>
                      </Row>
                   }
+                  {primaryData?.dem_cancel_reason && <p><strong>Motivo do cancelamento:</strong> {primaryData?.dem_cancel_reason}</p>}
                   {freeTime && values.dem_sdm_cod > 1 ?
                      <><Row>
                         <Col xs={12}>
