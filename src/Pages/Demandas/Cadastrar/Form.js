@@ -48,6 +48,13 @@ export const DemandForm = (props) => {
       postEndpoint = "demands/alterar/" + props.primaryId
       method = "put"
    }
+   async function revertStatusMeeting(endPoint) {
+      const data = await request({
+         method: "post",
+         endpoint: `meetings/${endPoint}`,
+         params: { dem_cod: primaryData.dem_cod }
+      })
+   }
    useEffect(() => {
       let tempFields = {}
       const requestData = async () => {
@@ -307,10 +314,26 @@ export const DemandForm = (props) => {
                   </Row>
                   <Row className="d-flex justify-content-center mt-3 mb-3">
                      <Col className="mt-3" xs={6} sm={4}>
-                        <Button variant="dark">Transferir Demanda</Button>
+                        <Button variant="dark" onClick={() => revertStatusMeeting("transfer")}>
+                           Transferir Demanda
+                        </Button>
                      </Col>
                      <Col className="mt-3" xs={6} sm={3}>
-                        <Button variant="secondary">Não compareceu</Button>
+                        <Button variant="secondary" onClick={() => revertStatusMeeting("revert")}>
+                           Não compareceu
+                        </Button>
+                     </Col>
+                  </Row>
+                  <Row>
+                     <Col className="mt-3">
+                        <DefaultValidationTextField
+                           label="Motivo do cancelamento"
+                           name="dem_comments"
+                           type="text"
+                           maxLength="300"
+                           multiline
+                           rows={2}
+                        />
                      </Col>
                   </Row>
                   {freeTime && values.dem_sdm_cod > 1 ?
