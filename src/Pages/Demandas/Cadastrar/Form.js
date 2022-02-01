@@ -264,6 +264,8 @@ export const DemandForm = (props) => {
                                  let matches = primaryData.demandStatusHistories.filter((v) => event.target.value == v.dsh_sdm_cod)
                                  if (matches.length >= 1) {
                                     setFieldValue("dem_dtaction", new Date(matches[0].dsh_dtaction))
+                                 } else if (event.target.value === 2 || event.target.value === 3) {
+                                    setFieldValue("dem_dtaction", new Date())
                                  } else {
                                     setFieldValue("dem_dtaction", "")
                                  }
@@ -284,7 +286,9 @@ export const DemandForm = (props) => {
                      <Col className="mt-3" xs={6} sm={3} >
                         <DatePickerField
                            label="Data de Ação"
-                           name="dem_dtaction" />
+                           name="dem_dtaction"
+                           disabled={userRoles?.length !== 0 && (values.dem_sdm_cod === 2 || values.dem_sdm_cod === 3)}
+                        />
                      </Col>
                      {values.dem_sdm_cod !== 1 && values.dem_sdm_cod !== 5 ?
                         <Col className="mt-3" xs={6} sm={6} >
@@ -294,6 +298,9 @@ export const DemandForm = (props) => {
                               disabled={disableDateMeeting || values.dem_sdm_cod > 2}
                               onChange={!disableDateMeeting && (async value => {
                                  setFieldValue("dem_dtmeet", value);
+                                 if (values.dem_sdm_cod === 2 && values.dem_dtaction !== '') {
+                                    setFieldValue("dem_dtaction", new Date())
+                                 }
                                  const data = await request({
                                     method: "get",
                                     endpoint: "calendar/get-free-time",
