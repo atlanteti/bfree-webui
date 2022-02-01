@@ -314,7 +314,10 @@ export const DemandForm = (props) => {
                         </Col> : null
                      }
                   </Row>
-                  {(values.dem_sdm_cod === 2 && meetingDataRequest) &&
+                  {(values.dem_sdm_cod === 2 &&
+                     meetingDataRequest &&
+                     userRoles?.length !== 2 &&
+                     !userRoles?.includes("PRÉ-VENDA")) &&
                      <Row className="d-flex justify-content-center mt-3 mb-3">
                         <Col className="mt-3" xs={6} sm={4}>
                            <Button variant="dark" onClick={() => revertStatusMeeting("transfer")}>
