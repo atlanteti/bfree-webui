@@ -220,7 +220,8 @@ export default class ListarPagina extends Component {
                         listSchedule={this.listSchedule}
                      />
                      <Row noGutters>
-                        <MainTable noData={this.state.noData} className={"table-borderless table-responsive"}
+                        <MainTable noData={this.state.noData}
+                           className={`table-borderless ${(!this.state.noData && window.screen.width < 425) && 'table-responsive'}`}
                            style={{ marginBottom: 0 }}>
                            {this.state.responseData === null
                               ?
