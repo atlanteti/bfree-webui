@@ -142,8 +142,8 @@ export default class ListarRelatorio extends ListarPagina {
       return <MainContainer>
          <MainRow>
             {/* Layout usado nesse componente deve ser repetido em custommenucol equivalente dentro do arquivo do componente */}
-            <CustomMenuCol lg={2}><CustomMenu /></CustomMenuCol>
-            <Col>
+            <CustomMenuCol><CustomMenu /></CustomMenuCol>
+            <Col lg={10}>
                <Col>
                   <Container fluid>
                      <CustomAlert

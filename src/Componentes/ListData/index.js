@@ -203,10 +203,10 @@ export default class ListarPagina extends Component {
       return <MainContainer>
          <MainRow>
             {/* Layout usado nesse componente deve ser repetido em custommenucol equivalente dentro do arquivo do componente */}
-            <CustomMenuCol lg={2}><CustomMenu /></CustomMenuCol>
-            <Col lg={{ span: 10, offset: 2 }}>
+            <CustomMenuCol><CustomMenu /></CustomMenuCol>
+            <Col lg={10}>
                <Col>
-                  <Container fluid className="mt-3">
+                  <Container fluid>
                      <CustomAlert
                         showAlertCallback={this.getAlertCallback.bind(this)}
                         redirectCallback={this.redirectCallback.bind(this)}
