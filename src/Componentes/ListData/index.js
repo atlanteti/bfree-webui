@@ -221,7 +221,8 @@ export default class ListarPagina extends Component {
                      />
                      <Row noGutters>
                         <MainTable noData={this.state.noData}
-                           className={`table-borderless ${(!this.state.noData && window.screen.width < 425) && 'table-responsive'}`}
+                           widthTable={window.screen.width}
+                           className={`table-borderless`}
                            style={{ marginBottom: 0 }}>
                            {this.state.responseData === null
                               ?

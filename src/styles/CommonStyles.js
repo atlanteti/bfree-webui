@@ -197,6 +197,7 @@ export const Table = styled.table`
 export const MainTable = styled(Table)`
    ${(props) => props.noData && `
       margin-bottom: 0`}
+   ${(props) => !(props.noData && props.widthTable < 425) && 'table-responsive'}   
 `
 export const TableHeader = styled.thead`
 `
