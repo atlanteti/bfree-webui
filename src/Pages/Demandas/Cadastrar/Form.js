@@ -49,6 +49,14 @@ export const DemandForm = (props) => {
       postEndpoint = "demands/alterar/" + props.primaryId
       method = "put"
    }
+   async function revertStatusMeeting(endPoint) {
+      const data = await request({
+         method: "put",
+         endpoint: `meetings/${endPoint}`,
+         params: { dem_cod: primaryData.dem_cod }
+      })
+      props.showAlert(data.meta)
+   }
    useEffect(() => {
       let tempFields = {}
       const requestData = async () => {
@@ -313,6 +321,24 @@ export const DemandForm = (props) => {
                         </Col> : null
                      }
                   </Row>
+                  {(values.dem_sdm_cod === 2 &&
+                     meetingDataRequest &&
+                     userRoles?.length !== 2 &&
+                     !userRoles?.includes("PRÉ-VENDA")) &&
+                     <Row className="d-flex justify-content-center mt-3 mb-3">
+                        <Col className="mt-3" xs={6} sm={4}>
+                           <Button variant="dark" onClick={() => revertStatusMeeting("transfer")}>
+                              Transferir Demanda
+                           </Button>
+                        </Col>
+                        <Col className="mt-3" xs={6} sm={3}>
+                           <Button variant="secondary" onClick={() => revertStatusMeeting("revert")}>
+                              Não compareceu
+                           </Button>
+                        </Col>
+                     </Row>
+                  }
+                  {primaryData?.dem_cancel_reason && <p><strong>Motivo do cancelamento:</strong> {primaryData?.dem_cancel_reason}</p>}
                   {freeTime && values.dem_sdm_cod > 1 ?
                      <><Row>
                         <Col xs={12}>
