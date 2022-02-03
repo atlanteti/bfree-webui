@@ -323,6 +323,7 @@ export const DemandForm = (props) => {
                      }
                   </Row>
                   {(values.dem_sdm_cod === 2 &&
+                     primaryData.dem_sdm_cod === 2 &&
                      meetingDataRequest &&
                      !showButtons) &&
                      <Row className="d-flex justify-content-center mt-3 mb-3">
