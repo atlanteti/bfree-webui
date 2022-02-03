@@ -28,6 +28,7 @@ export const DemandForm = (props) => {
    const [contacts, setContacts] = useState()
    const [meetingDataRequest, setMeetingData] = useState()
    const disableDateMeeting = userRoles?.length !== 2 && userRoles?.includes("CONSULTOR")
+   const showButtons = userRoles?.length !== 2 && userRoles?.includes("PRÉ-VENDA")
    const [fields, setFields] = useState(
       {
          dem_title: "",
@@ -316,8 +317,7 @@ export const DemandForm = (props) => {
                   </Row>
                   {(values.dem_sdm_cod === 2 &&
                      meetingDataRequest &&
-                     userRoles?.length !== 2 &&
-                     !userRoles?.includes("PRÉ-VENDA")) &&
+                     !showButtons) &&
                      <Row className="d-flex justify-content-center mt-3 mb-3">
                         <Col className="mt-3" xs={6} sm={4}>
                            <Button variant="dark" onClick={() => revertStatusMeeting("transfer")}>
