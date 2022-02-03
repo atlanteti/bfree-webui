@@ -271,7 +271,11 @@ export const DemandForm = (props) => {
                               if (primaryData && primaryData.demandStatusHistories.length >= 1) {
                                  let matches = primaryData.demandStatusHistories.filter((v) => event.target.value == v.dsh_sdm_cod)
                                  if (matches.length >= 1) {
-                                    setFieldValue("dem_dtaction", new Date(matches[0].dsh_dtaction))
+                                    if (event.target.value === 2 || event.target.value === 3) {
+                                       setFieldValue("dem_dtaction", new Date())
+                                    } else {
+                                       setFieldValue("dem_dtaction", new Date(matches[0].dsh_dtaction))
+                                    }
                                  } else if (event.target.value === 2 || event.target.value === 3) {
                                     setFieldValue("dem_dtaction", new Date())
                                  } else {
