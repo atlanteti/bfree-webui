@@ -126,7 +126,7 @@ export class DemandFormBuilder extends EditCreateForm {
                            <Col className="mt-3" xs={12} sm={4}>
                               <ListUsers
                                  name="dem_usr_cod"
-                                 disabled={disableField}
+                                 disabled={disableField && !(this.state.primaryData.dem_sdm_cod == 1 && this.context.admin)}
                                  validated={this.state.validated}
                                  defaultUser={this.state.primaryData.dem_usr_cod}
                                  errorMessage={this.state.dem_usr_cod}

@@ -1,6 +1,6 @@
 {
    "name": "bfree-webui",
-   "version": "0.1.0",
+   "version": "v2.2.2",
    "private": true,
    "dependencies": {
       "@emotion/react": "^11.4.1",
@@ -41,7 +41,8 @@
       "build": "react-scripts build",
       "test": "react-scripts test",
       "eject": "react-scripts eject",
-      "deploy-production": "npm run build && scp -r ./build/* root@209.97.146.187:/var/www/bfree-webui"
+      "deploy-production": "npm run build && scp -r ./build/* root@209.97.146.187:/var/www/bfree-webui",
+      "build:staging": "npm run build && scp -r ./build/* root@209.97.146.187:/var/www/bfree-webui-staging"
    },
    "eslintConfig": {
       "extends": [
