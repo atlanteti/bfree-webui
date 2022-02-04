@@ -1,6 +1,6 @@
 import { Button, Col } from 'react-bootstrap'
 import { request } from '../../../../Services/api'
-import ListarPagina, { PageHeaderCustomComponent } from '../../../../Componentes/ListData'
+import ListarPagina from '../../../../Componentes/ListData'
 import {
    ActionCell, ActionHeaderCell,
    HeaderContainer,
@@ -21,23 +21,26 @@ import moment from 'moment'
 import NoDataComp from '../../../../Componentes/NoDataComp'
 import ContextLogin from '../../../../Context/ContextLogin'
 import { Helmet } from 'react-helmet'
+import { Cookies } from 'react-cookie';
 
+const cookies = new Cookies();
 export default class ListarReunioes extends ListarPagina {
    async fetchData(page, sort, isDesc, extraParams) {
+      const user = cookies.get('user')
+      const journeys = cookies.get('userType')
       const data = await request({
          method: 'get',
          endpoint: 'demands/listar',
          params: {
             page: Number(page),
             sort: sort,
-            dem_con_cod: this.context.user,
+            dem_con_cod: journeys.length === 2 ? user : null,
             isDesc: isDesc,
             ...extraParams
          }
       })
       return data
    }
-
    SearchBarCustom(props) {
       return <ReuniaoSearchBar />
    }
@@ -151,3 +154,4 @@ export default class ListarReunioes extends ListarPagina {
       </TableRow>
    }
 };
+ListarReunioes.contextType = ContextLogin
