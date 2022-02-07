@@ -22,7 +22,6 @@ export const Title = styled.h1`
 `
 export const SubTitle = styled.p`
    color: #3E516E;
-   margin-bottom: 1.1rem;
 `
 
 export const TitleRegister = styled.h1`
