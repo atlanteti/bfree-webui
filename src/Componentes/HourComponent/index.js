@@ -72,8 +72,8 @@ export const HourComponent = (props) => {
             </Col>
             <Col xs={12} sm={1} lg={1} style={{ cursor: 'pointer' }}>
                <Row>
-                  <IoAddCircleOutline size={25} color="rgba(0,0,0,0.5)" onClick={props.onDuplicate} />
-                  {props.data.length > 1 && <IoRemoveCircleOutline size={25} color="rgba(0,0,0,0.5)" onClick={() => props.removeDuplicate(props.data, currentDiv, props.changeState)} />}
+                  <IoAddCircleOutline size={30} color="rgba(0,0,0,0.5)" onClick={props.onDuplicate} />
+                  {props.data.length > 1 && <IoRemoveCircleOutline size={30} color="rgba(0,0,0,0.5)" onClick={() => props.removeDuplicate(props.data, currentDiv, props.changeState)} />}
                </Row>
             </Col>
          </Row>
