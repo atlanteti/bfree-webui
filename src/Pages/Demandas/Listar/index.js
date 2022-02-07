@@ -29,7 +29,6 @@ export default class ListarDemandas extends ListarPagina {
    }
 
    async fetchData(page, sort, isDesc, extraParams) {
-
       const data = await request({
          method: 'get',
          endpoint: 'demands/listar',
@@ -37,6 +36,7 @@ export default class ListarDemandas extends ListarPagina {
             page: Number(page),
             sort: sort,
             isDesc: isDesc,
+            dem_usr_cod: this.state.journeys?.length === 2 ? this.state.user : null,
             ...extraParams
          }
       })
