@@ -34,6 +34,7 @@ import Editar from "../Pages/Editar";
 import { RelatorioGerencial } from "../Pages/RelatorioGerencial";
 import { Horario } from "../Pages/Horarios";
 import ListarReunioes from "../Pages/Demandas/Listar/Reuniões";
+import ListarContatos from "../Pages/Demandas/Listar/Contato";
 
 export default function AuthRoutes() {
    return (
@@ -79,6 +80,8 @@ export default function AuthRoutes() {
             <Route path="/log" component={Log}></Route>
             {/* rotas de reuniões */}
             <Route path="/reunioes" component={ListarReunioes}></Route>
+            {/* rota de fazer contato */}
+            <Route path="/contato" component={ListarContatos}></Route>
             {/* rotas de relatorio */}
             <Route path="/relatorios" component={ListarRelatorio} />
             {/*Rota de 404, deve ficar por último sempre */}
