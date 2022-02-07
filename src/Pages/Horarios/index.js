@@ -217,7 +217,7 @@ export function Horario() {
                         {message}
                      </Alert>
                   }
-                  <SubTitle>Demandas/<strong>Consultor</strong></SubTitle>
+                  <SubTitle style={{ paddingBottom: 10 }}>Demandas/<strong>Consultor</strong></SubTitle>
                   <Title style={{ paddingBottom: 10 }}>Agenda</Title>
                   <SubTitle>Defina os dias da semana e horários que você pode atender.</SubTitle>
                   <SubTitle style={{ paddingBottom: 10 }}>Não adicione intervalos que entrem em conflito, ex: 10:00 -- 12:00 E 09:00 -- 11:00 do mesmo dia</SubTitle>
