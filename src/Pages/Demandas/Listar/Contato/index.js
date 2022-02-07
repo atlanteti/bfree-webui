@@ -77,8 +77,8 @@ export default class ListarContatos extends ListarPagina {
          </TextHeaderCell>
          <TextHeaderCell scope="col">
             <SortColumn
-               label="Usuário"
-               attribute="dem_usr_name"
+               label="E-mail"
+               attribute="dem_contact_email"
                sortCallback={props.sortCallback}
                receiver={props.subscribe}
                wipeAll={props.wipeAll} />
@@ -87,6 +87,14 @@ export default class ListarContatos extends ListarPagina {
             <SortColumn
                label="Status da Demanda"
                attribute="dem_sdm_name"
+               sortCallback={props.sortCallback}
+               receiver={props.subscribe}
+               wipeAll={props.wipeAll} />
+         </TextHeaderCell>
+         <TextHeaderCell scope="col">
+            <SortColumn
+               label="Tipo da Demanda"
+               attribute="dem_tdm_name"
                sortCallback={props.sortCallback}
                receiver={props.subscribe}
                wipeAll={props.wipeAll} />
@@ -110,23 +118,14 @@ export default class ListarContatos extends ListarPagina {
    createRecord(demanda) {
       return <TableRow key={demanda.dem_cod}>
          <TextCell data-title="Título">{demanda.dem_title}</TextCell>
-         <TextCell data-title="Usuário">{demanda.user.usr_name}</TextCell>
+         <TextCell data-title="E-mail">{demanda.dem_contact_email}</TextCell>
          <TextCell data-title="Status da Demanda">{demanda.statusDemand.sdm_name}</TextCell>
+         <TextCell data-title="Tipo da Demanda">{demanda.typeDemand.tdm_name}</TextCell>
          <ActionCell data-title="Ações">
             <Link to={`/editar/demandas/${demanda.dem_cod}/alterar`}>
                <Button variant="transparent"><EditIcon />
                </Button>
             </Link>
-            <Restricted>
-               <Button variant="transparent" onClick={() => {
-                  this.setState({
-                     reversion: false,
-                     deletionId: demanda.dem_cod,
-                     modalIdentifier: "a demanda"
-                  })
-                  this.openModal()
-               }}><DeleteIcon /></Button>
-            </Restricted>
          </ActionCell>
       </TableRow>
    }
