@@ -1,12 +1,10 @@
 import { useState, useEffect } from "react"
-import { MainContainer, MainRow, BackGroundForm, BtnBlue } from "../../styles/CommonStyles";
+import { MainContainer, MainRow, BackGroundForm, BtnBlue, Title, SubTitle } from "../../styles/CommonStyles";
 import { CustomMenu } from "../../Componentes/CustomMenu";
 import { Form, Col, Row, Alert } from "react-bootstrap";
 import { HourComponent } from "../../Componentes/HourComponent";
-import { Title, SubTitle, AlertText } from "./styles.js"
 import { request } from "../../Services/api";
 import { CircularProgress } from '@mui/material'
-import { Redirect } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
 export function Horario() {
@@ -212,25 +210,26 @@ export function Horario() {
                   sm={{ offset: 1, span: 10 }}
                   md={{ offset: 1, span: 10 }}
                   lg={{ offset: 2, span: 10 }}
-                  style={{ paddingTop: 20, textAlign: 'center' }}
+                  style={{ paddingTop: 20 }}
                >
                   {showAlert &&
                      <Alert variant={status} onClose={() => setShowAlert(false)} dismissible>
                         {message}
                      </Alert>
                   }
+                  <SubTitle style={{ paddingBottom: 10 }}>Demandas/<strong>Consultor</strong></SubTitle>
+                  <Title style={{ paddingBottom: 10 }}>Agenda</Title>
+                  <SubTitle>Defina os dias da semana e horários que você pode atender.</SubTitle>
+                  <SubTitle style={{ paddingBottom: 10 }}>Não adicione intervalos que entrem em conflito, ex: 10:00 -- 12:00 E 09:00 -- 11:00 do mesmo dia</SubTitle>
                   <Form onSubmit={handleSubmit}>
-                     <BackGroundForm xs={1} className={'mb-2'} noGutters>
-                        <Title>Vamos configurar sua agenda?</Title>
-                        <SubTitle>Defina os dias da semana e horários que você pode atender</SubTitle>
-                        <AlertText>Não adicione intervalos que entrem em conflito, ex: 10:00 -- 12:00 E 09:00 -- 11:00 do mesmo dia</AlertText>
+                     <BackGroundForm xs={1} className={'mb-2'} noGutters style={{ padding: 16 }}>
                         {loadingData ?
                            <Row>
                               <Col><CircularProgress /></Col>
                            </Row> :
                            <>
                               <HourComponent
-                                 dayOfWeek="SEG"
+                                 dayOfWeek="Segunda"
                                  indexWeek={1}
                                  data={seg}
                                  onChange={handleChange}
@@ -239,16 +238,17 @@ export function Horario() {
                                  changeState={setSeg}
                               />
                               <HourComponent
-                                 dayOfWeek="TER"
+                                 dayOfWeek="Terça"
                                  indexWeek={2}
                                  data={ter}
                                  onChange={handleChange}
                                  onDuplicate={() => addNewRow(ter, setTer)}
                                  removeDuplicate={removeRow}
                                  changeState={setTer}
+                                 bgColor={"#F8FAFF"}
                               />
                               <HourComponent
-                                 dayOfWeek="QUA"
+                                 dayOfWeek="Quarta"
                                  data={qua}
                                  indexWeek={3}
                                  onChange={handleChange}
@@ -257,16 +257,17 @@ export function Horario() {
                                  changeState={setQua}
                               />
                               <HourComponent
-                                 dayOfWeek="QUI"
+                                 dayOfWeek="Quinta"
                                  indexWeek={4}
                                  data={qui}
                                  onChange={handleChange}
                                  onDuplicate={() => addNewRow(qui, setQui)}
                                  removeDuplicate={removeRow}
                                  changeState={setQui}
+                                 bgColor={"#F8FAFF"}
                               />
                               <HourComponent
-                                 dayOfWeek="SEX"
+                                 dayOfWeek="Sexta"
                                  indexWeek={5}
                                  data={sex}
                                  onChange={handleChange}
@@ -274,7 +275,7 @@ export function Horario() {
                                  removeDuplicate={removeRow}
                                  changeState={setSex}
                               />
-                              <Col className="mt-4">
+                              <Col className="mt-4" md={{ offset: 4 }}>
                                  <BtnBlue variant="dark" type="submit" onClick={() => window.scrollTo(0, 0)}>Salvar</BtnBlue>
                               </Col>
                            </>}
