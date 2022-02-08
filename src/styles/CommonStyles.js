@@ -20,6 +20,9 @@ export const Title = styled.h1`
    font-weight: 700;
    color: #3E516E;
 `
+export const SubTitle = styled.p`
+   color: #3E516E;
+`
 
 export const TitleRegister = styled.h1`
    font-size: 2rem;

@@ -3,6 +3,7 @@ import { Row, Col } from "react-bootstrap";
 import { ValidationTextField } from "../FormFields";
 import { IoAddCircleOutline, IoRemoveCircleOutline } from "react-icons/io5"
 import NoDataComp from "../NoDataComp";
+import { SubTitle } from "../../styles/CommonStyles";
 
 export function SetHour(props) {
    return (
@@ -40,11 +41,16 @@ export function SetHour(props) {
 export const HourComponent = (props) => {
    return props.data?.map((currentDiv, index) => {
       return <Col className="expense-block" key={currentDiv} id={`expense-block-${index}`} data-block={index}>
-         <Row style={{ alignItems: 'center', justifyContent: 'center', paddingTop: 20 }}>
+         <Row style={{
+            alignItems: 'center',
+            paddingTop: 10,
+            paddingBottom: 10,
+            background: props.bgColor
+         }}>
             <Col xs={12} sm={1} lg={1}>
-               <p style={{ marginRight: 0 }}>{props.dayOfWeek}</p>
+               <SubTitle style={{ paddingLeft: 20 }}>{props.dayOfWeek}</SubTitle>
             </Col>
-            <Col xs={12} sm={4} lg={2}>
+            <Col xs={12} sm={4} lg={2} md={{ offset: 2 }}>
                <SetHour
                   label="Inicial"
                   name="cal_start"
@@ -66,8 +72,8 @@ export const HourComponent = (props) => {
             </Col>
             <Col xs={12} sm={1} lg={1} style={{ cursor: 'pointer' }}>
                <Row>
-                  <IoAddCircleOutline size={25} color="rgba(0,0,0,0.5)" onClick={props.onDuplicate} />
-                  {props.data.length > 1 && <IoRemoveCircleOutline size={25} color="rgba(0,0,0,0.5)" onClick={() => props.removeDuplicate(props.data, currentDiv, props.changeState)} />}
+                  <IoAddCircleOutline size={30} color="rgba(0,0,0,0.5)" onClick={props.onDuplicate} />
+                  {props.data.length > 1 && <IoRemoveCircleOutline size={30} color="rgba(0,0,0,0.5)" onClick={() => props.removeDuplicate(props.data, currentDiv, props.changeState)} />}
                </Row>
             </Col>
          </Row>

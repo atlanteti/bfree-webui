@@ -1,68 +1,55 @@
-import { Button, Modal } from 'react-bootstrap'
-import { request } from '../../../Services/api'
-import ListarPagina, { PageHeaderCustomComponent } from '../../../Componentes/ListData'
+import { Button, Col } from 'react-bootstrap'
+import { request } from '../../../../Services/api'
+import ListarPagina from '../../../../Componentes/ListData'
 import {
    ActionCell, ActionHeaderCell,
-   TableRow, TextCell, TextHeaderCell
-} from '../../../styles/CommonStyles'
-import SortColumn from '../../../Componentes/SortColumn'
+   HeaderContainer,
+   RowTopMargin,
+   SubTitle,
+   TableRow, TextCell, TextHeaderCell, Title
+} from '../../../../styles/CommonStyles'
+import SortColumn from '../../../../Componentes/SortColumn'
 import React from 'react'
-import { DemandSearchBar } from './DemandSearchBar'
-import Restricted from '../../../Context/AccessPermission'
-import { ReactComponent as EditIcon } from '../../../Assets/Icons/icon_editar.svg'
-import { ReactComponent as DeleteIcon } from '../../../Assets/Icons/icon_delete.svg'
-import { ReactComponent as GreenCheck } from "../../../Assets/Icons/icon_check.svg"
-import { MdUndo } from 'react-icons/md'
-import IconOverlayMessage from '../../../Componentes/IconOverlayMessage'
-import ExclusionModal from '../../../Componentes/ExclusionModal'
+import Restricted from '../../../../Context/AccessPermission'
+import { ReactComponent as EditIcon } from '../../../../Assets/Icons/icon_editar.svg'
+import { ReactComponent as DeleteIcon } from '../../../../Assets/Icons/icon_delete.svg'
+import { ReactComponent as GreenCheck } from "../../../../Assets/Icons/icon_check.svg"
+import ExclusionModal from '../../../../Componentes/ExclusionModal'
 import { Link } from 'react-router-dom'
 import moment from 'moment'
-import NoDataComp from '../../../Componentes/NoDataComp'
+import NoDataComp from '../../../../Componentes/NoDataComp'
+import ContextLogin from '../../../../Context/ContextLogin'
+import { Helmet } from 'react-helmet'
 
-export default class ListarDemandas extends ListarPagina {
-   async deleteRecord(id) {
-      const data = await request({
-         method: 'delete',
-         endpoint: 'demands/excluir/' + id
-      })
-      return data
-   }
-
+export default class ListarReunioes extends ListarPagina {
    async fetchData(page, sort, isDesc, extraParams) {
-      if (this.state.journeys.length !== 0) {
-         this.setState({
-            noData: true,
-            responseData: []
-         })
-         return data = []
-      }
       const data = await request({
          method: 'get',
          endpoint: 'demands/listar',
          params: {
             page: Number(page),
             sort: sort,
+            dem_con_cod: this.state.journeys.length === 2 ? this.state.user : null,
             isDesc: isDesc,
-            dem_usr_cod: this.state.journeys.length === 2 ? this.state.user : null,
             ...extraParams
          }
       })
       return data
    }
-
    SearchBarCustom(props) {
-      return <DemandSearchBar
-         filterData={props.filterData}
-         exportData={props.exportData}
-         listSchedule={props.listSchedule}
-      />
+      return <h1></h1>
    }
 
    PageHeaderCustom() {
-      return <PageHeaderCustomComponent
-         Title="Demandas"
-         href="/cadastrar/demandas/inserir"
-      />
+      return <HeaderContainer fluid>
+         <RowTopMargin >
+            <Col>
+               <Helmet title={"Minhas Reuniões"} />
+               <SubTitle>Demandas/<strong>Consultor</strong></SubTitle>
+               <Title>Minhas Reuniões</Title>
+            </Col>
+         </RowTopMargin>
+      </HeaderContainer>
    }
 
    TableHeaderCustom(props) {
@@ -70,7 +57,7 @@ export default class ListarDemandas extends ListarPagina {
 
          <TextHeaderCell scope="col">
             <SortColumn
-               label="Titulo"
+               label="Assunto"
                attribute="dem_title"
                sortCallback={props.sortCallback}
                receiver={props.subscribe}
@@ -119,18 +106,6 @@ export default class ListarDemandas extends ListarPagina {
          <ActionHeaderCell scope="col">Ações</ActionHeaderCell>
       </TableRow>
    }
-   async undoStatusChange() {
-      const data = await request({
-         method: 'put',
-         endpoint: `demands/reverter-status/${this.state.deletionId}`,
-         params: {
-            dateLastUpdate: this.state.modalIdentifier
-         }
-      })
-      this.fetchAndSetData({ page: this.state.page })
-      this.showAlert(data.meta)
-      return data
-   }
    createModal() {
       return <>
          <ExclusionModal
@@ -161,31 +136,6 @@ export default class ListarDemandas extends ListarPagina {
                </Button>
             </Link>
             <Restricted>
-               {demanda.statusDemand.sdm_cod == 1 ?
-                  <IconOverlayMessage
-                     message={
-                        "Status em Aberto não pode ser revertido"}>
-                     <Button
-                        variant="transparent"><MdUndo /></Button>
-                  </IconOverlayMessage> :
-                  (<IconOverlayMessage
-                     message={
-                        "Desfazer mudança de Status"}>
-                     <Button
-                        variant="transparent" onClick={
-                           () => {
-                              this.setState({
-                                 reversion: true,
-                                 deletionId: demanda.dem_cod,
-                                 modalIdentifier: demanda.dem_dtupdate
-                              })
-                              this.openModal()
-                           }
-                        }><MdUndo /></Button>
-                  </IconOverlayMessage>)
-               }
-            </Restricted>
-            <Restricted>
                <Button variant="transparent" onClick={() => {
                   this.setState({
                      reversion: false,
@@ -199,3 +149,4 @@ export default class ListarDemandas extends ListarPagina {
       </TableRow>
    }
 };
+ListarReunioes.contextType = ContextLogin
