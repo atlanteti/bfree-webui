@@ -24,7 +24,7 @@ import { ReactComponent as CalendariolIcon } from "../../Assets/Icons/icon_calen
 import { ReactComponent as SairIcon } from "../../Assets/Icons/icon_sair.svg"
 import Drawer from '@mui/material/Drawer';
 import { AppBar, Box, Grid, List, ListItem, ListItemIcon, ListItemText, Toolbar, Typography } from '@mui/material'
-import { IconButton, SvgIcon } from '@material-ui/core'
+import { IconButton, Popover, SvgIcon } from '@material-ui/core'
 import { Col } from 'react-bootstrap'
 import './styles.css'
 export const CustomMenu2 = () => {
@@ -173,7 +173,6 @@ export const CustomMenu = (props) => {
    const cookie = new Cookies();
    const [drawerOpen, toggleDrawer] = useState(false)
    const { admin, userRoles } = useContext(ContextLogin)
-   const [selected, setSelected] = useState(null)
    const handleDrawerToggle = () => {
       toggleDrawer(!drawerOpen)
 
@@ -224,6 +223,10 @@ export const CustomMenu = (props) => {
    </Col >
 }
 function CreateMenuItems(cookie, admin, userRoles) {
+
+   if (userRoles === null) {
+      return false
+   }
    if (admin) {
       return <>
          <List>
@@ -273,19 +276,14 @@ function CreateMenuItems(cookie, admin, userRoles) {
             </ListItem>
             <ListItem button
                secondaryAction={<IoChevronForwardOutline size={17} />}
-               selected={true}>
+               component={Link} to="/demandas">
                <ListItemIcon>
                   <SvgIcon component={DemandasIcon} inheritViewBox />
                </ListItemIcon>
                <ListItemText primary={"Demandas"} />
             </ListItem>
-            <ListItem button secondaryAction={<IoChevronForwardOutline size={17} />}
-               component={Link} to="/horario">
-               <ListItemIcon>
-                  <SvgIcon component={CalendariolIcon} inheritViewBox />
-               </ListItemIcon>
-               <ListItemText primary={"Horários"} />
-            </ListItem>
+            <PreConsultorMenu />
+            <ConsultorMenu />
             <ListItem button secondaryAction={<IoChevronForwardOutline size={17} />}
                component={Link} to="/relatorios">
                <ListItemIcon>
@@ -328,7 +326,147 @@ function CreateMenuItems(cookie, admin, userRoles) {
             </ListItem>
          </List>
       </>
-
+   }
+   const items = []
+   if (userRoles == ["PRÉ-CONSULTOR", "CONSULTOR"]) {
+      return <>
+         <PreConsultorMenu />
+         <ConsultorMenu />
+         <ListItem button
+            onClick={() => {
+               cookie.remove('auth', { path: "/" })
+               cookie.remove('hasJourney', { path: "/" })
+               window.Eduzz.Accounts.logout({ env: "staging", redirectTo: window.location.origin + process.env.PUBLIC_URL })
+            }}>
+            <ListItemIcon>
+               <SvgIcon component={SairIcon} inheritViewBox />
+            </ListItemIcon>
+            <ListItemText primary={"Sair"} />
+         </ListItem>
+      </>
+   }
+   else if (userRoles.includes("PRÉ-CONSULTOR")) {
+      return <>
+         <PreConsultorMenu />
+         <ListItem button
+            onClick={() => {
+               cookie.remove('auth', { path: "/" })
+               cookie.remove('hasJourney', { path: "/" })
+               window.Eduzz.Accounts.logout({ env: "staging", redirectTo: window.location.origin + process.env.PUBLIC_URL })
+            }}>
+            <ListItemIcon>
+               <SvgIcon component={SairIcon} inheritViewBox />
+            </ListItemIcon>
+            <ListItemText primary={"Sair"} />
+         </ListItem>
+      </>
+   }
+   else {
+      return <><ConsultorMenu />
+         <ListItem button
+            onClick={() => {
+               cookie.remove('auth', { path: "/" })
+               cookie.remove('hasJourney', { path: "/" })
+               window.Eduzz.Accounts.logout({ env: "staging", redirectTo: window.location.origin + process.env.PUBLIC_URL })
+            }}>
+            <ListItemIcon>
+               <SvgIcon component={SairIcon} inheritViewBox />
+            </ListItemIcon>
+            <ListItemText primary={"Sair"} />
+         </ListItem></>
    }
 }
 
+function ConsultorMenu(props) {
+   const [anchorEl, setAnchorEl] = React.useState(null);
+   const handlePopoverOpen = (event) => {
+      setAnchorEl(event.currentTarget);
+   };
+
+   const handlePopoverClose = () => {
+      setAnchorEl(null);
+   };
+   return <>
+      <ListItem button onClick={handlePopoverOpen}
+         secondaryAction={<IoChevronForwardOutline size={17} />}>
+         <ListItemIcon>
+
+         </ListItemIcon>
+         <ListItemText primary={"Consultor"} />
+      </ListItem>
+      <Popover
+         open={Boolean(anchorEl)}
+         anchorEl={anchorEl}
+         onClose={handlePopoverClose}
+         anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+         }}
+         transformOrigin={{
+            vertical: 'top',
+            horizontal: 'left',
+         }}
+      >
+         <List>
+            <ListItem button
+               component={Link} to="/horario">
+               <ListItemText primary={"Agenda"} />
+            </ListItem>
+            <ListItem button
+               component={Link} to="/reunioes">
+               <ListItemText primary={"Minhas Reuniões"} />
+            </ListItem>
+            <ListItem button
+               component={Link} to="/relatorios">
+               <ListItemText primary={"Relatório"} />
+            </ListItem>
+         </List>
+      </Popover>
+   </>
+}
+
+function PreConsultorMenu(props) {
+   const [anchorEl, setAnchorEl] = React.useState(null);
+   const handlePopoverOpen = (event) => {
+      setAnchorEl(event.currentTarget);
+   };
+
+   const handlePopoverClose = () => {
+      setAnchorEl(null);
+   };
+   return <>
+      <ListItem button onClick={handlePopoverOpen}
+         secondaryAction={<IoChevronForwardOutline size={17} />}>
+         <ListItemIcon>
+
+         </ListItemIcon>
+         <ListItemText primary={"Pré-Consultor"} />
+      </ListItem>
+      <Popover
+         open={Boolean(anchorEl)}
+         anchorEl={anchorEl}
+         onClose={handlePopoverClose}
+         anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+         }}
+         transformOrigin={{
+            vertical: 'top',
+            horizontal: 'left',
+         }}
+      >
+         <List>
+            <ListItem button
+               component={Link} to="/contato">
+               <ListItemText primary={"Fazer Contato"} />
+            </ListItem>
+         </List>
+         <List>
+            <ListItem button
+               component={Link} to="/relatorios">
+               <ListItemText primary={"Relatório"} />
+            </ListItem>
+         </List>
+      </Popover>
+   </>
+}

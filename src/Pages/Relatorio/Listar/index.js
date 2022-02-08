@@ -142,112 +142,110 @@ export default class ListarRelatorio extends ListarPagina {
       return <MainContainer>
          <MainRow>
             {/* Layout usado nesse componente deve ser repetido em custommenucol equivalente dentro do arquivo do componente */}
-            <CustomMenuCol><CustomMenu /></CustomMenuCol>
-            <Col lg={10}>
-               <Col>
-                  <Container fluid>
-                     <CustomAlert
-                        showAlertCallback={this.getAlertCallback.bind(this)}
-                        redirectCallback={this.redirectCallback.bind(this)}
-                     />
-                     <Row xs={1}>
-                        <this.PageHeaderCustom />
-                     </Row>
-                     <SearchBarBorder>
-                        <Form onSubmit={this.onSubmit.bind(this)}>
-                           <Row>
-                              <Col xs={12} md={3} sm={5}>
-                                 <p style={{ color: 'transparent' }}>.</p>
-                                 <Row>
-                                    <Col className="mt-2">
-                                       <ListUsers
-                                          name="usr_cod"
-                                          fullWidth
-                                          defaultValue={this.context.admin ? this.state.formData?.usr_cod : this.context.user}
-                                          defaultUser={this.context.admin ? this.state.formData?.usr_cod : this.context.user}
-                                          disabled={!this.context.admin}
-                                          onChange={this.context.admin ? this.handleSelect : null}
-                                       />
-                                    </Col>
-                                 </Row>
-                              </Col>
-                              <Col xs={12} md={7} sm={7}>
-                                 <DataSearchTitle>Pesquisar por período</DataSearchTitle>
-                                 <Row>
-                                    <Col className="mt-2">
-                                       <DatePicker
-                                          placeholderText="dd/mm/aaaa"
-                                          dateFormat="dd/MM/yyyy"
-                                          selected={this.state.initialDate}
-                                          onChange={(dateSelect) => this.changeDate(dateSelect, "initialDate")}
-                                          customInput={
-                                             <ValidationTextField
-                                                label="Data Inicial"
-                                                type="text"
-                                                fullWidth
-                                             />
-                                          }
-                                       />
-                                    </Col>
-                                    <Col className="mt-2">
-                                       <DatePicker
-                                          placeholderText="dd/mm/aaaa"
-                                          dateFormat="dd/MM/yyyy"
-                                          selected={this.state.finalDate}
-                                          maxDate={new Date(moment().weekday(7))}
-                                          onChange={(dateSelect) => this.changeDate(dateSelect, "finalDate")}
-                                          customInput={
-                                             <ValidationTextField
-                                                label="Data Final"
-                                                type="text"
-                                                fullWidth
-                                             />
-                                          }
-                                       />
-                                    </Col>
-                                 </Row>
-                              </Col>
-                              <Col className="mt-3" xs={12} md={2} sm={5}>
-                                 <p style={{ color: 'transparent' }}>.</p>
-                                 <Row>
-                                    <Col>
-                                       <BtnBlue type="submit" variant="dark">Buscar</BtnBlue>
-                                    </Col>
-                                 </Row>
-                              </Col>
-                           </Row>
-                        </Form>
-                     </SearchBarBorder>
-                     <Col>
+            <CustomMenu>
+               <Container fluid>
+                  <CustomAlert
+                     showAlertCallback={this.getAlertCallback.bind(this)}
+                     redirectCallback={this.redirectCallback.bind(this)}
+                  />
+                  <Row xs={1}>
+                     <this.PageHeaderCustom />
+                  </Row>
+                  <SearchBarBorder>
+                     <Form onSubmit={this.onSubmit.bind(this)}>
                         <Row>
-                           <Restricted>
-                              <ExportContainer onClick={(event) => this.requestExportData(event, "export-billing", "Relatorio")}>
-                                 <AiOutlineUpload size={23} className="mr-2" /> EXPORTAR EXCEL
-                              </ExportContainer>
-                           </Restricted>
-                        </Row>
-                     </Col>
-                     <Row noGutters>
-                        <MainTable noData={this.state.noData} className="table-borderless">
-                           {this.state.responseData === null
-                              ?
+                           <Col xs={12} md={3} sm={5}>
+                              <p style={{ color: 'transparent' }}>.</p>
                               <Row>
-                                 <Col md={{ offset: 5 }}><CircularProgress /></Col>
+                                 <Col className="mt-2">
+                                    <ListUsers
+                                       name="usr_cod"
+                                       fullWidth
+                                       defaultValue={this.context.admin ? this.state.formData?.usr_cod : this.context.user}
+                                       defaultUser={this.context.admin ? this.state.formData?.usr_cod : this.context.user}
+                                       disabled={!this.context.admin}
+                                       onChange={this.context.admin ? this.handleSelect : null}
+                                    />
+                                 </Col>
                               </Row>
-                              :
-                              (
-                                 <>
-                                    <TableHeader>
+                           </Col>
+                           <Col xs={12} md={7} sm={7}>
+                              <DataSearchTitle>Pesquisar por período</DataSearchTitle>
+                              <Row>
+                                 <Col className="mt-2">
+                                    <DatePicker
+                                       placeholderText="dd/mm/aaaa"
+                                       dateFormat="dd/MM/yyyy"
+                                       selected={this.state.initialDate}
+                                       onChange={(dateSelect) => this.changeDate(dateSelect, "initialDate")}
+                                       customInput={
+                                          <ValidationTextField
+                                             label="Data Inicial"
+                                             type="text"
+                                             fullWidth
+                                          />
+                                       }
+                                    />
+                                 </Col>
+                                 <Col className="mt-2">
+                                    <DatePicker
+                                       placeholderText="dd/mm/aaaa"
+                                       dateFormat="dd/MM/yyyy"
+                                       selected={this.state.finalDate}
+                                       maxDate={new Date(moment().weekday(7))}
+                                       onChange={(dateSelect) => this.changeDate(dateSelect, "finalDate")}
+                                       customInput={
+                                          <ValidationTextField
+                                             label="Data Final"
+                                             type="text"
+                                             fullWidth
+                                          />
+                                       }
+                                    />
+                                 </Col>
+                              </Row>
+                           </Col>
+                           <Col className="mt-3" xs={12} md={2} sm={5}>
+                              <p style={{ color: 'transparent' }}>.</p>
+                              <Row>
+                                 <Col>
+                                    <BtnBlue type="submit" variant="dark">Buscar</BtnBlue>
+                                 </Col>
+                              </Row>
+                           </Col>
+                        </Row>
+                     </Form>
+                  </SearchBarBorder>
+                  <Col>
+                     <Row>
+                        <Restricted>
+                           <ExportContainer onClick={(event) => this.requestExportData(event, "export-billing", "Relatorio")}>
+                              <AiOutlineUpload size={23} className="mr-2" /> EXPORTAR EXCEL
+                           </ExportContainer>
+                        </Restricted>
+                     </Row>
+                  </Col>
+                  <Row noGutters>
+                     <MainTable noData={this.state.noData} className="table-borderless">
+                        {this.state.responseData === null
+                           ?
+                           <Row>
+                              <Col md={{ offset: 5 }}><CircularProgress /></Col>
+                           </Row>
+                           :
+                           (
+                              <>
+                                 <TableHeader>
 
-                                       <TableRow>
-                                          {this.state.headerData.map((column) => {
-                                             return (
-                                                <TextHeaderCell scope="col">
-                                                   {column}
-                                                </TextHeaderCell>
-                                             )
-                                          })}
-                                          {/* <this.TableHeaderCustom
+                                    <TableRow>
+                                       {this.state.headerData.map((column) => {
+                                          return (
+                                             <TextHeaderCell scope="col">
+                                                {column}
+                                             </TextHeaderCell>
+                                          )
+                                       })}
+                                       {/* <this.TableHeaderCustom
                                              sortCallback={this.reorderData.bind(this)}
                                              subscribe={this.subscribe.bind(this)}
                                              wipeAll={this.wipe.bind(this)}
@@ -255,39 +253,39 @@ export default class ListarRelatorio extends ListarPagina {
                                              idUser={this.state.idUser}
                                              closeMenu={this.closeMenu.bind(this)}
                                              userName={this.state.userName} /> */}
-                                       </TableRow>
-                                    </TableHeader>
-                                    <ReportTableData>
-                                       {this.state.responseData.slice(0, -1).map((user) => {
-                                          return (
-                                             <TableRow>{user.map((data) => {
-                                                return <TextCell data-title={data[0]} Elipse>{data[1]}</TextCell>
-                                             })}</TableRow>
-                                          )
-                                       })}
-                                       {this.state.responseData.slice(-1).map((user) => {
-                                          return (
-                                             <TableRow>{user.map((data) => {
-                                                return <TextCell data-title={data[0].toLowerCase() === "operador" ? "" : data[0]} fontTotal>{data[1]}</TextCell>
-                                             })}</TableRow>
-                                          )
-                                       })}
-                                    </ReportTableData>
-                                 </>
-                              )
-                           }
-                           {this.createModal()}
-                        </MainTable>
-                     </Row>
-                     <CustomAlert
-                        showAlertCallback={this.getNoDataCallback.bind(this)}
-                        redirectCallback={this.redirectCallback.bind(this)}
-                        noDataAlert={true}
-                        noData={this.state.noData} />
-                     {this.renderPagination()}
-                  </Container>
-               </Col>
-            </Col>
+                                    </TableRow>
+                                 </TableHeader>
+                                 <ReportTableData>
+                                    {this.state.responseData.slice(0, -1).map((user) => {
+                                       return (
+                                          <TableRow>{user.map((data) => {
+                                             return <TextCell data-title={data[0]} Elipse>{data[1]}</TextCell>
+                                          })}</TableRow>
+                                       )
+                                    })}
+                                    {this.state.responseData.slice(-1).map((user) => {
+                                       return (
+                                          <TableRow>{user.map((data) => {
+                                             return <TextCell data-title={data[0].toLowerCase() === "operador" ? "" : data[0]} fontTotal>{data[1]}</TextCell>
+                                          })}</TableRow>
+                                       )
+                                    })}
+                                 </ReportTableData>
+                              </>
+                           )
+                        }
+                        {this.createModal()}
+                     </MainTable>
+                  </Row>
+                  <CustomAlert
+                     showAlertCallback={this.getNoDataCallback.bind(this)}
+                     redirectCallback={this.redirectCallback.bind(this)}
+                     noDataAlert={true}
+                     noData={this.state.noData} />
+                  {this.renderPagination()}
+               </Container>
+
+            </CustomMenu>
          </MainRow>
       </MainContainer >
    }
