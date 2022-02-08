@@ -282,8 +282,6 @@ function CreateMenuItems(cookie, admin, userRoles) {
                </ListItemIcon>
                <ListItemText primary={"Demandas"} />
             </ListItem>
-            <PreConsultorMenu />
-            <ConsultorMenu />
             <ListItem button secondaryAction={<IoChevronForwardOutline size={17} />}
                component={Link} to="/relatorios">
                <ListItemIcon>
@@ -328,8 +326,14 @@ function CreateMenuItems(cookie, admin, userRoles) {
       </>
    }
    const items = []
-   if (userRoles == ["PRÉ-CONSULTOR", "CONSULTOR"]) {
+   if (userRoles.includes("PRÉ-VENDA", "CONSULTOR")) {
       return <>
+         <ListItem button
+         ><ListItemIcon>
+               <SvgIcon component={DemandasIcon} inheritViewBox />
+            </ListItemIcon>
+            <ListItemText primary={"Demandas"} />
+         </ListItem>
          <PreConsultorMenu />
          <ConsultorMenu />
          <ListItem button
@@ -347,6 +351,12 @@ function CreateMenuItems(cookie, admin, userRoles) {
    }
    else if (userRoles.includes("PRÉ-CONSULTOR")) {
       return <>
+         <ListItem button
+         ><ListItemIcon>
+               <SvgIcon component={DemandasIcon} inheritViewBox />
+            </ListItemIcon>
+            <ListItemText primary={"Demandas"} />
+         </ListItem>
          <PreConsultorMenu />
          <ListItem button
             onClick={() => {
@@ -362,7 +372,14 @@ function CreateMenuItems(cookie, admin, userRoles) {
       </>
    }
    else {
-      return <><ConsultorMenu />
+      return <>
+         <ListItem button
+         ><ListItemIcon>
+               <SvgIcon component={DemandasIcon} inheritViewBox />
+            </ListItemIcon>
+            <ListItemText primary={"Demandas"} />
+         </ListItem>
+         <ConsultorMenu />
          <ListItem button
             onClick={() => {
                cookie.remove('auth', { path: "/" })
