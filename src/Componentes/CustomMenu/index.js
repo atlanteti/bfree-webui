@@ -1,11 +1,11 @@
 /* eslint-disable react/display-name */
 import { Navigation } from 'react-minimal-side-navigation'
-import { useHistory, useLocation } from 'react-router-dom'
+import { Link, useHistory, useLocation } from 'react-router-dom'
 import Icon from 'awesome-react-icons'
 import React, { useContext, useState } from 'react'
 import 'react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css'
-import './styles.css'
-import { CustomMenuCol, LastItemMenu, TopBarContainerMenu } from '../../styles/CommonStyles'
+
+import { CustomMenuCol, LastItemMenu, TopBarContainer, TopBarContainerMenu } from '../../styles/CommonStyles'
 import { Cookies } from "react-cookie";
 import ContextLogin from '../../Context/ContextLogin'
 import { IoChevronForwardOutline } from "react-icons/io5"
@@ -22,9 +22,12 @@ import { ReactComponent as LogsIcon } from "../../Assets/Icons/icon_logs.svg"
 import { ReactComponent as GerencialIcon } from "../../Assets/Icons/icon_gerencial.svg"
 import { ReactComponent as CalendariolIcon } from "../../Assets/Icons/icon_calendario.svg"
 import { ReactComponent as SairIcon } from "../../Assets/Icons/icon_sair.svg"
-
-
-export const CustomMenu = () => {
+import Drawer from '@mui/material/Drawer';
+import { AppBar, Box, Grid, List, ListItem, ListItemIcon, ListItemText, Toolbar, Typography } from '@mui/material'
+import { IconButton, SvgIcon } from '@material-ui/core'
+import { Col } from 'react-bootstrap'
+import './styles.css'
+export const CustomMenu2 = () => {
    const cookie = new Cookies();
 
    const history = useHistory()
@@ -163,5 +166,168 @@ export const CustomMenu = () => {
          </CustomMenuCol>
       </React.Fragment>
    )
+}
+export const CustomMenu = (props) => {
+   const { userEmail, signed } = useContext(ContextLogin)
+   const cookie = new Cookies();
+   const [drawerOpen, toggleDrawer] = useState(false)
+   const { admin, userRoles } = useContext(ContextLogin)
+   const [selected, setSelected] = useState(null)
+   const handleDrawerToggle = () => {
+      toggleDrawer(!drawerOpen)
+
+   }
+   return <Col>
+      <AppBar style={{ background: '#ffffff' }} position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+         <Toolbar>
+            <TopBarContainer>
+               <div>
+                  <strong>B</strong>free
+               </div>
+               <div className="topbar-user">
+                  {signed && <p>Usuário: {userEmail}</p>}
+               </div>
+            </TopBarContainer>
+         </Toolbar>
+      </AppBar>
+      <Drawer
+         variant="temporary"
+         sx={{
+            display: { xs: "block", md: "none" }
+         }}
+         open={drawerOpen}
+         onClose={handleDrawerToggle}
+         ModalProps={{
+            keepMounted: true
+         }}
+      >
+
+         {CreateMenuItems(cookie, admin, userRoles)}
+      </Drawer>
+      <Drawer
+         variant="permanent"
+         sx={{
+            display: { xs: 'none', md: "block" }
+         }}
+      >
+         <Toolbar />
+         {CreateMenuItems(cookie, admin, userRoles)}
+      </Drawer>
+      <Grid container justifyContent="flex-end" columns={24}>
+         <Grid item xs={24} md={17} lg={19}>
+            <Toolbar />
+            {props.children}
+
+         </Grid>
+      </Grid>
+   </Col >
+}
+function CreateMenuItems(cookie, admin, userRoles) {
+   if (admin) {
+      return <>
+         <List>
+            <ListItem button
+               secondaryAction={<IoChevronForwardOutline size={17} />}
+               component={Link} to="/companhia">
+               <ListItemIcon>
+                  <SvgIcon component={EmpresaIcon} inheritViewBox />
+               </ListItemIcon>
+               <ListItemText primary={"Empresas"} />
+            </ListItem>
+            <ListItem button
+               secondaryAction={<IoChevronForwardOutline size={17} />}
+               component={Link} to="/jornadas">
+               <ListItemIcon>
+                  <SvgIcon component={JornadaIcon} inheritViewBox />
+               </ListItemIcon>
+               <ListItemText primary={"Jornadas"} />
+            </ListItem>
+            <ListItem button secondaryAction={<IoChevronForwardOutline size={17} />}
+               component={Link} to="/tipodemanda">
+               <ListItemIcon>
+                  <SvgIcon component={TiposDemandasIcon} inheritViewBox />
+               </ListItemIcon>
+               <ListItemText primary={"Tipos de Demanda"} />
+            </ListItem>
+            <ListItem button secondaryAction={<IoChevronForwardOutline size={17} />}
+               component={Link} to="/badges">
+               <ListItemIcon>
+                  <SvgIcon component={BagdeIcon} inheritViewBox />
+               </ListItemIcon>
+               <ListItemText primary={"Badges"} />
+            </ListItem>
+            <ListItem button secondaryAction={<IoChevronForwardOutline size={17} />}
+               component={Link} to="/times">
+               <ListItemIcon>
+                  <SvgIcon component={TimeIcon} inheritViewBox />
+               </ListItemIcon>
+               <ListItemText primary={"Times"} />
+            </ListItem>
+            <ListItem button secondaryAction={<IoChevronForwardOutline size={17} />}
+               component={Link} to="/usuarios">
+               <ListItemIcon>
+                  <SvgIcon component={UsuariosIcon} inheritViewBox />
+               </ListItemIcon>
+               <ListItemText primary={"Usuários"} />
+            </ListItem>
+            <ListItem button
+               secondaryAction={<IoChevronForwardOutline size={17} />}
+               selected={true}>
+               <ListItemIcon>
+                  <SvgIcon component={DemandasIcon} inheritViewBox />
+               </ListItemIcon>
+               <ListItemText primary={"Demandas"} />
+            </ListItem>
+            <ListItem button secondaryAction={<IoChevronForwardOutline size={17} />}
+               component={Link} to="/horario">
+               <ListItemIcon>
+                  <SvgIcon component={CalendariolIcon} inheritViewBox />
+               </ListItemIcon>
+               <ListItemText primary={"Horários"} />
+            </ListItem>
+            <ListItem button secondaryAction={<IoChevronForwardOutline size={17} />}
+               component={Link} to="/relatorios">
+               <ListItemIcon>
+                  <SvgIcon component={RelatoriosIcon} inheritViewBox />
+               </ListItemIcon>
+               <ListItemText primary={"Relatórios"} />
+            </ListItem>
+            <ListItem button secondaryAction={<IoChevronForwardOutline size={17} />}
+               component={Link} to="/relatoriogerencial">
+               <ListItemIcon>
+                  <SvgIcon component={GerencialIcon} inheritViewBox />
+               </ListItemIcon>
+               <ListItemText primary={"Gerencial"} />
+            </ListItem>
+            <ListItem button
+               secondaryAction={<IoChevronForwardOutline size={17} />}
+               component={Link} to="/upload">
+               <ListItemIcon>
+                  <SvgIcon component={UploadsIcon} inheritViewBox />
+               </ListItemIcon>
+               <ListItemText primary={"Uploads"} />
+            </ListItem>
+            <ListItem button secondaryAction={<IoChevronForwardOutline size={17} />}
+               component={Link} to="/log">
+               <ListItemIcon>
+                  <SvgIcon component={LogsIcon} inheritViewBox />
+               </ListItemIcon>
+               <ListItemText primary={"Logs"} />
+            </ListItem>
+            <ListItem button
+               onClick={() => {
+                  cookie.remove('auth', { path: "/" })
+                  cookie.remove('hasJourney', { path: "/" })
+                  window.Eduzz.Accounts.logout({ env: "staging", redirectTo: window.location.origin + process.env.PUBLIC_URL })
+               }}>
+               <ListItemIcon>
+                  <SvgIcon component={SairIcon} inheritViewBox />
+               </ListItemIcon>
+               <ListItemText primary={"Sair"} />
+            </ListItem>
+         </List>
+      </>
+
+   }
 }
 

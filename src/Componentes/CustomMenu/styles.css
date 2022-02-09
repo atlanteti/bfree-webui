@@ -1,10 +1,23 @@
 .btn-position {
    margin-left: 1rem !important;
 }
+.Mui-selected{
+   background-color: #0203ad !important;
+   color:#fff !important;
+}
+.Mui-SvgIcon-root > .Mui-selected
+{
+   fill: #fff
+}
 span > svg {
    fill:#546E7A !important
 }
-
+.Mui-selected > .MuiListItemIcon-root > svg {
+   fill:#fff !important
+}
+.MuiListItemIcon-root > svg {
+   fill: #546E7A
+}
 span > span {
    font-size: 0.875rem;
 }
