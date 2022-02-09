@@ -102,8 +102,7 @@ class Log extends Component {
       return (
          <MainContainer>
             <MainRow>
-               <CustomMenuCol lg={2}><CustomMenu /></CustomMenuCol>
-               <Col>
+               <CustomMenu>
                   <Col style={{ marginTop: '1rem', marginLeft: 12 }}>
                      <Title style={{ marginBottom: 18 }}>Logs</Title>
                      <Helmet title="Logs" />
@@ -278,7 +277,7 @@ class Log extends Component {
                            page={this.state.page} />
                      </Container>
                   </Col>
-               </Col>
+               </CustomMenu>
             </MainRow>
          </MainContainer >
       );
