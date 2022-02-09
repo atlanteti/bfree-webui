@@ -47,7 +47,7 @@ export class DemandSearchBar extends SearchBar {
                               onChange={this.handleSelect}
                               name="dem_tdm_cod" />
                         </Col>
-                        <Col className="mt-3" xs={12} sm={4} md={1}>
+                        <Col className="mt-3" xs={12} sm={4} md={3}>
                            <BtnBlue variant="dark" type="submit">
                               Buscar
                            </BtnBlue>
