@@ -349,7 +349,7 @@ function CreateMenuItems(cookie, admin, userRoles) {
          </ListItem>
       </>
    }
-   else if (userRoles.includes("PRÉ-CONSULTOR")) {
+   else if (userRoles.includes("PRÉ-VENDA")) {
       return <>
          <ListItem button
          ><ListItemIcon>
