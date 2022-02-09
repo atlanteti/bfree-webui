@@ -326,7 +326,7 @@ function CreateMenuItems(cookie, admin, userRoles) {
       </>
    }
    const items = []
-   if (userRoles.includes("PRÉ-VENDA", "CONSULTOR")) {
+   if (userRoles.length == 2) {
       return <>
          <ListItem button
          ><ListItemIcon>
