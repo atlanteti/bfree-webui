@@ -15,8 +15,9 @@ import Restricted from '../../Context/AccessPermission'
 import { request } from "../../Services/api";
 import moment from 'moment';
 import { Link } from 'react-router-dom'
+import { Cookies } from 'react-cookie';
 
-
+const cookies = new Cookies();
 export default class ListarPagina extends Component {
    constructor(props) {
       super(props)
@@ -28,7 +29,9 @@ export default class ListarPagina extends Component {
          responseAlertShow: null,
          noDataAlertShow: null,
          redirect: false,
-         noData: false
+         noData: false,
+         user: cookies.get('user'),
+         journeys: cookies.get('userType')
       }
       this.requestForm = {
          extraParams: {},
