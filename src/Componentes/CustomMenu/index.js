@@ -213,13 +213,22 @@ export const CustomMenu = (props) => {
          <Toolbar />
          {CreateMenuItems(cookie, admin, userRoles)}
       </Drawer>
-      <Grid container justifyContent="flex-end" columns={24}>
-         <Grid item xs={24} md={17} lg={19}>
-            <Toolbar />
-            {props.children}
+      {admin ?
+         <Grid container justifyContent="flex-end" columns={24}>
+            <Grid item xs={24} md={17} lg={19}>
+               <Toolbar />
+               {props.children}
 
+            </Grid>
          </Grid>
-      </Grid>
+         :
+         <Grid container justifyContent="flex-end" columns={48}>
+            <Grid item xs={48} md={38} lg={40}>
+               <Toolbar />
+               {props.children}
+
+            </Grid>
+         </Grid>}
    </Col >
 }
 function CreateMenuItems(cookie, admin, userRoles) {
