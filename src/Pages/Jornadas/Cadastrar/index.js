@@ -7,7 +7,6 @@ import { CustomMenu } from '../../../Componentes/CustomMenu'
 import { CustomAlert } from '../../../Componentes/CustomAlert'
 import JourneyForm from './Form'
 import { Title } from '../../../styles/CommonStyles'
-import TopBar from '../../../Componentes/TopBar'
 export default class CadastrarJornada extends Component {
    constructor(props) {
       super(props)
@@ -41,7 +40,6 @@ export default class CadastrarJornada extends Component {
       } else {
          return <>
             <Helmet title={`${this.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'} Jornadas`} />
-            {/* <TopBar /> */}
             <CustomMenu />
             <Col>
                <Col

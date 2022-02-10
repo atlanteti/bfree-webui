@@ -57,7 +57,7 @@ export default class UploadSheet extends Component {
    handleSelect = (e) => {
       this.setState({
          formData: {
-            ...this.state.formData, 
+            ...this.state.formData,
             [e.target.name]: e.target.value
          },
       })
@@ -113,10 +113,7 @@ export default class UploadSheet extends Component {
             <>
                <MainContainer>
                   <MainRow>
-                     <CustomMenuCol lg={2}>
-                        <CustomMenu />
-                     </CustomMenuCol>
-                     <Col>
+                     <CustomMenu>
                         <Col style={{ marginTop: "1rem" }}>
                            <Title style={{ marginBottom: 18 }}>Upload de planilha excel</Title>
                            <Helmet title="Upload" />
@@ -164,16 +161,16 @@ export default class UploadSheet extends Component {
                                        <BackGroundForm>
                                           <Col xs={12} md={5} sm={5}>
                                              <Form onSubmit={this.handleSubmit}>
-                                                   <Row>
-                                                      <ListUsers
-                                                         onChange={this.handleSelect}
-                                                         name="operatorId"
-                                                         fullWidth
-                                                      />
-                                                   </Row>
-                                                   <Row className="mt-3">
-                                                      <Button variant="dark" type="submit">Enviar</Button>
-                                                   </Row>
+                                                <Row>
+                                                   <ListUsers
+                                                      onChange={this.handleSelect}
+                                                      name="operatorId"
+                                                      fullWidth
+                                                   />
+                                                </Row>
+                                                <Row className="mt-3">
+                                                   <Button variant="dark" type="submit">Enviar</Button>
+                                                </Row>
                                              </Form>
                                           </Col>
                                        </BackGroundForm>
@@ -182,7 +179,7 @@ export default class UploadSheet extends Component {
                               )}
                            </>
                         }
-                     </Col>
+                     </CustomMenu>
                   </MainRow>
                </MainContainer>
             </>

@@ -206,66 +206,63 @@ export default class ListarPagina extends Component {
       return <MainContainer>
          <MainRow>
             {/* Layout usado nesse componente deve ser repetido em custommenucol equivalente dentro do arquivo do componente */}
-            <CustomMenuCol><CustomMenu /></CustomMenuCol>
-            <Col lg={10}>
-               <Col>
-                  <Container fluid>
-                     <CustomAlert
-                        showAlertCallback={this.getAlertCallback.bind(this)}
-                        redirectCallback={this.redirectCallback.bind(this)}
-                     />
-                     <Row xs={1}>
-                        <this.PageHeaderCustom />
-                     </Row>
-                     <this.SearchBarCustom
-                        filterData={this.searchData}
-                        exportData={this.searchExportData}
-                        listSchedule={this.listSchedule}
-                     />
-                     <Row noGutters>
-                        <MainTable noData={this.state.noData}
-                           className={`table-borderless ${(this.state.noData || window.screen.width <= 425) ? '' : 'table-responsive'}`}
-                           style={{ marginBottom: 0 }}>
-                           {this.state.responseData === null
-                              ?
-                              <Row>
-                                 <Col md={{ offset: 5 }}><CircularProgress /></Col>
-                              </Row>
-                              :
-                              (
-                                 <>
-                                    <TableHeader>
-                                       <this.TableHeaderCustom
-                                          sortCallback={this.reorderData.bind(this)}
-                                          subscribe={this.subscribe.bind(this)}
-                                          wipeAll={this.wipe.bind(this)}
-                                          anchorEl={this.state.anchorEl}
-                                          idUser={this.state.idUser}
-                                          closeMenu={this.closeMenu.bind(this)}
-                                          userName={this.state.userName} />
-                                    </TableHeader>
-                                    <TableData>
-                                       {this.state.responseData.map((companhia) => {
-                                          return (
-                                             this.createRecord(companhia)
-                                          )
-                                       })}
-                                    </TableData>
-                                 </>
-                              )
-                           }
-                           {this.createModal()}
-                        </MainTable>
-                     </Row>
-                     <Row noGutters>{this.renderPagination()}</Row>
-                     <CustomAlert
-                        showAlertCallback={this.getNoDataCallback.bind(this)}
-                        redirectCallback={this.redirectCallback.bind(this)}
-                        noDataAlert={true}
-                        noData={this.state.noData} />
-                  </Container>
-               </Col>
-            </Col>
+            <CustomMenu >
+               <Container fluid>
+                  <CustomAlert
+                     showAlertCallback={this.getAlertCallback.bind(this)}
+                     redirectCallback={this.redirectCallback.bind(this)}
+                  />
+                  <Row xs={1}>
+                     <this.PageHeaderCustom />
+                  </Row>
+                  <this.SearchBarCustom
+                     filterData={this.searchData}
+                     exportData={this.searchExportData}
+                     listSchedule={this.listSchedule}
+                  />
+                  <Row noGutters>
+                     <MainTable noData={this.state.noData}
+                        className={`table-borderless ${(this.state.noData || window.screen.width <= 425) ? '' : 'table-responsive'}`}
+                        style={{ marginBottom: 0 }}>
+                        {this.state.responseData === null
+                           ?
+                           <Row>
+                              <Col md={{ offset: 5 }}><CircularProgress /></Col>
+                           </Row>
+                           :
+                           (
+                              <>
+                                 <TableHeader>
+                                    <this.TableHeaderCustom
+                                       sortCallback={this.reorderData.bind(this)}
+                                       subscribe={this.subscribe.bind(this)}
+                                       wipeAll={this.wipe.bind(this)}
+                                       anchorEl={this.state.anchorEl}
+                                       idUser={this.state.idUser}
+                                       closeMenu={this.closeMenu.bind(this)}
+                                       userName={this.state.userName} />
+                                 </TableHeader>
+                                 <TableData>
+                                    {this.state.responseData.map((companhia) => {
+                                       return (
+                                          this.createRecord(companhia)
+                                       )
+                                    })}
+                                 </TableData>
+                              </>
+                           )
+                        }
+                        {this.createModal()}
+                     </MainTable>
+                  </Row>
+                  <Row noGutters>{this.renderPagination()}</Row>
+                  <CustomAlert
+                     showAlertCallback={this.getNoDataCallback.bind(this)}
+                     redirectCallback={this.redirectCallback.bind(this)}
+                     noDataAlert={true}
+                     noData={this.state.noData} />
+               </Container>
+            </CustomMenu>
          </MainRow>
       </MainContainer >
    }

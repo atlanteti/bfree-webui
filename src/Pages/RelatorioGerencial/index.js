@@ -109,60 +109,57 @@ export function RelatorioGerencial() {
             <Helmet title="Relatório Gerencial" />
          </RowTopMargin>
          <MainRow>
-            <CustomMenuCol><CustomMenu /></CustomMenuCol>
-            <Col lg={10} style={{ paddingBottom: 30 }}>
-               <Col>
-                  <Container fluid>
-                     <ButtonRow
-                        titlePage={<Title>Relatório Gerencial</Title>}
-                     />
-                     <ResultadoSearchBar
-                        onChange={changeDate}
-                        initialDate={initialDate}
-                        finalDate={finalDate}
-                        handleSubmit={handleSubmit}
-                     />
-                     {bodyData !== null ?
-                        <>
-                           <MainTable className="table-borderless">
-                              <TableHeader>
-                                 <TableRow>
-                                    {headerData?.map((column) => {
-                                       return (
-                                          <TextHeaderCell scope="col" key={column}>
-                                             {column}
-                                          </TextHeaderCell>
-                                       )
-                                    })}
-                                 </TableRow>
-                              </TableHeader>
-                              <ReportTableData>
-                                 {bodyData?.map((data) => {
+            <CustomMenu>
+               <Container fluid>
+                  <ButtonRow
+                     titlePage={<Title>Relatório Gerencial</Title>}
+                  />
+                  <ResultadoSearchBar
+                     onChange={changeDate}
+                     initialDate={initialDate}
+                     finalDate={finalDate}
+                     handleSubmit={handleSubmit}
+                  />
+                  {bodyData !== null ?
+                     <>
+                        <MainTable className="table-borderless">
+                           <TableHeader>
+                              <TableRow>
+                                 {headerData?.map((column) => {
                                     return (
-                                       <TableRow>{data.map((result, index) => {
-                                          return <TextCell data-title={headerData[index]} Elipse>{result}</TextCell>
-                                       })}
-                                       </TableRow>
+                                       <TextHeaderCell scope="col" key={column}>
+                                          {column}
+                                       </TextHeaderCell>
                                     )
                                  })}
-                              </ReportTableData>
-                           </MainTable>
-                           <Col style={{ height: 400, background: "#fff" }}>
-                              <MyResponsiveBar data={graph} />
-                           </Col>
-                        </>
-                        :
-                        <Col style={{
-                           background: "rgba(0,0,0,0.2)",
-                           padding: "15px",
-                           borderRadius: 2,
-                        }}>
-                           <h1>Nenhum registro encontrado</h1>
+                              </TableRow>
+                           </TableHeader>
+                           <ReportTableData>
+                              {bodyData?.map((data) => {
+                                 return (
+                                    <TableRow>{data.map((result, index) => {
+                                       return <TextCell data-title={headerData[index]} Elipse>{result}</TextCell>
+                                    })}
+                                    </TableRow>
+                                 )
+                              })}
+                           </ReportTableData>
+                        </MainTable>
+                        <Col style={{ height: 400, background: "#fff" }}>
+                           <MyResponsiveBar data={graph} />
                         </Col>
-                     }
-                  </Container>
-               </Col>
-            </Col>
+                     </>
+                     :
+                     <Col style={{
+                        background: "rgba(0,0,0,0.2)",
+                        padding: "15px",
+                        borderRadius: 2,
+                     }}>
+                        <h1>Nenhum registro encontrado</h1>
+                     </Col>
+                  }
+               </Container>
+            </CustomMenu>
          </MainRow>
       </MainContainer>
    )

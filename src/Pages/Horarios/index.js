@@ -204,85 +204,77 @@ export function Horario() {
       <MainContainer>
          <Helmet title="Cadastro de Horário" />
          <MainRow>
-            <CustomMenu />
-            <Col>
-               <Col
-                  sm={{ offset: 1, span: 10 }}
-                  md={{ offset: 1, span: 10 }}
-                  lg={{ offset: 2, span: 10 }}
-                  style={{ paddingTop: 20 }}
-               >
-                  {showAlert &&
-                     <Alert variant={status} onClose={() => setShowAlert(false)} dismissible>
-                        {message}
-                     </Alert>
-                  }
-                  <SubTitle style={{ paddingBottom: 10 }}>Demandas/<strong>Consultor</strong></SubTitle>
-                  <Title style={{ paddingBottom: 10 }}>Agenda</Title>
-                  <SubTitle>Defina os dias da semana e horários que você pode atender.</SubTitle>
-                  <SubTitle style={{ paddingBottom: 10 }}>Não adicione intervalos que entrem em conflito, ex: 10:00 -- 12:00 E 09:00 -- 11:00 do mesmo dia</SubTitle>
-                  <Form onSubmit={handleSubmit}>
-                     <BackGroundForm xs={1} className={'mb-2'} noGutters style={{ padding: 16 }}>
-                        {loadingData ?
-                           <Row>
-                              <Col><CircularProgress /></Col>
-                           </Row> :
-                           <>
-                              <HourComponent
-                                 dayOfWeek="Segunda"
-                                 indexWeek={1}
-                                 data={seg}
-                                 onChange={handleChange}
-                                 onDuplicate={() => addNewRow(seg, setSeg)}
-                                 removeDuplicate={removeRow}
-                                 changeState={setSeg}
-                              />
-                              <HourComponent
-                                 dayOfWeek="Terça"
-                                 indexWeek={2}
-                                 data={ter}
-                                 onChange={handleChange}
-                                 onDuplicate={() => addNewRow(ter, setTer)}
-                                 removeDuplicate={removeRow}
-                                 changeState={setTer}
-                                 bgColor={"#F8FAFF"}
-                              />
-                              <HourComponent
-                                 dayOfWeek="Quarta"
-                                 data={qua}
-                                 indexWeek={3}
-                                 onChange={handleChange}
-                                 onDuplicate={() => addNewRow(qua, setQua)}
-                                 removeDuplicate={removeRow}
-                                 changeState={setQua}
-                              />
-                              <HourComponent
-                                 dayOfWeek="Quinta"
-                                 indexWeek={4}
-                                 data={qui}
-                                 onChange={handleChange}
-                                 onDuplicate={() => addNewRow(qui, setQui)}
-                                 removeDuplicate={removeRow}
-                                 changeState={setQui}
-                                 bgColor={"#F8FAFF"}
-                              />
-                              <HourComponent
-                                 dayOfWeek="Sexta"
-                                 indexWeek={5}
-                                 data={sex}
-                                 onChange={handleChange}
-                                 onDuplicate={() => addNewRow(sex, setSex)}
-                                 removeDuplicate={removeRow}
-                                 changeState={setSex}
-                              />
-                              <Col className="mt-4" md={{ offset: 4 }}>
-                                 <BtnBlue variant="dark" type="submit" onClick={() => window.scrollTo(0, 0)}>Salvar</BtnBlue>
-                              </Col>
-                           </>}
-                     </BackGroundForm>
-                  </Form>
-               </Col>
-            </Col>
+            <CustomMenu>
+               {showAlert &&
+                  <Alert variant={status} onClose={() => setShowAlert(false)} dismissible>
+                     {message}
+                  </Alert>
+               }
+               <SubTitle style={{ paddingBottom: 10 }}>Demandas/<strong>Consultor</strong></SubTitle>
+               <Title style={{ paddingBottom: 10 }}>Agenda</Title>
+               <SubTitle>Defina os dias da semana e horários que você pode atender.</SubTitle>
+               <SubTitle style={{ paddingBottom: 10 }}>Não adicione intervalos que entrem em conflito, ex: 10:00 -- 12:00 E 09:00 -- 11:00 do mesmo dia</SubTitle>
+               <Form onSubmit={handleSubmit}>
+                  <BackGroundForm xs={1} className={'mb-2'} noGutters style={{ padding: 16 }}>
+                     {loadingData ?
+                        <Row>
+                           <Col><CircularProgress /></Col>
+                        </Row> :
+                        <>
+                           <HourComponent
+                              dayOfWeek="Segunda"
+                              indexWeek={1}
+                              data={seg}
+                              onChange={handleChange}
+                              onDuplicate={() => addNewRow(seg, setSeg)}
+                              removeDuplicate={removeRow}
+                              changeState={setSeg}
+                           />
+                           <HourComponent
+                              dayOfWeek="Terça"
+                              indexWeek={2}
+                              data={ter}
+                              onChange={handleChange}
+                              onDuplicate={() => addNewRow(ter, setTer)}
+                              removeDuplicate={removeRow}
+                              changeState={setTer}
+                              bgColor={"#F8FAFF"}
+                           />
+                           <HourComponent
+                              dayOfWeek="Quarta"
+                              data={qua}
+                              indexWeek={3}
+                              onChange={handleChange}
+                              onDuplicate={() => addNewRow(qua, setQua)}
+                              removeDuplicate={removeRow}
+                              changeState={setQua}
+                           />
+                           <HourComponent
+                              dayOfWeek="Quinta"
+                              indexWeek={4}
+                              data={qui}
+                              onChange={handleChange}
+                              onDuplicate={() => addNewRow(qui, setQui)}
+                              removeDuplicate={removeRow}
+                              changeState={setQui}
+                              bgColor={"#F8FAFF"}
+                           />
+                           <HourComponent
+                              dayOfWeek="Sexta"
+                              indexWeek={5}
+                              data={sex}
+                              onChange={handleChange}
+                              onDuplicate={() => addNewRow(sex, setSex)}
+                              removeDuplicate={removeRow}
+                              changeState={setSex}
+                           />
+                           <Col className="mt-4" md={{ offset: 4 }}>
+                              <BtnBlue variant="dark" type="submit" onClick={() => window.scrollTo(0, 0)}>Salvar</BtnBlue>
+                           </Col>
+                        </>}
+                  </BackGroundForm>
+               </Form>
+            </CustomMenu>
          </MainRow>
       </MainContainer>
    )
