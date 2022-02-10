@@ -331,11 +331,11 @@ export const DemandForm = (props) => {
                      meetingDataRequest &&
                      !showButtons) &&
                      <Row className="d-flex justify-content-center mt-3 mb-3">
-                        <Col className="mt-3" xs={6} sm={4}>
+                        {/* <Col className="mt-3" xs={6} sm={4}>
                            <Button variant="dark" onClick={() => revertStatusMeeting("transfer")}>
                               Transferir Demanda
                            </Button>
-                        </Col>
+                        </Col> */}
                         <Col className="mt-3" xs={6} sm={3}>
                            <Button variant="secondary" onClick={() => revertStatusMeeting("revert")}>
                               Não compareceu
