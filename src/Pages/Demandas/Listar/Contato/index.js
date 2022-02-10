@@ -93,6 +93,14 @@ export default class ListarContatos extends ListarPagina {
          </TextHeaderCell>
          <TextHeaderCell scope="col">
             <SortColumn
+               label="Prioridade"
+               attribute="dem_cancel_reason"
+               sortCallback={props.sortCallback}
+               receiver={props.subscribe}
+               wipeAll={props.wipeAll} />
+         </TextHeaderCell>
+         <TextHeaderCell scope="col">
+            <SortColumn
                label="Tipo da Demanda"
                attribute="dem_tdm_name"
                sortCallback={props.sortCallback}
@@ -120,6 +128,7 @@ export default class ListarContatos extends ListarPagina {
          <TextCell data-title="Título">{demanda.dem_title}</TextCell>
          <TextCell data-title="E-mail">{demanda.dem_contact_email}</TextCell>
          <TextCell data-title="Status da Demanda">{demanda.statusDemand.sdm_name}</TextCell>
+         <TextCell data-title="Prioridade">{demanda.dem_cancel_reason !== null ? <GreenCheck /> : <NoDataComp />}</TextCell>
          <TextCell data-title="Tipo da Demanda">{demanda.typeDemand.tdm_name}</TextCell>
          <ActionCell data-title="Ações">
             <Link to={`/editar/demandas/${demanda.dem_cod}/alterar`}>
