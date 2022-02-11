@@ -36,6 +36,7 @@ export const DemandForm = (props) => {
          dem_title: "",
          dem_contact_email: "",
          dem_contact_phone: "",
+         dem_cli_cod: "",
          dem_desc: "",
          dem_comments: "",
          dem_usr_cod: "",
