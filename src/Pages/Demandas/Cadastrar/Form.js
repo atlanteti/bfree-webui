@@ -9,6 +9,7 @@ import { DefaultValidationTextField } from '../../../Componentes/FormikComponent
 import { ListStatusDemands } from '../../../Componentes/FormikComponents/ListStatusDemands';
 import { ListTypeDemand } from '../../../Componentes/FormikComponents/ListTypeDemand';
 import { ListUsers } from '../../../Componentes/FormikComponents/ListUsers';
+import { ListMessageStatus } from '../../../Componentes/FormikComponents/ListMessageStatus'
 import { PhoneInput } from '../../../Componentes/FormikComponents/PhoneInput';
 import { StatusHistory } from "../../../Componentes/FormikComponents/StatusHistory";
 import { Timestamps } from '../../../Componentes/FormikComponents/Timestamps';
@@ -31,6 +32,7 @@ export const DemandForm = (props) => {
    const showButtons = userRoles?.length !== 2 && userRoles?.includes("PRÉ-VENDA")
    const [fields, setFields] = useState(
       {
+         dem_activity: "",
          dem_title: "",
          dem_contact_email: "",
          dem_contact_phone: "",
@@ -302,6 +304,11 @@ export const DemandForm = (props) => {
                            name="dem_dtaction"
                            disabled={userRoles?.length !== 0 && (values.dem_sdm_cod === 2 || values.dem_sdm_cod === 3)}
                         />
+                     </Col>
+                     <Col className="mt-3" xs={6} sm={3} >
+                        <ListMessageStatus
+                           label="Mensagem Atual"
+                           name="dem_activity" />
                      </Col>
                      {values.dem_sdm_cod !== 1 && values.dem_sdm_cod !== 5 ?
                         <Col className="mt-3" xs={6} sm={6} >
