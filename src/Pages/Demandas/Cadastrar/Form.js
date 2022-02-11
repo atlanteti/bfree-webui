@@ -125,7 +125,7 @@ export const DemandForm = (props) => {
                return true;
             }),
       dem_desc: yup.string().max(500).required(),
-      dem_comments: yup.string().max(500).required(),                 //Disabled in edit
+      dem_comments: yup.string().max(500).nullable(true),
       dem_usr_cod: yup.number().required(),                           //Disabled in edit
       dem_sdm_cod: yup.number().required(),
       dem_tdm_cod: yup.number().required(),                            //Disabled in edit
@@ -145,6 +145,7 @@ export const DemandForm = (props) => {
       validationSchema = yup.object({
          dem_desc: yup.string().max(500).required(),
          dem_sdm_cod: yup.number().required(),
+         dem_comments: yup.string().max(500).nullable(true),
          dem_dtaction: yup.date()
             .when("dem_sdm_cod", {
                is: (demandStatus) => (demandStatus > 1),
@@ -262,7 +263,6 @@ export const DemandForm = (props) => {
                            maxLength="500"
                            multiline
                            rows={4}
-                           disabled={disableFields}
                         />
                      </Col>
                   </Row>
@@ -313,11 +313,13 @@ export const DemandForm = (props) => {
                            disabled={userRoles?.length !== 0 && (values.dem_sdm_cod === 2 || values.dem_sdm_cod === 3)}
                         />
                      </Col>
-                     <Col className="mt-3" xs={6} sm={3} >
-                        <ListMessageStatus
-                           label="Mensagem Atual"
-                           name="dem_activity" />
-                     </Col>
+                     {userRoles?.includes("PRÉ-VENDA") ?
+                        <Col className="mt-3" xs={6} sm={3} >
+                           <ListMessageStatus
+                              label="Mensagem Atual"
+                              name="dem_activity"
+                              disabled={values.dem_sdm_cod > 1} />
+                        </Col> : null}
                      {values.dem_sdm_cod !== 1 && values.dem_sdm_cod !== 5 ?
                         <Col className="mt-3" xs={6} sm={6} >
                            <MeetingDatePickerField
