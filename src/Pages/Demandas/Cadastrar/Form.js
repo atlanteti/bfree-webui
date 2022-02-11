@@ -305,11 +305,13 @@ export const DemandForm = (props) => {
                            disabled={userRoles?.length !== 0 && (values.dem_sdm_cod === 2 || values.dem_sdm_cod === 3)}
                         />
                      </Col>
-                     <Col className="mt-3" xs={6} sm={3} >
-                        <ListMessageStatus
-                           label="Mensagem Atual"
-                           name="dem_activity" />
-                     </Col>
+                     {userRoles?.includes("PRÉ-VENDA") ?
+                        <Col className="mt-3" xs={6} sm={3} >
+                           <ListMessageStatus
+                              label="Mensagem Atual"
+                              name="dem_activity"
+                              disabled={values.dem_sdm_cod > 1} />
+                        </Col> : null}
                      {values.dem_sdm_cod !== 1 && values.dem_sdm_cod !== 5 ?
                         <Col className="mt-3" xs={6} sm={6} >
                            <MeetingDatePickerField
