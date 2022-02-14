@@ -6,7 +6,7 @@ import { Col } from 'react-bootstrap'
 import { CustomMenu } from '../../../Componentes/CustomMenu'
 import { CustomAlert } from '../../../Componentes/CustomAlert'
 import BadgeForm from './Form'
-import { Title } from '../../../styles/CommonStyles'
+import { RowTopMargin, Title } from '../../../styles/CommonStyles'
 
 export default class CadastrarBadge extends Component {
    constructor(props) {
@@ -42,26 +42,22 @@ export default class CadastrarBadge extends Component {
          return <Redirect to="/badges" />
       } else {
          return <>
-            <Helmet title={`${this.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'} Badge`} />
-            <CustomMenu />
-            <Col>
-               <Col
-                  sm={{ offset: 1, span: 10 }}// Temporary until styled components
-                  md={{ offset: 1, span: 10 }}
-                  lg={{ offset: 2, span: 10 }}>
-                  <CustomAlert
-                     data={this.state.responseData}
-                     showAlertCallback={this.getAlertCallback.bind(this)}
-                     redirectCallback={this.redirect.bind(this)}
-                  />
-                  <BadgeForm
-                     paramRoute={this.paramRoute}
-                     primaryId={this.badgeId}
-                     redirectCallback={this.redirect.bind(this)}
-                     showAlert={this.showAlert.bind(this)}
-                  />
-               </Col>
-            </Col>
+            <CustomMenu >
+               <RowTopMargin>
+                  <Helmet title={`${this.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'} Badge`} />
+               </RowTopMargin>
+               <CustomAlert
+                  data={this.state.responseData}
+                  showAlertCallback={this.getAlertCallback.bind(this)}
+                  redirectCallback={this.redirect.bind(this)}
+               />
+               <BadgeForm
+                  paramRoute={this.paramRoute}
+                  primaryId={this.badgeId}
+                  redirectCallback={this.redirect.bind(this)}
+                  showAlert={this.showAlert.bind(this)}
+               />
+            </CustomMenu>
          </>
       }
    }

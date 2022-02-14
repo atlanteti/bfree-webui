@@ -205,7 +205,6 @@ export default class ListarPagina extends Component {
    render() {
       return <MainContainer>
          <MainRow>
-            {/* Layout usado nesse componente deve ser repetido em custommenucol equivalente dentro do arquivo do componente */}
             <CustomMenu >
                <Container fluid>
                   <CustomAlert

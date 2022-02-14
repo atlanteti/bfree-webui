@@ -6,7 +6,7 @@ import { Col } from 'react-bootstrap'
 import { CustomMenu } from '../../../Componentes/CustomMenu'
 import { CustomAlert } from '../../../Componentes/CustomAlert'
 import CompanyForm from './Form'
-import { Title } from '../../../styles/CommonStyles'
+import { RowTopMargin, Title } from '../../../styles/CommonStyles'
 import { Grid, Container, Box } from "@mui/material"
 
 export default class CadastrarCompanhia extends Component {
@@ -39,25 +39,21 @@ export default class CadastrarCompanhia extends Component {
          return <Redirect to="/companhia" />
       } else {
          return <>
-            <Helmet title={`${this.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'} Empresa`} />
-            <CustomMenu />
-            <Col>
-               <Col
-                  sm={{ offset: 1, span: 10 }}// Temporary until styled components
-                  md={{ offset: 1, span: 10 }}
-                  lg={{ offset: 2, span: 10 }}>
-                  <CustomAlert
-                     showAlertCallback={this.getAlertCallback.bind(this)}
-                     redirectCallback={this.redirect.bind(this)}
-                  />
-                  <CompanyForm
-                     paramRoute={this.paramRoute}
-                     primaryId={this.companyId}
-                     redirectCallback={this.redirect.bind(this)}
-                     showAlert={this.showAlert.bind(this)}
-                  />
-               </Col>
-            </Col>
+            <CustomMenu >
+               <RowTopMargin>
+                  <Helmet title={`${this.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'} Empresa`} />
+               </RowTopMargin>
+               <CustomAlert
+                  showAlertCallback={this.getAlertCallback.bind(this)}
+                  redirectCallback={this.redirect.bind(this)}
+               />
+               <CompanyForm
+                  paramRoute={this.paramRoute}
+                  primaryId={this.companyId}
+                  redirectCallback={this.redirect.bind(this)}
+                  showAlert={this.showAlert.bind(this)}
+               />
+            </CustomMenu>
          </>
       }
    }
