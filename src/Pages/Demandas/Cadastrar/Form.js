@@ -36,6 +36,7 @@ export const DemandForm = (props) => {
          dem_title: "",
          dem_contact_email: "",
          dem_contact_phone: "",
+         dem_cli_cod: "",
          dem_desc: "",
          dem_comments: "",
          dem_usr_cod: "",
@@ -125,7 +126,7 @@ export const DemandForm = (props) => {
                return true;
             }),
       dem_desc: yup.string().max(500).required(),
-      dem_comments: yup.string().max(500).required(),                 //Disabled in edit
+      dem_comments: yup.string().max(500).nullable(true),
       dem_usr_cod: yup.number().required(),                           //Disabled in edit
       dem_sdm_cod: yup.number().required(),
       dem_tdm_cod: yup.number().required(),                            //Disabled in edit
@@ -145,6 +146,7 @@ export const DemandForm = (props) => {
       validationSchema = yup.object({
          dem_desc: yup.string().max(500).required(),
          dem_sdm_cod: yup.number().required(),
+         dem_comments: yup.string().max(500).nullable(true),
          dem_dtaction: yup.date()
             .when("dem_sdm_cod", {
                is: (demandStatus) => (demandStatus > 1),
@@ -208,7 +210,7 @@ export const DemandForm = (props) => {
             >{({ setFieldValue, handleChange, submitForm, values }) => (
                <Form id="mainForm">
                   <Row>
-                     <Col className="mt-3" xs={12} sm={4}>
+                     <Col className="mt-3" xs={12} sm={3}>
                         <DefaultValidationTextField
                            label="Titulo"
                            name="dem_title"
@@ -216,7 +218,7 @@ export const DemandForm = (props) => {
                            maxLength="500"
                            disabled={disableFields} />
                      </Col>
-                     <Col className="mt-3" xs={12} sm={4}>
+                     <Col className="mt-3" xs={12} sm={3}>
                         <DefaultValidationTextField
                            label="Email"
                            name="dem_contact_email"
@@ -224,12 +226,20 @@ export const DemandForm = (props) => {
                            maxLength="255"
                            disabled={disableFields} />
                      </Col>
-                     <Col className="mt-3" xs={12} sm={4}>
+                     <Col className="mt-3" xs={12} sm={3}>
                         <PhoneInput
                            label="Telefone"
                            name="dem_contact_phone"
                            type="text"
                            maxLength="15"
+                           disabled={disableFields} />
+                     </Col>
+                     <Col className="mt-3" xs={12} sm={3}>
+                        <DefaultValidationTextField
+                           label="Código do Usuário"
+                           name="dem_cli_cod"
+                           type="text"
+                           maxLength="10"
                            disabled={disableFields} />
                      </Col>
                   </Row>
@@ -254,7 +264,6 @@ export const DemandForm = (props) => {
                            maxLength="500"
                            multiline
                            rows={4}
-                           disabled={disableFields}
                         />
                      </Col>
                   </Row>
