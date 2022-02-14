@@ -7,6 +7,7 @@ import { CustomMenu } from '../../../Componentes/CustomMenu'
 import { CustomAlert } from '../../../Componentes/CustomAlert'
 import { DemandForm } from './Form'
 import { Title } from '../../../styles/CommonStyles'
+import ContextLogin from "../../../Context/ContextLogin"
 
 export default class CadastrarDemanda extends Component {
    constructor(props) {
@@ -36,6 +37,12 @@ export default class CadastrarDemanda extends Component {
 
    render() {
       if (this.state.redirect) {
+         if (this.context.userRoles?.includes("PRÉ-VENDA")) {
+            return <Redirect to="/contato" />
+         }
+         if (this.context.userRoles?.includes("CONSULTOR")) {
+            return <Redirect to="/reunioes" />
+         }
          return <Redirect to="/demandas" />
       } else {
          return <>
@@ -63,3 +70,4 @@ export default class CadastrarDemanda extends Component {
       }
    }
 }
+CadastrarDemanda.contextType = ContextLogin
