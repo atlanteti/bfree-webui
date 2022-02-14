@@ -36,6 +36,7 @@ export const DemandForm = (props) => {
          dem_title: "",
          dem_contact_email: "",
          dem_contact_phone: "",
+         dem_cli_cod: "",
          dem_desc: "",
          dem_comments: "",
          dem_usr_cod: "",
@@ -209,7 +210,7 @@ export const DemandForm = (props) => {
             >{({ setFieldValue, handleChange, submitForm, values }) => (
                <Form id="mainForm">
                   <Row>
-                     <Col className="mt-3" xs={12} sm={4}>
+                     <Col className="mt-3" xs={12} sm={3}>
                         <DefaultValidationTextField
                            label="Titulo"
                            name="dem_title"
@@ -217,7 +218,7 @@ export const DemandForm = (props) => {
                            maxLength="500"
                            disabled={disableFields} />
                      </Col>
-                     <Col className="mt-3" xs={12} sm={4}>
+                     <Col className="mt-3" xs={12} sm={3}>
                         <DefaultValidationTextField
                            label="Email"
                            name="dem_contact_email"
@@ -225,12 +226,20 @@ export const DemandForm = (props) => {
                            maxLength="255"
                            disabled={disableFields} />
                      </Col>
-                     <Col className="mt-3" xs={12} sm={4}>
+                     <Col className="mt-3" xs={12} sm={3}>
                         <PhoneInput
                            label="Telefone"
                            name="dem_contact_phone"
                            type="text"
                            maxLength="15"
+                           disabled={disableFields} />
+                     </Col>
+                     <Col className="mt-3" xs={12} sm={3}>
+                        <DefaultValidationTextField
+                           label="Código do Usuário"
+                           name="dem_cli_cod"
+                           type="text"
+                           maxLength="10"
                            disabled={disableFields} />
                      </Col>
                   </Row>
