@@ -8,7 +8,7 @@ export default function ExclusionModal(props) {
          const data = await props.deletionCallback(props.identifierCode, props.pageIdentifier)
          props.showAlert(data.meta)
       }
-      return <Modal show={props.showModal} onHide={props.closeModal}>
+      return <Modal show={props.showModal} onHide={props.closeModal} centered>
          <Modal.Header closeButton>
             <Modal.Title>Cuidado!</Modal.Title>
          </Modal.Header>
@@ -30,7 +30,7 @@ export default function ExclusionModal(props) {
          props.showAlert(data.meta)
       }
 
-      return <Modal show={props.showModal} onHide={props.closeModal}>
+      return <Modal show={props.showModal} onHide={props.closeModal} centered>
          <Modal.Header closeButton>
             <Modal.Title>Cuidado!</Modal.Title>
          </Modal.Header>
