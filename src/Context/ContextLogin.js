@@ -43,6 +43,7 @@ export const AuthProvider = ({ children }) => {
             method: "post",
             endpoint: `auth/login?token=${token}`,
          })
+         setUserRoles(data.meta.journeys)
          setVerifyUser(data.meta.status)
          const isTheUserAdmin = data.meta.journeys.length === 0
          if (data.meta.status === 100) {
@@ -54,13 +55,11 @@ export const AuthProvider = ({ children }) => {
             setAuth(data.data.token)
             setAdmin(isTheUserAdmin)
             setUser(decodeToken(data.data.token)["ID Bfree"], { path: "/" })
-            setUserRoles(data.meta.journeys)
             setUserEmail(data.data.email)
          } else if (data.meta.status === 215) {
             cookie.set('term', data.meta.token, { path: "/" })
             cookie.set('userType', data.meta.journeys, { path: "/" })
             setUserEmail(data.data.email)
-            setUserRoles(data.meta.journeys)
             setAdmin(isTheUserAdmin)
          }
       } catch (error) {
