@@ -114,7 +114,7 @@ export const DemandForm = (props) => {
    }, [props])
    let validationSchema = yup.object({
       dem_title: yup.string().max(500).required(),                   //Disabled in edit
-      dem_contact_email: yup.string().email().max(255).required(),   //Disabled in edit
+      dem_contact_email: yup.string().email().max(255),   //Disabled in edit
       dem_contact_phone: yup.string()                                //Disabled in edit
          .test('valid-phone', "Deve estar no formato (99) 9999-9999 ou (99) 99999-9999",
             (value, context) => {
@@ -224,7 +224,7 @@ export const DemandForm = (props) => {
                            name="dem_contact_email"
                            type="text"
                            maxLength="255"
-                           disabled={disableFields} />
+                           disabled={true} />
                      </Col>
                      <Col className="mt-3" xs={12} sm={3}>
                         <PhoneInput
@@ -232,7 +232,7 @@ export const DemandForm = (props) => {
                            name="dem_contact_phone"
                            type="text"
                            maxLength="15"
-                           disabled={disableFields} />
+                           disabled={true} />
                      </Col>
                      <Col className="mt-3" xs={12} sm={3}>
                         <DefaultValidationTextField
