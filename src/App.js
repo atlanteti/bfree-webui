@@ -12,7 +12,7 @@ import { Cookies } from "react-cookie"
 function App() {
    const cookies = new Cookies()
    const [load, setLoad] = useState(true)
-   const { getToken, auth, verifyUser } = useContext(ContextLogin)
+   const { getToken, auth, verifyUser, userRoles } = useContext(ContextLogin)
 
    useEffect(() => {
       if (auth !== null) {
@@ -40,10 +40,15 @@ function App() {
    setTimeout(() => {
       setLoad(false)
    }, 1000)
-
-   if(verifyUser === 100){
+   if (userRoles?.includes("PRÉ-VENDA")) {
+      return <Redirect to="/contato" />
+   }
+   if (userRoles?.includes("CONSULTOR")) {
+      return <Redirect to="/reunioes" />
+   }
+   if (verifyUser === 100) {
       return <Redirect to="/demandas" />
-   } 
+   }
    if (verifyUser === 215) {
       return <Redirect to="/termos" />
    }
