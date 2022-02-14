@@ -125,7 +125,7 @@ export const DemandForm = (props) => {
                return true;
             }),
       dem_desc: yup.string().max(500).required(),
-      dem_comments: yup.string().max(500).required(),                 //Disabled in edit
+      dem_comments: yup.string().max(500).nullable(true),
       dem_usr_cod: yup.number().required(),                           //Disabled in edit
       dem_sdm_cod: yup.number().required(),
       dem_tdm_cod: yup.number().required(),                            //Disabled in edit
@@ -145,6 +145,7 @@ export const DemandForm = (props) => {
       validationSchema = yup.object({
          dem_desc: yup.string().max(500).required(),
          dem_sdm_cod: yup.number().required(),
+         dem_comments: yup.string().max(500).nullable(true),
          dem_dtaction: yup.date()
             .when("dem_sdm_cod", {
                is: (demandStatus) => (demandStatus > 1),
@@ -254,7 +255,6 @@ export const DemandForm = (props) => {
                            maxLength="500"
                            multiline
                            rows={4}
-                           disabled={disableFields}
                         />
                      </Col>
                   </Row>
