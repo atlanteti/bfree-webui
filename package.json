@@ -1,6 +1,6 @@
 {
    "name": "bfree-webui",
-   "version": "v6.3.3-beta",
+   "version": "v6.3.4-beta",
    "private": true,
    "dependencies": {
       "@emotion/react": "^11.4.1",
