@@ -272,7 +272,7 @@ export const DemandForm = (props) => {
                         <ListUsers
                            label="Usuário"
                            name="dem_usr_cod"
-                           disabled={disableField && !(this.state.primaryData.dem_sdm_cod == 1 && this.context.admin)}
+                           disabled={disableFields && !(this.state.primaryData.dem_sdm_cod == 1 && this.context.admin)}
                         />
                      </Col>
                      <Col className="mt-3" xs={12} sm={4}>
