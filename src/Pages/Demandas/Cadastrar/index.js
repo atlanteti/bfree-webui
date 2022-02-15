@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 import Helmet from 'react-helmet'
 
-import { Redirect } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import { Col } from 'react-bootstrap'
 import { CustomMenu } from '../../../Componentes/CustomMenu'
 import { CustomAlert } from '../../../Componentes/CustomAlert'
 import { DemandForm } from './Form'
-import { Title } from '../../../styles/CommonStyles'
+import { RowTopMargin, SubTitle, Title } from '../../../styles/CommonStyles'
 import ContextLogin from "../../../Context/ContextLogin"
+import { Breadcrumbs, Typography } from '@material-ui/core'
 
 export default class CadastrarDemanda extends Component {
    constructor(props) {
@@ -46,26 +47,25 @@ export default class CadastrarDemanda extends Component {
          return <Redirect to="/demandas" />
       } else {
          return <>
-            <Helmet title={`${this.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'} Demandas`} />
-            <CustomMenu />
-            <Col>
-               <Col
-                  sm={{ offset: 1, span: 10 }}// Temporary until styled components
-                  md={{ offset: 1, span: 10 }}
-                  lg={{ offset: 2, span: 10 }}>
-                  <CustomAlert
-                     data={this.state.responseData}
-                     showAlertCallback={this.getAlertCallback.bind(this)}
-                     redirectCallback={this.redirect.bind(this)}
-                  />
-                  <DemandForm
-                     paramRoute={this.paramRoute}
-                     primaryId={this.demandId}
-                     redirectCallback={this.redirect.bind(this)}
-                     showAlert={this.showAlert.bind(this)}
-                  />
-               </Col>
-            </Col>
+
+            <CustomMenu>
+               <CustomAlert
+                  data={this.state.responseData}
+                  showAlertCallback={this.getAlertCallback.bind(this)}
+                  redirectCallback={this.redirect.bind(this)}
+               />
+               <RowTopMargin>
+                  <Col>
+                     <Helmet title={`${this.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'} Demandas`} />
+                  </Col>
+               </RowTopMargin>
+               <DemandForm
+                  paramRoute={this.paramRoute}
+                  primaryId={this.demandId}
+                  redirectCallback={this.redirect.bind(this)}
+                  showAlert={this.showAlert.bind(this)}
+               />
+            </CustomMenu>
          </>
       }
    }

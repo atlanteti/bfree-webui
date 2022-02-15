@@ -6,7 +6,7 @@ import { Col } from 'react-bootstrap'
 import { CustomMenu } from '../../../Componentes/CustomMenu'
 import { CustomAlert } from '../../../Componentes/CustomAlert'
 import JourneyForm from './Form'
-import { Title } from '../../../styles/CommonStyles'
+import { Title, RowTopMargin } from '../../../styles/CommonStyles'
 export default class CadastrarJornada extends Component {
    constructor(props) {
       super(props)
@@ -39,26 +39,22 @@ export default class CadastrarJornada extends Component {
          return <Redirect to="/jornadas" />
       } else {
          return <>
-            <Helmet title={`${this.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'} Jornadas`} />
-            <CustomMenu />
-            <Col>
-               <Col
-                  sm={{ offset: 1, span: 10 }}// Temporary until styled components
-                  md={{ offset: 1, span: 10 }}
-                  lg={{ offset: 2, span: 10 }}>
-                  <CustomAlert
-                     data={this.state.responseData}
-                     showAlertCallback={this.getAlertCallback.bind(this)}
-                     redirectCallback={this.redirect.bind(this)}
-                  />
-                  <JourneyForm
-                     paramRoute={this.paramRoute}
-                     primaryId={this.journeyId}
-                     redirectCallback={this.redirect.bind(this)}
-                     showAlert={this.showAlert.bind(this)}
-                  />
-               </Col>
-            </Col>
+            <CustomMenu>
+               <RowTopMargin>
+                  <Helmet title={`${this.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'} Jornadas`} />
+               </RowTopMargin>
+               <CustomAlert
+                  data={this.state.responseData}
+                  showAlertCallback={this.getAlertCallback.bind(this)}
+                  redirectCallback={this.redirect.bind(this)}
+               />
+               <JourneyForm
+                  paramRoute={this.paramRoute}
+                  primaryId={this.journeyId}
+                  redirectCallback={this.redirect.bind(this)}
+                  showAlert={this.showAlert.bind(this)}
+               />
+            </CustomMenu>
          </>
       }
    }
