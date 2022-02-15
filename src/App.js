@@ -22,7 +22,7 @@ function App() {
 
       window.Eduzz.Accounts.login("a4b7ad1d-ebf7-43f8-af05-5cda0575c621",
          {
-            env: "staging", //env: "" (Default, vale como produção)
+            env: "", //env: "" (Default, vale como produção)
             // redirectTo: this.options?.redirectTo || window.location.href,
             // bg: this.options?.bg,
             // logo: this.options?.logo,
