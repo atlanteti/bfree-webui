@@ -21,7 +21,7 @@ import InputMask from "react-input-mask";
 import ContextLogin from "../../../Context/ContextLogin"
 import moment from 'moment';
 export const DemandForm = (props) => {
-   const { userRoles } = useContext(ContextLogin)
+   const { userRoles, admin } = useContext(ContextLogin)
    const [primaryData, setPrimaryData] = useState()
    const disableFields = (props.paramRoute !== "inserir")
    const [pageTop, scrollToTop] = useScroll()
@@ -272,7 +272,7 @@ export const DemandForm = (props) => {
                         <ListUsers
                            label="Usuário"
                            name="dem_usr_cod"
-                           disabled={disableFields && !(this.state.primaryData.dem_sdm_cod == 1 && this.context.admin)}
+                           disabled={disableFields && !(primaryData.dem_sdm_cod == 1 && admin)}
                         />
                      </Col>
                      <Col className="mt-3" xs={12} sm={4}>
