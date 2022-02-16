@@ -324,7 +324,7 @@ function CreateMenuItems(cookie, admin, userRoles) {
                onClick={() => {
                   cookie.remove('auth', { path: "/" })
                   cookie.remove('hasJourney', { path: "/" })
-                  window.Eduzz.Accounts.logout({ env: "staging", redirectTo: window.location.origin + process.env.PUBLIC_URL })
+                  window.Eduzz.Accounts.logout({ env: process.env.REACT_APP_EDUZZ_ENV, redirectTo: window.location.origin + process.env.PUBLIC_URL })
                }}>
                <ListItemIcon>
                   <SvgIcon component={SairIcon} inheritViewBox />
