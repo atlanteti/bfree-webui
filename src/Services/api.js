@@ -53,7 +53,7 @@ export const request = async ({
          result.data.meta.message = <Alert />
       }
       if (result.data.meta.status === 201 || result.data.meta.status === 202) {
-         window.Eduzz.Accounts.logout({ env: "staging", redirectTo: window.location.origin })
+         window.Eduzz.Accounts.logout({ env: process.env.REACT_APP_EDUZZ_ENV, redirectTo: window.location.origin })
          return
       } else if (result.data.meta.status === 204) {
          window.location.replace(process.env.PUBLIC_URL + "/demandas")
@@ -63,7 +63,7 @@ export const request = async ({
    } catch (error) {
       try {
          if (error.response.data.meta.status === 203) {
-            window.Eduzz.Accounts.logout({ env: "staging", redirectTo: window.location.origin })
+            window.Eduzz.Accounts.logout({ env: process.env.REACT_APP_EDUZZ_ENV, redirectTo: window.location.origin })
             return
          }
       } catch {
