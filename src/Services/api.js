@@ -1,7 +1,6 @@
 import axios from 'axios'
 import { Col, Row } from 'react-bootstrap'
 import { Cookies } from 'react-cookie'
-import { baseEndpoint } from './config'
 
 export const request = async ({
    method,
@@ -12,7 +11,7 @@ export const request = async ({
    contentType
 }) => {
 
-   const baseUrl = baseEndpoint
+   const baseUrl = process.env.REACT_APP_API_ENDPOINT
    const cookieGetter = new Cookies()
    const token = await cookieGetter.get("auth")
    const config = {
