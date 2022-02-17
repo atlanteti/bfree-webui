@@ -43,8 +43,6 @@ export const AuthProvider = ({ children }) => {
             method: "post",
             endpoint: `auth/login?token=${token}`,
          })
-         setUserRoles(data.meta.journeys)
-         setVerifyUser(data.meta.status)
          const isTheUserAdmin = data.meta.journeys.length === 0
          if (data.meta.status === 100) {
             cookie.set('auth', data.data.token, { path: "/" })
@@ -52,6 +50,8 @@ export const AuthProvider = ({ children }) => {
             cookie.set('user', decodeToken(data.data.token)["ID Bfree"], { path: "/" })
             cookie.set('userType', data.meta.journeys, { path: "/" })
             cookie.set('userShow', btoa(data.data.email), { path: "/" })
+            setVerifyUser(data.meta.status)
+            setUserRoles(data.meta.journeys)
             setAuth(data.data.token)
             setAdmin(isTheUserAdmin)
             setUser(decodeToken(data.data.token)["ID Bfree"], { path: "/" })
@@ -59,6 +59,8 @@ export const AuthProvider = ({ children }) => {
          } else if (data.meta.status === 215) {
             cookie.set('term', data.meta.token, { path: "/" })
             cookie.set('userType', data.meta.journeys, { path: "/" })
+            setVerifyUser(data.meta.status)
+            setUserRoles(data.meta.journeys)
             setUserEmail(data.data.email)
             setAdmin(isTheUserAdmin)
          }
