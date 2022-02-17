@@ -39,7 +39,12 @@ export const request = async ({
       ) {
          cookieGetter.set("auth", result.data.meta.token, { path: "/" })
       }
-      cookieGetter.set("admin", result.data.meta.journeys.length === 0, { path: "/" })
+      if (result.data.meta.journeys) {
+         cookieGetter.set("admin", result.data.meta.journeys.length === 0, { path: "/" })
+      }
+      else {
+         window.Eduzz.Accounts.logout({ env: process.env.REACT_APP_EDUZZ_ENV, redirectTo: window.location.origin })
+      }
       cookieGetter.set("userType", result.data.meta.journeys)
       if (result.data.meta.status === 422) {
          let Alert = () => {
