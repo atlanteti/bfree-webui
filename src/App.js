@@ -40,16 +40,16 @@ function App() {
    setTimeout(() => {
       setLoad(false)
    }, 1000)
-   if (userRoles?.includes("PRÉ-VENDA")) {
-      return <Redirect to="/contato" />
-   }
-   if (userRoles?.includes("CONSULTOR")) {
-      return <Redirect to="/reunioes" />
-   }
    if (verifyUser === 100) {
-      return <Redirect to="/demandas" />
+      if (userRoles?.includes("PRÉ-VENDA")) {
+         return <Redirect to="/contato" />
+      }
+      else if (userRoles?.includes("CONSULTOR")) {
+         return <Redirect to="/reunioes" />
+      }
+      else return <Redirect to="/demandas" />
    }
-   if (verifyUser === 215) {
+   else if (verifyUser === 215) {
       return <Redirect to="/termos" />
    }
 
