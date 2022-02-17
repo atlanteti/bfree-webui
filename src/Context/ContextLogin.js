@@ -14,6 +14,8 @@ export const AuthProvider = ({ children }) => {
    const [userRoles, setUserRoles] = useState(null);
    const [verifyUser, setVerifyUser] = useState(null);
    const [userEmail, setUserEmail] = useState(null);
+   //TODO: Definir os estados que são passados pelo contexto
+   //Para retornarem promessas em vez de ficarem nulos 
 
    useEffect(() => {
       async function loadStoraged() {
@@ -50,8 +52,8 @@ export const AuthProvider = ({ children }) => {
             cookie.set('user', decodeToken(data.data.token)["ID Bfree"], { path: "/" })
             cookie.set('userType', data.meta.journeys, { path: "/" })
             cookie.set('userShow', btoa(data.data.email), { path: "/" })
-            setVerifyUser(data.meta.status)
             setUserRoles(data.meta.journeys)
+            setVerifyUser(data.meta.status)
             setAuth(data.data.token)
             setAdmin(isTheUserAdmin)
             setUser(decodeToken(data.data.token)["ID Bfree"], { path: "/" })
@@ -59,8 +61,8 @@ export const AuthProvider = ({ children }) => {
          } else if (data.meta.status === 215) {
             cookie.set('term', data.meta.token, { path: "/" })
             cookie.set('userType', data.meta.journeys, { path: "/" })
-            setVerifyUser(data.meta.status)
             setUserRoles(data.meta.journeys)
+            setVerifyUser(data.meta.status)
             setUserEmail(data.data.email)
             setAdmin(isTheUserAdmin)
          }
@@ -78,6 +80,7 @@ export const AuthProvider = ({ children }) => {
          userEmail,
          verifyUser,
          setVerifyUser,
+         setUserRoles,
          setUser,
          setAuth
       }}>
