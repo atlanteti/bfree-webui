@@ -321,11 +321,7 @@ function CreateMenuItems(cookie, admin, userRoles) {
                <ListItemText primary={"Logs"} />
             </ListItem>
             <ListItem button
-               onClick={() => {
-                  cookie.remove('auth', { path: "/" })
-                  cookie.remove('hasJourney', { path: "/" })
-                  window.Eduzz.Accounts.logout({ env: process.env.REACT_APP_EDUZZ_ENV, redirectTo: window.location.origin + process.env.PUBLIC_URL })
-               }}>
+               onClick={logout(cookie)}>
                <ListItemIcon>
                   <SvgIcon component={SairIcon} inheritViewBox />
                </ListItemIcon>
@@ -346,11 +342,7 @@ function CreateMenuItems(cookie, admin, userRoles) {
          <PreConsultorMenu />
          <ConsultorMenu />
          <ListItem button
-            onClick={() => {
-               cookie.remove('auth', { path: "/" })
-               cookie.remove('hasJourney', { path: "/" })
-               window.Eduzz.Accounts.logout({ env: "staging", redirectTo: window.location.origin + process.env.PUBLIC_URL })
-            }}>
+            onClick={logout(cookie)}>
             <ListItemIcon>
                <SvgIcon component={SairIcon} inheritViewBox />
             </ListItemIcon>
@@ -368,11 +360,7 @@ function CreateMenuItems(cookie, admin, userRoles) {
          </ListItem>
          <PreConsultorMenu />
          <ListItem button
-            onClick={() => {
-               cookie.remove('auth', { path: "/" })
-               cookie.remove('hasJourney', { path: "/" })
-               window.Eduzz.Accounts.logout({ env: "staging", redirectTo: window.location.origin + process.env.PUBLIC_URL })
-            }}>
+            onClick={logout(cookie)}>
             <ListItemIcon>
                <SvgIcon component={SairIcon} inheritViewBox />
             </ListItemIcon>
@@ -390,16 +378,24 @@ function CreateMenuItems(cookie, admin, userRoles) {
          </ListItem>
          <ConsultorMenu />
          <ListItem button
-            onClick={() => {
-               cookie.remove('auth', { path: "/" })
-               cookie.remove('hasJourney', { path: "/" })
-               window.Eduzz.Accounts.logout({ env: "staging", redirectTo: window.location.origin + process.env.PUBLIC_URL })
-            }}>
+            onClick={logout(cookie)}>
             <ListItemIcon>
                <SvgIcon component={SairIcon} inheritViewBox />
             </ListItemIcon>
             <ListItemText primary={"Sair"} />
          </ListItem></>
+   }
+}
+
+function logout(cookie) {
+   return () => {
+      const cookies = cookie.getAll()
+      Object.keys(cookies).forEach(
+         (key) => {
+            cookie.remove(key, { path: '/' })
+         }
+      )
+      window.Eduzz.Accounts.logout({ env: process.env.REACT_APP_EDUZZ_ENV, redirectTo: window.location.origin + process.env.PUBLIC_URL })
    }
 }
 
