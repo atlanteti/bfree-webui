@@ -326,6 +326,7 @@ export const DemandForm = (props) => {
                            <MeetingDatePickerField
                               label="Data da Reunião"
                               name="dem_dtmeet"
+                              minDate={new Date()}
                               disabled={disableDateMeeting || values.dem_sdm_cod > 2}
                               onChange={!disableDateMeeting && (async value => {
                                  setFieldValue("dem_dtmeet", value);
