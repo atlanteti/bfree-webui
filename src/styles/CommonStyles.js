@@ -397,3 +397,9 @@ export const UploadContainer = styled(Col)`
       justify-content: center;
    }
 `
+
+export const ToogleContainer = styled.div`
+   @media (max-width: 769px) {
+      padding-bottom: 35px;
+   }
+`
