@@ -373,7 +373,10 @@ export const DemandForm = (props) => {
                               <TableData>
                                  {freeTime.length > 0 ? freeTime.map((interval) => {
                                     return <TableRow>
-                                       <TextCell>{interval.cal_start}-{interval.cal_end}</TextCell>
+                                       {interval.cal_end ?
+                                          <TextCell>{interval.cal_start}-{interval.cal_end}</TextCell> :
+                                          <TextCell>{interval.cal_start}</TextCell>
+                                       }
                                     </TableRow>
                                  }) :
                                     <TableRow>
@@ -424,7 +427,6 @@ export const DemandForm = (props) => {
                                           "mee_cod": meetingCode,
                                           "mee_dem_cod": props.primaryId,
                                           "mee_start": dateStart,
-                                          "mee_end": dateEnd
                                        }
                                     })
                                     if (data.meta.status !== 100) {
@@ -434,18 +436,19 @@ export const DemandForm = (props) => {
                                        setContacts({
                                           consult: data.data.usuario.usr_email,
                                           client: data.data.demand.dem_contact_email,
-                                          time: moment(data.data.mee_start).format("DD/MM/YYYY - HH:mm")
+                                          time: moment(data.data.mee_start).format("DD/MM/YYYY - HH:mm"),
+                                          endTime: moment(data.data.mee_end).format("HH:mm")
                                        })
                                     }
                                  }}>
                                  {values.dem_hourmeet?.length == "5" ?
-                                    `Marcar Reunião De ${values.dem_hourmeet} a ${addTwoHours(values.dem_hourmeet)}` : "Escolha um horário"}</Button>
+                                    `Marcar Reunião De ${values.dem_hourmeet}` : "Escolha um horário"}</Button>
                            </Col>
                         </Row>
                         {contacts ?
                            <Row>
                               <Col>
-                                 Reunião marcada! Crie o evento e convide {contacts.consult} e {contacts.client} para a reunião de {contacts.time}
+                                 Reunião marcada! Crie o evento e convide {contacts.consult} e {contacts.client} para a reunião de {contacts.time} a {contacts.endTime}
                               </Col>
                            </Row>
                            : null}
