@@ -55,7 +55,7 @@ export const CustomMenu = (props) => {
                position: "absolute",
                top: 70,
             }}>
-            <Icon name="burger" className="w-8 h-8" />
+            <Icon name="burger" color="#3E516E" className="w-8 h-8" />
          </Button>
       </ToogleContainer>
       <Drawer
