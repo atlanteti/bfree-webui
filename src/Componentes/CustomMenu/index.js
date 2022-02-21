@@ -1,11 +1,10 @@
 /* eslint-disable react/display-name */
-import { Navigation } from 'react-minimal-side-navigation'
-import { Link, useHistory, useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import Icon from 'awesome-react-icons'
 import React, { useContext, useState } from 'react'
 import 'react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css'
 
-import { CustomMenuCol, LastItemMenu, TopBarContainer, TopBarContainerMenu } from '../../styles/CommonStyles'
+import { TopBarContainer, ToogleContainer } from '../../styles/CommonStyles'
 import { Cookies } from "react-cookie";
 import ContextLogin from '../../Context/ContextLogin'
 import { IoChevronForwardOutline } from "react-icons/io5"
@@ -20,11 +19,10 @@ import { ReactComponent as RelatoriosIcon } from "../../Assets/Icons/icon_relato
 import { ReactComponent as UploadsIcon } from "../../Assets/Icons/icon_uploads.svg"
 import { ReactComponent as LogsIcon } from "../../Assets/Icons/icon_logs.svg"
 import { ReactComponent as GerencialIcon } from "../../Assets/Icons/icon_gerencial.svg"
-import { ReactComponent as CalendariolIcon } from "../../Assets/Icons/icon_calendario.svg"
 import { ReactComponent as SairIcon } from "../../Assets/Icons/icon_sair.svg"
 import Drawer from '@mui/material/Drawer';
-import { AppBar, Box, Grid, List, ListItem, ListItemIcon, ListItemText, Toolbar, Typography } from '@mui/material'
-import { IconButton, Popover, SvgIcon } from '@material-ui/core'
+import { AppBar, Grid, List, ListItem, ListItemIcon, ListItemText, Toolbar, Button } from '@mui/material'
+import { Popover, SvgIcon } from '@material-ui/core'
 import { Col } from 'react-bootstrap'
 import './styles.css'
 export const CustomMenu = (props) => {
@@ -32,9 +30,11 @@ export const CustomMenu = (props) => {
    const cookie = new Cookies();
    const [drawerOpen, toggleDrawer] = useState(false)
    const { admin, userRoles } = useContext(ContextLogin)
-   const handleDrawerToggle = () => {
-      toggleDrawer(!drawerOpen)
-
+   const handleDrawerToggle = (open) => (event) => {
+      if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+         return;
+      }
+      toggleDrawer(open)
    }
    return <Col>
       <AppBar style={{ background: '#ffffff' }} position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
@@ -49,18 +49,27 @@ export const CustomMenu = (props) => {
             </TopBarContainer>
          </Toolbar>
       </AppBar>
+      <ToogleContainer>
+         <Button onClick={handleDrawerToggle(true)}
+            style={{
+               position: "absolute",
+               top: 70,
+            }}>
+            <Icon name="burger" color="#3E516E" className="w-8 h-8" />
+         </Button>
+      </ToogleContainer>
       <Drawer
          variant="temporary"
          sx={{
             display: { xs: "block", md: "none" }
          }}
          open={drawerOpen}
-         onClose={handleDrawerToggle}
+         onClose={handleDrawerToggle(false)}
          ModalProps={{
             keepMounted: true
          }}
       >
-
+         <Toolbar />
          {CreateMenuItems(cookie, admin, userRoles)}
       </Drawer>
       <Drawer
@@ -73,19 +82,16 @@ export const CustomMenu = (props) => {
          {CreateMenuItems(cookie, admin, userRoles)}
       </Drawer>
       {admin ?
-         <Grid container justifyContent="flex-end" columns={24}>
+         <Grid container justifyContent="flex-end" style={{ paddingTop: 70 }} columns={24}>
             <Grid item xs={24} md={17} lg={19}>
-               <Toolbar />
                {props.children}
 
             </Grid>
          </Grid>
          :
-         <Grid container justifyContent="flex-end" columns={48}>
+         <Grid container justifyContent="flex-end" style={{ paddingTop: 70 }} columns={48}>
             <Grid item xs={48} md={38} lg={40}>
-               <Toolbar />
                {props.children}
-
             </Grid>
          </Grid>}
    </Col >

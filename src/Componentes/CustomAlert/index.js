@@ -32,7 +32,7 @@ export class CustomAlert extends React.Component {
       this.setState({ showAlert: true })
       this.setContent(message, statusMsg)
       if (this.myRef.current) {
-         this.myRef.current.scrollIntoView()
+         this.myRef.current.scrollIntoView({ block: "end", behavior: "smooth" })
       }
       if (statusMsg === "success") {
          window.setTimeout(() => {
