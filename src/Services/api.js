@@ -16,7 +16,7 @@ export const request = async ({
    const token = await cookieGetter.get("auth")
    const config = {
       method: method || 'get',
-      baseURL: `http://${baseUrl}/${endpoint}`,
+      baseURL: `${baseUrl}/${endpoint}`,
       data: data || null,
       params: params || null,
       timeout: 120000,
