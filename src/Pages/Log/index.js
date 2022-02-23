@@ -236,13 +236,15 @@ class Log extends Component {
                                                                }
                                                                if (!key.includes("Data")) {
                                                                   if (key === "Inicio" || key === "Fim") {
-                                                                     return (
-                                                                        <tr className="rowLogs table-borderless">
-                                                                           <TextCell>{key}</TextCell>
-                                                                           <TextCell>{oldValue ? displayDate(oldValue[key]) : ""}</TextCell>
-                                                                           <TextCell style={{ color: highlight ? "#4CAF50" : null }}>{newValue ? displayDate(newValue[key]) : ""}</TextCell>
-                                                                        </tr>
-                                                                     )
+                                                                     if (newValue['Dia da Semana'] === undefined) {
+                                                                        return (
+                                                                           <tr className="rowLogs table-borderless">
+                                                                              <TextCell>{key}</TextCell>
+                                                                              <TextCell>{oldValue ? displayDate(oldValue[key]) : ""}</TextCell>
+                                                                              <TextCell style={{ color: highlight ? "#4CAF50" : null }}>{newValue ? displayDate(newValue[key]) : ""}</TextCell>
+                                                                           </tr>
+                                                                        )
+                                                                     }
                                                                   }
                                                                   return (
                                                                      <tr className="rowLogs table-borderless">
