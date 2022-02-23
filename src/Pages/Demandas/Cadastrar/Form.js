@@ -61,6 +61,14 @@ export const DemandForm = (props) => {
       })
       props.showAlert(data.meta)
    }
+   async function sendEmail() {
+      const data = await request({
+         method: "post",
+         endpoint: `demands/send-mail`,
+         params: { dem_cod: primaryData.dem_cod }
+      })
+      props.showAlert(data.meta)
+   }
    useEffect(() => {
       let tempFields = {}
       const requestData = async () => {
@@ -345,6 +353,19 @@ export const DemandForm = (props) => {
                         </Col> : null
                      }
                   </Row>
+                  {(admin && primaryData?.dem_sdm_cod === 3) &&
+                     <Row className="mt-3 d-flex justify-content-center">
+                        <Col className="d-flex justify-content-center" >
+                           <Button
+                              variant="light"
+                              style={{ color: "#0203ad" }}
+                              onClick={() => sendEmail()}
+                           >
+                              Reenviar Avaliação
+                           </Button>
+                        </Col>
+                     </Row>
+                  }
                   {(values.dem_sdm_cod === 2 &&
                      primaryData?.dem_sdm_cod === 2 &&
                      meetingDataRequest &&
@@ -465,8 +486,8 @@ export const DemandForm = (props) => {
                            : null}
                      </>
                      : null}
-                  <Row style={{ marginTop: 25, marginBottom: 31 }}>
-                     <Col md={{ offset: 5 }}>
+                  <Row style={{ marginTop: 25, marginBottom: 31 }} className="d-flex justify-content-center">
+                     <Col className="d-flex justify-content-center">
                         <BtnBlue variant="dark" type="submit" onClick={scrollToTop}>Salvar</BtnBlue>
                      </Col>
                   </Row>
