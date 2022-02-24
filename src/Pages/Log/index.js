@@ -236,7 +236,8 @@ class Log extends Component {
                                                                }
                                                                if (!key.includes("Data")) {
                                                                   if (key === "Inicio" || key === "Fim") {
-                                                                     if (newValue['Dia da Semana'] === undefined) {
+                                                                     // tanto a reunião como o cadastro de calendário tem as mesmas keys, por isso foi criada essa outra verificação
+                                                                     if (!(Object.keys(oldValue).includes('Dia da Semana') || Object.keys(newValue).includes('Dia da Semana'))) {
                                                                         return (
                                                                            <tr className="rowLogs table-borderless">
                                                                               <TextCell>{key}</TextCell>
