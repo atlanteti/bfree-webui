@@ -423,6 +423,7 @@ export const DemandForm = (props) => {
                                  {() => <DefaultValidationTextField
                                     label="Hora da Reunião"
                                     name="dem_hourmeet"
+                                    placeholder='00:00'
                                     disabled={freeTime.length == 0}
                                     type="text"
                                     maxLength="6" />}
