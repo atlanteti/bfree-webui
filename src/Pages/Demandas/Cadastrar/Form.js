@@ -119,7 +119,7 @@ export const DemandForm = (props) => {
       if (props.paramRoute !== "inserir") {
          requestData();
       }
-   }, [props])
+   }, [])
    let validationSchema = yup.object({
       dem_title: yup.string().max(500).required(),                   //Disabled in edit
       dem_contact_email: yup.string().email().max(255),   //Disabled in edit
