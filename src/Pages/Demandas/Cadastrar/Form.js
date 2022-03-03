@@ -197,7 +197,10 @@ export const DemandForm = (props) => {
                      const data = await request({
                         method: method,
                         endpoint: postEndpoint,
-                        data: values,
+                        data: {
+                           ...values,
+                           dem_dtaction: moment(values.dem_dtaction).format("YYYY-MM-DD")
+                        },
                      });
                      if (data.meta.status == 100) {
                         props.showAlert(data.meta)
