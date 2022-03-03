@@ -68,6 +68,7 @@ export default class ListarRelatorio extends ListarPagina {
    }
    onSubmit(e) {
       e.preventDefault()
+      this.setState({ responseData: null })
       this.fetchAndSetData({ page: 1 })
    }
 
@@ -238,14 +239,6 @@ export default class ListarRelatorio extends ListarPagina {
                                              </TextHeaderCell>
                                           )
                                        })}
-                                       {/* <this.TableHeaderCustom
-                                             sortCallback={this.reorderData.bind(this)}
-                                             subscribe={this.subscribe.bind(this)}
-                                             wipeAll={this.wipe.bind(this)}
-                                             anchorEl={this.state.anchorEl}
-                                             idUser={this.state.idUser}
-                                             closeMenu={this.closeMenu.bind(this)}
-                                             userName={this.state.userName} /> */}
                                     </TableRow>
                                  </TableHeader>
                                  <ReportTableData>
