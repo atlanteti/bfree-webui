@@ -1,31 +1,24 @@
-import { Button, Col, Container, Form, Row } from 'react-bootstrap'
-// import SearchBar from '../../../Componentes/SearchBar'
+import { Col, Container, Form, Row } from 'react-bootstrap'
 import { request } from '../../../Services/api'
-import ExclusionModal from '../../../Componentes/ExclusionModal'
-import ListarPagina, { PageHeaderCustomComponent } from '../../../Componentes/ListData'
+import ListarPagina from '../../../Componentes/ListData'
 import {
-   ActionCell, ActionHeaderCell,
-   RightAlignText,
    TableRow, TextCell, TextHeaderCell, Title,
    HeaderContainer, RowTopMargin, NumberCell,
-   MainContainer, MainRow, CustomMenuCol, TableHeader,
-   TableData, MainTable, ReportTableData, SearchBarBorder, BtnBlue, DataSearchTitle, ExportContainer
+   MainContainer, MainRow, TableHeader,
+   MainTable, ReportTableData, SearchBarBorder, BtnBlue, DataSearchTitle, ExportContainer
 } from '../../../styles/CommonStyles'
-import SortColumn from '../../../Componentes/SortColumn'
 import { React } from 'react'
 import { CustomMenu } from '../../../Componentes/CustomMenu'
 import { CustomAlert } from '../../../Componentes/CustomAlert'
-import { CircularProgress, LinearProgress } from '@material-ui/core'
+import { CircularProgress } from '@material-ui/core'
 import { Helmet } from 'react-helmet'
-import { InputTextField, ValidationTextField } from '../../../Componentes/FormFields'
+import { ValidationTextField } from '../../../Componentes/FormFields'
 import DatePicker from "react-datepicker";
 import moment from 'moment'
 import ListUsers from '../../../Componentes/ListUsers'
 import ContextLogin from "../../../Context/ContextLogin";
 import Restricted from '../../../Context/AccessPermission'
 import { AiOutlineUpload } from "react-icons/ai"
-
-// import { JourneySearchBar } from './JourneySearchBar'
 
 export default class ListarRelatorio extends ListarPagina {
    constructor(props) {
