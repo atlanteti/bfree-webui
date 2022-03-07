@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import Icon from 'awesome-react-icons'
 import React, { useContext, useState } from 'react'
 import 'react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css'
-
+import { makeStyles } from "@material-ui/core/styles";
 import { TopBarContainer, ToogleContainer } from '../../styles/CommonStyles'
 import { Cookies } from "react-cookie";
 import ContextLogin from '../../Context/ContextLogin'
@@ -25,9 +25,19 @@ import { AppBar, Grid, List, ListItem, ListItemIcon, ListItemText, Toolbar, Butt
 import { Popover, SvgIcon } from '@material-ui/core'
 import { Col } from 'react-bootstrap'
 import './styles.css'
+
+const useStyles = makeStyles({
+   paper: {
+      ['@media (min-width:1600px)']: {
+         width: 330
+      }
+   }
+});
+
 export const CustomMenu = (props) => {
    const { userEmail, signed } = useContext(ContextLogin)
-   const cookie = new Cookies();
+   const classes = useStyles()
+   const cookie = new Cookies()
    const [drawerOpen, toggleDrawer] = useState(false)
    const { admin, userRoles } = useContext(ContextLogin)
    const handleDrawerToggle = (open) => (event) => {
@@ -77,20 +87,20 @@ export const CustomMenu = (props) => {
          sx={{
             display: { xs: 'none', md: "block" }
          }}
+         classes={{ paper: classes.paper }}
       >
          <Toolbar />
          {CreateMenuItems(cookie, admin, userRoles)}
       </Drawer>
       {admin ?
          <Grid container justifyContent="flex-end" style={{ paddingTop: 70 }} columns={24}>
-            <Grid item xs={24} md={17} lg={19}>
+            <Grid item xs={24} md={18} lg={19}>
                {props.children}
-
             </Grid>
          </Grid>
          :
-         <Grid container justifyContent="flex-end" style={{ paddingTop: 70 }} columns={48}>
-            <Grid item xs={48} md={38} lg={40}>
+         <Grid container justifyContent="flex-end" style={{ paddingTop: 70 }} columns={24}>
+            <Grid item xs={24} md={19} lg={19}>
                {props.children}
             </Grid>
          </Grid>}
