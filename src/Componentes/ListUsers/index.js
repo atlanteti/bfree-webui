@@ -18,9 +18,13 @@ export default class ListUsers extends Component {
    }
 
    async getUsers() {
+      let endPoint = "listar-todos"
+      if (Object.keys(this.props).includes('userJourney')) {
+         endPoint = "list-has-journey"
+      }
       const data = await request({
          method: 'get',
-         endpoint: 'usuarios/listar-todos'
+         endpoint: `usuarios/${endPoint}`
       });
       this.setState({
          users: data.data
