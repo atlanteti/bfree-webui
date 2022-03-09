@@ -77,20 +77,20 @@ export const DemandForm = (props) => {
                method: "get",
                endpoint: "demands/procurar/" + props.primaryId,
             });
-            if (data.data.meeting) {
-               const meetingData = await request({
-                  method: "get",
-                  endpoint: "meetings/find/" + data.data.meeting.mee_cod,
-               })
-               data.data["dem_dtmeet"] = meetingData.data.mee_start
-               setMeetingData({
-                  date: moment(meetingData.data.mee_start).format("DD/MM/YYYY"),
-                  start: moment(meetingData.data.mee_start).format("HH:mm"),
-                  end: moment(meetingData.data.mee_end).format("HH:mm"),
-                  client: meetingData.data.demand.dem_contact_email,
-                  consultant: meetingData.data.usuario.usr_email
-               })
-            }
+            // if (data.data.meeting) {
+            //    const meetingData = await request({
+            //       method: "get",
+            //       endpoint: "meetings/find/" + data.data.meeting.mee_cod,
+            //    })
+            //    data.data["dem_dtmeet"] = meetingData.data.mee_start
+            //    setMeetingData({
+            //       date: moment(meetingData.data.mee_start).format("DD/MM/YYYY"),
+            //       start: moment(meetingData.data.mee_start).format("HH:mm"),
+            //       end: moment(meetingData.data.mee_end).format("HH:mm"),
+            //       client: meetingData.data.demand.dem_contact_email,
+            //       consultant: meetingData.data.usuario.usr_email
+            //    })
+            // }
             setPrimaryData(data.data)
             for (const key of Object.keys(fields)) {
                if (data.data[key] !== null) {
@@ -355,6 +355,16 @@ export const DemandForm = (props) => {
                               })} />
                         </Col> : null
                      }
+                     <Col>
+                        <Col className="mt-3" xs={12} sm={3}>
+                           <DefaultValidationTextField
+                              label="Contato Pre-Consultor"
+                              name="usr_phone"
+                              type="text"
+                              maxLength="11"
+                              disabled={disableFields} />
+                        </Col>
+                     </Col>
                   </Row>
                   {(admin && primaryData?.dem_sdm_cod === 3) &&
                      <Row className="mt-3 d-flex justify-content-center">
