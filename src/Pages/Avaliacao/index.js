@@ -4,10 +4,10 @@ import { BackGroundForm, BtnBlue } from "../../styles/CommonStyles";
 import { Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from '@mui/material';
 import { useLocation } from "react-router-dom";
 import axios from "axios";
-import { baseEndpoint } from "../../Services/config";
 import { Helmet } from "react-helmet";
 
 export function Avaliacao() {
+   const baseUrl = process.env.REACT_APP_API_ENDPOINT
    const [avaliation, setAvaliation] = useState(null);
    const [showAlert, setShowAlert] = useState(false);
    const [status, setStatus] = useState("warning");
@@ -28,7 +28,7 @@ export function Avaliacao() {
       try {
          const { data } = await axios({
             method: 'post',
-            url: `http://${baseEndpoint}/meetings/confirm`,
+            url: `${baseUrl}/meetings/confirm`,
             data: {
                token: getToken(),
                rate: avaliation,
