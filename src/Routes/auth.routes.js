@@ -85,6 +85,7 @@ export default function AuthRoutes() {
             <Route path="/contato" component={ListarContatos}></Route>
             {/* rotas de relatorio */}
             <Route path="/relatorios" component={ListarRelatorio} />
+            {/* rota de avaliacao */}
             <Route path="/avaliacao" component={Avaliacao} />
             {/*Rota de 404, deve ficar por último sempre */}
             <Route path="*" component={Error404} />
