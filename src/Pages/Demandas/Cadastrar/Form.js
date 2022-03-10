@@ -517,7 +517,9 @@ export const DemandForm = (props) => {
    );
 };
 function FormatPhone(usuario) {
-   return usuario.usr_phone.replaceAll(/[^\d]/g, "").replace(/(\d{2})(\d{4,5})(\d{4})/, "($1) $2-$3")
+   if (usuario?.usr_phone !== null) {
+      return usuario?.usr_phone.replaceAll(/[^\d]/g, "").replace(/(\d{2})(\d{4,5})(\d{4})/, "($1) $2-$3")
+   }
 }
 function addTwoHours(hour) {
    const newHour = (parseInt(hour.split(":")[0]) + 2) % 24
