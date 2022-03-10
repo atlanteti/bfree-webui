@@ -362,7 +362,7 @@ export const DemandForm = (props) => {
                               name="usr_phone"
                               type="text"
                               maxLength="11"
-                              defaultValue={primaryData?.user.usr_phone}
+                              value={primaryData?.user.usr_phone}
                               disabled={disableFields} />
                         </Col>
                      }
