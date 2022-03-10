@@ -355,7 +355,7 @@ export const DemandForm = (props) => {
                               })} />
                         </Col> : null
                      }
-                     {(meetingDataRequest && !showButtons) &&
+                     {meetingDataRequest &&
                         <Col className="mt-3" xs={12} sm={4}>
                            <DefaultValidationTextField
                               label="Contato Pré-Consultor"
