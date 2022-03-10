@@ -358,12 +358,13 @@ export const DemandForm = (props) => {
                      {(meetingDataRequest && !showButtons) &&
                         <Col className="mt-3" xs={12} sm={4}>
                            <DefaultValidationTextField
-                              label="Contato Pre-Consultor"
+                              label="Contato Pré-Consultor"
                               name="usr_phone"
                               type="text"
-                              maxLength="11"
-                              value={primaryData?.user.usr_phone}
-                              disabled={disableFields} />
+                              value={FormatPhone(primaryData?.user)}
+                              maxLength="15"
+                              disabled={true}
+                           />
                         </Col>
                      }
                   </Row>
@@ -515,7 +516,9 @@ export const DemandForm = (props) => {
 
    );
 };
-
+function FormatPhone(usuario) {
+   return usuario.usr_phone.replaceAll(/[^\d]/g, "").replace(/(\d{2})(\d{4,5})(\d{4})/, "($1) $2-$3")
+}
 function addTwoHours(hour) {
    const newHour = (parseInt(hour.split(":")[0]) + 2) % 24
    const oldMinute = hour.split(":")[1]
