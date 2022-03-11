@@ -19,6 +19,8 @@ import ListUsers from '../../../Componentes/ListUsers'
 import ContextLogin from "../../../Context/ContextLogin";
 import Restricted from '../../../Context/AccessPermission'
 import { AiOutlineUpload } from "react-icons/ai"
+import ListTypeDemand from '../../../Componentes/ListTypeDemand'
+import NoDataComp from '../../../Componentes/NoDataComp'
 
 export default class ListarRelatorio extends ListarPagina {
    constructor(props) {
@@ -149,7 +151,7 @@ export default class ListarRelatorio extends ListarPagina {
                      <Form onSubmit={this.onSubmit.bind(this)}>
                         <Row>
                            <Col xs={12} md={3} sm={5}>
-                              <p style={{ color: 'transparent' }}>.</p>
+                              <NoDataComp />
                               <Row>
                                  <Col className="mt-2">
                                     <ListUsers
@@ -163,7 +165,16 @@ export default class ListarRelatorio extends ListarPagina {
                                  </Col>
                               </Row>
                            </Col>
-                           <Col xs={12} md={7} sm={7}>
+                           {this.context.admin &&
+                              <Col className="mt-2" xs={12} md={3} sm={5}>
+                                 <NoDataComp />
+                                 <ListTypeDemand
+                                    onChange={this.handleSelect}
+                                    name="tdm_cod"
+                                 />
+                              </Col>
+                           }
+                           <Col xs={12} md={6} sm={7}>
                               <DataSearchTitle>Pesquisar por período</DataSearchTitle>
                               <Row>
                                  <Col className="mt-2">
@@ -200,7 +211,7 @@ export default class ListarRelatorio extends ListarPagina {
                               </Row>
                            </Col>
                            <Col className="mt-3" xs={12} md={2} sm={5}>
-                              <p style={{ color: 'transparent' }}>.</p>
+                              <NoDataComp />
                               <Row>
                                  <Col>
                                     <BtnBlue type="submit" variant="dark">Buscar</BtnBlue>
