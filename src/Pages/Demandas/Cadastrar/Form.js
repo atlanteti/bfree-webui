@@ -88,7 +88,8 @@ export const DemandForm = (props) => {
                   start: moment(meetingData.data.mee_start).format("HH:mm"),
                   end: moment(meetingData.data.mee_end).format("HH:mm"),
                   client: meetingData.data.demand.dem_contact_email,
-                  consultant: meetingData.data.usuario.usr_email
+                  consultant: meetingData.data.usuario.usr_email,
+                  consultant_phone: meetingData.data.usuario.usr_phone
                })
             }
             setPrimaryData(data.data)
