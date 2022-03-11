@@ -16,6 +16,7 @@ import { ReactComponent as EditIcon } from '../../../Assets/Icons/icon_editar.sv
 import { ReactComponent as DeleteIcon } from '../../../Assets/Icons/icon_delete.svg'
 import { StatusBadgePropped } from '../../../Componentes/StatusBadges'
 import NoDataComp from '../../../Componentes/NoDataComp'
+import { FormatPhone } from "../../../Componentes/PhoneInput"
 
 export default class ListarUsuario extends ListarPagina {
    constructor(props) {
@@ -131,7 +132,7 @@ export default class ListarUsuario extends ListarPagina {
          <NumberCell data-title="ID Eduzz">{usuario.usr_cli_cod}</NumberCell>
          <TextCell data-title="Nome">{usuario.usr_name}</TextCell>
          <TextCell data-title="Telefone">{usuario.usr_phone ?
-            this.FormatPhone(usuario) :
+            FormatPhone(usuario?.usr_phone) :
             <NoDataComp />}
          </TextCell>
          <TextCell data-title="E-mail">{usuario.usr_email}</TextCell>
@@ -158,9 +159,5 @@ export default class ListarUsuario extends ListarPagina {
             }} variant="transparent">...</Button>
          </ActionCell>
       </TableRow>
-   }
-
-   FormatPhone(usuario) {
-      return usuario.usr_phone.replaceAll(/[^\d]/g, "").replace(/(\d{2})(\d{4,5})(\d{4})/, "($1) $2-$3")
    }
 };
