@@ -20,6 +20,7 @@ import { BackGroundForm, BtnBlue, MainTable, TableData, TableHeader, TableRow, T
 import InputMask from "react-input-mask";
 import ContextLogin from "../../../Context/ContextLogin"
 import moment from 'moment';
+import { FormatPhone } from '../../../Componentes/PhoneInput';
 export const DemandForm = (props) => {
    const { userRoles, admin } = useContext(ContextLogin)
    const [primaryData, setPrimaryData] = useState()
@@ -88,7 +89,8 @@ export const DemandForm = (props) => {
                   start: moment(meetingData.data.mee_start).format("HH:mm"),
                   end: moment(meetingData.data.mee_end).format("HH:mm"),
                   client: meetingData.data.demand.dem_contact_email,
-                  consultant: meetingData.data.usuario.usr_email
+                  consultant: meetingData.data.usuario.usr_email,
+                  consultant_phone: meetingData.data.usuario.usr_phone
                })
             }
             setPrimaryData(data.data)
@@ -471,7 +473,7 @@ export const DemandForm = (props) => {
                                     }
                                     else {
                                        setContacts({
-                                          consult: data.data.usuario.usr_email,
+                                          consult: data.data.usuario,
                                           client: data.data.demand.dem_contact_email,
                                           time: moment(data.data.mee_start).format("DD/MM/YYYY - HH:mm"),
                                           endTime: moment(data.data.mee_end).format("HH:mm")
@@ -485,7 +487,7 @@ export const DemandForm = (props) => {
                         {contacts ?
                            <Row>
                               <Col>
-                                 Reunião marcada! Crie o evento e convide {contacts.consult} e {contacts.client} para a reunião de {contacts.time} a {contacts.endTime}
+                                 Reunião marcada! Crie o evento e convide {contacts.consult.usr_email} (Contato: {FormatPhone(contacts.consult.usr_phone)}) e {contacts.client} para a reunião de {contacts.time} a {contacts.endTime}
                               </Col>
                            </Row>
                            : null}

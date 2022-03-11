@@ -3,7 +3,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-
+import { FormatPhone } from '../PhoneInput';
 export default function BasicCard(props) {
    return (
       <Card sx={{ minWidth: 275 }}>
@@ -14,6 +14,8 @@ export default function BasicCard(props) {
             {props.meetingData.client}
             <Typography color="text.secondary">Consultor: </Typography>
             {props.meetingData.consultant}
+            <Typography color="text.secondary">Contato: </Typography>
+            {FormatPhone(props.meetingData.consultant_phone)}
             <Typography color="text.secondary">Horario: </Typography>
             {props.meetingData.start} a {props.meetingData.end}
          </CardContent>
