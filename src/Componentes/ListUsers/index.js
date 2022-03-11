@@ -1,12 +1,8 @@
-import { Form } from 'react-bootstrap';
 import { React, Component } from 'react';
 import { request } from '../../Services/api';
 import PropTypes from 'prop-types'
-import { RequiredField, SelectValidateStyle } from '../../styles/CommonStyles'
-import { TextField, MenuItem } from '@mui/material';
-import { ValidationTextField } from '../FormFields';
+import { MenuItem } from '@mui/material';
 import ContextLogin from "../../Context/ContextLogin";
-import NoDataComp from '../NoDataComp';
 import { DefaultValidateSelectField } from '../DefaultValidateInputs/DefaultValidateSelectField';
 
 export default class ListUsers extends Component {
@@ -18,9 +14,13 @@ export default class ListUsers extends Component {
    }
 
    async getUsers() {
+      let endPoint = "listar-todos"
+      if (Object.keys(this.props).includes('userJourney')) {
+         endPoint = "list-has-journey"
+      }
       const data = await request({
          method: 'get',
-         endpoint: 'usuarios/listar-todos'
+         endpoint: `usuarios/${endPoint}`
       });
       this.setState({
          users: data.data

@@ -156,6 +156,7 @@ export default class ListarRelatorio extends ListarPagina {
                                  <Col className="mt-2">
                                     <ListUsers
                                        name="usr_cod"
+                                       userJourney="list-has-journey"
                                        fullWidth
                                        defaultValue={this.context.admin ? this.state.formData?.usr_cod : this.context.user}
                                        defaultUser={this.context.admin ? this.state.formData?.usr_cod : this.context.user}
