@@ -1,6 +1,6 @@
 {
    "name": "bfree-webui",
-   "version": "v6.7.7",
+   "version": "6.7.9",
    "private": true,
    "dependencies": {
       "@emotion/react": "^11.4.1",
@@ -20,6 +20,7 @@
       "awesome-react-icons": "^1.4.8",
       "axios": "^0.21.1",
       "bootstrap": "^4.6.0",
+      "buffer": "^6.0.3",
       "env-cmd": "^10.1.0",
       "formik": "^2.2.9",
       "moment": "^2.29.1",
@@ -50,7 +51,7 @@
       "build:staging": "env-cmd -f .env.staging npm run build && scp -r ./build/* root@209.97.146.187:/var/www/bfree-webui-staging",
       "build:development": "env-cmd -f .env.development npm run build && scp -r ./build/* root@209.97.146.187:/var/www/bfree-webui",
       "build:production-staging": "env-cmd -f .env.prod-beta yarn build && scp -r ./build/* bfree@10.240.2.51:/var/www/bfree-stage",
-      "build:production": "env-cmd -f .env.produdction yarn build && scp -r ./build/* bfree@10.240.2.51:/var/www/bfree-webui",
+      "build:production": "env-cmd -f .env.production yarn build && scp -r ./build/* bfree@10.240.2.51:/var/www/bfreewebui",
       "test": "react-scripts test",
       "eject": "react-scripts eject"
    },
@@ -71,6 +72,5 @@
          "last 1 firefox version",
          "last 1 safari version"
       ]
-   },
-   "devDependencies": {}
+   }
 }

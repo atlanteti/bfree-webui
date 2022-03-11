@@ -16,6 +16,7 @@ import { request } from "../../Services/api";
 import moment from 'moment';
 import { Link } from 'react-router-dom'
 import { Cookies } from 'react-cookie';
+import { Buffer } from 'buffer';
 
 const cookies = new Cookies();
 export default class ListarPagina extends Component {
