@@ -21,7 +21,7 @@ export const MeetingDatePickerField = ({ ...props }) => {
             customInput={<DefaultValidationTextField
                {...props}
                selected={(val && formattedVal) || null}
-               fullWidth={false}
+               fullWidth={true}
                label={props.label} />} />
       );
    };
@@ -45,7 +45,7 @@ export const DatePickerField = ({ ...props }) => {
          customInput={<DefaultValidationTextField
             {...props}
             selected={(val && formattedVal) || null}
-            fullWidth={false}
+            fullWidth={true}
             label={props.label} />} />
    );
 };

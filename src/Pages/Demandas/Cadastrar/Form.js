@@ -320,7 +320,7 @@ export const DemandForm = (props) => {
                      </Col>
                   </Row>
                   <Row>
-                     <Col className="mt-3" xs={6} sm={3} >
+                     <Col className="mt-3" xs={12} sm={4} >
                         <DatePickerField
                            label="Data de Ação"
                            name="dem_dtaction"
@@ -328,14 +328,14 @@ export const DemandForm = (props) => {
                         />
                      </Col>
                      {userRoles?.includes("PRÉ-VENDA") ?
-                        <Col className="mt-3" xs={6} sm={3} >
+                        <Col className="mt-3" xs={12} sm={4} >
                            <ListMessageStatus
                               label="Mensagem Atual"
                               name="dem_activity"
                               disabled={values.dem_sdm_cod > 1} />
                         </Col> : null}
                      {values.dem_sdm_cod !== 1 && values.dem_sdm_cod !== 5 ?
-                        <Col className="mt-3" xs={6} sm={6} >
+                        <Col className="mt-3" xs={12} sm={4}>
                            <MeetingDatePickerField
                               label="Data da Reunião"
                               name="dem_dtmeet"
@@ -356,6 +356,18 @@ export const DemandForm = (props) => {
                                  setFreeTime(data.data)
                               })} />
                         </Col> : null
+                     }
+                     {meetingDataRequest &&
+                        <Col className="mt-3" xs={12} sm={4}>
+                           <DefaultValidationTextField
+                              label="Contato Pré-Consultor"
+                              name="usr_phone"
+                              type="text"
+                              value={FormatPhone(primaryData?.user.usr_phone)}
+                              maxLength="15"
+                              disabled={true}
+                           />
+                        </Col>
                      }
                   </Row>
                   {(admin && primaryData?.dem_sdm_cod === 3) &&
@@ -506,7 +518,6 @@ export const DemandForm = (props) => {
 
    );
 };
-
 function addTwoHours(hour) {
    const newHour = (parseInt(hour.split(":")[0]) + 2) % 24
    const oldMinute = hour.split(":")[1]
