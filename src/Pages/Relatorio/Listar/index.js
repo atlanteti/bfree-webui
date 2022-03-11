@@ -165,13 +165,15 @@ export default class ListarRelatorio extends ListarPagina {
                                  </Col>
                               </Row>
                            </Col>
-                           <Col className="mt-2" xs={12} md={3} sm={5}>
-                              <NoDataComp />
-                              <ListTypeDemand
-                                 onChange={this.handleSelect}
-                                 name="tdm_cod"
-                              />
-                           </Col>
+                           {this.context.admin &&
+                              <Col className="mt-2" xs={12} md={3} sm={5}>
+                                 <NoDataComp />
+                                 <ListTypeDemand
+                                    onChange={this.handleSelect}
+                                    name="tdm_cod"
+                                 />
+                              </Col>
+                           }
                            <Col xs={12} md={6} sm={7}>
                               <DataSearchTitle>Pesquisar por período</DataSearchTitle>
                               <Row>
@@ -209,6 +211,7 @@ export default class ListarRelatorio extends ListarPagina {
                               </Row>
                            </Col>
                            <Col className="mt-3" xs={12} md={2} sm={5}>
+                              <NoDataComp />
                               <Row>
                                  <Col>
                                     <BtnBlue type="submit" variant="dark">Buscar</BtnBlue>
