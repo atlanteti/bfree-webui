@@ -363,7 +363,7 @@ export const DemandForm = (props) => {
                               label="Contato Pré-Consultor"
                               name="usr_phone"
                               type="text"
-                              value={FormatPhone(primaryData?.user)}
+                              value={FormatPhone(primaryData?.user.usr_phone)}
                               maxLength="15"
                               disabled={true}
                            />
@@ -518,12 +518,6 @@ export const DemandForm = (props) => {
 
    );
 };
-function FormatPhone(usuario) {
-   if (usuario?.usr_phone !== null) {
-      return usuario?.usr_phone.replaceAll(/[^\d]/g, "").replace(/(\d{2})(\d{4,5})(\d{4})/, "($1) $2-$3")
-   }
-   return
-}
 function addTwoHours(hour) {
    const newHour = (parseInt(hour.split(":")[0]) + 2) % 24
    const oldMinute = hour.split(":")[1]
