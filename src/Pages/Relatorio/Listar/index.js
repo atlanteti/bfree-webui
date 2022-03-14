@@ -232,15 +232,18 @@ export default class ListarRelatorio extends ListarPagina {
                      </Row>
                   </Col>
                   <Row noGutters>
-                     <MainTable noData={this.state.noData} className="table-borderless">
-                        {this.state.responseData === null
-                           ?
-                           <Row>
-                              <Col md={{ offset: 5 }}><CircularProgress /></Col>
-                           </Row>
-                           :
-                           (
-                              <>
+                     {this.state.responseData === null
+                        ?
+                        <Row style={{ flex: 1 }}>
+                           <Col className="mt-6 d-flex justify-content-center"><CircularProgress /></Col>
+                        </Row>
+                        :
+                        (
+                           <>
+                              <MainTable
+                                 noData={this.state.noData}
+                                 className={`table-borderless ${(this.state.noData || window.screen.width <= 425) ? '' : 'table-responsive'}`}
+                              >
                                  <TableHeader>
 
                                     <TableRow>
@@ -269,11 +272,11 @@ export default class ListarRelatorio extends ListarPagina {
                                        )
                                     })}
                                  </ReportTableData>
-                              </>
-                           )
-                        }
-                        {this.createModal()}
-                     </MainTable>
+                              </MainTable>
+                           </>
+                        )
+                     }
+                     {this.createModal()}
                   </Row>
                   <CustomAlert
                      showAlertCallback={this.getNoDataCallback.bind(this)}
