@@ -8,7 +8,7 @@ import { DefaultValidationTextField, preventNonNumericalInput } from '../../../C
 import { Timestamps } from '../../../Componentes/FormikComponents/Timestamps';
 import { ButtonRow } from '../../../Componentes/ButtonRow';
 import { IoChevronBackCircleSharp } from 'react-icons/io5';
-import { cpfMask } from '../../../Componentes/DadosBancarioComponents';
+import { cpfMask, PixType } from '../../../Componentes/DadosBancarioComponents';
 export const DadosBancariosForm = (props) => {
    const [primaryData, setPrimaryData] = useState()
    const [fields, setFields] = useState(
@@ -127,11 +127,7 @@ export const DadosBancariosForm = (props) => {
                         />
                      </Col>
                      <Col className="mt-3" xs={12} sm={4}>
-                        <DefaultValidationTextField
-                           label="Tipo do Pix"
-                           name="usr_email"
-                           type="text"
-                           maxLength="45" />
+                        <PixType />
                      </Col>
                      <Col className="mt-3" xs={12} sm={4}>
                         <DefaultValidationTextField
