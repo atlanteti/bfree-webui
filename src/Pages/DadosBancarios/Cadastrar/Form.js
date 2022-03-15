@@ -13,13 +13,13 @@ export const DadosBancariosForm = (props) => {
    const [primaryData, setPrimaryData] = useState()
    const [fields, setFields] = useState(
       {
-         usr_name: "",
-         usr_phone: "",
-         usr_email: "",
-         usr_cli_cod: "",
-         usr_externalid: "",
-         usr_sus_cod: "",
-         usr_cpf: ""
+         bkd_cpf: "",
+         bkd_pix: "",
+         bkd_tppix: "",
+         bkd_agency: "",
+         bkd_account: "",
+         bkd_tpaccount: "",
+         bkd_bak_cod: ""
       }
    )
    let method = "post"
@@ -117,22 +117,25 @@ export const DadosBancariosForm = (props) => {
                         <DefaultValidationTextField
                            onKeyPress={preventNonNumericalInput}
                            label="CPF"
-                           name="usr_cpf"
+                           name="bkd_cpf"
                            type="text"
-                           value={fields.usr_cpf}
                            maxLength="15"
+                           value={fields.bkd_cpf}
                            onChange={(event) =>
-                              setFields({ ...fields, usr_cpf: cpfMask(event.target.value) })
+                              setFields({ ...fields, bkd_cpf: cpfMask(event.target.value) })
                            }
                         />
                      </Col>
                      <Col className="mt-3" xs={12} sm={4}>
-                        <PixType />
+                        <PixType
+                           name="bkd_tppix"
+                           required
+                        />
                      </Col>
                      <Col className="mt-3" xs={12} sm={4}>
                         <DefaultValidationTextField
                            label="Pix"
-                           name="usr_email"
+                           name="bkd_pix"
                            type="text"
                            maxLength="45" />
                      </Col>
@@ -141,14 +144,15 @@ export const DadosBancariosForm = (props) => {
                      <Col className="mt-3" xs={12} sm={3}>
                         <DefaultValidationTextField
                            label="Banco"
-                           name="usr_cli_cod"
+                           name="bkd_bak_cod"
                            type="text"
                            maxLength="10" />
                      </Col>
                      <Col className="mt-3" xs={12} sm={3}>
                         <DefaultValidationTextField
+                           onKeyPress={preventNonNumericalInput}
                            label="Agência"
-                           name="usr_externalid"
+                           name="bkd_agency"
                            type="text"
                            maxLength="10" />
                      </Col>
@@ -156,12 +160,13 @@ export const DadosBancariosForm = (props) => {
                         <DefaultValidationTextField
                            onKeyPress={preventNonNumericalInput}
                            label="Conta"
-                           name="usr_externalid"
+                           name="bkd_account"
                            type="text"
                            maxLength="10" />
                      </Col>
                      <Col className="mt-3" xs={12} sm={3}>
                         <AccountType
+                           name="bkd_tpaccount"
                            required
                         />
                      </Col>
