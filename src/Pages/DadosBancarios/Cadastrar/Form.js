@@ -8,7 +8,7 @@ import { DefaultValidationTextField, preventNonNumericalInput } from '../../../C
 import { Timestamps } from '../../../Componentes/FormikComponents/Timestamps';
 import { ButtonRow } from '../../../Componentes/ButtonRow';
 import { IoChevronBackCircleSharp } from 'react-icons/io5';
-import { cpfMask, PixType } from '../../../Componentes/DadosBancarioComponents';
+import { AccountType, cpfMask, PixType } from '../../../Componentes/DadosBancarioComponents';
 export const DadosBancariosForm = (props) => {
    const [primaryData, setPrimaryData] = useState()
    const [fields, setFields] = useState(
@@ -161,11 +161,9 @@ export const DadosBancariosForm = (props) => {
                            maxLength="10" />
                      </Col>
                      <Col className="mt-3" xs={12} sm={3}>
-                        <DefaultValidationTextField
-                           label="Tipo de Conta"
-                           name="usr_externalid"
-                           type="text"
-                           maxLength="10" />
+                        <AccountType
+                           required
+                        />
                      </Col>
                   </Row>
                   {(props.paramRoute !== "inserir" && primaryData) ?

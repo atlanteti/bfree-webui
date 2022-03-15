@@ -1,6 +1,5 @@
 import { MenuItem } from "@mui/material"
 import { DefaultValidateSelectField } from "../DefaultValidateInputs/DefaultValidateSelectField"
-import NoDataComp from "../NoDataComp"
 
 export const cpfMask = value => {
    return value
@@ -18,5 +17,15 @@ export function PixType(props) {
    >
       <MenuItem value={"EMAIL"}>E-mail</MenuItem>
       <MenuItem value={"CPF"}>CPF</MenuItem>
+   </DefaultValidateSelectField>
+}
+
+export function AccountType(props) {
+   return <DefaultValidateSelectField
+      {...props}
+      label="Tipo da Conta"
+   >
+      <MenuItem value={"CORRENTE"}>Corrente</MenuItem>
+      <MenuItem value={"POUPANCA"}>Poupança</MenuItem>
    </DefaultValidateSelectField>
 }
