@@ -1,6 +1,5 @@
 import { MenuItem } from "@mui/material"
-import { DefaultValidateSelectField } from "../DefaultValidateInputs/DefaultValidateSelectField"
-
+import { GenericSelector } from "../FormikComponents/GenericSelector"
 export const cpfMask = value => {
    return value
       .replace(/\D/g, '') // substitui qualquer caracter que nao seja numero por nada
@@ -8,24 +7,4 @@ export const cpfMask = value => {
       .replace(/(\d{3})(\d)/, '$1.$2')
       .replace(/(\d{3})(\d{1,2})/, '$1-$2')
       .replace(/(-\d{2})\d+?$/, '$1') // captura 2 numeros seguidos de um traço e não deixa ser digitado mais nada
-}
-
-export function PixType(props) {
-   return <DefaultValidateSelectField
-      {...props}
-      label="Tipo do Pix"
-   >
-      <MenuItem value={"EMAIL"}>E-mail</MenuItem>
-      <MenuItem value={"CPF"}>CPF</MenuItem>
-   </DefaultValidateSelectField>
-}
-
-export function AccountType(props) {
-   return <DefaultValidateSelectField
-      {...props}
-      label="Tipo da Conta"
-   >
-      <MenuItem value={"CORRENTE"}>Corrente</MenuItem>
-      <MenuItem value={"POUPANCA"}>Poupança</MenuItem>
-   </DefaultValidateSelectField>
 }

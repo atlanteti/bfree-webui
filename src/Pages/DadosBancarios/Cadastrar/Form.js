@@ -5,10 +5,11 @@ import { request } from '../../../Services/api';
 import yup from "../../../Services/validations";
 import { BackGroundForm, BtnBlue, TitleRegister } from '../../../styles/CommonStyles';
 import { DefaultValidationTextField, preventNonNumericalInput } from '../../../Componentes/FormikComponents/DefaultValidationTextField';
-import { Timestamps } from '../../../Componentes/FormikComponents/Timestamps';
+import { BankType } from '../../../Componentes/FormikComponents/ListBanks';
+import { PixType } from '../../../Componentes/FormikComponents/ListPixType';
 import { ButtonRow } from '../../../Componentes/ButtonRow';
 import { IoChevronBackCircleSharp } from 'react-icons/io5';
-import { AccountType, cpfMask, PixType } from '../../../Componentes/DadosBancarioComponents';
+import { cpfMask } from '../../../Componentes/DadosBancarioComponents';
 export const DadosBancariosForm = (props) => {
    const [primaryData, setPrimaryData] = useState()
    const [fields, setFields] = useState(
@@ -66,20 +67,13 @@ export const DadosBancariosForm = (props) => {
                htmlFor="mainForm"
                initialValues={fields}
                validationSchema={yup.object({
-                  usr_name: yup.string().max(200).required(),
-                  usr_phone: yup.string().required()
-                     .test('valid-phone', "Deve estar no formato (99) 9999-9999 ou (99) 99999-9999",
-                        (value, context) => {
-                           if (value !== undefined) {
-                              return (!!value.match(/\d{10,11}/) ||
-                                 value.trim().length >= 14)
-                           }
-                           return true
-                        }),
-                  usr_email: yup.string().email().required(),
-                  usr_cli_cod: yup.string().max(10).required(),
-                  usr_externalid: yup.string().max(10),
-                  usr_sus_cod: yup.number().required(),
+                  bkd_cpf: yup.string().max(15).required(),
+                  bkd_tppix: yup.string().required(),
+                  bkd_pix: yup.string().max(45).required(),
+                  bkd_agency: yup.string().max(10).required(),
+                  bkd_account: yup.number().max(10).required(),
+                  bkd_tpaccount: yup.string().required(),
+                  bkd_bak_cod: yup.string().required()
                })}
                onSubmit={
                   async (values, { setSubmitting, setFieldError }) => {
@@ -128,8 +122,8 @@ export const DadosBancariosForm = (props) => {
                      </Col>
                      <Col className="mt-3" xs={12} sm={4}>
                         <PixType
+                           label="Tipo do Pix"
                            name="bkd_tppix"
-                           required
                         />
                      </Col>
                      <Col className="mt-3" xs={12} sm={4}>
@@ -142,11 +136,10 @@ export const DadosBancariosForm = (props) => {
                   </Row>
                   <Row>
                      <Col className="mt-3" xs={12} sm={3}>
-                        <DefaultValidationTextField
+                        <BankType
                            label="Banco"
                            name="bkd_bak_cod"
-                           type="text"
-                           maxLength="10" />
+                        />
                      </Col>
                      <Col className="mt-3" xs={12} sm={3}>
                         <DefaultValidationTextField
@@ -165,16 +158,12 @@ export const DadosBancariosForm = (props) => {
                            maxLength="10" />
                      </Col>
                      <Col className="mt-3" xs={12} sm={3}>
-                        <AccountType
+                        {/* <AccountType
+                           label="Tipo de Conta"
                            name="bkd_tpaccount"
-                           required
-                        />
+                        /> */}
                      </Col>
                   </Row>
-                  {(props.paramRoute !== "inserir" && primaryData) ?
-                     <Timestamps
-                        primaryData={primaryData}
-                        fieldSuffix="usr_" /> : null}
                   <Row>
                      <Col className="mt-3" md={{ offset: 5 }}>
                         <BtnBlue variant="dark" type="submit">Salvar</BtnBlue>
