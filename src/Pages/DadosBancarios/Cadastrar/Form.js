@@ -1,6 +1,5 @@
 import { Form, Formik } from 'formik';
 import React, { useState, useEffect } from 'react';
-import { useScroll } from "../../../Hooks"
 import { Button, Col, Row } from 'react-bootstrap';
 import { request } from '../../../Services/api';
 import yup from "../../../Services/validations";
@@ -9,6 +8,7 @@ import { DefaultValidationTextField, preventNonNumericalInput } from '../../../C
 import { Timestamps } from '../../../Componentes/FormikComponents/Timestamps';
 import { ButtonRow } from '../../../Componentes/ButtonRow';
 import { IoChevronBackCircleSharp } from 'react-icons/io5';
+import { cpfMask } from '../../../Componentes/DadosBancarioComponents';
 export const DadosBancariosForm = (props) => {
    const [primaryData, setPrimaryData] = useState()
    const [fields, setFields] = useState(
@@ -19,9 +19,9 @@ export const DadosBancariosForm = (props) => {
          usr_cli_cod: "",
          usr_externalid: "",
          usr_sus_cod: "",
+         usr_cpf: ""
       }
    )
-   const [pageTop, scrollToTop] = useScroll()
    let method = "post"
    const entryRequestEndpoint = "usuarios/procurar/";
    let postEndpoint = "usuarios/cadastrar"
@@ -40,12 +40,7 @@ export const DadosBancariosForm = (props) => {
             let tempFields = {}
             for (const key of Object.keys(fields)) {
                if (data.data[key] !== null) {
-                  if (key.includes("phone")) {
-                     tempFields[key] = data.data[key].replace(/[^\d]g/, "")
-                  }
-                  else {
-                     tempFields[key] = data.data[key]
-                  }
+                  tempFields[key] = data.data[key]
                }
                else {
                   tempFields[key] = ""
@@ -64,7 +59,7 @@ export const DadosBancariosForm = (props) => {
       <React.Fragment>
          <ButtonRow
             cancelButton={<Button variant="light" onClick={props.redirectCallback}><IoChevronBackCircleSharp size={30} color="#BFCADD" /></Button>}
-            titlePage={<TitleRegister ref={pageTop}>{props.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'} Dados Bancários</TitleRegister>}
+            titlePage={<TitleRegister>{props.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'} Dados Bancários</TitleRegister>}
          />
          <BackGroundForm xs={1} className={'mb-2'} noGutters>
             <Formik
@@ -88,11 +83,6 @@ export const DadosBancariosForm = (props) => {
                })}
                onSubmit={
                   async (values, { setSubmitting, setFieldError }) => {
-                     Object.keys(values).forEach((key) => {
-                        if (key && key.includes("phone")) {
-                           values[key] = values[key].replaceAll(/[^\d]/g, "")
-                        }
-                     })
                      const data = await request({
                         method: method,
                         endpoint: postEndpoint,
@@ -127,9 +117,14 @@ export const DadosBancariosForm = (props) => {
                         <DefaultValidationTextField
                            onKeyPress={preventNonNumericalInput}
                            label="CPF"
-                           name="usr_name"
+                           name="usr_cpf"
                            type="text"
-                           maxLength="15" />
+                           value={fields.usr_cpf}
+                           maxLength="15"
+                           onChange={(event) =>
+                              setFields({ ...fields, usr_cpf: cpfMask(event.target.value) })
+                           }
+                        />
                      </Col>
                      <Col className="mt-3" xs={12} sm={4}>
                         <DefaultValidationTextField
@@ -183,7 +178,7 @@ export const DadosBancariosForm = (props) => {
                         fieldSuffix="usr_" /> : null}
                   <Row>
                      <Col className="mt-3" md={{ offset: 5 }}>
-                        <BtnBlue variant="dark" type="submit" onClick={scrollToTop}>Salvar</BtnBlue>
+                        <BtnBlue variant="dark" type="submit">Salvar</BtnBlue>
                      </Col>
                   </Row>
                </Form>
