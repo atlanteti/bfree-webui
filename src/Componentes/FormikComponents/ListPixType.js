@@ -6,7 +6,7 @@ const ListPixTypeItem = (itemList) => {
       return itemList?.map((item, index) => {
          return (
             <MenuItem
-               key={index}
+               key={item.tpi_cod}
                value={item.tpi_cod}
             >
                {item.tpi_name}

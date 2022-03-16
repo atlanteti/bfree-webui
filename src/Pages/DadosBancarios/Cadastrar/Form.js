@@ -17,7 +17,7 @@ export const DadosBancariosForm = (props) => {
       {
          bkd_cpf: "",
          bkd_pix: "",
-         bkd_tppix: "",
+         bkd_typepix: "",
          bkd_agency: "",
          bkd_account: "",
          bkd_tpaccount: "",
@@ -25,12 +25,8 @@ export const DadosBancariosForm = (props) => {
       }
    )
    let method = "post"
-   const entryRequestEndpoint = "usuarios/procurar/";
-   let postEndpoint = "usuarios/cadastrar"
-   if (props.paramRoute !== "inserir") {
-      postEndpoint = "usuarios/alterar/" + props.primaryId
-      method = "put"
-   }
+   const entryRequestEndpoint = "find-by-user/";
+   let postEndpoint = "bank-data/save"
    useEffect(() => {
       const requestData = async () => {
          try {
@@ -69,15 +65,20 @@ export const DadosBancariosForm = (props) => {
                initialValues={fields}
                validationSchema={yup.object({
                   bkd_cpf: yup.string().max(15).required(),
-                  bkd_tppix: yup.string().required(),
+                  bkd_typepix: yup.string().required(),
                   bkd_pix: yup.string().max(45).required(),
-                  bkd_agency: yup.string().max(10).required(),
-                  bkd_account: yup.number().max(10).required(),
+                  bkd_agency: yup.string().max(4).required(),
+                  bkd_account: yup.number().required(),
                   bkd_tpaccount: yup.string().required(),
                   bkd_bak_cod: yup.string().required()
                })}
                onSubmit={
                   async (values, { setSubmitting, setFieldError }) => {
+                     Object.keys(values).forEach((key) => {
+                        if (key && key.includes("cpf")) {
+                           values[key] = values[key].replaceAll(/[^\d]/g, "")
+                        }
+                     })
                      const data = await request({
                         method: method,
                         endpoint: postEndpoint,
@@ -124,7 +125,7 @@ export const DadosBancariosForm = (props) => {
                      <Col className="mt-3" xs={12} sm={4}>
                         <PixType
                            label="Tipo do Pix"
-                           name="bkd_tppix"
+                           name="bkd_typepix"
                         />
                      </Col>
                      <Col className="mt-3" xs={12} sm={4}>
@@ -148,7 +149,7 @@ export const DadosBancariosForm = (props) => {
                            label="Agência"
                            name="bkd_agency"
                            type="text"
-                           maxLength="10" />
+                           maxLength="4" />
                      </Col>
                      <Col className="mt-3" xs={12} sm={3}>
                         <DefaultValidationTextField
@@ -156,7 +157,7 @@ export const DadosBancariosForm = (props) => {
                            label="Conta"
                            name="bkd_account"
                            type="text"
-                           maxLength="10" />
+                           maxLength="12" />
                      </Col>
                      <Col className="mt-3" xs={12} sm={3}>
                         <AccountType

@@ -17,7 +17,7 @@ export default class CadastrarDadosBancarios extends Component {
          redirect: false
       }
       this.paramRoute = props.match.params.param
-      this.companyId = Number(props.match.params.cpn_cod)
+      this.userId = Number(props.match.params.usr_cod)
    }
 
    getAlertCallback(func) {
@@ -49,7 +49,7 @@ export default class CadastrarDadosBancarios extends Component {
                />
                <DadosBancariosForm
                   paramRoute={this.paramRoute}
-                  primaryId={this.companyId}
+                  primaryId={this.userId}
                   redirectCallback={this.redirect.bind(this)}
                   showAlert={this.showAlert.bind(this)}
                />
