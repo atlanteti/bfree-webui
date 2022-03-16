@@ -1,5 +1,3 @@
-import { MenuItem } from "@mui/material"
-import { GenericSelector } from "../FormikComponents/GenericSelector"
 export const cpfMask = value => {
    return value
       .replace(/\D/g, '') // substitui qualquer caracter que nao seja numero por nada

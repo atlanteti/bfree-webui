@@ -6,6 +6,7 @@ import yup from "../../../Services/validations";
 import { BackGroundForm, BtnBlue, TitleRegister } from '../../../styles/CommonStyles';
 import { DefaultValidationTextField, preventNonNumericalInput } from '../../../Componentes/FormikComponents/DefaultValidationTextField';
 import { BankType } from '../../../Componentes/FormikComponents/ListBanks';
+import { AccountType } from '../../../Componentes/FormikComponents/ListAccountType';
 import { PixType } from '../../../Componentes/FormikComponents/ListPixType';
 import { ButtonRow } from '../../../Componentes/ButtonRow';
 import { IoChevronBackCircleSharp } from 'react-icons/io5';
@@ -158,10 +159,10 @@ export const DadosBancariosForm = (props) => {
                            maxLength="10" />
                      </Col>
                      <Col className="mt-3" xs={12} sm={3}>
-                        {/* <AccountType
+                        <AccountType
                            label="Tipo de Conta"
                            name="bkd_tpaccount"
-                        /> */}
+                        />
                      </Col>
                   </Row>
                   <Row>
