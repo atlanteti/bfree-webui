@@ -1,5 +1,5 @@
 import { Form, Formik } from 'formik';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
 import { request } from '../../../Services/api';
 import yup from "../../../Services/validations";
@@ -11,7 +11,9 @@ import { PixType } from '../../../Componentes/FormikComponents/ListPixType';
 import { ButtonRow } from '../../../Componentes/ButtonRow';
 import { IoChevronBackCircleSharp } from 'react-icons/io5';
 import { cpfMask } from '../../../Componentes/DadosBancarioComponents';
+import ContextLogin from '../../../Context/ContextLogin';
 export const DadosBancariosForm = (props) => {
+   const { admin } = useContext(ContextLogin)
    const [fields, setFields] = useState(
       {
          bkd_cpf: "",
@@ -54,7 +56,7 @@ export const DadosBancariosForm = (props) => {
       <React.Fragment>
          <ButtonRow
             cancelButton={<Button variant="light" onClick={props.redirectCallback}><IoChevronBackCircleSharp size={30} color="#BFCADD" /></Button>}
-            titlePage={<TitleRegister>{props.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'} Dados Bancários</TitleRegister>}
+            titlePage={<TitleRegister>Dados Bancários</TitleRegister>}
          />
          <BackGroundForm xs={1} className={'mb-2'} noGutters>
             <Formik
@@ -163,7 +165,7 @@ export const DadosBancariosForm = (props) => {
                         />
                      </Col>
                   </Row>
-                  {props.paramRoute === "inserir" &&
+                  {!admin &&
                      <Row>
                         <Col className="mt-3" md={{ offset: 5 }}>
                            <BtnBlue variant="dark" type="submit">Salvar</BtnBlue>

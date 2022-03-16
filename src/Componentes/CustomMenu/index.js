@@ -35,11 +35,10 @@ const useStyles = makeStyles({
 });
 
 export const CustomMenu = (props) => {
-   const { userEmail, signed } = useContext(ContextLogin)
+   const { userEmail, signed, user, admin, userRoles } = useContext(ContextLogin)
    const classes = useStyles()
    const cookie = new Cookies()
    const [drawerOpen, toggleDrawer] = useState(false)
-   const { admin, userRoles } = useContext(ContextLogin)
    const handleDrawerToggle = (open) => (event) => {
       if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
          return;
@@ -80,7 +79,7 @@ export const CustomMenu = (props) => {
          }}
       >
          <Toolbar />
-         {CreateMenuItems(cookie, admin, userRoles)}
+         {CreateMenuItems(cookie, admin, userRoles, user)}
       </Drawer>
       <Drawer
          variant="permanent"
@@ -90,7 +89,7 @@ export const CustomMenu = (props) => {
          classes={{ paper: classes.paper }}
       >
          <Toolbar />
-         {CreateMenuItems(cookie, admin, userRoles)}
+         {CreateMenuItems(cookie, admin, userRoles, user)}
       </Drawer>
       {admin ?
          <Grid container justifyContent="flex-end" style={{ paddingTop: 70 }} columns={24}>
@@ -106,7 +105,7 @@ export const CustomMenu = (props) => {
          </Grid>}
    </Col >
 }
-function CreateMenuItems(cookie, admin, userRoles) {
+function CreateMenuItems(cookie, admin, userRoles, userId) {
 
    if (userRoles === null) {
       return false
@@ -216,6 +215,13 @@ function CreateMenuItems(cookie, admin, userRoles) {
          </ListItem>
          <PreConsultorMenu />
          <ConsultorMenu />
+         <ListItem button secondaryAction={<IoChevronForwardOutline size={17} />}
+            component={Link} to={`/editar/dados/${userId}/alterar`}>
+            <ListItemIcon>
+               <SvgIcon component={LogsIcon} inheritViewBox />
+            </ListItemIcon>
+            <ListItemText primary={"Dados Bancários"} />
+         </ListItem>
          <ListItem button
             onClick={logout(cookie)}>
             <ListItemIcon>
@@ -234,6 +240,13 @@ function CreateMenuItems(cookie, admin, userRoles) {
             <ListItemText primary={"Demandas"} />
          </ListItem>
          <PreConsultorMenu />
+         <ListItem button secondaryAction={<IoChevronForwardOutline size={17} />}
+            component={Link} to={`/editar/dados/${userId}/alterar`}>
+            <ListItemIcon>
+               <SvgIcon component={LogsIcon} inheritViewBox />
+            </ListItemIcon>
+            <ListItemText primary={"Dados Bancários"} />
+         </ListItem>
          <ListItem button
             onClick={logout(cookie)}>
             <ListItemIcon>
