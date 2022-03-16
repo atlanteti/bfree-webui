@@ -123,6 +123,9 @@ export default class ListarUsuario extends ListarPagina {
             <Link to={`/usuario-times/${props.idUser}/${props.userName}`}>
                <MenuItem>Times</MenuItem>
             </Link>
+            <Link to={`/editar/dados/${props.idUser}/alterar`}>
+               <MenuItem>Dados Bancários</MenuItem>
+            </Link>
          </Menu>
       </TableRow>
    }

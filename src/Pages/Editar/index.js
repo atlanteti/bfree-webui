@@ -8,6 +8,7 @@ import CadastrarTipoDemanda from '../TipoDemanda/Cadastrar'
 import CadastrarBadge from '../Badges/Cadastrar'
 import CadastrarUsuario from '../Usuarios/Cadastrar'
 import CadastrarDemanda from '../Demandas/Cadastrar'
+import CadastrarDadosBancarios from '../DadosBancarios/Cadastrar'
 export default class Editar extends Component {
    render() {
       return <div>
@@ -19,6 +20,7 @@ export default class Editar extends Component {
          <Route path={`${this.props.match.path}/tipodemanda/:tdm_cod/:param`} component={CadastrarTipoDemanda} />
          <Route path={`${this.props.match.path}/times/:tea_cod/:param`} component={CadastrarTime} />
          <Route path={`${this.props.match.path}/demandas/:dem_cod/:param`} component={CadastrarDemanda} />
+         <Route path={`${this.props.match.path}/dados/:usr_cod/:param`} component={CadastrarDadosBancarios} />
       </div>
    }
 }
