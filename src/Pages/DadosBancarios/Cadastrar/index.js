@@ -47,7 +47,7 @@ export default class CadastrarDadosBancarios extends Component {
          return <>
             <CustomMenu >
                <RowTopMargin>
-                  <Helmet title={`${this.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'} Empresa`} />
+                  <Helmet title={`Dados Bancários`} />
                </RowTopMargin>
                <CustomAlert
                   showAlertCallback={this.getAlertCallback.bind(this)}
