@@ -12,7 +12,6 @@ import { ButtonRow } from '../../../Componentes/ButtonRow';
 import { IoChevronBackCircleSharp } from 'react-icons/io5';
 import { cpfMask } from '../../../Componentes/DadosBancarioComponents';
 export const DadosBancariosForm = (props) => {
-   const [primaryData, setPrimaryData] = useState()
    const [fields, setFields] = useState(
       {
          bkd_cpf: "",
@@ -24,8 +23,7 @@ export const DadosBancariosForm = (props) => {
          bkd_bak_cod: ""
       }
    )
-   let method = "post"
-   const entryRequestEndpoint = "find-by-user/";
+   const entryRequestEndpoint = "bank-data/find-by-user/";
    let postEndpoint = "bank-data/save"
    useEffect(() => {
       const requestData = async () => {
@@ -34,7 +32,6 @@ export const DadosBancariosForm = (props) => {
                method: "get",
                endpoint: entryRequestEndpoint + props.primaryId,
             });
-            setPrimaryData(data.data)
             let tempFields = {}
             for (const key of Object.keys(fields)) {
                if (data.data[key] !== null) {
@@ -52,7 +49,7 @@ export const DadosBancariosForm = (props) => {
       if (props.paramRoute !== "inserir") {
          requestData();
       }
-   }, [props])
+   }, [])
    return (
       <React.Fragment>
          <ButtonRow
@@ -80,7 +77,7 @@ export const DadosBancariosForm = (props) => {
                         }
                      })
                      const data = await request({
-                        method: method,
+                        method: "post",
                         endpoint: postEndpoint,
                         data: values,
                      });
@@ -166,11 +163,13 @@ export const DadosBancariosForm = (props) => {
                         />
                      </Col>
                   </Row>
-                  <Row>
-                     <Col className="mt-3" md={{ offset: 5 }}>
-                        <BtnBlue variant="dark" type="submit">Salvar</BtnBlue>
-                     </Col>
-                  </Row>
+                  {props.paramRoute === "inserir" &&
+                     <Row>
+                        <Col className="mt-3" md={{ offset: 5 }}>
+                           <BtnBlue variant="dark" type="submit">Salvar</BtnBlue>
+                        </Col>
+                     </Row>
+                  }
                </Form>
             )}
             </Formik>
