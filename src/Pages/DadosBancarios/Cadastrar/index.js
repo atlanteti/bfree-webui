@@ -2,12 +2,11 @@ import React, { Component } from 'react'
 import Helmet from 'react-helmet'
 
 import { Redirect } from 'react-router-dom'
-import { Col } from 'react-bootstrap'
 import { CustomMenu } from '../../../Componentes/CustomMenu'
 import { CustomAlert } from '../../../Componentes/CustomAlert'
 import { DadosBancariosForm } from './Form'
-import { RowTopMargin, Title } from '../../../styles/CommonStyles'
-import { Grid, Container, Box } from "@mui/material"
+import { RowTopMargin } from '../../../styles/CommonStyles'
+import ContextLogin from "../../../Context/ContextLogin"
 
 export default class CadastrarDadosBancarios extends Component {
    constructor(props) {
@@ -36,8 +35,15 @@ export default class CadastrarDadosBancarios extends Component {
 
    render() {
       if (this.state.redirect) {
-         return <Redirect to="/companhia" />
-      } else {
+         if (this.context.userRoles?.includes("PRÉ-VENDA")) {
+            return <Redirect to="/contato" />
+         }
+         if (this.context.userRoles?.includes("CONSULTOR")) {
+            return <Redirect to="/reunioes" />
+         }
+         return <Redirect to="/demandas" />
+      }
+      else {
          return <>
             <CustomMenu >
                <RowTopMargin>
@@ -58,3 +64,4 @@ export default class CadastrarDadosBancarios extends Component {
       }
    }
 }
+CadastrarDadosBancarios.contextType = ContextLogin
