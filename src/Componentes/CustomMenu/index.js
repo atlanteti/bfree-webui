@@ -28,9 +28,7 @@ import './styles.css'
 
 const useStyles = makeStyles({
    paper: {
-      ['@media (min-width:1600px)']: {
-         width: 330
-      }
+      width: "20%"
    }
 });
 
