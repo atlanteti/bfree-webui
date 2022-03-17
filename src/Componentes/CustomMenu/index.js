@@ -263,6 +263,13 @@ function CreateMenuItems(cookie, admin, userRoles, userId) {
             <ListItemText primary={"Demandas"} />
          </ListItem>
          <ConsultorMenu />
+         <ListItem button secondaryAction={<IoChevronForwardOutline size={17} />}
+            component={Link} to={`/editar/dados/${userId}/alterar`}>
+            <ListItemIcon>
+               <SvgIcon component={LogsIcon} inheritViewBox />
+            </ListItemIcon>
+            <ListItemText primary={"Dados Bancários"} />
+         </ListItem>
          <ListItem button
             onClick={logout(cookie)}>
             <ListItemIcon>
