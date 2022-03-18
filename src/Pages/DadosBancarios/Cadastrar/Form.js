@@ -37,9 +37,12 @@ export const DadosBancariosForm = (props) => {
             let tempFields = {}
             for (const key of Object.keys(fields)) {
                if (data.data[key] !== null) {
-                  tempFields[key] = data.data[key]
-               }
-               else {
+                  if (key.includes("cpf")) {
+                     tempFields[key] = cpfMask(data.data[key])
+                  } else {
+                     tempFields[key] = data.data[key]
+                  }
+               } else {
                   tempFields[key] = ""
                }
             }
