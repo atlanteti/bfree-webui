@@ -14,6 +14,7 @@ import { cpfMask } from '../../../Componentes/DadosBancarioComponents';
 import ContextLogin from '../../../Context/ContextLogin';
 export const DadosBancariosForm = (props) => {
    const { admin } = useContext(ContextLogin)
+   const disableInput = admin && true
    const [fields, setFields] = useState(
       {
          bkd_cpf: "",
@@ -122,12 +123,14 @@ export const DadosBancariosForm = (props) => {
                            onChange={(event) =>
                               setFields({ ...fields, bkd_cpf: cpfMask(event.target.value) })
                            }
+                           disabled={disableInput}
                         />
                      </Col>
                      <Col className="mt-3" xs={12} sm={4}>
                         <PixType
                            label="Tipo do Pix"
                            name="bkd_typepix"
+                           disabled={disableInput}
                         />
                      </Col>
                      <Col className="mt-3" xs={12} sm={4}>
@@ -135,7 +138,9 @@ export const DadosBancariosForm = (props) => {
                            label="Pix"
                            name="bkd_pix"
                            type="text"
-                           maxLength="45" />
+                           maxLength="45"
+                           disabled={disableInput}
+                        />
                      </Col>
                   </Row>
                   <Row>
@@ -143,6 +148,7 @@ export const DadosBancariosForm = (props) => {
                         <BankType
                            label="Banco"
                            name="bkd_bak_cod"
+                           disabled={disableInput}
                         />
                      </Col>
                      <Col className="mt-3" xs={12} sm={3}>
@@ -151,7 +157,9 @@ export const DadosBancariosForm = (props) => {
                            label="Agência"
                            name="bkd_agency"
                            type="text"
-                           maxLength="4" />
+                           maxLength="4"
+                           disabled={disableInput}
+                        />
                      </Col>
                      <Col className="mt-3" xs={12} sm={3}>
                         <DefaultValidationTextField
@@ -159,12 +167,15 @@ export const DadosBancariosForm = (props) => {
                            label="Conta"
                            name="bkd_account"
                            type="text"
-                           maxLength="12" />
+                           maxLength="12"
+                           disabled={disableInput}
+                        />
                      </Col>
                      <Col className="mt-3" xs={12} sm={3}>
                         <AccountType
                            label="Tipo de Conta"
                            name="bkd_tpaccount"
+                           disabled={disableInput}
                         />
                      </Col>
                   </Row>
