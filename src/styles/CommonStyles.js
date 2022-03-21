@@ -221,7 +221,7 @@ export const TableRow = styled.tr`
       white-space: nowrap;
       
       @media all and (max-width: 767px){
-         width: 20%;
+         width: 60%;
       }
    }
    td:first-child {
