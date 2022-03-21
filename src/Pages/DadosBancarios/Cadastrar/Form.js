@@ -66,6 +66,8 @@ export const DadosBancariosForm = (props) => {
             <Formik
                htmlFor="mainForm"
                initialValues={fields}
+               validateOnChange={false}
+               validateOnBlur={false}
                validationSchema={yup.object({
                   bkd_cpf: yup.string().max(15).required(),
                   bkd_typepix: yup.string().required(),
