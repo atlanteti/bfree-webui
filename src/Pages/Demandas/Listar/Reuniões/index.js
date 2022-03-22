@@ -20,6 +20,7 @@ import moment from 'moment'
 import NoDataComp from '../../../../Componentes/NoDataComp'
 import ContextLogin from '../../../../Context/ContextLogin'
 import { Helmet } from 'react-helmet'
+import { ReuniaoSearchBar } from './ReuniaoSearchBar'
 
 export default class ListarReunioes extends ListarPagina {
    async fetchData(page, sort, isDesc, extraParams) {
@@ -37,7 +38,9 @@ export default class ListarReunioes extends ListarPagina {
       return data
    }
    SearchBarCustom(props) {
-      return <h1></h1>
+      return <ReuniaoSearchBar
+         filterData={props.filterData}
+      />
    }
 
    PageHeaderCustom() {
