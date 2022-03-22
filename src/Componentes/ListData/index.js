@@ -31,6 +31,7 @@ export default class ListarPagina extends Component {
          noDataAlertShow: null,
          redirect: false,
          noData: false,
+         noRender: false,
          user: cookies.get('user'),
          journeys: cookies.get('userType')
       }
@@ -166,7 +167,10 @@ export default class ListarPagina extends Component {
    }
 
    updateListing() {
-      this.fetchAndSetData({ page: this.state.page.current })
+      if (this.props.match.path !== "/relatorios") {
+         this.fetchAndSetData({ page: this.state.page.current })
+      }
+      this.setState({ noRender: true })
    }
 
    componentDidMount(oldProps) {

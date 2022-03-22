@@ -70,7 +70,7 @@ export default class ListarRelatorio extends ListarPagina {
    }
    onSubmit(e) {
       e.preventDefault()
-      this.setState({ responseData: null })
+      this.setState({ responseData: null, noRender: false })
       this.fetchAndSetData({ page: 1 })
    }
 
@@ -232,49 +232,53 @@ export default class ListarRelatorio extends ListarPagina {
                      </Row>
                   </Col>
                   <Row noGutters>
-                     {this.state.responseData === null
-                        ?
-                        <Row style={{ flex: 1 }}>
-                           <Col className="mt-6 d-flex justify-content-center"><CircularProgress /></Col>
-                        </Row>
-                        :
-                        (
-                           <>
-                              <MainTable
-                                 noData={this.state.noData}
-                                 className={`table-borderless ${(this.state.noData || window.screen.width <= 425) ? '' : 'table-responsive'}`}
-                              >
-                                 <TableHeader>
+                     {this.state.noRender ? <></> :
+                        <>
+                           {this.state.responseData === null
+                              ?
+                              <Row style={{ flex: 1 }}>
+                                 <Col className="mt-6 d-flex justify-content-center"><CircularProgress /></Col>
+                              </Row>
+                              :
+                              (
+                                 <>
+                                    <MainTable
+                                       noData={this.state.noData}
+                                       className={`table-borderless ${(this.state.noData || window.screen.width <= 425) ? '' : 'table-responsive'}`}
+                                    >
+                                       <TableHeader>
 
-                                    <TableRow>
-                                       {this.state.headerData.map((column) => {
-                                          return (
-                                             <TextHeaderCell scope="col">
-                                                {column}
-                                             </TextHeaderCell>
-                                          )
-                                       })}
-                                    </TableRow>
-                                 </TableHeader>
-                                 <ReportTableData>
-                                    {this.state.responseData.slice(0, -1).map((user) => {
-                                       return (
-                                          <TableRow>{user.map((data) => {
-                                             return <TextCell data-title={data[0]} Elipse>{data[1]}</TextCell>
-                                          })}</TableRow>
-                                       )
-                                    })}
-                                    {this.state.responseData.slice(-1).map((user) => {
-                                       return (
-                                          <TableRow>{user.map((data) => {
-                                             return <TextCell data-title={data[0].toLowerCase() === "operador" ? "" : data[0]} fontTotal>{data[1]}</TextCell>
-                                          })}</TableRow>
-                                       )
-                                    })}
-                                 </ReportTableData>
-                              </MainTable>
-                           </>
-                        )
+                                          <TableRow>
+                                             {this.state.headerData.map((column) => {
+                                                return (
+                                                   <TextHeaderCell scope="col">
+                                                      {column}
+                                                   </TextHeaderCell>
+                                                )
+                                             })}
+                                          </TableRow>
+                                       </TableHeader>
+                                       <ReportTableData>
+                                          {this.state.responseData.slice(0, -1).map((user) => {
+                                             return (
+                                                <TableRow>{user.map((data) => {
+                                                   return <TextCell data-title={data[0]} Elipse>{data[1]}</TextCell>
+                                                })}</TableRow>
+                                             )
+                                          })}
+                                          {this.state.responseData.slice(-1).map((user) => {
+                                             return (
+                                                <TableRow>{user.map((data) => {
+                                                   return <TextCell data-title={data[0].toLowerCase() === "operador" ? "" : data[0]} fontTotal>{data[1]}</TextCell>
+                                                })}</TableRow>
+                                             )
+                                          })}
+                                       </ReportTableData>
+                                    </MainTable>
+                                 </>
+                              )
+                           }
+                        </>
                      }
                      {this.createModal()}
                   </Row>
