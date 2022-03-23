@@ -21,6 +21,7 @@ import Restricted from '../../../Context/AccessPermission'
 import { AiOutlineUpload } from "react-icons/ai"
 import ListTypeDemand from '../../../Componentes/ListTypeDemand'
 import NoDataComp from '../../../Componentes/NoDataComp'
+import CustomPagination from '../../../Componentes/CustomPagination'
 
 export default class ListarRelatorio extends ListarPagina {
    constructor(props) {
@@ -40,11 +41,12 @@ export default class ListarRelatorio extends ListarPagina {
       this.requestExportData = this.requestExportData.bind(this)
    }
 
-   async fetchData() {
+   async fetchData(page) {
       let data = await request({
          method: 'get',
          endpoint: 'demands/report-billing',
          params: {
+            page: Number(page),
             ...this.state.formData,
             dataInicial: moment(this.filter.initialDate).format('yyyy-MM-DD'),
             dataFinal: moment(this.filter.finalDate).format('yyyy-MM-DD'),
@@ -88,10 +90,6 @@ export default class ListarRelatorio extends ListarPagina {
    TableHeaderCustom(props) {
       return <TableRow {...props}>
       </TableRow>
-   }
-
-   renderPagination() {
-      return null
    }
 
    createRecord(user) {
@@ -283,7 +281,7 @@ export default class ListarRelatorio extends ListarPagina {
                      redirectCallback={this.redirectCallback.bind(this)}
                      noDataAlert={true}
                      noData={this.state.noData} />
-                  {this.renderPagination()}
+                  {this.context.admin && this.renderPagination()}
                </Container>
 
             </CustomMenu>
