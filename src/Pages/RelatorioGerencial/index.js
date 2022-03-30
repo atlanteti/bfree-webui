@@ -1,13 +1,11 @@
 import moment from 'moment';
 import { useEffect, useState } from 'react';
-import { Button, Col, Container, Row } from 'react-bootstrap';
+import { Col, Container } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
-import { IoChevronBackCircleSharp } from 'react-icons/io5';
 import { CustomMenu } from "../../Componentes/CustomMenu/index";
 import { MyResponsiveBar } from '../../Componentes/Graph';
 import { request } from '../../Services/api';
 import {
-   CustomMenuCol,
    MainContainer,
    MainRow,
    MainTable,
@@ -26,7 +24,7 @@ export function RelatorioGerencial() {
    const [headerData, setHeaderData] = useState([])
    const [bodyData, setBodyData] = useState([])
    const [initialDate, setInitialDate] = useState(new Date(moment().startOf('month').subtract(2, 'month').calendar()));
-   const [finalDate, setFinalDate] = useState(new Date);
+   const [finalDate, setFinalDate] = useState(new Date());
    const [graph, setGraph] = useState([])
 
    async function fetchData() {
@@ -43,9 +41,9 @@ export function RelatorioGerencial() {
          }
          // transformando os dados em um array para utilização na tabela
          const populateData = []
-         Object.keys(data.data).map((response) => {
+         Object.keys(data.data).map((response) =>
             populateData.push([response, data.data[response]])
-         })
+         )
          if (populateData[0][1].length > 0) {
             const populateHeader = []
             const header = []
