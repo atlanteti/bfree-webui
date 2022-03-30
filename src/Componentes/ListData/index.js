@@ -5,7 +5,7 @@ import { CustomMenu } from '../CustomMenu'
 import CustomPagination from '../CustomPagination'
 import { CustomAlert } from '../CustomAlert'
 import {
-   MainContainer, Title, MainTable, TableHeader, TableData, CustomMenuCol,
+   MainContainer, Title, MainTable, TableHeader, TableData,
    MainRow, HeaderContainer, RowTopMargin, RightAlignText
 } from '../../styles/CommonStyles'
 import PropTypes from "prop-types"
@@ -53,12 +53,6 @@ export default class ListarPagina extends Component {
    }
 
    async searchExportData({ extraParams, endpointExport, nameFile }) {
-      const s2ab = (s) => {
-         var buf = new ArrayBuffer(s.length);
-         var view = new Uint8Array(buf);
-         for (var i = 0; i != s.length; ++i) view[i] = String.fromCharCode(s[i]) & 0xFF;
-         return buf;
-      }
       const data = await request({
          method: 'get',
          endpoint: `demands/${endpointExport}`,
