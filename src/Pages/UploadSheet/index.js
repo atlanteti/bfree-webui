@@ -6,7 +6,6 @@ import { CustomMenu } from "../../Componentes/CustomMenu";
 import { request } from "../../Services/api";
 import {
    BackGroundForm,
-   CustomMenuCol,
    MainContainer,
    MainRow,
    Title,
