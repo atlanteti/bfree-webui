@@ -450,7 +450,7 @@ export const DemandForm = (props) => {
                            </Col>
                            <Col xs={6}>
                               <Button variant="dark"
-                                 disabled={values.dem_hourmeet?.length !== "5" || freeTime.length === 0}
+                                 disabled={values.dem_hourmeet?.length !== 5 || freeTime.length === 0}
                                  onClick={async () => {
                                     const day = moment(values.dem_dtmeet).format("YYYY-MM-DD")
                                     const startHour = values.dem_hourmeet
@@ -480,7 +480,7 @@ export const DemandForm = (props) => {
                                        })
                                     }
                                  }}>
-                                 {values.dem_hourmeet?.length === "5" ?
+                                 {values.dem_hourmeet?.length === 5 ?
                                     `Marcar Reunião De ${values.dem_hourmeet}` : "Escolha um horário"}</Button>
                            </Col>
                         </Row>
@@ -518,11 +518,11 @@ export const DemandForm = (props) => {
 
    );
 };
-// function addTwoHours(hour) {
-//    const newHour = (parseInt(hour.split(":")[0]) + 2) % 24
-//    const oldMinute = hour.split(":")[1]
-//    if (newHour < 10)
-//       return `0${newHour}:${oldMinute}`
-//    else
-//       return `${newHour}:${oldMinute}`
-// }
+function addTwoHours(hour) {
+   const newHour = (parseInt(hour.split(":")[0]) + 2) % 24
+   const oldMinute = hour.split(":")[1]
+   if (newHour < 10)
+      return `0${newHour}:${oldMinute}`
+   else
+      return `${newHour}:${oldMinute}`
+}

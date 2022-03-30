@@ -1,12 +1,9 @@
 import { useField, useFormikContext } from 'formik';
-import moment from 'moment';
 import React from 'react';
 import DatePicker from "react-datepicker";
-import { request } from '../../Services/api';
 import { DefaultValidationTextField } from "./DefaultValidationTextField";
 export const MeetingDatePickerField = ({ ...props }) => {
    {
-      const { setFieldValue } = useFormikContext();
       const [field] = useField(props);
       let val = field.value;
       let formattedVal = new Date(val);
