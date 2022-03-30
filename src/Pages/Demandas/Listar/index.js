@@ -1,4 +1,4 @@
-import { Button, Modal } from 'react-bootstrap'
+import { Button } from 'react-bootstrap'
 import { request } from '../../../Services/api'
 import ListarPagina, { PageHeaderCustomComponent } from '../../../Componentes/ListData'
 import {
@@ -154,7 +154,7 @@ export default class ListarDemandas extends ListarPagina {
                </Button>
             </Link>
             <Restricted>
-               {demanda.statusDemand.sdm_cod == 1 ?
+               {demanda.statusDemand.sdm_cod === 1 ?
                   <IconOverlayMessage
                      message={
                         "Status em Aberto não pode ser revertido"}>

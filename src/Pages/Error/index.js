@@ -1,10 +1,9 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { Container, Col, Card } from 'react-bootstrap'
 
 export default function Error404(props) {
    return <Container className="mt-10">
-      <Col md={{offset: 3, span: 6}}>
+      <Col md={{ offset: 3, span: 6 }}>
          <Card>
             <Card.Header as="h5">Error 404</Card.Header>
             <Card.Body>
