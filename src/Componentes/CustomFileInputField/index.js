@@ -1,5 +1,5 @@
-import React, { useState, useRef } from 'react';
-import { Button, Col, Container, Form, Row } from 'react-bootstrap';
+import React, { useRef } from 'react';
+import { Button, Col, Container, Row } from 'react-bootstrap';
 import { UploadContainer } from '../../styles/CommonStyles';
 import { InputTextField } from '../FormFields';
 export default function CustomFileInputField(props) {
