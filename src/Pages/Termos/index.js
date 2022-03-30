@@ -11,7 +11,7 @@ import { Cookies } from 'react-cookie'
 import ContextLogin from "../../Context/ContextLogin";
 
 export function TermosCompromisso() {
-   const { setVerifyUser, setUser, setAuth, token, setUserRoles, userRoles } = useContext(ContextLogin)
+   const { setVerifyUser, setUser, setAuth, setUserRoles, userRoles } = useContext(ContextLogin)
    const cookie = new Cookies()
    const [term, setTerm] = useState(true);
    const [redirect, setRedirect] = useState(false);
