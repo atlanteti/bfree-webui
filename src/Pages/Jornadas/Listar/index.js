@@ -1,13 +1,9 @@
-import { Button, Col, Container, Row } from 'react-bootstrap'
-// import SearchBar from '../../../Componentes/SearchBar'
+import { Button } from 'react-bootstrap'
 import { request } from '../../../Services/api'
-import ExclusionModal from '../../../Componentes/ExclusionModal'
 import ListarPagina, { PageHeaderCustomComponent } from '../../../Componentes/ListData'
 import {
    ActionCell, ActionHeaderCell,
-   RightAlignText,
-   TableRow, TextCell, TextHeaderCell, Title,
-   HeaderContainer, RowTopMargin
+   TableRow, TextCell, TextHeaderCell
 } from '../../../styles/CommonStyles'
 import SortColumn from '../../../Componentes/SortColumn'
 import { React } from 'react'
