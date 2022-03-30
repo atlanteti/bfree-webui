@@ -1,10 +1,9 @@
 import React from 'react'
-import { Form } from 'react-bootstrap'
 import PropTypes from 'prop-types'
-import { RequiredField, SelectFieldStyle, SelectValidateStyle } from '../../styles/CommonStyles'
+import { RequiredField } from '../../styles/CommonStyles'
 import InputMask from "react-input-mask"
 import { MenuItem, TextField } from '@mui/material';
-import { alpha, styled } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import NoDataComp from '../NoDataComp'
 import { DefaultValidationTextField } from '../DefaultValidateInputs/DefaultValidationTextField'
 import { DefaultValidateSelectField } from '../DefaultValidateInputs/DefaultValidateSelectField'
