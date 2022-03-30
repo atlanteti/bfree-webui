@@ -1,4 +1,4 @@
-import { Row, Form, Button, Col } from 'react-bootstrap';
+import { Row, Form, Col } from 'react-bootstrap';
 import { React } from 'react';
 import ListCompanies from '../../../Componentes/ListCompanies';
 import { BtnBlue, SearchBarBorder } from '../../../styles/CommonStyles';

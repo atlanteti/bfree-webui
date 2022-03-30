@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import Helmet from 'react-helmet'
 
-import { RowTopMargin, Title } from '../../../styles/CommonStyles'
+import { RowTopMargin } from '../../../styles/CommonStyles'
 import { Redirect } from 'react-router-dom'
-import { Col } from 'react-bootstrap'
 import { CustomMenu } from '../../../Componentes/CustomMenu'
 import { CustomAlert } from '../../../Componentes/CustomAlert'
 import TypeDemandForm from './Form'
