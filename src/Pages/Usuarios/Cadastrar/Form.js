@@ -61,7 +61,7 @@ export const UserForm = (props) => {
       if (props.paramRoute !== "inserir") {
          requestData();
       }
-   }, [props])
+   }, [])
    return (
       <React.Fragment>
          <ButtonRow
@@ -100,13 +100,13 @@ export const UserForm = (props) => {
                         endpoint: postEndpoint,
                         data: values,
                      });
-                     if (data.meta.status == 100) {
+                     if (data.meta.status === 100) {
                         props.showAlert(data.meta)
                      }
-                     else if (data.meta.status == 212) {
+                     else if (data.meta.status === 212) {
                         props.showAlert(data.meta)
                      }
-                     if (data.meta.status == 422) {
+                     if (data.meta.status === 422) {
                         setFieldError(data.data[0].field.toLowerCase(), data.data[0].message)
                         props.showAlert(
                            {
