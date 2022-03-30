@@ -56,16 +56,14 @@ export class BadgeFormBuilder extends EditCreateForm {
    }
 
    handleChangeCompanyControlled(e) {
-      {
-         if (e.target.value !== null && e.target.value !== "") {
-            this.journeyCodeSetter("")
-            this.setState({
-               disableJourney: true
-            })
-         }
-         else {
-            this.setState({ disableJourney: false })
-         }
+      if (e.target.value !== null && e.target.value !== "") {
+         this.journeyCodeSetter("")
+         this.setState({
+            disableJourney: true
+         })
+      }
+      else {
+         this.setState({ disableJourney: false })
       }
       this.companyCodeSetter(e.target.value)
       this.handleChange({ target: { id: "bdg_jny_cod", value: "" } })
