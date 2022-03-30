@@ -13,7 +13,7 @@ export default function UsuarioCompanies(props) {
 class UsuarioCompaniesForm extends MultiSelectForm {
 
    formatList() {
-      if (this.state.optionList.length != 0) {
+      if (this.state.optionList.length !== 0) {
          this.setState((state) => ({
             optionList: state.optionList.map(
                option => {

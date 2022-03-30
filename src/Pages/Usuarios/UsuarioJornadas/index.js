@@ -13,7 +13,7 @@ export default function UsuarioJornadas(props) {
 class UsuarioJornadasForm extends MultiSelectForm {
 
    formatList() {
-      if (this.state.optionList.length != 0) {
+      if (this.state.optionList.length !== 0) {
          this.setState((state) => ({
             optionList: state.optionList.map(
                option => {
