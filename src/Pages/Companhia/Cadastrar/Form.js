@@ -5,7 +5,7 @@ import { ButtonRow } from '../../../Componentes/ButtonRow'
 import { EditCreateForm } from '../../../Componentes/EditCreateForm/index'
 import { NumberField, InputTextField } from '../../../Componentes/FormFields'
 import CircularProgress from '@material-ui/core/CircularProgress'
-import { BackGroundForm, BtnBlue, NumberCell, TitleRegister } from '../../../styles/CommonStyles'
+import { BackGroundForm, BtnBlue, TitleRegister } from '../../../styles/CommonStyles'
 import { IoChevronBackCircleSharp } from "react-icons/io5"
 
 export default function CompanyForm(props) {
