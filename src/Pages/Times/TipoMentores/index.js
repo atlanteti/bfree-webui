@@ -7,7 +7,6 @@ import { CustomMenu } from "../../../Componentes/CustomMenu";
 import { CustomAlert } from "../../../Componentes/CustomAlert";
 import { ButtonRow } from "../../../Componentes/ButtonRow";
 import { CircularProgress, MenuItem } from "@material-ui/core";
-import { CheckBox } from "../../../Componentes/CheckBox";
 import { Helmet } from "react-helmet";
 import { InputTextField, BooleanField } from "../../../Componentes/FormFields";
 import NoDataComp from "../../../Componentes/NoDataComp";
@@ -27,10 +26,6 @@ export default class TiposDeMentoria extends Component {
          responseAlertShow: func
       })
    }
-
-   showAlert(data) {
-      this.state.responseAlertShow(data)
-   }
    async populateList() {
       const data = await request({
          method: 'get',
@@ -42,10 +37,10 @@ export default class TiposDeMentoria extends Component {
       this.setState({
          mentores: data.data
       }, () => {
-         if (this.state.mentores.length != 0) {
+         if (this.state.mentores.length !== 0) {
             let convertedDict = {}
             this.state.mentores.map(
-               option => {
+               option => (
                   convertedDict[option.umt_cod] = {
                      umt_cod: option.umt_cod,
                      umt_usrmentor_cod: option.umt_usrmentor_cod,
@@ -53,7 +48,7 @@ export default class TiposDeMentoria extends Component {
                      umt_tmt_cod: option.umt_tmt_cod,
                      umt_active: option.umt_active
                   }
-               })
+               ))
             this.setState((state) => ({
                responseForm: convertedDict
             }))
