@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import { request } from '../../Services/api';
-import { RequiredField } from '../../styles/CommonStyles';
-import { TextField, MenuItem, ListSubheader } from '@mui/material';
-import { ValidationTextField } from '../FormFields';
-import NoDataComp from '../NoDataComp';
+import { MenuItem } from '@mui/material';
 import { DefaultValidateSelectField } from '../DefaultValidateInputs/DefaultValidateSelectField';
 
 export default class ListJourneysControlled extends Component {
@@ -29,7 +26,7 @@ export default class ListJourneysControlled extends Component {
    }
    onChange(event) {
       if (event.target.value !== null) {
-         const jny_cpn_cod = this.state.journeys.filter((journey) => { return journey.jny_cod == event.target.value; })[0].jny_cpn_cod;
+         const jny_cpn_cod = this.state.journeys.filter((journey) => { return journey.jny_cod === event.target.value; })[0].jny_cpn_cod;
          let journeyWithCompany = {
             ...event,
             value: event.target.value,
