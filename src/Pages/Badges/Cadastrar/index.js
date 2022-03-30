@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
 import Helmet from 'react-helmet'
-
 import { Redirect } from 'react-router-dom'
-import { Col } from 'react-bootstrap'
 import { CustomMenu } from '../../../Componentes/CustomMenu'
 import { CustomAlert } from '../../../Componentes/CustomAlert'
 import BadgeForm from './Form'
-import { RowTopMargin, Title } from '../../../styles/CommonStyles'
+import { RowTopMargin } from '../../../styles/CommonStyles'
 
 export default class CadastrarBadge extends Component {
    constructor(props) {

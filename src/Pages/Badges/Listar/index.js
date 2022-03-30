@@ -1,7 +1,5 @@
-import { Button, Col, Container, Row } from 'react-bootstrap'
-import { CustomMenu } from '../../../Componentes/CustomMenu'
+import { Button } from 'react-bootstrap'
 import { request } from '../../../Services/api'
-import ExclusionModal from '../../../Componentes/ExclusionModal'
 import ListarPagina, { PageHeaderCustomComponent } from '../../../Componentes/ListData'
 import {
    ActionCell, ActionHeaderCell,
@@ -11,7 +9,6 @@ import {
 import SortColumn from '../../../Componentes/SortColumn'
 import { React } from 'react'
 import { BadgeSearchBar } from "./BadgeSearchBar"
-import { IoCheckboxOutline } from 'react-icons/io5'
 import { ReactComponent as EditIcon } from '../../../Assets/Icons/icon_editar.svg'
 import { ReactComponent as DeleteIcon } from '../../../Assets/Icons/icon_delete.svg'
 import { ReactComponent as GreenCheck } from "../../../Assets/Icons/icon_check.svg"
