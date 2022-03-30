@@ -21,7 +21,6 @@ import Restricted from '../../../Context/AccessPermission'
 import { AiOutlineUpload } from "react-icons/ai"
 import ListTypeDemand from '../../../Componentes/ListTypeDemand'
 import NoDataComp from '../../../Componentes/NoDataComp'
-import CustomPagination from '../../../Componentes/CustomPagination'
 
 export default class ListarRelatorio extends ListarPagina {
    constructor(props) {
@@ -100,7 +99,7 @@ export default class ListarRelatorio extends ListarPagina {
 
    requestExportData(event, endpointExport, nameFile) {
       event.preventDefault()
-      let data = this.searchExportData({ extraParams: this.state.formData, endpointExport, nameFile })
+      this.searchExportData({ extraParams: this.state.formData, endpointExport, nameFile })
       return
    }
 
