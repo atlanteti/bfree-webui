@@ -1,8 +1,8 @@
 import { Component } from "react"
-import { Accordion, Button, Card, Col, Container, Form, Row, Table } from "react-bootstrap";
+import { Accordion, Card, Col, Container, Form, Row, Table } from "react-bootstrap";
 import { CustomMenu } from "../../Componentes/CustomMenu";
 import { request } from "../../Services/api";
-import { CustomMenuCol, Title, PaginationRow, MainContainer, MainRow, SearchBarBorder, BottomMargin, BtnBlue, TableHeader, TableRow, TextHeaderCell, TableData, TextCell, DataSearchTitle } from "../../styles/CommonStyles";
+import { Title, MainContainer, MainRow, SearchBarBorder, BottomMargin, BtnBlue, TableHeader, TableRow, TextHeaderCell, TableData, TextCell, DataSearchTitle } from "../../styles/CommonStyles";
 import { displayDate } from '../../Componentes/DateField'
 import { Helmet } from "react-helmet";
 import CustomPagination from "../../Componentes/CustomPagination";
@@ -34,7 +34,7 @@ class Log extends Component {
    }
 
    async fetchAndSetData({ page = '1' }) {
-      const data = await request({
+      await request({
          method: "get",
          endpoint: "logs/listar",
          // userId,  initialDate, finalDate, logAction
@@ -55,7 +55,7 @@ class Log extends Component {
 
    componentDidMount() {
       this.fetchAndSetData({ page: 1 })
-      const data = request({
+      request({
          method: "get",
          endpoint: "logs/listar-tipo"
       }).then(data => { this.setState({ dataCollection: data.data }) })
