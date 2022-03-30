@@ -1,14 +1,13 @@
 import React, { Component } from 'react'
 import Helmet from 'react-helmet'
 
-import { Link, Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import { Col } from 'react-bootstrap'
 import { CustomMenu } from '../../../Componentes/CustomMenu'
 import { CustomAlert } from '../../../Componentes/CustomAlert'
 import { DemandForm } from './Form'
-import { RowTopMargin, SubTitle, Title } from '../../../styles/CommonStyles'
+import { RowTopMargin } from '../../../styles/CommonStyles'
 import ContextLogin from "../../../Context/ContextLogin"
-import { Breadcrumbs, Typography } from '@material-ui/core'
 
 export default class CadastrarDemanda extends Component {
    constructor(props) {

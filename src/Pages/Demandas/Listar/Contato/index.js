@@ -8,15 +8,10 @@ import {
 import SortColumn from '../../../../Componentes/SortColumn'
 import React from 'react'
 import { DemandSearchBar } from '../DemandSearchBar'
-import Restricted from '../../../../Context/AccessPermission'
 import { ReactComponent as EditIcon } from '../../../../Assets/Icons/icon_editar.svg'
-import { ReactComponent as DeleteIcon } from '../../../../Assets/Icons/icon_delete.svg'
 import { ReactComponent as GreenCheck } from "../../../../Assets/Icons/icon_check.svg"
-import { MdUndo } from 'react-icons/md'
-import IconOverlayMessage from '../../../../Componentes/IconOverlayMessage'
 import ExclusionModal from '../../../../Componentes/ExclusionModal'
 import { Link } from 'react-router-dom'
-import moment from 'moment'
 import NoDataComp from '../../../../Componentes/NoDataComp'
 import { Helmet } from 'react-helmet'
 
