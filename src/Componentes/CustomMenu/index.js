@@ -202,8 +202,7 @@ function CreateMenuItems(cookie, admin, userRoles, userId) {
          </List>
       </>
    }
-   const items = []
-   if (userRoles.length == 2) {
+   if (userRoles.length === 2) {
       return <>
          <ListItem button
          ><ListItemIcon>
