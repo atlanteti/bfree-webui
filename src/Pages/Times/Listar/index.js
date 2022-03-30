@@ -1,16 +1,13 @@
-import { Badge, Button, Col, Container, OverlayTrigger, Row, Tooltip } from 'react-bootstrap'
+import { Button } from 'react-bootstrap'
 import { request } from '../../../Services/api'
 import ListarPagina, { PageHeaderCustomComponent } from '../../../Componentes/ListData'
 import {
-   ActionCell, ActionHeaderCell,
-   Icon,
-   RightAlignText,
-   TableRow, TextCell, TextHeaderCell, Title
+   ActionHeaderCell,
+   TableRow, TextCell, TextHeaderCell
 } from '../../../styles/CommonStyles'
 import SortColumn from '../../../Componentes/SortColumn'
 import { React } from 'react'
 import { TeamSearchBar } from "./TeamSearchBar"
-import { IoPeopleOutline } from 'react-icons/io5'
 import { ReactComponent as EditIcon } from '../../../Assets/Icons/icon_editar.svg'
 import { ReactComponent as DeleteIcon } from '../../../Assets/Icons/icon_delete.svg'
 import { ReactComponent as TeamIcon } from '../../../Assets/Icons/icon_mentores.svg'
