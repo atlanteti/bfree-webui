@@ -206,13 +206,13 @@ export const DemandForm = (props) => {
                            dem_dtaction: moment(values.dem_dtaction).format("YYYY-MM-DD")
                         },
                      });
-                     if (data.meta.status == 100) {
+                     if (data.meta.status === 100) {
                         props.showAlert(data.meta)
                      }
-                     else if (data.meta.status == 212) {
+                     else if (data.meta.status === 212) {
                         props.showAlert(data.meta)
                      }
-                     if (data.meta.status == 422) {
+                     if (data.meta.status === 422) {
                         setFieldError(data.data[0].field.toLowerCase(), data.data[0].message)
                      }
                      else {
@@ -287,7 +287,7 @@ export const DemandForm = (props) => {
                         <ListUsers
                            label="Usuário"
                            name="dem_usr_cod"
-                           disabled={disableFields && !(primaryData?.dem_sdm_cod == 1 && admin)}
+                           disabled={disableFields && !(primaryData?.dem_sdm_cod === 1 && admin)}
                         />
                      </Col>
                      <Col className="mt-3" xs={12} sm={4}>
@@ -296,7 +296,7 @@ export const DemandForm = (props) => {
                            name="dem_sdm_cod"
                            onChange={(event) => {
                               if (primaryData && primaryData.demandStatusHistories.length >= 1) {
-                                 let matches = primaryData.demandStatusHistories.filter((v) => event.target.value == v.dsh_sdm_cod)
+                                 let matches = primaryData.demandStatusHistories.filter((v) => event.target.value === v.dsh_sdm_cod)
                                  if (matches.length >= 1) {
                                     if (event.target.value === 2 || event.target.value === 3) {
                                        setFieldValue("dem_dtaction", new Date())
@@ -434,7 +434,7 @@ export const DemandForm = (props) => {
                                  id="dem_hourmeet"
                                  mask={"99:99"}
                                  maskChar=""
-                                 disabled={freeTime.length == 0}
+                                 disabled={freeTime.length === 0}
                                  onChange={(event) => {
                                     setFieldValue("dem_hourmeet", event.target.value)
                                  }}
@@ -443,20 +443,18 @@ export const DemandForm = (props) => {
                                     label="Hora da Reunião"
                                     name="dem_hourmeet"
                                     placeholder='00:00'
-                                    disabled={freeTime.length == 0}
+                                    disabled={freeTime.length === 0}
                                     type="text"
                                     maxLength="6" />}
                               </InputMask>
                            </Col>
                            <Col xs={6}>
                               <Button variant="dark"
-                                 disabled={values.dem_hourmeet?.length != "5" || freeTime.length == 0}
+                                 disabled={values.dem_hourmeet?.length !== "5" || freeTime.length === 0}
                                  onClick={async () => {
                                     const day = moment(values.dem_dtmeet).format("YYYY-MM-DD")
                                     const startHour = values.dem_hourmeet
-                                    const endHour = addTwoHours(values.dem_hourmeet)
                                     const dateStart = `${day}T${startHour}`
-                                    const dateEnd = `${day}T${endHour}`
                                     let meetingCode = -1;
                                     if (meetingDataRequest) {
                                        meetingCode = primaryData.meeting.mee_cod
@@ -482,7 +480,7 @@ export const DemandForm = (props) => {
                                        })
                                     }
                                  }}>
-                                 {values.dem_hourmeet?.length == "5" ?
+                                 {values.dem_hourmeet?.length === "5" ?
                                     `Marcar Reunião De ${values.dem_hourmeet}` : "Escolha um horário"}</Button>
                            </Col>
                         </Row>
@@ -520,11 +518,11 @@ export const DemandForm = (props) => {
 
    );
 };
-function addTwoHours(hour) {
-   const newHour = (parseInt(hour.split(":")[0]) + 2) % 24
-   const oldMinute = hour.split(":")[1]
-   if (newHour < 10)
-      return `0${newHour}:${oldMinute}`
-   else
-      return `${newHour}:${oldMinute}`
-}
+// function addTwoHours(hour) {
+//    const newHour = (parseInt(hour.split(":")[0]) + 2) % 24
+//    const oldMinute = hour.split(":")[1]
+//    if (newHour < 10)
+//       return `0${newHour}:${oldMinute}`
+//    else
+//       return `${newHour}:${oldMinute}`
+// }
