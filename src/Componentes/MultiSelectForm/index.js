@@ -5,7 +5,7 @@ import { request } from '../../Services/api';
 import PropTypes from 'prop-types'
 import { CustomAlert } from '../CustomAlert';
 import { Link, Redirect } from 'react-router-dom';
-import { BackGroundForm, BtnBlue, BtnPrimary, CustomMenuCol, RowTopMargin, Title } from '../../styles/CommonStyles';
+import { BackGroundForm, BtnBlue, BtnPrimary, RowTopMargin, Title } from '../../styles/CommonStyles';
 import { CustomMenu } from '../CustomMenu';
 import { InputTextField } from '../FormFields';
 import { ButtonRow } from '../ButtonRow';
@@ -33,9 +33,6 @@ export default class MultiSelectForm extends Component {
       })
    }
 
-   showAlert(data) {
-      this.state.responseAlertShow(data)
-   }
    async populateList() {
       const data = await request({
          method: 'get',
