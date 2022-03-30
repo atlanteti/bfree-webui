@@ -8,7 +8,7 @@ export function DefaultValidateSelectField(props) {
       select
 
       error={(!!props.errorMessage ||
-         ((props.value === "" || props.value === null)
+         ((props.value == "" || props.value == null)
             && props.required) && props.validated)}
       {...props}
    >

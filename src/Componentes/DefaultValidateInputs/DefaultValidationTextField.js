@@ -31,7 +31,7 @@ export function DefaultValidationTextField(props) {
       if (HelperMessage !== undefined) {
          error = true
       }
-      else if (props.defaultValue === "" || props.defaultValue === null) {
+      else if (props.defaultValue == "" || props.defaultValue == null) {
          error = true
       }
       if (valid !== undefined) {
