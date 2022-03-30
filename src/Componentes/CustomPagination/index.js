@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Pagination } from 'react-bootstrap'
+import { Button } from 'react-bootstrap'
 import { IoChevronBackOutline, IoChevronForwardOutline } from 'react-icons/io5'
 import { ActionCell, MainTable, PaginationHeader, PaginationRow } from '../../styles/CommonStyles'
 
