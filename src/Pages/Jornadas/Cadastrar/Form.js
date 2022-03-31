@@ -1,6 +1,6 @@
 import React from 'react'
 import { Form, Col, Row, Button } from 'react-bootstrap'
-import { SelectField, InputTextField } from '../../../Componentes/FormFields'
+import { InputTextField } from '../../../Componentes/FormFields'
 import { DateField } from '../../../Componentes/DateField'
 import { ButtonRow } from '../../../Componentes/ButtonRow'
 import { EditCreateForm } from '../../../Componentes/EditCreateForm/index'
