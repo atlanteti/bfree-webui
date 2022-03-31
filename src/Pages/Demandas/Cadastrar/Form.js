@@ -518,11 +518,11 @@ export const DemandForm = (props) => {
 
    );
 };
-function addTwoHours(hour) {
-   const newHour = (parseInt(hour.split(":")[0]) + 2) % 24
-   const oldMinute = hour.split(":")[1]
-   if (newHour < 10)
-      return `0${newHour}:${oldMinute}`
-   else
-      return `${newHour}:${oldMinute}`
-}
+// function addTwoHours(hour) {
+//    const newHour = (parseInt(hour.split(":")[0]) + 2) % 24
+//    const oldMinute = hour.split(":")[1]
+//    if (newHour < 10)
+//       return `0${newHour}:${oldMinute}`
+//    else
+//       return `${newHour}:${oldMinute}`
+// }
