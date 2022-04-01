@@ -2,7 +2,7 @@ import { Button, Col, Form, Row } from "react-bootstrap";
 import { request } from "../../../Services/api";
 import { Component } from "react";
 import { Link, Redirect } from "react-router-dom";
-import { BackGroundForm, BtnBlue, BtnPrimary, CustomMenuCol, Title } from "../../../styles/CommonStyles";
+import { BackGroundForm, BtnBlue, BtnPrimary, CustomMenuCol, Title, RowTopMargin } from "../../../styles/CommonStyles";
 import { CustomMenu } from "../../../Componentes/CustomMenu";
 import { CustomAlert } from "../../../Componentes/CustomAlert";
 import { ButtonRow } from "../../../Componentes/ButtonRow";
@@ -127,99 +127,94 @@ export default class TiposDeMentoria extends Component {
          return <Redirect to="/times" />
       }
       return <>
-         <Helmet title={`Tipos de Mentoria`} />
-         <CustomMenuCol md={2}><CustomMenu /></CustomMenuCol>
-         <Col>
-            <Col
-               sm={{ offset: 1, span: 10 }}// Temporary until styled components
-               md={{ offset: 1, span: 10 }}
-               lg={{ offset: 2, span: 10 }}
-            >
-               <CustomAlert
-                  showAlertCallback={this.getAlertCallback.bind(this)}
-                  redirectCallback={this.redirect.bind(this)}
-               />
-               <ButtonRow
-                  cancelButton={
-                     <Link to="/times">
-                        <Button variant="light"><IoChevronBackCircleSharp size={30} color="#BFCADD" /></Button>
-                     </Link>}
-                  titlePage={<Title>Tipos de Mentoria</Title>}
-               />
-               <Form onSubmit={this.handleSubmit.bind(this)}>
-                  <BackGroundForm xs={1} noGutters>
-                     {this.state.mentores === undefined ?
-                        <Row>
-                           <Col md={{ offset: 5 }}><CircularProgress /></Col>
-                        </Row> :
-                        (<>
-                           {this.state.mentores.map(mentor => {
-                              return (
-                                 <Row xs={2} sm={3} className="mt-2">
-                                    <Col className="mt-3" xs={12} sm={4} md={5}>
-                                       <InputTextField
-                                          label="Nome do Mentor"
-                                          type="text"
-                                          value={mentor.user.usr_name}
-                                          disabled
-                                          maxLength="45"
-                                       />
-                                    </Col>
-                                    <Col key="selector-1" className="mt-3" xs={12} sm={4} md={5}>
-                                       <InputTextField
-                                          label="Tipo de Mentoria"
-                                          name="test"
-                                          select
-                                          defaultValue={mentor.typeMentor?.tmt_cod}
-                                          onChange={(event) => { this.handleChange(event, mentor.umt_cod) }}
-                                          InputLabel={{
-                                             shirk: true
-                                          }}
-                                       >
-                                          {this.state.tiposDeMentoria?.map((type) => {
-                                             if (type.label === '') {
-                                                return (
-                                                   <MenuItem value={null}><NoDataComp /></MenuItem>
-                                                )
-                                             }
+         <CustomMenu>
+            <RowTopMargin>
+               <Helmet title={`Tipos de Mentoria`} />
+            </RowTopMargin>
+            <CustomAlert
+               showAlertCallback={this.getAlertCallback.bind(this)}
+               redirectCallback={this.redirect.bind(this)}
+            />
+            <ButtonRow
+               cancelButton={
+                  <Link to="/times">
+                     <Button variant="light"><IoChevronBackCircleSharp size={30} color="#BFCADD" /></Button>
+                  </Link>}
+               titlePage={<Title>Tipos de Mentoria</Title>}
+            />
+            <Form onSubmit={this.handleSubmit.bind(this)}>
+               <BackGroundForm xs={1} noGutters>
+                  {this.state.mentores === undefined ?
+                     <Row>
+                        <Col md={{ offset: 5 }}><CircularProgress /></Col>
+                     </Row> :
+                     (<>
+                        {this.state.mentores.map(mentor => {
+                           return (
+                              <Row xs={2} sm={3} className="mt-2">
+                                 <Col className="mt-3" xs={12} sm={4} md={5}>
+                                    <InputTextField
+                                       label="Nome do Mentor"
+                                       type="text"
+                                       value={mentor.user.usr_name}
+                                       disabled
+                                       maxLength="45"
+                                    />
+                                 </Col>
+                                 <Col key="selector-1" className="mt-3" xs={12} sm={4} md={5}>
+                                    <InputTextField
+                                       label="Tipo de Mentoria"
+                                       name="test"
+                                       select
+                                       defaultValue={mentor.typeMentor?.tmt_cod}
+                                       onChange={(event) => { this.handleChange(event, mentor.umt_cod) }}
+                                       InputLabel={{
+                                          shirk: true
+                                       }}
+                                    >
+                                       {this.state.tiposDeMentoria?.map((type) => {
+                                          if (type.label === '') {
                                              return (
-                                                <MenuItem value={type.value}>{type.label}</MenuItem>
+                                                <MenuItem value={null}><NoDataComp /></MenuItem>
                                              )
-                                          })}
-                                       </InputTextField>
-                                    </Col>
-                                    <Col className="mt-3" xs={12} sm={4} md={2}>
-                                       <BooleanField Label="Status"
-                                          onTrue="Ativo"
-                                          onFalse="Inativo"
-                                          name="umt_inactive"
-                                          id={"CheckboxFor" + mentor.umt_cod}
-                                          onChange={(event) => { this.handleCheck(event, mentor.umt_cod) }}
-                                          defaultValue={mentor.umt_inactive}
-                                       />
-                                    </Col>
-                                 </Row>);
-                           })}
-                           <Row>
-                              <Col className="mt-5"
-                                 style={{
-                                    display: 'flex',
-                                    justifyContent: 'center'
-                                 }}
-                              >
-                                 <BtnBlue type="submit" variant="dark">Editar</BtnBlue>
-                                 <Link to="/times">
-                                    <BtnPrimary style={{
-                                       marginLeft: 25
-                                    }} variant="light">Cancelar</BtnPrimary>
-                                 </Link>
-                              </Col>
-                           </Row>
-                        </>)}
-                  </BackGroundForm>
-               </Form>
-            </Col>
-         </Col>
+                                          }
+                                          return (
+                                             <MenuItem value={type.value}>{type.label}</MenuItem>
+                                          )
+                                       })}
+                                    </InputTextField>
+                                 </Col>
+                                 <Col className="mt-3" xs={12} sm={4} md={2}>
+                                    <BooleanField Label="Status"
+                                       onTrue="Ativo"
+                                       onFalse="Inativo"
+                                       name="umt_inactive"
+                                       id={"CheckboxFor" + mentor.umt_cod}
+                                       onChange={(event) => { this.handleCheck(event, mentor.umt_cod) }}
+                                       defaultValue={mentor.umt_inactive}
+                                    />
+                                 </Col>
+                              </Row>);
+                        })}
+                        <Row>
+                           <Col className="mt-5"
+                              style={{
+                                 display: 'flex',
+                                 justifyContent: 'center'
+                              }}
+                           >
+                              <BtnBlue type="submit" variant="dark">Editar</BtnBlue>
+                              <Link to="/times">
+                                 <BtnPrimary style={{
+                                    marginLeft: 25
+                                 }} variant="light">Cancelar</BtnPrimary>
+                              </Link>
+                           </Col>
+                        </Row>
+                     </>)}
+               </BackGroundForm>
+            </Form>
+         </CustomMenu>
       </>
    }
 }
