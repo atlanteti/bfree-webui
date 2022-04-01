@@ -188,7 +188,6 @@ export const DemandForm = (props) => {
             <Formik
                htmlFor="mainForm"
                initialValues={fields}
-               validateOnChange={false}
                validateOnBlur={false}
                validationSchema={validationSchema}
                onSubmit={
