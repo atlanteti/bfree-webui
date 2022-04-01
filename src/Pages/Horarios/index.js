@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
-import { BackGroundForm, BtnBlue, Title, SubTitle, RowTopMargin } from "../../styles/CommonStyles";
+import { BackGroundForm, BtnBlue, Title, SubTitle, RowTopMargin, DivSpaceBtween } from "../../styles/CommonStyles";
 import { CustomMenu } from "../../Componentes/CustomMenu";
-import { Form, Col, Row, Alert } from "react-bootstrap";
+import { Form, Col, Row, Alert, Button } from "react-bootstrap";
 import { HourComponent } from "../../Componentes/HourComponent";
 import { request } from "../../Services/api";
 import { CircularProgress } from '@mui/material';
@@ -74,9 +74,14 @@ export function Horario() {
          <SubTitle style={{ paddingBottom: 10 }}>Demandas/<strong>Consultor</strong></SubTitle>
          <Title style={{ paddingBottom: 10 }}>Agenda</Title>
          <SubTitle>Defina os dias da semana e horários que você pode atender.</SubTitle>
-         <SubTitle style={{ paddingBottom: 10 }}>Não adicione intervalos que entrem em conflito, ex: 10:00 -- 12:00 E 09:00 -- 11:00 do mesmo dia</SubTitle>
+         <DivSpaceBtween display justifyContent>
+            <SubTitle style={{ maxWidth: "70%" }}>
+               Não adicione intervalos que entrem em conflito, ex: 10:00 -- 12:00 E 09:00 -- 11:00 do mesmo dia
+            </SubTitle>
+            <Button href="horario-calendario" variant="dark">Ver Calendário</Button>
+         </DivSpaceBtween>
          <Form onSubmit={handleSubmit}>
-            <BackGroundForm xs={1} className={'mb-2'} noGutters style={{ padding: 16 }}>
+            <BackGroundForm xs={1} className={'mb-2'} noGutters style={{ padding: 16, marginTop: 20 }}>
                {loadingData ?
                   <Row>
                      <Col><CircularProgress /></Col>
