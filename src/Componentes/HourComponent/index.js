@@ -48,7 +48,7 @@ export const HourComponent = (props) => {
             background: props.bgColor
          }}>
             <Col xs={12} sm={1} md={2}>
-               <SubTitle>01 {props.dayOfWeek}</SubTitle>
+               <SubTitle>{props.dayOfMonth && props.dayOfMonth} {props.dayOfWeek}</SubTitle>
             </Col>
             <Col xs={12} sm={4} md={3}>
                <SetHour
@@ -56,7 +56,6 @@ export const HourComponent = (props) => {
                   name="cal_start"
                   onChange={(event) => props.onChange(event, props.indexWeek, currentDiv)}
                   defaultValue={props.data[index].cal_start}
-                  startHour={props.data[index].cal_start}
                />
             </Col>
             <p>-</p>
@@ -66,8 +65,6 @@ export const HourComponent = (props) => {
                   name="cal_end"
                   onChange={(event) => props.onChange(event, props.indexWeek, currentDiv)}
                   defaultValue={props.data[index].cal_end}
-                  endHour={props.data[index].cal_end}
-
                />
             </Col>
             <Col xs={12} sm={1} lg={1} style={{ cursor: 'pointer' }}>

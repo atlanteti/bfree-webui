@@ -7,6 +7,7 @@ import { request } from "../../../Services/api";
 import { CircularProgress } from '@mui/material';
 import { Helmet } from "react-helmet";
 import { UtilsFunctions } from "../utils";
+import { UtilsHourCalendar } from "./utils"
 import CalendarPicker from '@mui/lab/CalendarPicker';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
@@ -20,17 +21,20 @@ export function HorarioCalendario() {
       removeRow,
       renderData,
       loadingData,
-      seg, setSeg,
-      ter, setTer,
-      qua, setQua,
-      qui, setQui,
-      sex, setSex
+      returnDay,
+      // changeDataDay,
+      // setChangeDataDay
    } = UtilsFunctions()
+   const { addNewRowCalendar, removeRowCalendar } = UtilsHourCalendar()
    const [message, setMessage] = useState(null)
    const [status, setStatus] = useState("warning")
+   const [changeDataDay, setChangeDataDay] = useState(0)
    const [showAlert, setShowAlert] = useState(false)
    const [date, setDate] = useState(new Date())
-
+   function renderDataComponent(date) {
+      let getData = returnDay(date)
+      setChangeDataDay(getData)
+   }
    async function handleSubmit(event) {
       event.preventDefault()
       var filteredDays = days.filter(function (value) {
@@ -60,11 +64,10 @@ export function HorarioCalendario() {
          renderData(data.data)
       })
    }
-
    useEffect(() => {
       getData()
+      renderDataComponent(date)
    }, [])
-
    return (
       <CustomMenu>
          <RowTopMargin>
@@ -82,7 +85,7 @@ export function HorarioCalendario() {
             <SubTitle style={{ maxWidth: "70%" }}>
                Não adicione intervalos que entrem em conflito, ex: 10:00 -- 12:00 E 09:00 -- 11:00 do mesmo dia
             </SubTitle>
-            <Button href="horario" variant="dark">Ver Calendário</Button>
+            <Button href="horario" variant="dark">Ver por dia</Button>
          </DivSpaceBtween>
          <Form onSubmit={handleSubmit}>
             <BackGroundForm xs={1} className={'mb-2'} noGutters style={{ padding: 16, marginTop: 20 }}>
@@ -96,18 +99,19 @@ export function HorarioCalendario() {
                            <Col xs={12} sm={4} md={5}>
                               <CalendarPicker date={date} onChange={(newDate) => {
                                  setDate(newDate)
+                                 renderDataComponent(newDate)
                               }} />
                            </Col>
                            <Col xs={12} sm={6} md={6}>
                               <HourComponent
-                                 dayOfWeek="Segunda"
-                                 indexWeek={1}
-                                 data={seg}
+                                 dayOfMonth={changeDataDay?.dayMonth}
+                                 dayOfWeek={changeDataDay?.nameDay}
+                                 indexWeek={changeDataDay?.indexDay}
+                                 data={changeDataDay?.array}
                                  onChange={handleChange}
-                                 onDuplicate={() => addNewRow(seg, setSeg)}
-                                 removeDuplicate={removeRow}
-                                 changeState={setSeg}
-                                 bgColor={"#F8FAFF"}
+                                 onDuplicate={() => addNewRowCalendar(changeDataDay?.array, setChangeDataDay, changeDataDay)}
+                                 removeDuplicate={() => removeRowCalendar(changeDataDay?.array, changeDataDay?.dayMonth, setChangeDataDay, changeDataDay)}
+                                 changeState={changeDataDay?.setArray}
                               />
                            </Col>
                         </Row>

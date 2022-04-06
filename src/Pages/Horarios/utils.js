@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import moment from "moment";
 export const UtilsFunctions = () => {
    const [days, setDays] = useState([])
    const [populate, setPopulate] = useState([])
@@ -9,6 +9,7 @@ export const UtilsFunctions = () => {
    const [qua, setQua] = useState(['div3'])
    const [qui, setQui] = useState(['div4'])
    const [sex, setSex] = useState(['div5'])
+   const [changeDataDay, setChangeDataDay] = useState({})
 
    function handleChange(event, index, currentItem) {
       setPopulate({
@@ -159,6 +160,33 @@ export const UtilsFunctions = () => {
       })
       setLoadingData(false)
    }
+   function loading() {
+      setTimeout(() => {
+         setLoadingData(false)
+      }, 50);
+   }
+   function returnDay(date) {
+      // Procurar uma forma de solucionar esse caso de renderização de estado
+      setLoadingData(true)
+      let dia = moment(date).format("dddd")
+      loading()
+      if (dia === "Monday") {
+         // setChangeDataDay({ indexDay: 1, nameDay: "Segunda", array: seg, setArray: setSeg })
+         return ({ dayMonth: moment(date).format("DD"), indexDay: 1, nameDay: "Segunda", array: seg, setArray: setSeg })
+      } else if (dia === "Tuesday") {
+         // setChangeDataDay({ indexDay: 2, nameDay: "Terça", array: ter, setArray: setTer })
+         return ({ dayMonth: moment(date).format("DD"), indexDay: 2, nameDay: "Terça", array: ter, setArray: setTer })
+      } else if (dia === "Wednesday") {
+         // setChangeDataDay({ indexDay: 3, nameDay: "Quarta", array: qua, setArray: setQua })
+         return ({ dayMonth: moment(date).format("DD"), indexDay: 3, nameDay: "Quarta", array: qua, setArray: setQua })
+      } else if (dia === "Thursday") {
+         // setChangeDataDay({ indexDay: 4, nameDay: "Quinta", array: qui, setArray: setQui })
+         return ({ dayMonth: moment(date).format("DD"), indexDay: 4, nameDay: "Quinta", array: qui, setArray: setQui })
+      } else {
+         // setChangeDataDay({ indexDay: 5, nameDay: "Sexta", array: sex, setArray: setSex })
+         return ({ dayMonth: moment(date).format("DD"), indexDay: 5, nameDay: "Sexta", array: sex, setArray: setSex })
+      }
+   }
    return {
       handleChange,
       days,
@@ -168,6 +196,9 @@ export const UtilsFunctions = () => {
       renderData,
       loadingData,
       setLoadingData,
+      returnDay,
+      // setChangeDataDay,
+      // changeDataDay,
       seg, setSeg,
       ter, setTer,
       qua, setQua,
