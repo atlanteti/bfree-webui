@@ -69,7 +69,15 @@ export const DadosBancariosForm = (props) => {
                validateOnChange={false}
                validateOnBlur={false}
                validationSchema={yup.object({
-                  bkd_cpf: yup.string().max(15).required(),
+                  bkd_cpf: yup.string().required()
+                     .test('valid-cpf', "O CPF deve estar no formato 111.111.111-11",
+                        (value, context) => {
+                           if (value !== undefined) {
+                              return (!!value.match(/\d{10,11}/) ||
+                                 value.trim().length >= 14)
+                           }
+                           return true
+                        }),
                   bkd_typepix: yup.string().required(),
                   bkd_pix: yup.string().max(45).required(),
                   bkd_agency: yup.string().max(4).required(),
@@ -96,7 +104,10 @@ export const DadosBancariosForm = (props) => {
                         props.showAlert(data.meta)
                      }
                      if (data.meta.status == 422) {
-                        setFieldError(data.data[0].field.toLowerCase(), data.data[0].message)
+                        if (data.data.errors[0].field.includes('cpf')) {
+                           fields.bkd_cpf = cpfMask(values.bkd_cpf)
+                        }
+                        setFieldError(data.data.errors[0].field.toLowerCase(), data.data.errors[0].message)
                         props.showAlert(
                            {
                               responseType: "WARNING",
