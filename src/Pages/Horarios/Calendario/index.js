@@ -11,14 +11,11 @@ import { UtilsHourCalendar } from "./utils"
 import CalendarPicker from '@mui/lab/CalendarPicker';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
-
 export function HorarioCalendario() {
    const {
       handleChange,
       days,
       setDays,
-      addNewRow,
-      removeRow,
       renderData,
       loadingData,
       returnDay,
@@ -56,6 +53,8 @@ export function HorarioCalendario() {
       setShowAlert(true)
    }
    async function getData() {
+      //TODO: esperar os dados vim do back para dividir todos os dados por dias
+      //TODO: Criar uma lista de objetos com os dias que voltam do back e alterar os dias de acordo com o seu cod
       await request({
          method: "get",
          endpoint: "calendar/list-by-user",
@@ -110,7 +109,9 @@ export function HorarioCalendario() {
                                  data={changeDataDay?.array}
                                  onChange={handleChange}
                                  onDuplicate={() => addNewRowCalendar(changeDataDay?.array, setChangeDataDay, changeDataDay)}
-                                 removeDuplicate={() => removeRowCalendar(changeDataDay?.array, changeDataDay?.dayMonth, setChangeDataDay, changeDataDay)}
+                                 removeDuplicate={() =>
+                                    removeRowCalendar(changeDataDay?.array, changeDataDay?.dayMonth, setChangeDataDay, changeDataDay)
+                                 }
                                  changeState={changeDataDay?.setArray}
                               />
                            </Col>

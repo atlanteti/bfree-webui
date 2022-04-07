@@ -3,19 +3,16 @@ import moment from "moment";
 
 export const UtilsHourCalendar = () => {
    const [loadingData, setLoadingData] = useState(true)
-   // const [segunda, setSegunda] = useState({})
-   // const [terca, setTerca] = useState({})
-   // const [quarta, setQuarta] = useState({})
-   // const [quinta, setQuinta] = useState({})
-   // const [sexta, seSexta] = useState({})
    function addNewRowCalendar(currentArray, setArray, object) {
-      setLoadingData(true)
       let cDivs = [...currentArray];
       cDivs.push({ "cal_start": null, "cal_end": null })
       loading()
       setArray({ ...object, array: cDivs })
    }
+   // TODO: Criar novo getData de acordo com o novo padrão
    function removeRowCalendar(currentArray, currentItem, setArray, object) {
+      //TODO: Com a implementação da tela calendários, agora iremos filtrar por dia para que exclua o horario em que esta sendo selecionado
+      // Passar o dia no filtro quando for feito a chamada da função
       let cDivs = [...currentArray];
       // os filtros são usados para remover o item exato que esta sendo excluido
       var filteredCurrentArray = cDivs.filter(function (value) {
