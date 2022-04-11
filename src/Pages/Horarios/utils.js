@@ -9,7 +9,6 @@ export const UtilsFunctions = () => {
    const [qua, setQua] = useState(['div3'])
    const [qui, setQui] = useState(['div4'])
    const [sex, setSex] = useState(['div5'])
-   const [changeDataDay, setChangeDataDay] = useState({})
 
    function handleChange(event, index, currentItem) {
       setPopulate({

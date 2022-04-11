@@ -77,3 +77,43 @@ export const HourComponent = (props) => {
       </Col>
    })
 }
+
+export const HourCalendarComponent = (props) => {
+   return props.data?.map((currentDiv, index) => {
+      return <Col className="expense-block" key={currentDiv} id={`expense-block-${index}`} data-block={index}>
+         <Row style={{
+            alignItems: 'center',
+            paddingTop: 10,
+            paddingBottom: 10,
+            background: props.bgColor
+         }}>
+            <Col xs={12} sm={1} md={2}>
+               <SubTitle>{props.dayOfMonth && props.dayOfMonth} {props.dayOfWeek}</SubTitle>
+            </Col>
+            <Col xs={12} sm={4} md={3}>
+               <SetHour
+                  label="Inicial"
+                  name="cal_start"
+                  onChange={(event) => props.onChange(event, currentDiv, props.dayOfMonth, props.date)}
+                  defaultValue={props.data[index].cal_start}
+               />
+            </Col>
+            <p>-</p>
+            <Col xs={12} sm={4} md={3}>
+               <SetHour
+                  label="Final"
+                  name="cal_end"
+                  onChange={(event) => props.onChange(event, currentDiv, props.dayOfMonth, props.date)}
+                  defaultValue={props.data[index].cal_end}
+               />
+            </Col>
+            <Col xs={12} sm={1} lg={1} style={{ cursor: 'pointer' }}>
+               <Row>
+                  <IoAddCircleOutline size={30} color="rgba(0,0,0,0.5)" onClick={props.onDuplicate} />
+                  {props.data.length > 1 && <IoRemoveCircleOutline size={30} color="rgba(0,0,0,0.5)" onClick={() => props.removeDuplicate(props.data, currentDiv, props.changeState)} />}
+               </Row>
+            </Col>
+         </Row>
+      </Col>
+   })
+}

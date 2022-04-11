@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { BackGroundForm, BtnBlue, Title, SubTitle, RowTopMargin, DivSpaceBtween } from "../../../styles/CommonStyles";
 import { CustomMenu } from "../../../Componentes/CustomMenu";
 import { Form, Col, Row, Alert, Button } from "react-bootstrap";
-import { HourComponent } from "../../../Componentes/HourComponent";
+import { HourCalendarComponent } from "../../../Componentes/HourComponent";
 import { request } from "../../../Services/api";
 import { CircularProgress } from '@mui/material';
 import { Helmet } from "react-helmet";
@@ -11,18 +11,14 @@ import { UtilsHourCalendar } from "./utils"
 import CalendarPicker from '@mui/lab/CalendarPicker';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import moment from "moment"
 export function HorarioCalendario() {
    const {
-      handleChange,
-      days,
-      setDays,
       renderData,
       loadingData,
       returnDay,
-      // changeDataDay,
-      // setChangeDataDay
    } = UtilsFunctions()
-   const { addNewRowCalendar, removeRowCalendar } = UtilsHourCalendar()
+   const { addNewRowCalendar, removeRowCalendar, handleChange, days, setDays } = UtilsHourCalendar()
    const [message, setMessage] = useState(null)
    const [status, setStatus] = useState("warning")
    const [changeDataDay, setChangeDataDay] = useState(0)
@@ -34,8 +30,9 @@ export function HorarioCalendario() {
    }
    async function handleSubmit(event) {
       event.preventDefault()
+      const formatDate = moment(date).format('yyyy-MM-DD')
       var filteredDays = days.filter(function (value) {
-         return value.cal_start !== undefined;
+         return value.cal_date === formatDate;
       });
       const data = await request({
          method: "post",
@@ -102,7 +99,7 @@ export function HorarioCalendario() {
                               }} />
                            </Col>
                            <Col xs={12} sm={6} md={6}>
-                              <HourComponent
+                              <HourCalendarComponent
                                  dayOfMonth={changeDataDay?.dayMonth}
                                  dayOfWeek={changeDataDay?.nameDay}
                                  indexWeek={changeDataDay?.indexDay}
@@ -113,6 +110,7 @@ export function HorarioCalendario() {
                                     removeRowCalendar(changeDataDay?.array, changeDataDay?.dayMonth, setChangeDataDay, changeDataDay)
                                  }
                                  changeState={changeDataDay?.setArray}
+                                 date={date}
                               />
                            </Col>
                         </Row>
