@@ -34,7 +34,7 @@ export function Horario() {
       });
       const data = await request({
          method: "post",
-         endpoint: "calendar/save",
+         endpoint: "calendar/save-by-day-of-week",
          data: {
             availableDates: filteredDays
          },
