@@ -24,13 +24,14 @@ export function HorarioCalendario() {
    const [changeDataDay, setChangeDataDay] = useState(0)
    const [showAlert, setShowAlert] = useState(false)
    const [date, setDate] = useState(new Date())
+   const formatDate = moment(date).format('yyyy-MM-DD')
+
    function renderDataComponent(date) {
       let getData = returnDay(date)
       setChangeDataDay(getData)
    }
    async function handleSubmit(event) {
       event.preventDefault()
-      const formatDate = moment(date).format('yyyy-MM-DD')
       var filteredDays = days.filter(function (value) {
          return value.cal_date === formatDate;
       });

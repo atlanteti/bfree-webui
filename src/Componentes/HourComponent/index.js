@@ -4,6 +4,7 @@ import { ValidationTextField } from "../FormFields";
 import { IoAddCircleOutline, IoRemoveCircleOutline } from "react-icons/io5"
 import NoDataComp from "../NoDataComp";
 import { SubTitle } from "../../styles/CommonStyles";
+import moment from "moment";
 
 export function SetHour(props) {
    return (
@@ -79,7 +80,11 @@ export const HourComponent = (props) => {
 }
 
 export const HourCalendarComponent = (props) => {
-   return props.data?.map((currentDiv, index) => {
+   // TODO: Criar um metodo que imprima so os horarios do dia selecionado
+   var filteredDays = props.data.filter(function (value) {
+      return moment(value.cal_date).format('yyyy-MM-DD') === moment(props.date).format('yyyy-MM-DD');
+   });
+   return filteredDays?.map((currentDiv, index) => {
       return <Col className="expense-block" key={currentDiv} id={`expense-block-${index}`} data-block={index}>
          <Row style={{
             alignItems: 'center',
@@ -95,7 +100,7 @@ export const HourCalendarComponent = (props) => {
                   label="Inicial"
                   name="cal_start"
                   onChange={(event) => props.onChange(event, currentDiv, props.dayOfMonth, props.date)}
-                  defaultValue={props.data[index].cal_start}
+                  defaultValue={currentDiv.cal_start}
                />
             </Col>
             <p>-</p>
@@ -104,7 +109,7 @@ export const HourCalendarComponent = (props) => {
                   label="Final"
                   name="cal_end"
                   onChange={(event) => props.onChange(event, currentDiv, props.dayOfMonth, props.date)}
-                  defaultValue={props.data[index].cal_end}
+                  defaultValue={currentDiv.cal_end}
                />
             </Col>
             <Col xs={12} sm={1} lg={1} style={{ cursor: 'pointer' }}>

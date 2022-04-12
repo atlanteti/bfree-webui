@@ -142,7 +142,8 @@ export const UtilsHourCalendar = () => {
       removeRowCalendar,
       handleChange,
       days,
-      setDays
+      setDays,
+      // renderData
       // returnDay
    }
 }
