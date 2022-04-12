@@ -18,10 +18,10 @@ export function HorarioCalendario() {
       loadingData,
       returnDay,
    } = UtilsFunctions()
-   const { addNewRowCalendar, removeRowCalendar, handleChange, days, setDays } = UtilsHourCalendar()
+   const { addNewRowCalendar, removeRowCalendar, handleChange, days, setDays, refresh } = UtilsHourCalendar()
    const [message, setMessage] = useState(null)
    const [status, setStatus] = useState("warning")
-   const [changeDataDay, setChangeDataDay] = useState(0)
+   const [changeDataDay, setChangeDataDay] = useState({})
    const [showAlert, setShowAlert] = useState(false)
    const [date, setDate] = useState(new Date())
    const formatDate = moment(date).format('yyyy-MM-DD')
@@ -51,8 +51,6 @@ export function HorarioCalendario() {
       setShowAlert(true)
    }
    async function getData() {
-      //TODO: esperar os dados vim do back para dividir todos os dados por dias
-      //TODO: Criar uma lista de objetos com os dias que voltam do back e alterar os dias de acordo com o seu cod
       await request({
          method: "get",
          endpoint: "calendar/list-by-user",
@@ -86,7 +84,7 @@ export function HorarioCalendario() {
          </DivSpaceBtween>
          <Form onSubmit={handleSubmit}>
             <BackGroundForm xs={1} className={'mb-2'} noGutters style={{ padding: 16, marginTop: 20 }}>
-               {loadingData ?
+               {loadingData || refresh ?
                   <Row>
                      <Col><CircularProgress /></Col>
                   </Row> :
@@ -107,11 +105,10 @@ export function HorarioCalendario() {
                                  data={changeDataDay?.array}
                                  onChange={handleChange}
                                  onDuplicate={() => addNewRowCalendar(changeDataDay?.array, setChangeDataDay, changeDataDay)}
-                                 removeDuplicate={() =>
-                                    removeRowCalendar(changeDataDay?.array, changeDataDay?.dayMonth, setChangeDataDay, changeDataDay)
-                                 }
-                                 changeState={changeDataDay?.setArray}
+                                 removeDuplicate={removeRowCalendar}
+                                 changeState={setChangeDataDay}
                                  date={date}
+                                 object={changeDataDay}
                               />
                            </Col>
                         </Row>

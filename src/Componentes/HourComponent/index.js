@@ -80,12 +80,11 @@ export const HourComponent = (props) => {
 }
 
 export const HourCalendarComponent = (props) => {
-   // TODO: Criar um metodo que imprima so os horarios do dia selecionado
-   var filteredDays = props.data.filter(function (value) {
-      return moment(value.cal_date).format('yyyy-MM-DD') === moment(props.date).format('yyyy-MM-DD');
+   var filteredDays = props?.data.filter(function (value) {
+      return moment(value.cal_date).format('yyyy-MM-DD') === moment(props.date).format('yyyy-MM-DD') || value.cal_start === null;
    });
-   return filteredDays?.map((currentDiv, index) => {
-      return <Col className="expense-block" key={currentDiv} id={`expense-block-${index}`} data-block={index}>
+   return filteredDays?.map((currentDiv, index) =>
+      <Col className="expense-block" key={currentDiv} id={`expense-block-${index}`} data-block={index}>
          <Row style={{
             alignItems: 'center',
             paddingTop: 10,
@@ -115,10 +114,10 @@ export const HourCalendarComponent = (props) => {
             <Col xs={12} sm={1} lg={1} style={{ cursor: 'pointer' }}>
                <Row>
                   <IoAddCircleOutline size={30} color="rgba(0,0,0,0.5)" onClick={props.onDuplicate} />
-                  {props.data.length > 1 && <IoRemoveCircleOutline size={30} color="rgba(0,0,0,0.5)" onClick={() => props.removeDuplicate(props.data, currentDiv, props.changeState)} />}
+                  {filteredDays.length > 1 && <IoRemoveCircleOutline size={30} color="rgba(0,0,0,0.5)" onClick={() => props.removeDuplicate(props.data, currentDiv, props.changeState, props.object)} />}
                </Row>
             </Col>
          </Row>
       </Col>
-   })
+   )
 }
