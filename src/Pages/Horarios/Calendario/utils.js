@@ -91,6 +91,10 @@ export const UtilsHourCalendar = () => {
    function removeRowCalendar(currentArray, currentItem, setArray, object) {
       let cDivs = [...currentArray];
       // os filtros são usados para remover o item exato que esta sendo excluido
+      var filtered = days.filter(function (value) {
+         return value.cal_cod !== currentItem.cal_cod;
+      });
+      setDays(filtered)
       var filteredCurrentArray = cDivs.filter(function (value) {
          return value.cal_cod !== currentItem.cal_cod;
       });
