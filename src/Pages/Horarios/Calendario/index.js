@@ -1,18 +1,17 @@
 import { useState, useEffect } from "react"
-import { BackGroundForm, BtnBlue, Title, SubTitle, RowTopMargin, DivSpaceBtween } from "../../../styles/CommonStyles";
+import { BackGroundForm, BtnBlue, RowTopMargin } from "../../../styles/CommonStyles";
 import { CustomMenu } from "../../../Componentes/CustomMenu";
-import { Form, Col, Row, Alert, Button } from "react-bootstrap";
+import { Form, Col, Row, Alert } from "react-bootstrap";
 import { HourCalendarComponent } from "../../../Componentes/HourComponent";
 import { request } from "../../../Services/api";
 import { CircularProgress } from '@mui/material';
 import { Helmet } from "react-helmet";
-import { UtilsFunctions } from "../utils";
+import { TopTitles, UtilsFunctions } from "../utils";
 import { UtilsHourCalendar } from "./utils"
 import CalendarPicker from '@mui/lab/CalendarPicker';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import moment from "moment"
-import { Link } from "react-router-dom";
 export function HorarioCalendario() {
    const {
       renderData,
@@ -74,17 +73,7 @@ export function HorarioCalendario() {
                {message}
             </Alert>
          }
-         <SubTitle style={{ paddingBottom: 10 }}>Demandas/<strong>Consultor</strong></SubTitle>
-         <Title style={{ paddingBottom: 10 }}>Agenda</Title>
-         <SubTitle>Defina os dias da semana e horários que você pode atender.</SubTitle>
-         <DivSpaceBtween display justifyContent>
-            <SubTitle style={{ maxWidth: "70%" }}>
-               Não adicione intervalos que entrem em conflito, ex: 10:00 -- 12:00 E 09:00 -- 11:00 do mesmo dia
-            </SubTitle>
-            <Link to="/horario">
-               <Button href="horario" variant="dark">Ver por dia</Button>
-            </Link>
-         </DivSpaceBtween>
+         <TopTitles text="por dia" route="/horario" />
          <Form onSubmit={handleSubmit}>
             <BackGroundForm xs={1} className={'mb-2'} noGutters style={{ padding: 16, marginTop: 20 }}>
                {loadingData || refresh ?
