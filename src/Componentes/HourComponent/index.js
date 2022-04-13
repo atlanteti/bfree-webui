@@ -94,7 +94,7 @@ export const HourCalendarComponent = (props) => {
             <Col xs={12} sm={1} md={2}>
                <SubTitle>{props.dayOfMonth && props.dayOfMonth} {props.dayOfWeek}</SubTitle>
             </Col>
-            <Col xs={12} sm={4} md={3}>
+            <Col xs={12} sm={12} md={4}>
                <SetHour
                   label="Inicial"
                   name="cal_start"
@@ -103,7 +103,7 @@ export const HourCalendarComponent = (props) => {
                />
             </Col>
             <p>-</p>
-            <Col xs={12} sm={4} md={3}>
+            <Col xs={12} sm={12} md={4}>
                <SetHour
                   label="Final"
                   name="cal_end"

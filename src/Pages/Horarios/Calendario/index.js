@@ -94,7 +94,7 @@ export function HorarioCalendario() {
                   <>
                      <LocalizationProvider dateAdapter={AdapterDateFns}>
                         <Row>
-                           <Col xs={12} sm={4} md={5}>
+                           <Col xs={12} sm={6} md={5}>
                               <CalendarPicker date={date} onChange={(newDate) => {
                                  setDate(newDate)
                                  renderDataComponent(newDate)
