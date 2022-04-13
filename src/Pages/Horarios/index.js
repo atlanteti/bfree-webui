@@ -7,6 +7,7 @@ import { request } from "../../Services/api";
 import { CircularProgress } from '@mui/material';
 import { Helmet } from "react-helmet";
 import { UtilsFunctions } from "./utils";
+import { Link } from 'react-router-dom'
 
 export function Horario() {
    const {
@@ -78,7 +79,9 @@ export function Horario() {
             <SubTitle style={{ maxWidth: "70%" }}>
                Não adicione intervalos que entrem em conflito, ex: 10:00 -- 12:00 E 09:00 -- 11:00 do mesmo dia
             </SubTitle>
-            <Button href="horario-calendario" variant="dark">Ver Calendário</Button>
+            <Link to="/horario-calendario">
+               <Button href="horario-calendario" variant="dark">Ver Calendário</Button>
+            </Link>
          </DivSpaceBtween>
          <Form onSubmit={handleSubmit}>
             <BackGroundForm xs={1} className={'mb-2'} noGutters style={{ padding: 16, marginTop: 20 }}>

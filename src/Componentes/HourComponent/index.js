@@ -48,10 +48,10 @@ export const HourComponent = (props) => {
             paddingBottom: 10,
             background: props.bgColor
          }}>
-            <Col xs={12} sm={1} md={2}>
-               <SubTitle>{props.dayOfMonth && props.dayOfMonth} {props.dayOfWeek}</SubTitle>
+            <Col xs={12} sm={1} lg={1}>
+               <SubTitle style={{ paddingLeft: 20 }}>{props.dayOfWeek}</SubTitle>
             </Col>
-            <Col xs={12} sm={4} md={3}>
+            <Col xs={12} sm={4} lg={2} md={{ offset: 2 }}>
                <SetHour
                   label="Inicial"
                   name="cal_start"
@@ -60,7 +60,7 @@ export const HourComponent = (props) => {
                />
             </Col>
             <p>-</p>
-            <Col xs={12} sm={4} md={3}>
+            <Col xs={12} sm={4} lg={2}>
                <SetHour
                   label="Final"
                   name="cal_end"

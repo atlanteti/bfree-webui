@@ -12,6 +12,7 @@ import CalendarPicker from '@mui/lab/CalendarPicker';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import moment from "moment"
+import { Link } from "react-router-dom";
 export function HorarioCalendario() {
    const {
       renderData,
@@ -80,7 +81,9 @@ export function HorarioCalendario() {
             <SubTitle style={{ maxWidth: "70%" }}>
                Não adicione intervalos que entrem em conflito, ex: 10:00 -- 12:00 E 09:00 -- 11:00 do mesmo dia
             </SubTitle>
-            <Button href="horario" variant="dark">Ver por dia</Button>
+            <Link to="/horario">
+               <Button href="horario" variant="dark">Ver por dia</Button>
+            </Link>
          </DivSpaceBtween>
          <Form onSubmit={handleSubmit}>
             <BackGroundForm xs={1} className={'mb-2'} noGutters style={{ padding: 16, marginTop: 20 }}>
