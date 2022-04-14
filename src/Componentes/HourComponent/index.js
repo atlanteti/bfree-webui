@@ -12,7 +12,7 @@ export function SetHour(props) {
          start += step;
       }
    }
-   let arrayOfHours = Array.from(range(8, 22, 1));
+   let arrayOfHours = Array.from(range(8, 23, 1));
    return (
       <ValidationTextField
          id={props.id}
@@ -27,6 +27,7 @@ export function SetHour(props) {
             required: false
          }}
       >
+         <MenuItem value={undefined}><NoDataComp /></MenuItem>
          {arrayOfHours.map((hour, index) => {
             return <MenuItem key={index} value={`${String(hour).padStart(2, '0')}:00:00`}>{`${String(hour).padStart(2, '0')}:00`}</MenuItem>
          })}
