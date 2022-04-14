@@ -83,7 +83,13 @@ export const HourCalendarComponent = (props) => {
    var filteredDays = props?.data.filter(function (value) {
       return moment(value.cal_date).format('yyyy-MM-DD') === moment(props.date).format('yyyy-MM-DD') || value.cal_start === null;
    });
-   return filteredDays?.map((currentDiv, index) =>
+   let renderDays = []
+   if (filteredDays.length !== 0) {
+      renderDays = filteredDays
+   } else {
+      renderDays = ["div1"]
+   }
+   return renderDays?.map((currentDiv, index) =>
       <Col className="expense-block" key={currentDiv} id={`expense-block-${index}`} data-block={index}>
          <Row style={{
             alignItems: 'center',
@@ -114,7 +120,7 @@ export const HourCalendarComponent = (props) => {
             <Col xs={12} sm={1} lg={1} style={{ cursor: 'pointer' }}>
                <Row>
                   <IoAddCircleOutline size={30} color="rgba(0,0,0,0.5)" onClick={props.onDuplicate} />
-                  {filteredDays.length > 1 && <IoRemoveCircleOutline size={30} color="rgba(0,0,0,0.5)" onClick={() => props.removeDuplicate(props.data, currentDiv, props.changeState, props.object)} />}
+                  {renderDays.length > 1 && <IoRemoveCircleOutline size={30} color="rgba(0,0,0,0.5)" onClick={() => props.removeDuplicate(props.data, currentDiv, props.changeState, props.object)} />}
                </Row>
             </Col>
          </Row>
