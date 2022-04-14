@@ -7,7 +7,6 @@ import { request } from "../../Services/api";
 import { CircularProgress } from '@mui/material';
 import { Helmet } from "react-helmet";
 import { TopTitles, UtilsFunctions } from "./utils";
-import { CustomAlert } from "../../Componentes/CustomAlert"
 export function Horario() {
    const {
       handleChange,
@@ -23,8 +22,10 @@ export function Horario() {
       qui, setQui,
       sex, setSex
    } = UtilsFunctions()
-   const [responseAlertShow, setResponseAlertShow] = useState(null)
-   const [responseData, setResponseData] = useState({})
+   const [showAlert, setShowAlert] = useState(false)
+   const [message, setMessage] = useState(null)
+   const [status, setStatus] = useState("warning")
+
    async function handleSubmit(event) {
       event.preventDefault()
       var filteredDays = days.filter(function (value) {
@@ -38,10 +39,12 @@ export function Horario() {
          },
       })
       if (data.meta.status === 100) {
-         showAlert(data.meta)
+         setMessage(data.meta.message)
+         setStatus('success')
       } else {
-         showAlert(data.meta)
+         setMessage(data.meta.message)
       }
+      setShowAlert(true)
    }
    async function getData() {
       await request({
@@ -51,12 +54,6 @@ export function Horario() {
          setDays(data.data)
          renderData(data.data)
       })
-   }
-   function getAlertCallback(func) {
-      setResponseAlertShow(func)
-   }
-   function showAlert(data) {
-      responseAlertShow(data)
    }
 
    useEffect(() => {
@@ -68,10 +65,11 @@ export function Horario() {
          <RowTopMargin>
             <Helmet title="Cadastro de Horário" />
          </RowTopMargin>
-         {/* <CustomAlert
-            data={responseData}
-            showAlertCallback={getAlertCallback}
-         /> */}
+         {showAlert &&
+            <Alert variant={status} onClose={() => setShowAlert(false)} dismissible>
+               {message}
+            </Alert>
+         }
          <TopTitles text="Calendário" route="/horario-calendario" />
          <Form onSubmit={handleSubmit}>
             <BackGroundForm xs={1} className={'mb-2'} noGutters style={{ padding: 16, marginTop: 20 }}>
