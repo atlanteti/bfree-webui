@@ -48,7 +48,7 @@ export class DemandSearchBar extends SearchBar {
                      </Col>
                   </Row>
                   <Row>
-                     <Col className="mt-4" md={{ offset: 5 }}>
+                     <Col className="mt-4 d-flex justify-content-center">
                         <BtnBlue variant="dark" type="submit">
                            Buscar
                         </BtnBlue>
