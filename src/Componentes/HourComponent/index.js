@@ -6,6 +6,13 @@ import NoDataComp from "../NoDataComp";
 import { SubTitle } from "../../styles/CommonStyles";
 
 export function SetHour(props) {
+   function* range(start, end, step) {
+      while (start < end) {
+         yield start;
+         start += step;
+      }
+   }
+   let arrayOfHours = Array.from(range(8, 23, 1));
    return (
       <ValidationTextField
          id={props.id}
@@ -21,19 +28,9 @@ export function SetHour(props) {
          }}
       >
          <MenuItem value={undefined}><NoDataComp /></MenuItem>
-         <MenuItem value={"08:00:00"}>08:00</MenuItem>
-         <MenuItem value={"09:00:00"}>09:00</MenuItem>
-         <MenuItem value={"10:00:00"}>10:00</MenuItem>
-         <MenuItem value={"11:00:00"}>11:00</MenuItem>
-         <MenuItem value={"12:00:00"}>12:00</MenuItem>
-         <MenuItem value={"13:00:00"}>13:00</MenuItem>
-         <MenuItem value={"14:00:00"}>14:00</MenuItem>
-         <MenuItem value={"15:00:00"}>15:00</MenuItem>
-         <MenuItem value={"16:00:00"}>16:00</MenuItem>
-         <MenuItem value={"17:00:00"}>17:00</MenuItem>
-         <MenuItem value={"18:00:00"}>18:00</MenuItem>
-         <MenuItem value={"19:00:00"}>19:00</MenuItem>
-         <MenuItem value={"20:00:00"}>20:00</MenuItem>
+         {arrayOfHours.map((hour, index) => {
+            return <MenuItem key={index} value={`${String(hour).padStart(2, '0')}:00:00`}>{`${String(hour).padStart(2, '0')}:00`}</MenuItem>
+         })}
       </ValidationTextField>
    )
 }
