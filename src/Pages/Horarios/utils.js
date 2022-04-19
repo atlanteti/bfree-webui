@@ -1,5 +1,8 @@
 import { useState } from "react";
-
+import moment from "moment";
+import { DivSpaceBtween, SubTitle, Title } from "../../styles/CommonStyles";
+import { Link } from "react-router-dom";
+import { Button } from "react-bootstrap";
 export const UtilsFunctions = () => {
    const [days, setDays] = useState([])
    const [populate, setPopulate] = useState([])
@@ -159,6 +162,28 @@ export const UtilsFunctions = () => {
       })
       setLoadingData(false)
    }
+   function loading() {
+      setTimeout(() => {
+         setLoadingData(false)
+      }, 50);
+   }
+   function returnDay(date) {
+      // Procurar uma forma de solucionar esse caso de renderização de estado
+      setLoadingData(true)
+      let dia = moment(date).format("dddd")
+      loading()
+      if (dia === "Monday") {
+         return ({ dayMonth: moment(date).format("DD"), indexDay: 1, nameDay: "Segunda", array: seg, setArray: setSeg })
+      } else if (dia === "Tuesday") {
+         return ({ dayMonth: moment(date).format("DD"), indexDay: 2, nameDay: "Terça", array: ter, setArray: setTer })
+      } else if (dia === "Wednesday") {
+         return ({ dayMonth: moment(date).format("DD"), indexDay: 3, nameDay: "Quarta", array: qua, setArray: setQua })
+      } else if (dia === "Thursday") {
+         return ({ dayMonth: moment(date).format("DD"), indexDay: 4, nameDay: "Quinta", array: qui, setArray: setQui })
+      } else {
+         return ({ dayMonth: moment(date).format("DD"), indexDay: 5, nameDay: "Sexta", array: sex, setArray: setSex })
+      }
+   }
    return {
       handleChange,
       days,
@@ -168,10 +193,27 @@ export const UtilsFunctions = () => {
       renderData,
       loadingData,
       setLoadingData,
+      returnDay,
       seg, setSeg,
       ter, setTer,
       qua, setQua,
       qui, setQui,
       sex, setSex,
    }
+}
+
+export const TopTitles = (props) => {
+   return <>
+      <SubTitle style={{ paddingBottom: 10 }}>Demandas/<strong>Consultor</strong></SubTitle>
+      <Title style={{ paddingBottom: 10 }}>Agenda</Title>
+      <SubTitle>Defina os dias da semana e horários que você pode atender.</SubTitle>
+      <DivSpaceBtween display justifyContent>
+         <SubTitle style={{ maxWidth: "70%" }}>
+            Não adicione intervalos que entrem em conflito, ex: 10:00 -- 12:00 E 09:00 -- 11:00 do mesmo dia
+         </SubTitle>
+         <Link to={props.route}>
+            <Button variant="dark">Ver {props.text}</Button>
+         </Link>
+      </DivSpaceBtween>
+   </>
 }
