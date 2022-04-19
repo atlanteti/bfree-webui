@@ -209,13 +209,10 @@ export default class ListarRelatorio extends ListarPagina {
                                  </Col>
                               </Row>
                            </Col>
-                           <Col className="mt-3" xs={12} md={2} sm={5}>
-                              <NoDataComp />
-                              <Row>
-                                 <Col>
-                                    <BtnBlue type="submit" variant="dark">Buscar</BtnBlue>
-                                 </Col>
-                              </Row>
+                        </Row>
+                        <Row>
+                           <Col className="mt-4 d-flex justify-content-center">
+                              <BtnBlue type="submit" variant="dark">Buscar</BtnBlue>
                            </Col>
                         </Row>
                      </Form>
