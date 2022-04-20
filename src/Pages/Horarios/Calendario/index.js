@@ -56,7 +56,7 @@ export function HorarioCalendario() {
          endpoint: "calendar/list-by-user",
       }).then((data) => {
          setDays(data.data)
-         renderData(data.data)
+         renderData(data.data, "cal")
       })
    }
    useEffect(() => {

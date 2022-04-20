@@ -51,18 +51,18 @@ export const HourComponent = (props) => {
             <Col xs={12} sm={4} lg={2} md={{ offset: 2 }}>
                <SetHour
                   label="Inicial"
-                  name="cal_start"
+                  name="cam_start"
                   onChange={(event) => props.onChange(event, props.indexWeek, currentDiv)}
-                  defaultValue={props.data[index].cal_start}
+                  defaultValue={props.data[index].cam_start}
                />
             </Col>
             <p>-</p>
             <Col xs={12} sm={4} lg={2}>
                <SetHour
                   label="Final"
-                  name="cal_end"
+                  name="cam_end"
                   onChange={(event) => props.onChange(event, props.indexWeek, currentDiv)}
-                  defaultValue={props.data[index].cal_end}
+                  defaultValue={props.data[index].cam_end}
                />
             </Col>
             <Col xs={12} sm={1} lg={1} style={{ cursor: 'pointer' }}>
