@@ -33,7 +33,7 @@ export function Horario() {
       });
       const data = await request({
          method: "post",
-         endpoint: "calendar/save-by-day-of-week",
+         endpoint: "calendar-for-month/save",
          data: {
             availableDates: filteredDays
          },
@@ -49,7 +49,7 @@ export function Horario() {
    async function getData() {
       await request({
          method: "get",
-         endpoint: "calendar/list-by-user-and-week",
+         endpoint: "calendar-for-month/list-by-user",
       }).then((data) => {
          setDays(data.data)
          renderData(data.data)
