@@ -29,7 +29,7 @@ export function Horario() {
    async function handleSubmit(event) {
       event.preventDefault()
       var filteredDays = days.filter(function (value) {
-         return value.cal_start !== undefined;
+         return value.cam_start !== undefined;
       });
       const data = await request({
          method: "post",
@@ -52,7 +52,7 @@ export function Horario() {
          endpoint: "calendar-for-month/list-by-user",
       }).then((data) => {
          setDays(data.data)
-         renderData(data.data)
+         renderData(data.data, "cam")
       })
    }
 
