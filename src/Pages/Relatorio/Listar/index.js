@@ -58,10 +58,11 @@ export default class ListarRelatorio extends ListarPagina {
          })
          const numbers = bodyData.map(line => line.slice(1))
          const numbersTransposed = numbers[0].map((_, colIndex) => numbers.map(row => row[colIndex]))
-         const reducedSum = numbersTransposed.map(
+         const reducedSum = numbersTransposed.map( // manter essa variavel por enquanto, para caso seja solicitado implementar uma linha para mostrar os resultatos por paginas
             line => line.reduce(
                (partial_sum, accumulator) => Number(partial_sum) + Number(accumulator), 0))
-         const lastLine = ["Total"].concat(reducedSum)
+         const lastLine = ["Total"].concat(numbers[numbers.length - 1])
+         bodyData.pop()
          bodyData = bodyData.concat([lastLine])
          data.data = bodyData.map(
             line => line.map(
