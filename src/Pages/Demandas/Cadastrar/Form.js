@@ -135,6 +135,7 @@ export const DemandForm = (props) => {
                }
                return true;
             }),
+      dem_cli_cod: yup.string().max(10).required(),
       dem_desc: yup.string().max(500).required(),
       dem_comments: yup.string().max(500).nullable(true),
       dem_usr_cod: yup.number().required(),                           //Disabled in edit
@@ -188,7 +189,6 @@ export const DemandForm = (props) => {
             <Formik
                htmlFor="mainForm"
                initialValues={fields}
-               validateOnChange={false}
                validateOnBlur={false}
                validationSchema={validationSchema}
                onSubmit={

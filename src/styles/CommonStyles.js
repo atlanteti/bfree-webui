@@ -403,3 +403,17 @@ export const ToogleContainer = styled.div`
       padding-bottom: 35px;
    }
 `
+
+export const DivSpaceBtween = styled.div`
+   display: ${props => props.display ? 'flex' : 'default'};
+   justify-content: ${props => props.justifyContent ? 'space-between' : 'default'};
+   @media all and (max-width: 920px) {
+      display: flex;
+      flex-direction: column;
+
+      button {
+         margin-top: 1rem;
+         width: 25%
+      }
+   }
+`

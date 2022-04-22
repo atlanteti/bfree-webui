@@ -4,8 +4,16 @@ import { ValidationTextField } from "../FormFields";
 import { IoAddCircleOutline, IoRemoveCircleOutline } from "react-icons/io5"
 import NoDataComp from "../NoDataComp";
 import { SubTitle } from "../../styles/CommonStyles";
+import moment from "moment";
 
 export function SetHour(props) {
+   function* range(start, end, step) {
+      while (start < end) {
+         yield start;
+         start += step;
+      }
+   }
+   let arrayOfHours = Array.from(range(8, 23, 1));
    return (
       <ValidationTextField
          id={props.id}
@@ -21,19 +29,9 @@ export function SetHour(props) {
          }}
       >
          <MenuItem value={undefined}><NoDataComp /></MenuItem>
-         <MenuItem value={"08:00:00"}>08:00</MenuItem>
-         <MenuItem value={"09:00:00"}>09:00</MenuItem>
-         <MenuItem value={"10:00:00"}>10:00</MenuItem>
-         <MenuItem value={"11:00:00"}>11:00</MenuItem>
-         <MenuItem value={"12:00:00"}>12:00</MenuItem>
-         <MenuItem value={"13:00:00"}>13:00</MenuItem>
-         <MenuItem value={"14:00:00"}>14:00</MenuItem>
-         <MenuItem value={"15:00:00"}>15:00</MenuItem>
-         <MenuItem value={"16:00:00"}>16:00</MenuItem>
-         <MenuItem value={"17:00:00"}>17:00</MenuItem>
-         <MenuItem value={"18:00:00"}>18:00</MenuItem>
-         <MenuItem value={"19:00:00"}>19:00</MenuItem>
-         <MenuItem value={"20:00:00"}>20:00</MenuItem>
+         {arrayOfHours.map((hour, index) => {
+            return <MenuItem key={index} value={`${String(hour).padStart(2, '0')}:00:00`}>{`${String(hour).padStart(2, '0')}:00`}</MenuItem>
+         })}
       </ValidationTextField>
    )
 }
@@ -53,21 +51,18 @@ export const HourComponent = (props) => {
             <Col xs={12} sm={4} lg={2} md={{ offset: 2 }}>
                <SetHour
                   label="Inicial"
-                  name="cal_start"
+                  name="cam_start"
                   onChange={(event) => props.onChange(event, props.indexWeek, currentDiv)}
-                  defaultValue={props.data[index].cal_start}
-                  startHour={props.data[index].cal_start}
+                  defaultValue={props.data[index].cam_start}
                />
             </Col>
             <p>-</p>
             <Col xs={12} sm={4} lg={2}>
                <SetHour
                   label="Final"
-                  name="cal_end"
+                  name="cam_end"
                   onChange={(event) => props.onChange(event, props.indexWeek, currentDiv)}
-                  defaultValue={props.data[index].cal_end}
-                  endHour={props.data[index].cal_end}
-
+                  defaultValue={props.data[index].cam_end}
                />
             </Col>
             <Col xs={12} sm={1} lg={1} style={{ cursor: 'pointer' }}>
@@ -79,4 +74,53 @@ export const HourComponent = (props) => {
          </Row>
       </Col>
    })
+}
+
+export const HourCalendarComponent = (props) => {
+   var filteredDays = props?.data.filter(function (value) {
+      return moment(value.cal_date).format('yyyy-MM-DD') === moment(props.date).format('yyyy-MM-DD') || value.cal_start === null;
+   });
+   let renderDays = []
+   if (filteredDays.length !== 0) {
+      renderDays = filteredDays
+   } else {
+      renderDays = ["div1"]
+   }
+   return renderDays?.map((currentDiv, index) =>
+      <Col className="expense-block" key={currentDiv} id={`expense-block-${index}`} data-block={index}>
+         <Row style={{
+            alignItems: 'center',
+            paddingTop: 10,
+            paddingBottom: 10,
+            background: props.bgColor
+         }}>
+            <Col xs={12} sm={1} md={2}>
+               <SubTitle>{props.dayOfMonth && props.dayOfMonth} {props.dayOfWeek}</SubTitle>
+            </Col>
+            <Col xs={12} sm={12} md={4}>
+               <SetHour
+                  label="Inicial"
+                  name="cal_start"
+                  onChange={(event) => props.onChange(event, currentDiv, props.dayOfMonth, props.date)}
+                  defaultValue={currentDiv.cal_start}
+               />
+            </Col>
+            <p>-</p>
+            <Col xs={12} sm={12} md={4}>
+               <SetHour
+                  label="Final"
+                  name="cal_end"
+                  onChange={(event) => props.onChange(event, currentDiv, props.dayOfMonth, props.date)}
+                  defaultValue={currentDiv.cal_end}
+               />
+            </Col>
+            <Col xs={12} sm={1} lg={1} style={{ cursor: 'pointer' }}>
+               <Row>
+                  <IoAddCircleOutline size={30} color="rgba(0,0,0,0.5)" onClick={props.onDuplicate} />
+                  {renderDays.length > 1 && <IoRemoveCircleOutline size={30} color="rgba(0,0,0,0.5)" onClick={() => props.removeDuplicate(props.data, currentDiv, props.changeState, props.object)} />}
+               </Row>
+            </Col>
+         </Row>
+      </Col>
+   )
 }

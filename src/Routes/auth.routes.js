@@ -36,6 +36,7 @@ import { Horario } from "../Pages/Horarios";
 import ListarReunioes from "../Pages/Demandas/Listar/Reuniões";
 import ListarContatos from "../Pages/Demandas/Listar/Contato";
 import { Avaliacao } from "../Pages/Avaliacao";
+import { HorarioCalendario } from "../Pages/Horarios/Calendario";
 
 export default function AuthRoutes() {
    return (
@@ -53,6 +54,8 @@ export default function AuthRoutes() {
             <Route path="/relatoriogerencial" component={RelatorioGerencial} />
             {/* rotas de horario */}
             <Route path="/horario" component={Horario} />
+            {/* rotas de horario */}
+            <Route path="/horario-calendario" component={HorarioCalendario} />
             {/* rotas de empresas */}
             <Route path="/companhia" component={ListarCompanhia} />
 

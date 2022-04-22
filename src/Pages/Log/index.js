@@ -180,7 +180,7 @@ class Log extends Component {
                                  </Col>
                               </Row>
                               <Row>
-                                 <Col className="mt-4" md={{ offset: 5 }}>
+                                 <Col className="mt-4 d-flex justify-content-center">
                                     <BtnBlue type="submit" variant="dark">Buscar</BtnBlue>
                                  </Col>
                               </Row>
