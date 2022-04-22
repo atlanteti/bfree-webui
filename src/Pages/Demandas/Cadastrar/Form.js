@@ -203,7 +203,7 @@ export const DemandForm = (props) => {
                         endpoint: postEndpoint,
                         data: {
                            ...values,
-                           dem_dtaction: moment(values.dem_dtaction).format("YYYY-MM-DD")
+                           dem_dtaction: values.dem_dtaction === '' ? '' : moment(values.dem_dtaction).format("YYYY-MM-DD")
                         },
                      });
                      if (data.meta.status == 100) {
