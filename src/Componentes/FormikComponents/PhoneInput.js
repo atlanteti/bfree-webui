@@ -30,8 +30,8 @@ export function PhoneInput(props) {
                required: false
             }} />}
       </InputMask>
-      {field.value !== '' &&
-         <Button variant="light" target="blank" href={`https://wa.me/55${field.value}`}>
+      {(field.value !== '' && field.name === "dem_contact_phone") &&
+         <Button variant="light" target="blank" href={`https://wa.me/55${field.value.replaceAll(/[^\d]/g, "")}`}>
             Entrar em Contato
          </Button>
       }
