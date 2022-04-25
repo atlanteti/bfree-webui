@@ -45,6 +45,7 @@ export const UtilsHourCalendar = () => {
                }
             }
          }
+         days.pop()
          setDays([
             ...days, {
                ...populate[dayMonth],
@@ -83,10 +84,10 @@ export const UtilsHourCalendar = () => {
          }
       }
    }
-   function addNewRowCalendar(currentArray, setArray, object) {
+   function addNewRowCalendar(currentArray) {
       let cDivs = [...currentArray];
       cDivs.push({ "cal_start": null, "cal_end": null })
-      setArray({ ...object, array: cDivs })
+      setDays(cDivs)
    }
    function removeRowCalendar(currentArray, currentItem, setArray, object) {
       let cDivs = [...currentArray];
