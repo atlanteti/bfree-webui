@@ -173,15 +173,15 @@ export const UtilsFunctions = () => {
       let dia = moment(date).format("dddd")
       loading()
       if (dia === "Monday") {
-         return ({ dayMonth: moment(date).format("DD"), indexDay: 1, nameDay: "Segunda", array: seg, setArray: setSeg })
+         return ({ dayMonth: moment(date).format("DD"), indexDay: 1, nameDay: "Segunda" })
       } else if (dia === "Tuesday") {
-         return ({ dayMonth: moment(date).format("DD"), indexDay: 2, nameDay: "Terça", array: ter, setArray: setTer })
+         return ({ dayMonth: moment(date).format("DD"), indexDay: 2, nameDay: "Terça" })
       } else if (dia === "Wednesday") {
-         return ({ dayMonth: moment(date).format("DD"), indexDay: 3, nameDay: "Quarta", array: qua, setArray: setQua })
+         return ({ dayMonth: moment(date).format("DD"), indexDay: 3, nameDay: "Quarta" })
       } else if (dia === "Thursday") {
-         return ({ dayMonth: moment(date).format("DD"), indexDay: 4, nameDay: "Quinta", array: qui, setArray: setQui })
+         return ({ dayMonth: moment(date).format("DD"), indexDay: 4, nameDay: "Quinta" })
       } else {
-         return ({ dayMonth: moment(date).format("DD"), indexDay: 5, nameDay: "Sexta", array: sex, setArray: setSex })
+         return ({ dayMonth: moment(date).format("DD"), indexDay: 5, nameDay: "Sexta" })
       }
    }
    return {

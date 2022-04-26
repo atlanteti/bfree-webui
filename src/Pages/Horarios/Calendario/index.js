@@ -27,8 +27,8 @@ export function HorarioCalendario() {
    const formatDate = moment(date).format('yyyy-MM-DD')
 
    function renderDataComponent(date) {
-      let getData = returnDay(date)
-      setChangeDataDay(getData)
+      let getDataHours = returnDay(date)
+      setChangeDataDay(getDataHours)
    }
    async function handleSubmit(event) {
       event.preventDefault()
@@ -39,6 +39,7 @@ export function HorarioCalendario() {
          method: "post",
          endpoint: "calendar/save",
          data: {
+            calendarDate: formatDate,
             availableDates: filteredDays
          },
       })
@@ -94,9 +95,9 @@ export function HorarioCalendario() {
                                  dayOfMonth={changeDataDay?.dayMonth}
                                  dayOfWeek={changeDataDay?.nameDay}
                                  indexWeek={changeDataDay?.indexDay}
-                                 data={changeDataDay?.array}
+                                 data={days}
                                  onChange={handleChange}
-                                 onDuplicate={() => addNewRowCalendar(changeDataDay?.array, setChangeDataDay, changeDataDay)}
+                                 onDuplicate={() => addNewRowCalendar(days)}
                                  removeDuplicate={removeRowCalendar}
                                  changeState={setChangeDataDay}
                                  date={date}
