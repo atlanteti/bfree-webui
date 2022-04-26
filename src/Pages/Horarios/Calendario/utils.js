@@ -45,7 +45,6 @@ export const UtilsHourCalendar = () => {
                }
             }
          }
-         days.pop()
          setDays([
             ...days, {
                ...populate[dayMonth],
@@ -53,6 +52,7 @@ export const UtilsHourCalendar = () => {
                [event.target.name]: event.target.value
             }
          ])
+         days.pop() // apaga o dia que foi criado para aparecer na tela
       }
       if (currentItem.cal_cod) {
          var filtered = days.filter(function (value) {
