@@ -13,6 +13,15 @@ export const UtilsFunctions = () => {
    const [qui, setQui] = useState(['div4'])
    const [sex, setSex] = useState(['div5'])
 
+   function editSameNewDay(event, currentItem) {
+      if (currentItem.length === undefined && currentItem.cam_cod === undefined) {
+         if (event.target.name === "cam_start") {
+            return days[days.length - 1].cam_start = event.target.value
+         } else {
+            return days[days.length - 1].cam_end = event.target.value
+         }
+      }
+   }
    function handleChange(event, index, currentItem) {
       setPopulate({
          ...populate, [index]: {
@@ -32,6 +41,13 @@ export const UtilsFunctions = () => {
                }
             ])
          }
+      }
+      if (currentItem.cam_start !== null && currentItem.cam_end !== null) {
+         editSameNewDay(event, currentItem)
+         return
+      }
+      if (Object.keys(currentItem).includes('cam_start') || Object.keys(currentItem).includes('cam_end')) {
+         currentItem[event.target.name] = event.target.value
       }
       if (event.target.name === "cam_end" && currentItem.cam_cod === undefined) {
          // tratamento para a criação de novos horarios para o mesmo dia
