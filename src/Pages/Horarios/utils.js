@@ -63,6 +63,13 @@ export const UtilsFunctions = () => {
             return days[days.length - 1].cam_end = event.target.value
          }
       }
+      setDays([
+         ...days, {
+            ...populate[index],
+            "cam_day_of_week": index,
+            [event.target.name]: event.target.value
+         }
+      ])
    }
    function handleChange(event, index, currentItem) {
       let verifyEmptyField = Object.keys(currentItem).includes('cam_start') || Object.keys(currentItem).includes('cam_end')
@@ -91,10 +98,12 @@ export const UtilsFunctions = () => {
             return
          }
       }
-      if (!verifyEmptyField) {
+      if (!verifyEmptyField && populate[index] !== undefined) {
          if (event.target.name === "cam_start") {
             // trata caso de quando o horario se incia pelo final
             if (days[days.length - 1].cam_start === null && days[days.length - 1].cam_end !== undefined) {
+               return days[days.length - 1].cam_start = event.target.value
+            } else if (!(Object.keys(days[days.length - 1]).includes('cam_cod')) && days[days.length - 1].cam_day_of_week === index) { // altera o primeiro valor do novo horario sem criar um novo dia
                return days[days.length - 1].cam_start = event.target.value
             }
          }
@@ -116,14 +125,16 @@ export const UtilsFunctions = () => {
          }
          if (days[days.length - 1] !== undefined) {
             createInSameDay(event, index)
+            return
+         } else {
+            setDays([
+               ...days, {
+                  ...populate[index],
+                  "cam_day_of_week": index,
+                  [event.target.name]: event.target.value
+               }
+            ])
          }
-         setDays([
-            ...days, {
-               ...populate[index],
-               "cam_day_of_week": index,
-               [event.target.name]: event.target.value
-            }
-         ])
       }
       if (currentItem.cam_cod) {
          editExistingDay(event, index, currentItem)
