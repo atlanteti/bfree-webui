@@ -12,8 +12,7 @@ export const UtilsFunctions = () => {
    const [qua, setQua] = useState(['div3'])
    const [qui, setQui] = useState(['div4'])
    const [sex, setSex] = useState(['div5'])
-
-   function editSameNewDay(event) {
+   function editNewDay(event) {
       if (event.target.name === "cam_start") {
          return days[days.length - 1].cam_start = event.target.value
       } else {
@@ -66,6 +65,7 @@ export const UtilsFunctions = () => {
       }
    }
    function handleChange(event, index, currentItem) {
+      let verifyEmptyField = Object.keys(currentItem).includes('cam_start') || Object.keys(currentItem).includes('cam_end')
       setPopulate({
          ...populate, [index]: {
             ...populate[index],
@@ -87,15 +87,33 @@ export const UtilsFunctions = () => {
       }
       if (currentItem.length === undefined && currentItem.cam_cod === undefined) {
          if (currentItem.cam_start !== null && currentItem.cam_end !== null) {
-            editSameNewDay(event, currentItem)
+            editNewDay(event, currentItem)
             return
          }
       }
-      if (currentItem.length === undefined) {
+      if (!verifyEmptyField) {
+         if (event.target.name === "cam_start") {
+            // trata caso de quando o horario se incia pelo final
+            if (days[days.length - 1].cam_start === null && days[days.length - 1].cam_end !== undefined) {
+               return days[days.length - 1].cam_start = event.target.value
+            }
+         }
+      }
+      if (verifyEmptyField) {
          currentItem[event.target.name] = event.target.value
       }
       if (event.target.name === "cam_end" && currentItem.cam_cod === undefined) {
-         // tratamento para a criação de novos horarios para o mesmo dia
+         if (!verifyEmptyField && populate[index] === undefined) {
+            // começa o preenchimento pelo horario final
+            return setDays([
+               ...days, {
+                  ...populate[index],
+                  "cam_day_of_week": index,
+                  "cam_start": null,
+                  [event.target.name]: event.target.value
+               }
+            ])
+         }
          if (days[days.length - 1] !== undefined) {
             createInSameDay(event, index)
          }
