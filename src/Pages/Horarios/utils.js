@@ -13,13 +13,40 @@ export const UtilsFunctions = () => {
    const [qui, setQui] = useState(['div4'])
    const [sex, setSex] = useState(['div5'])
 
-   function editSameNewDay(event, currentItem) {
-      if (currentItem.length === undefined && currentItem.cam_cod === undefined) {
-         if (event.target.name === "cam_start") {
-            return days[days.length - 1].cam_start = event.target.value
-         } else {
-            return days[days.length - 1].cam_end = event.target.value
-         }
+   function editSameNewDay(event) {
+      if (event.target.name === "cam_start") {
+         return days[days.length - 1].cam_start = event.target.value
+      } else {
+         return days[days.length - 1].cam_end = event.target.value
+      }
+   }
+   function editExistingDay(event, index, currentItem) {
+      var filtered = days.filter(function (value) {
+         return value.cam_cod !== currentItem.cam_cod;
+      });
+      if (event.target.name === "cam_end") {
+         currentItem.cam_end = event.target.value
+         // é chamado quando esta sendo editado algum horario ja existente
+         return setDays([
+            ...filtered, {
+               ...populate[index],
+               "cam_day_of_week": index,
+               [event.target.name]: event.target.value,
+               "cam_cod": currentItem.cam_cod,
+               "cam_start": currentItem.cam_start
+            }
+         ])
+      } else {
+         currentItem.cam_start = event.target.value
+         return setDays([
+            ...filtered, {
+               ...populate[index],
+               "cam_day_of_week": index,
+               "cam_start": currentItem.cam_start,
+               "cam_cod": currentItem.cam_cod,
+               "cam_end": currentItem.cam_end
+            }
+         ])
       }
    }
    function handleChange(event, index, currentItem) {
@@ -42,11 +69,13 @@ export const UtilsFunctions = () => {
             ])
          }
       }
-      if (currentItem.cam_start !== null && currentItem.cam_end !== null) {
-         editSameNewDay(event, currentItem)
-         return
+      if (currentItem.length === undefined && currentItem.cam_cod === undefined) {
+         if (currentItem.cam_start !== null && currentItem.cam_end !== null) {
+            editSameNewDay(event, currentItem)
+            return
+         }
       }
-      if (Object.keys(currentItem).includes('cam_start') || Object.keys(currentItem).includes('cam_end')) {
+      if (currentItem.length === undefined) {
          currentItem[event.target.name] = event.target.value
       }
       if (event.target.name === "cam_end" && currentItem.cam_cod === undefined) {
@@ -76,33 +105,8 @@ export const UtilsFunctions = () => {
          ])
       }
       if (currentItem.cam_cod) {
-         var filtered = days.filter(function (value) {
-            return value.cam_cod !== currentItem.cam_cod;
-         });
-         if (event.target.name === "cam_end") {
-            currentItem.cam_end = event.target.value
-            // é chamado quando esta sendo editado algum horario ja existente
-            return setDays([
-               ...filtered, {
-                  ...populate[index],
-                  "cam_day_of_week": index,
-                  [event.target.name]: event.target.value,
-                  "cam_cod": currentItem.cam_cod,
-                  "cam_start": currentItem.cam_start
-               }
-            ])
-         } else {
-            currentItem.cam_start = event.target.value
-            return setDays([
-               ...filtered, {
-                  ...populate[index],
-                  "cam_day_of_week": index,
-                  "cam_start": currentItem.cam_start,
-                  "cam_cod": currentItem.cam_cod,
-                  "cam_end": currentItem.cam_end
-               }
-            ])
-         }
+         editExistingDay(event, index, currentItem)
+         return
       }
    }
    function addNewRow(currentArray, setArray) {
