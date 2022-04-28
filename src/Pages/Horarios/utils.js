@@ -49,6 +49,22 @@ export const UtilsFunctions = () => {
          ])
       }
    }
+   function createInSameDay(event, index) {
+      if (populate[index].cam_day_of_week === days[days.length - 1].cam_day_of_week) {
+         if (populate[index].cam_end === days[days.length - 1].cam_end) {
+            if (populate[index].cam_start !== days[days.length - 1].cam_start) {
+               return setDays([
+                  ...days, {
+                     ...populate[index],
+                     "cam_day_of_week": index,
+                     [event.target.name]: event.target.value
+                  }
+               ])
+            }
+            return days[days.length - 1].cam_end = event.target.value
+         }
+      }
+   }
    function handleChange(event, index, currentItem) {
       setPopulate({
          ...populate, [index]: {
@@ -81,20 +97,7 @@ export const UtilsFunctions = () => {
       if (event.target.name === "cam_end" && currentItem.cam_cod === undefined) {
          // tratamento para a criação de novos horarios para o mesmo dia
          if (days[days.length - 1] !== undefined) {
-            if (populate[index].cam_day_of_week === days[days.length - 1].cam_day_of_week) {
-               if (populate[index].cam_end === days[days.length - 1].cam_end) {
-                  if (populate[index].cam_start !== days[days.length - 1].cam_start) {
-                     return setDays([
-                        ...days, {
-                           ...populate[index],
-                           "cam_day_of_week": index,
-                           [event.target.name]: event.target.value
-                        }
-                     ])
-                  }
-                  return days[days.length - 1].cam_end = event.target.value
-               }
-            }
+            createInSameDay(event, index)
          }
          setDays([
             ...days, {
