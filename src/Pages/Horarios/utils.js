@@ -12,8 +12,67 @@ export const UtilsFunctions = () => {
    const [qua, setQua] = useState(['div3'])
    const [qui, setQui] = useState(['div4'])
    const [sex, setSex] = useState(['div5'])
-
+   function editNewDay(event) {
+      if (event.target.name === "cam_start") {
+         return days[days.length - 1].cam_start = event.target.value
+      } else {
+         return days[days.length - 1].cam_end = event.target.value
+      }
+   }
+   function editExistingDay(event, index, currentItem) {
+      var filtered = days.filter(function (value) {
+         return value.cam_cod !== currentItem.cam_cod;
+      });
+      if (event.target.name === "cam_end") {
+         currentItem.cam_end = event.target.value
+         // é chamado quando esta sendo editado algum horario ja existente
+         return setDays([
+            ...filtered, {
+               ...populate[index],
+               "cam_day_of_week": index,
+               [event.target.name]: event.target.value,
+               "cam_cod": currentItem.cam_cod,
+               "cam_start": currentItem.cam_start
+            }
+         ])
+      } else {
+         currentItem.cam_start = event.target.value
+         return setDays([
+            ...filtered, {
+               ...populate[index],
+               "cam_day_of_week": index,
+               "cam_start": currentItem.cam_start,
+               "cam_cod": currentItem.cam_cod,
+               "cam_end": currentItem.cam_end
+            }
+         ])
+      }
+   }
+   function createInSameDay(event, index) {
+      if (populate[index].cam_day_of_week === days[days.length - 1].cam_day_of_week) {
+         if (populate[index].cam_end === days[days.length - 1].cam_end) {
+            if (populate[index].cam_start !== days[days.length - 1].cam_start) {
+               return setDays([
+                  ...days, {
+                     ...populate[index],
+                     "cam_day_of_week": index,
+                     [event.target.name]: event.target.value
+                  }
+               ])
+            }
+            return days[days.length - 1].cam_end = event.target.value
+         }
+      }
+      setDays([
+         ...days, {
+            ...populate[index],
+            "cam_day_of_week": index,
+            [event.target.name]: event.target.value
+         }
+      ])
+   }
    function handleChange(event, index, currentItem) {
+      let verifyEmptyField = Object.keys(currentItem).includes('cam_start') || Object.keys(currentItem).includes('cam_end')
       setPopulate({
          ...populate, [index]: {
             ...populate[index],
@@ -33,60 +92,53 @@ export const UtilsFunctions = () => {
             ])
          }
       }
-      if (event.target.name === "cam_end" && currentItem.cam_cod === undefined) {
-         // tratamento para a criação de novos horarios para o mesmo dia
-         if (days[days.length - 1] !== undefined) {
-            if (populate[index].cam_day_of_week === days[days.length - 1].cam_day_of_week) {
-               if (populate[index].cam_end === days[days.length - 1].cam_end) {
-                  if (populate[index].cam_start !== days[days.length - 1].cam_start) {
-                     return setDays([
-                        ...days, {
-                           ...populate[index],
-                           "cam_day_of_week": index,
-                           [event.target.name]: event.target.value
-                        }
-                     ])
-                  }
-                  return days[days.length - 1].cam_end = event.target.value
-               }
+      if (currentItem.length === undefined && currentItem.cam_cod === undefined) {
+         if (currentItem.cam_start !== null && currentItem.cam_end !== null) {
+            editNewDay(event, currentItem)
+            return
+         }
+      }
+      if (!verifyEmptyField && populate[index] !== undefined) {
+         if (event.target.name === "cam_start") {
+            // trata caso de quando o horario se incia pelo final
+            if (days[days.length - 1].cam_start === null && days[days.length - 1].cam_end !== undefined) {
+               return days[days.length - 1].cam_start = event.target.value
+            } else if (!(Object.keys(days[days.length - 1]).includes('cam_cod')) && days[days.length - 1].cam_day_of_week === index) { // altera o primeiro valor do novo horario sem criar um novo dia
+               return days[days.length - 1].cam_start = event.target.value
             }
          }
-         setDays([
-            ...days, {
-               ...populate[index],
-               "cam_day_of_week": index,
-               [event.target.name]: event.target.value
-            }
-         ])
+      }
+      if (verifyEmptyField) {
+         currentItem[event.target.name] = event.target.value
+      }
+      if (event.target.name === "cam_end" && currentItem.cam_cod === undefined) {
+         if (!verifyEmptyField && populate[index] === undefined) {
+            // começa o preenchimento pelo horario final
+            return setDays([
+               ...days, {
+                  ...populate[index],
+                  "cam_day_of_week": index,
+                  "cam_start": null,
+                  [event.target.name]: event.target.value
+               }
+            ])
+         }
+         if (days[days.length - 1] !== undefined) {
+            createInSameDay(event, index)
+            return
+         } else {
+            setDays([
+               ...days, {
+                  ...populate[index],
+                  "cam_day_of_week": index,
+                  [event.target.name]: event.target.value
+               }
+            ])
+         }
       }
       if (currentItem.cam_cod) {
-         var filtered = days.filter(function (value) {
-            return value.cam_cod !== currentItem.cam_cod;
-         });
-         if (event.target.name === "cam_end") {
-            currentItem.cam_end = event.target.value
-            // é chamado quando esta sendo editado algum horario ja existente
-            return setDays([
-               ...filtered, {
-                  ...populate[index],
-                  "cam_day_of_week": index,
-                  [event.target.name]: event.target.value,
-                  "cam_cod": currentItem.cam_cod,
-                  "cam_start": currentItem.cam_start
-               }
-            ])
-         } else {
-            currentItem.cam_start = event.target.value
-            return setDays([
-               ...filtered, {
-                  ...populate[index],
-                  "cam_day_of_week": index,
-                  "cam_start": currentItem.cam_start,
-                  "cam_cod": currentItem.cam_cod,
-                  "cam_end": currentItem.cam_end
-               }
-            ])
-         }
+         editExistingDay(event, index, currentItem)
+         return
       }
    }
    function addNewRow(currentArray, setArray) {
