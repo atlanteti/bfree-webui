@@ -6,6 +6,7 @@ export const UtilsHourCalendar = () => {
    const [days, setDays] = useState([])
    const [populate, setPopulate] = useState([])
 
+   // function editExistingDay(event, index,)
    function handleChange(event, currentItem, dayMonth, date) {
       const formatDate = moment(date).format('yyyy-MM-DD')
       setPopulate({
@@ -59,32 +60,11 @@ export const UtilsHourCalendar = () => {
          // TODO: Tratar o caso de novos horarios sem outro horario no mesmo dia
       }
       if (currentItem.cal_cod) {
-         var filtered = days.filter(function (value) {
-            return value.cal_cod !== currentItem.cal_cod;
-         });
+         // é chamado quando esta sendo editado algum horario ja existente
          if (event.target.name === "cal_end") {
             currentItem.cal_end = event.target.value
-            // é chamado quando esta sendo editado algum horario ja existente
-            return setDays([
-               ...filtered, {
-                  ...populate[dayMonth],
-                  "cal_date": formatDate,
-                  [event.target.name]: event.target.value,
-                  "cal_cod": currentItem.cal_cod,
-                  "cal_start": currentItem.cal_start
-               }
-            ])
          } else {
             currentItem.cal_start = event.target.value
-            return setDays([
-               ...filtered, {
-                  ...populate[dayMonth],
-                  "cal_date": formatDate,
-                  "cal_start": currentItem.cal_start,
-                  "cal_cod": currentItem.cal_cod,
-                  "cal_end": currentItem.cal_end
-               }
-            ])
          }
       }
    }
