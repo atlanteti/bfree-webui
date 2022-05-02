@@ -1,6 +1,6 @@
 import { useState } from "react";
 import moment from "moment";
-import { DivSpaceBtween, SubTitle, Title } from "../../styles/CommonStyles";
+import { DivSpaceBtween, SubTitle, Title, RightDivSchedule } from "../../styles/CommonStyles";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 export const UtilsFunctions = () => {
@@ -263,9 +263,11 @@ export const TopTitles = (props) => {
          <SubTitle style={{ maxWidth: "70%" }}>
             Não adicione intervalos que entrem em conflito, ex: 10:00 -- 12:00 E 09:00 -- 11:00 do mesmo dia
          </SubTitle>
-         <Link to={props.route}>
-            <Button variant="dark">Ver {props.text}</Button>
-         </Link>
+         <RightDivSchedule>
+            <Link to={props.route}>
+               <Button variant="dark">Ver {props.text}</Button>
+            </Link>
+         </RightDivSchedule>
       </DivSpaceBtween>
    </>
 }
