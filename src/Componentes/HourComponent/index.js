@@ -3,7 +3,7 @@ import { Row, Col } from "react-bootstrap";
 import { ValidationTextField } from "../FormFields";
 import { IoAddCircleOutline, IoRemoveCircleOutline } from "react-icons/io5"
 import NoDataComp from "../NoDataComp";
-import { SubTitle } from "../../styles/CommonStyles";
+import { SubTitle, CenterAlignDivToMobile } from "../../styles/CommonStyles";
 import moment from "moment";
 
 export function SetHour(props) {
@@ -46,7 +46,7 @@ export const HourComponent = (props) => {
             background: props.bgColor
          }}>
             <Col xs={12} sm={1} lg={1}>
-               <SubTitle style={{ paddingLeft: 20 }}>{props.dayOfWeek}</SubTitle>
+               <SubTitle className="mb-2">{props.dayOfWeek}</SubTitle>
             </Col>
             <Col xs={12} sm={4} lg={2} md={{ offset: 2 }}>
                <SetHour
@@ -56,7 +56,9 @@ export const HourComponent = (props) => {
                   defaultValue={props.data[index].cam_start}
                />
             </Col>
-            <p>-</p>
+            <CenterAlignDivToMobile>
+               -
+            </CenterAlignDivToMobile>
             <Col xs={12} sm={4} lg={2}>
                <SetHour
                   label="Final"
@@ -65,10 +67,14 @@ export const HourComponent = (props) => {
                   defaultValue={props.data[index].cam_end}
                />
             </Col>
-            <Col xs={12} sm={1} lg={1} style={{ cursor: 'pointer' }}>
+            <Col xs={12} sm={4} lg={2}>
                <Row>
-                  <IoAddCircleOutline size={30} color="rgba(0,0,0,0.5)" onClick={props.onDuplicate} />
-                  {props.data.length > 1 && <IoRemoveCircleOutline size={30} color="rgba(0,0,0,0.5)" onClick={() => props.removeDuplicate(props.data, currentDiv, props.changeState)} />}
+                  <CenterAlignDivToMobile style={{ cursor: 'pointer' }}>
+                     <IoAddCircleOutline size={30} color="rgba(0,0,0,0.5)" onClick={props.onDuplicate} />
+                  </CenterAlignDivToMobile>
+                  <CenterAlignDivToMobile style={{ cursor: 'pointer' }}>
+                     {props.data.length > 1 && <IoRemoveCircleOutline size={30} color="rgba(0,0,0,0.5)" onClick={() => props.removeDuplicate(props.data, currentDiv, props.changeState)} />}
+                  </CenterAlignDivToMobile>
                </Row>
             </Col>
          </Row>
@@ -95,7 +101,7 @@ export const HourCalendarComponent = (props) => {
             background: props.bgColor
          }}>
             <Col xs={12} sm={1} md={2}>
-               <SubTitle>{props.dayOfMonth && props.dayOfMonth} {props.dayOfWeek}</SubTitle>
+               <SubTitle className="mb-2">{props.dayOfMonth && props.dayOfMonth} {props.dayOfWeek}</SubTitle>
             </Col>
             <Col xs={12} sm={12} md={4}>
                <SetHour
@@ -105,7 +111,9 @@ export const HourCalendarComponent = (props) => {
                   defaultValue={currentDiv.cal_start}
                />
             </Col>
-            <p>-</p>
+            <CenterAlignDivToMobile>
+               -
+            </CenterAlignDivToMobile>
             <Col xs={12} sm={12} md={4}>
                <SetHour
                   label="Final"
@@ -116,8 +124,12 @@ export const HourCalendarComponent = (props) => {
             </Col>
             <Col xs={12} sm={1} lg={1} style={{ cursor: 'pointer' }}>
                <Row>
-                  <IoAddCircleOutline size={30} color="rgba(0,0,0,0.5)" onClick={props.onDuplicate} />
-                  <IoRemoveCircleOutline size={30} color="rgba(0,0,0,0.5)" onClick={() => props.removeDuplicate(props.data, currentDiv, props.changeState, props.object)} />
+                  <CenterAlignDivToMobile>
+                     <IoAddCircleOutline size={30} color="rgba(0,0,0,0.5)" onClick={props.onDuplicate} />
+                  </CenterAlignDivToMobile>
+                  <CenterAlignDivToMobile>
+                     <IoRemoveCircleOutline size={30} color="rgba(0,0,0,0.5)" onClick={() => props.removeDuplicate(props.data, currentDiv, props.changeState, props.object)} />
+                  </CenterAlignDivToMobile>
                </Row>
             </Col>
          </Row>

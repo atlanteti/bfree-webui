@@ -40,6 +40,12 @@ export const RightAlignText = styled.div`
       text-align: end
    }`
 
+export const CenterAlignDivToMobile = styled.div`
+   @media all and (max-width: 767px) {
+      margin: 10px 15px;
+   }
+`
+
 export const SearchBarBorder = styled.div`
       border: 1px solid rgba(0,0,0,0.20);
       padding: 25px;
