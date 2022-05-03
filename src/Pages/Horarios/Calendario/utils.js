@@ -90,23 +90,13 @@ export const UtilsHourCalendar = () => {
       cDivs.push({ "cal_start": null, "cal_end": null, "cal_date": formatDate })
       setDays(cDivs)
    }
-   function removeRowCalendar(currentArray, currentItem, setArray, object) {
-      let cDivs = [...currentArray];
+   function removeRowCalendar(currentItem) {
+      setRefresh(true)
       // os filtros são usados para remover o item exato que esta sendo excluido
       var filtered = days.filter(function (value) {
-         return value.cal_cod !== currentItem.cal_cod;
+         return value !== currentItem
       });
       setDays(filtered)
-      var filteredCurrentArray = cDivs.filter(function (value) {
-         return value.cal_cod !== currentItem.cal_cod;
-      });
-      if (filteredCurrentArray.length === 0 || currentItem.cal_cod === undefined) {
-         cDivs.pop()
-         return setArray({ ...object, array: cDivs })
-      } else {
-         setRefresh(true)
-         setArray({ ...object, array: filteredCurrentArray })
-      }
       loading()
    }
    function loading() {
