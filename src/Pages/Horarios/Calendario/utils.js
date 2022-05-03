@@ -7,8 +7,8 @@ export const UtilsHourCalendar = () => {
    const [populate, setPopulate] = useState([])
 
    function editNewDay(event, currentItem, dayMonth, date) {
-      if (populate[dayMonth].cal_date === moment(days[days.length - 1].cal_end).format('yyyy-MM-DD')) {
-         if (populate[dayMonth].cal_end === moment(days[days.length - 1].cal_end).format('yyyy-MM-DD')) {
+      if (populate[dayMonth].cal_date === date) {
+         if (populate[dayMonth].cal_end === date) {
             if (populate[dayMonth].cal_start !== days[days.length - 1].cal_start) {
                return setDays([
                   ...days, {
@@ -41,18 +41,26 @@ export const UtilsHourCalendar = () => {
             [event.target.name]: event.target.value
          }
       })
-      if (verifyEmptyField) {
-         if (currentItem.cal_start === null && currentItem.cal_end === null) {
+      if (verifyEmptyField && currentItem.cal_cod === undefined) {
+         if (currentItem.cal_start === null && currentItem.cal_end !== null) {
+            setPopulate([])
             editExistinNewDay(event, currentItem)
-         } else if (currentItem.cal_start !== null
-            && currentItem.cal_end !== null
-            && currentItem.cal_cod === undefined
-         ) {
+         } else {
             editExistinNewDay(event, currentItem)
          }
       }
       if (event.target.name === "cal_end" && currentItem.cal_cod === undefined) {
-         // tratamento para a criação de novos horarios para o mesmo dia
+         if (!verifyEmptyField && populate[dayMonth] === undefined) {
+            // começa o preenchimento pelo horario final
+            return setDays([
+               ...days, {
+                  ...populate[dayMonth],
+                  "cal_date": formatDate,
+                  "cal_start": null,
+                  [event.target.name]: event.target.value
+               }
+            ])
+         }
          if (days[days.length - 1] !== undefined) {
             editNewDay(event, currentItem, dayMonth, formatDate)
          }
@@ -104,7 +112,7 @@ export const UtilsHourCalendar = () => {
    function loading() {
       setTimeout(() => {
          setRefresh(false)
-      }, 0);
+      }, 10);
    }
    return {
       addNewRowCalendar,
