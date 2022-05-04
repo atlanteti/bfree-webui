@@ -96,6 +96,10 @@ export const UtilsFunctions = () => {
          if (currentItem.cam_start !== null && currentItem.cam_end !== null) {
             editNewDay(event, currentItem)
             return
+         } else if (currentItem.cam_start === null && currentItem.cam_end === null) {
+            // quando é um horario novo(que não seja o primeiro), é alterado o valor dele para que, posteriormente, seja tratado para qual caso ele sera direcionado
+            currentItem[event.target.name] = event.target.value
+            return
          }
       }
       if (!verifyEmptyField && populate[index] !== undefined) {
