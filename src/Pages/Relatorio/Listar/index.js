@@ -18,7 +18,7 @@ import moment from 'moment'
 import ListUsers from '../../../Componentes/ListUsers'
 import ContextLogin from "../../../Context/ContextLogin";
 import Restricted from '../../../Context/AccessPermission'
-import { AiOutlineUpload } from "react-icons/ai"
+import { AiOutlineUpload, AiOutlineCheck } from "react-icons/ai"
 import ListTypeDemand from '../../../Componentes/ListTypeDemand'
 import NoDataComp from '../../../Componentes/NoDataComp'
 import CustomPagination from '../../../Componentes/CustomPagination'
@@ -31,7 +31,8 @@ export default class ListarRelatorio extends ListarPagina {
          headerData: [],
          formData: {},
          initialDate: new Date(moment().startOf('isoWeek')),
-         finalDate: new Date(moment().weekday(7))
+         finalDate: new Date(moment().weekday(7)),
+         generated: false
       }
       this.filter = {
          initialDate: new Date(moment().startOf('isoWeek')),
@@ -102,6 +103,7 @@ export default class ListarRelatorio extends ListarPagina {
    requestExportData(event, endpointExport, nameFile) {
       event.preventDefault()
       let data = this.searchExportData({ extraParams: this.state.formData, endpointExport, nameFile })
+      this.setState({ generated: true })
       return
    }
 
@@ -222,7 +224,7 @@ export default class ListarRelatorio extends ListarPagina {
                      <Row>
                         <Restricted>
                            <ExportContainer onClick={(event) => this.requestExportData(event, "export-billing", "Relatorio")}>
-                              <AiOutlineUpload size={23} className="mr-2" /> EXPORTAR EXCEL
+                              {!this.state.generated ? <><AiOutlineUpload size={23} className="mr-2" /> GERAR EXCEL </> : <> <AiOutlineCheck size={23} className="mr-2" />Em breve estará disponível na página de download</>}
                            </ExportContainer>
                         </Restricted>
                      </Row>
