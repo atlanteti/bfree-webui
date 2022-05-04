@@ -67,7 +67,6 @@ export default class ListarPagina extends Component {
             dataFinal: nameFile !== "Demandas" ? moment(this.filter.finalDate).format('yyyy-MM-DD') : null,
          }
       })
-      // console.log(data)
       var file = new Blob([new Uint8Array(Buffer.from(data.data, 'base64'))], { type: "application/vnd.ms-excel" })
       const url = window.URL.createObjectURL(file)
       var relatorio = window.document.createElement('a');
