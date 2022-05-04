@@ -44,9 +44,9 @@ export const UtilsHourCalendar = () => {
       if (verifyEmptyField && currentItem.cal_cod === undefined) {
          if (currentItem.cal_start === null && currentItem.cal_end !== null) {
             setPopulate([])
-            editExistinNewDay(event, currentItem)
+            return editExistinNewDay(event, currentItem)
          } else {
-            editExistinNewDay(event, currentItem)
+            return editExistinNewDay(event, currentItem)
          }
       }
       if (event.target.name === "cal_end" && currentItem.cal_cod === undefined) {
