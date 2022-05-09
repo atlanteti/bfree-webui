@@ -62,7 +62,7 @@ function ControlledRadioButtonsGroup(props) {
             <FormControlLabel value="4" control={<Radio />} label="4" />
             <FormControlLabel value="5" control={<Radio />} label="5" />
          </RadioGroup>
-         <Button onClick={() => {
+         <Button variant="dark" onClick={() => {
             submitEvaluation(value, props.demCode)
             props.closeModal()
          }}>Realizar Avaliação</Button>
@@ -74,9 +74,11 @@ const style = {
    top: '50%',
    left: '50%',
    transform: 'translate(-50%, -50%)',
-   width: 400,
+   // width: 400,
    bgcolor: 'background.paper',
    boxShadow: 24,
+   alignItems: 'center',
+   justifyContent: 'center',
    p: 4,
 };
 
@@ -88,7 +90,7 @@ export default function BasicModal(props) {
 
    return (
       <div>
-         <Button onClick={handleOpen}>Realizar Avaliação</Button>
+         <Button variant="dark" onClick={handleOpen}>Realizar Avaliação</Button>
          <Modal
             open={open}
             onClose={handleClose}
