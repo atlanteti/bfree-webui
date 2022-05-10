@@ -127,7 +127,7 @@ export function Horario() {
                         changeState={setSex}
                      />
                      <HourComponent
-                        dayOfWeek="Sabádo"
+                        dayOfWeek="Sábado"
                         indexWeek={6}
                         data={sab}
                         onChange={handleChange}

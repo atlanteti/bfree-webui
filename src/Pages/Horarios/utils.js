@@ -247,7 +247,7 @@ export const UtilsFunctions = () => {
       } else if (dia === "Friday") {
          return ({ dayMonth: moment(date).format("DD"), indexDay: 5, nameDay: "Sexta" })
       } else {
-         return ({ dayMonth: moment(date).format("DD"), indexDay: 6, nameDay: "Sabádo" })
+         return ({ dayMonth: moment(date).format("DD"), indexDay: 6, nameDay: "Sábado" })
       }
    }
    return {
