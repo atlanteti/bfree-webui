@@ -79,8 +79,8 @@ export const DadosBancariosForm = (props) => {
                         }),
                   bkd_typepix: yup.string().required(),
                   bkd_pix: yup.string().max(45).required(),
-                  bkd_agency: yup.string().max(4).required(),
-                  bkd_account: yup.number().required(),
+                  bkd_agency: yup.string().max(6).required(),
+                  bkd_account: yup.string().required(),
                   bkd_tpaccount: yup.string().required(),
                   bkd_bak_cod: yup.string().required()
                })}
@@ -165,17 +165,15 @@ export const DadosBancariosForm = (props) => {
                      </Col>
                      <Col className="mt-3" xs={12} sm={3}>
                         <DefaultValidationTextField
-                           onKeyPress={preventNonNumericalInput}
                            label="Agência"
                            name="bkd_agency"
                            type="text"
-                           maxLength="4"
+                           maxLength="6"
                            disabled={disableInput}
                         />
                      </Col>
                      <Col className="mt-3" xs={12} sm={3}>
                         <DefaultValidationTextField
-                           onKeyPress={preventNonNumericalInput}
                            label="Conta"
                            name="bkd_account"
                            type="text"
