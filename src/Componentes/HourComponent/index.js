@@ -45,10 +45,10 @@ export const HourComponent = (props) => {
             paddingBottom: 10,
             background: props.bgColor
          }}>
-            <Col xs={12} sm={1} lg={1}>
+            <Col xs={12} sm={2} lg={3} md={2}>
                <SubTitle className="mb-2">{props.dayOfWeek}</SubTitle>
             </Col>
-            <Col xs={12} sm={4} lg={2} md={{ offset: 2 }}>
+            <Col xs={12} sm={4} lg={2}>
                <SetHour
                   label="Inicial"
                   name="cam_start"
@@ -67,7 +67,7 @@ export const HourComponent = (props) => {
                   defaultValue={props.data[index].cam_end}
                />
             </Col>
-            <Col xs={12} sm={4} lg={2}>
+            <Col>
                <Row>
                   <CenterAlignDivToMobile style={{ cursor: 'pointer' }}>
                      <IoAddCircleOutline size={30} color="rgba(0,0,0,0.5)" onClick={props.onDuplicate} />
@@ -77,8 +77,8 @@ export const HourComponent = (props) => {
                   </CenterAlignDivToMobile>
                </Row>
             </Col>
-         </Row>
-      </Col>
+         </Row >
+      </Col >
    })
 }
 
