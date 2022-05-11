@@ -128,7 +128,7 @@ export const HourCalendarComponent = (props) => {
                      <IoAddCircleOutline size={30} color="rgba(0,0,0,0.5)" onClick={props.onDuplicate} />
                   </CenterAlignDivToMobile>
                   <CenterAlignDivToMobile>
-                     <IoRemoveCircleOutline size={30} color="rgba(0,0,0,0.5)" onClick={() => props.removeDuplicate(props.data, currentDiv, props.changeState, props.object)} />
+                     <IoRemoveCircleOutline size={30} color="rgba(0,0,0,0.5)" onClick={() => props.removeDuplicate(currentDiv)} />
                   </CenterAlignDivToMobile>
                </Row>
             </Col>

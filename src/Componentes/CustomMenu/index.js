@@ -20,6 +20,8 @@ import { ReactComponent as UploadsIcon } from "../../Assets/Icons/icon_uploads.s
 import { ReactComponent as LogsIcon } from "../../Assets/Icons/icon_logs.svg"
 import { ReactComponent as GerencialIcon } from "../../Assets/Icons/icon_gerencial.svg"
 import { ReactComponent as SairIcon } from "../../Assets/Icons/icon_sair.svg"
+import { AiOutlineCloudDownload } from "react-icons/ai"
+
 import Drawer from '@mui/material/Drawer';
 import { AppBar, Grid, List, ListItem, ListItemIcon, ListItemText, Toolbar, Button } from '@mui/material'
 import { Popover, SvgIcon } from '@material-ui/core'
@@ -184,6 +186,14 @@ function CreateMenuItems(cookie, admin, userRoles, userId) {
                   <SvgIcon component={UploadsIcon} inheritViewBox />
                </ListItemIcon>
                <ListItemText primary={"Uploads"} />
+            </ListItem>
+            <ListItem button
+               secondaryAction={<IoChevronForwardOutline size={17} />}
+               component={Link} to="/download">
+               <ListItemIcon>
+                  <AiOutlineCloudDownload size={27} className="mr-2" />
+               </ListItemIcon>
+               <ListItemText primary={"Downloads"} />
             </ListItem>
             <ListItem button secondaryAction={<IoChevronForwardOutline size={17} />}
                component={Link} to="/log">

@@ -416,10 +416,12 @@ export const DivSpaceBtween = styled.div`
    @media all and (max-width: 920px) {
       display: flex;
       flex-direction: column;
-
       button {
          margin-top: 1rem;
-         width: 25%
       }
    }
+`
+
+export const RightDivSchedule = styled.div`
+   max-width: 45vw; 
 `

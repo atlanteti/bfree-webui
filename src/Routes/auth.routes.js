@@ -28,6 +28,7 @@ import ListarDemandas from "../Pages/Demandas/Listar";
 import CadastrarTipoMentores from "../Pages/Times/TipoMentores";
 import Log from "../Pages/Log";
 import UploadSheet from "../Pages/UploadSheet";
+import Downloads from "../Pages/Downloads"
 
 import ListarRelatorio from "../Pages/Relatorio/Listar";
 import Editar from "../Pages/Editar";
@@ -80,6 +81,8 @@ export default function AuthRoutes() {
 
             {/* rotas de upload*/}
             <Route path="/upload" component={UploadSheet} />
+            {/* rotas de download*/}
+            <Route path="/download" component={Downloads} />
             {/* rotas de log */}
             <Route path="/log" component={Log}></Route>
             {/* rotas de reuniões */}

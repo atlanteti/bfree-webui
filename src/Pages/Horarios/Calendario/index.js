@@ -102,7 +102,7 @@ export function HorarioCalendario() {
                                  indexWeek={changeDataDay?.indexDay}
                                  data={days}
                                  onChange={handleChange}
-                                 onDuplicate={() => addNewRowCalendar(days)}
+                                 onDuplicate={() => addNewRowCalendar(days, date)}
                                  removeDuplicate={removeRowCalendar}
                                  changeState={setChangeDataDay}
                                  date={date}

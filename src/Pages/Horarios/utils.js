@@ -1,6 +1,6 @@
 import { useState } from "react";
 import moment from "moment";
-import { DivSpaceBtween, SubTitle, Title } from "../../styles/CommonStyles";
+import { DivSpaceBtween, SubTitle, Title, RightDivSchedule } from "../../styles/CommonStyles";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 export const UtilsFunctions = () => {
@@ -12,6 +12,7 @@ export const UtilsFunctions = () => {
    const [qua, setQua] = useState(['div3'])
    const [qui, setQui] = useState(['div4'])
    const [sex, setSex] = useState(['div5'])
+   const [sab, setSab] = useState(['div6'])
    function editNewDay(event) {
       if (event.target.name === "cam_start") {
          return days[days.length - 1].cam_start = event.target.value
@@ -95,6 +96,10 @@ export const UtilsFunctions = () => {
       if (currentItem.length === undefined && currentItem.cam_cod === undefined) {
          if (currentItem.cam_start !== null && currentItem.cam_end !== null) {
             editNewDay(event, currentItem)
+            return
+         } else if (currentItem.cam_start === null && currentItem.cam_end === null) {
+            // quando é um horario novo(que não seja o primeiro), é alterado o valor dele para que, posteriormente, seja tratado para qual caso ele sera direcionado
+            currentItem[event.target.name] = event.target.value
             return
          }
       }
@@ -210,6 +215,13 @@ export const UtilsFunctions = () => {
             }
             populateDay.push(result)
             setSex(populateDay)
+         } else if (result[`${type}_day_of_week`] === 6) {
+            populateDay = sab
+            if (sab[0] === "div6") {
+               sab.shift()
+            }
+            populateDay.push(result)
+            setSab(populateDay)
          }
       })
       setLoadingData(false)
@@ -232,8 +244,10 @@ export const UtilsFunctions = () => {
          return ({ dayMonth: moment(date).format("DD"), indexDay: 3, nameDay: "Quarta" })
       } else if (dia === "Thursday") {
          return ({ dayMonth: moment(date).format("DD"), indexDay: 4, nameDay: "Quinta" })
-      } else {
+      } else if (dia === "Friday") {
          return ({ dayMonth: moment(date).format("DD"), indexDay: 5, nameDay: "Sexta" })
+      } else {
+         return ({ dayMonth: moment(date).format("DD"), indexDay: 6, nameDay: "Sábado" })
       }
    }
    return {
@@ -251,6 +265,7 @@ export const UtilsFunctions = () => {
       qua, setQua,
       qui, setQui,
       sex, setSex,
+      sab, setSab
    }
 }
 
@@ -263,9 +278,11 @@ export const TopTitles = (props) => {
          <SubTitle style={{ maxWidth: "70%" }}>
             Não adicione intervalos que entrem em conflito, ex: 10:00 -- 12:00 E 09:00 -- 11:00 do mesmo dia
          </SubTitle>
-         <Link to={props.route}>
-            <Button variant="dark">Ver {props.text}</Button>
-         </Link>
+         <RightDivSchedule>
+            <Link to={props.route}>
+               <Button variant="dark">Ver {props.text}</Button>
+            </Link>
+         </RightDivSchedule>
       </DivSpaceBtween>
    </>
 }
