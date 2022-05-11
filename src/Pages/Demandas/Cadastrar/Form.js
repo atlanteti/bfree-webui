@@ -28,7 +28,7 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
-async function submitEvaluation(rate, demCode) {
+async function submitEvaluation(rate, demCode, showAlert) {
    const data = await request({
       method: "post",
       endpoint: `meetings/confirm-attendence`,
@@ -37,6 +37,7 @@ async function submitEvaluation(rate, demCode) {
          rate: rate
       }
    })
+   showAlert(data.meta)
 }
 
 function ControlledRadioButtonsGroup(props) {
@@ -63,7 +64,7 @@ function ControlledRadioButtonsGroup(props) {
             <FormControlLabel value="5" control={<Radio />} label="5" />
          </RadioGroup>
          <Button variant="dark" onClick={() => {
-            submitEvaluation(value, props.demCode)
+            submitEvaluation(value, props.demCode, props.showAlert)
             props.closeModal()
          }}>Realizar Avaliação</Button>
       </FormControl >
@@ -98,7 +99,7 @@ export default function BasicModal(props) {
             aria-describedby="modal-modal-description"
          >
             <Box sx={style}>
-               <ControlledRadioButtonsGroup closeModal={handleClose} demCode={props.demCode} />
+               <ControlledRadioButtonsGroup closeModal={handleClose} demCode={props.demCode} showAlert={props.showAlert} />
             </Box>
          </Modal>
       </div>
@@ -467,7 +468,7 @@ export const DemandForm = (props) => {
                            </Button>
                         </Col>
                         <Col>
-                           <BasicModal demCode={primaryData.dem_cod} />
+                           <BasicModal demCode={primaryData.dem_cod} showAlert={props.showAlert} />
                         </Col>
                      </Row>
                   }
