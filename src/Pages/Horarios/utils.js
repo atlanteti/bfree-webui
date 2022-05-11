@@ -12,6 +12,7 @@ export const UtilsFunctions = () => {
    const [qua, setQua] = useState(['div3'])
    const [qui, setQui] = useState(['div4'])
    const [sex, setSex] = useState(['div5'])
+   const [sab, setSab] = useState(['div6'])
    function editNewDay(event) {
       if (event.target.name === "cam_start") {
          return days[days.length - 1].cam_start = event.target.value
@@ -214,6 +215,13 @@ export const UtilsFunctions = () => {
             }
             populateDay.push(result)
             setSex(populateDay)
+         } else if (result[`${type}_day_of_week`] === 6) {
+            populateDay = sab
+            if (sab[0] === "div6") {
+               sab.shift()
+            }
+            populateDay.push(result)
+            setSab(populateDay)
          }
       })
       setLoadingData(false)
@@ -236,8 +244,10 @@ export const UtilsFunctions = () => {
          return ({ dayMonth: moment(date).format("DD"), indexDay: 3, nameDay: "Quarta" })
       } else if (dia === "Thursday") {
          return ({ dayMonth: moment(date).format("DD"), indexDay: 4, nameDay: "Quinta" })
-      } else {
+      } else if (dia === "Friday") {
          return ({ dayMonth: moment(date).format("DD"), indexDay: 5, nameDay: "Sexta" })
+      } else {
+         return ({ dayMonth: moment(date).format("DD"), indexDay: 6, nameDay: "Sábado" })
       }
    }
    return {
@@ -255,6 +265,7 @@ export const UtilsFunctions = () => {
       qua, setQua,
       qui, setQui,
       sex, setSex,
+      sab, setSab
    }
 }
 

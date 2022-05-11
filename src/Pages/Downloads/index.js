@@ -70,7 +70,7 @@ class Downloads extends Component {
                                  </TableHeader>
                                  <TableData>
                                     <TextCell>{this.state.logs.ebr_name}</TextCell>
-                                    <TextCell><Button onClick={() => { this.downloadReport(this.state.logs.ebr_name) }}>Baixar Relatório</Button></TextCell>
+                                    <TextCell><Button variant="dark" onClick={() => { this.downloadReport(this.state.logs.ebr_name) }}>Baixar Relatório</Button></TextCell>
                                  </TableData>
                               </Table></Card.Body>
                            </Card>

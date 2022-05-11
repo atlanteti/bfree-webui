@@ -20,7 +20,8 @@ export function Horario() {
       ter, setTer,
       qua, setQua,
       qui, setQui,
-      sex, setSex
+      sex, setSex,
+      sab, setSab
    } = UtilsFunctions()
    const [showAlert, setShowAlert] = useState(false)
    const [message, setMessage] = useState(null)
@@ -124,6 +125,15 @@ export function Horario() {
                         onDuplicate={() => addNewRow(sex, setSex)}
                         removeDuplicate={removeRow}
                         changeState={setSex}
+                     />
+                     <HourComponent
+                        dayOfWeek="Sábado"
+                        indexWeek={6}
+                        data={sab}
+                        onChange={handleChange}
+                        onDuplicate={() => addNewRow(sab, setSab)}
+                        removeDuplicate={removeRow}
+                        changeState={setSab}
                      />
                      <Col className="mt-4" md={{ offset: 4 }}>
                         <BtnBlue variant="dark" type="submit" onClick={() => window.scrollTo(0, 0)}>Salvar</BtnBlue>
