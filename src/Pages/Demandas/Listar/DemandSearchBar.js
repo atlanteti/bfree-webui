@@ -16,45 +16,45 @@ export class DemandSearchBar extends SearchBar {
       return (
          <>
             <SearchBarBorder>
-               <Row xs={1} className={'mb-2'} noGutters>
-                  <Form onSubmit={this.handleSubmit}>
-                     <Row>
-                        <Col className="mt-2" xs={12} sm={3} md={3}>
-                           <InputTextField label="Título"
-                              id="dem_title"
-                              onChange={this.onChange}
-                              type="text"
-                              fullWidth
-                              placeholder="Insira o título da Demanda" />
-                        </Col>
-                        <Col className="mt-2" xs={12} sm={3} md={3}>
-                           <ListUsers
-                              id="dem_usr_cod"
-                              name="dem_usr_cod"
-                              defaultValue={this.context.admin ? this.state.formData?.dem_usr_cod : this.context.user}
-                              defaultUser={this.context.admin ? this.state.formData?.dem_usr_cod : this.context.user}
-                              disabled={!this.context.admin}
-                              onChange={this.context.admin ? this.handleSelect : null}
-                           />
-                        </Col>
-                        <Col className="mt-2" xs={12} sm={3} md={2}>
-                           <ListStatusDemands
-                              onChange={this.handleSelect}
-                              name="dem_sdm_cod" />
-                        </Col>
-                        <Col className="mt-2" xs={12} sm={3} md={2}>
-                           <ListTypeDemand
-                              onChange={this.handleSelect}
-                              name="dem_tdm_cod" />
-                        </Col>
-                        <Col className="mt-3" xs={12} sm={4} md={3}>
-                           <BtnBlue variant="dark" type="submit">
-                              Buscar
-                           </BtnBlue>
-                        </Col>
-                     </Row>
-                  </Form>
-               </Row>
+               <Form onSubmit={this.handleSubmit}>
+                  <Row>
+                     <Col className="mt-2" xs={12} md={3} sm={6}>
+                        <InputTextField label="Título"
+                           id="dem_title"
+                           onChange={this.onChange}
+                           type="text"
+                           fullWidth
+                           placeholder="Insira o título da Demanda" />
+                     </Col>
+                     <Col className="mt-2" xs={12} md={3} sm={6}>
+                        <ListUsers
+                           id="dem_usr_cod"
+                           name="dem_usr_cod"
+                           defaultValue={this.context.admin ? this.state.formData?.dem_usr_cod : this.context.user}
+                           defaultUser={this.context.admin ? this.state.formData?.dem_usr_cod : this.context.user}
+                           disabled={!this.context.admin}
+                           onChange={this.context.admin ? this.handleSelect : null}
+                        />
+                     </Col>
+                     <Col className="mt-2" xs={12} md={3} sm={6}>
+                        <ListStatusDemands
+                           onChange={this.handleSelect}
+                           name="dem_sdm_cod" />
+                     </Col>
+                     <Col className="mt-2" xs={12} md={3} sm={6}>
+                        <ListTypeDemand
+                           onChange={this.handleSelect}
+                           name="dem_tdm_cod" />
+                     </Col>
+                  </Row>
+                  <Row>
+                     <Col className="mt-4 d-flex justify-content-center">
+                        <BtnBlue variant="dark" type="submit">
+                           Buscar
+                        </BtnBlue>
+                     </Col>
+                  </Row>
+               </Form>
             </SearchBarBorder>
             <Col>
                <Row>

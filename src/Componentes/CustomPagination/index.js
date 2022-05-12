@@ -8,7 +8,17 @@ export default function CustomPagination(props) {
       <PaginationRow>
          <PaginationHeader>{props.page.totalRecords} itens</PaginationHeader>
          <PaginationHeader align="right">Página {props.page.current} de {props.page.total}</PaginationHeader>
-         <ActionCell style={{ backgroundColor: "white" }}>
+         <ActionCell style={{ backgroundColor: "white", overFlow: "inherit", maxWidth: "inherit" }}>
+            <Button variant="transparent"
+               disabled={props.page.current === 1}
+               onClick={(e) => {
+                  props.fetchAndSetData({ page: 1 })
+               }}>
+               <div className="d-flex">
+                  <IoChevronBackOutline />
+                  <IoChevronBackOutline />
+               </div>
+            </Button>
             <Button variant="transparent"
                disabled={props.page.current === 1}
                onClick={(e) => {
@@ -22,6 +32,16 @@ export default function CustomPagination(props) {
                   props.fetchAndSetData({ page: props.page.current + 1 })
                }}>
                <IoChevronForwardOutline />
+            </Button>
+            <Button variant="transparent"
+               disabled={props.page.current === props.page.total}
+               onClick={(e) => {
+                  props.fetchAndSetData({ page: props.page.total })
+               }}>
+               <div className="d-flex">
+                  <IoChevronForwardOutline />
+                  <IoChevronForwardOutline />
+               </div>
             </Button>
          </ActionCell>
       </PaginationRow>

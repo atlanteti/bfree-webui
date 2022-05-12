@@ -66,14 +66,21 @@ export const DadosBancariosForm = (props) => {
             <Formik
                htmlFor="mainForm"
                initialValues={fields}
-               validateOnChange={false}
                validateOnBlur={false}
                validationSchema={yup.object({
-                  bkd_cpf: yup.string().max(15).required(),
+                  bkd_cpf: yup.string().required()
+                     .test('valid-cpf', "O CPF deve estar no formato 111.111.111-11",
+                        (value, context) => {
+                           if (value !== undefined) {
+                              return (!!value.match(/\d{10,11}/) ||
+                                 value.trim().length >= 14)
+                           }
+                           return true
+                        }),
                   bkd_typepix: yup.string().required(),
                   bkd_pix: yup.string().max(45).required(),
-                  bkd_agency: yup.string().max(4).required(),
-                  bkd_account: yup.number().required(),
+                  bkd_agency: yup.string().max(6).required(),
+                  bkd_account: yup.string().required(),
                   bkd_tpaccount: yup.string().required(),
                   bkd_bak_cod: yup.string().required()
                })}
@@ -95,8 +102,11 @@ export const DadosBancariosForm = (props) => {
                      else if (data.meta.status === 212) {
                         props.showAlert(data.meta)
                      }
-                     if (data.meta.status === 422) {
-                        setFieldError(data.data[0].field.toLowerCase(), data.data[0].message)
+                     if (data.meta.status == 422) {
+                        if (data.data.errors[0].field.includes('cpf')) {
+                           fields.bkd_cpf = cpfMask(values.bkd_cpf)
+                        }
+                        setFieldError(data.data.errors[0].field.toLowerCase(), data.data.errors[0].message)
                         props.showAlert(
                            {
                               responseType: "WARNING",
@@ -155,17 +165,15 @@ export const DadosBancariosForm = (props) => {
                      </Col>
                      <Col className="mt-3" xs={12} sm={3}>
                         <DefaultValidationTextField
-                           onKeyPress={preventNonNumericalInput}
                            label="Agência"
                            name="bkd_agency"
                            type="text"
-                           maxLength="4"
+                           maxLength="6"
                            disabled={disableInput}
                         />
                      </Col>
                      <Col className="mt-3" xs={12} sm={3}>
                         <DefaultValidationTextField
-                           onKeyPress={preventNonNumericalInput}
                            label="Conta"
                            name="bkd_account"
                            type="text"

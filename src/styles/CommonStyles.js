@@ -39,6 +39,12 @@ export const RightAlignText = styled.div`
       text-align: end
    }`
 
+export const CenterAlignDivToMobile = styled.div`
+   @media all and (max-width: 767px) {
+      margin: 10px 15px;
+   }
+`
+
 export const SearchBarBorder = styled.div`
       border: 1px solid rgba(0,0,0,0.20);
       padding: 25px;
@@ -401,4 +407,20 @@ export const ToogleContainer = styled.div`
    @media (max-width: 769px) {
       padding-bottom: 35px;
    }
+`
+
+export const DivSpaceBtween = styled.div`
+   display: ${props => props.display ? 'flex' : 'default'};
+   justify-content: ${props => props.justifyContent ? 'space-between' : 'default'};
+   @media all and (max-width: 920px) {
+      display: flex;
+      flex-direction: column;
+      button {
+         margin-top: 1rem;
+      }
+   }
+`
+
+export const RightDivSchedule = styled.div`
+   max-width: 45vw; 
 `

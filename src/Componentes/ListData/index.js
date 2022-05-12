@@ -31,7 +31,6 @@ export default class ListarPagina extends Component {
          noDataAlertShow: null,
          redirect: false,
          noData: false,
-         noRender: false,
          user: cookies.get('user'),
          journeys: cookies.get('userType')
       }
@@ -62,7 +61,6 @@ export default class ListarPagina extends Component {
             dataFinal: nameFile !== "Demandas" ? moment(this.filter.finalDate).format('yyyy-MM-DD') : null,
          }
       })
-      // console.log(data)
       var file = new Blob([new Uint8Array(Buffer.from(data.data, 'base64'))], { type: "application/vnd.ms-excel" })
       const url = window.URL.createObjectURL(file)
       var relatorio = window.document.createElement('a');
@@ -161,10 +159,7 @@ export default class ListarPagina extends Component {
    }
 
    updateListing() {
-      if (this.props.match.path !== "/relatorios") {
-         this.fetchAndSetData({ page: this.state.page.current })
-      }
-      this.setState({ noRender: true })
+      this.fetchAndSetData({ page: this.state.page.current })
    }
 
    componentDidMount(oldProps) {

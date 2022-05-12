@@ -21,6 +21,90 @@ import InputMask from "react-input-mask";
 import ContextLogin from "../../../Context/ContextLogin"
 import moment from 'moment';
 import { FormatPhone } from '../../../Componentes/PhoneInput';
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
+async function submitEvaluation(rate, demCode, showAlert) {
+   const data = await request({
+      method: "post",
+      endpoint: `meetings/confirm-attendence`,
+      params: {
+         dem_cod: demCode,
+         rate: rate
+      }
+   })
+   showAlert(data.meta)
+}
+
+function ControlledRadioButtonsGroup(props) {
+   const [value, setValue] = React.useState('1');
+
+   const handleChange = (event) => {
+      setValue(event.target.value);
+   };
+
+   return (
+      <FormControl>
+         <FormLabel id="evaluation-controlled-radio-buttons-group">Avaliação</FormLabel>
+         <RadioGroup
+            row
+            aria-labelledby="evaluation-controlled-radio-buttons-group"
+            name="controlled-radio-buttons-group"
+            value={value}
+            onChange={handleChange}
+         >
+            <FormControlLabel value="1" control={<Radio />} label="1" />
+            <FormControlLabel value="2" control={<Radio />} label="2" />
+            <FormControlLabel value="3" control={<Radio />} label="3" />
+            <FormControlLabel value="4" control={<Radio />} label="4" />
+            <FormControlLabel value="5" control={<Radio />} label="5" />
+         </RadioGroup>
+         <Button variant="dark" onClick={() => {
+            submitEvaluation(value, props.demCode, props.showAlert)
+            props.closeModal()
+         }}>Realizar Avaliação</Button>
+      </FormControl >
+   );
+}
+const style = {
+   position: 'absolute',
+   top: '50%',
+   left: '50%',
+   transform: 'translate(-50%, -50%)',
+   // width: 400,
+   bgcolor: 'background.paper',
+   boxShadow: 24,
+   alignItems: 'center',
+   justifyContent: 'center',
+   p: 4,
+};
+
+
+export default function BasicModal(props) {
+   const [open, setOpen] = React.useState(false);
+   const handleOpen = () => setOpen(true);
+   const handleClose = () => setOpen(false);
+
+   return (
+      <div>
+         <Button variant="dark" onClick={handleOpen}>Realizar Avaliação</Button>
+         <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+         >
+            <Box sx={style}>
+               <ControlledRadioButtonsGroup closeModal={handleClose} demCode={props.demCode} showAlert={props.showAlert} />
+            </Box>
+         </Modal>
+      </div>
+   );
+}
 export const DemandForm = (props) => {
    const { userRoles, admin } = useContext(ContextLogin)
    const [primaryData, setPrimaryData] = useState()
@@ -135,6 +219,7 @@ export const DemandForm = (props) => {
                }
                return true;
             }),
+      dem_cli_cod: yup.string().max(10).required(),
       dem_desc: yup.string().max(500).required(),
       dem_comments: yup.string().max(500).nullable(true),
       dem_usr_cod: yup.number().required(),                           //Disabled in edit
@@ -188,7 +273,6 @@ export const DemandForm = (props) => {
             <Formik
                htmlFor="mainForm"
                initialValues={fields}
-               validateOnChange={false}
                validateOnBlur={false}
                validationSchema={validationSchema}
                onSubmit={
@@ -203,7 +287,7 @@ export const DemandForm = (props) => {
                         endpoint: postEndpoint,
                         data: {
                            ...values,
-                           dem_dtaction: moment(values.dem_dtaction).format("YYYY-MM-DD")
+                           dem_dtaction: values.dem_dtaction === '' ? '' : moment(values.dem_dtaction).format("YYYY-MM-DD")
                         },
                      });
                      if (data.meta.status === 100) {
@@ -382,6 +466,9 @@ export const DemandForm = (props) => {
                            >
                               Reenviar Avaliação
                            </Button>
+                        </Col>
+                        <Col>
+                           <BasicModal demCode={primaryData.dem_cod} showAlert={props.showAlert} />
                         </Col>
                      </Row>
                   }

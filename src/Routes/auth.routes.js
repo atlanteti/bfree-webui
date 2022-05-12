@@ -28,6 +28,7 @@ import ListarDemandas from "../Pages/Demandas/Listar";
 import CadastrarTipoMentores from "../Pages/Times/TipoMentores";
 import Log from "../Pages/Log";
 import UploadSheet from "../Pages/UploadSheet";
+import Downloads from "../Pages/Downloads"
 
 import ListarRelatorio from "../Pages/Relatorio/Listar";
 import Editar from "../Pages/Editar";
@@ -36,6 +37,7 @@ import { Horario } from "../Pages/Horarios";
 import ListarReunioes from "../Pages/Demandas/Listar/Reuniões";
 import ListarContatos from "../Pages/Demandas/Listar/Contato";
 import { Avaliacao } from "../Pages/Avaliacao";
+import { HorarioCalendario } from "../Pages/Horarios/Calendario";
 
 export default function AuthRoutes() {
    return (
@@ -53,6 +55,8 @@ export default function AuthRoutes() {
             <Route path="/relatoriogerencial" component={RelatorioGerencial} />
             {/* rotas de horario */}
             <Route path="/horario" component={Horario} />
+            {/* rotas de horario */}
+            <Route path="/horario-calendario" component={HorarioCalendario} />
             {/* rotas de empresas */}
             <Route path="/companhia" component={ListarCompanhia} />
 
@@ -77,6 +81,8 @@ export default function AuthRoutes() {
 
             {/* rotas de upload*/}
             <Route path="/upload" component={UploadSheet} />
+            {/* rotas de download*/}
+            <Route path="/download" component={Downloads} />
             {/* rotas de log */}
             <Route path="/log" component={Log}></Route>
             {/* rotas de reuniões */}

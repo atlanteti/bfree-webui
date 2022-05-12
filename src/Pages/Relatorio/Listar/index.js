@@ -18,7 +18,7 @@ import moment from 'moment'
 import ListUsers from '../../../Componentes/ListUsers'
 import ContextLogin from "../../../Context/ContextLogin";
 import Restricted from '../../../Context/AccessPermission'
-import { AiOutlineUpload } from "react-icons/ai"
+import { AiOutlineUpload, AiOutlineCheck } from "react-icons/ai"
 import ListTypeDemand from '../../../Componentes/ListTypeDemand'
 import NoDataComp from '../../../Componentes/NoDataComp'
 
@@ -30,7 +30,8 @@ export default class ListarRelatorio extends ListarPagina {
          headerData: [],
          formData: {},
          initialDate: new Date(moment().startOf('isoWeek')),
-         finalDate: new Date(moment().weekday(7))
+         finalDate: new Date(moment().weekday(7)),
+         generated: false
       }
       this.filter = {
          initialDate: new Date(moment().startOf('isoWeek')),
@@ -57,10 +58,11 @@ export default class ListarRelatorio extends ListarPagina {
          })
          const numbers = bodyData.map(line => line.slice(1))
          const numbersTransposed = numbers[0].map((_, colIndex) => numbers.map(row => row[colIndex]))
-         const reducedSum = numbersTransposed.map(
+         const reducedSum = numbersTransposed.map( // manter essa variavel por enquanto, para caso seja solicitado implementar uma linha para mostrar os resultatos por paginas
             line => line.reduce(
                (partial_sum, accumulator) => Number(partial_sum) + Number(accumulator), 0))
-         const lastLine = ["Total"].concat(reducedSum)
+         const lastLine = ["Total"].concat(numbers[numbers.length - 1])
+         bodyData.pop()
          bodyData = bodyData.concat([lastLine])
          data.data = bodyData.map(
             line => line.map(
@@ -71,7 +73,7 @@ export default class ListarRelatorio extends ListarPagina {
    }
    onSubmit(e) {
       e.preventDefault()
-      this.setState({ responseData: null, noRender: false })
+      this.setState({ responseData: null })
       this.fetchAndSetData({ page: 1 })
    }
 
@@ -99,7 +101,8 @@ export default class ListarRelatorio extends ListarPagina {
 
    requestExportData(event, endpointExport, nameFile) {
       event.preventDefault()
-      this.searchExportData({ extraParams: this.state.formData, endpointExport, nameFile })
+      let data = this.searchExportData({ extraParams: this.state.formData, endpointExport, nameFile })
+      this.setState({ generated: true })
       return
    }
 
@@ -208,13 +211,10 @@ export default class ListarRelatorio extends ListarPagina {
                                  </Col>
                               </Row>
                            </Col>
-                           <Col className="mt-3" xs={12} md={2} sm={5}>
-                              <NoDataComp />
-                              <Row>
-                                 <Col>
-                                    <BtnBlue type="submit" variant="dark">Buscar</BtnBlue>
-                                 </Col>
-                              </Row>
+                        </Row>
+                        <Row>
+                           <Col className="mt-4 d-flex justify-content-center">
+                              <BtnBlue type="submit" variant="dark">Buscar</BtnBlue>
                            </Col>
                         </Row>
                      </Form>
@@ -223,59 +223,55 @@ export default class ListarRelatorio extends ListarPagina {
                      <Row>
                         <Restricted>
                            <ExportContainer onClick={(event) => this.requestExportData(event, "export-billing", "Relatorio")}>
-                              <AiOutlineUpload size={23} className="mr-2" /> EXPORTAR EXCEL
+                              {!this.state.generated ? <><AiOutlineUpload size={23} className="mr-2" /> GERAR EXCEL </> : <> <AiOutlineCheck size={23} className="mr-2" />Em breve estará disponível na página de download</>}
                            </ExportContainer>
                         </Restricted>
                      </Row>
                   </Col>
                   <Row noGutters>
-                     {this.state.noRender ? <></> :
-                        <>
-                           {this.state.responseData === null
-                              ?
-                              <Row style={{ flex: 1 }}>
-                                 <Col className="mt-6 d-flex justify-content-center"><CircularProgress /></Col>
-                              </Row>
-                              :
-                              (
-                                 <>
-                                    <MainTable
-                                       noData={this.state.noData}
-                                       className={`table-borderless ${(this.state.noData || window.screen.width <= 425) ? '' : 'table-responsive'}`}
-                                    >
-                                       <TableHeader>
+                     {this.state.responseData === null
+                        ?
+                        <Row style={{ flex: 1 }}>
+                           <Col className="mt-6 d-flex justify-content-center"><CircularProgress /></Col>
+                        </Row>
+                        :
+                        (
+                           <>
+                              <MainTable
+                                 noData={this.state.noData}
+                                 className={`table-borderless ${(this.state.noData || window.screen.width <= 425) ? '' : 'table-responsive'}`}
+                              >
+                                 <TableHeader>
 
-                                          <TableRow>
-                                             {this.state.headerData.map((column) => {
-                                                return (
-                                                   <TextHeaderCell scope="col">
-                                                      {column}
-                                                   </TextHeaderCell>
-                                                )
-                                             })}
-                                          </TableRow>
-                                       </TableHeader>
-                                       <ReportTableData>
-                                          {this.state.responseData.slice(0, -1).map((user) => {
-                                             return (
-                                                <TableRow>{user.map((data) => {
-                                                   return <TextCell data-title={data[0]} Elipse>{data[1]}</TextCell>
-                                                })}</TableRow>
-                                             )
-                                          })}
-                                          {this.state.responseData.slice(-1).map((user) => {
-                                             return (
-                                                <TableRow>{user.map((data) => {
-                                                   return <TextCell data-title={data[0].toLowerCase() === "operador" ? "" : data[0]} fontTotal>{data[1]}</TextCell>
-                                                })}</TableRow>
-                                             )
-                                          })}
-                                       </ReportTableData>
-                                    </MainTable>
-                                 </>
-                              )
-                           }
-                        </>
+                                    <TableRow>
+                                       {this.state.headerData.map((column) => {
+                                          return (
+                                             <TextHeaderCell scope="col">
+                                                {column}
+                                             </TextHeaderCell>
+                                          )
+                                       })}
+                                    </TableRow>
+                                 </TableHeader>
+                                 <ReportTableData>
+                                    {this.state.responseData.slice(0, -1).map((user) => {
+                                       return (
+                                          <TableRow>{user.map((data) => {
+                                             return <TextCell data-title={data[0]} Elipse>{data[1]}</TextCell>
+                                          })}</TableRow>
+                                       )
+                                    })}
+                                    {this.state.responseData.slice(-1).map((user) => {
+                                       return (
+                                          <TableRow>{user.map((data) => {
+                                             return <TextCell data-title={data[0].toLowerCase() === "operador" ? "" : data[0]} fontTotal>{data[1]}</TextCell>
+                                          })}</TableRow>
+                                       )
+                                    })}
+                                 </ReportTableData>
+                              </MainTable>
+                           </>
+                        )
                      }
                      {this.createModal()}
                   </Row>

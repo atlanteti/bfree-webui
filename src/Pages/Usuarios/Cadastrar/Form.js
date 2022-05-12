@@ -72,6 +72,7 @@ export const UserForm = (props) => {
             <Formik
                htmlFor="mainForm"
                initialValues={fields}
+               validateOnBlur={false}
                validationSchema={yup.object({
                   usr_name: yup.string().max(200).required(),
                   usr_phone: yup.string().required()
