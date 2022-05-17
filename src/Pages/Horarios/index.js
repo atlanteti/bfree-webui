@@ -27,16 +27,31 @@ export function Horario() {
    const [message, setMessage] = useState(null)
    const [status, setStatus] = useState("warning")
 
+   function sendDays() {
+      var filteredDays = days.filter(function (value) {
+         return value.cam_start === undefined || value.cam_end === undefined;
+      });
+      if (filteredDays.length !== 0) {
+         filteredDays.filter(function (value) {
+            return value.cam_cod !== undefined;
+         });
+         filteredDays = days.filter(function (value) {
+            return value.cam_start !== undefined || value.cam_end !== undefined;
+         })
+      } else {
+         filteredDays = days
+      }
+
+      return filteredDays
+   }
+
    async function handleSubmit(event) {
       event.preventDefault()
-      var filteredDays = days.filter(function (value) {
-         return value.cam_start !== undefined;
-      });
       const data = await request({
          method: "post",
          endpoint: "calendar-for-month/save",
          data: {
-            availableDates: filteredDays
+            availableDates: sendDays()
          },
       })
       if (data.meta.status === 100) {
