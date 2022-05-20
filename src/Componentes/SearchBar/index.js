@@ -1,15 +1,29 @@
 import { Component } from 'react'
-
+import moment from 'moment'
 export default class SearchBar extends Component {
    constructor(props) {
       super(props)
       this.state = {
-         formData: {}
+         formData: {},
+         initialDate: null,
+         finalDate: null,
+      }
+      this.filter = {
+         initialDate: null,
+         finalDate: null,
       }
       this.onChange = this.onChange.bind(this)
       this.handleSubmit = this.handleSubmit.bind(this)
    }
-
+   changeDate(date, id) {
+      this.filter = {
+         ...this.filter,
+         [id]: date ? moment(date).format('yyyy-MM-DD') : null
+      }
+      this.setState({
+         [id]: date
+      })
+   }
    onChange(event) {
       this.setState({
          formData: {
@@ -27,8 +41,10 @@ export default class SearchBar extends Component {
       }))
    }
    handleSubmit(event) {
+      // TODO: Enviar a data formatada
+      const { initialDate, finalDate, formData } = this.state
       event.preventDefault()
-      this.props.filterData({ extraParams: this.state.formData })
+      this.props.filterData({ extraParams: { ...formData, initialDate, finalDate } })
       return
    }
 
