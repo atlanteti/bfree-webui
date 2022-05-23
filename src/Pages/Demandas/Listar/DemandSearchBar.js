@@ -54,8 +54,9 @@ export class DemandSearchBar extends SearchBar {
                            <DatePicker
                               placeholderText="dd/mm/aaaa"
                               dateFormat="dd/MM/yyyy"
-                              selected={this.state.initialDate}
-                              onChange={(dateSelect) => this.changeDate(dateSelect, "initialDate")}
+                              isClearable
+                              selected={this.state.dtActionBegin}
+                              onChange={(dateSelect) => this.changeDate(dateSelect, "dtActionBegin")}
                               customInput={
                                  <ValidationTextField
                                     label="Data Inicial"
@@ -72,8 +73,9 @@ export class DemandSearchBar extends SearchBar {
                            <DatePicker
                               placeholderText="dd/mm/aaaa"
                               dateFormat="dd/MM/yyyy"
-                              selected={this.state.finalDate}
-                              onChange={(dateSelect) => this.changeDate(dateSelect, "finalDate")}
+                              isClearable
+                              selected={this.state.dtActionEnd}
+                              onChange={(dateSelect) => this.changeDate(dateSelect, "dtActionEnd")}
                               customInput={
                                  <ValidationTextField
                                     label="Data Final"

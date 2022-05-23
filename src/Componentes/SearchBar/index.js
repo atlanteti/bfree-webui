@@ -5,12 +5,12 @@ export default class SearchBar extends Component {
       super(props)
       this.state = {
          formData: {},
-         initialDate: null,
-         finalDate: null,
+         dtActionBegin: null,
+         dtActionEnd: null,
       }
       this.filter = {
-         initialDate: null,
-         finalDate: null,
+         dtActionBegin: null,
+         dtActionEnd: null,
       }
       this.onChange = this.onChange.bind(this)
       this.handleSubmit = this.handleSubmit.bind(this)
@@ -18,7 +18,7 @@ export default class SearchBar extends Component {
    changeDate(date, id) {
       this.filter = {
          ...this.filter,
-         [id]: date ? moment(date).format('yyyy-MM-DD') : null
+         [id]: date ? moment(date).format('DD-MM-yyyy') : null
       }
       this.setState({
          [id]: date
@@ -42,9 +42,10 @@ export default class SearchBar extends Component {
    }
    handleSubmit(event) {
       // TODO: Enviar a data formatada
-      const { initialDate, finalDate, formData } = this.state
+      const { formData } = this.state
+      const { dtActionBegin, dtActionEnd } = this.filter
       event.preventDefault()
-      this.props.filterData({ extraParams: { ...formData, initialDate, finalDate } })
+      this.props.filterData({ extraParams: { ...formData, dtActionBegin, dtActionEnd } })
       return
    }
 
