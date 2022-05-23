@@ -18,7 +18,7 @@ export default class SearchBar extends Component {
    changeDate(date, id) {
       this.filter = {
          ...this.filter,
-         [id]: date ? moment(date).format('DD-MM-yyyy') : null
+         [id]: date ? moment(date).format('yyyy-MM-DD') : null
       }
       this.setState({
          [id]: date
