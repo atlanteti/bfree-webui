@@ -61,8 +61,9 @@ export const request = async ({
          return
       } else if (result.data.meta.status === 204) {
          window.location.replace(process.env.PUBLIC_URL + "/demandas")
+      } else if (result.data.meta.status === 216) {
+         window.location.replace(process.env.PUBLIC_URL + `/editar/dados/${Number(cookieGetter.cookies.user)}/alterar`)
       }
-
       return result.data
    } catch (error) {
       try {
