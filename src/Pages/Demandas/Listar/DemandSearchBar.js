@@ -6,10 +6,11 @@ import ListStatusDemands from '../../../Componentes/ListStatusDemands';
 import ListTypeDemand from '../../../Componentes/ListTypeDemand';
 import ListUsers from '../../../Componentes/ListUsers';
 import ContextLogin from "../../../Context/ContextLogin";
-import { InputTextField } from '../../../Componentes/FormFields';
+import { InputTextField, ValidationTextField } from '../../../Componentes/FormFields';
 import Restricted from '../../../Context/AccessPermission'
 import { AiOutlineUpload } from "react-icons/ai"
 import { RiFileList3Line } from "react-icons/ri"
+import DatePicker from "react-datepicker";
 
 export class DemandSearchBar extends SearchBar {
    render() {
@@ -47,6 +48,48 @@ export class DemandSearchBar extends SearchBar {
                            name="dem_tdm_cod" />
                      </Col>
                   </Row>
+                  {this.state.formData?.dem_sdm_cod === 3 &&
+                     <Row>
+                        <Col className="mt-2" xs={12} md={3} sm={6}>
+                           <DatePicker
+                              placeholderText="dd/mm/aaaa"
+                              dateFormat="dd/MM/yyyy"
+                              isClearable
+                              selected={this.state.dtActionBegin}
+                              onChange={(dateSelect) => this.changeDate(dateSelect, "dtActionBegin")}
+                              customInput={
+                                 <ValidationTextField
+                                    label="Data Inicial"
+                                    type="text"
+                                    fullWidth
+                                    InputLabelProps={{
+                                       shrink: true,
+                                    }}
+                                 />
+                              }
+                           />
+                        </Col>
+                        <Col className="mt-2" xs={12} md={3} sm={6}>
+                           <DatePicker
+                              placeholderText="dd/mm/aaaa"
+                              dateFormat="dd/MM/yyyy"
+                              isClearable
+                              selected={this.state.dtActionEnd}
+                              onChange={(dateSelect) => this.changeDate(dateSelect, "dtActionEnd")}
+                              customInput={
+                                 <ValidationTextField
+                                    label="Data Final"
+                                    type="text"
+                                    fullWidth
+                                    InputLabelProps={{
+                                       shrink: true,
+                                    }}
+                                 />
+                              }
+                           />
+                        </Col>
+                     </Row>
+                  }
                   <Row>
                      <Col className="mt-4 d-flex justify-content-center">
                         <BtnBlue variant="dark" type="submit">
