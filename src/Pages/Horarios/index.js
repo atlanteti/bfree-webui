@@ -27,16 +27,31 @@ export function Horario() {
    const [message, setMessage] = useState(null)
    const [status, setStatus] = useState("warning")
 
+   function sendDays() {
+      var filteredDays = days.filter(function (value) {
+         return value.cam_start === undefined || value.cam_end === undefined;
+      });
+      if (filteredDays.length !== 0) {
+         filteredDays.filter(function (value) {
+            return value.cam_cod !== undefined;
+         });
+         filteredDays = days.filter(function (value) {
+            return value.cam_start !== undefined || value.cam_end !== undefined;
+         })
+      } else {
+         filteredDays = days
+      }
+
+      return filteredDays
+   }
+
    async function handleSubmit(event) {
       event.preventDefault()
-      var filteredDays = days.filter(function (value) {
-         return value.cam_start !== undefined;
-      });
       const data = await request({
          method: "post",
          endpoint: "calendar-for-month/save",
          data: {
-            availableDates: filteredDays
+            availableDates: sendDays()
          },
       })
       if (data.meta.status === 100) {
@@ -84,7 +99,7 @@ export function Horario() {
                         indexWeek={1}
                         data={seg}
                         onChange={handleChange}
-                        onDuplicate={() => addNewRow(seg, setSeg)}
+                        onDuplicate={() => addNewRow(seg, setSeg, 1)}
                         removeDuplicate={removeRow}
                         changeState={setSeg}
                      />
@@ -93,7 +108,7 @@ export function Horario() {
                         indexWeek={2}
                         data={ter}
                         onChange={handleChange}
-                        onDuplicate={() => addNewRow(ter, setTer)}
+                        onDuplicate={() => addNewRow(ter, setTer, 2)}
                         removeDuplicate={removeRow}
                         changeState={setTer}
                         bgColor={"#F8FAFF"}
@@ -103,7 +118,7 @@ export function Horario() {
                         data={qua}
                         indexWeek={3}
                         onChange={handleChange}
-                        onDuplicate={() => addNewRow(qua, setQua)}
+                        onDuplicate={() => addNewRow(qua, setQua, 3)}
                         removeDuplicate={removeRow}
                         changeState={setQua}
                      />
@@ -112,7 +127,7 @@ export function Horario() {
                         indexWeek={4}
                         data={qui}
                         onChange={handleChange}
-                        onDuplicate={() => addNewRow(qui, setQui)}
+                        onDuplicate={() => addNewRow(qui, setQui, 4)}
                         removeDuplicate={removeRow}
                         changeState={setQui}
                         bgColor={"#F8FAFF"}
@@ -122,7 +137,7 @@ export function Horario() {
                         indexWeek={5}
                         data={sex}
                         onChange={handleChange}
-                        onDuplicate={() => addNewRow(sex, setSex)}
+                        onDuplicate={() => addNewRow(sex, setSex, 5)}
                         removeDuplicate={removeRow}
                         changeState={setSex}
                      />
@@ -131,7 +146,7 @@ export function Horario() {
                         indexWeek={6}
                         data={sab}
                         onChange={handleChange}
-                        onDuplicate={() => addNewRow(sab, setSab)}
+                        onDuplicate={() => addNewRow(sab, setSab, 6)}
                         removeDuplicate={removeRow}
                         changeState={setSab}
                      />
