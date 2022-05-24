@@ -12,6 +12,11 @@ import CalendarPicker from '@mui/lab/CalendarPicker';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import moment from "moment"
+import { styled } from '@mui/material/styles';
+
+const Calendar = styled(CalendarPicker)({
+   maxWidth: '270px'
+})
 export function HorarioCalendario() {
    const {
       renderData,
@@ -85,7 +90,7 @@ export function HorarioCalendario() {
                      <LocalizationProvider dateAdapter={AdapterDateFns}>
                         <Row>
                            <Col xs={12} sm={6} md={5}>
-                              <CalendarPicker date={date} onChange={(newDate) => {
+                              <Calendar date={date} onChange={(newDate) => {
                                  setDate(newDate)
                                  renderDataComponent(newDate)
                               }} />

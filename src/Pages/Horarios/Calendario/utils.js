@@ -24,12 +24,16 @@ export const UtilsHourCalendar = () => {
          return days[days.length - 1].cal_end = event.target.value
       }
    }
-   function editExistinNewDay(event) {
-      if (event.target.name === "cal_start") {
-         return days[days.length - 1].cal_start = event.target.value
-      } else {
-         return days[days.length - 1].cal_end = event.target.value
-      }
+   function editExistinNewDay(event, currentItem) {
+      return currentItem[event.target.name] = event.target.value
+   }
+   function createNewDay(event, formatDate) {
+      return setDays([
+         ...days, {
+            "cal_date": formatDate,
+            [event.target.name]: event.target.value
+         }
+      ])
    }
    function handleChange(event, currentItem, dayMonth, date) {
       const formatDate = moment(date).format('yyyy-MM-DD')
@@ -41,6 +45,9 @@ export const UtilsHourCalendar = () => {
             [event.target.name]: event.target.value
          }
       })
+      if (!verifyEmptyField && populate[dayMonth] === undefined) {
+         return createNewDay(event, formatDate, dayMonth)
+      }
       if (verifyEmptyField && currentItem.cal_cod === undefined) {
          if (currentItem.cal_start === null && currentItem.cal_end !== null) {
             setPopulate([])
@@ -50,17 +57,6 @@ export const UtilsHourCalendar = () => {
          }
       }
       if (event.target.name === "cal_end" && currentItem.cal_cod === undefined) {
-         if (!verifyEmptyField && populate[dayMonth] === undefined) {
-            // começa o preenchimento pelo horario final
-            return setDays([
-               ...days, {
-                  ...populate[dayMonth],
-                  "cal_date": formatDate,
-                  "cal_start": null,
-                  [event.target.name]: event.target.value
-               }
-            ])
-         }
          if (days[days.length - 1] !== undefined) {
             editNewDay(event, currentItem, dayMonth, formatDate)
          }
@@ -75,12 +71,7 @@ export const UtilsHourCalendar = () => {
          }
       }
       if (currentItem.cal_cod) {
-         // é chamado quando esta sendo editado algum horario ja existente
-         if (event.target.name === "cal_end") {
-            currentItem.cal_end = event.target.value
-         } else {
-            currentItem.cal_start = event.target.value
-         }
+         currentItem[event.target.name] = event.target.value
       }
    }
    function addNewRowCalendar(currentArray, date) {
