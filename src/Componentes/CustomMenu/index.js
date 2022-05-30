@@ -331,6 +331,7 @@ function ConsultorMenu(props) {
             vertical: 'top',
             horizontal: 'left',
          }}
+         disableScrollLock
       >
          <List>
             <ListItem button
@@ -379,6 +380,7 @@ function PreConsultorMenu(props) {
             vertical: 'top',
             horizontal: 'left',
          }}
+         disableScrollLock
       >
          <List>
             <ListItem button
