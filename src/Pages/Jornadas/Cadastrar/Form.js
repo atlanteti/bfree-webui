@@ -99,7 +99,7 @@ export const JourneyForm = (props) => {
                            name="jny_name"
                            label="Nome"
                            type="text"
-                           maxLength="10"
+                           maxLength="45"
                         />
                      </Col>
                      <Col className="mt-3" xs={12} sm={5}>
