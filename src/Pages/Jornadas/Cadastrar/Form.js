@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Form, Formik } from 'formik';
 import yup from "../../../Services/validations";
 import { request } from '../../../Services/api';
-import { DefaultValidationTextField, preventNonNumericalInput } from '../../../Componentes/FormikComponents/DefaultValidationTextField';
+import { DefaultValidationTextField } from '../../../Componentes/FormikComponents/DefaultValidationTextField';
 import { Col, Row, Button } from 'react-bootstrap'
 import { ButtonRow } from '../../../Componentes/ButtonRow'
 import { BackGroundForm, BtnBlue, TitleRegister } from '../../../styles/CommonStyles'
@@ -52,7 +52,7 @@ export const JourneyForm = (props) => {
    }, [])
    let validationSchema = yup.object({
       jny_name: yup.string().max(45).required(),
-      jny_cpn_cod: yup.string().max(45).required(),
+      jny_cpn_cod: yup.number().required(),
    })
    return (
       <>
