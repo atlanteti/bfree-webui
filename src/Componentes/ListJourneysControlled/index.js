@@ -28,7 +28,7 @@ export default class ListJourneysControlled extends Component {
       this.getJourneys();
    }
    onChange(event) {
-      if (event.target.value !== null) {
+      if (event.target.value !== "") {
          const jny_cpn_cod = this.state.journeys.filter((journey) => { return journey.jny_cod == event.target.value; })[0].jny_cpn_cod;
          let journeyWithCompany = {
             ...event,
