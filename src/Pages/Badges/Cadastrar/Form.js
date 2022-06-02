@@ -53,6 +53,12 @@ export const BadgeForm = (props) => {
                   tempFields[key] = ""
                }
             }
+            if (tempFields['bdg_cpn_cod'] !== "" && tempFields['bdg_jny_cod'] === "") {
+               setDisableJourney(true)
+            }
+            if (tempFields['bdg_jny_cod'] !== "") {
+               setDisableCompany(true)
+            }
             setFields(tempFields)
          } catch (error) {
             console.log(error);
@@ -67,51 +73,6 @@ export const BadgeForm = (props) => {
       bdg_description: yup.string().max(400).required(),
       bdg_detail: yup.string().max(400).required(),
    })
-   function handleChangeJourneyControlled(e) {
-      let cpn_value;
-      if (e.jny_cpn_cod !== undefined) {
-         companyCodeSetter(e.jny_cpn_cod)
-         setDisableCompany(true)
-         cpn_value = e.jny_cpn_cod
-      }
-      else {
-         setDisableCompany(false)
-         cpn_value = ""
-      }
-      journeyCodeSetter(e.value)
-      this.handleChange({ target: { id: "bdg_cpn_cod", value: String(cpn_value) } })
-   }
-
-   function journeyCodeSetter(journeyCode) {
-      // this.setState((state, props) => ({
-      //    primaryData: {
-      //       ...state.primaryData,
-      //       bdg_jny_cod: journeyCode
-      //    }
-      // }))
-   }
-   // TODO: create a empty menuitem to return to null value
-   function handleChangeCompanyControlled(e) {
-      {
-         if (e.target.value !== null && e.target.value !== "") {
-            setDisableJourney(true)
-         }
-         else {
-            setDisableJourney(false)
-         }
-      }
-      // companyCodeSetter(e.target.value)
-      // handleChange({ target: { id: "bdg_jny_cod", value: "" } })
-   }
-
-   function companyCodeSetter(companyCode) {
-      this.setState((state, props) => ({
-         primaryData: {
-            ...state.primaryData,
-            bdg_cpn_cod: companyCode
-         }
-      }))
-   }
    return (
       <>
          <ButtonRow
@@ -162,12 +123,20 @@ export const BadgeForm = (props) => {
                      </Col>
                      <Col className="mt-3" xs={12} sm={6}>
                         <ListCompanies
+                           disabled={disableCompany}
                            name="bdg_cpn_cod"
                            label="Empresa"
                            onChange={(event) => {
-                              handleChangeCompanyControlled(event)
+                              if (event.target.value !== null && event.target.value !== "") {
+                                 setDisableJourney(true)
+                              }
+                              else {
+                                 setDisableJourney(false)
+                              }
                               setFieldValue("bdg_cpn_cod", event.target.value)
+                              setFieldValue("bdg_jny_cod", null)
                            }}
+                           notRequired
                         />
                      </Col>
                   </Row>
@@ -184,7 +153,7 @@ export const BadgeForm = (props) => {
                         <ListJourneysControlled
                            disabled={disableJourney}
                            name="bdg_jny_cod"
-                           controlId="bdg_jny_cod"
+                           value={values.bdg_jny_cod}
                            onChange={(event) => {
                               let cpn_value;
                               if (event.jny_cpn_cod !== undefined) {
@@ -195,7 +164,7 @@ export const BadgeForm = (props) => {
                                  setDisableCompany(false)
                                  cpn_value = ""
                               }
-                              // journeyCodeSetter(event.value)
+                              setFieldValue("bdg_jny_cod", event.value)
                               setFieldValue("bdg_cpn_cod", cpn_value)
                            }}
                         />
