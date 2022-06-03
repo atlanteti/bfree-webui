@@ -38,7 +38,7 @@ export function HorarioCalendario() {
    async function handleSubmit(event) {
       event.preventDefault()
       var filteredDays = days.filter(function (value) {
-         return moment(value.cal_date).format('yyyy-MM-DD') === formatDate
+         return moment(value.cal_date).format('yyyy-MM-DD') === formatDate && value.cal_start !== undefined && value.cal_end !== undefined
       });
       const data = await request({
          method: "post",
