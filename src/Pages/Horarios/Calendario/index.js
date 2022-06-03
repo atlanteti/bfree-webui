@@ -35,17 +35,28 @@ export function HorarioCalendario() {
       let getDataHours = returnDay(date)
       setChangeDataDay(getDataHours)
    }
+   function sendDays() {
+      function verifyDayAndHour(value, condition) {
+         return moment(value.cal_date).format('yyyy-MM-DD') === formatDate
+            && condition === "equal" ? value.cal_start === undefined : value.cal_start !== undefined
+               && condition === "equal" ? value.cal_end === undefined : value.cal_end !== undefined;
+      }
+      var filteredDays = days.filter((value) => verifyDayAndHour(value, "equal"))
+      if (filteredDays.length === 0) {
+         filteredDays = days
+      } else {
+         filteredDays = days.filter((value) => verifyDayAndHour(value, "different"))
+      }
+      return filteredDays
+   }
    async function handleSubmit(event) {
       event.preventDefault()
-      var filteredDays = days.filter(function (value) {
-         return moment(value.cal_date).format('yyyy-MM-DD') === formatDate && value.cal_start !== undefined && value.cal_end !== undefined
-      });
       const data = await request({
          method: "post",
          endpoint: "calendar/save",
          data: {
             calendarDate: formatDate,
-            availableDates: filteredDays
+            availableDates: sendDays()
          },
       })
       if (data.meta.status === 100) {
@@ -53,6 +64,7 @@ export function HorarioCalendario() {
          setStatus('success')
       } else {
          setMessage(data.meta.message)
+         setStatus('warning')
       }
       setShowAlert(true)
    }
