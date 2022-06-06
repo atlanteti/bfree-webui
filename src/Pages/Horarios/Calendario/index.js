@@ -36,18 +36,28 @@ export function HorarioCalendario() {
       setChangeDataDay(getDataHours)
    }
    function sendDays() {
-      function verifyDayAndHour(value, condition) {
-         return moment(value.cal_date).format('yyyy-MM-DD') === formatDate
-            && condition === "equal" ? value.cal_start === undefined : value.cal_start !== undefined
-               && condition === "equal" ? value.cal_end === undefined : value.cal_end !== undefined;
-      }
-      var filteredDays = days.filter((value) => verifyDayAndHour(value, "equal"))
-      if (filteredDays.length === 0) {
-         filteredDays = days
+      let atLeastOneHourEmpty = days.filter((value) =>
+         moment(value.cal_date).format('yyyy-MM-DD') === formatDate
+         && value.cal_start === undefined || value.cal_end === undefined
+      )
+      let noEmptyHours = days.filter((value) =>
+         moment(value.cal_date).format('yyyy-MM-DD') === formatDate
+         && value.cal_start !== undefined && value.cal_end !== undefined
+      )
+      let emptyHours = days.filter((value) =>
+         moment(value.cal_date).format('yyyy-MM-DD') === formatDate
+         && value.cal_start === undefined && value.cal_end === undefined
+      )
+      if (atLeastOneHourEmpty.length === 0) {
+         return noEmptyHours
+      } else if (atLeastOneHourEmpty.length !== 0 && emptyHours.length !== 0) {
+         if (noEmptyHours.length !== 0) {
+            return noEmptyHours
+         }
+         return []
       } else {
-         filteredDays = days.filter((value) => verifyDayAndHour(value, "different"))
+         return atLeastOneHourEmpty
       }
-      return filteredDays
    }
    async function handleSubmit(event) {
       event.preventDefault()
