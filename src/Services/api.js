@@ -60,7 +60,15 @@ export const request = async ({
          window.Eduzz.Accounts.logout({ env: process.env.REACT_APP_EDUZZ_ENV, redirectTo: window.location.origin })
          return
       } else if (result.data.meta.status === 204) {
-         window.location.replace(process.env.PUBLIC_URL + "/demandas")
+         let route;
+         if (cookieGetter.cookies.userType.includes('PRÉ-CONSULTOR')) {
+            route = "/contato"
+         } else if (cookieGetter.cookies.userType.includes('CONSULTOR')) {
+            route = "/reunioes"
+         } else {
+            route = "/demandas"
+         }
+         window.location.replace(process.env.PUBLIC_URL + route)
       } else if (result.data.meta.status === 216) {
          window.location.replace(process.env.PUBLIC_URL + `/editar/dados/${Number(cookieGetter.cookies.user)}/alterar`)
       }
