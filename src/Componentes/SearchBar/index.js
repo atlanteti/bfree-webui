@@ -41,7 +41,6 @@ export default class SearchBar extends Component {
       }))
    }
    handleSubmit(event) {
-      // TODO: Enviar a data formatada
       const { formData } = this.state
       const { dtActionBegin, dtActionEnd } = this.filter
       event.preventDefault()
@@ -51,7 +50,9 @@ export default class SearchBar extends Component {
 
    requestExportData(event, endpointExport, nameFile) {
       event.preventDefault()
-      let data = this.props.exportData({ extraParams: this.state.formData, endpointExport, nameFile })
+      const { formData } = this.state
+      const { dtActionBegin, dtActionEnd } = this.filter
+      let data = this.props.exportData({ extraParams: { ...formData, dtActionBegin, dtActionEnd }, endpointExport, nameFile })
       return
    }
 
