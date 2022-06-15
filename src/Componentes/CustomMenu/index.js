@@ -4,7 +4,7 @@ import Icon from 'awesome-react-icons'
 import React, { useContext, useState } from 'react'
 import 'react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css'
 import { makeStyles } from "@material-ui/core/styles";
-import { TopBarContainer, ToogleContainer } from '../../styles/CommonStyles'
+import { TopBarContainer, ToogleContainer, VersionStyled } from '../../styles/CommonStyles'
 import { Cookies } from "react-cookie";
 import ContextLogin from '../../Context/ContextLogin'
 import { IoChevronForwardOutline } from "react-icons/io5"
@@ -55,6 +55,7 @@ export const CustomMenu = (props) => {
                <div className="topbar-user">
                   {signed && <p>Usuário: {userEmail}</p>}
                </div>
+               <VersionStyled>v8.10.0</VersionStyled>
             </TopBarContainer>
          </Toolbar>
       </AppBar>
