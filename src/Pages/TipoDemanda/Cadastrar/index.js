@@ -6,7 +6,7 @@ import { Redirect } from 'react-router-dom'
 import { Col } from 'react-bootstrap'
 import { CustomMenu } from '../../../Componentes/CustomMenu'
 import { CustomAlert } from '../../../Componentes/CustomAlert'
-import TypeDemandForm from './Form'
+import { TypeDemandForm } from './Form'
 
 export default class CadastrarTipoDemanda extends Component {
    constructor(props) {
