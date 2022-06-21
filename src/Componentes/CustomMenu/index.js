@@ -51,11 +51,11 @@ export const CustomMenu = (props) => {
             <TopBarContainer>
                <div>
                   <strong>B</strong>free
+                  <VersionStyled>v8.10.0</VersionStyled>
                </div>
                <div className="topbar-user">
                   {signed && <p>Usuário: {userEmail}</p>}
                </div>
-               <VersionStyled>v8.10.0</VersionStyled>
             </TopBarContainer>
          </Toolbar>
       </AppBar>

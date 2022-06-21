@@ -426,9 +426,6 @@ export const RightDivSchedule = styled.div`
 `
 
 export const VersionStyled = styled.p`
-   position: absolute;
-   top: 40px;
-   left: 35px;
    color: #546E7A;
    font-size: 0.8rem;
 `
