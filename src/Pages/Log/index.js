@@ -11,6 +11,7 @@ import moment from "moment";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { CircularProgress } from "@mui/material";
 
 class Log extends Component {
    constructor(props) {
@@ -20,6 +21,7 @@ class Log extends Component {
          logs: false,
          initialDate: null,
          finalDate: null,
+         loading: true
          // userId,  initialDate, finalDate, logAction
       }
       this.filter = {
@@ -48,7 +50,8 @@ class Log extends Component {
       }).then(data => {
          this.setState({
             logs: data.data,
-            page: data.meta.pagination
+            page: data.meta.pagination,
+            loading: false
          })
       })
    }
@@ -62,6 +65,7 @@ class Log extends Component {
    }
    onSubmit(e) {
       e.preventDefault()
+      this.setState({ loading: true, logs: "" })
       this.fetchAndSetData(
          {
             page: 1,
@@ -187,7 +191,11 @@ class Log extends Component {
                            </Form>
                         </SearchBarBorder>
                      </BottomMargin>
-
+                     {this.state.loading &&
+                        <Row className="mb-4 d-flex justify-content-center">
+                           <CircularProgress />
+                        </Row>
+                     }
                      {this.state.logs ?
                         <>{this.state.logs.map(log => {
                            let logKeys = {}
