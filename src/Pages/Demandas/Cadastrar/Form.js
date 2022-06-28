@@ -113,7 +113,7 @@ export const DemandForm = (props) => {
    const [pageTop, scrollToTop] = useScroll()
    const [freeTime, setFreeTime] = useState()
    const [contacts, setContacts] = useState()
-   const [loading, setLoading] = useState(true)
+   const [loading, setLoading] = useState(false)
    const [meetingDataRequest, setMeetingData] = useState()
    const disableDateMeeting = userRoles?.length !== 2 && userRoles?.includes("CONSULTOR")
    const showButtons = userRoles?.length !== 2 && userRoles?.includes("PRÉ-VENDA")
@@ -159,6 +159,7 @@ export const DemandForm = (props) => {
    useEffect(() => {
       let tempFields = {}
       const requestData = async () => {
+         setLoading(true)
          try {
             const data = await request({
                method: "get",
