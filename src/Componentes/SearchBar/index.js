@@ -41,18 +41,24 @@ export default class SearchBar extends Component {
       }))
    }
    handleSubmit(event) {
-      // TODO: Enviar a data formatada
       const { formData } = this.state
       const { dtActionBegin, dtActionEnd } = this.filter
       event.preventDefault()
-      this.props.filterData({ extraParams: { ...formData, dtActionBegin, dtActionEnd } })
-      return
+      if (formData.dem_sdm_cod !== 3) { // when status demand is different from Comparecido
+         return this.props.filterData({ extraParams: formData })
+      }
+      return this.props.filterData({ extraParams: { ...formData, dtActionBegin, dtActionEnd } })
+
    }
 
    requestExportData(event, endpointExport, nameFile) {
       event.preventDefault()
-      let data = this.props.exportData({ extraParams: this.state.formData, endpointExport, nameFile })
-      return
+      const { formData } = this.state
+      const { dtActionBegin, dtActionEnd } = this.filter
+      if (formData.dem_sdm_cod !== 3) { // when status demand is different from Comparecido
+         return this.props.exportData({ extraParams: formData, endpointExport, nameFile })
+      }
+      return this.props.exportData({ extraParams: { ...formData, dtActionBegin, dtActionEnd }, endpointExport, nameFile })
    }
 
    requestSchedule(event) {

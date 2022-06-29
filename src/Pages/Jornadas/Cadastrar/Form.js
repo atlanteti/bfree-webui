@@ -1,94 +1,128 @@
-import React from 'react'
-import { Form, Col, Row, Button } from 'react-bootstrap'
-import { SelectField, InputTextField } from '../../../Componentes/FormFields'
-import { DateField } from '../../../Componentes/DateField'
+import React, { useEffect, useState } from 'react'
+import { Form, Formik } from 'formik';
+import yup from "../../../Services/validations";
+import { request } from '../../../Services/api';
+import { DefaultValidationTextField } from '../../../Componentes/FormikComponents/DefaultValidationTextField';
+import { Col, Row, Button } from 'react-bootstrap'
 import { ButtonRow } from '../../../Componentes/ButtonRow'
-import { EditCreateForm } from '../../../Componentes/EditCreateForm/index'
-import ListCompanies from '../../../Componentes/ListCompanies'
-import CircularProgress from '@material-ui/core/CircularProgress'
 import { BackGroundForm, BtnBlue, TitleRegister } from '../../../styles/CommonStyles'
 import { IoChevronBackCircleSharp } from "react-icons/io5"
+import { Timestamps } from '../../../Componentes/FormikComponents/Timestamps';
+import { ListCompanies } from '../../../Componentes/FormikComponents/ListCompanies';
 
-export default function JourneyForm(props) {
-   return <JourneyFormBuilder insertDataEndpoint="journeys/cadastrar"
-      requestDataEndpoint="journeys/procurar/"
-      editDataEndpoint="journeys/alterar/"
-      {...props} />
-}
-
-export class JourneyFormBuilder extends EditCreateForm {
-   render() {
-      return (
-         <>
-            {this.state.loading && this.paramRoute !== 'inserir'
-               ?
-               <Row>
-                  <Col md={{ offset: 6 }}><CircularProgress /></Col>
-               </Row>
-               :
-               (
-                  <>
-                     <Form onSubmit={this.handleSubmit} validated={this.state.validated} noValidate>
-                        <ButtonRow
-                           cancelButton={<Button variant="light" onClick={this.redirectCallback}><IoChevronBackCircleSharp size={30} color="#BFCADD" /></Button>}
-                           titlePage={<TitleRegister>{this.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'} Jornada</TitleRegister>}
-                        />
-                        <BackGroundForm xs={1} className={'mb-2'} noGutters>
-                           <Row>
-                              <Col className="mt-3" xs={12} sm={5}>
-                                 <InputTextField
-                                    id="jny_name"
-                                    label="Nome"
-                                    type="text"
-                                    maxLength="45"
-                                    validated={this.state.validated}
-                                    defaultValue={this.state.primaryData?.jny_name}
-                                    errorMessage={this.state.jny_name}
-                                    onChange={this.handleChange}
-                                    required
-                                 />
-                              </Col>
-                              <Col className="mt-3" xs={12} sm={5}>
-                                 <ListCompanies
-                                    name="jny_cpn_cod"
-                                    validated={this.state.validated}
-                                    defaultValue={this.props.primaryId}
-                                    errorMessage={this.state.jny_cpn_cod}
-                                    onChange={this.handleSelect}
-                                    defaultCompany={this.state.primaryData.jny_cpn_cod}
-                                    required />
-                              </Col>
-                              <Col className="mt-4" xs={12} sm={2}>
-                                 <BtnBlue variant="dark" type="submit">Salvar</BtnBlue>
-                              </Col>
-                           </Row>
-
-                           {this.props.paramRoute === 'inserir'
-                              ? ''
-                              : (
-                                 <Row className="mt-6">
-                                    <Col md={{ offset: 1 }} xs={12} sm={5}>
-                                       <DateField
-                                          controlId="jny_dtcreation"
-                                          Label="Data de criação:"
-                                          date={this.state.primaryData?.jny_dtcreation} />
-                                    </Col>
-                                    {this.state.primaryData?.jny_dtupdate === null
-                                       ? ''
-                                       : <Col xs={12} sm={5}>
-                                          <DateField
-                                             controlId="jny_dtupdate"
-                                             Label="Data de atualização:"
-                                             date={this.state.primaryData?.jny_dtupdate} />
-                                       </Col>}
-                                 </Row>
-                              )}
-                        </BackGroundForm>
-                     </Form>
-                  </>
-               )
-            }
-         </>
-      )
+export const JourneyForm = (props) => {
+   const [primaryData, setPrimaryData] = useState()
+   const [fields, setFields] = useState(
+      {
+         jny_name: "",
+         jny_cpn_cod: "",
+      }
+   )
+   let method = "post"
+   let postEndpoint = "journeys/cadastrar"
+   if (props.paramRoute !== "inserir") {
+      postEndpoint = "journeys/alterar/" + props.primaryId
+      method = "put"
    }
+   useEffect(() => {
+      let tempFields = {}
+      const requestData = async () => {
+         try {
+            const data = await request({
+               method: "get",
+               endpoint: "journeys/procurar/" + props.primaryId,
+            });
+            setPrimaryData(data.data)
+            for (const key of Object.keys(fields)) {
+               if (data.data[key] !== null) {
+                  tempFields[key] = data.data[key]
+               }
+               else {
+                  tempFields[key] = ""
+               }
+            }
+            setFields(tempFields)
+         } catch (error) {
+            console.log(error);
+         }
+      }
+      if (props.paramRoute !== "inserir") {
+         requestData();
+      }
+   }, [])
+   let validationSchema = yup.object({
+      jny_name: yup.string().max(45).required(),
+      jny_cpn_cod: yup.number().required(),
+   })
+   return (
+      <>
+         <ButtonRow
+            cancelButton={<Button variant="light" onClick={props.redirectCallback}><IoChevronBackCircleSharp size={30} color="#BFCADD" /></Button>}
+            titlePage={<TitleRegister>{props.paramRoute === 'inserir' ? 'Cadastrar' : 'Editar'} Jornada</TitleRegister>}
+         />
+         <BackGroundForm xs={1} className={'mb-2'} noGutters>
+            <Formik
+               htmlFor="mainForm"
+               initialValues={fields}
+               validateOnBlur={false}
+               validationSchema={validationSchema}
+               onSubmit={
+                  async (values, { setSubmitting, setFieldError }) => {
+                     const data = await request({
+                        method: method,
+                        endpoint: postEndpoint,
+                        data: {
+                           ...values,
+                        },
+                     });
+                     if (data.meta.status === 100) {
+                        props.showAlert(data.meta)
+                     }
+                     else if (data.meta.status === 212) {
+                        props.showAlert(data.meta)
+                     }
+                     if (data.meta.status === 422) {
+                        setFieldError(data.data[0].field.toLowerCase(), data.data[0].message)
+                     }
+                     else {
+                        console.log("Uncaught exception")
+                     }
+                     setSubmitting(false);
+                  }
+               }
+               enableReinitialize
+            >{({ }) => (
+               <Form id="mainForm">
+                  <Row>
+                     <Col className="mt-3" xs={12} sm={5}>
+                        <DefaultValidationTextField
+                           name="jny_name"
+                           label="Nome"
+                           type="text"
+                           maxLength="45"
+                        />
+                     </Col>
+                     <Col className="mt-3" xs={12} sm={5}>
+                        <ListCompanies
+                           name="jny_cpn_cod"
+                           label="Empresa"
+                        />
+                     </Col>
+                     <Col className="mt-4" xs={12} sm={2}>
+                        <BtnBlue variant="dark" type="submit">Salvar</BtnBlue>
+                     </Col>
+                  </Row>
+                  {(props.paramRoute !== "inserir" && primaryData) ?
+                     <>
+                        <Timestamps
+                           primaryData={primaryData}
+                           fieldSuffix="jny_" />
+                     </>
+                     : null}
+               </Form>
+            )}
+            </Formik>
+         </BackGroundForm>
+      </>
+   )
 }

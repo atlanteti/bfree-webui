@@ -5,7 +5,7 @@ import { Redirect } from 'react-router-dom'
 import { Col } from 'react-bootstrap'
 import { CustomMenu } from '../../../Componentes/CustomMenu'
 import { CustomAlert } from '../../../Componentes/CustomAlert'
-import BadgeForm from './Form'
+import { BadgeForm } from './Form'
 import { RowTopMargin, Title } from '../../../styles/CommonStyles'
 
 export default class CadastrarBadge extends Component {

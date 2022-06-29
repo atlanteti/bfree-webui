@@ -1,6 +1,5 @@
 import styled from 'styled-components'
-import { Container, Row, Col, Form, Button } from 'react-bootstrap'
-import { Grid } from '@material-ui/core';
+import { Container, Row, Col, Button } from 'react-bootstrap'
 
 //Estilização especial para o ícone da validação dos seletores
 export const SelectValidateStyle = {
@@ -424,4 +423,9 @@ export const DivSpaceBtween = styled.div`
 
 export const RightDivSchedule = styled.div`
    max-width: 45vw; 
+`
+
+export const VersionStyled = styled.p`
+   color: #546E7A;
+   font-size: 0.8rem;
 `
