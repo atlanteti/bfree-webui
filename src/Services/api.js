@@ -61,7 +61,7 @@ export const request = async ({
          return
       } else if (result.data.meta.status === 204) {
          let route;
-         if (cookieGetter.cookies.userType.includes('PRÉ-CONSULTOR')) {
+         if (cookieGetter.cookies.userType.includes('PRÉ-VENDA')) {
             route = "/contato"
          } else if (cookieGetter.cookies.userType.includes('CONSULTOR')) {
             route = "/reunioes"
