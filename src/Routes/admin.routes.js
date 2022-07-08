@@ -39,7 +39,7 @@ import ListarContatos from "../Pages/Demandas/Listar/Contato";
 import { Avaliacao } from "../Pages/Avaliacao";
 import { HorarioCalendario } from "../Pages/Horarios/Calendario";
 
-export default function AuthRoutes() {
+export default function AdminRoutes() {
    return (
       <Router basename={process.env.PUBLIC_URL}>
          <Switch>
