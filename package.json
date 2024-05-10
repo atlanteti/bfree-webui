@@ -25,7 +25,7 @@
       "env-cmd": "^10.1.0",
       "formik": "^2.2.9",
       "moment": "^2.29.1",
-      "node-sass": "^6.0.1",
+      "sass": "^1.76.0",
       "react": "^17.0.2",
       "react-bootstrap": "^1.6.0",
       "react-bootstrap-table": "^4.3.1",
