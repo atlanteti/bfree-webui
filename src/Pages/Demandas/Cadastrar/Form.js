@@ -225,7 +225,7 @@ export const DemandForm = (props) => {
             }),
       dem_cli_cod: yup.string().max(10).required(),
       dem_desc: yup.string().max(500).required(),
-      dem_comments: yup.string().max(500).nullable(true),
+      dem_comments: yup.string().transform((currVal)=>currVal.split('Dados de Qualificação')[0]).max(500).nullable(true),
       dem_usr_cod: yup.number().required(),                           //Disabled in edit
       dem_sdm_cod: yup.number().required(),
       dem_tdm_cod: yup.number().required(),                            //Disabled in edit
@@ -245,7 +245,7 @@ export const DemandForm = (props) => {
       validationSchema = yup.object({
          dem_desc: yup.string().max(500).required(),
          dem_sdm_cod: yup.number().required(),
-         dem_comments: yup.string().max(500).nullable(true),
+         dem_comments: yup.string().transform((currVal)=>currVal.split('Dados de Qualificação')[0]).max(500).nullable(true),
          dem_dtaction: yup.date()
             .when("dem_sdm_cod", {
                is: (demandStatus) => (demandStatus > 1),
@@ -289,6 +289,9 @@ export const DemandForm = (props) => {
                            Object.keys(values).forEach((key) => {
                               if (key && key.includes("phone")) {
                                  values[key] = values[key].replaceAll(/[^\d]/g, "")
+                              }
+                              if (key && key.includes("dem_comments")) {
+                                 values[key] = values[key].split("Dados de Qualificação")[0]
                               }
                            })
                            const data = await request({
