@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Routes } from "react-router-dom";
 
 import Cadastros from '../Pages/Cadastros';
 
@@ -42,60 +42,60 @@ import { HorarioCalendario } from "../Pages/Horarios/Calendario";
 export default function AdminRoutes() {
    return (
       <Router basename={process.env.PUBLIC_URL}>
-         <Switch>
+         <Routes>
             {/* rotas de usuarios */}
-            <Route path="/usuarios" component={ListarUsuarios} />
-            <Route path="/usuario-companhia/:userId/:userName" component={UsuarioCompanies} />
-            <Route path="/usuario-jornadas/:userId/:userName" component={UsuarioJornadas} />
-            <Route path="/usuario-badges/:userId/:userName" component={UsuarioBadges} />
-            <Route path="/usuario-tipodemanda/:userId/:userName" component={UsuarioTipoDemanda} />
-            <Route path="/usuario-times/:userId/:userName" component={UsuarioTimes} />
+            <Route path="/usuarios" element={<ListarUsuarios/>} />
+            <Route path="/usuario-companhia/:userId/:userName" element={<UsuarioCompanies/>} />
+            <Route path="/usuario-jornadas/:userId/:userName" element={<UsuarioJornadas/>} />
+            <Route path="/usuario-badges/:userId/:userName" element={<UsuarioBadges/>} />
+            <Route path="/usuario-tipodemanda/:userId/:userName" element={<UsuarioTipoDemanda/>} />
+            <Route path="/usuario-times/:userId/:userName" element={<UsuarioTimes/>} />
 
             {/* rotas de indicadores */}
-            <Route path="/relatoriogerencial" component={RelatorioGerencial} />
+            <Route path="/relatoriogerencial" element={<RelatorioGerencial/>} />
             {/* rotas de horario */}
-            <Route path="/horario" component={Horario} />
+            <Route path="/horario" element={<Horario/>} />
             {/* rotas de horario */}
-            <Route path="/horario-calendario" component={HorarioCalendario} />
+            <Route path="/horario-calendario" element={<HorarioCalendario/>} />
             {/* rotas de empresas */}
-            <Route path="/companhia" component={ListarCompanhia} />
+            <Route path="/companhia" element={<ListarCompanhia/>} />
 
             {/* rotas de jornadas */}
-            <Route path="/jornadas" component={ListarJornada} />
+            <Route path="/jornadas" element={<ListarJornada/>} />
 
             {/* rotas de badges */}
-            <Route path="/badges" component={ListarBadges} />
+            <Route path="/badges" element={<ListarBadges/>} />
 
             {/* rotas tipos de demanda */}
-            <Route path="/tipodemanda" component={ListarTipoDemanda} />
+            <Route path="/tipodemanda" element={<ListarTipoDemanda/>} />
 
             {/* rotas de demandas */}
-            <Route path="/demandas" component={ListarDemandas} />
+            <Route path="/demandas" element={<ListarDemandas/>} />
 
             {/* rotas de times */}
-            <Route path="/times" component={ListarTime} />
-            <Route path="/tipo-mentores/:tea_cod" component={CadastrarTipoMentores} />
-            <Route exact path="/" component={App} />
-            <Route path="/cadastrar" component={Cadastros} />
-            <Route path="/editar" component={Editar} />
+            <Route path="/times" element={<ListarTime/>} />
+            <Route path="/tipo-mentores/:tea_cod" element={<CadastrarTipoMentores/>} />
+            <Route exact path="/" element={<App/>} />
+            <Route path="/cadastrar" element={<Cadastros/>} />
+            <Route path="/editar" element={<Editar/>} />
 
             {/* rotas de upload*/}
-            <Route path="/upload" component={UploadSheet} />
+            <Route path="/upload" element={<UploadSheet/>} />
             {/* rotas de download*/}
-            <Route path="/download" component={Downloads} />
+            <Route path="/download" element={<Downloads/>} />
             {/* rotas de log */}
-            <Route path="/log" component={Log}></Route>
+            <Route path="/log" element={<Log/>}></Route>
             {/* rotas de reuniões */}
-            <Route path="/reunioes" component={ListarReunioes}></Route>
+            <Route path="/reunioes" element={<ListarReunioes/>}></Route>
             {/* rota de fazer contato */}
-            <Route path="/contato" component={ListarContatos}></Route>
+            <Route path="/contato" element={<ListarContatos/>}></Route>
             {/* rotas de relatorio */}
-            <Route path="/relatorios" component={ListarRelatorio} />
+            <Route path="/relatorios" element={<ListarRelatorio/>} />
             {/* rota de avaliacao */}
-            <Route path="/avaliacao" component={Avaliacao} />
+            <Route path="/avaliacao" element={<Avaliacao/>} />
             {/*Rota de 404, deve ficar por último sempre */}
-            <Route path="*" component={Error404} />
-         </Switch>
+            <Route path="*" element={<Error404/>} />
+         </Routes>
       </Router>
    );
 }

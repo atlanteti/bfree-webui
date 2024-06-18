@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Helmet from 'react-helmet'
 
 import { RowTopMargin, Title } from '../../../styles/CommonStyles'
-import { Redirect } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 import { Col } from 'react-bootstrap'
 import { CustomMenu } from '../../../Componentes/CustomMenu'
 import { CustomAlert } from '../../../Componentes/CustomAlert'
@@ -36,7 +36,7 @@ export default class CadastrarTipoDemanda extends Component {
 
    render() {
       if (this.state.redirect) {
-         return <Redirect to="/tipodemanda" />
+         return <Navigate to="/tipodemanda" />
       } else {
          return <>
             <CustomMenu>

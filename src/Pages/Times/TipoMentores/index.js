@@ -1,7 +1,7 @@
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { request } from "../../../Services/api";
 import { Component } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { BackGroundForm, BtnBlue, BtnPrimary, CustomMenuCol, Title, RowTopMargin } from "../../../styles/CommonStyles";
 import { CustomMenu } from "../../../Componentes/CustomMenu";
 import { CustomAlert } from "../../../Componentes/CustomAlert";
@@ -124,7 +124,7 @@ export default class TiposDeMentoria extends Component {
    }
    render() {
       if (this.state.redirect) {
-         return <Redirect to="/times" />
+         return <Navigate to="/times" />
       }
       return <>
          <CustomMenu>

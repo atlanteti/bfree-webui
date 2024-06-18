@@ -1,7 +1,7 @@
 import { Component, React } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { Helmet } from "react-helmet";
-import { Redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { CustomMenu } from "../../Componentes/CustomMenu";
 import { request } from "../../Services/api";
 import {
@@ -107,7 +107,7 @@ export default class UploadSheet extends Component {
 
    render() {
       if (this.state.redirect) {
-         return <Redirect to="/demandas" />;
+         return <Navigate to="/demandas" />;
       } else {
          return (
             <>

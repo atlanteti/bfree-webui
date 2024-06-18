@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import Helmet from 'react-helmet'
-import { Redirect } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 import { CustomAlert } from '../../../Componentes/CustomAlert'
 import { CustomMenu } from '../../../Componentes/CustomMenu'
 import { MainContainer, MainRow, RowTopMargin } from '../../../styles/CommonStyles'
@@ -36,7 +36,7 @@ export default class CadastrarUsuario extends Component {
 
    render() {
       if (this.state.redirect) {
-         return <Redirect to="/usuarios" />
+         return <Navigate to="/usuarios" />
       } else {
          return <>
             <CustomMenu>

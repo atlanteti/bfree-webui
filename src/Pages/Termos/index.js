@@ -5,7 +5,7 @@ import ImageBackground from "../../Assets/logo.JPG"
 import Logo from "../../Assets/icon-blue.png"
 import { RowTitle, Title, SubTitle, Terms, TermItem } from "./styles"
 import { request } from "../../Services/api";
-import { Redirect } from "react-router";
+import { Navigate } from "react-router";
 import { decodeToken } from "react-jwt";
 import { Cookies } from 'react-cookie'
 import ContextLogin from "../../Context/ContextLogin";
@@ -48,13 +48,13 @@ export function TermosCompromisso() {
 
    if (redirect) {
       if (userRoles?.includes("PRÉ-VENDA")) {
-         return <Redirect to="/contato" />
+         return <Navigate to="/contato" />
       }
       if (userRoles?.includes("CONSULTOR")) {
-         return <Redirect to="/reunioes" />
+         return <Navigate to="/reunioes" />
       }
       else {
-         return <Redirect to="/demandas" />
+         return <Navigate to="/demandas" />
       }
    }
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Helmet from 'react-helmet'
-import { Redirect } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 import { CustomMenu } from '../../../Componentes/CustomMenu'
 import { CustomAlert } from '../../../Componentes/CustomAlert'
 import { JourneyForm } from './Form'
@@ -34,7 +34,7 @@ export default class CadastrarJornada extends Component {
 
    render() {
       if (this.state.redirect) {
-         return <Redirect to="/jornadas" />
+         return <Navigate to="/jornadas" />
       } else {
          return <>
             <CustomMenu>
