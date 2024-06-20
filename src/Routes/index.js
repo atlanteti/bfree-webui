@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-import { Navigate, Route, Routes as RRoutes, useParams } from "react-router-dom";
+import { Route, Routes as RRoutes } from "react-router-dom";
 import App from "../App";
 import ContextLogin from "../Context/ContextLogin";
 import { Avaliacao } from "../Pages/Avaliacao";
@@ -11,9 +11,6 @@ import { Horario } from "../Pages/Horarios";
 import { HorarioCalendario } from "../Pages/Horarios/Calendario";
 import ListarRelatorio from "../Pages/Relatorio/Listar";
 import { TermosCompromisso } from "../Pages/Termos";
-import AdminRoutes from "./admin.routes";
-import AppRoutes from "./app.routes";
-import UserRoutes from "./user.routes";
 
 import ListarUsuarios from "../Pages/Usuarios/Listar";
 
@@ -42,13 +39,13 @@ import UploadSheet from "../Pages/UploadSheet";
 
 import CadastrarBadge from "../Pages/Badges/Cadastrar";
 import EditCompanhia from "../Pages/Companhia/Cadastrar";
+import CadastrarDadosBancarios from "../Pages/DadosBancarios/Cadastrar";
 import CadastrarDemanda from "../Pages/Demandas/Cadastrar";
 import CadastrarJornada from "../Pages/Jornadas/Cadastrar";
 import { RelatorioGerencial } from "../Pages/RelatorioGerencial";
 import CadastrarTime from "../Pages/Times/Cadastrar";
 import CadastrarTipoDemanda from "../Pages/TipoDemanda/Cadastrar";
 import CadastrarUsuario from "../Pages/Usuarios/Cadastrar";
-import CadastrarDadosBancarios from "../Pages/DadosBancarios/Cadastrar";
 
 
 function ProtectedRoute({ children }) {
@@ -156,6 +153,4 @@ export default function Routes() {
             <Route path="/relatorios" element={<ListarRelatorio/>} />
 
    </RRoutes>
-   return <AppRoutes/>
-   return signed ? (isNotAdmin ? <UserRoutes /> : <AdminRoutes />) : <AppRoutes />
 }
