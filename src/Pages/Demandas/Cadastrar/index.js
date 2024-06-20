@@ -9,8 +9,8 @@ import { DemandForm } from './Form'
 import { RowTopMargin, SubTitle, Title } from '../../../styles/CommonStyles'
 import ContextLogin from "../../../Context/ContextLogin"
 import { Breadcrumbs, Typography } from '@material-ui/core'
-
-export default class CadastrarDemanda extends Component {
+import { withParams } from '../../../Services/api'
+class CadastrarDemanda extends Component {
    constructor(props) {
       super(props)
       this.state = {
@@ -71,3 +71,5 @@ export default class CadastrarDemanda extends Component {
    }
 }
 CadastrarDemanda.contextType = ContextLogin
+
+export default withParams(CadastrarDemanda)

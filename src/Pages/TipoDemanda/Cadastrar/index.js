@@ -7,8 +7,8 @@ import { Col } from 'react-bootstrap'
 import { CustomMenu } from '../../../Componentes/CustomMenu'
 import { CustomAlert } from '../../../Componentes/CustomAlert'
 import { TypeDemandForm } from './Form'
-
-export default class CadastrarTipoDemanda extends Component {
+import { withParams } from '../../../Services/api'
+class CadastrarTipoDemanda extends Component {
    constructor(props) {
       super(props)
       this.state = {
@@ -59,3 +59,5 @@ export default class CadastrarTipoDemanda extends Component {
       }
    }
 }
+
+export default withParams(CadastrarTipoDemanda)

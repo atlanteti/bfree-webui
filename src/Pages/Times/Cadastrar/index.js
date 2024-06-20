@@ -7,8 +7,8 @@ import { CustomMenu } from '../../../Componentes/CustomMenu'
 import { CustomAlert } from '../../../Componentes/CustomAlert'
 import { TeamForm } from './Form'
 import { RowTopMargin, Title } from '../../../styles/CommonStyles'
-
-export default class CadastrarTime extends Component {
+import { withParams } from '../../../Services/api'
+class CadastrarTime extends Component {
    constructor(props) {
       super(props)
       this.state = {
@@ -60,3 +60,5 @@ export default class CadastrarTime extends Component {
       }
    }
 }
+
+export default withParams(CadastrarTime)

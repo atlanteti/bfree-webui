@@ -6,8 +6,8 @@ import { CustomAlert } from '../../../Componentes/CustomAlert'
 import { CustomMenu } from '../../../Componentes/CustomMenu'
 import { MainContainer, MainRow, RowTopMargin } from '../../../styles/CommonStyles'
 import { UserForm } from './Form'
-
-export default class CadastrarUsuario extends Component {
+import { withParams } from '../../../Services/api'
+class CadastrarUsuario extends Component {
    constructor(props) {
       super(props)
       this.state = {
@@ -59,3 +59,5 @@ export default class CadastrarUsuario extends Component {
       }
    }
 }
+
+export default withParams(CadastrarUsuario)

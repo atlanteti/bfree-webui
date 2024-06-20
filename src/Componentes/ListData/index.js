@@ -277,23 +277,21 @@ export default class ListarPagina extends Component {
 
 export function PageHeaderCustomComponent(props) {
    return <HeaderContainer fluid>
-      <RowTopMargin >
+      <Row style={{marginTop: "1rem"}}>
          <Col>
             <Helmet title={`${props.Title}`} />
             <Title>{props.Title}</Title>
          </Col>
-         <RightAlignText>
-            <Col>
-               <Restricted>
-                  <Link to={props.href}>
-                     <Button variant="register">
-                        + CADASTRAR {props.Title.toUpperCase()}
-                     </Button>
-                  </Link>
-               </Restricted>
-            </Col>
-         </RightAlignText>
-      </RowTopMargin>
+         <Col style={{textAlign:"end"}}>
+            <Restricted>
+               <Link to={props.href}>
+                  <Button variant="register" style={{color: "white"}}>
+                     + CADASTRAR {props.Title.toUpperCase()}
+                  </Button>
+               </Link>
+            </Restricted>
+         </Col>
+      </Row>
    </HeaderContainer>
 }
 

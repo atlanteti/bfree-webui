@@ -24,7 +24,6 @@ export const AuthProvider = ({ children }) => {
          const storedSelect = await cookie.get("user")
          const storedRoles = await cookie.get("userType")
          const storedEmail = await cookie.get("userShow")
-
          if (storedUser) {
             setAuth(storedUser);
             setUser(storedSelect);
@@ -32,7 +31,7 @@ export const AuthProvider = ({ children }) => {
             setUserEmail(atob(storedEmail))
          }
          if (storedPermission !== undefined) {
-            setAdmin(storedPermission === "true") // Tratamento para converter de string para booleano
+            setAdmin(storedPermission)
          }
       }
 

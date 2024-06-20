@@ -51,7 +51,6 @@ export default class UploadSheet extends Component {
             [event.target.id]: Number(event.target.value.trim()),
          },
       });
-      console.log(this.state);
    };
 
    handleSelect = (e) => {
