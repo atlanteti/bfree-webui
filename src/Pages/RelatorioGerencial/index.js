@@ -43,9 +43,13 @@ export function RelatorioGerencial() {
          }
          // transformando os dados em um array para utilização na tabela
          const populateData = []
-         Object.keys(data.data).map((response) => {
-            populateData.push([response, data.data[response]])
-         })
+         if(data.data != null) {
+            Object.keys(data.data).map((response) => {
+               populateData.push([response, data.data[response]])
+            })
+         } else {
+            populateData.push([[],[]])
+         }
          if (populateData[0][1].length > 0) {
             const populateHeader = []
             const header = []
