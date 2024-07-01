@@ -36,24 +36,28 @@ class Log extends Component {
    }
 
    async fetchAndSetData({ page = '1' }) {
-      const data = await request({
-         method: "get",
-         endpoint: "logs/listar",
-         // userId,  initialDate, finalDate, logAction
-         params: {
-            page: page,
-            userName: this.filter.userName,
-            initialDate: this.filter.initialDate,
-            finalDate: this.filter.finalDate,
-            type: this.filter.type
-         }
-      }).then(data => {
-         this.setState({
-            logs: data.data,
-            page: data.meta.pagination,
-            loading: false
-         })
-      })
+      try{
+         const data = await request({
+            method: "get",
+            endpoint: "logs/listar",
+            // userId,  initialDate, finalDate, logAction
+            params: {
+               page: page,
+               userName: this.filter.userName,
+               initialDate: this.filter.initialDate,
+               finalDate: this.filter.finalDate,
+               type: this.filter.type
+            }
+         }).then(data => {
+            this.setState({
+               logs: data.data,
+               page: data.meta.pagination,
+               loading: false
+            })
+         }).catch((error)=>{console.log(error)})
+      } catch (error) {
+         console.log(error)
+      }
    }
 
    componentDidMount() {
@@ -62,6 +66,9 @@ class Log extends Component {
          method: "get",
          endpoint: "logs/listar-tipo"
       }).then(data => { this.setState({ dataCollection: data.data }) })
+      .catch((error)=>{
+         console.log(error)
+      })
    }
    onSubmit(e) {
       e.preventDefault()
@@ -197,7 +204,8 @@ class Log extends Component {
                         </Row>
                      }
                      {this.state.logs ?
-                        <>{this.state.logs.map(log => {
+                        <>
+                        {this.state.logs.map(log => {
                            let logKeys = {}
                            let newValue = false
                            let oldValue = false
@@ -219,14 +227,19 @@ class Log extends Component {
                                  <Card.Text>
                                     <Accordion>
                                        <Card>
-                                          <Accordion.Toggle as={Card.Header} eventKey="0">
+                                          <Accordion.Header style={{borderRadius: 25}}>
+                                             <Row>
+                                                <Col>
                                              <Card.Title>
                                                 <Row>
                                                    <Col style={{ color: "#546E7A" }}>{`${log.log_action} ${log.log_table}`}</Col>
                                                 </Row>
                                              </Card.Title>
-                                             <Card.Subtitle className="mb-3 text-muted">{log.user.usr_name} - {displayDate(log.log_dtcreation)}</Card.Subtitle>
-                                             <Accordion.Collapse eventKey="0">
+                                             <Card.Subtitle className="mb-3 text-muted">{log.user.usr_name} - {displayDate(log.log_dtcreation)}</Card.Subtitle>   
+                                                </Col>
+                                             </Row>
+                                          </Accordion.Header>
+                                          <Accordion.Body>
                                                 <Card.Body style={{ padding: 0, overflowX: "scroll" }}><Table>
                                                    <TableHeader>
                                                       <TableRow>
@@ -284,14 +297,14 @@ class Log extends Component {
                                                          })}
                                                    </TableData>
                                                 </Table></Card.Body>
-                                             </Accordion.Collapse>
-                                          </Accordion.Toggle>
+                                          </Accordion.Body>
                                        </Card>
                                     </Accordion>
                                  </Card.Text>
                               </Card.Body>
                            </Card></>
-                        })}</> : null
+                        })}</> 
+                        : null
                      }
                      <CustomPagination
                         fetchAndSetData={this.fetchAndSetData}

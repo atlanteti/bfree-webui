@@ -90,27 +90,43 @@ export default class ListarPagina extends Component {
 
    async fetchAndSetData({ page = '1' }) {
       const data = await this.fetchData(page, this.requestForm.sort, this.requestForm.isDesc, this.requestForm.extraParams)
-      this.setState({
-         responseMetaData: data.meta,
-         responseData: data.data,
-         page: data.meta.pagination
-      }, () => {
-         if (data.data.length === 0) {
-            this.setState({
-               noData: true
-            }, () => {
-               this.state.noDataAlertShow({
-                  message: "Nenhum registro encontrado",
-                  responseType: "Success"
+      .then(((data) => {
+         this.setState({
+            responseMetaData: data.meta,
+            responseData: data.data,
+            page: data.meta.pagination
+         }, () => {
+            if (data.data.length === 0) {
+               this.setState({
+                  noData: true
+               }, () => {
+                  this.state.noDataAlertShow({
+                     message: "Nenhum registro encontrado",
+                     responseType: "Success"
+                  })
                })
+            }
+            else {
+               this.setState({
+                  noData: false
+               })
+            }
+         })
+      }))
+      .catch((error) => {
+               this.setState({
+                  responseMetaData: "",
+                  responseData: [],
+                  page: "",
+                  noData: true
+               }, () => {
+                  this.state.noDataAlertShow({
+                     message: "Um erro fez com que fosse impossível encontrar esses dados, tente novamente.",
+                     responseType: "Success"
+                  })
             })
-         }
-         else {
-            this.setState({
-               noData: false
-            })
-         }
-      })
+            return
+         })
    }
 
    async listSchedule() {
@@ -231,6 +247,7 @@ export default class ListarPagina extends Component {
                            :
                            (
                               <>
+                                 {this.state.responseData.length ?
                                  <TableHeader>
                                     <this.TableHeaderCustom
                                        sortCallback={this.reorderData.bind(this)}
@@ -240,7 +257,8 @@ export default class ListarPagina extends Component {
                                        idUser={this.state.idUser}
                                        closeMenu={this.closeMenu.bind(this)}
                                        userName={this.state.userName} />
-                                 </TableHeader>
+                                 </TableHeader> : null
+                                 }
                                  <TableData>
                                     {this.state.responseData.map((companhia) => {
                                        return (

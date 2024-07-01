@@ -66,7 +66,7 @@ export const AuthProvider = ({ children }) => {
             setAdmin(isTheUserAdmin)
          }
       } catch (error) {
-         console.log(error)
+         throw(error)
       }
    }
    return (

@@ -29,7 +29,7 @@ export const request = async ({
       baseURL: `${baseUrl}/${endpoint}`,
       data: data || null,
       params: params || null,
-      timeout: 120000,
+      timeout: 5000,
       headers: {
          'Content-Type': contentType || 'application/json',
          'Access-Control-Allow-Origin': '*',
@@ -89,8 +89,11 @@ export const request = async ({
             window.Eduzz.Accounts.logout({ env: process.env.REACT_APP_EDUZZ_ENV, redirectTo: window.location.origin })
             return
          }
-      } catch {
-         throw new Error("Tratamento de página vazia não feito")
+      } catch (error) {
+         if(error.name == "TypeError") {
+            throw new Error("RequestTimeout")
+         }
+         throw new Error("Request Error", {cause: {code: "No content"}})
       }
    }
 }
