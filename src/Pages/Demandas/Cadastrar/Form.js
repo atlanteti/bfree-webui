@@ -232,11 +232,11 @@ export const DemandForm = (props) => {
       dem_dtaction: yup.date()
          .when("dem_sdm_cod", {
             is: (demandStatus) => (demandStatus > 1),
-            then: yup.date()
+            then: ()=>yup.date()
                .required()
                .nullable()
                .transform((curr, orig) => orig === '' ? null : curr),
-            otherwise: yup.date()
+            otherwise: ()=>yup.date()
                .nullable()
                .transform((curr, orig) => orig === '' ? null : curr)
          }),
@@ -249,11 +249,11 @@ export const DemandForm = (props) => {
          dem_dtaction: yup.date()
             .when("dem_sdm_cod", {
                is: (demandStatus) => (demandStatus > 1),
-               then: yup.date()
+               then: ()=>yup.date()
                   .required()
                   .nullable()
                   .transform((curr, orig) => orig === '' ? null : curr),
-               otherwise: yup.date()
+               otherwise: ()=>yup.date()
                   .nullable()
                   .transform((curr, orig) => orig === '' ? null : curr)
             }),

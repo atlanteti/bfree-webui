@@ -7,24 +7,16 @@ import { CookiesProvider } from "react-cookie";
 import { AuthProvider } from './Context/ContextLogin'
 import Routes from "../src/Routes/index";
 import { IndexContainer } from "./styles/CommonStyles";
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { BrowserRouter, createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Error404 from './Pages/Error';
-
-const router = createBrowserRouter([
-   {
-      path: "/*",
-      element: <Routes/>,
-      errorElement: <Error404/>,
-      // basename: process.env.BASE_URL
-      
-   }
-])
 
 ReactDom.createRoot(document.getElementById("root")).render(
    <IndexContainer>
       <AuthProvider>
          <CookiesProvider>
-            <RouterProvider router={router}/>
+            <BrowserRouter basename={process.env.PUBLIC_URL}>
+               <Routes/>
+            </BrowserRouter>
          </CookiesProvider>
       </AuthProvider>
    </IndexContainer>
