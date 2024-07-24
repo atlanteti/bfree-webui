@@ -13,6 +13,7 @@ export class TDemandSearchBar extends SearchBar {
           <Row>
             <Col className="mt-2" xs={12} sm={5}>
               <InputTextField label="Tipo de Demanda"
+                data-cy="demand-search-bar-demand-type-input-field"
                 id="name"
                 fullWidth
                 onChange={this.onChange}
@@ -25,7 +26,7 @@ export class TDemandSearchBar extends SearchBar {
                 name="companyId" />
             </Col>
             <Col className="mt-3" xs={12} sm={3} md={2}>
-              <BtnBlue variant="dark" type="submit">
+              <BtnBlue variant="dark" data-cy="typedemand-searchbar-submit-button" type="submit">
                 Buscar
               </BtnBlue>
             </Col>

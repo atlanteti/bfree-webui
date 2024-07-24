@@ -129,6 +129,7 @@ class Log extends Component {
                                     <Row>
                                        <Col className="mt-2" xs={12} md={6} sm={6}>
                                           <InputTextField
+                                             data-cy="log-filter-name-input-field"
                                              label="Nome"
                                              id="userName"
                                              fullWidth
@@ -154,6 +155,7 @@ class Log extends Component {
                                              placeholderText="dd/mm/aaaa"
                                              dateFormat="dd/MM/yyyy"
                                              selected={this.state.initialDate}
+                                             data-cy="log-datepicker-initialdate"
                                              onChange={(dateSelect) => this.changeDate(dateSelect, "initialDate")}
                                              customInput={
                                                 <ValidationTextField
@@ -174,6 +176,7 @@ class Log extends Component {
                                              dateFormat="dd/MM/yyyy"
                                              selected={this.state.finalDate}
                                              onChange={(dateSelect) => this.changeDate(dateSelect, "finalDate")}
+                                             data-cy="log-datepicker-finaldate"
                                              customInput={
                                                 <ValidationTextField
                                                    label="Data Final"
@@ -192,7 +195,7 @@ class Log extends Component {
                               </Row>
                               <Row>
                                  <Col className="mt-4 d-flex justify-content-center">
-                                    <BtnBlue type="submit" variant="dark">Buscar</BtnBlue>
+                                    <BtnBlue data-cy="log-search-submit-button" type="submit" variant="dark">Buscar</BtnBlue>
                                  </Col>
                               </Row>
                            </Form>

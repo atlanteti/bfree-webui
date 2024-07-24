@@ -49,7 +49,7 @@ export default function ResultadoSearchBar(props) {
                <p style={{ color: 'transparent' }}>.</p>
                <Row>
                   <Col>
-                     <BtnBlue type="submit" variant="dark">Buscar</BtnBlue>
+                     <BtnBlue data-cy="management-report-search-submit-button" type="submit" variant="dark">Buscar</BtnBlue>
                   </Col>
                </Row>
             </Col>

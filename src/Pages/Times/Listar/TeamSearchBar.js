@@ -14,6 +14,7 @@ export class TeamSearchBar extends SearchBar {
                <Row>
                   <Col className="mt-2" xs={12} sm={4}>
                      <InputTextField label="Nome do Time"
+                        data-cy="team-name-search-bar-input-field"
                         id="name"
                         fullWidth
                         onChange={this.onChange}
@@ -27,6 +28,7 @@ export class TeamSearchBar extends SearchBar {
                   </Col>
                   <Col className="mt-2" xs={12} sm={4} md={3}>
                      <BooleanField Label="Status do Time"
+                        data-cy="teamsearchbar-team-status-checkbox"
                         onTrue="Ativo"
                         onFalse="Inativo"
                         controlId="tea_active"
@@ -34,7 +36,7 @@ export class TeamSearchBar extends SearchBar {
                         onChange={this.handleSelect} />
                   </Col>
                   <Col className="mt-3" xs={12} sm={4} md={2}>
-                     <BtnBlue variant="dark" type="submit">
+                     <BtnBlue variant="dark" data-cy="teamsearchbar-submit-button" type="submit">
                         Buscar
                      </BtnBlue>
                   </Col>

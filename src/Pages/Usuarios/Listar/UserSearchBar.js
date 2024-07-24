@@ -13,6 +13,7 @@ export class UserSearchBar extends SearchBar {
                <Row>
                   <Col className="mt-2" xs={12} sm={4}>
                      <InputTextField label="Nome do Usuário"
+                        data-cy="user-search-bar-user-name-input-field"
                         id="name"
                         onChange={this.onChange}
                         type="text"
@@ -21,6 +22,7 @@ export class UserSearchBar extends SearchBar {
                   </Col>
                   <Col className="mt-2" xs={12} sm={4} md={3}>
                      <InputTextField
+                        data-cy="user-search-bar-user-email-input-field"
                         label="E-mail do Usuário"
                         id="usr_email"
                         onChange={this.onChange}
@@ -39,7 +41,7 @@ export class UserSearchBar extends SearchBar {
                      />
                   </Col>
                   <Col className="mt-3" xs={12} sm={4} md={2}>
-                     <BtnBlue variant="dark" type="submit">
+                     <BtnBlue variant="dark" data-cy="usersearchbar-submit-button" type="submit">
                         Buscar
                      </BtnBlue>
                   </Col>

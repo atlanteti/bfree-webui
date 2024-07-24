@@ -109,7 +109,7 @@ export const JourneyForm = (props) => {
                         />
                      </Col>
                      <Col className="mt-4" xs={12} sm={2}>
-                        <BtnBlue variant="dark" type="submit">Salvar</BtnBlue>
+                        <BtnBlue data-cy="journeyform-submit-button" variant="dark" type="submit">Salvar</BtnBlue>
                      </Col>
                   </Row>
                   {(props.paramRoute !== "inserir" && primaryData) ?

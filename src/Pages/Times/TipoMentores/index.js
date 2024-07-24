@@ -154,6 +154,7 @@ export default class TiposDeMentoria extends Component {
                               <Row xs={2} sm={3} className="mt-2">
                                  <Col className="mt-3" xs={12} sm={4} md={5}>
                                     <InputTextField
+                                       data-cy="mentorship-type-form-submit-mentor-name-input-field"
                                        label="Nome do Mentor"
                                        type="text"
                                        value={mentor.user.usr_name}
@@ -163,6 +164,7 @@ export default class TiposDeMentoria extends Component {
                                  </Col>
                                  <Col key="selector-1" className="mt-3" xs={12} sm={4} md={5}>
                                     <InputTextField
+                                       data-cy="mentorship-type-form-submit-mentor-type-input-field"
                                        label="Tipo de Mentoria"
                                        name="test"
                                        select
@@ -186,6 +188,7 @@ export default class TiposDeMentoria extends Component {
                                  </Col>
                                  <Col className="mt-3" xs={12} sm={4} md={2}>
                                     <BooleanField Label="Status"
+                                       data-cy="mentorshiptypes-status-checkbox"
                                        onTrue="Ativo"
                                        onFalse="Inativo"
                                        name="umt_inactive"
@@ -203,7 +206,7 @@ export default class TiposDeMentoria extends Component {
                                  justifyContent: 'center'
                               }}
                            >
-                              <BtnBlue type="submit" variant="dark">Editar</BtnBlue>
+                              <BtnBlue data-cy="mentorship-types-edit-button" type="submit" variant="dark">Editar</BtnBlue>
                               <Link to="/times">
                                  <BtnPrimary style={{
                                     marginLeft: 25

@@ -83,7 +83,7 @@ export function Avaliacao() {
                      </Col>
                   </RadioGroup>
                   <Col className="d-flex justify-content-center mt-3">
-                     <BtnBlue type="submit" variant="dark" onClick={() => handleSubmit()}>Enviar</BtnBlue>
+                     <BtnBlue data-cy="evaluation-submit-button" type="submit" variant="dark" onClick={() => handleSubmit()}>Enviar</BtnBlue>
                   </Col>
                </FormControl>
             </BackGroundForm>

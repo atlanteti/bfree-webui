@@ -21,6 +21,7 @@ export class DemandSearchBar extends SearchBar {
                   <Row>
                      <Col className="mt-2" xs={12} md={3} sm={6}>
                         <InputTextField label="Título"
+                           data-cy="demand-search-bar-title-input-field"
                            id="dem_title"
                            onChange={this.onChange}
                            type="text"
@@ -92,7 +93,7 @@ export class DemandSearchBar extends SearchBar {
                   }
                   <Row>
                      <Col className="mt-4 d-flex justify-content-center">
-                        <BtnBlue variant="dark" type="submit">
+                        <BtnBlue variant="dark" data-cy="demandsearchbar-search-button" type="submit">
                            Buscar
                         </BtnBlue>
                      </Col>

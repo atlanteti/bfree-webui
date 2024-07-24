@@ -150,6 +150,7 @@ export function TermosCompromisso() {
                   </TermItem>
                </Terms>
                <CheckBox label="Li e concordo com os termos"
+                  data-cy="terms-accept-checkbox"
                   controlId="bdg_mentor"
                   name="bdg_mentor"
                   defaultValue={term}
