@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import Helmet from 'react-helmet'
-import { Redirect } from 'react-router-dom'
+import { Navigate, useParams } from 'react-router-dom'
 import { CustomMenu } from '../../../Componentes/CustomMenu'
 import { CustomAlert } from '../../../Componentes/CustomAlert'
 import { JourneyForm } from './Form'
 import { RowTopMargin } from '../../../styles/CommonStyles'
-export default class CadastrarJornada extends Component {
+import { withParams } from '../../../Services/api'
+
+class CadastrarJornada extends Component {
    constructor(props) {
       super(props)
       this.state = {
@@ -34,7 +36,7 @@ export default class CadastrarJornada extends Component {
 
    render() {
       if (this.state.redirect) {
-         return <Redirect to="/jornadas" />
+         return <Navigate to="/jornadas" />
       } else {
          return <>
             <CustomMenu>
@@ -57,3 +59,6 @@ export default class CadastrarJornada extends Component {
       }
    }
 }
+
+export default withParams(CadastrarJornada);
+

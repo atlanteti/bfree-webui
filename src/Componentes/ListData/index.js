@@ -90,27 +90,43 @@ export default class ListarPagina extends Component {
 
    async fetchAndSetData({ page = '1' }) {
       const data = await this.fetchData(page, this.requestForm.sort, this.requestForm.isDesc, this.requestForm.extraParams)
-      this.setState({
-         responseMetaData: data.meta,
-         responseData: data.data,
-         page: data.meta.pagination
-      }, () => {
-         if (data.data.length === 0) {
-            this.setState({
-               noData: true
-            }, () => {
-               this.state.noDataAlertShow({
-                  message: "Nenhum registro encontrado",
-                  responseType: "Success"
+      .then(((data) => {
+         this.setState({
+            responseMetaData: data.meta,
+            responseData: data.data,
+            page: data.meta.pagination
+         }, () => {
+            if (data.data.length === 0) {
+               this.setState({
+                  noData: true
+               }, () => {
+                  this.state.noDataAlertShow({
+                     message: "Nenhum registro encontrado",
+                     responseType: "Success"
+                  })
                })
+            }
+            else {
+               this.setState({
+                  noData: false
+               })
+            }
+         })
+      }))
+      .catch((error) => {
+               this.setState({
+                  responseMetaData: "",
+                  responseData: [],
+                  page: "",
+                  noData: true
+               }, () => {
+                  this.state.noDataAlertShow({
+                     message: "Um erro fez com que fosse impossível encontrar esses dados, tente novamente.",
+                     responseType: "Success"
+                  })
             })
-         }
-         else {
-            this.setState({
-               noData: false
-            })
-         }
-      })
+            return
+         })
    }
 
    async listSchedule() {
@@ -231,6 +247,7 @@ export default class ListarPagina extends Component {
                            :
                            (
                               <>
+                                 {this.state.responseData.length ?
                                  <TableHeader>
                                     <this.TableHeaderCustom
                                        sortCallback={this.reorderData.bind(this)}
@@ -240,7 +257,8 @@ export default class ListarPagina extends Component {
                                        idUser={this.state.idUser}
                                        closeMenu={this.closeMenu.bind(this)}
                                        userName={this.state.userName} />
-                                 </TableHeader>
+                                 </TableHeader> : null
+                                 }
                                  <TableData>
                                     {this.state.responseData.map((companhia) => {
                                        return (
@@ -277,23 +295,21 @@ export default class ListarPagina extends Component {
 
 export function PageHeaderCustomComponent(props) {
    return <HeaderContainer fluid>
-      <RowTopMargin >
+      <Row style={{marginTop: "1rem"}}>
          <Col>
             <Helmet title={`${props.Title}`} />
             <Title>{props.Title}</Title>
          </Col>
-         <RightAlignText>
-            <Col>
-               <Restricted>
-                  <Link to={props.href}>
-                     <Button variant="register">
-                        + CADASTRAR {props.Title.toUpperCase()}
-                     </Button>
-                  </Link>
-               </Restricted>
-            </Col>
-         </RightAlignText>
-      </RowTopMargin>
+         <Col style={{textAlign:"end"}}>
+            <Restricted>
+               <Link to={props.href}>
+                  <Button variant="register" style={{color: "white"}}>
+                     + CADASTRAR {props.Title.toUpperCase()}
+                  </Button>
+               </Link>
+            </Restricted>
+         </Col>
+      </Row>
    </HeaderContainer>
 }
 

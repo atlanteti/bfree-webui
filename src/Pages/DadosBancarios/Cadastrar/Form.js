@@ -192,7 +192,7 @@ export const DadosBancariosForm = (props) => {
                   {!admin &&
                      <Row>
                         <Col className="mt-3" md={{ offset: 5 }}>
-                           <BtnBlue variant="dark" type="submit">Salvar</BtnBlue>
+                           <BtnBlue variant="dark" data-cy="banking-data-form-button" type="submit">Salvar</BtnBlue>
                         </Col>
                      </Row>
                   }

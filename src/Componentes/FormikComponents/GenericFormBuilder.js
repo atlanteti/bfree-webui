@@ -45,7 +45,7 @@ const GenericFormBuilder = () => {
                   type="text"
                   maxLength="6" />
 
-               <Button type="submit">Submit</Button>
+               <Button data-cy="form-builder-button" type="submit">Submit</Button>
             </Form>
          )}
          </Formik>

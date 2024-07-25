@@ -1,15 +1,14 @@
 import React, { Component } from 'react'
 import Helmet from 'react-helmet'
 
-import { Redirect } from 'react-router-dom'
-import { Col } from 'react-bootstrap'
-import { CustomMenu } from '../../../Componentes/CustomMenu'
+import { Navigate } from 'react-router-dom'
 import { CustomAlert } from '../../../Componentes/CustomAlert'
+import { CustomMenu } from '../../../Componentes/CustomMenu'
+import { withParams } from '../../../Services/api'
+import { RowTopMargin } from '../../../styles/CommonStyles'
 import { CompanyForm } from './Form'
-import { RowTopMargin, Title } from '../../../styles/CommonStyles'
-import { Grid, Container, Box } from "@mui/material"
 
-export default class CadastrarCompanhia extends Component {
+class CadastrarCompanhia extends Component {
    constructor(props) {
       super(props)
       this.state = {
@@ -36,7 +35,7 @@ export default class CadastrarCompanhia extends Component {
 
    render() {
       if (this.state.redirect) {
-         return <Redirect to="/companhia" />
+         return <Navigate to="/companhia" />
       } else {
          return <>
             <CustomMenu >
@@ -58,3 +57,5 @@ export default class CadastrarCompanhia extends Component {
       }
    }
 }
+
+export default withParams(CadastrarCompanhia)

@@ -17,6 +17,7 @@ import { ReactComponent as DeleteIcon } from '../../../Assets/Icons/icon_delete.
 import { ReactComponent as GreenCheck } from "../../../Assets/Icons/icon_check.svg"
 import NoDataComp from '../../../Componentes/NoDataComp'
 import { Link } from 'react-router-dom'
+
 export default class ListarBadge extends ListarPagina {
    async deleteRecord(id) {
       const data = await request({
@@ -49,7 +50,7 @@ export default class ListarBadge extends ListarPagina {
    PageHeaderCustom() {
       return <PageHeaderCustomComponent
          Title="Badges"
-         href="cadastrar/badges/inserir" />
+         href="/cadastrar/badges/inserir" />
    }
 
    TableHeaderCustom(props) {

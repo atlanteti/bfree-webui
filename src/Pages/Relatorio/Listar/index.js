@@ -215,7 +215,7 @@ export default class ListarRelatorio extends ListarPagina {
                         </Row>
                         <Row>
                            <Col className="mt-4 d-flex justify-content-center">
-                              <BtnBlue type="submit" variant="dark">Buscar</BtnBlue>
+                              <BtnBlue data-cy="list-report-search-submit-button" type="submit" variant="dark">Buscar</BtnBlue>
                            </Col>
                         </Row>
                      </Form>

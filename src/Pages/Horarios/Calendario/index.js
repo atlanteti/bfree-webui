@@ -134,7 +134,7 @@ export function HorarioCalendario() {
                         </Row>
                      </LocalizationProvider>
                      <Col className="mt-4 d-flex justify-content-center">
-                        <BtnBlue variant="dark" type="submit" onClick={() => window.scrollTo(0, 0)}>Salvar</BtnBlue>
+                        <BtnBlue variant="dark" data-cy="schedulecalendar-submit-button" type="submit" onClick={() => window.scrollTo(0, 0)}>Salvar</BtnBlue>
                      </Col>
                   </>}
             </BackGroundForm>

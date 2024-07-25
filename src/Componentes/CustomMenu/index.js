@@ -115,6 +115,7 @@ function CreateMenuItems(cookie, admin, userRoles, userId) {
       return <>
          <List>
             <ListItem button
+               data-cy="contextmenu-company-button"
                secondaryAction={<IoChevronForwardOutline size={17} />}
                component={Link} to="/companhia">
                <ListItemIcon>
@@ -123,6 +124,7 @@ function CreateMenuItems(cookie, admin, userRoles, userId) {
                <ListItemText primary={"Empresas"} />
             </ListItem>
             <ListItem button
+               data-cy="contextmenu-journey-button"
                secondaryAction={<IoChevronForwardOutline size={17} />}
                component={Link} to="/jornadas">
                <ListItemIcon>
@@ -130,28 +132,36 @@ function CreateMenuItems(cookie, admin, userRoles, userId) {
                </ListItemIcon>
                <ListItemText primary={"Jornadas"} />
             </ListItem>
-            <ListItem button secondaryAction={<IoChevronForwardOutline size={17} />}
+            <ListItem button 
+               data-cy="contextmenu-demandtype-button"
+               secondaryAction={<IoChevronForwardOutline size={17} />}
                component={Link} to="/tipodemanda">
                <ListItemIcon>
                   <SvgIcon component={TiposDemandasIcon} inheritViewBox />
                </ListItemIcon>
                <ListItemText primary={"Tipos de Demanda"} />
             </ListItem>
-            <ListItem button secondaryAction={<IoChevronForwardOutline size={17} />}
+            <ListItem button 
+               data-cy="contextmenu-badges-button"
+               secondaryAction={<IoChevronForwardOutline size={17} />}
                component={Link} to="/badges">
                <ListItemIcon>
                   <SvgIcon component={BagdeIcon} inheritViewBox />
                </ListItemIcon>
                <ListItemText primary={"Badges"} />
             </ListItem>
-            <ListItem button secondaryAction={<IoChevronForwardOutline size={17} />}
+            <ListItem button 
+               data-cy="contextmenu-teams-button"
+               secondaryAction={<IoChevronForwardOutline size={17} />}
                component={Link} to="/times">
                <ListItemIcon>
                   <SvgIcon component={TimeIcon} inheritViewBox />
                </ListItemIcon>
                <ListItemText primary={"Times"} />
             </ListItem>
-            <ListItem button secondaryAction={<IoChevronForwardOutline size={17} />}
+            <ListItem button 
+               data-cy="contextmenu-users-button"
+               secondaryAction={<IoChevronForwardOutline size={17} />}
                component={Link} to="/usuarios">
                <ListItemIcon>
                   <SvgIcon component={UsuariosIcon} inheritViewBox />
@@ -159,6 +169,7 @@ function CreateMenuItems(cookie, admin, userRoles, userId) {
                <ListItemText primary={"Usuários"} />
             </ListItem>
             <ListItem button
+               data-cy="contextmenu-demands-button"
                secondaryAction={<IoChevronForwardOutline size={17} />}
                component={Link} to="/demandas">
                <ListItemIcon>
@@ -166,14 +177,18 @@ function CreateMenuItems(cookie, admin, userRoles, userId) {
                </ListItemIcon>
                <ListItemText primary={"Demandas"} />
             </ListItem>
-            <ListItem button secondaryAction={<IoChevronForwardOutline size={17} />}
+            <ListItem button 
+               data-cy="contextmenu-reports-button"
+               secondaryAction={<IoChevronForwardOutline size={17} />}
                component={Link} to="/relatorios">
                <ListItemIcon>
                   <SvgIcon component={RelatoriosIcon} inheritViewBox />
                </ListItemIcon>
                <ListItemText primary={"Relatórios"} />
             </ListItem>
-            <ListItem button secondaryAction={<IoChevronForwardOutline size={17} />}
+            <ListItem button 
+               data-cy="contextmenu-managementreports-button"
+               secondaryAction={<IoChevronForwardOutline size={17} />}
                component={Link} to="/relatoriogerencial">
                <ListItemIcon>
                   <SvgIcon component={GerencialIcon} inheritViewBox />
@@ -181,6 +196,7 @@ function CreateMenuItems(cookie, admin, userRoles, userId) {
                <ListItemText primary={"Gerencial"} />
             </ListItem>
             <ListItem button
+               data-cy="contextmenu-uploads-button"
                secondaryAction={<IoChevronForwardOutline size={17} />}
                component={Link} to="/upload">
                <ListItemIcon>
@@ -189,6 +205,7 @@ function CreateMenuItems(cookie, admin, userRoles, userId) {
                <ListItemText primary={"Uploads"} />
             </ListItem>
             <ListItem button
+               data-cy="contextmenu-downloads-button"
                secondaryAction={<IoChevronForwardOutline size={17} />}
                component={Link} to="/download">
                <ListItemIcon>
@@ -196,7 +213,9 @@ function CreateMenuItems(cookie, admin, userRoles, userId) {
                </ListItemIcon>
                <ListItemText primary={"Downloads"} />
             </ListItem>
-            <ListItem button secondaryAction={<IoChevronForwardOutline size={17} />}
+            <ListItem button 
+               data-cy="contextmenu-log-button"
+               secondaryAction={<IoChevronForwardOutline size={17} />}
                component={Link} to="/log">
                <ListItemIcon>
                   <SvgIcon component={LogsIcon} inheritViewBox />
@@ -204,6 +223,7 @@ function CreateMenuItems(cookie, admin, userRoles, userId) {
                <ListItemText primary={"Logs"} />
             </ListItem>
             <ListItem button
+               data-cy="contextmenu-exit-button"
                onClick={logout(cookie)}>
                <ListItemIcon>
                   <SvgIcon component={SairIcon} inheritViewBox />
@@ -217,6 +237,7 @@ function CreateMenuItems(cookie, admin, userRoles, userId) {
    if (userRoles.length == 2) {
       return <>
          <ListItem button
+            data-cy="contextmenu-demands-manager-button"
          ><ListItemIcon>
                <SvgIcon component={DemandasIcon} inheritViewBox />
             </ListItemIcon>
@@ -224,7 +245,9 @@ function CreateMenuItems(cookie, admin, userRoles, userId) {
          </ListItem>
          <PreConsultorMenu />
          <ConsultorMenu />
-         <ListItem button secondaryAction={<IoChevronForwardOutline size={17} />}
+         <ListItem button 
+            data-cy="contextmenu-banking-data-manager-button"
+            secondaryAction={<IoChevronForwardOutline size={17} />}
             component={Link} to={`/editar/dados/${userId}/alterar`}>
             <ListItemIcon>
                <SvgIcon component={LogsIcon} inheritViewBox />
@@ -232,6 +255,7 @@ function CreateMenuItems(cookie, admin, userRoles, userId) {
             <ListItemText primary={"Dados Bancários"} />
          </ListItem>
          <ListItem button
+            data-cy="contextmenu-exit-manager-button"
             onClick={logout(cookie)}>
             <ListItemIcon>
                <SvgIcon component={SairIcon} inheritViewBox />
@@ -243,13 +267,16 @@ function CreateMenuItems(cookie, admin, userRoles, userId) {
    else if (userRoles.includes("PRÉ-VENDA")) {
       return <>
          <ListItem button
+            data-cy="contextmenu-demands-presale-button"
          ><ListItemIcon>
                <SvgIcon component={DemandasIcon} inheritViewBox />
             </ListItemIcon>
             <ListItemText primary={"Demandas"} />
          </ListItem>
          <PreConsultorMenu />
-         <ListItem button secondaryAction={<IoChevronForwardOutline size={17} />}
+         <ListItem button 
+         data-cy="contextmenu-banking-data-presale-button"
+         secondaryAction={<IoChevronForwardOutline size={17} />}
             component={Link} to={`/editar/dados/${userId}/alterar`}>
             <ListItemIcon>
                <SvgIcon component={LogsIcon} inheritViewBox />
@@ -257,6 +284,7 @@ function CreateMenuItems(cookie, admin, userRoles, userId) {
             <ListItemText primary={"Dados Bancários"} />
          </ListItem>
          <ListItem button
+            data-cy="contextmenu-exit-presale-button"
             onClick={logout(cookie)}>
             <ListItemIcon>
                <SvgIcon component={SairIcon} inheritViewBox />
@@ -268,13 +296,16 @@ function CreateMenuItems(cookie, admin, userRoles, userId) {
    else {
       return <>
          <ListItem button
+            data-cy="contextmenu-demands-else-button"
          ><ListItemIcon>
                <SvgIcon component={DemandasIcon} inheritViewBox />
             </ListItemIcon>
             <ListItemText primary={"Demandas"} />
          </ListItem>
          <ConsultorMenu />
-         <ListItem button secondaryAction={<IoChevronForwardOutline size={17} />}
+         <ListItem button 
+            data-cy="contextmenu-banking-data-else-button"
+            secondaryAction={<IoChevronForwardOutline size={17} />}
             component={Link} to={`/editar/dados/${userId}/alterar`}>
             <ListItemIcon>
                <SvgIcon component={LogsIcon} inheritViewBox />
@@ -282,6 +313,7 @@ function CreateMenuItems(cookie, admin, userRoles, userId) {
             <ListItemText primary={"Dados Bancários"} />
          </ListItem>
          <ListItem button
+            data-cy="contextmenu-exit-else-button"
             onClick={logout(cookie)}>
             <ListItemIcon>
                <SvgIcon component={SairIcon} inheritViewBox />
@@ -313,7 +345,9 @@ function ConsultorMenu(props) {
       setAnchorEl(null);
    };
    return <>
-      <ListItem button onClick={handlePopoverOpen}
+      <ListItem button 
+         data-cy="contextmenu-consultant-button"
+         onClick={handlePopoverOpen}
          secondaryAction={<IoChevronForwardOutline size={17} />}>
          <ListItemIcon>
 
@@ -336,14 +370,17 @@ function ConsultorMenu(props) {
       >
          <List>
             <ListItem button
+               data-cy="contextmenu-schedule-consultant-button"
                component={Link} to="/horario">
                <ListItemText primary={"Agenda"} />
             </ListItem>
             <ListItem button
+               data-cy="contextmenu-meetings-consultant-button"
                component={Link} to="/reunioes">
                <ListItemText primary={"Minhas Reuniões"} />
             </ListItem>
             <ListItem button
+               data-cy="contextmenu-reports-consultant-button"
                component={Link} to="/relatorios">
                <ListItemText primary={"Relatório"} />
             </ListItem>
@@ -363,6 +400,7 @@ function PreConsultorMenu(props) {
    };
    return <>
       <ListItem button onClick={handlePopoverOpen}
+         data-cy="contextmenu-pre-consultant-button"
          secondaryAction={<IoChevronForwardOutline size={17} />}>
          <ListItemIcon>
 
@@ -385,12 +423,14 @@ function PreConsultorMenu(props) {
       >
          <List>
             <ListItem button
+               data-cy="contextmenu-get-in-touch-pre-consultant-button"
                component={Link} to="/contato">
                <ListItemText primary={"Fazer Contato"} />
             </ListItem>
          </List>
          <List>
             <ListItem button
+               data-cy="contextmenu-reports-pre-consultant-button"
                component={Link} to="/relatorios">
                <ListItemText primary={"Relatório"} />
             </ListItem>

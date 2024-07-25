@@ -23,6 +23,7 @@ export const DefaultValidationTextField = ({ label, ...props }) => {
    return (
       <>
          <ValidationTextField
+            data-cy="default-validation-text-field"
             fullWidth
             onKeyPress={preventLeadingWhitespace}
             InputLabelProps={{

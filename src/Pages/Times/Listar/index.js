@@ -49,7 +49,7 @@ export default class ListarTime extends ListarPagina {
    PageHeaderCustom() {
       return <PageHeaderCustomComponent
          Title="Times"
-         href="cadastrar/times/inserir" />
+         href="/cadastrar/times/inserir" />
    }
 
    TableHeaderCustom(props) {

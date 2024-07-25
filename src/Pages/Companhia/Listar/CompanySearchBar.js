@@ -13,6 +13,7 @@ export class CompanySearchBar extends SearchBar {
                   {this.props.children}
                   <Col className="mt-2" xs={12} sm={5}>
                      <InputTextField
+                        data-cy="id-eduzz-company-search-input-field"
                         label="ID Eduzz "
                         id="cpn_cli_cod"
                         fullWidth
@@ -22,6 +23,7 @@ export class CompanySearchBar extends SearchBar {
                   </Col>
                   <Col className="mt-2" xs={12} sm={5}>
                      <InputTextField
+                        data-cy="name-company-search-input-field"
                         label="Nome da Empresa"
                         id="name"
                         fullWidth
@@ -30,7 +32,7 @@ export class CompanySearchBar extends SearchBar {
                         key="cpn_name" />
                   </Col>
                   <Col className="mt-3" xs={12} sm={3} md={2}>
-                     <BtnBlue variant="dark" type="submit">
+                     <BtnBlue data-cy="companysearchbar-submit-button" variant="dark" type="submit">
                         Buscar
                      </BtnBlue>
                   </Col>

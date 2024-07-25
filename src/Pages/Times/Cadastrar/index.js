@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
 import Helmet from 'react-helmet'
 
-import { Redirect } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 import { Col } from 'react-bootstrap'
 import { CustomMenu } from '../../../Componentes/CustomMenu'
 import { CustomAlert } from '../../../Componentes/CustomAlert'
 import { TeamForm } from './Form'
 import { RowTopMargin, Title } from '../../../styles/CommonStyles'
-
-export default class CadastrarTime extends Component {
+import { withParams } from '../../../Services/api'
+class CadastrarTime extends Component {
    constructor(props) {
       super(props)
       this.state = {
@@ -37,7 +37,7 @@ export default class CadastrarTime extends Component {
 
    render() {
       if (this.state.redirect) {
-         return <Redirect to="/times" />
+         return <Navigate to="/times" />
       } else {
          return <>
             <CustomMenu>
@@ -60,3 +60,5 @@ export default class CadastrarTime extends Component {
       }
    }
 }
+
+export default withParams(CadastrarTime)

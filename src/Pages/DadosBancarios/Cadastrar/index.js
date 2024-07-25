@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Helmet from 'react-helmet'
 
-import { Redirect } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 import { CustomMenu } from '../../../Componentes/CustomMenu'
 import { CustomAlert } from '../../../Componentes/CustomAlert'
 import { DadosBancariosForm } from './Form'
@@ -36,12 +36,12 @@ export default class CadastrarDadosBancarios extends Component {
    render() {
       if (this.state.redirect) {
          if (this.context.userRoles?.includes("PRÉ-VENDA")) {
-            return <Redirect to="/contato" />
+            return <Navigate to="/contato" />
          }
          if (this.context.userRoles?.includes("CONSULTOR")) {
-            return <Redirect to="/reunioes" />
+            return <Navigate to="/reunioes" />
          }
-         return <Redirect to="/demandas" />
+         return <Navigate to="/demandas" />
       }
       else {
          return <>

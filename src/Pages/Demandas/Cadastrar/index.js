@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Helmet from 'react-helmet'
 
-import { Link, Redirect } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 import { Col } from 'react-bootstrap'
 import { CustomMenu } from '../../../Componentes/CustomMenu'
 import { CustomAlert } from '../../../Componentes/CustomAlert'
@@ -9,8 +9,8 @@ import { DemandForm } from './Form'
 import { RowTopMargin, SubTitle, Title } from '../../../styles/CommonStyles'
 import ContextLogin from "../../../Context/ContextLogin"
 import { Breadcrumbs, Typography } from '@material-ui/core'
-
-export default class CadastrarDemanda extends Component {
+import { withParams } from '../../../Services/api'
+class CadastrarDemanda extends Component {
    constructor(props) {
       super(props)
       this.state = {
@@ -39,12 +39,12 @@ export default class CadastrarDemanda extends Component {
    render() {
       if (this.state.redirect) {
          if (this.context.userRoles?.includes("PRÉ-VENDA")) {
-            return <Redirect to="/contato" />
+            return <Navigate to="/contato" />
          }
          if (this.context.userRoles?.includes("CONSULTOR")) {
-            return <Redirect to="/reunioes" />
+            return <Navigate to="/reunioes" />
          }
-         return <Redirect to="/demandas" />
+         return <Navigate to="/demandas" />
       } else {
          return <>
 
@@ -71,3 +71,5 @@ export default class CadastrarDemanda extends Component {
    }
 }
 CadastrarDemanda.contextType = ContextLogin
+
+export default withParams(CadastrarDemanda)

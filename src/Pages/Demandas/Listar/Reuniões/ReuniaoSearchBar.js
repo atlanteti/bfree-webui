@@ -16,6 +16,7 @@ export class ReuniaoSearchBar extends SearchBar {
                      <Row>
                         <Col className="mt-2" xs={12} sm={3} md={3}>
                            <InputTextField label="Assunto"
+                              data-cy="meeting-search-bar-subject-input-field"
                               id="dem_title"
                               onChange={this.onChange}
                               type="text"
@@ -33,7 +34,7 @@ export class ReuniaoSearchBar extends SearchBar {
                               name="dem_tdm_cod" />
                         </Col>
                         <Col className="mt-3" xs={12} sm={4} md={2}>
-                           <BtnBlue variant="dark" type="submit">
+                           <BtnBlue variant="dark" data-cy="meetingsearchbar-submit-button" type="submit">
                               Buscar
                            </BtnBlue>
                         </Col>

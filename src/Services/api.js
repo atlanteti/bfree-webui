@@ -1,6 +1,16 @@
 import axios from 'axios'
 import { Col, Row } from 'react-bootstrap'
 import { Cookies } from 'react-cookie'
+import { useParams } from 'react-router-dom';
+
+//Devido a mudança de paradigma do react de funções de classe para funções de componentes, esse wrapper
+//Precisa ser utilizado para dar às funções de classe o acesso aos hooks relevantes.
+export const withParams = WrappedComponent => props => {
+   let param  = useParams();
+   let inject = {"match": {}}
+   inject.match.params = {...param}
+   return <WrappedComponent {...props} {...inject}/>
+}
 
 export const request = async ({
    method,
@@ -19,7 +29,7 @@ export const request = async ({
       baseURL: `${baseUrl}/${endpoint}`,
       data: data || null,
       params: params || null,
-      timeout: 120000,
+      timeout: 5000,
       headers: {
          'Content-Type': contentType || 'application/json',
          'Access-Control-Allow-Origin': '*',
@@ -79,8 +89,11 @@ export const request = async ({
             window.Eduzz.Accounts.logout({ env: process.env.REACT_APP_EDUZZ_ENV, redirectTo: window.location.origin })
             return
          }
-      } catch {
-         throw new Error("Tratamento de página vazia não feito")
+      } catch (error) {
+         if(error.name == "TypeError") {
+            throw new Error("RequestTimeout")
+         }
+         throw new Error("Request Error", {cause: {code: "No content"}})
       }
    }
 }

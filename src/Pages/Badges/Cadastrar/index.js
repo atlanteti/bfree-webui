@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
 import Helmet from 'react-helmet'
 
-import { Redirect } from 'react-router-dom'
+import { Navigate} from 'react-router-dom'
 import { Col } from 'react-bootstrap'
 import { CustomMenu } from '../../../Componentes/CustomMenu'
 import { CustomAlert } from '../../../Componentes/CustomAlert'
 import { BadgeForm } from './Form'
 import { RowTopMargin, Title } from '../../../styles/CommonStyles'
-
-export default class CadastrarBadge extends Component {
+import { withParams } from '../../../Services/api'
+class CadastrarBadge extends Component {
    constructor(props) {
       super(props)
       this.state = {
@@ -39,7 +39,7 @@ export default class CadastrarBadge extends Component {
 
    render() {
       if (this.state.redirect) {
-         return <Redirect to="/badges" />
+         return <Navigate to="/badges" />
       } else {
          return <>
             <CustomMenu >
@@ -62,3 +62,5 @@ export default class CadastrarBadge extends Component {
       }
    }
 }
+
+export default withParams(CadastrarBadge)

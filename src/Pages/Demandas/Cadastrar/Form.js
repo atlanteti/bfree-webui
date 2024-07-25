@@ -232,11 +232,11 @@ export const DemandForm = (props) => {
       dem_dtaction: yup.date()
          .when("dem_sdm_cod", {
             is: (demandStatus) => (demandStatus > 1),
-            then: yup.date()
+            then: ()=>yup.date()
                .required()
                .nullable()
                .transform((curr, orig) => orig === '' ? null : curr),
-            otherwise: yup.date()
+            otherwise: ()=>yup.date()
                .nullable()
                .transform((curr, orig) => orig === '' ? null : curr)
          }),
@@ -249,11 +249,11 @@ export const DemandForm = (props) => {
          dem_dtaction: yup.date()
             .when("dem_sdm_cod", {
                is: (demandStatus) => (demandStatus > 1),
-               then: yup.date()
+               then: ()=>yup.date()
                   .required()
                   .nullable()
                   .transform((curr, orig) => orig === '' ? null : curr),
-               otherwise: yup.date()
+               otherwise: ()=>yup.date()
                   .nullable()
                   .transform((curr, orig) => orig === '' ? null : curr)
             }),
@@ -420,6 +420,7 @@ export const DemandForm = (props) => {
                         <Row>
                            <Col className="mt-3" xs={12} sm={4} >
                               <DatePickerField
+                                 
                                  label="Data de Ação"
                                  name="dem_dtaction"
                                  disabled={userRoles?.length !== 0 && (values.dem_sdm_cod === 2 || values.dem_sdm_cod === 3)}
@@ -539,6 +540,7 @@ export const DemandForm = (props) => {
                                        }}
                                     >
                                        {() => <DefaultValidationTextField
+                                          data-cy="meeting-time-input-text-field"
                                           label="Hora da Reunião"
                                           name="dem_hourmeet"
                                           placeholder='00:00'
@@ -607,7 +609,7 @@ export const DemandForm = (props) => {
                            : null}
                         <Row style={{ marginTop: 25, marginBottom: 31 }} className="d-flex justify-content-center">
                            <Col className="d-flex justify-content-center">
-                              <BtnBlue variant="dark" type="submit" onClick={scrollToTop}>Salvar</BtnBlue>
+                              <BtnBlue variant="dark" data-cy="demandform-submit-button" type="submit" onClick={scrollToTop}>Salvar</BtnBlue>
                            </Col>
                         </Row>
                      </Form>

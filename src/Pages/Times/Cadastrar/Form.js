@@ -120,7 +120,7 @@ export const TeamForm = (props) => {
                         </DefaultValidationTextField>
                      </Col>
                      <Col className="mt-4" xs={12} sm={2}>
-                        <BtnBlue variant="dark" type="submit">Salvar</BtnBlue>
+                        <BtnBlue variant="dark" data-cy="teamform-register-submit-button" type="submit">Salvar</BtnBlue>
                      </Col>
                   </Row>
                   {(props.paramRoute !== "inserir" && primaryData) ?
