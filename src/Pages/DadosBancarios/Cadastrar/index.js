@@ -7,8 +7,10 @@ import { CustomAlert } from '../../../Componentes/CustomAlert'
 import { DadosBancariosForm } from './Form'
 import { RowTopMargin } from '../../../styles/CommonStyles'
 import ContextLogin from "../../../Context/ContextLogin"
+import { withParams } from '../../../Services/api'
 
-export default class CadastrarDadosBancarios extends Component {
+
+class CadastrarDadosBancarios extends Component {
    constructor(props) {
       super(props)
       this.state = {
@@ -64,4 +66,7 @@ export default class CadastrarDadosBancarios extends Component {
       }
    }
 }
+
+export default withParams(CadastrarDadosBancarios)
+
 CadastrarDadosBancarios.contextType = ContextLogin

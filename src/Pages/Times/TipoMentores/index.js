@@ -1,5 +1,5 @@
 import { Button, Col, Form, Row } from "react-bootstrap";
-import { request } from "../../../Services/api";
+import { request, withParams } from "../../../Services/api";
 import { Component } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { BackGroundForm, BtnBlue, BtnPrimary, CustomMenuCol, Title, RowTopMargin } from "../../../styles/CommonStyles";
@@ -12,7 +12,7 @@ import { Helmet } from "react-helmet";
 import { InputTextField, BooleanField } from "../../../Componentes/FormFields";
 import NoDataComp from "../../../Componentes/NoDataComp";
 import { IoChevronBackCircleSharp } from "react-icons/io5";
-export default class TiposDeMentoria extends Component {
+class TiposDeMentoria extends Component {
    constructor(props) {
       super(props);
       this.state = {
@@ -221,3 +221,4 @@ export default class TiposDeMentoria extends Component {
       </>
    }
 }
+export default withParams(TiposDeMentoria);

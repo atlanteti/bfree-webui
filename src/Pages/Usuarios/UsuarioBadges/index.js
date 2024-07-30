@@ -1,15 +1,17 @@
 import MultiSelectForm from "../../../Componentes/MultiSelectForm";
-import { request } from "../../../Services/api";
+import { request, withParams } from "../../../Services/api";
 
-export default function UsuarioBadges(props) {
+function UsuarioBadges(props) {
    return <UsuarioBadgesForm
-      userId={props.match.params.userId}
-      populateListEndpoint="badges/listar-user-badges"
-      label="Badges"
-      name="selectBadges"
-      userName={props.match.params.userName}
-      pageTitle="Badges" />
+   userId={props.match.params.userId}
+   populateListEndpoint="badges/listar-user-badges"
+   label="Badges"
+   name="selectBadges"
+   userName={props.match.params.userName}
+   pageTitle="Badges" />
 }
+export default withParams(UsuarioBadges);
+
 class UsuarioBadgesForm extends MultiSelectForm {
 
    formatList() {
