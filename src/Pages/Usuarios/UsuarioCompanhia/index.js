@@ -1,15 +1,17 @@
 import MultiSelectForm from "../../../Componentes/MultiSelectForm";
-import { request } from "../../../Services/api";
+import { request, withParams } from "../../../Services/api";
 
-export default function UsuarioCompanies(props) {
+function UsuarioCompanies(props) {
    return <UsuarioCompaniesForm
-      userId={props.match.params.userId}
-      populateListEndpoint="companies/listar-user-company"
-      label="Empresas"
-      name="selectCompanies"
-      userName={props.match.params.userName}
-      pageTitle="Empresas" />
+   userId={props.match.params.userId}
+   populateListEndpoint="companies/listar-user-company"
+   label="Empresas"
+   name="selectCompanies"
+   userName={props.match.params.userName}
+   pageTitle="Empresas" />
 }
+export default withParams(UsuarioCompanies) 
+
 class UsuarioCompaniesForm extends MultiSelectForm {
 
    formatList() {
