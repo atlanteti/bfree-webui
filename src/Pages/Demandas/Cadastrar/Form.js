@@ -126,6 +126,8 @@ export const DemandForm = (props) => {
          dem_cli_cod: "",
          dem_desc: "",
          dem_comments: "",
+         dem_qualification: "",
+         dem_msg: "",
          dem_usr_cod: "",
          dem_sdm_cod: "",
          dem_tdm_cod: "",
