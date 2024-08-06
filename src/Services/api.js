@@ -1,4 +1,5 @@
 import axios from 'axios'
+import axiosRetry from 'axios-retry'
 import { Col, Row } from 'react-bootstrap'
 import { Cookies } from 'react-cookie'
 import { useParams } from 'react-router-dom';
@@ -11,6 +12,10 @@ export const withParams = WrappedComponent => props => {
    inject.match.params = {...param}
    return <WrappedComponent {...props} {...inject}/>
 }
+
+axiosRetry(axios, {
+   retries: 3
+})
 
 export const request = async ({
    method,
@@ -84,16 +89,21 @@ export const request = async ({
       }
       return result.data
    } catch (error) {
-      try {
-         if (error.response.data.meta.status === 203) {
-            window.Eduzz.Accounts.logout({ env: process.env.REACT_APP_EDUZZ_ENV, redirectTo: window.location.origin })
-            return
+      if(error.code == "ERR_NETWORK") {
+         console.log("Network error on", error)
+      }
+      else {
+         try {
+            if (error.response.data.meta.status === 203) {
+               window.Eduzz.Accounts.logout({ env: process.env.REACT_APP_EDUZZ_ENV, redirectTo: window.location.origin })
+               return
+            }
+         } catch (error) {
+            if(error.name == "TypeError") {
+               throw new Error("RequestTimeout")
+            }
+            throw new Error("Request Error", {cause: {code: "No content"}})
          }
-      } catch (error) {
-         if(error.name == "TypeError") {
-            throw new Error("RequestTimeout")
-         }
-         throw new Error("Request Error", {cause: {code: "No content"}})
       }
    }
 }

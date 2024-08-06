@@ -16,7 +16,7 @@ export default class ListMessage extends Component {
       const data = await request({
          method: 'get',
          endpoint: 'demands/list-activities'
-      });
+      }).catch((e)=>{console.log(e)});
       this.setState({
          messages: data.data
       });
