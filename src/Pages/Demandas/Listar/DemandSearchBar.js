@@ -1,5 +1,5 @@
 import { Row, Form, Col, Button } from 'react-bootstrap';
-import { React } from 'react';
+import { Component, React, useEffect, useState } from 'react';
 import { BtnBlue, ExportContainer, SearchBarBorder } from '../../../styles/CommonStyles';
 import SearchBar from '../../../Componentes/SearchBar/index';
 import ListStatusDemands from '../../../Componentes/ListStatusDemands';
@@ -11,6 +11,7 @@ import Restricted from '../../../Context/AccessPermission'
 import { AiOutlineUpload } from "react-icons/ai"
 import { RiFileList3Line } from "react-icons/ri"
 import DatePicker from "react-datepicker";
+import ListMessage from '../../../Componentes/ListMessages';
 
 export class DemandSearchBar extends SearchBar {
    render() {
@@ -43,10 +44,15 @@ export class DemandSearchBar extends SearchBar {
                            onChange={this.handleSelect}
                            name="dem_sdm_cod" />
                      </Col>
-                     <Col className="mt-2" xs={12} md={3} sm={6}>
+                     <Col className="mt-2" xs={12} md={3} sm={4}>
                         <ListTypeDemand
                            onChange={this.handleSelect}
                            name="dem_tdm_cod" />
+                     </Col>
+                     <Col className='mt-2' md={3}>
+                        <ListMessage
+                           name="dem_activity"
+                           onChange={this.handleSelect}/>
                      </Col>
                   </Row>
                   {this.state.formData?.dem_sdm_cod === 3 &&
