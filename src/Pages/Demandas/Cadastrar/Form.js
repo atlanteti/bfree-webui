@@ -1,34 +1,34 @@
-import { Form, Formik } from 'formik';
-import React, { useEffect, useState, useContext } from 'react';
-import { useScroll } from '../../../Hooks';
-import { Button, Col, Row } from 'react-bootstrap';
-import { IoChevronBackCircleSharp } from 'react-icons/io5';
-import { ButtonRow } from '../../../Componentes/ButtonRow';
-import { DatePickerField, MeetingDatePickerField } from '../../../Componentes/FormikComponents/DatePickerField';
-import { DefaultValidationTextField } from '../../../Componentes/FormikComponents/DefaultValidationTextField';
-import { ListStatusDemands } from '../../../Componentes/FormikComponents/ListStatusDemands';
-import { ListTypeDemand } from '../../../Componentes/FormikComponents/ListTypeDemand';
-import { ListUsers } from '../../../Componentes/FormikComponents/ListUsers';
-import { ListMessageStatus } from '../../../Componentes/FormikComponents/ListMessageStatus'
-import { PhoneInput } from '../../../Componentes/FormikComponents/PhoneInput';
-import { StatusHistory } from "../../../Componentes/FormikComponents/StatusHistory";
-import { Timestamps } from '../../../Componentes/FormikComponents/Timestamps';
-import MeetingCard from "../../../Componentes/MeetingCard"
-import { request } from '../../../Services/api';
-import yup from "../../../Services/validations";
-import { BackGroundForm, BtnBlue, MainTable, TableData, TableHeader, TableRow, TextCell, TextHeaderCell, TitleRegister } from '../../../styles/CommonStyles';
-import InputMask from "react-input-mask";
-import ContextLogin from "../../../Context/ContextLogin"
-import moment from 'moment';
-import { FormatPhone } from '../../../Componentes/PhoneInput';
+import { CircularProgress } from '@material-ui/core';
 import Box from '@mui/material/Box';
+import FormControl from '@mui/material/FormControl';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormLabel from '@mui/material/FormLabel';
 import Modal from '@mui/material/Modal';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
-import { CircularProgress } from '@material-ui/core';
+import { Form, Formik } from 'formik';
+import moment from 'moment';
+import React, { useContext, useEffect, useState } from 'react';
+import { Button, Col, Row } from 'react-bootstrap';
+import { IoChevronBackCircleSharp } from 'react-icons/io5';
+import InputMask from "react-input-mask";
+import { ButtonRow } from '../../../Componentes/ButtonRow';
+import { DatePickerField, MeetingDatePickerField } from '../../../Componentes/FormikComponents/DatePickerField';
+import { DefaultValidationTextField } from '../../../Componentes/FormikComponents/DefaultValidationTextField';
+import { ListMessageStatus } from '../../../Componentes/FormikComponents/ListMessageStatus';
+import { ListStatusDemands } from '../../../Componentes/FormikComponents/ListStatusDemands';
+import { ListTypeDemand } from '../../../Componentes/FormikComponents/ListTypeDemand';
+import { ListUsers } from '../../../Componentes/FormikComponents/ListUsers';
+import { PhoneInput } from '../../../Componentes/FormikComponents/PhoneInput';
+import { StatusHistory } from "../../../Componentes/FormikComponents/StatusHistory";
+import { Timestamps } from '../../../Componentes/FormikComponents/Timestamps';
+import MeetingCard from "../../../Componentes/MeetingCard";
+import { FormatPhone } from '../../../Componentes/PhoneInput';
+import ContextLogin from "../../../Context/ContextLogin";
+import { useScroll } from '../../../Hooks';
+import { request } from '../../../Services/api';
+import yup from "../../../Services/validations";
+import { BackGroundForm, BtnBlue, MainTable, TableData, TableHeader, TableRow, TextCell, TextHeaderCell, TitleRegister } from '../../../styles/CommonStyles';
 async function submitEvaluation(rate, demCode, showAlert) {
    const data = await request({
       method: "post",
@@ -126,6 +126,7 @@ export const DemandForm = (props) => {
          dem_cli_cod: "",
          dem_desc: "",
          dem_comments: "",
+         dem_qualification: "",
          dem_usr_cod: "",
          dem_sdm_cod: "",
          dem_tdm_cod: "",
@@ -232,11 +233,11 @@ export const DemandForm = (props) => {
       dem_dtaction: yup.date()
          .when("dem_sdm_cod", {
             is: (demandStatus) => (demandStatus > 1),
-            then: yup.date()
+            then: ()=>yup.date()
                .required()
                .nullable()
                .transform((curr, orig) => orig === '' ? null : curr),
-            otherwise: yup.date()
+            otherwise: ()=>yup.date()
                .nullable()
                .transform((curr, orig) => orig === '' ? null : curr)
          }),
@@ -249,18 +250,18 @@ export const DemandForm = (props) => {
          dem_dtaction: yup.date()
             .when("dem_sdm_cod", {
                is: (demandStatus) => (demandStatus > 1),
-               then: yup.date()
+               then: ()=>yup.date()
                   .required()
                   .nullable()
                   .transform((curr, orig) => orig === '' ? null : curr),
-               otherwise: yup.date()
+               otherwise: ()=>yup.date()
                   .nullable()
                   .transform((curr, orig) => orig === '' ? null : curr)
             }),
          dem_dtmeet: yup.date()
             .when("dem_sdm_cod", {
                is: (demandStatus) => (demandStatus > 1 && demandStatus < 5),
-               then: yup.date()
+               then: ()=>yup.date()
                   .required().nullable()
                   .transform((curr, orig) => orig === '' ? null : curr)
             }),
@@ -286,10 +287,14 @@ export const DemandForm = (props) => {
                      validationSchema={validationSchema}
                      onSubmit={
                         async (values, { setSubmitting, setFieldError }) => {
+                           console.log("Submitting!")
                            Object.keys(values).forEach((key) => {
                               if (key && key.includes("phone")) {
                                  values[key] = values[key].replaceAll(/[^\d]/g, "")
                               }
+                              // if (key && key.includes("dem_comments")) {
+                              //    values[key] = values[key].split("Dados de Qualificação")[0]
+                              // }
                            })
                            const data = await request({
                               method: method,
@@ -299,6 +304,7 @@ export const DemandForm = (props) => {
                                  dem_dtaction: values.dem_dtaction === '' ? '' : moment(values.dem_dtaction).format("YYYY-MM-DD")
                               },
                            });
+                           console.log(data)
                            if (data.meta.status == 100) {
                               props.showAlert(data.meta)
                            }
@@ -315,7 +321,8 @@ export const DemandForm = (props) => {
                         }
                      }
                      enableReinitialize
-                  >{({ setFieldValue, handleChange, submitForm, values }) => (
+                  >{({ setFieldValue, handleChange, submitForm, values }) => {
+                     return (
                      <Form id="mainForm">
                         <Row>
                            <Col className="mt-3" xs={12} sm={3}>
@@ -364,15 +371,22 @@ export const DemandForm = (props) => {
                            </Col>
                         </Row>
                         <Row>
-                           <Col className="mt-3">
+                           <Col className="mt-3" sm={6}>
                               <DefaultValidationTextField
                                  label="Observações"
                                  name="dem_comments"
                                  type="text"
-                                 maxLength="500"
                                  multiline
                                  rows={4}
                               />
+                           </Col>
+                           <Col sm={6} className='mt-3'>
+                              <DefaultValidationTextField
+                                 label="Dados de Qualificação"
+                                 name="dem_qualification"
+                                 type="text"
+                                 multiline
+                                 rows={4}/>
                            </Col>
                         </Row>
                         <Row>
@@ -417,6 +431,7 @@ export const DemandForm = (props) => {
                         <Row>
                            <Col className="mt-3" xs={12} sm={4} >
                               <DatePickerField
+
                                  label="Data de Ação"
                                  name="dem_dtaction"
                                  disabled={userRoles?.length !== 0 && (values.dem_sdm_cod === 2 || values.dem_sdm_cod === 3)}
@@ -536,6 +551,7 @@ export const DemandForm = (props) => {
                                        }}
                                     >
                                        {() => <DefaultValidationTextField
+                                          data-cy="meeting-time-input-text-field"
                                           label="Hora da Reunião"
                                           name="dem_hourmeet"
                                           placeholder='00:00'
@@ -604,11 +620,12 @@ export const DemandForm = (props) => {
                            : null}
                         <Row style={{ marginTop: 25, marginBottom: 31 }} className="d-flex justify-content-center">
                            <Col className="d-flex justify-content-center">
-                              <BtnBlue variant="dark" type="submit" onClick={scrollToTop}>Salvar</BtnBlue>
+                              <BtnBlue variant="dark" data-cy="demandform-submit-button" type="submit" onClick={scrollToTop}>Salvar</BtnBlue>
                            </Col>
                         </Row>
                      </Form>
                   )}
+                  }
                   </Formik>
                   {props.paramRoute !== "inserir" ? <StatusHistory primaryData={primaryData} /> : null}
                </BackGroundForm>

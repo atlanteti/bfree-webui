@@ -19,6 +19,7 @@ export const GenericSelector = ({ label, ...props }) => {
    }, []);
    return <DefaultValidationTextField
       {...props}
+      data-cy="data-selector"
       label={label}
       select>
       {props.notRequired && <MenuItem

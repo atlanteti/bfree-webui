@@ -1,7 +1,7 @@
 import { Component, React } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { Helmet } from "react-helmet";
-import { Redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { CustomMenu } from "../../Componentes/CustomMenu";
 import { request } from "../../Services/api";
 import {
@@ -51,7 +51,6 @@ export default class UploadSheet extends Component {
             [event.target.id]: Number(event.target.value.trim()),
          },
       });
-      console.log(this.state);
    };
 
    handleSelect = (e) => {
@@ -107,7 +106,7 @@ export default class UploadSheet extends Component {
 
    render() {
       if (this.state.redirect) {
-         return <Redirect to="/demandas" />;
+         return <Navigate to="/demandas" />;
       } else {
          return (
             <>
@@ -142,7 +141,7 @@ export default class UploadSheet extends Component {
                                                 filename={this.state.fileName} />
                                              <Form onSubmit={this.handleSubmitFile}>
                                                 <Col style={{ textAlign: "center" }}>
-                                                   <Button type="submit" variant="dark"
+                                                   <Button data-cy="uploadsheet-submit-button" type="submit" variant="dark"
                                                       style={{
                                                          marginTop: "2rem",
                                                          padding: "0.5rem 3rem"
@@ -169,7 +168,7 @@ export default class UploadSheet extends Component {
                                                    />
                                                 </Row>
                                                 <Row className="mt-3">
-                                                   <Button variant="dark" type="submit">Enviar</Button>
+                                                   <Button variant="dark" data-cy="uploadsheet-submit-button" type="submit">Enviar</Button>
                                                 </Row>
                                              </Form>
                                           </Col>

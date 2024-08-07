@@ -16,6 +16,7 @@ export class CustomAlert extends React.Component {
    };
 
    onShowAlert(data) {
+      this.setState({ showAlert: false })
       const message = data.message
       const type = data.responseType
       let statusMsg = ''

@@ -1,5 +1,5 @@
-import { Row, Form, Col } from 'react-bootstrap';
-import { React } from 'react';
+import { Row, Form, Col, Button } from 'react-bootstrap';
+import { Component, React, useEffect, useState } from 'react';
 import { BtnBlue, ExportContainer, SearchBarBorder } from '../../../styles/CommonStyles';
 import SearchBar from '../../../Componentes/SearchBar/index';
 import ListStatusDemands from '../../../Componentes/ListStatusDemands';
@@ -11,6 +11,7 @@ import Restricted from '../../../Context/AccessPermission'
 import { AiOutlineUpload } from "react-icons/ai"
 import { RiFileList3Line } from "react-icons/ri"
 import DatePicker from "react-datepicker";
+import ListMessage from '../../../Componentes/ListMessages';
 
 export class DemandSearchBar extends SearchBar {
    render() {
@@ -21,6 +22,7 @@ export class DemandSearchBar extends SearchBar {
                   <Row>
                      <Col className="mt-2" xs={12} md={3} sm={6}>
                         <InputTextField label="Título"
+                           data-cy="demand-search-bar-title-input-field"
                            id="dem_title"
                            onChange={this.onChange}
                            type="text"
@@ -42,10 +44,15 @@ export class DemandSearchBar extends SearchBar {
                            onChange={this.handleSelect}
                            name="dem_sdm_cod" />
                      </Col>
-                     <Col className="mt-2" xs={12} md={3} sm={6}>
+                     <Col className="mt-2" xs={12} md={3} sm={4}>
                         <ListTypeDemand
                            onChange={this.handleSelect}
                            name="dem_tdm_cod" />
+                     </Col>
+                     <Col className='mt-2' md={3}>
+                        <ListMessage
+                           name="dem_activity"
+                           onChange={this.handleSelect}/>
                      </Col>
                   </Row>
                   {this.state.formData?.dem_sdm_cod === 3 &&
@@ -92,7 +99,7 @@ export class DemandSearchBar extends SearchBar {
                   }
                   <Row>
                      <Col className="mt-4 d-flex justify-content-center">
-                        <BtnBlue variant="dark" type="submit">
+                        <BtnBlue variant="dark" data-cy="demandsearchbar-search-button" type="submit">
                            Buscar
                         </BtnBlue>
                      </Col>
@@ -100,16 +107,28 @@ export class DemandSearchBar extends SearchBar {
                </Form>
             </SearchBarBorder>
             <Col>
-               <Row>
                   <Restricted>
-                     <ExportContainer onClick={(event) => this.requestExportData(event, "export-file", "Demandas")}>
-                        <AiOutlineUpload size={23} className="mr-2" /> EXPORTAR EXCEL
-                     </ExportContainer>
-                     <ExportContainer onClick={(event) => this.requestSchedule(event)}>
-                        <RiFileList3Line size={23} className="ml-4" /> GERAR LISTA SEMANAL
-                     </ExportContainer>
+                     <Button onClick={(event) => this.requestExportData(event, "export-file", "Demandas")}>
+                        <Row>
+                           <Col xs="auto">
+                              <AiOutlineUpload size={23} /> 
+                           </Col>
+                           <Col>
+                              <span>EXPORTAR EXCEL</span>
+                           </Col>
+                        </Row>
+                     </Button>
+                     <Button onClick={(event) => this.requestSchedule(event)}>
+                        <Row>
+                           <Col xs="auto">
+                              <RiFileList3Line size={23} className="ml-4" /> 
+                           </Col>
+                           <Col>
+                              <span>GERAR LISTA SEMANAL</span>
+                           </Col>
+                        </Row>
+                     </Button>
                   </Restricted>
-               </Row>
             </Col>
          </>
       )

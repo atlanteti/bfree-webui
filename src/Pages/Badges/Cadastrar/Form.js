@@ -139,6 +139,7 @@ export const BadgeForm = (props) => {
                   <Row>
                      <Col className="mt-3" xs={12} sm={6}>
                         <CheckBox
+                           data-cy="badgeform-mentorshipbadge-checkbox"
                            label="É badge de mentoria?"
                            name="bdg_mentor"
                            onChange={() => setFieldValue("bdg_mentor", !values.bdg_mentor)}
@@ -199,7 +200,7 @@ export const BadgeForm = (props) => {
                      : null}
                   <Row>
                      <Col md={{ offset: 5 }} className="mt-4">
-                        <BtnBlue variant="dark" type="submit">Salvar</BtnBlue>
+                        <BtnBlue data-cy="badgeform-submit-button" variant="dark" type="submit">Salvar</BtnBlue>
                      </Col>
                   </Row>
                </Form>

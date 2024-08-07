@@ -21,8 +21,10 @@ export default function CustomFileInputField(props) {
                   ref={inputRef}
                   onChange={handleDisplayFileDetails}
                   className="d-none"
-                  type="file" />
+                  type="file"
+                  accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
                <InputTextField
+                  data-cy="custom-file-input-field"
                   fullWidth
                   onClick={handleUpload}
                   onChange={props.onChange}

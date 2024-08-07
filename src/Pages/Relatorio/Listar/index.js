@@ -22,6 +22,7 @@ import { AiOutlineUpload, AiOutlineCheck } from "react-icons/ai"
 import ListTypeDemand from '../../../Componentes/ListTypeDemand'
 import NoDataComp from '../../../Componentes/NoDataComp'
 import CustomPagination from '../../../Componentes/CustomPagination'
+import ListJourneysControlled from '../../../Componentes/ListJourneysControlled'
 
 export default class ListarRelatorio extends ListarPagina {
    constructor(props) {
@@ -37,6 +38,7 @@ export default class ListarRelatorio extends ListarPagina {
       this.filter = {
          initialDate: new Date(moment().startOf('isoWeek')),
          finalDate: new Date(moment().weekday(7)),
+         usr_journey: ""
       }
       this.onChange = this.onChange.bind(this)
       this.requestExportData = this.requestExportData.bind(this)
@@ -151,32 +153,41 @@ export default class ListarRelatorio extends ListarPagina {
                   <SearchBarBorder>
                      <Form onSubmit={this.onSubmit.bind(this)}>
                         <Row>
-                           <Col xs={12} md={3} sm={5}>
-                              <NoDataComp />
+                           <Col xs={12} md={6} sm={6}>
                               <Row>
-                                 <Col className="mt-2">
-                                    <ListUsers
-                                       name="usr_cod"
-                                       userJourney="list-has-journey"
-                                       fullWidth
-                                       defaultValue={this.context.admin ? this.state.formData?.usr_cod : this.context.user}
-                                       defaultUser={this.context.admin ? this.state.formData?.usr_cod : this.context.user}
-                                       disabled={!this.context.admin}
-                                       onChange={this.context.admin ? this.handleSelect : null}
-                                    />
-                                 </Col>
+
+                                    <Col className='mt-2' xs={12} md={6} sm={6}>
+                                       <NoDataComp />
+                                       <ListUsers
+                                          name="usr_cod"
+                                          userJourney="list-has-journey"
+                                          fullWidth
+                                          defaultValue={this.context.admin ? this.state.formData?.usr_cod : this.context.user}
+                                          defaultUser={this.context.admin ? this.state.formData?.usr_cod : this.context.user}
+                                          disabled={!this.context.admin}
+                                          onChange={this.context.admin ? this.handleSelect : null}
+                                       />
+                                    </Col>
+                                    {this.context.admin &&
+                                       <Col className="mt-2" xs={12} md={6} sm={6}>
+                                          <NoDataComp />
+                                          <ListTypeDemand
+                                             fullWidth
+                                             onChange={this.handleSelect}
+                                             name="tdm_cod"
+                                          />
+                                       </Col>
+                                    }
+                                    <Col className="mt-2" xs={12} md={6} sm={6}>
+                                       <ListJourneysControlled 
+                                          name="usr_journey"
+                                          fullWidth
+                                          onChange={this.handleSelect}
+                                          />
+                                    </Col>
                               </Row>
                            </Col>
-                           {this.context.admin &&
-                              <Col className="mt-2" xs={12} md={3} sm={5}>
-                                 <NoDataComp />
-                                 <ListTypeDemand
-                                    onChange={this.handleSelect}
-                                    name="tdm_cod"
-                                 />
-                              </Col>
-                           }
-                           <Col xs={12} md={6} sm={7}>
+                           <Col xs={12} md={6} sm={6}>
                               <DataSearchTitle>Pesquisar por período</DataSearchTitle>
                               <Row>
                                  <Col className="mt-2">
@@ -215,7 +226,7 @@ export default class ListarRelatorio extends ListarPagina {
                         </Row>
                         <Row>
                            <Col className="mt-4 d-flex justify-content-center">
-                              <BtnBlue type="submit" variant="dark">Buscar</BtnBlue>
+                              <BtnBlue data-cy="list-report-search-submit-button" type="submit" variant="dark">Buscar</BtnBlue>
                            </Col>
                         </Row>
                      </Form>

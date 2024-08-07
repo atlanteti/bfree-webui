@@ -151,7 +151,7 @@ export function Horario() {
                         changeState={setSab}
                      />
                      <Col className="mt-4" md={{ offset: 4 }}>
-                        <BtnBlue variant="dark" type="submit" onClick={() => window.scrollTo(0, 0)}>Salvar</BtnBlue>
+                        <BtnBlue variant="dark" data-cy="meetingtime-submit-button" type="submit" onClick={() => window.scrollTo(0, 0)}>Salvar</BtnBlue>
                      </Col>
                   </>}
             </BackGroundForm>

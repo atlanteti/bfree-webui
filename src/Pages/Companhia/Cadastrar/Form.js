@@ -111,7 +111,7 @@ export const CompanyForm = (props) => {
                         />
                      </Col>
                      <Col className="mt-4" xs={12} sm={2}>
-                        <BtnBlue variant="dark" type="submit">Salvar</BtnBlue>
+                        <BtnBlue variant="dark" data-cy="companyform-submit-button" type="submit">Salvar</BtnBlue>
                      </Col>
                   </Row>
                   {(props.paramRoute !== "inserir" && primaryData) ?

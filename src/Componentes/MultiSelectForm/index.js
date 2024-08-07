@@ -4,7 +4,7 @@ import Select from 'react-select';
 import { request } from '../../Services/api';
 import PropTypes from 'prop-types'
 import { CustomAlert } from '../CustomAlert';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, Navigate} from 'react-router-dom';
 import { BackGroundForm, BtnBlue, BtnPrimary, CustomMenuCol, RowTopMargin, Title } from '../../styles/CommonStyles';
 import { CustomMenu } from '../CustomMenu';
 import { InputTextField } from '../FormFields';
@@ -81,7 +81,7 @@ export default class MultiSelectForm extends Component {
    }
    render() {
       if (this.state.redirect) {
-         return <Redirect to="/usuarios" />
+         return <Navigate to="/usuarios" />
       }
       return <>
          <CustomMenu>
@@ -107,6 +107,7 @@ export default class MultiSelectForm extends Component {
                   <Row>
                      <Col className="mt-3" xs={12} sm={5} md={6}>
                         <InputTextField
+                           data-cy="eduzz-id-text-input-field"
                            label="ID Eduzz"
                            type="text"
                            value={this.props.userId}
@@ -115,6 +116,7 @@ export default class MultiSelectForm extends Component {
                      </Col>
                      <Col className="mt-3" xs={12} sm={5} md={6}>
                         <InputTextField
+                           data-cy="eduzz-user-text-input-field"
                            label="Nome do Usuário"
                            type="text"
                            value={this.props.userName}
@@ -125,6 +127,7 @@ export default class MultiSelectForm extends Component {
                   <Row>
                      <Col key={this.state.optionList} xs={12} sm={5} md={6} className="mt-5">
                         <Select
+                           data-cy="multiselectform-select"
                            value={this.state.selected}
                            isMulti
                            placeholder={this.props.label}
@@ -141,9 +144,9 @@ export default class MultiSelectForm extends Component {
                            justifyContent: 'center'
                         }}
                      >
-                        <BtnBlue type="submit" variant="dark">Editar</BtnBlue>
+                        <BtnBlue data-cy="multiselectform-edit-button" type="submit" variant="dark">Editar</BtnBlue>
                         <Link to="/usuarios">
-                           <BtnPrimary variant="light" className="ml-5">Cancelar</BtnPrimary>
+                           <BtnPrimary data-cy="multiselectform-cancel-button" variant="light" className="ml-5">Cancelar</BtnPrimary>
                         </Link>
                      </Col>
                   </Row>

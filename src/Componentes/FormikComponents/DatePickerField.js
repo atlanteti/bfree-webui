@@ -19,6 +19,7 @@ export const MeetingDatePickerField = ({ ...props }) => {
             selected={(val && formattedVal) || null}
             autoComplete='off'
             customInput={<DefaultValidationTextField
+               data-cy="meeting-datepicker"
                {...props}
                selected={(val && formattedVal) || null}
                fullWidth={true}
@@ -44,6 +45,7 @@ export const DatePickerField = ({ ...props }) => {
          autoComplete='off'
          customInput={<DefaultValidationTextField
             {...props}
+            data-cy=""
             selected={(val && formattedVal) || null}
             fullWidth={true}
             label={props.label} />} />

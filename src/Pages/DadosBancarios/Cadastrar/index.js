@@ -1,14 +1,16 @@
 import React, { Component } from 'react'
 import Helmet from 'react-helmet'
 
-import { Redirect } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 import { CustomMenu } from '../../../Componentes/CustomMenu'
 import { CustomAlert } from '../../../Componentes/CustomAlert'
 import { DadosBancariosForm } from './Form'
 import { RowTopMargin } from '../../../styles/CommonStyles'
 import ContextLogin from "../../../Context/ContextLogin"
+import { withParams } from '../../../Services/api'
 
-export default class CadastrarDadosBancarios extends Component {
+
+class CadastrarDadosBancarios extends Component {
    constructor(props) {
       super(props)
       this.state = {
@@ -36,12 +38,12 @@ export default class CadastrarDadosBancarios extends Component {
    render() {
       if (this.state.redirect) {
          if (this.context.userRoles?.includes("PRÉ-VENDA")) {
-            return <Redirect to="/contato" />
+            return <Navigate to="/contato" />
          }
          if (this.context.userRoles?.includes("CONSULTOR")) {
-            return <Redirect to="/reunioes" />
+            return <Navigate to="/reunioes" />
          }
-         return <Redirect to="/demandas" />
+         return <Navigate to="/demandas" />
       }
       else {
          return <>
@@ -64,4 +66,7 @@ export default class CadastrarDadosBancarios extends Component {
       }
    }
 }
+
+export default withParams(CadastrarDadosBancarios)
+
 CadastrarDadosBancarios.contextType = ContextLogin

@@ -13,6 +13,7 @@ export class JourneySearchBar extends SearchBar {
                <Row>
                   <Col className="mt-2" xs={12} sm={5}>
                      <InputTextField
+                        data-cy="journey"
                         label="Nome da Jornada"
                         id="name"
                         fullWidth
@@ -26,7 +27,7 @@ export class JourneySearchBar extends SearchBar {
                         name="companyId" />
                   </Col>
                   <Col className="mt-3" xs={12} sm={3} md={2}>
-                     <BtnBlue variant="dark" type="submit">
+                     <BtnBlue variant="dark" data-cy="journeysearchbar-submit-button" type="submit">
                         Buscar
                      </BtnBlue>
                   </Col>

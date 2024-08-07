@@ -18,6 +18,7 @@ export function PhoneInput(props) {
          disabled={props.disabled}
       >
          {() => <ValidationTextField
+            data-cy="phone-input-text-field"
             fullWidth
             value={field.value}
             id={field.name}

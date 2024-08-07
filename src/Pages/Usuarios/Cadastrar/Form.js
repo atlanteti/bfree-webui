@@ -176,7 +176,7 @@ export const UserForm = (props) => {
                         fieldSuffix="usr_" /> : null}
                   <Row>
                      <Col className="mt-3" md={{ offset: 5 }}>
-                        <BtnBlue variant="dark" type="submit" onClick={scrollToTop}>Salvar</BtnBlue>
+                        <BtnBlue variant="dark" data-cy="userform-submit-button" type="submit" onClick={scrollToTop}>Salvar</BtnBlue>
                      </Col>
                   </Row>
                </Form>

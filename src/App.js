@@ -6,7 +6,7 @@ import './styles/main.bundle.css'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import ContextLogin from "../src/Context/ContextLogin";
 
-import { Redirect } from "react-router-dom"
+import { Navigate} from "react-router-dom"
 import { Cookies } from "react-cookie"
 
 function App() {
@@ -42,15 +42,15 @@ function App() {
    }, 1000)
    if (verifyUser === 100) {
       if (userRoles?.includes("PRÉ-VENDA")) {
-         return <Redirect to="/contato" />
+         return <Navigate to="/contato" />
       }
       else if (userRoles?.includes("CONSULTOR")) {
-         return <Redirect to="/reunioes" />
+         return <Navigate to="/reunioes" />
       }
-      else return <Redirect to="/demandas" />
+      else return <Navigate to="/demandas" />
    }
    else if (verifyUser === 215) {
-      return <Redirect to="/termos" />
+      return <Navigate to="/termos" />
    }
 
    return (
