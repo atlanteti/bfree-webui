@@ -5,6 +5,7 @@ import { ActionCell, MainTable, PaginationHeader, PaginationRow } from '../../st
 
 export default function CustomPagination(props) {
    return <MainTable style={{ marginTop: 0 }} className="table-borderless">
+      {props.page? 
       <PaginationRow>
          <PaginationHeader>{props.page.totalRecords} itens</PaginationHeader>
          <PaginationHeader align="right">Página {props.page.current} de {props.page.total}</PaginationHeader>
@@ -45,5 +46,6 @@ export default function CustomPagination(props) {
             </Button>
          </ActionCell>
       </PaginationRow>
+      : null}
    </MainTable>
 }
