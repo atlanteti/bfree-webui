@@ -96,7 +96,17 @@ export default class ListarPagina extends Component {
             responseData: data.data,
             page: data.meta.pagination
          }, () => {
-            if (data.data.length === 0) {
+            if(!data.data) {
+               this.setState({
+                  noData: true
+               }, () => {
+                  this.state.noDataAlertShow({
+                     message: "Nenhum registro encontrado",
+                     responseType: "Success"
+                  })
+               })
+            }
+            else if (data.data.length === 0) {
                this.setState({
                   noData: true
                }, () => {
