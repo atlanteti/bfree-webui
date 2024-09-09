@@ -29,6 +29,7 @@ import { useScroll } from '../../../Hooks';
 import { request } from '../../../Services/api';
 import yup from "../../../Services/validations";
 import { BackGroundForm, BtnBlue, MainTable, TableData, TableHeader, TableRow, TextCell, TextHeaderCell, TitleRegister } from '../../../styles/CommonStyles';
+import { ListDiscardReasons } from '../../../Componentes/FormikComponents/ListDiscardReasons';
 async function submitEvaluation(rate, demCode, showAlert) {
    const data = await request({
       method: "post",
@@ -120,6 +121,7 @@ export const DemandForm = (props) => {
    const [fields, setFields] = useState(
       {
          dem_activity: "",
+         dem_discard_reason: "",
          dem_title: "",
          dem_contact_email: "",
          dem_contact_phone: "",
@@ -165,7 +167,10 @@ export const DemandForm = (props) => {
             const data = await request({
                method: "get",
                endpoint: "demands/procurar/" + props.primaryId,
-            });
+            })
+            if(data.meta.status == 212) {
+                  props.showAlert(data.meta)
+            }
             if (data.data.meeting) {
                const meetingData = await request({
                   method: "get",
@@ -438,12 +443,21 @@ export const DemandForm = (props) => {
                               />
                            </Col>
                            {userRoles?.includes("PRÉ-VENDA") ?
-                              <Col className="mt-3" xs={12} sm={4} >
-                                 <ListMessageStatus
-                                    label="Mensagem Atual"
-                                    name="dem_activity"
-                                    disabled={values.dem_sdm_cod > 1} />
-                              </Col> : null}
+                              <>
+                                 <Col className="mt-3" xs={12} sm={4} >
+                                    <ListMessageStatus
+                                       label="Mensagem Atual"
+                                       name="dem_activity"
+                                       disabled={values.dem_sdm_cod > 1} />
+                                 </Col> 
+                                 {values.dem_sdm_cod === 5 ? 
+                                 <Col className='mt-3' xs={12} sm={4}>
+                                    <ListDiscardReasons
+                                       label="Motivo de Descarte"
+                                       name="dem_discard_reason"/>
+                                 </Col> : null} 
+                              </>
+                              : null}
                            {values.dem_sdm_cod !== 1 && values.dem_sdm_cod !== 5 ?
                               <Col className="mt-3" xs={12} sm={4}>
                                  <MeetingDatePickerField
