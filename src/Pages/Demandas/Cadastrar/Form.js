@@ -167,11 +167,10 @@ export const DemandForm = (props) => {
             const data = await request({
                method: "get",
                endpoint: "demands/procurar/" + props.primaryId,
-            }).then((data)=>{
-               if(data.meta.status == 212) {
-                  props.showAlert(data.meta)
-               }
             })
+            if(data.meta.status == 212) {
+                  props.showAlert(data.meta)
+            }
             if (data.data.meeting) {
                const meetingData = await request({
                   method: "get",
