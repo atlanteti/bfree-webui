@@ -370,11 +370,6 @@ function ConsultorMenu(props) {
       >
          <List>
             <ListItem button
-               data-cy="contextmenu-schedule-consultant-button"
-               component={Link} to="/horario">
-               <ListItemText primary={"Agenda"} />
-            </ListItem>
-            <ListItem button
                data-cy="contextmenu-meetings-consultant-button"
                component={Link} to="/reunioes">
                <ListItemText primary={"Minhas Reuniões"} />

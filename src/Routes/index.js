@@ -80,8 +80,6 @@ export default function Routes() {
       <Route path="/termos" element={<TermosCompromisso/>} />
       <Route path="/avaliacao" element={<Avaliacao/>} />
          {/* rota de não admin */}
-         <Route path="/horario" element={<Horario/>} />
-         <Route path="/horario-calendario" element={<HorarioCalendario/>} />
          <Route path="/editar" element={<Editar/>} />
          <Route path="/reunioes" element={<ListarReunioes/>}/>
          <Route path="/contato" element={<ListarContatos/>}/>
@@ -100,10 +98,6 @@ export default function Routes() {
 
          {/* rotas de indicadores */}
          <Route path="/relatoriogerencial" element={<RelatorioGerencial/>} />
-         {/* rotas de horario */}
-         <Route path="/horario" element={<Horario/>} />
-         {/* rotas de horario */}
-         <Route path="/horario-calendario" element={<HorarioCalendario/>} />
          {/* rotas de empresas */}
          <Route path="/companhia" element={<ListarCompanhia/>} />
 

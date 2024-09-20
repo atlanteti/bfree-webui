@@ -118,16 +118,6 @@ export class DemandSearchBar extends SearchBar {
                            </Col>
                         </Row>
                      </Button>
-                     <Button onClick={(event) => this.requestSchedule(event)}>
-                        <Row>
-                           <Col xs="auto">
-                              <RiFileList3Line size={23} className="ml-4" /> 
-                           </Col>
-                           <Col>
-                              <span>GERAR LISTA SEMANAL</span>
-                           </Col>
-                        </Row>
-                     </Button>
                   </Restricted>
             </Col>
          </>
