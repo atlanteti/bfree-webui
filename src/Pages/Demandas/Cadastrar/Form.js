@@ -451,7 +451,7 @@ export const DemandForm = (props) => {
                                  </Col> : null} 
                               </>
                               : null}
-                           {values.dem_sdm_cod == 2 ?
+                           {values.dem_sdm_cod == 2 && props.paramRoute !== "inserir" ?
                               <Col className="mt-3" xs={24} sm={8}>
                                  <Row>
                                     <Col span={12} justifyContent="center">
@@ -485,7 +485,7 @@ export const DemandForm = (props) => {
                               </Col>
                            }
                         </Row>
-                        {(admin && primaryData?.dem_sdm_cod === 3) &&
+                        {props.paramRoute == "inserir" && (admin && primaryData?.dem_sdm_cod === 3) &&
                            <Row className="mt-3 d-flex justify-content-center">
                               <Col className="d-flex justify-content-center" >
                                  <Button
@@ -497,9 +497,9 @@ export const DemandForm = (props) => {
                                  </Button>
                               </Col>
                               <Col>
-                                 <BasicModal demCode={primaryData.dem_cod} showAlert={props.showAlert} />
+                                 <BasicModal demCode={primaryData?.dem_cod} showAlert={props.showAlert} />
                               </Col>
-                           </Row>
+                           </Row>                        
                         }
                         {(values.dem_sdm_cod === 2 &&
                            primaryData?.dem_sdm_cod === 2 &&
