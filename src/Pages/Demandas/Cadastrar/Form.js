@@ -463,7 +463,7 @@ export const DemandForm = (props) => {
                                        <Button
                                           variant="light"
                                           style={{ color: "#0203ad" }}
-                                          href={"https://atlanteti.simplybook.me/v2/#book/service/2"}
+                                          href={process.env.REACT_APP_SIMPLYBOOK_ENDPOINT}
                                           target="_blank"
                                           >
                                              Marcar Reunião
