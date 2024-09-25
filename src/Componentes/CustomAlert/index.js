@@ -15,7 +15,7 @@ export class CustomAlert extends React.Component {
       })
    };
 
-   onShowAlert(data) {
+   onShowAlert(data, callback = ()=>{}, timeout = 30000) {
       this.setState({ showAlert: false })
       const message = data.message
       const type = data.responseType
@@ -40,6 +40,12 @@ export class CustomAlert extends React.Component {
             this.props.redirectCallback()
             this.setState({ showAlert: false })
          }, 2500)
+      } else {
+         window.setTimeout(() => {
+            console.log("Callbacking!")
+            callback()
+            this.setState({ showAlert: false})
+         }, timeout)
       }
    }
 
